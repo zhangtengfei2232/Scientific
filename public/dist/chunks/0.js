@@ -1,18 +1,18 @@
 webpackJsonp([0],{
 
-/***/ 202:
+/***/ 203:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(203)
+  __webpack_require__(204)
 }
-var normalizeComponent = __webpack_require__(78)
+var normalizeComponent = __webpack_require__(79)
 /* script */
-var __vue_script__ = __webpack_require__(205)
+var __vue_script__ = __webpack_require__(206)
 /* template */
-var __vue_template__ = __webpack_require__(206)
+var __vue_template__ = __webpack_require__(207)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -52,17 +52,17 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 203:
+/***/ 204:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(204);
+var content = __webpack_require__(205);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(77)("4c58b108", content, false, {});
+var update = __webpack_require__(78)("4c58b108", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -79,10 +79,10 @@ if(false) {
 
 /***/ }),
 
-/***/ 204:
+/***/ 205:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(47)(false);
+exports = module.exports = __webpack_require__(48)(false);
 // imports
 
 
@@ -94,11 +94,13 @@ exports.push([module.i, "\n.hello[data-v-e28e2faa] {\n    text-align: center;\n 
 
 /***/ }),
 
-/***/ 205:
+/***/ 206:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -115,20 +117,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             visible: false,
-            msg: '这是一个科研项目！！！！！!'
+            msg: '这是一个科研项目！！！！！!',
+            informa: 'asds'
         };
     },
 
     methods: {
         test: function test() {
             this.visible = true;
+        },
+        sub: function sub() {
+            var self = this;
+            this.$axios.post('test', {}).then(function (response) {
+                var datas = response.data.datas[0];
+                var message = response.data.message;
+                self.informa = datas.art_title;
+                self.$message({
+                    showClose: true,
+                    message: message,
+                    type: 'success'
+                });
+            });
         }
     }
 });
 
 /***/ }),
 
-/***/ 206:
+/***/ 207:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -155,7 +171,19 @@ var render = function() {
         [_c("p", [_vm._v("欢迎使用Element")])]
       ),
       _vm._v(" "),
-      _c("p", { staticClass: "hello" }, [_vm._v(_vm._s(_vm.msg))])
+      _c("p", { staticClass: "hello" }, [_vm._v(_vm._s(this.msg))]),
+      _vm._v(" "),
+      _c("el-button", { on: { click: _vm.sub } }, [_vm._v("提交")]),
+      _vm._v(" "),
+      _c("el-input", {
+        model: {
+          value: this.informa,
+          callback: function($$v) {
+            _vm.$set(this, "informa", $$v)
+          },
+          expression: "this.informa"
+        }
+      })
     ],
     1
   )

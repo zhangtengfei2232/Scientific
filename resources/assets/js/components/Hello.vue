@@ -5,7 +5,9 @@
         <el-dialog :visible.sync="visible" title="Hello world">
             <p>欢迎使用Element</p>
         </el-dialog>
-        <p  class="hello">{{ msg }}</p>
+        <p class="hello">{{ this.msg }}</p>
+        <el-button @click="sub">提交</el-button>
+        <el-input v-model="this.informa"></el-input>
     </div>
 </template>
 
@@ -15,12 +17,30 @@
           return{
               visible: false,
               msg    : '这是一个科研项目！！！！！!',
+              informa: 'asds'
           }
       },
         methods: {
           test() {
               this.visible=true;
-          }
+          },
+          sub() {
+             let self = this;
+             this.$axios.post('test',{
+
+             }).then(
+                 function (response) {
+                     let datas  = response.data.datas[0];
+                     let message = response.data.message;
+                     self.informa = datas.art_title;
+                     self.$message({
+                         showClose: true,
+                         message: message,
+                         type: 'success'
+                     })
+                 }
+             )
+            }
         }
     }
 </script>
