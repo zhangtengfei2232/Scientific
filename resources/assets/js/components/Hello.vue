@@ -17,7 +17,7 @@
           return{
               visible: false,
               msg    : '这是一个科研项目！！！！！!',
-              informa: 'asds'
+              informa: '坏小哥'
           }
       },
         methods: {
@@ -30,9 +30,9 @@
 
              }).then(
                  function (response) {
-                     let datas  = response.data.datas[0];
-                     let message = response.data.message;
-                     self.informa = datas.art_title;
+                     let datas    = response.data.datas[0];
+                     let message  = response.data.message;
+                     self.informa = datas.title;
                      self.$message({
                          showClose: true,
                          message: message,

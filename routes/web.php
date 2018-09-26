@@ -1,19 +1,15 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', function () {
     return view('index');
 });
 
+//老师登录
+Route::group(['namespace' => 'Login'], function (){
+    Route::post('login','LoginController@selectUserLogin');
+});
 
-Route::post('test','Scientific\ArticalController@seartical');
+//老师对自己信息的操作
+Route::group(['namespace' => 'Scientific','middleware' => ['validate']], function (){
+    Route::post('test','ArticalController@seartical');
+});
