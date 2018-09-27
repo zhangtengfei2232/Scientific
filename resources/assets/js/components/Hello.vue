@@ -26,10 +26,12 @@
           },
           sub() {
              let self = this;
-             this.$axios.post('test',{
+             this.$axios.post('selectartical',{
 
              }).then(
                  function (response) {
+                     console.log(response);
+                     return ;
                      let datas    = response.data.datas[0];
                      let message  = response.data.message;
                      self.informa = datas.title;
