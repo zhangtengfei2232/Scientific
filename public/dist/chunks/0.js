@@ -118,7 +118,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             visible: false,
             msg: '这是一个科研项目！！！！！!',
-            informa: 'asds'
+            informa: '坏小哥'
         };
     },
 
@@ -128,10 +128,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         sub: function sub() {
             var self = this;
-            this.$axios.post('test', {}).then(function (response) {
+            this.$axios.post('selectartical', {}).then(function (response) {
+                console.log(response);
+                return;
                 var datas = response.data.datas[0];
                 var message = response.data.message;
-                self.informa = datas.art_title;
+                self.informa = datas.title;
                 self.$message({
                     showClose: true,
                     message: message,
