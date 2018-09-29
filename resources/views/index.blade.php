@@ -9,7 +9,7 @@
 <body>
 
     <header>
-        <div class="logo"><img src="{{  }}" alt=""></div>
+        <div class="logo"><img src="" alt="未加载"></div>
         <h1>生命科技学院科研管理系统</h1>
     </header>
 
