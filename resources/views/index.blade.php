@@ -7,13 +7,12 @@
     <title>科研系统</title>
 </head>
 <body>
-
-    <header>
-        <div class="logo"><img src="{{  }}" alt=""></div>
-        <h1>生命科技学院科研管理系统</h1>
-    </header>
-
     <div class="login">
+        <header>
+            <img src="{{asset('./dist/img/hist.png')}}" alt="">
+            <h1>生命科技学院科研管理系统</h1>
+        </header>
+
         <div class="header">
             <h3>科研管理系统</h3>
             <form action="login" method="post">
@@ -28,19 +27,35 @@
     {{--<div id="app"></div>--}}
 
     <style>
-        h1{
+        header{
+            position: relative;
+        }
+        header h1{
+            position: absolute;
+            top: 60px;
+            left: 14%;
             text-align: left;
             font-weight: lighter;
-            font-size: 25px;
+            font-size: 35px;
             padding: 0 0 0 5%;
+            color: #fff;
+        }
+        header img{
+            position: absolute;
+            top: 40px;
+            width: 80px;
+            left: 12%;
         }
         .login{
             position: relative;
             font-size: 0;
+            background: url("./dist/img/bg.jpg");
+            background-size: cover;
+            height: 100%;
         }
         .login .header{
-            width: 18%;
-            height: 30%;
+            width: 249px;
+            height: 252px;
             background: #fff;
             position: absolute;
             top: 150px;
@@ -56,7 +71,7 @@
             text-align: center;
             font-size: 16px;
             margin: 0;
-            padding: 5px 0;
+            padding: 7px 0;
         }
         input{
             border: solid rgb(0, 150, 136) 1px;
