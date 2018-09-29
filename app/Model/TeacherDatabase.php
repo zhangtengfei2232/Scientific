@@ -10,10 +10,10 @@ class TeacherDatabase extends Model
      public static function selectLogin($usercount,$userpassword)
      {
          if(strlen($usercount) == 0 || strlen($usercount ) > 10){
-             return showMsg(1,'你输入的账号不合法');
+             return showMsg(1,'账号不存在');
          }
          if(strlen($userpassword) == 0 || strlen($userpassword) >30){
-             return showMsg(1,'你输入的密码不合法');
+             return showMsg(1,'密码错误');
          }
          $result = DB::table('teacher')
                    ->where('teacher_id', $usercount)
@@ -37,7 +37,7 @@ class TeacherDatabase extends Model
                  default :                                                    //普通老师
                      return showMsg(8,"登录成功",$information);
              }
-             TeacherDatabase::saveAccount($usercount);                        //把信息存入session                                                           //把老师信息存入session
+         TeacherDatabase::saveAccount($usercount);                        //把信息存入session                                                           //把老师信息存入session
          }else{
              return showMsg(1,"账号或密码输入错误");
          }
