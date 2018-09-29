@@ -28,7 +28,7 @@ class TeacherDatabase extends Model
                      return showMsg(3,"登录成功",$information);
                  case 3  :                                                    //科研秘书
                      return showMsg(4,"登录成功",$information);
-                 case 4  :                                                    //教学秘书
+         case 4  :                                                    //教学秘书
                      return showMsg(5,"登录成功",$information);
                  case 5  :                                                    //系主任
                      return showMsg(6,"登录成功",$information);
@@ -37,7 +37,7 @@ class TeacherDatabase extends Model
                  default :                                                    //普通老师
                      return showMsg(8,"登录成功",$information);
              }
-             TeacherDatabase::saveAccount($usercount);                        //把信息存入session                                                           //把老师信息存入session
+         TeacherDatabase::saveAccount($usercount);                        //把信息存入session                                                           //把老师信息存入session
          }else{
              return showMsg(1,"账号或密码输入错误");
          }

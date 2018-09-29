@@ -16,9 +16,10 @@
     <div class="login">
         <div class="header">
             <h3>科研管理系统</h3>
-            <form action="">
-                <input type="text" placeholder="用户名" class="name">
-                <input type="password" placeholder="密码" class="password">
+            <form action="login" method="post">
+                {{ csrf_field() }}
+                <input type="text" placeholder="用户名" class="name" name="usercount" required="required">
+                <input type="password" placeholder="密码" class="password" name="userpassword" required="required">
                 <input type="submit" class="submit">
             </form>
         </div>
