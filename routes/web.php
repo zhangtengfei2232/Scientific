@@ -18,8 +18,6 @@ Route::group(['namespace' => 'Scientific','middleware' => ['validate']], functio
     Route::post('updateteacher', 'InformationController@updateTeacher');
 
 
-
-
     //老师对论文的操作
     Route::post('addartical', 'ArticalController@addArtical');
     Route::post('deleteartical', 'ArticalController@deleteArtical');

@@ -9,7 +9,7 @@
 <body>
 
     <header>
-        <div class="logo"><img src="" alt=""></div>
+        <div class="logo"><img src="{{  }}" alt=""></div>
         <h1>生命科技学院科研管理系统</h1>
     </header>
 
@@ -39,8 +39,8 @@
             font-size: 0;
         }
         .login .header{
-            width: 200px;
-            height: 220px;
+            width: 18%;
+            height: 30%;
             background: #fff;
             position: absolute;
             top: 150px;
@@ -61,21 +61,21 @@
         input{
             border: solid rgb(0, 150, 136) 1px;
             border-radius: 2px;
-            width: 160px;
-            margin: 10px 15px;
-            height: 20px;
+            width: 80%;
+            margin: 10px 9%;
+            height: 25px;
             font-size: 12px;
             padding: 2px 3px;
         }
         .name{
-            margin: 17% 20px 5px 15px;
+            margin: 17% 9% 5px 9%;
         }
         .submit{
-            margin: 8% 20px 15% 15px;
+            margin: 8% 10% 15% 10%;
             background: rgb(0, 150, 136);
             color: #fff;
-            height: 25px;
-            width: 167px;
+            height: 30px;
+            width: 80%;
         }
     </style>
     <script src="{{ url('dist/js/manifest.js') }}"></script>
