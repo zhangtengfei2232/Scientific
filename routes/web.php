@@ -26,3 +26,4 @@ Route::group(['namespace' => 'Scientific','middleware' => ['validate']], functio
 
 
 });
+
