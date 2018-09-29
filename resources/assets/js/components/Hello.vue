@@ -17,7 +17,7 @@
           return{
               visible: false,
               msg    : '这是一个科研项目！！！！！!',
-              informa: 'asds'
+              informa: '坏小哥'
           }
       },
         methods: {
@@ -26,13 +26,15 @@
           },
           sub() {
              let self = this;
-             this.$axios.post('test',{
+             this.$axios.post('selectartical',{
 
              }).then(
                  function (response) {
-                     let datas  = response.data.datas[0];
-                     let message = response.data.message;
-                     self.informa = datas.art_title;
+                     console.log(response);
+                     return ;
+                     let datas    = response.data.datas[0];
+                     let message  = response.data.message;
+                     self.informa = datas.title;
                      self.$message({
                          showClose: true,
                          message: message,
