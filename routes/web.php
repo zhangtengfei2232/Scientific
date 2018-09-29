@@ -17,3 +17,4 @@ Route::get('/', function () {
 
 
 Route::post('test','Scientific\ArticalController@seartical');
+//Route::post('test','Scientific');
