@@ -9,7 +9,7 @@ class LoginMiddleware
     public function handle($request, Closure $next)
     {
         if(!session()->has('usercount')){
-            return redirect('login');
+            return redirect()->action('/');
         }
         return $next($request);
     }

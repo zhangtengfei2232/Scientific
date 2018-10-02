@@ -10,7 +10,7 @@ class InformationController extends Controller
     //显示第一个登录的页面
     public function showIndex()
     {
-        return view('welcome');
+        return view('index');
     }
     //添加老师的信息
     public function addTeacher(Request $request)
