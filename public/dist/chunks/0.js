@@ -1,24 +1,24 @@
 webpackJsonp([0],{
 
-/***/ 203:
+/***/ 214:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(204)
+  __webpack_require__(215)
 }
 var normalizeComponent = __webpack_require__(79)
 /* script */
-var __vue_script__ = __webpack_require__(206)
+var __vue_script__ = __webpack_require__(217)
 /* template */
-var __vue_template__ = __webpack_require__(207)
+var __vue_template__ = __webpack_require__(218)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-e28e2faa"
+var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -29,7 +29,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/Hello.vue"
+Component.options.__file = "resources/assets/js/components/teacher/teacher.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -38,9 +38,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-e28e2faa", Component.options)
+    hotAPI.createRecord("data-v-bab69924", Component.options)
   } else {
-    hotAPI.reload("data-v-e28e2faa", Component.options)
+    hotAPI.reload("data-v-bab69924", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -52,23 +52,23 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 204:
+/***/ 215:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(205);
+var content = __webpack_require__(216);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(78)("4c58b108", content, false, {});
+var update = __webpack_require__(78)("109a3001", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-e28e2faa\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Hello.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-e28e2faa\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Hello.vue");
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-bab69924\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./teacher.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-bab69924\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./teacher.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -79,7 +79,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 205:
+/***/ 216:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(48)(false);
@@ -87,14 +87,14 @@ exports = module.exports = __webpack_require__(48)(false);
 
 
 // module
-exports.push([module.i, "\n.hello[data-v-e28e2faa] {\n    text-align: center;\n    font-size: 2em;\n    color: green;\n}\n.title[data-v-e28e2faa] {\n    margin-top: 13%;\n    text-align: center;\n}\n\n", ""]);
+exports.push([module.i, "\n.el-header {\n    background-color: #B3C0D1;\n    color: #333;\n    line-height: 60px;\n}\n.el-aside {\n    color: #333;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 206:
+/***/ 217:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -112,41 +112,102 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        return {
-            visible: false,
-            msg: '这是一个科研项目！！！！！!',
-            informa: '坏小哥'
+        var item = {
+            date: '2016-05-02',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1518 弄'
         };
-    },
-
-    methods: {
-        test: function test() {
-            this.visible = true;
-        },
-        sub: function sub() {
-            var self = this;
-            this.$axios.post('selectartical', {}).then(function (response) {
-                console.log(response);
-                return;
-                var datas = response.data.datas[0];
-                var message = response.data.message;
-                self.informa = datas.title;
-                self.$message({
-                    showClose: true,
-                    message: message,
-                    type: 'success'
-                });
-            });
-        }
+        return {
+            tableData: Array(20).fill(item)
+        };
     }
 });
 
 /***/ }),
 
-/***/ 207:
+/***/ 218:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -156,36 +217,249 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("h1", { staticClass: "title" }, [_vm._v("Hello Scientific!")]),
-      _vm._v(" "),
-      _c("el-button", { on: { click: _vm.test } }, [_vm._v("按钮")]),
-      _vm._v(" "),
       _c(
-        "el-dialog",
-        {
-          attrs: { visible: _vm.visible, title: "Hello world" },
-          on: {
-            "update:visible": function($event) {
-              _vm.visible = $event
-            }
-          }
-        },
-        [_c("p", [_vm._v("欢迎使用Element")])]
-      ),
-      _vm._v(" "),
-      _c("p", { staticClass: "hello" }, [_vm._v(_vm._s(this.msg))]),
-      _vm._v(" "),
-      _c("el-button", { on: { click: _vm.sub } }, [_vm._v("提交")]),
-      _vm._v(" "),
-      _c("el-input", {
-        model: {
-          value: this.informa,
-          callback: function($$v) {
-            _vm.$set(this, "informa", $$v)
-          },
-          expression: "this.informa"
-        }
-      })
+        "el-container",
+        { staticStyle: { height: "500px", border: "1px solid #eee" } },
+        [
+          _c(
+            "el-aside",
+            {
+              staticStyle: { "background-color": "rgb(238, 241, 246)" },
+              attrs: { width: "200px" }
+            },
+            [
+              _c(
+                "el-menu",
+                { attrs: { "default-openeds": ["1", "3"] } },
+                [
+                  _c(
+                    "el-submenu",
+                    { attrs: { index: "1" } },
+                    [
+                      _c("template", { slot: "title" }, [
+                        _c("i", { staticClass: "el-icon-message" }),
+                        _vm._v("导航一")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "el-menu-item-group",
+                        [
+                          _c("template", { slot: "title" }, [_vm._v("分组一")]),
+                          _vm._v(" "),
+                          _c("el-menu-item", { attrs: { index: "1-1" } }, [
+                            _vm._v("选项1")
+                          ]),
+                          _vm._v(" "),
+                          _c("el-menu-item", { attrs: { index: "1-2" } }, [
+                            _vm._v("选项2")
+                          ])
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-menu-item-group",
+                        { attrs: { title: "分组2" } },
+                        [
+                          _c("el-menu-item", { attrs: { index: "1-3" } }, [
+                            _vm._v("选项3")
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-submenu",
+                        { attrs: { index: "1-4" } },
+                        [
+                          _c("template", { slot: "title" }, [_vm._v("选项4")]),
+                          _vm._v(" "),
+                          _c("el-menu-item", { attrs: { index: "1-4-1" } }, [
+                            _vm._v("选项4-1")
+                          ])
+                        ],
+                        2
+                      )
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "el-submenu",
+                    { attrs: { index: "2" } },
+                    [
+                      _c("template", { slot: "title" }, [
+                        _c("i", { staticClass: "el-icon-menu" }),
+                        _vm._v("导航二")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "el-menu-item-group",
+                        [
+                          _c("template", { slot: "title" }, [_vm._v("分组一")]),
+                          _vm._v(" "),
+                          _c("el-menu-item", { attrs: { index: "2-1" } }, [
+                            _vm._v("选项1")
+                          ]),
+                          _vm._v(" "),
+                          _c("el-menu-item", { attrs: { index: "2-2" } }, [
+                            _vm._v("选项2")
+                          ])
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-menu-item-group",
+                        { attrs: { title: "分组2" } },
+                        [
+                          _c("el-menu-item", { attrs: { index: "2-3" } }, [
+                            _vm._v("选项3")
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-submenu",
+                        { attrs: { index: "2-4" } },
+                        [
+                          _c("template", { slot: "title" }, [_vm._v("选项4")]),
+                          _vm._v(" "),
+                          _c("el-menu-item", { attrs: { index: "2-4-1" } }, [
+                            _vm._v("选项4-1")
+                          ])
+                        ],
+                        2
+                      )
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "el-submenu",
+                    { attrs: { index: "3" } },
+                    [
+                      _c("template", { slot: "title" }, [
+                        _c("i", { staticClass: "el-icon-setting" }),
+                        _vm._v("导航三")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "el-menu-item-group",
+                        [
+                          _c("template", { slot: "title" }, [_vm._v("分组一")]),
+                          _vm._v(" "),
+                          _c("el-menu-item", { attrs: { index: "3-1" } }, [
+                            _vm._v("选项1")
+                          ]),
+                          _vm._v(" "),
+                          _c("el-menu-item", { attrs: { index: "3-2" } }, [
+                            _vm._v("选项2")
+                          ])
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-menu-item-group",
+                        { attrs: { title: "分组2" } },
+                        [
+                          _c("el-menu-item", { attrs: { index: "3-3" } }, [
+                            _vm._v("选项3")
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-submenu",
+                        { attrs: { index: "3-4" } },
+                        [
+                          _c("template", { slot: "title" }, [_vm._v("选项4")]),
+                          _vm._v(" "),
+                          _c("el-menu-item", { attrs: { index: "3-4-1" } }, [
+                            _vm._v("选项4-1")
+                          ])
+                        ],
+                        2
+                      )
+                    ],
+                    2
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "el-container",
+            [
+              _c(
+                "el-header",
+                { staticStyle: { "text-align": "right", "font-size": "12px" } },
+                [
+                  _c(
+                    "el-dropdown",
+                    [
+                      _c("i", {
+                        staticClass: "el-icon-setting",
+                        staticStyle: { "margin-right": "15px" }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "el-dropdown-menu",
+                        { attrs: { slot: "dropdown" }, slot: "dropdown" },
+                        [
+                          _c("el-dropdown-item", [_vm._v("查看")]),
+                          _vm._v(" "),
+                          _c("el-dropdown-item", [_vm._v("新增")]),
+                          _vm._v(" "),
+                          _c("el-dropdown-item", [_vm._v("删除")])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("span", [_vm._v("王小虎")])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "el-main",
+                [
+                  _c(
+                    "el-table",
+                    { attrs: { data: _vm.tableData } },
+                    [
+                      _c("el-table-column", {
+                        attrs: { prop: "date", label: "日期", width: "140" }
+                      }),
+                      _vm._v(" "),
+                      _c("el-table-column", {
+                        attrs: { prop: "name", label: "姓名", width: "120" }
+                      }),
+                      _vm._v(" "),
+                      _c("el-table-column", {
+                        attrs: { prop: "address", label: "地址" }
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
     ],
     1
   )
@@ -196,7 +470,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-e28e2faa", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-bab69924", module.exports)
   }
 }
 
