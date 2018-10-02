@@ -463,6 +463,7 @@ function fun(){
     #highEducation,#getTime{
         width: 165px;
         height: 30px;
+        border: 1px solid lightgray;
         border-radius: 5px;
     }
     #meeting,#tenure,#passTime,#useTime,#workTime,#firstGraduation,#highGraduation,#getTime
