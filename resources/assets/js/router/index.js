@@ -17,6 +17,7 @@ export default new VueRouter({
               path: '/paper',
               component: resolve => void(require(['../components/teacher/paper.vue'], resolve))
           },
+
       ]
 
 })
