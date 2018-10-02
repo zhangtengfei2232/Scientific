@@ -547,13 +547,13 @@ module.exports = function (css) {
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(195)
+  __webpack_require__(214)
 }
 var normalizeComponent = __webpack_require__(79)
 /* script */
 var __vue_script__ = __webpack_require__(198)
 /* template */
-var __vue_template__ = __webpack_require__(199)
+var __vue_template__ = __webpack_require__(216)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -589,48 +589,6 @@ if (false) {(function () {
 })()}
 
 module.exports = Component.exports
-
-
-/***/ }),
-
-/***/ 195:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(196);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(78)("8d8bb1ea", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-66ab2f82\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./App.vue", function() {
-     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-66ab2f82\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./App.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
-/***/ 196:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(48)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n*{\n    margin: 0;\n    padding: 0;\n}\nbody, html{\n    width: 100%;\n    height: 100%;\n}\n.nav{\n    width: 100%;\n    height:35px;\n    background-color: plum;\n}\n.navLeft{\n    width: 12%;\n    height: 100%;\n    float: left;\n    text-align: center;\n    background-color:rgb(0,125,113) ;\n}\n.navRight{\n    width: 88%;\n    height: 100%;\n    float: right;\n    color: white;\n    text-align: center;\n    line-height:31px;\n    background-color: rgb(0,150,136);\n}\n.navLeft img{\n    width: 11%;\n    margin-top: 5px;\n}\n.navRight span:first-child{\n    width: 5%;\n    height: 100%;\n    float: left;\n}\n.navRight span:first-child img{\n    width:42%;\n}\n.loginName{\n    width:15%;\n    height: 100%;\n    float: right;\n}\n.loginName img{\n    width:10%;\n    vertical-align:middle;\n}\n/*.house{*/\n    /*width:15%;*/\n    /*float: right;*/\n    /*background-color: plum;*/\n/*}*/\n.aside{\n    width: 12%;\n    height:935px;\n    background-color:rgb(34,45,50);\n    /*display: inline-block;*/\n}\n.main{\n    width: 100%;\n    height: 935px;\n    background-color: #1b6d85;\n    display: inline-block;\n}\n.content{\n    width: 84%;\n}\n/*//组件*/\n.el-col{\n    width: 100%;\n}\n.el-submenu__title{\n    padding-left: 35px;\n}\n.el-menu{\n    background-color: rgb(34,45,50);\n}\n.el-submenu__title:hover{\n    background-color: black;\n}\n", ""]);
-
-// exports
 
 
 /***/ }),
@@ -811,7 +769,81 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 199:
+/***/ 200:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(77);
+
+
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["default"]);
+
+/* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vue_router__["default"]({
+    saveScrollPosition: true,
+    routes: [{
+        name: 'hello',
+        path: '/hello',
+        component: function component(resolve) {
+            return void __webpack_require__.e/* require */(0).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(203)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+        }
+    }]
+
+}));
+
+/***/ }),
+
+/***/ 201:
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 214:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(215);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(78)("8d8bb1ea", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-66ab2f82\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./App.vue", function() {
+     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-66ab2f82\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./App.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 215:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(48)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n*{\n    margin: 0;\n    padding: 0;\n}\nbody, html{\n    width: 100%;\n    height: 100%;\n}\n.nav{\n    width: 100%;\n    height:35px;\n    background-color: plum;\n}\n.navLeft{\n    width: 12%;\n    height: 100%;\n    float: left;\n    text-align: center;\n    background-color:rgb(0,125,113) ;\n}\n.navRight{\n    width: 88%;\n    height: 100%;\n    float: right;\n    color: white;\n    text-align: center;\n    line-height:31px;\n    background-color: rgb(0,150,136);\n}\n.navLeft img{\n    width: 11%;\n    margin-top: 5px;\n}\n.navRight span:first-child{\n    width: 5%;\n    height: 100%;\n    float: left;\n}\n.navRight span:first-child img{\n    width:42%;\n}\n.loginName{\n    width:15%;\n    height: 100%;\n    float: right;\n}\n.loginName img{\n    width:10%;\n    vertical-align:middle;\n}\n/*.house{*/\n    /*width:15%;*/\n    /*float: right;*/\n    /*background-color: plum;*/\n/*}*/\n.aside{\n    width: 12%;\n    height:935px;\n    background-color:rgb(34,45,50);\n    /*display: inline-block;*/\n}\n.main{\n    width: 100%;\n    height: 935px;\n    background-color: #1b6d85;\n    display: inline-block;\n}\n.content{\n    width: 84%;\n}\n/*//组件*/\n.el-col{\n    width: 100%;\n}\n.el-submenu__title{\n    padding-left: 35px;\n}\n.el-menu{\n    background-color: rgb(34,45,50);\n}\n.el-submenu__title:hover{\n    background-color: black;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 216:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -1001,38 +1033,6 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-66ab2f82", module.exports)
   }
 }
-
-/***/ }),
-
-/***/ 200:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(77);
-
-
-__WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["default"]);
-
-/* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vue_router__["default"]({
-    saveScrollPosition: true,
-    routes: [{
-        name: 'hello',
-        path: '/hello',
-        component: function component(resolve) {
-            return void __webpack_require__.e/* require */(0).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(203)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
-        }
-    }]
-
-}));
-
-/***/ }),
-
-/***/ 201:
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
 
 /***/ }),
 
