@@ -916,20 +916,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -999,15 +985,17 @@ var render = function() {
       _vm._m(0),
       _vm._v(" "),
       _c("div", { staticClass: "main" }, [
-        _vm._m(1),
+        _c("div", { staticClass: "aside" }),
         _vm._v(" "),
         _c("div", { staticClass: "content" }, [
-          _vm._m(2),
+          _vm._m(1),
           _vm._v(" "),
           _c("div", { staticClass: "detial" }, [
-            _vm._m(3),
+            _vm._m(2),
             _vm._v(" "),
             _c("div", { staticClass: "detialRight" }, [
+              _vm._m(3),
+              _vm._v(" "),
               _vm._m(4),
               _vm._v(" "),
               _vm._m(5),
@@ -1060,10 +1048,10 @@ var render = function() {
               _vm._v(" "),
               _vm._m(29),
               _vm._v(" "),
-              _vm._m(30),
-              _vm._v(" "),
               _c("p"),
               _c("br"),
+              _vm._v(" "),
+              _vm._m(30),
               _vm._v(" "),
               _vm._m(31),
               _vm._v(" "),
@@ -1071,32 +1059,30 @@ var render = function() {
               _vm._v(" "),
               _vm._m(33),
               _vm._v(" "),
-              _vm._m(34),
-              _vm._v(" "),
               _c("p"),
               _c("br"),
+              _vm._v(" "),
+              _vm._m(34),
               _vm._v(" "),
               _vm._m(35),
               _vm._v(" "),
               _vm._m(36),
               _vm._v(" "),
               _vm._m(37),
+              _c("br"),
               _vm._v(" "),
               _vm._m(38),
-              _c("br"),
               _vm._v(" "),
               _vm._m(39),
               _vm._v(" "),
               _vm._m(40),
+              _c("br"),
               _vm._v(" "),
               _vm._m(41),
-              _c("br"),
               _vm._v(" "),
               _vm._m(42),
               _vm._v(" "),
               _vm._m(43),
-              _vm._v(" "),
-              _vm._m(44),
               _c("br"),
               _vm._v(" "),
               _c(
@@ -1173,89 +1159,6 @@ var staticRenderFns = [
       ]),
       _vm._v(" "),
       _c("div", { staticStyle: { clear: "both" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "aside" }, [
-      _c("ul", [
-        _c("li", { staticClass: "signIn" }, [
-          _c("img", { attrs: { src: "/dist/img/wang_light.png", alt: "" } }),
-          _c("span", [_vm._v("张自阳")])
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "active" }, [
-          _c("a", { attrs: { href: "" } }, [
-            _c("i", { staticClass: "el-icon-tickets" }),
-            _vm._v("  论文")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { attrs: { href: "" } }, [
-            _c("i", { staticClass: "el-icon-setting" }),
-            _vm._v("  项目")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { attrs: { href: "" } }, [
-            _c("i", { staticClass: "el-icon-edit-outline" }),
-            _vm._v("  著作")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { attrs: { href: "" } }, [
-            _c("i", { staticClass: "el-icon-setting" }),
-            _vm._v("  获奖")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { attrs: { href: "" } }, [
-            _c("i", { staticClass: "el-icon-setting" }),
-            _vm._v("  专利")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { attrs: { href: "" } }, [
-            _c("i", { staticClass: "el-icon-setting" }),
-            _vm._v("  成果鉴定")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { attrs: { href: "" } }, [
-            _c("i", { staticClass: "el-icon-setting" }),
-            _vm._v("  举办会议")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { attrs: { href: "" } }, [
-            _c("i", { staticClass: "el-icon-setting" }),
-            _vm._v("  参加会议")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { attrs: { href: "" } }, [
-            _c("i", { staticClass: "el-icon-setting" }),
-            _vm._v("  专家讲学")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { attrs: { href: "" } }, [
-            _c("i", { staticClass: "el-icon-setting" }),
-            _vm._v("  担任学术团体职务")
-          ])
-        ])
-      ])
     ])
   },
   function() {
@@ -1834,9 +1737,16 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
 /* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vue_router__["default"]({
     saveScrollPosition: true,
     routes: [{
-        path: '/teacher',
+        name: 'teacher',
+        path: '/',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(0).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(203)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(4).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(203)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+        }
+    }, {
+        name: 'paper',
+        path: '/paper',
+        component: function component(resolve) {
+            return void __webpack_require__.e/* require */(5).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(214)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }]
 

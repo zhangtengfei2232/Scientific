@@ -7,9 +7,9 @@
     <title>个人信息</title>
 </head>
 <body>
-<div id="app"></div>
-<script src="{{ url('dist/js/manifest.js') }}"></script>
-<script src="{{ url('dist/js/vendor.js') }}"></script>
-<script src="{{ url('dist/js/app.js') }}"></script>
+    <div id="app"></div>
+    <script src="{{ url('dist/js/manifest.js') }}"></script>
+    <script src="{{ url('dist/js/vendor.js') }}"></script>
+    <script src="{{ url('dist/js/app.js') }}"></script>
 </body>
 </html>

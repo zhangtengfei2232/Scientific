@@ -20,20 +20,6 @@
         </div>
         <div class="main">
             <div class="aside">
-                <ul>
-                    <li class="signIn"><img src="/dist/img/wang_light.png" alt=""><span>张自阳</span></li>
-                    <li class="active"><a href=""><i class="el-icon-tickets"></i> &nbsp;论文</a></li>
-                    <li><a href=""><i class="el-icon-setting"></i> &nbsp;项目</a></li>
-                    <li><a href=""><i class="el-icon-edit-outline"></i> &nbsp;著作</a></li>
-                    <li><a href=""><i class="el-icon-setting"></i> &nbsp;获奖</a></li>
-                    <li><a href=""><i class="el-icon-setting"></i> &nbsp;专利</a></li>
-                    <li><a href=""><i class="el-icon-setting"></i> &nbsp;成果鉴定</a></li>
-                    <li><a href=""><i class="el-icon-setting"></i> &nbsp;举办会议</a></li>
-                    <li><a href=""><i class="el-icon-setting"></i> &nbsp;参加会议</a></li>
-                    <li><a href=""><i class="el-icon-setting"></i> &nbsp;专家讲学</a></li>
-                    <li><a href=""><i class="el-icon-setting"></i> &nbsp;担任学术团体职务</a></li>
-                </ul>
-
             </div>
 
             <div class="content">

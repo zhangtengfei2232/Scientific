@@ -8,9 +8,16 @@ export default new VueRouter({
       saveScrollPosition: true,
       routes: [
           {
-              path: '/teacher',
+              name: 'teacher',
+              path: '/',
               component: resolve => void(require(['../components/teacher/teacher.vue'], resolve))
-          }
+          },
+          {
+              name: 'paper',
+              path: '/paper',
+              component: resolve => void(require(['../components/teacher/paper.vue'], resolve))
+          },
+
       ]
 
 })
