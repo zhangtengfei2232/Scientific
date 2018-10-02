@@ -23,12 +23,11 @@ class TeacherDatabase extends Model
                    ->where('password', $userpassword)
                    ->count();
          if($result == 1){
-<<<<<<< HEAD
+
               $information = TeacherDatabase::selectTeacherDatas($usercount);
 
               TeacherDatabase::saveAccount($usercount);                        //把信息存入session
-=======
->>>>>>> 5a118c95c8e59f06c53bd589cd44979139ab87b8
+
              switch ($usercount){
                  case 1  :                                                    //院长
                      return showMsg(2,"登录成功");
