@@ -23,22 +23,21 @@ class TeacherDatabase extends Model
                    ->where('password', $userpassword)
                    ->count();
          if($result == 1){
-             $information = TeacherDatabase::selectTeacherDatas($usercount);
              switch ($usercount){
                  case 1  :                                                    //院长
-                     return showMsg(2,"登录成功",$information);
+                     return showMsg(2,"登录成功");
                  case 2  :                                                    //副院长
-                     return showMsg(3,"登录成功",$information);
+                     return showMsg(3,"登录成功");
                  case 3  :                                                    //科研秘书
-                     return showMsg(4,"登录成功",$information);
+                     return showMsg(4,"登录成功");
                  case 4  :                                                    //教学秘书
-                     return showMsg(5,"登录成功",$information);
+                     return showMsg(5,"登录成功");
                  case 5  :                                                    //系主任
-                     return showMsg(6,"登录成功",$information);
+                     return showMsg(6,"登录成功");
                  case 6  :                                                    //教研室主任
-                     return showMsg(7,"登录成功",$information);
+                     return showMsg(7,"登录成功");
                  default :                                                    //普通老师
-                     return showMsg(8,"登录成功",$information);
+                     return showMsg(8,"登录成功");
              }
          TeacherDatabase::saveAccount($usercount);                        //把信息存入session                                                           //把老师信息存入session
          }else{
