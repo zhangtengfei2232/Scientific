@@ -6,6 +6,31 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>科研系统</title>
 </head>
+<script src="{{ url('dist/js/jquery-3.1.1.js') }}"></script>
+<script src="{{ url('dist/js/jquery-3.1.1.min.js') }}"></script>
+<script>
+    function login() {
+        $.ajax({
+            type: "POST",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "login" ,//url
+            data: $('#form1').serialize(),
+            success: function (result) {
+//                console.log(result);//打印服务端返回的数据(调试用)
+                if (result.status != 1) {
+//                    alert("SUCCESS");
+//                    window.location.href ('welcome.blade.php');
+                }else{
+                    alert(result.message);
+//                    window.location.href ('index.blade.php');
+                };
+            },
+            error : function() {
+                alert('错误！');
+            }
+        });
+    }
+</script>
 <body>
     <div class="login">
         <header>
@@ -15,16 +40,14 @@
 
         <div class="header">
             <h3>科研管理系统</h3>
-            <form action="login" method="post">
-                {{ csrf_field() }}
-                <input type="text" placeholder="用户名" class="name" name="usercount" required="required">
-                <input type="password" placeholder="密码" class="password" name="userpassword" required="required">
-                <input type="submit" class="submit">
+            <form action="login" method="post" id="form1">
+                <input type="hidden" name="_token" value="{{csrf_token()}}"/>
+                <input type="text" placeholder="用户名" class="name" name="usercount" required="required" autocomplete=”off”>
+                <input type="password" placeholder="密码" class="password" name="userpassword" required="required" autocomplete=”off”>
+                <input type="submit" class="submit" onclick="login()">
             </form>
         </div>
     </div>
-
-    {{--<div id="app"></div>--}}
 
     <style>
         header{
@@ -54,8 +77,8 @@
             height: 100%;
         }
         .login .header{
-            width: 249px;
-            height: 252px;
+            width: 290px;
+            height: 310px;
             background: #fff;
             position: absolute;
             top: 150px;
@@ -69,28 +92,28 @@
             background: rgb(0, 150, 136);
             font-weight: lighter;
             text-align: center;
-            font-size: 16px;
+            font-size: 24px;
             margin: 0;
             padding: 7px 0;
         }
         input{
             border: solid rgb(0, 150, 136) 1px;
             border-radius: 2px;
-            width: 80%;
-            margin: 10px 9%;
+            width: 71%;
+            margin: 22px 13%;
             height: 25px;
             font-size: 12px;
             padding: 2px 3px;
         }
         .name{
-            margin: 17% 9% 5px 9%;
+            margin: 17% 11% 5px 13%;
         }
         .submit{
-            margin: 8% 10% 15% 10%;
+            margin: 9% 13% 16% 13%;
             background: rgb(0, 150, 136);
             color: #fff;
             height: 30px;
-            width: 80%;
+            width: 74%;
         }
     </style>
     <script src="{{ url('dist/js/manifest.js') }}"></script>

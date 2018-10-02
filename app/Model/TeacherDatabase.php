@@ -20,7 +20,9 @@ class TeacherDatabase extends Model
                    ->where('password', $userpassword)
                    ->count();
          if($result == 1){
-             $information = TeacherDatabase::selectTeacherDatas($usercount);
+              $information = TeacherDatabase::selectTeacherDatas($usercount);
+
+              TeacherDatabase::saveAccount($usercount);                        //把信息存入session
              switch ($usercount){
                  case 1  :                                                    //院长
                      return showMsg(2,"登录成功",$information);
@@ -37,7 +39,6 @@ class TeacherDatabase extends Model
                  default :                                                    //普通老师
                      return showMsg(8,"登录成功",$information);
              }
-         TeacherDatabase::saveAccount($usercount);                        //把信息存入session                                                           //把老师信息存入session
          }else{
              return showMsg(1,"账号或密码输入错误");
          }

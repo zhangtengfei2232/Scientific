@@ -11,7 +11,7 @@ class LoginController  extends Controller
     {
         $usercount     = trim($request->usercount);
         $userpassword  = trim($request->userpassword);
-
+//        var_dump($request);
         return $result = TeacherDatabase::selectLogin($usercount,$userpassword);
     }
     //用户退出登录
