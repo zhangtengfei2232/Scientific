@@ -10,3 +10,13 @@ function showMsg($status,$message = '',$data = array()){
     exit(json_encode($result));
 
 }
+  function objectToArray($e)
+{
+    $e = (array)$e;
+    foreach ($e as $k => $v) {
+        if (gettype($v) == 'resource') return;
+        if (gettype($v) == 'object' || gettype($v) == 'array')
+            $e[$k] = (array)objectToArray($v);
+    }
+    return $e;
+}
