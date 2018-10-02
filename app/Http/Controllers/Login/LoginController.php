@@ -17,6 +17,12 @@ class LoginController  extends Controller
     //用户退出登录
     public function leaveLogin()
     {
+
+
+
+
+
+
         TeacherDatabase::emptyAccount();
         return redirect('');
     }
