@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class InformationController extends Controller
 {
-    //显示第一个登录的页面
+    //显示登录后老师的信息页面
     public function showIndex()
     {
         return view('index');
@@ -23,7 +23,7 @@ class InformationController extends Controller
 
     }
     //查老师的信息
-    public function selectTeacher(Request $request)
+    public function selectTeacher()
     {
         return $resilt = TeacherDatabase::selectTeacherDatas();
     }

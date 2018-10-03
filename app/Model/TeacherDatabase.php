@@ -23,22 +23,21 @@ class TeacherDatabase extends Model
                    ->where('password', $userpassword)
                    ->count();
          if($result == 1){
-             TeacherDatabase::saveAccount($usercount);                        //把信息存入session
              switch ($usercount){
                  case 1  :                                                    //院长
-                     return showMsg(2,"登录成功");
+                     return TeacherDatabase::saveAccount($usercount,2); //把信息存入session
                  case 2  :                                                    //副院长
-                     return showMsg(3,"登录成功");
+                     return TeacherDatabase::saveAccount($usercount,3);
                  case 3  :                                                    //科研秘书
-                     return showMsg(4,"登录成功");
+                     return TeacherDatabase::saveAccount($usercount,4);
                  case 4  :                                                    //教学秘书
-                     return showMsg(5,"登录成功");
+                     return TeacherDatabase::saveAccount($usercount,5);
                  case 5  :                                                    //系主任
-                     return showMsg(6,"登录成功");
+                     return TeacherDatabase::saveAccount($usercount,6);
                  case 6  :                                                    //教研室主任
-                     return showMsg(7,"登录成功");
+                     return TeacherDatabase::saveAccount($usercount,7);
                  default :                                                    //普通老师
-                     return showMsg(8,"登录成功");
+                     return TeacherDatabase::saveAccount($usercount,8);
              }
          }else{
              return showMsg(1,"账号或密码输入错误");
@@ -55,11 +54,12 @@ class TeacherDatabase extends Model
 
      }
      //查询老师的信息
-     public static function selectTeacherDatas($usercount)
+     public static function selectTeacherDatas()
      {
-         $buffer   =  DB::table('teacher')->where('teacher_id', $usercount)->first();
-         $academic =  AcademicDatabase::selectAcademic($buffer->teacher_id);
-         $buffer   = (array)$buffer;                                    //把数据转化为数组格式
+         $usercount =  session('usercount');
+         $buffer    =  DB::table('teacher')->where('teacher_id', $usercount)->first();
+         $academic  =  AcademicDatabase::selectAcademic($buffer->teacher_id);
+         $buffer    =  (array)$buffer;                                  //把数据转化为数组格式
          $buffer['academic'] = $academic;                               //在数组后面追加老师的毕业信息
          return $buffer;
      }
@@ -69,9 +69,10 @@ class TeacherDatabase extends Model
 
      }
      //把用户的信息存入session
-     public static function saveAccount($usercount)
+     public static function saveAccount($usercount,$status)
      {
-         session(['usercount'=>$usercount]);
+         session(['usercount'=>$usercount,'status'=>$status]);
+         return showMsg($status,"登录成功");
      }
      //把session里的用户信息清空
      public static function emptyAccount()
