@@ -1,16 +1,11 @@
-webpackJsonp([0],{
+webpackJsonp([4],{
 
-<<<<<<< HEAD
-/***/ 202:
-=======
 /***/ 203:
->>>>>>> d9186bfacf857416a18e668bcfc5157e7be52f6d
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-<<<<<<< HEAD
   __webpack_require__(204)
 }
 var normalizeComponent = __webpack_require__(79)
@@ -18,15 +13,6 @@ var normalizeComponent = __webpack_require__(79)
 var __vue_script__ = __webpack_require__(206)
 /* template */
 var __vue_template__ = __webpack_require__(207)
-=======
-  __webpack_require__(205)
-}
-var normalizeComponent = __webpack_require__(79)
-/* script */
-var __vue_script__ = __webpack_require__(207)
-/* template */
-var __vue_template__ = __webpack_require__(208)
->>>>>>> d9186bfacf857416a18e668bcfc5157e7be52f6d
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -66,21 +52,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-<<<<<<< HEAD
 /***/ 204:
-=======
-/***/ 205:
->>>>>>> d9186bfacf857416a18e668bcfc5157e7be52f6d
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-<<<<<<< HEAD
 var content = __webpack_require__(205);
-=======
-var content = __webpack_require__(206);
->>>>>>> d9186bfacf857416a18e668bcfc5157e7be52f6d
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -101,11 +79,7 @@ if(false) {
 
 /***/ }),
 
-<<<<<<< HEAD
 /***/ 205:
-=======
-/***/ 206:
->>>>>>> d9186bfacf857416a18e668bcfc5157e7be52f6d
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(48)(false);
@@ -120,11 +94,7 @@ exports.push([module.i, "\n.el-header {\n    background-color: #B3C0D1;\n    col
 
 /***/ }),
 
-<<<<<<< HEAD
 /***/ 206:
-=======
-/***/ 207:
->>>>>>> d9186bfacf857416a18e668bcfc5157e7be52f6d
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -237,11 +207,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-<<<<<<< HEAD
 /***/ 207:
-=======
-/***/ 208:
->>>>>>> d9186bfacf857416a18e668bcfc5157e7be52f6d
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -270,17 +236,10 @@ var render = function() {
                     "el-submenu",
                     { attrs: { index: "1" } },
                     [
-                      _c(
-                        "template",
-                        { slot: "title" },
-                        [
-                          _c("i", { staticClass: "el-icon-message" }),
-                          _c("router-link", { attrs: { to: "/paper" } }, [
-                            _vm._v("论文")
-                          ])
-                        ],
-                        1
-                      ),
+                      _c("template", { slot: "title" }, [
+                        _c("i", { staticClass: "el-icon-message" }),
+                        _vm._v("导航一")
+                      ]),
                       _vm._v(" "),
                       _c(
                         "el-menu-item-group",
