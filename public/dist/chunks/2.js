@@ -306,7 +306,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            fileList2: [{ name: 'food.jpeg', url: '/dist/img/wang_light.png' }, { name: 'food2.jpeg', url: '/dist/img/wang_light.png' }]
+            fileList2: [{ name: 'food.jpeg', url: '/dist/img/wang_light.png' }, { name: 'food2.jpeg', url: '/dist/img/wang_light.png' }],
+            teacherDate: {},
+            show: false
         };
     },
 
@@ -316,7 +318,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         handlePreview: function handlePreview(file) {
             console.log(file);
+        },
+        getTeacherData: function getTeacherData() {
+            var self = this;
+            axios.get("selectteacher").then(function (response) {
+                var data = response.data;
+                console.log(data);
+                if (data.code == 0) {
+                    self.teacherDate = data.datas;
+                    console.log(self.teacherDate);
+                    //                        if (teacherDate['teacher_id'] == 1) {
+                    //                            show = true;
+                    //                        }else if(teacherDate['teacher_id'] == 2) {
+                    //                            show = true;
+                    //                        }
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.msg,
+                        duration: 2000
+                    });
+                }
+            });
         }
+    },
+    mounted: function mounted() {
+        this.getTeacherData();
     }
 });
 
@@ -340,7 +367,42 @@ var render = function() {
           _c("div", { staticClass: "detialRight" }, [
             _vm._m(2),
             _vm._v(" "),
+            _c("p", [
+              _vm._v(_vm._s(_vm.teacherDate.name)),
+              _c("span", { staticClass: "change" }, [_vm._v("修改")])
+            ]),
+            _vm._v(" "),
             _vm._m(3),
+            _vm._v(" "),
+            _c("p", [
+              _vm._v(_vm._s(_vm.teacherDate.teacher_id)),
+              _c("span", { staticClass: "change" }, [_vm._v("修改")])
+            ]),
+            _vm._v(" "),
+            _c("p", [
+              _vm._v(_vm._s(_vm.teacherDate.office_phone)),
+              _c("span", { staticClass: "change" }, [_vm._v("修改")])
+            ]),
+            _vm._v(" "),
+            _c("p", [
+              _vm._v(_vm._s(_vm.teacherDate.home_phone)),
+              _c("span", { staticClass: "change" }, [_vm._v("修改")])
+            ]),
+            _vm._v(" "),
+            _c("p", [
+              _vm._v(_vm._s(_vm.teacherDate.phone)),
+              _c("span", { staticClass: "change" }, [_vm._v("修改")])
+            ]),
+            _vm._v(" "),
+            _c("p", [
+              _vm._v(_vm._s(_vm.teacherDate.native_place)),
+              _c("span", { staticClass: "change" }, [_vm._v("修改")])
+            ]),
+            _vm._v(" "),
+            _c("p", [
+              _vm._v(_vm._s(_vm.teacherDate.number)),
+              _c("span", { staticClass: "change" }, [_vm._v("修改")])
+            ]),
             _vm._v(" "),
             _vm._m(4),
             _vm._v(" "),
@@ -366,13 +428,49 @@ var render = function() {
             _vm._v(" "),
             _vm._m(15),
             _vm._v(" "),
+            _c("p", [
+              _vm._v(_vm._s(_vm.teacherDate.company)),
+              _c("span", { staticClass: "change" }, [_vm._v("修改")])
+            ]),
+            _vm._v(" "),
+            _c("p", [
+              _vm._v(_vm._s(_vm.teacherDate.te_re_department)),
+              _c("span", { staticClass: "change" }, [_vm._v("修改")])
+            ]),
+            _vm._v(" "),
             _vm._m(16),
             _vm._v(" "),
+            _c("p", [
+              _vm._v(_vm._s(_vm.teacherDate.origin_work_unit)),
+              _c("span", { staticClass: "change" }, [_vm._v("修改")])
+            ]),
+            _vm._v(" "),
+            _c("p", [
+              _vm._v(_vm._s(_vm.teacherDate.certificate_num)),
+              _c("span", { staticClass: "change" }, [_vm._v("修改")])
+            ]),
+            _vm._v(" "),
+            _c("p", [
+              _vm._v(_vm._s(_vm.teacherDate.identity_card)),
+              _c("span", { staticClass: "change" }, [_vm._v("修改")])
+            ]),
+            _vm._v(" "),
+            _c("p"),
+            _c("br"),
+            _vm._v(" "),
             _vm._m(17),
+            _vm._v(" "),
+            _c("p", [
+              _vm._v(_vm._s(_vm.teacherDate.edu_school)),
+              _c("span", { staticClass: "change" }, [_vm._v("修改")])
+            ]),
             _vm._v(" "),
             _vm._m(18),
             _vm._v(" "),
             _vm._m(19),
+            _vm._v(" "),
+            _c("p"),
+            _c("br"),
             _vm._v(" "),
             _vm._m(20),
             _vm._v(" "),
@@ -381,52 +479,20 @@ var render = function() {
             _vm._m(22),
             _vm._v(" "),
             _vm._m(23),
+            _c("br"),
             _vm._v(" "),
             _vm._m(24),
             _vm._v(" "),
             _vm._m(25),
             _vm._v(" "),
             _vm._m(26),
+            _c("br"),
             _vm._v(" "),
             _vm._m(27),
             _vm._v(" "),
             _vm._m(28),
             _vm._v(" "),
-            _c("p"),
-            _c("br"),
-            _vm._v(" "),
             _vm._m(29),
-            _vm._v(" "),
-            _vm._m(30),
-            _vm._v(" "),
-            _vm._m(31),
-            _vm._v(" "),
-            _vm._m(32),
-            _vm._v(" "),
-            _c("p"),
-            _c("br"),
-            _vm._v(" "),
-            _vm._m(33),
-            _vm._v(" "),
-            _vm._m(34),
-            _vm._v(" "),
-            _vm._m(35),
-            _vm._v(" "),
-            _vm._m(36),
-            _c("br"),
-            _vm._v(" "),
-            _vm._m(37),
-            _vm._v(" "),
-            _vm._m(38),
-            _vm._v(" "),
-            _vm._m(39),
-            _c("br"),
-            _vm._v(" "),
-            _vm._m(40),
-            _vm._v(" "),
-            _vm._m(41),
-            _vm._v(" "),
-            _vm._m(42),
             _c("br"),
             _vm._v(" "),
             _c(
@@ -597,15 +663,6 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("p", [
-      _vm._v("茹振钢"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
       _c("select", { attrs: { id: "test" } }, [
         _c("option", { attrs: { value: "0", selected: "" } }, [
           _vm._v("请选择 ")
@@ -624,62 +681,8 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("p", [
-      _vm._v("skxy001"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("2634113752"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("2634113752"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("13663907506"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("河南省新乡市红旗区华兰大道河南科技学院"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("001"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
       _c("select", { attrs: { id: "nation" } }, [
-        _c("option", { attrs: { value: "0", selected: "" } }, [_vm._v("汉 ")]),
+        _c("option", { attrs: { value: "0", selected: "" } }, [_vm._v("汉")]),
         _vm._v(" "),
         _c("option", { attrs: { value: "1" } }, [_vm._v("回族")]),
         _vm._v(" "),
@@ -842,52 +845,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("p", [
-      _vm._v("河南科技学院"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("三月"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
       _c("input", { attrs: { id: "workTime", type: "date", value: "" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("河南科技学院"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("456757723796359"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("41272219882238769"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
     ])
   },
   function() {
@@ -902,15 +860,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("option", { attrs: { value: "1" } }, [_vm._v("硕士")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("河南科技学院"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
     ])
   },
   function() {

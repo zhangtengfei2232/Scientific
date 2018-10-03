@@ -1,13 +1,11 @@
 <?php
     //返回前台的信息，全部转化为JSON数据
-    function showMsg($status,$message = '',$data = array()){
-        $result = array(
-            'status'  => $status,
+    function showMsg($code,$message = '',$datas = ''){
+        return json_encode([
+            'code'    => $code,
             'message' => $message,
-            'datas'   => $data
-        );
-        exit(json_encode($result));
-
+            'datas'   => $datas
+        ]);
     }
     //对象转化为数组
     function objectToArray($e)

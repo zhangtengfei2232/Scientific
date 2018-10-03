@@ -54,7 +54,7 @@
                     </div>
                     <div class="detialRight">
                         <p><img src="/dist/img/pic_fill.png" alt=""></p>
-                        <p >茹振钢<span class="change">修改</span></p>
+                        <p >{{ teacherDate.name }}<span class="change">修改</span></p>
                         <p>
                             <select id="test">
                                 <option value="0" selected>请选择 </option>
@@ -63,15 +63,15 @@
                                 <option value="3">三组</option>
                             </select>
                         </p>
-                        <p>skxy001<span class="change">修改</span></p>
-                        <p>2634113752<span class="change">修改</span></p>
-                        <p>2634113752<span class="change">修改</span></p>
-                        <p>13663907506<span class="change">修改</span></p>
-                        <p>河南省新乡市红旗区华兰大道河南科技学院<span class="change">修改</span></p>
-                        <p>001<span class="change">修改</span></p>
+                        <p>{{ teacherDate.teacher_id }}<span class="change">修改</span></p>
+                        <p>{{ teacherDate.office_phone }}<span class="change">修改</span></p>
+                        <p>{{ teacherDate.home_phone }}<span class="change">修改</span></p>
+                        <p>{{ teacherDate.phone }}<span class="change">修改</span></p>
+                        <p>{{ teacherDate.native_place }}<span class="change">修改</span></p>
+                        <p>{{ teacherDate.number }}<span class="change">修改</span></p>
                         <p>
                             <select id="nation">
-                                <option value="0" selected>汉 </option>
+                                <option value="0" selected>汉</option>
                                 <option value="1">回族</option>
                                 <option value="2">维吾尔族</option>
                                 <option value="3">苗族</option>
@@ -141,14 +141,14 @@
                                 <option value="1">行政岗位</option>
                             </select>
                         </p>
-                        <p>河南科技学院<span class="change">修改</span></p>
-                        <p>三月<span class="change">修改</span></p>
+                        <p>{{ teacherDate.company }}<span class="change">修改</span></p>
+                        <p>{{ teacherDate.te_re_department }}<span class="change">修改</span></p>
                         <p>
                             <input id="workTime" type="date" value=""/>
                         </p>
-                        <p>河南科技学院<span class="change">修改</span></p>
-                        <p>456757723796359<span class="change">修改</span></p>
-                        <p>41272219882238769<span class="change">修改</span></p>
+                        <p>{{ teacherDate.origin_work_unit }}<span class="change">修改</span></p>
+                        <p>{{ teacherDate.certificate_num }}<span class="change">修改</span></p>
+                        <p>{{ teacherDate.identity_card }}<span class="change">修改</span></p>
                         <p></p><br>
                         <p>
                             <select id="firstEducation">
@@ -156,7 +156,7 @@
                                 <option value="1">硕士</option>
                             </select>
                         </p>
-                        <p>河南科技学院<span class="change">修改</span></p>
+                        <p>{{ teacherDate.edu_school }}<span class="change">修改</span></p>
                         <p>信息工程专业<span class="change">修改</span></p>
                         <p>
                             <input id="firstGraduation" type="date" value=""/>
@@ -203,9 +203,12 @@
 
 <script>
     export default {
+
         data() {
             return {
                 fileList2: [{name: 'food.jpeg', url: '/dist/img/wang_light.png'}, {name: 'food2.jpeg', url: '/dist/img/wang_light.png'}],
+                teacherDate: {},
+                show: false,
             }
         },
         methods: {
@@ -215,7 +218,34 @@
             handlePreview(file){
                 console.log(file);
             },
-        }
+            getTeacherData(){
+                let self = this;
+                axios.get("selectteacher").then(function (response) {
+                    var data = response.data;
+                    console.log(data);
+                    if(data.code == 0){
+                        self.teacherDate = data.datas;
+                        console.log(self.teacherDate);
+//                        if (teacherDate['teacher_id'] == 1) {
+//                            show = true;
+//                        }else if(teacherDate['teacher_id'] == 2) {
+//                            show = true;
+//                        }
+                    }else{
+                        self.$notify({
+                            type: 'error',
+                            message: data.msg,
+                            duration: 2000,
+                        });
+                    }
+                });
+            },
+
+        },
+        mounted() {
+            this.getTeacherData();
+        },
+
     }
 </script>
 

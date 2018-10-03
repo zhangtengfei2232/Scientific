@@ -18,7 +18,7 @@
         </div>
         <div class="aside">
             <ul>
-                <li class="signIn"><img src="/dist/img/wang_light.png" alt=""><span>{{ teacherDate['name'] }}</span></li>
+                <li class="signIn"><img src="/dist/img/wang_light.png" alt=""><span></span></li>
                 <li><i class="el-icon-tickets"></i><router-link to="/paper">论文</router-link></li>
                 <li><i class="el-icon-edit-outline"></i> &nbsp;项目</li>
                 <li><i class="el-icon-edit"></i> &nbsp;著作</li>
@@ -38,9 +38,9 @@
     export default {
         data() {
             return {
-                teacherDate: [],
+                teacherDate: {},
                 show: false,
-            };
+            }
         },
         methods: {
             getTeacherData(){
@@ -49,8 +49,8 @@
                     var data = response.data;
                     console.log(data);
                     if(data.code == 0){
-                        self.teacherDate = data.msg;
-                        console.log(teacherDate);
+                        self.teacherDate = data.datas;
+                        console.log(self.teacherDate);
 //                        if (teacherDate['teacher_id'] == 1) {
 //                            show = true;
 //                        }else if(teacherDate['teacher_id'] == 2) {

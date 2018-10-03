@@ -63,19 +63,20 @@ class TeacherDatabase extends Model
          $buffer             = (array)$buffer;                         //把数据转化为数组格式
          $buffer['status']   = session('status');                 //登录角色判断
          $buffer['academic'] = $academic;                             //在数组后面追加老师的毕业信息
-         return $buffer;
+         return showMsg(0,'查询成功',$buffer);
      }
      //修改老师的信息
      public static function updateTeacherDatas()
      {
 
      }
+
      public static function saveAccount($usercount,$status)
      {
          Session::put('usercount', $usercount);     //把用户的信息存入session
          Session::put('status', $status);
          Session::save();
-         return showMsg($status,"登录成功");
+         return showMsg(0,"登录成功");
      }
      //把session里的用户信息清空
      public static function emptyAccount()
