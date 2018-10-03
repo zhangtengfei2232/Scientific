@@ -70,7 +70,8 @@ class TeacherDatabase extends Model
      {
 
      }
-     public  static function saveAccount($usercount,$status)
+
+     public static function saveAccount($usercount,$status)
      {
          Session::put('usercount', $usercount);     //把用户的信息存入session
          Session::put('status', $status);
