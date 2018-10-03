@@ -1,4 +1,4 @@
-webpackJsonp([3],{
+webpackJsonp([4],{
 
 /***/ 187:
 /***/ (function(module, exports, __webpack_require__) {
@@ -725,8 +725,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.get("selectteacher").then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
-                    self.teacherDate = data.msg;
-                    console.log(teacherDate);
+                    self.teacherDate = data.datas;
+                    console.log(self.teacherDate);
                     //                        if (teacherDate['teacher_id'] == 1) {
                     //                            show = true;
                     //                        }else if(teacherDate['teacher_id'] == 2) {
@@ -800,10 +800,7 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "aside" }, [
         _c("ul", [
-          _c("li", { staticClass: "signIn" }, [
-            _c("img", { attrs: { src: "/dist/img/wang_light.png", alt: "" } }),
-            _c("span", [_vm._v(_vm._s(_vm.teacherDate["name"]))])
-          ]),
+          _vm._m(1),
           _vm._v(" "),
           _c(
             "li",
@@ -813,8 +810,6 @@ var render = function() {
             ],
             1
           ),
-          _vm._v(" "),
-          _vm._m(1),
           _vm._v(" "),
           _vm._m(2),
           _vm._v(" "),
@@ -827,6 +822,8 @@ var render = function() {
           _vm._m(6),
           _vm._v(" "),
           _vm._m(7),
+          _vm._v(" "),
+          _vm._m(8),
           _vm._v(" "),
           _c("li", [
             _c("i", {
@@ -890,6 +887,15 @@ var staticRenderFns = [
           _c("img", { attrs: { src: "/dist/img/home.png", alt: "未加载" } })
         ])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "signIn" }, [
+      _c("img", { attrs: { src: "/dist/img/wang_light.png", alt: "" } }),
+      _c("span")
     ])
   },
   function() {
@@ -984,19 +990,19 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
         name: 'infor',
         path: '/',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(7).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(219)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(2).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(203)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }, {
         name: 'teacher',
         path: '/teacher',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(5).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(203)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(0).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(204)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }, {
         name: 'paper',
         path: '/paper',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(6).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(204)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(1).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(205)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }]
 
