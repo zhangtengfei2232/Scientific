@@ -15,7 +15,7 @@ class TeacherDatabase extends Model
              return showMsg(1,"账号不存在");
          }else if(strlen($userpassword) == 0){
              return showMsg(1,"密码不能为空");
-         }else if(strlen($userpassword) >30){
+         }else if(strlen($userpassword) > 30){
              return showMsg(1,'密码错误');
          }
          $result = DB::table('teacher')

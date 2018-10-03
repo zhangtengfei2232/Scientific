@@ -9,7 +9,7 @@ Route::group(['namespace' => 'Login'], function (){
     Route::post('login','LoginController@selectUserLogin');
 });
 
-Route::group(['namespace' => 'Scientific'], function (){
+Route::group(['namespace' => 'Scientific','middleware'=>['validate']], function (){
     Route::get('indexpage', 'InformationController@showIndex');
     //老师对信息的操作
     Route::post('addteacher', 'InformationController@addTeacher');
@@ -20,9 +20,38 @@ Route::group(['namespace' => 'Scientific'], function (){
 
     //老师对论文的操作
     Route::post('addartical', 'ArticalController@addArtical');
-    Route::post('deleteartical', 'ArticalController@deleteArtical');
-    Route::post('selectartical', 'ArticalController@selectArtical');
+    Route::get('deleteartical', 'ArticalController@deleteArtical');
+    Route::get('selectartical', 'ArticalController@selectArtical');
     Route::post('updateartical', 'ArticalController@updateArtical');
+
+    //老师对成果鉴定的操作
+    Route::post('addappraisal', 'AppraisalController@addAppraisal');
+    Route::get('deleteappraisal', 'AppraisalController@deleteAppraisal');
+    Route::get('selectappraisal', 'AppraisalController@selectAppraisal');
+    Route::post('updateappraisal', 'AppraisalController@updateAppraisal');
+
+
+    //老师对获奖的操作
+    Route::post('addaward', 'AwardController@addAward');
+    Route::get('deleteaward', 'AwardController@deleteAward');
+    Route::get('selectAward', 'AwardController@selectAward');
+    Route::post('updateAward', 'AwardController@updateAward');
+
+    //老师对学术团体职务的操作
+    Route::post('addduties', 'DutiesController@addDuties');
+    Route::get('deleteduties', 'DutiesController@deleteDuties');
+    Route::get('selectduties', 'DutiesController@selectDuties');
+    Route::post('updateduties', 'DutiesController@updateDuties');
+
+    //老师对举行会议的操作
+    Route::post('addholdmeet', 'HoldmeetController@addHoldmeet');
+    Route::post('deleteholdmeet', 'HoldmeetController@deleteHoldmeet');
+    Route::post('selectholdmeet', 'HoldmeetController@selectHoldmeet');
+    Route::post('updateholdmeet', 'HoldmeetController@updateHoldmeet');
+
+    //老师对参加会议的操作
+
+
 
 
 });
