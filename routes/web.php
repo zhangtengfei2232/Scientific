@@ -9,7 +9,7 @@ Route::group(['namespace' => 'Login'], function (){
     Route::post('login','LoginController@selectUserLogin');
 });
 
-Route::group(['namespace' => 'Scientific','middleware' => ['validate']], function (){
+Route::group(['namespace' => 'Scientific'], function (){
     Route::get('indexpage', 'InformationController@showIndex');
     //老师对信息的操作
     Route::post('addteacher', 'InformationController@addTeacher');

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Model\TeacherDatabase;
 class LoginController  extends Controller
 {
+
     //查询用户的账号和密码是否输入有误
     public function selectUserLogin(Request $request)
     {
@@ -18,6 +19,6 @@ class LoginController  extends Controller
     public function leaveLogin()
     {
         TeacherDatabase::emptyAccount();
-        return redirect('');
+        return redirect('/');
     }
 }
