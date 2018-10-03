@@ -1,4 +1,4 @@
-webpackJsonp([2],{
+webpackJsonp([3],{
 
 /***/ 187:
 /***/ (function(module, exports, __webpack_require__) {
@@ -911,11 +911,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -979,158 +974,152 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _vm._m(0),
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "main" }, [
+      _vm._m(1),
       _vm._v(" "),
-      _c("div", { staticClass: "main" }, [
-        _c("div", { staticClass: "aside" }),
+      _c("div", { staticClass: "content" }, [
+        _vm._m(2),
         _vm._v(" "),
-        _c("div", { staticClass: "content" }, [
-          _vm._m(1),
+        _c("div", { staticClass: "detial" }, [
+          _vm._m(3),
           _vm._v(" "),
-          _c("div", { staticClass: "detial" }, [
-            _vm._m(2),
+          _c("div", { staticClass: "detialRight" }, [
+            _vm._m(4),
             _vm._v(" "),
-            _c("div", { staticClass: "detialRight" }, [
-              _vm._m(3),
-              _vm._v(" "),
-              _vm._m(4),
-              _vm._v(" "),
-              _vm._m(5),
-              _vm._v(" "),
-              _vm._m(6),
-              _vm._v(" "),
-              _vm._m(7),
-              _vm._v(" "),
-              _vm._m(8),
-              _vm._v(" "),
-              _vm._m(9),
-              _vm._v(" "),
-              _vm._m(10),
-              _vm._v(" "),
-              _vm._m(11),
-              _vm._v(" "),
-              _vm._m(12),
-              _vm._v(" "),
-              _vm._m(13),
-              _vm._v(" "),
-              _vm._m(14),
-              _vm._v(" "),
-              _vm._m(15),
-              _vm._v(" "),
-              _vm._m(16),
-              _vm._v(" "),
-              _vm._m(17),
-              _vm._v(" "),
-              _vm._m(18),
-              _vm._v(" "),
-              _vm._m(19),
-              _vm._v(" "),
-              _vm._m(20),
-              _vm._v(" "),
-              _vm._m(21),
-              _vm._v(" "),
-              _vm._m(22),
-              _vm._v(" "),
-              _vm._m(23),
-              _vm._v(" "),
-              _vm._m(24),
-              _vm._v(" "),
-              _vm._m(25),
-              _vm._v(" "),
-              _vm._m(26),
-              _vm._v(" "),
-              _vm._m(27),
-              _vm._v(" "),
-              _vm._m(28),
-              _vm._v(" "),
-              _vm._m(29),
-              _vm._v(" "),
-              _c("p"),
-              _c("br"),
-              _vm._v(" "),
-              _vm._m(30),
-              _vm._v(" "),
-              _vm._m(31),
-              _vm._v(" "),
-              _vm._m(32),
-              _vm._v(" "),
-              _vm._m(33),
-              _vm._v(" "),
-              _c("p"),
-              _c("br"),
-              _vm._v(" "),
-              _vm._m(34),
-              _vm._v(" "),
-              _vm._m(35),
-              _vm._v(" "),
-              _vm._m(36),
-              _vm._v(" "),
-              _vm._m(37),
-              _c("br"),
-              _vm._v(" "),
-              _vm._m(38),
-              _vm._v(" "),
-              _vm._m(39),
-              _vm._v(" "),
-              _vm._m(40),
-              _c("br"),
-              _vm._v(" "),
-              _vm._m(41),
-              _vm._v(" "),
-              _vm._m(42),
-              _vm._v(" "),
-              _vm._m(43),
-              _c("br"),
-              _vm._v(" "),
-              _c(
-                "p",
-                [
-                  _c(
-                    "el-upload",
-                    {
-                      staticClass: "upload-demo",
-                      attrs: {
-                        action: "https://jsonplaceholder.typicode.com/posts/",
-                        "on-preview": _vm.handlePreview,
-                        "on-remove": _vm.handleRemove,
-                        "file-list": _vm.fileList2,
-                        "list-type": "picture"
-                      }
-                    },
-                    [
-                      _c(
-                        "el-button",
-                        { attrs: { size: "small", type: "primary" } },
-                        [_vm._v("点击上传")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "el-upload__tip",
-                          attrs: { slot: "tip" },
-                          slot: "tip"
-                        },
-                        [_vm._v("只能上传jpg/png文件，且不超过500kb")]
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ])
+            _vm._m(5),
+            _vm._v(" "),
+            _vm._m(6),
+            _vm._v(" "),
+            _vm._m(7),
+            _vm._v(" "),
+            _vm._m(8),
+            _vm._v(" "),
+            _vm._m(9),
+            _vm._v(" "),
+            _vm._m(10),
+            _vm._v(" "),
+            _vm._m(11),
+            _vm._v(" "),
+            _vm._m(12),
+            _vm._v(" "),
+            _vm._m(13),
+            _vm._v(" "),
+            _vm._m(14),
+            _vm._v(" "),
+            _vm._m(15),
+            _vm._v(" "),
+            _vm._m(16),
+            _vm._v(" "),
+            _vm._m(17),
+            _vm._v(" "),
+            _vm._m(18),
+            _vm._v(" "),
+            _vm._m(19),
+            _vm._v(" "),
+            _vm._m(20),
+            _vm._v(" "),
+            _vm._m(21),
+            _vm._v(" "),
+            _vm._m(22),
+            _vm._v(" "),
+            _vm._m(23),
+            _vm._v(" "),
+            _vm._m(24),
+            _vm._v(" "),
+            _vm._m(25),
+            _vm._v(" "),
+            _vm._m(26),
+            _vm._v(" "),
+            _vm._m(27),
+            _vm._v(" "),
+            _vm._m(28),
+            _vm._v(" "),
+            _vm._m(29),
+            _vm._v(" "),
+            _vm._m(30),
+            _vm._v(" "),
+            _c("p"),
+            _c("br"),
+            _vm._v(" "),
+            _vm._m(31),
+            _vm._v(" "),
+            _vm._m(32),
+            _vm._v(" "),
+            _vm._m(33),
+            _vm._v(" "),
+            _vm._m(34),
+            _vm._v(" "),
+            _c("p"),
+            _c("br"),
+            _vm._v(" "),
+            _vm._m(35),
+            _vm._v(" "),
+            _vm._m(36),
+            _vm._v(" "),
+            _vm._m(37),
+            _vm._v(" "),
+            _vm._m(38),
+            _c("br"),
+            _vm._v(" "),
+            _vm._m(39),
+            _vm._v(" "),
+            _vm._m(40),
+            _vm._v(" "),
+            _vm._m(41),
+            _c("br"),
+            _vm._v(" "),
+            _vm._m(42),
+            _vm._v(" "),
+            _vm._m(43),
+            _vm._v(" "),
+            _vm._m(44),
+            _c("br"),
+            _vm._v(" "),
+            _c(
+              "p",
+              [
+                _c(
+                  "el-upload",
+                  {
+                    staticClass: "upload-demo",
+                    attrs: {
+                      action: "https://jsonplaceholder.typicode.com/posts/",
+                      "on-preview": _vm.handlePreview,
+                      "on-remove": _vm.handleRemove,
+                      "file-list": _vm.fileList2,
+                      "list-type": "picture"
+                    }
+                  },
+                  [
+                    _c(
+                      "el-button",
+                      { attrs: { size: "small", type: "primary" } },
+                      [_vm._v("点击上传")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "el-upload__tip",
+                        attrs: { slot: "tip" },
+                        slot: "tip"
+                      },
+                      [_vm._v("只能上传jpg/png文件，且不超过500kb")]
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            )
           ])
         ])
-      ]),
-      _vm._v(" "),
-      _c("router-view")
-    ],
-    1
-  )
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
@@ -1159,6 +1148,66 @@ var staticRenderFns = [
       ]),
       _vm._v(" "),
       _c("div", { staticStyle: { clear: "both" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "aside" }, [
+      _c("ul", [
+        _c("li", { staticClass: "signIn" }, [
+          _c("img", { attrs: { src: "/dist/img/wang_light.png", alt: "" } }),
+          _c("span", [_vm._v("金凯杰")])
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("i", { staticClass: "el-icon-tickets" }),
+          _vm._v("  论文")
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("i", { staticClass: "el-icon-edit-outline" }),
+          _vm._v("  项目")
+        ]),
+        _vm._v(" "),
+        _c("li", [_c("i", { staticClass: "el-icon-edit" }), _vm._v("  著作")]),
+        _vm._v(" "),
+        _c("li", [
+          _c("i", { staticClass: "el-icon-setting" }),
+          _vm._v("  获奖")
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("i", { staticClass: "el-icon-star-on" }),
+          _vm._v("  专利")
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("i", { staticClass: "el-icon-setting" }),
+          _vm._v("  成果鉴定")
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("i", { staticClass: "el-icon-setting" }),
+          _vm._v("  举办会议")
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("i", { staticClass: "el-icon-setting" }),
+          _vm._v("  参加会议")
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("i", { staticClass: "el-icon-setting" }),
+          _vm._v("  专家讲学")
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("i", { staticClass: "el-icon-setting" }),
+          _vm._v("  专担任学术团体职务")
+        ])
+      ])
     ])
   },
   function() {
@@ -1740,13 +1789,13 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
         name: 'teacher',
         path: '/',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(4).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(203)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(0).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(203)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }, {
         name: 'paper',
         path: '/paper',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(5).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(214)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(1).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(204)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }]
 

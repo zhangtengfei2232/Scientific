@@ -1,30 +1,18 @@
 webpackJsonp([0],{
 
-<<<<<<< HEAD
 /***/ 203:
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-/***/ 202:
-=======
-/***/ 217:
->>>>>>> 77acb4c76140fda630b9f76e2691c6df486a6d8c
-=======
-/***/ 214:
->>>>>>> a7b98dba2ea409ca01ecccd3e80367a0131a0c06
->>>>>>> 2f8191741b0e61f1c933283d33316c7b997956f2
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(204)
+  __webpack_require__(205)
 }
 var normalizeComponent = __webpack_require__(79)
 /* script */
-var __vue_script__ = __webpack_require__(206)
+var __vue_script__ = __webpack_require__(207)
 /* template */
-var __vue_template__ = __webpack_require__(207)
+var __vue_template__ = __webpack_require__(208)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -64,13 +52,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 204:
+/***/ 205:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(205);
+var content = __webpack_require__(206);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -91,7 +79,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 205:
+/***/ 206:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(48)(false);
@@ -106,7 +94,7 @@ exports.push([module.i, "\n.el-header {\n    background-color: #B3C0D1;\n    col
 
 /***/ }),
 
-/***/ 206:
+/***/ 207:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -219,7 +207,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 207:
+/***/ 208:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {

@@ -14,12 +14,24 @@
                         <img src="/dist/img/home.png" alt="未加载">
                     <!--</span>-->
                 </div>
-
             </div>
             <div style="clear: both"></div>
         </div>
         <div class="main">
             <div class="aside">
+                <ul>
+                    <li class="signIn"><img src="/dist/img/wang_light.png" alt=""><span>金凯杰</span></li>
+                    <li><i class="el-icon-tickets"></i> &nbsp;论文</li>
+                    <li><i class="el-icon-edit-outline"></i> &nbsp;项目</li>
+                    <li><i class="el-icon-edit"></i> &nbsp;著作</li>
+                    <li><i class="el-icon-setting"></i> &nbsp;获奖</li>
+                    <li><i class="el-icon-star-on"></i> &nbsp;专利</li>
+                    <li><i class="el-icon-setting"></i> &nbsp;成果鉴定</li>
+                    <li><i class="el-icon-setting"></i> &nbsp;举办会议</li>
+                    <li><i class="el-icon-setting"></i> &nbsp;参加会议</li>
+                    <li><i class="el-icon-setting"></i> &nbsp;专家讲学</li>
+                    <li><i class="el-icon-setting"></i> &nbsp;专担任学术团体职务</li>
+                </ul>
             </div>
 
             <div class="content">
@@ -83,16 +95,6 @@
                                 <option value="2">二组</option>
                                 <option value="3">三组</option>
                             </select>
-                            <!--<template>-->
-                                <!--<el-select v-model="value" placeholder="请选择">-->
-                                    <!--&lt;!&ndash;<el-option&ndash;&gt;-->
-                                        <!--&lt;!&ndash;v-for="item in options"&ndash;&gt;-->
-                                        <!--&lt;!&ndash;:key="item.value"p&ndash;&gt;-->
-                                        <!--&lt;!&ndash;:label="item.label"&ndash;&gt;-->
-                                        <!--&lt;!&ndash;:value="item.value">&ndash;&gt;-->
-                                    <!--&lt;!&ndash;</el-option>&ndash;&gt;-->
-                                <!--</el-select>-->
-                            <!--</template>-->
                         </p>
                         <p>skxy001<span class="change">修改</span></p>
                         <p>2634113752<span class="change">修改</span></p>
@@ -224,20 +226,13 @@
                                 <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
                             </el-upload>
                         </p>
-
-                        
-                        
-                        
-                        
-                        
-                        
                         
                     </div>
                   
                 </div>
             </div>
         </div>
-        <router-view></router-view>
+        <!--<router-view></router-view>-->
     </div>
 </template>
 <script>
