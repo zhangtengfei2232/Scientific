@@ -6,8 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>科研系统</title>
 </head>
-<script src="{{ url('dist/js/jquery-3.1.1.js') }}"></script>
-<script src="{{ url('dist/js/jquery-3.1.1.min.js') }}"></script>
+<script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
 <body>
 <div class="login">
     <div class="left">
