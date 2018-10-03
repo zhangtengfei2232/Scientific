@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 class TeacherDatabase extends Model
 {
-
      //根据账号和密码去查用户密码是否输入正确
      public static function selectLogin($usercount,$userpassword)
      {
@@ -44,21 +43,26 @@ class TeacherDatabase extends Model
              return showMsg(1,"账号或密码输入错误");
          }
      }
-
-    //添加老师的信息
+     //添加老师的信息
      public static function addTeacherDatas()
      {
 
 
      }
+     //删除老师的信息
+     public static function deleteTeacherDatas()
+     {
+
+     }
      //查询老师的信息
      public static function selectTeacherDatas()
      {
-         $usercount =  session('usercount');
-         $buffer    =  DB::table('teacher')->where('teacher_id', $usercount)->first();
-         $academic  =  AcademicDatabase::selectAcademic($buffer->teacher_id);
-         $buffer    =  (array)$buffer;                                  //把数据转化为数组格式
-         $buffer['academic'] = $academic;                               //在数组后面追加老师的毕业信息
+         $usercount          = session('usercount');
+         $buffer             = DB::table('teacher')->where('teacher_id', $usercount)->first();
+         $academic           = AcademicDatabase::selectAcademic($buffer->teacher_id);
+         $buffer             = (array)$buffer;                         //把数据转化为数组格式
+         $buffer['status']   = session('status');                 //登录角色判断
+         $buffer['academic'] = $academic;                             //在数组后面追加老师的毕业信息
          return $buffer;
      }
      //修改老师的信息
@@ -69,19 +73,13 @@ class TeacherDatabase extends Model
      //把用户的信息存入session
      public static function saveAccount($usercount,$status)
      {
-         session(['usercount'=>$usercount,'status'=>$status]);
-         return showMsg($status,"登录成功");
+        session(['usercount'=>$usercount,'status'=>$status]);
+        return showMsg($status,"登录成功");
      }
      //把session里的用户信息清空
      public static function emptyAccount()
      {
-         Session::flush();
+        Session::flush();
      }
-    //删除老师的信息
-    public static function deleteTeacherDatas()
-    {
-
-    }
-
 }
 
