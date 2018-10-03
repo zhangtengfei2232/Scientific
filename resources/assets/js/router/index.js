@@ -11,7 +11,13 @@ export default new VueRouter({
               name: 'teacher',
               path: '/',
               component: resolve => void(require(['../components/teacher/teacher.vue'], resolve))
-          }
+          },
+          {
+              name: 'paper',
+              path: '/paper',
+              component: resolve => void(require(['../components/teacher/paper.vue'], resolve))
+          },
+
       ]
 
 })

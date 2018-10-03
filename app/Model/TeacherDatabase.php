@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 class TeacherDatabase extends Model
 {
+
      //根据账号和密码去查用户密码是否输入正确
      public static function selectLogin($usercount,$userpassword)
      {
@@ -43,14 +44,11 @@ class TeacherDatabase extends Model
              return showMsg(1,"账号或密码输入错误");
          }
      }
-     //添加老师的信息
+
+    //添加老师的信息
      public static function addTeacherDatas()
      {
 
-     }
-     //删除老师的信息
-     public static function deleteTeacherDatas()
-     {
 
      }
      //查询老师的信息
@@ -79,4 +77,11 @@ class TeacherDatabase extends Model
      {
          Session::flush();
      }
+    //删除老师的信息
+    public static function deleteTeacherDatas()
+    {
+
+    }
+
 }
+

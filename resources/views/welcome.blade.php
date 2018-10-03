@@ -10,86 +10,80 @@
 <script src="{{ url('dist/js/jquery-3.1.1.min.js') }}"></script>
 <body>
 <div class="login">
-    <header>
-        <img src="{{asset('./dist/img/hist.png')}}" alt="">
-        <h1>生命科技学院科研管理系统</h1>
-    </header>
-
-    <div class="header">
-        <h3>科研管理系统</h3>
-        <form id="form1">
-            <input type="hidden" name="_token" value="{{csrf_token()}}"/>
-            <input type="text" placeholder="用户名" class="name" name="usercount" required="required" autocomplete=”off”>
-            <input type="password" placeholder="密码" class="password" name="userpassword" required="required" autocomplete=”off”>
-            <button type="button" class="submit" onclick="login()">登录</button>
-        </form>
+    {{--<header>--}}
+        {{--<img src="{{asset('./dist/img/hist.png')}}" alt="">--}}
+        {{--<h1>生命科技学院科研管理系统</h1>--}}
+    {{--</header>--}}
+    <div class="left">
+        <img src="{{asset('./dist/img/header.png')}}" alt="">
     </div>
+    <div class="right">
+        <div class="header">
+            <h3>LOGIN</h3>
+            <p>Login with your account</p>
+            <form id="form1">
+                <input type="hidden" name="_token" value="{{csrf_token()}}"/>
+                <input type="text" placeholder="用户名" class="name" name="usercount" required="required" autocomplete=”off”>
+                <input type="password" placeholder="密码" class="password" name="userpassword" required="required" autocomplete=”off”>
+                <button type="button" class="submit" onclick="login()">Login</button>
+            </form>
+        </div>
+    </div>
+    <div class="clear"></div>
 </div>
 <style>
-    header{
-        position: relative;
+    body{
+        margin: 0;
     }
-    header h1{
-        position: absolute;
-        top: 60px;
-        left: 14%;
-        text-align: left;
-        font-weight: lighter;
-        font-size: 35px;
-        padding: 0 0 0 5%;
-        color: #fff;
-    }
-    header img{
-        position: absolute;
-        top: 40px;
-        width: 80px;
-        left: 12%;
-    }
-    .login{
-        position: relative;
-        font-size: 0;
+    .left{
+        float:left;
+        width: 60%;
+        height: 100%;
         background: url("./dist/img/bg.jpg");
-        background-size: cover;
+    }
+    .left img{
+        width: 40%;
+        margin: 20% 30% 40% 30%;
+    }
+    .right{
+        float:left;
+        width: 40%;
         height: 100%;
     }
-    .login .header{
-        width: 290px;
-        height: 310px;
-        background: #fff;
-        position: absolute;
-        top: 150px;
-        right: 200px;
+    .clear{
+        content: '';
+        clear: both;
     }
-    .login .header form{
-        border: solid rgb(0, 150, 136) 1px;
+    .header{
+        width: 80%;
+        margin: 20% 10% 30% 10%;
     }
-    h3{
-        color: #fff;
-        background: rgb(0, 150, 136);
-        font-weight: lighter;
+    .header h3{
         text-align: center;
-        font-size: 24px;
-        margin: 0;
-        padding: 7px 0;
+        font-size: 28px;
+        font-weight: lighter;
+    }
+    p{
+        text-align: left;
+        margin-left: 10%;
     }
     input{
-        border: solid rgb(0, 150, 136) 1px;
-        border-radius: 2px;
-        width: 71%;
-        margin: 22px 13%;
-        height: 25px;
-        font-size: 12px;
-        padding: 2px 3px;
-    }
-    .name{
-        margin: 17% 11% 5px 13%;
+        width: 80%;
+        height: 40px;
+        margin: 5% 10%;
+        border: 1px solid #bcbcbc;
+        border-radius: 5px;
+        padding-left: 10px;
     }
     .submit{
-        margin: 9% 13% 16% 13%;
-        background: rgb(0, 150, 136);
-        color: #fff;
-        height: 30px;
-        width: 74%;
+        width: 82%;
+        height: 40px;
+        margin: 8% 10%;
+        border: 1px solid #a0adcd;
+        border-radius: 5px;
+        background: #fff;
+        color: #a0adcd;
+        font-weight: bold;
     }
 </style>
 <script>
