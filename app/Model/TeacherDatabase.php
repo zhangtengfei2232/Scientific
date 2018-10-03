@@ -25,7 +25,7 @@ class TeacherDatabase extends Model
                    ->count();
          if($result == 1){
              switch ($usercount){
-                 case 1  :                                                    //院长
+                 case 1  :                                                     //院长
                      return TeacherDatabase::saveAccount($usercount,2); //把信息存入session
                  case 2  :                                                    //副院长
                      return TeacherDatabase::saveAccount($usercount,3);
