@@ -33,7 +33,6 @@
                     <li><i class="el-icon-setting"></i> &nbsp;专担任学术团体职务</li>
                 </ul>
             </div>
-
             <div class="content">
                 <div class="perInfo"><span style="margin-left: 15px;">个人信息</span></div>
                 <div class="detial">
@@ -226,7 +225,6 @@
                                 <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
                             </el-upload>
                         </p>
-                        
                     </div>
                   
                 </div>

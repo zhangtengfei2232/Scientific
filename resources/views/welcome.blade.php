@@ -10,10 +10,6 @@
 <script src="{{ url('dist/js/jquery-3.1.1.min.js') }}"></script>
 <body>
 <div class="login">
-    {{--<header>--}}
-        {{--<img src="{{asset('./dist/img/hist.png')}}" alt="">--}}
-        {{--<h1>生命科技学院科研管理系统</h1>--}}
-    {{--</header>--}}
     <div class="left">
         <img src="{{asset('./dist/img/header.png')}}" alt="">
     </div>
@@ -34,16 +30,18 @@
 <style>
     body{
         margin: 0;
+        overflow: hidden;
     }
     .left{
         float:left;
         width: 60%;
         height: 100%;
         background: url("./dist/img/bg.jpg");
+        background-size: cover;
     }
     .left img{
         width: 40%;
-        margin: 20% 30% 40% 30%;
+        margin: 20% 30% 45% 30%;
     }
     .right{
         float:left;

@@ -236,10 +236,17 @@ var render = function() {
                     "el-submenu",
                     { attrs: { index: "1" } },
                     [
-                      _c("template", { slot: "title" }, [
-                        _c("i", { staticClass: "el-icon-message" }),
-                        _vm._v("导航一")
-                      ]),
+                      _c(
+                        "template",
+                        { slot: "title" },
+                        [
+                          _c("i", { staticClass: "el-icon-message" }),
+                          _c("router-link", { attrs: { to: "/paper" } }, [
+                            _vm._v("论文")
+                          ])
+                        ],
+                        1
+                      ),
                       _vm._v(" "),
                       _c(
                         "el-menu-item-group",
