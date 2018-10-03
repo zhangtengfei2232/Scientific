@@ -13,6 +13,18 @@ class JoinmeetController  extends Controller
 
     }
     //删除参加会议信息
+    public function deleteJoinmeet()
+    {
+
+    }
     //查看参加会议信息
+    public function selectJoinmeet()
+    {
+
+    }
     //修改参加会议信息
+    public function updateJoinmeet()
+    {
+
+    }
 }

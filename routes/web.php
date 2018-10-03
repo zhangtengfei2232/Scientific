@@ -45,14 +45,34 @@ Route::group(['namespace' => 'Scientific','middleware'=>['validate']], function 
 
     //老师对举行会议的操作
     Route::post('addholdmeet', 'HoldmeetController@addHoldmeet');
-    Route::post('deleteholdmeet', 'HoldmeetController@deleteHoldmeet');
-    Route::post('selectholdmeet', 'HoldmeetController@selectHoldmeet');
+    Route::get('deleteholdmeet', 'HoldmeetController@deleteHoldmeet');
+    Route::get('selectholdmeet', 'HoldmeetController@selectHoldmeet');
     Route::post('updateholdmeet', 'HoldmeetController@updateHoldmeet');
 
     //老师对参加会议的操作
+    Route::post('addjoinmeet', 'JoinmeetController@addJoinmeet');
+    Route::get('deletejoinmeet', 'JoinmeetController@deleteJoinmeet');
+    Route::get('selectjoinmeet', 'JoinmeetController@selectJoinmeet');
+    Route::post('updatejoinmeet', 'JoinmeetController@updateJoinmeet');
 
 
+    //老师对专家讲学的操作
+    Route::post('addLecture', 'LectureController@addLecture');
+    Route::get('deletelecture', 'LectureController@deleteLecture');
+    Route::get('selectlecture', 'LectureController@selectLecture');
+    Route::post('updatelecture', 'LectureController@updateLecture');
 
+    //老师对著作的操作
+    Route::post('addopus', 'OpusController@addOpus');
+    Route::post('deleteopus', 'OpusController@deleteOpus');
+    Route::post('selectopus', 'OpusController@selectOpus');
+    Route::post('updateopus', 'OpusController@updateOpus');
+
+    //老师对专利的操作
+    Route::post('addpatent', 'PatentController@addPatent');
+    Route::post('deletepatent', 'PatentController@deletePatent');
+    Route::post('selectpatent', 'PatentController@selectPatent');
+    Route::post('updatepatent', 'PatentController@updatePatent');
 
 });
 

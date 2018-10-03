@@ -25,7 +25,7 @@ class TeacherDatabase extends Model
          if($result == 1){
              switch ($usercount){
                  case 1  :                                                    //院长
-                     return TeacherDatabase::saveAccount($usercount,2); //把信息存入session
+                     return TeacherDatabase::saveAccount($usercount,2);
                  case 2  :                                                    //副院长
                      return TeacherDatabase::saveAccount($usercount,3);
                  case 3  :                                                    //科研秘书
@@ -70,14 +70,15 @@ class TeacherDatabase extends Model
      {
 
      }
-     //把用户的信息存入session
-     public static function saveAccount($usercount,$status)
+     public  function saveAccount($usercount,$status)
      {
-        session(['usercount'=>$usercount,'status'=>$status]);
-        return showMsg($status,"登录成功");
+         Session::put('usercount', $usercount);     //把用户的信息存入session
+         Session::put('status', $status);
+         Session::save();
+         return showMsg($status,"登录成功");
      }
      //把session里的用户信息清空
-     public static function emptyAccount()
+     public function emptyAccount()
      {
         Session::flush();
      }

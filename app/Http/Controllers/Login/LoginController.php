@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Login;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\TeacherDatabase;
+use Illuminate\Support\Facades\Session;
+
 class LoginController  extends Controller
 {
 
@@ -12,7 +14,7 @@ class LoginController  extends Controller
     {
         $usercount     = trim($request->usercount);
         $userpassword  = trim($request->userpassword);
-        return $result = TeacherDatabase::selectLogin($usercount,$userpassword);
+        return TeacherDatabase::selectLogin($usercount,$userpassword);
     }
     //用户退出登录
     public function leaveLogin()
