@@ -9,7 +9,7 @@ Route::group(['namespace' => 'Login'], function (){
     Route::post('login','LoginController@selectUserLogin');
 });
 
-Route::group(['namespace' => 'Scientific','middleware'=>['validate']], function (){
+Route::group(['namespace' => 'ScientificController','middleware'=>['validate']], function (){
     Route::get('indexpage', 'InformationController@showIndex');
     //老师对信息的操作
     Route::post('addteacher', 'InformationController@addTeacher');
@@ -64,15 +64,20 @@ Route::group(['namespace' => 'Scientific','middleware'=>['validate']], function 
 
     //老师对著作的操作
     Route::post('addopus', 'OpusController@addOpus');
-    Route::post('deleteopus', 'OpusController@deleteOpus');
-    Route::post('selectopus', 'OpusController@selectOpus');
+    Route::get('deleteopus', 'OpusController@deleteOpus');
+    Route::get('selectopus', 'OpusController@selectOpus');
     Route::post('updateopus', 'OpusController@updateOpus');
 
     //老师对专利的操作
     Route::post('addpatent', 'PatentController@addPatent');
-    Route::post('deletepatent', 'PatentController@deletePatent');
-    Route::post('selectpatent', 'PatentController@selectPatent');
+    Route::get('deletepatent', 'PatentController@deletePatent');
+    Route::get('selectpatent', 'PatentController@selectPatent');
     Route::post('updatepatent', 'PatentController@updatePatent');
 
+    //老师对项目的操作
+    Route::post('addproject', 'ProjectController@addProject');
+    Route::get('deleteproject', 'ProjectController@deleteproject');
+    Route::get('selectproject', 'ProjectController@selectproject');
+    Route::post('updateproject', 'ProjectController@updateproject');
 });
 
