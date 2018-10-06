@@ -727,12 +727,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(data);
                 if (data.code == 0) {
                     self.teacherDate = data.datas;
-                    console.log(self.teacherDate);
-                    //                        if (teacherDate['teacher_id'] == 1) {
-                    //                            show = true;
-                    //                        }else if(teacherDate['teacher_id'] == 2) {
-                    //                            show = true;
-                    //                        }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -801,7 +795,10 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "aside" }, [
         _c("ul", [
-          _vm._m(1),
+          _c("li", { staticClass: "signIn" }, [
+            _c("img", { attrs: { src: "/dist/img/wang_light.png", alt: "" } }),
+            _c("span", [_vm._v(_vm._s(_vm.teacherDate.name))])
+          ]),
           _vm._v(" "),
           _c(
             "li",
@@ -811,6 +808,8 @@ var render = function() {
             ],
             1
           ),
+          _vm._v(" "),
+          _vm._m(1),
           _vm._v(" "),
           _vm._m(2),
           _vm._v(" "),
@@ -823,8 +822,6 @@ var render = function() {
           _vm._m(6),
           _vm._v(" "),
           _vm._m(7),
-          _vm._v(" "),
-          _vm._m(8),
           _vm._v(" "),
           _c("li", [
             _c("i", {
@@ -888,15 +885,6 @@ var staticRenderFns = [
           _c("img", { attrs: { src: "/dist/img/home.png", alt: "未加载" } })
         ])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "signIn" }, [
-      _c("img", { attrs: { src: "/dist/img/wang_light.png", alt: "" } }),
-      _c("span")
     ])
   },
   function() {

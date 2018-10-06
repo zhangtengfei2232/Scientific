@@ -157,7 +157,7 @@
                             </select>
                         </p>
                         <p>{{ teacherDate.edu_school }}<span class="change">修改</span></p>
-                        <p>信息工程专业<span class="change">修改</span></p>
+                        <p>{{  }}信息工程专业<span class="change">修改</span></p>
                         <p>
                             <input id="firstGraduation" type="date" value=""/>
                         </p>
@@ -226,11 +226,11 @@
                     if(data.code == 0){
                         self.teacherDate = data.datas;
                         console.log(self.teacherDate);
-//                        if (teacherDate['teacher_id'] == 1) {
-//                            show = true;
-//                        }else if(teacherDate['teacher_id'] == 2) {
-//                            show = true;
-//                        }
+                        if (teacherDate.teacher_id == 1) {
+                            show = true;
+                        }else if(teacherDate.teacher_id == 2) {
+                            show = true;
+                        }
                     }else{
                         self.$notify({
                             type: 'error',
@@ -245,7 +245,6 @@
         mounted() {
             this.getTeacherData();
         },
-
     }
 </script>
 
