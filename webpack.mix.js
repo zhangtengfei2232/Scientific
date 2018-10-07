@@ -45,4 +45,4 @@ mix.js('resources/assets/js/app.js', 'js')
    .sass('resources/assets/sass/app.scss', 'css')
    .extract(["vue", "element-ui", "vue-router", "axios"])
    // .copy('resources/assets/css/app.css', 'public/dist/css')
-   .copy('resources/assets/img', 'public/dist/img')
+   .copy('resources/assets/img', 'public/dist/img');

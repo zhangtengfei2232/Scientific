@@ -6,7 +6,11 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 class TeacherDatabase extends Model
 {
-     //根据账号和密码去查用户密码是否输入正确
+    /**根据账号和密码去查用户密码是否输入正确
+     * @param $usercount
+     * @param $userpassword
+     * @return string
+     */
      public static function selectLogin($usercount,$userpassword)
      {
          if(strlen($usercount) == 0){
@@ -54,7 +58,10 @@ class TeacherDatabase extends Model
      {
 
      }
-     //查询老师的信息
+
+    /**查询老师的信息
+     * @return string
+     */
      public static function selectTeacherDatas()
      {
          $usercount          = session('usercount');
@@ -71,6 +78,11 @@ class TeacherDatabase extends Model
 
      }
 
+    /**把老师账号和身份验证信息存入session
+     * @param $usercount
+     * @param $status
+     * @return string
+     */
      public static function saveAccount($usercount,$status)
      {
          Session::put('usercount', $usercount);     //把用户的信息存入session
@@ -78,7 +90,10 @@ class TeacherDatabase extends Model
          Session::save();
          return showMsg(0,"登录成功");
      }
-     //把session里的用户信息清空
+
+    /**把session里的用户信息清空
+     *
+     */
      public static function emptyAccount()
      {
         Session::flush();

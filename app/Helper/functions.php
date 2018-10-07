@@ -28,12 +28,12 @@
         return (object)$e;
     }
     //上传PDF文件
-    function uploadfiles()
+    function uploadfiles($subjection,$filename)
     {
 
     }
     //上传图片
-    function uploadimg()
+    function uploadimg($subjection,$filename)
     {
 
     }
