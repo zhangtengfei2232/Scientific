@@ -724,7 +724,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var self = this;
             axios.get("selectteacher").then(function (response) {
                 var data = response.data;
-                console.log(data);
                 if (data.code == 0) {
                     self.teacherDate = data.datas;
                 } else {
@@ -741,16 +740,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.getTeacherData();
     }
 });
-//    export default {
-//        methods: {
-//            handleOpen(key, keyPath) {
-//                console.log(key, keyPath);
-//            },
-//            handleClose(key, keyPath) {
-//                console.log(key, keyPath);
-//            }
-//        }
-//    }
 function fun() {
     var val = document.getElementById("val").value;
     var txt = document.getElementById("txt").value;
@@ -758,26 +747,6 @@ function fun() {
     var option = new Option(txt, val);
     sel.options.add(option);
 }
-//    var oLis=document.getElementsByTagName("li");
-//    var i,j;
-//    var length=oLis.length;
-//    for(i=0;i<length;i++){
-//        oLis[i].onclick=function(){
-//            for(j=0;j<length;j++){
-//                oLis[j].className="";
-//            }
-//            this.className+="clickstyle";
-//        }
-//    }
-
-//    export default {
-//        data(){
-//            return {
-//                msg: "Vue"
-//            }
-//        }
-//
-//    }
 
 /***/ }),
 

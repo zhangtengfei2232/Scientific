@@ -47,7 +47,6 @@
                 let self = this;
                 axios.get("selectteacher").then(function (response) {
                     var data = response.data;
-                    console.log(data);
                     if(data.code == 0){
                         self.teacherDate = data.datas;
                     }else{

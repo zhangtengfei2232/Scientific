@@ -327,11 +327,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 if (data.code == 0) {
                     self.teacherDate = data.datas;
                     console.log(self.teacherDate);
-                    //                        if (teacherDate['teacher_id'] == 1) {
-                    //                            show = true;
-                    //                        }else if(teacherDate['teacher_id'] == 2) {
-                    //                            show = true;
-                    //                        }
+                    if (teacherDate.teacher_id == 1) {
+                        show = true;
+                    } else if (teacherDate.teacher_id == 2) {
+                        show = true;
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -465,34 +465,37 @@ var render = function() {
               _c("span", { staticClass: "change" }, [_vm._v("修改")])
             ]),
             _vm._v(" "),
-            _vm._m(18),
+            _c("p", [
+              _vm._v(_vm._s() + "信息工程专业"),
+              _c("span", { staticClass: "change" }, [_vm._v("修改")])
+            ]),
             _vm._v(" "),
-            _vm._m(19),
+            _vm._m(18),
             _vm._v(" "),
             _c("p"),
             _c("br"),
+            _vm._v(" "),
+            _vm._m(19),
             _vm._v(" "),
             _vm._m(20),
             _vm._v(" "),
             _vm._m(21),
             _vm._v(" "),
             _vm._m(22),
+            _c("br"),
             _vm._v(" "),
             _vm._m(23),
-            _c("br"),
             _vm._v(" "),
             _vm._m(24),
             _vm._v(" "),
             _vm._m(25),
+            _c("br"),
             _vm._v(" "),
             _vm._m(26),
-            _c("br"),
             _vm._v(" "),
             _vm._m(27),
             _vm._v(" "),
             _vm._m(28),
-            _vm._v(" "),
-            _vm._m(29),
             _c("br"),
             _vm._v(" "),
             _c(
@@ -860,15 +863,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("option", { attrs: { value: "1" } }, [_vm._v("硕士")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("信息工程专业"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
     ])
   },
   function() {
