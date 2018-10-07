@@ -40,8 +40,7 @@
                          message: message,
                          type: 'success'
                      })
-                 }
-             )
+                 })
             }
         }
     }

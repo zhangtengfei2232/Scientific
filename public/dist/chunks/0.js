@@ -1,18 +1,18 @@
 webpackJsonp([0],{
 
-/***/ 203:
+/***/ 204:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(205)
+  __webpack_require__(210)
 }
-var normalizeComponent = __webpack_require__(79)
+var normalizeComponent = __webpack_require__(80)
 /* script */
-var __vue_script__ = __webpack_require__(207)
+var __vue_script__ = __webpack_require__(212)
 /* template */
-var __vue_template__ = __webpack_require__(208)
+var __vue_template__ = __webpack_require__(213)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -52,17 +52,17 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 205:
+/***/ 210:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(206);
+var content = __webpack_require__(211);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(78)("109a3001", content, false, {});
+var update = __webpack_require__(79)("109a3001", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -79,10 +79,10 @@ if(false) {
 
 /***/ }),
 
-/***/ 206:
+/***/ 211:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(48)(false);
+exports = module.exports = __webpack_require__(78)(false);
 // imports
 
 
@@ -94,7 +94,7 @@ exports.push([module.i, "\n.el-header {\n    background-color: #B3C0D1;\n    col
 
 /***/ }),
 
-/***/ 207:
+/***/ 212:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -207,7 +207,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 208:
+/***/ 213:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -236,10 +236,17 @@ var render = function() {
                     "el-submenu",
                     { attrs: { index: "1" } },
                     [
-                      _c("template", { slot: "title" }, [
-                        _c("i", { staticClass: "el-icon-message" }),
-                        _vm._v("导航一")
-                      ]),
+                      _c(
+                        "template",
+                        { slot: "title" },
+                        [
+                          _c("i", { staticClass: "el-icon-message" }),
+                          _c("router-link", { attrs: { to: "/paper" } }, [
+                            _vm._v("论文")
+                          ])
+                        ],
+                        1
+                      ),
                       _vm._v(" "),
                       _c(
                         "el-menu-item-group",

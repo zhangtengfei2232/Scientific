@@ -6,14 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>科研系统</title>
 </head>
-<script src="{{ url('dist/js/jquery-3.1.1.js') }}"></script>
-<script src="{{ url('dist/js/jquery-3.1.1.min.js') }}"></script>
+<script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
 <body>
 <div class="login">
-    {{--<header>--}}
-        {{--<img src="{{asset('./dist/img/hist.png')}}" alt="">--}}
-        {{--<h1>生命科技学院科研管理系统</h1>--}}
-    {{--</header>--}}
     <div class="left">
         <img src="{{asset('./dist/img/header.png')}}" alt="">
     </div>
@@ -45,7 +40,8 @@
     }
     .left img{
         width: 40%;
-        margin: 20% 30% 42% 30%;
+        margin: 20% 30% 45% 30%;
+
     }
     .right{
         float:left;
