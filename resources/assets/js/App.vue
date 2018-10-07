@@ -20,17 +20,17 @@
         <div class="main">
             <div class="aside">
                 <ul>
-                    <li class="signIn"><img src="/dist/img/wang_light.png" alt=""><span>金凯杰</span></li>
-                    <li><i class="el-icon-tickets"></i> &nbsp;论文</li>
-                    <li><i class="el-icon-edit-outline"></i> &nbsp;项目</li>
-                    <li><i class="el-icon-edit"></i> &nbsp;著作</li>
-                    <li><i class="el-icon-setting"></i> &nbsp;获奖</li>
-                    <li><i class="el-icon-star-on"></i> &nbsp;专利</li>
-                    <li><i class="el-icon-setting"></i> &nbsp;成果鉴定</li>
-                    <li><i class="el-icon-setting"></i> &nbsp;举办会议</li>
-                    <li><i class="el-icon-setting"></i> &nbsp;参加会议</li>
-                    <li><i class="el-icon-setting"></i> &nbsp;专家讲学</li>
-                    <li><i class="el-icon-setting"></i> &nbsp;专担任学术团体职务</li>
+                    <li class="signIn" onclick="navclick(0)"><img src="/dist/img/wang_light.png" alt=""><span>金凯杰</span></li>
+                    <li onclick="navclick()"><a href="#"></a><i class="el-icon-tickets"></i> &nbsp;论文</li>
+                    <li onclick="navclick()"><a href="#"></a><i class="el-icon-edit-outline"></i> &nbsp;项目</li>
+                    <li onclick="navclick()"><a href="#"></a><i class="el-icon-edit"></i> &nbsp;著作</li>
+                    <li onclick="navclick()"><a href="#"></a><i class="el-icon-setting"></i> &nbsp;获奖</li>
+                    <li onclick="navclick()"><a href="#"></a><i class="el-icon-star-on"></i> &nbsp;专利</li>
+                    <li onclick="navclick()"><a href="#"></a><i class="el-icon-setting"></i> &nbsp;成果鉴定</li>
+                    <li onclick="navclick()"><a href="#"></a><i class="el-icon-setting"></i> &nbsp;举办会议</li>
+                    <li onclick="navclick()"><a href="#"></a><i class="el-icon-setting"></i> &nbsp;参加会议</li>
+                    <li onclick="navclick()"><a href="#"></a><i class="el-icon-setting"></i> &nbsp;专家讲学</li>
+                    <li onclick="navclick()"><a href="#"></a><i class="el-icon-setting"></i> &nbsp;专担任学术团体职务</li>
                 </ul>
             </div>
 
@@ -231,6 +231,7 @@
                   
                 </div>
             </div>
+            <div style="clear: both"></div>
         </div>
         <!--<router-view></router-view>-->
     </div>
@@ -268,6 +269,25 @@ function fun(){
     var option = new Option(txt, val);
     sel.options.add(option);
 }
+function navclick() {
+    var asside = document.getElementsByClassName("aside");
+    var li = asside.getElementsByTagName("li");
+    for (var i = 0; i < li.length; i++) {
+        li[i].onmouseover = function () {
+//            this.className = "active";
+            this.style.backgroundColor = "black";
+        }
+        li[i].onmouseout = function () {
+//            this.className = " ";
+            this.style.backgroundColor = "rgb(34,45,50)";
+        }
+    }
+}
+//    li.onclick = function () {
+//        li.style.backgroundColor = "black";
+////        li.style.backgroundColor = "rgb(34,45,50)";
+//    }
+//}
 //    var oLis=document.getElementsByTagName("li");
 //    var i,j;
 //    var length=oLis.length;
@@ -347,9 +367,10 @@ function fun(){
 
     .aside{
         width: 12%;
-        height:935px;
+        height:100%;
         color: white;
         float: left;
+        padding-bottom: 107%;
         background-color:rgb(34,45,50);
         /*display: inline-block;*/
     }
@@ -361,6 +382,8 @@ function fun(){
     }
     .aside li:first-child span{
         margin-left: 20px;
+        display: inline-block;
+        padding-top: 5px;
         /*margin-top: 5px;*/
     }
     .signIn img{
@@ -381,9 +404,12 @@ function fun(){
         color: white;
         text-decoration: none;
     }
+    .aside li:active{
+        background-color: black;
+    }
     .main{
         width: 100%;
-        height: 935px;
+        height: 100%;
         margin:0 auto
         /*text-align: center;*/
         /*background-color: #1b6d85;*/

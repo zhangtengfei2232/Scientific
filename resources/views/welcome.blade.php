@@ -34,16 +34,18 @@
 <style>
     body{
         margin: 0;
+        overflow: hidden;
     }
     .left{
         float:left;
         width: 60%;
         height: 100%;
         background: url("./dist/img/bg.jpg");
+        background-size: cover;
     }
     .left img{
         width: 40%;
-        margin: 20% 30% 40% 30%;
+        margin: 20% 30% 42% 30%;
     }
     .right{
         float:left;
