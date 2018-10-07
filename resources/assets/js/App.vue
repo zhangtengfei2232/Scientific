@@ -18,7 +18,7 @@
         </div>
         <div class="aside">
             <ul>
-                <li class="signIn"><img src="/dist/img/wang_light.png" alt=""><span></span></li>
+                <li class="signIn"><img src="/dist/img/wang_light.png" alt=""><span>{{ teacherDate.name }}</span></li>
                 <li><i class="el-icon-tickets"></i><router-link to="/paper">论文</router-link></li>
                 <li><i class="el-icon-edit-outline"></i> &nbsp;项目</li>
                 <li><i class="el-icon-edit"></i> &nbsp;著作</li>
@@ -38,23 +38,18 @@
     export default {
         data() {
             return {
-                teacherDate: [],
+                teacherDate: {},
                 show: false,
-            };
+            }
         },
         methods: {
             getTeacherData(){
                 let self = this;
                 axios.get("selectteacher").then(function (response) {
                     var data = response.data;
+                    console.log(data);
                     if(data.code == 0){
                         self.teacherDate = data.datas;
-                        console.log(self.teacherDate);
-//                        if (teacherDate['teacher_id'] == 1) {
-//                            show = true;
-//                        }else if(teacherDate['teacher_id'] == 2) {
-//                            show = true;
-//                        }
                     }else{
                         self.$notify({
                             type: 'error',
@@ -70,16 +65,6 @@
             this.getTeacherData();
         }
     }
-//    export default {
-//        methods: {
-//            handleOpen(key, keyPath) {
-//                console.log(key, keyPath);
-//            },
-//            handleClose(key, keyPath) {
-//                console.log(key, keyPath);
-//            }
-//        }
-//    }
 function fun(){
     var val = document.getElementById("val").value;
     var txt = document.getElementById("txt").value;
@@ -87,26 +72,6 @@ function fun(){
     var option = new Option(txt, val);
     sel.options.add(option);
 }
-//    var oLis=document.getElementsByTagName("li");
-//    var i,j;
-//    var length=oLis.length;
-//    for(i=0;i<length;i++){
-//        oLis[i].onclick=function(){
-//            for(j=0;j<length;j++){
-//                oLis[j].className="";
-//            }
-//            this.className+="clickstyle";
-//        }
-//    }
-
-//    export default {
-//        data(){
-//            return {
-//                msg: "Vue"
-//            }
-//        }
-//
-//    }
 </script>
 
 <style>

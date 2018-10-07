@@ -714,7 +714,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            teacherDate: [],
+            teacherDate: {},
             show: false
         };
     },
@@ -724,14 +724,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var self = this;
             axios.get("selectteacher").then(function (response) {
                 var data = response.data;
+                console.log(data);
                 if (data.code == 0) {
                     self.teacherDate = data.datas;
-                    console.log(self.teacherDate);
-                    //                        if (teacherDate['teacher_id'] == 1) {
-                    //                            show = true;
-                    //                        }else if(teacherDate['teacher_id'] == 2) {
-                    //                            show = true;
-                    //                        }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -746,16 +741,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.getTeacherData();
     }
 });
-//    export default {
-//        methods: {
-//            handleOpen(key, keyPath) {
-//                console.log(key, keyPath);
-//            },
-//            handleClose(key, keyPath) {
-//                console.log(key, keyPath);
-//            }
-//        }
-//    }
 function fun() {
     var val = document.getElementById("val").value;
     var txt = document.getElementById("txt").value;
@@ -763,26 +748,6 @@ function fun() {
     var option = new Option(txt, val);
     sel.options.add(option);
 }
-//    var oLis=document.getElementsByTagName("li");
-//    var i,j;
-//    var length=oLis.length;
-//    for(i=0;i<length;i++){
-//        oLis[i].onclick=function(){
-//            for(j=0;j<length;j++){
-//                oLis[j].className="";
-//            }
-//            this.className+="clickstyle";
-//        }
-//    }
-
-//    export default {
-//        data(){
-//            return {
-//                msg: "Vue"
-//            }
-//        }
-//
-//    }
 
 /***/ }),
 
@@ -800,7 +765,10 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "aside" }, [
         _c("ul", [
-          _vm._m(1),
+          _c("li", { staticClass: "signIn" }, [
+            _c("img", { attrs: { src: "/dist/img/wang_light.png", alt: "" } }),
+            _c("span", [_vm._v(_vm._s(_vm.teacherDate.name))])
+          ]),
           _vm._v(" "),
           _c(
             "li",
@@ -810,6 +778,8 @@ var render = function() {
             ],
             1
           ),
+          _vm._v(" "),
+          _vm._m(1),
           _vm._v(" "),
           _vm._m(2),
           _vm._v(" "),
@@ -822,8 +792,6 @@ var render = function() {
           _vm._m(6),
           _vm._v(" "),
           _vm._m(7),
-          _vm._v(" "),
-          _vm._m(8),
           _vm._v(" "),
           _c("li", [
             _c("i", {
@@ -887,15 +855,6 @@ var staticRenderFns = [
           _c("img", { attrs: { src: "/dist/img/home.png", alt: "未加载" } })
         ])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "signIn" }, [
-      _c("img", { attrs: { src: "/dist/img/wang_light.png", alt: "" } }),
-      _c("span")
     ])
   },
   function() {
