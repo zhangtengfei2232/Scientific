@@ -7,27 +7,42 @@ use Illuminate\Http\Request;
 
 class InformationController extends Controller
 {
-    //显示登录后老师的信息页面
+
+    /**显示登录后老师的信息页面
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showIndex()
     {
         return view('index');
     }
-    //添加老师的信息
+
+    /**添加老师的信息
+     * @param Request $request
+     */
     public function addTeacher(Request $request)
     {
 
     }
-    //删除老师的所有信息
+
+    /**删除老师的所有信息
+     * @param Request $request
+     */
     public function deleteTeacher(Request $request)
     {
 
     }
-    //查老师的信息
+
+    /**查老师的信息
+     * @return string
+     */
     public function selectTeacher()
     {
         return $result = TeacherDatabase::selectTeacherDatas();
     }
-    //修改老师的信息
+
+    /**修改老师的信息
+     * @param Request $request
+     */
     public function updateTeacher(Request $request)
     {
         $study_major_low      = trim($request->study_major_low);

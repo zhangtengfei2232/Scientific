@@ -10,17 +10,32 @@ class ArticalController extends Controller
      //添加论文
      public function addArtical(Request $request)
      {
+          if($request->isMethod('POST')){
+              $file = $request->file('pdf-art');
+              if($file->isValid()){
 
+                   $extension = $file->extension();
+                   $filename  = time().'.'.$extension;
+                   uploadfiles('artical',$filename);
+              }
+          }
      }
      //删除论文
      public function deleteArtical(Request $request)
      {
 
      }
-     //查找论文信息
+     //查找个人一篇论文信息
      public function selectArtical(Request $request)
      {
-         $result =  ArticalDatabase::selectArtical($request->art_id);
+         $result =  ArticalDatabase::selectArticalDatas($request->art_id);
+         return showMsg(0,'查询成功',$result);
+     }
+     //查找个人全部论文信息
+     public function selectAllAttical()
+     {
+         $teacher_id = session('usercount');
+         $result     = ArticalDatabase::selectAllArticalDatas($teacher_id);
          return showMsg(0,'查询成功',$result);
      }
      //修改论文
