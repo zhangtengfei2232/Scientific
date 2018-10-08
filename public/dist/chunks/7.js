@@ -1,24 +1,24 @@
 webpackJsonp([7],{
 
-/***/ 219:
+/***/ 205:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(220)
+  __webpack_require__(214)
 }
 var normalizeComponent = __webpack_require__(80)
 /* script */
-var __vue_script__ = __webpack_require__(222)
+var __vue_script__ = __webpack_require__(216)
 /* template */
-var __vue_template__ = __webpack_require__(223)
+var __vue_template__ = __webpack_require__(217)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = null
+var __vue_scopeId__ = "data-v-312dfdd0"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -29,7 +29,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/teacher/infor.vue"
+Component.options.__file = "resources/assets/js/components/teacher/paper.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -38,9 +38,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-200b6510", Component.options)
+    hotAPI.createRecord("data-v-312dfdd0", Component.options)
   } else {
-    hotAPI.reload("data-v-200b6510", Component.options)
+    hotAPI.reload("data-v-312dfdd0", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -52,23 +52,23 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 220:
+/***/ 214:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(221);
+var content = __webpack_require__(215);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(79)("71ba19c8", content, false, {});
+var update = __webpack_require__(79)("3b10cb51", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-200b6510\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./infor.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-200b6510\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./infor.vue");
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-312dfdd0\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./paper.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-312dfdd0\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./paper.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -79,7 +79,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 221:
+/***/ 215:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(48)(false);
@@ -87,14 +87,14 @@ exports = module.exports = __webpack_require__(48)(false);
 
 
 // module
-exports.push([module.i, "\n.main{\n    width: 100%;\n    height: 935px;\n    margin:0 auto\n    /*text-align: center;*/\n    /*background-color: #1b6d85;*/\n    /*display: inline-block;*/\n}\n.content{\n    width: 87%;\n    /*background-color: #1b6d85;*/\n    /*margin: 0;*/\n    float: right;\n}\n.perInfo{\n    width: 100%;\n    height: 50px;\n    line-height: 52px;\n    /*margin-left: 20px;*/\n    border-bottom: 1px solid gray;\n}\n/*.detial{*/\n    /*width: 80%;*/\n    /*background-color: #5bc0de;*/\n/*}*/\n/*.detial li{*/\n    /*height: 50px;*/\n/*}*/\n/*.space{*/\n    /*margin-left: 70px;*/\n/*}*/\n/*.space img{*/\n    /*width: 33px;*/\n    /*vertical-align:middle;*/\n/*}*/\n.detiaLeft{\n    width: 10%;\n    /*background-color: #2ab27b;*/\n    float: left;\n    margin-left: 10%;\n}\n.detialRight{\n    width: 78%;\n    float: right;\n    /*background-color: #4bb1b1;*/\n}\n.detial{\n    margin-top: 3%;\n}\n.detial p{\n    line-height: 43px;\n    height:50px;\n}\n.detialRight img{\n    width: 33px;\n    /*vertical-align:middle;*/\n}\n#test,#birth,#politics,#nation,#job,#meeting,#level,\n#tenure,#passTime,#useTime,#majorSkill,#system,#workTime,\n#quarters,#firstEducation,#firstGraduation,#highGraduation,\n#highEducation,#getTime{\n    width: 165px;\n    height: 30px;\n    border: 1px solid lightgray;\n    border-radius: 5px;\n}\n#meeting,#tenure,#passTime,#useTime,#workTime,#firstGraduation,#highGraduation,#getTime\n{\n    border-color: rgb(169, 169, 169);\n    margin: 0;\n    padding: 0;\n}\n.change{\n    color: rgba(0, 179, 138, 1);\n    margin-left:4%;\n}\n/*//组件*/\n/*.el-input el-input--suffix input{*/\n/*margin: 10px -2%;*/\n/*}*/\n.upload-demo{\n    width: 320px;\n}\n", ""]);
+exports.push([module.i, "\nheader[data-v-312dfdd0]{\n    border-bottom: 1px solid #eee;\n}\n.paper[data-v-312dfdd0]{\n    font-size: 18px;\n    color: #090909;\n    display: inline-block;\n    padding: 23px 60px;\n    border-right: 1px solid #eee;\n}\n.load[data-v-312dfdd0]{\n    display: inline-block;\n    margin: 0;\n    padding: 16px 60px;\n    border-right: 1px solid #eee;\n}\n.navbo[data-v-312dfdd0]{\n    border-bottom: 1px solid #eee;\n    background: rgba(187, 187, 187, 0.1);\n    height: 40px;\n}\n.info[data-v-312dfdd0],.number[data-v-312dfdd0],.do[data-v-312dfdd0],.time[data-v-312dfdd0]{\n    display: inline-block;\n    padding: 10px;\n    font-size: 14px;\n}\n.number[data-v-312dfdd0]{\n    margin: 0 2% 0 3%;\n}\n.time[data-v-312dfdd0]{\n    margin: 0 6% 0 45%;\n}\n.lists[data-v-312dfdd0]{\n    border-bottom: 1px solid #eee;\n    height: 80px;\n}\n.del[data-v-312dfdd0],.times[data-v-312dfdd0],.infos[data-v-312dfdd0],.numbers[data-v-312dfdd0],.dos[data-v-312dfdd0],.tos[data-v-312dfdd0]{\n    display: inline-block;\n    padding: 10px;\n    font-size: 14px;\n}\n.lists span[data-v-312dfdd0]{\n    float: left;\n}\n.lists img[data-v-312dfdd0]{\n    width: 35px;\n}\n.numbers[data-v-312dfdd0]{\n    margin: 20px 2% 0 3.5%;\n}\n.picture[data-v-312dfdd0]{\n    margin: 20px 5px 0 1%;\n}\n.infos[data-v-312dfdd0]{\n    margin: 10px 2% 0 0;\n}\n.infos h5[data-v-312dfdd0]{\n    font-size: 14px;\n    font-weight: lighter;\n}\n.infos p[data-v-312dfdd0]{\n    font-size: 13px;\n    font-weight: lighter;\n    margin: 8px 0 0 0;\n}\n.infos p small[data-v-312dfdd0]{\n    color: orange;\n    padding: 0 0 0 5px;\n}\n.times[data-v-312dfdd0]{\n    margin: 22px 3% 0 37.5%;\n}\n.dos[data-v-312dfdd0],.tos[data-v-312dfdd0],.del[data-v-312dfdd0]{\n    font-size: 13px;\n    margin: 23px 0 0 0;\n}\n.dos[data-v-312dfdd0],.tos[data-v-312dfdd0]{\n    color: rgba(61, 112, 206, 0.77);\n}\n.del[data-v-312dfdd0]{\n    color: rgba(229, 28, 35, 1);\n}\n.clear[data-v-312dfdd0]{\n    clear: both;\n    content: '';\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 222:
+/***/ 216:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -223,106 +223,39 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            fileList2: [{ name: 'food.jpeg', url: '/dist/img/wang_light.png' }, { name: 'food2.jpeg', url: '/dist/img/wang_light.png' }]
+            ArticleDate: {}
         };
     },
 
     methods: {
-        handleRemove: function handleRemove(file, fileList) {
-            console.log(file, fileList);
-        },
-        handlePreview: function handlePreview(file) {
-            console.log(file);
+        getArticleData: function getArticleData() {
+            var self = this;
+            axios.get("selectallarticalDatas").then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.ArticleDate = data.datas;
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.msg,
+                        duration: 2000
+                    });
+                }
+            });
         }
+    },
+    mounted: function mounted() {
+        this.getArticleData();
     }
 });
 
 /***/ }),
 
-/***/ 223:
+/***/ 217:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -330,147 +263,67 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "main" }, [
-      _c("div", { staticClass: "content" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c("div", { staticClass: "detial" }, [
-          _vm._m(1),
-          _vm._v(" "),
-          _c("div", { staticClass: "detialRight" }, [
-            _vm._m(2),
-            _vm._v(" "),
-            _vm._m(3),
-            _vm._v(" "),
-            _vm._m(4),
-            _vm._v(" "),
-            _vm._m(5),
-            _vm._v(" "),
-            _vm._m(6),
-            _vm._v(" "),
-            _vm._m(7),
-            _vm._v(" "),
-            _vm._m(8),
-            _vm._v(" "),
-            _vm._m(9),
-            _vm._v(" "),
-            _vm._m(10),
-            _vm._v(" "),
-            _vm._m(11),
-            _vm._v(" "),
-            _vm._m(12),
-            _vm._v(" "),
-            _vm._m(13),
-            _vm._v(" "),
-            _vm._m(14),
-            _vm._v(" "),
-            _vm._m(15),
-            _vm._v(" "),
-            _vm._m(16),
-            _vm._v(" "),
-            _vm._m(17),
-            _vm._v(" "),
-            _vm._m(18),
-            _vm._v(" "),
-            _vm._m(19),
-            _vm._v(" "),
-            _vm._m(20),
-            _vm._v(" "),
-            _vm._m(21),
-            _vm._v(" "),
-            _vm._m(22),
-            _vm._v(" "),
-            _vm._m(23),
-            _vm._v(" "),
-            _vm._m(24),
-            _vm._v(" "),
-            _vm._m(25),
-            _vm._v(" "),
-            _vm._m(26),
-            _vm._v(" "),
-            _vm._m(27),
-            _vm._v(" "),
-            _vm._m(28),
-            _vm._v(" "),
-            _c("p"),
-            _c("br"),
-            _vm._v(" "),
-            _vm._m(29),
-            _vm._v(" "),
-            _vm._m(30),
-            _vm._v(" "),
-            _vm._m(31),
-            _vm._v(" "),
-            _vm._m(32),
-            _vm._v(" "),
-            _c("p"),
-            _c("br"),
-            _vm._v(" "),
-            _vm._m(33),
-            _vm._v(" "),
-            _vm._m(34),
-            _vm._v(" "),
-            _vm._m(35),
-            _vm._v(" "),
-            _vm._m(36),
-            _c("br"),
-            _vm._v(" "),
-            _vm._m(37),
-            _vm._v(" "),
-            _vm._m(38),
-            _vm._v(" "),
-            _vm._m(39),
-            _c("br"),
-            _vm._v(" "),
-            _vm._m(40),
-            _vm._v(" "),
-            _vm._m(41),
-            _vm._v(" "),
-            _vm._m(42),
-            _c("br"),
-            _vm._v(" "),
-            _c(
-              "p",
-              [
-                _c(
-                  "el-upload",
-                  {
-                    staticClass: "upload-demo",
-                    attrs: {
-                      action: "https://jsonplaceholder.typicode.com/posts/",
-                      "on-preview": _vm.handlePreview,
-                      "on-remove": _vm.handleRemove,
-                      "file-list": _vm.fileList2,
-                      "list-type": "picture"
-                    }
-                  },
-                  [
-                    _c(
-                      "el-button",
-                      { attrs: { size: "small", type: "primary" } },
-                      [_vm._v("点击上传")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass: "el-upload__tip",
-                        attrs: { slot: "tip" },
-                        slot: "tip"
-                      },
-                      [_vm._v("只能上传jpg/png文件，且不超过500kb")]
-                    )
-                  ],
-                  1
-                )
-              ],
-              1
-            )
-          ])
-        ])
+    _c("header", [
+      _c("span", { staticClass: "paper" }, [
+        _vm._v("\n            论文\n        ")
       ]),
       _vm._v(" "),
-      _c("div", { staticStyle: { clear: "both" } })
+      _c(
+        "span",
+        { staticClass: "load" },
+        [
+          _c(
+            "router-link",
+            { attrs: { to: "/addPaper" } },
+            [
+              _c("el-button", { attrs: { type: "primary" } }, [
+                _c("i", { staticClass: "el-icon-plus el-icon--left" }, [
+                  _vm._v("上传")
+                ])
+              ])
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ]),
+    _vm._v(" "),
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "content" }, [
+      _c("div", { staticClass: "lists" }, [
+        _c("span", { staticClass: "numbers" }, [_vm._v("1")]),
+        _vm._v(" "),
+        _vm._m(1),
+        _vm._v(" "),
+        _vm._m(2),
+        _vm._v(" "),
+        _c("span", { staticClass: "times" }, [_vm._v("2018-09-10")]),
+        _vm._v(" "),
+        _c(
+          "span",
+          { staticClass: "dos" },
+          [_c("router-link", [_vm._v("编辑")])],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "span",
+          { staticClass: "tos" },
+          [_c("router-link", [_vm._v("导出")])],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "span",
+          { staticClass: "del" },
+          [_c("router-link", [_vm._v("删除")])],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "clear" })
+      ])
     ])
   ])
 }
@@ -479,548 +332,32 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "perInfo" }, [
-      _c("span", { staticStyle: { "margin-left": "15px" } }, [
-        _vm._v("个人信息")
-      ])
+    return _c("div", { staticClass: "navbo" }, [
+      _c("span", { staticClass: "number" }, [_vm._v("序号")]),
+      _vm._v(" "),
+      _c("span", { staticClass: "info" }, [_vm._v("论文信息")]),
+      _vm._v(" "),
+      _c("span", { staticClass: "time" }, [_vm._v("发表时间")]),
+      _vm._v(" "),
+      _c("span", { staticClass: "do" }, [_vm._v("操作")])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "detiaLeft" }, [
-      _c("p", [_vm._v("头像")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("姓名")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("分组")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("工号")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("办公电话")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("住宅电话")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("手机")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("籍贯")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("编号")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("民族")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("出生年月")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("政治面貌")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("行政职务")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("任职时间")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("职务级别")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("任职时间")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("专业技术职务")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("评审通过时间")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("聘任时间")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("系列")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("岗位类别")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("所在单位")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("所属教研室和实验室")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("来校工作时间")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("原工作单位")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("教师资格证书编号")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("身份证号")]),
-      _c("br"),
-      _vm._v(" "),
-      _c("p", [_vm._v("第一学历：")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("学历/学位")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("毕业学校")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("所学专业")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("毕业时间")]),
-      _c("br"),
-      _vm._v(" "),
-      _c("p", [_vm._v("最高学历：")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("学历/学位")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("毕业学校")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("所学专业")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("毕业时间")]),
-      _c("br"),
-      _vm._v(" "),
-      _c("p", [_vm._v("现从事专业")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("所属学科")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("任教课程")]),
-      _c("br"),
-      _vm._v(" "),
-      _c("p", [_vm._v("硕(博)导：")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("授予单位")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("获得时间")]),
-      _c("br"),
-      _vm._v(" "),
-      _c("p", [_vm._v("毕业证书图片")])
+    return _c("span", { staticClass: "picture" }, [
+      _c("img", { attrs: { src: "/dist/img/text.png", alt: "文件加载失败" } })
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("p", [
-      _c("img", { attrs: { src: "/dist/img/pic_fill.png", alt: "" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("茹振钢"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _c("select", { attrs: { id: "test" } }, [
-        _c("option", { attrs: { value: "0", selected: "" } }, [
-          _vm._v("请选择 ")
-        ]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "1" } }, [_vm._v("一组")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "2" } }, [_vm._v("二组")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "3" } }, [_vm._v("三组")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("skxy001"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("2634113752"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("2634113752"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("13663907506"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("河南省新乡市红旗区华兰大道河南科技学院"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("001"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _c("select", { attrs: { id: "nation" } }, [
-        _c("option", { attrs: { value: "0", selected: "" } }, [_vm._v("汉 ")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "1" } }, [_vm._v("回族")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "2" } }, [_vm._v("维吾尔族")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "3" } }, [_vm._v("苗族")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _c("select", { attrs: { id: "birth" } }, [
-        _c("option", { attrs: { value: "0", selected: "" } }, [
-          _vm._v("请选择 ")
-        ]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "1" } }, [_vm._v("option-1")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "2" } }, [_vm._v("option-2")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "3" } }, [_vm._v("option-3")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _c("select", { attrs: { id: "politics" } }, [
-        _c("option", { attrs: { value: "0", selected: "" } }, [
-          _vm._v("团员 ")
-        ]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "1" } }, [_vm._v("党员")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "2" } }, [_vm._v("共青团员")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "3" } }, [_vm._v("积极分子")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _c("select", { attrs: { id: "job" } }, [
-        _c("option", { attrs: { value: "0", selected: "" } }, [
-          _vm._v("教务处 ")
-        ]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "1" } }, [_vm._v("办公室")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "2" } }, [_vm._v("后勤部")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "3" } }, [_vm._v("党办")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _c("input", { attrs: { id: "meeting", type: "date", value: "" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _c("select", { attrs: { id: "level" } }, [
-        _c("option", { attrs: { value: "0", selected: "" } }, [_vm._v("副处")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "1" } }, [_vm._v("正处")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "2" } }, [_vm._v("院长")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "3" } }, [_vm._v("级别")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _c("input", { attrs: { id: "tenure", type: "date", value: "" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _c("select", { attrs: { id: "majorSkill" } }, [
-        _c("option", { attrs: { value: "0", selected: "" } }, [
-          _vm._v("高级工程师")
-        ]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "1" } }, [_vm._v("，，")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "2" } }, [_vm._v("，，")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _c("input", { attrs: { id: "passTime", type: "date", value: "" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _c("input", { attrs: { id: "useTime", type: "date", value: "" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _c("select", { attrs: { id: "system" } }, [
-        _c("option", { attrs: { value: "0", selected: "" } }, [
-          _vm._v("中文系 ")
-        ]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "1" } }, [_vm._v("外语系")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "2" } }, [_vm._v("国贸系")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _c("select", { attrs: { id: "quarters" } }, [
-        _c("option", { attrs: { value: "0", selected: "" } }, [
-          _vm._v("教师岗位 ")
-        ]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "1" } }, [_vm._v("行政岗位")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("河南科技学院"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("三月"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _c("input", { attrs: { id: "workTime", type: "date", value: "" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("河南科技学院"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("456757723796359"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("41272219882238769"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _c("select", { attrs: { id: "firstEducation" } }, [
-        _c("option", { attrs: { value: "0", selected: "" } }, [
-          _vm._v("博士 ")
-        ]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "1" } }, [_vm._v("硕士")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("河南科技学院"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("信息工程专业"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _c("input", { attrs: { id: "firstGraduation", type: "date", value: "" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _c("select", { attrs: { id: "highEducation" } }, [
-        _c("option", { attrs: { value: "0", selected: "" } }, [
-          _vm._v("博士 ")
-        ]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "1" } }, [_vm._v("硕士")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("河南科技学院"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("信息工程专业"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _c("input", { attrs: { id: "highGraduation", type: "date", value: "" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("教师"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("心理"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("计算机科学与技术"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("中国石油大学 鲍志东"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("河南科技学院"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _c("input", { attrs: { id: "getTime", type: "date", value: "" } })
+    return _c("span", { staticClass: "infos" }, [
+      _c("h5", [_vm._v("示例：论文题目")]),
+      _vm._v(" "),
+      _c("p", [_vm._v("作者 "), _c("small", [_vm._v("特别标注")])])
     ])
   }
 ]
@@ -1029,7 +366,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-200b6510", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-312dfdd0", module.exports)
   }
 }
 
