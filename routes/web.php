@@ -22,7 +22,7 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     Route::get('deleteartical', 'ArticalController@deleteArtical');
     Route::get('selectartical', 'ArticalController@selectArtical');
     Route::post('updateartical', 'ArticalController@updateArtical');
-    Route::get('selectallarticalDatas', 'ArticalController@selectAllArticalDatas');
+    Route::get('selectallattical', 'ArticalController@selectAllAttical');
     //老师对成果鉴定的操作
     Route::post('addappraisal', 'AppraisalController@addAppraisal');
     Route::get('deleteappraisal', 'AppraisalController@deleteAppraisal');
