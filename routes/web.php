@@ -17,13 +17,12 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     Route::get('selectteacher', 'InformationController@selectTeacher');
     Route::post('updateteacher', 'InformationController@updateTeacher');
 
-
     //老师对论文的操作
     Route::post('addartical', 'ArticalController@addArtical');
     Route::get('deleteartical', 'ArticalController@deleteArtical');
     Route::get('selectartical', 'ArticalController@selectArtical');
     Route::post('updateartical', 'ArticalController@updateArtical');
-
+    Route::get('selectallattical', 'ArticalController@selectAllAttical');
     //老师对成果鉴定的操作
     Route::post('addappraisal', 'AppraisalController@addAppraisal');
     Route::get('deleteappraisal', 'AppraisalController@deleteAppraisal');
