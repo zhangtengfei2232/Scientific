@@ -628,7 +628,7 @@ exports = module.exports = __webpack_require__(78)(false);
 
 
 // module
-exports.push([module.i, "\n*,ul,li,a{\n    margin: 0;\n    padding: 0;\n    text-decoration: none;\n    list-style: none;\n}\nbody, html{\n    width: 100%;\n    height: 100%;\n}\n.nav{\n    width: 100%;\n    height:35px;\n    background-color: plum;\n}\n.navLeft{\n    width: 12%;\n    height: 100%;\n    float: left;\n    text-align: center;\n    background-color:rgb(0,125,113) ;\n}\n.navRight{\n    width: 88%;\n    height: 100%;\n    float: right;\n    color: white;\n    text-align: center;\n    line-height:31px;\n    background-color: rgb(0,150,136);\n}\n.navLeft img{\n    width: 11%;\n    margin-top: 5px;\n}\n.navRight span:first-child{\n    width: 5%;\n    height: 100%;\n    float: left;\n}\n.navRight span:first-child img{\n    width:42%;\n}\n.loginName{\n    width:15%;\n    height: 100%;\n    float: right;\n}\n.loginName img{\n    width:10%;\n    vertical-align:middle;\n}\n.aside{\n    width: 12%;\n    height:935px;\n    color: white;\n    float: left;\n    background-color:rgb(34,45,50);\n    /*display: inline-block;*/\n}\n.aside li:first-child{\n    /*position: absolute;*/\n    height: 70px;\n    background-color: black;\n    /*vertical-align:middle;*/\n}\n.aside li:first-child span{\n    margin-left: 20px;\n    /*margin-top: 5px;*/\n}\n.signIn img{\n    width:22%;\n    vertical-align:middle;\n    /*margin-top: 10px;*/\n}\n.aside li{\n    height:55px;\n    text-align :center;\n    line-height: 55px;\n    background-color:rgb(34,45,50);\n    /*background-color: plum;*/\n    border-bottom: 0.5px solid gray;\n}\n.aside li a{\n    list-style: none;\n    color: white;\n    text-decoration: none;\n}\n", ""]);
+exports.push([module.i, "\n*,ul,li,a{\n    margin: 0;\n    padding: 0;\n    text-decoration: none;\n    list-style: none;\n}\nbody, html{\n    width: 100%;\n    height: 100%;\n}\n.nav{\n    width: 100%;\n    height:35px;\n    background-color: plum;\n}\n.navLeft{\n    width: 12%;\n    height: 100%;\n    float: left;\n    text-align: center;\n    background-color:rgb(0,125,113) ;\n}\n.navRight{\n    width: 88%;\n    height: 100%;\n    float: right;\n    color: white;\n    text-align: center;\n    line-height:31px;\n    background-color: rgb(0,150,136);\n}\n.navLeft img{\n    width: 11%;\n    margin-top: 5px;\n}\n/*.navRight span:first-child{*/\n    /*width: 5%;*/\n    /*height: 100%;*/\n    /*float: left;*/\n/*}*/\n/*.navRight span:first-child img{*/\n    /*width:42%;*/\n/*}*/\n.loginName{\n    width:15%;\n    height: 100%;\n    float: right;\n}\n.loginName img{\n    width:10%;\n    vertical-align:middle;\n}\n.aside{\n    width: 12%;\n    /*height:100%;*/\n    padding-bottom:107%;\n    color: white;\n    float: left;\n    background-color:rgb(34,45,50);\n    /*display: inline-block;*/\n}\n/*.aside li:first-child{*/\n    /*!*position: absolute;*!*/\n    /*height: 70px;*/\n    /*background-color: black;*/\n    /*!*vertical-align:middle;*!*/\n/*}*/\n.aside p{\n    /*margin-left: 20px;*/\n    background-color: black;\n    height: 80px;\n    text-align: center;\n    line-height: 70px;\n    /*margin-top: 5px;*/\n}\n.signIn img{\n    width:22%;\n    vertical-align:middle;\n    /*margin-top: 10px;*/\n}\n.aside li{\n    height:55px;\n    text-align :center;\n    line-height: 55px;\n    background-color:rgb(34,45,50);\n    /*background-color: plum;*/\n    border-bottom: 0.5px solid gray;\n}\n.aside li a{\n    list-style: none;\n    color: white;\n    text-decoration: none;\n}\n/*组件*/\n.el-col-12 {\n    width: 100%;\n}\n", ""]);
 
 // exports
 
@@ -710,6 +710,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -734,19 +773,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     });
                 }
             });
+        },
+        menu: function menu() {
+            var nav = document.getElementsByClassName("aside")[0].getElementsByTagName("li");
+            for (var i = 0; i < nav.length; i++) {
+                nav[i].onclick = function () {
+                    nav[i].style.backgroundColor = "red";
+                };
+            }
         }
     },
     mounted: function mounted() {
         this.getTeacherData();
     }
 });
-function fun() {
-    var val = document.getElementById("val").value;
-    var txt = document.getElementById("txt").value;
-    var sel = document.getElementById("test");
-    var option = new Option(txt, val);
-    sel.options.add(option);
-}
+
+//    var urlstr = location.href;
+//    //alert(urlstr);
+//    var urlstatus=false;
+//    $("#menu a").each(function () {
+//        if ((urlstr + '/').indexOf($(this).attr('href')) > -1&&$(this).attr('href')!='') {
+//            $(this).addClass('cur'); urlstatus = true;
+//        } else {
+//            $(this).removeClass('cur');
+//        }
+//    });
+//    if (!urlstatus) {$("#menu a").eq(0).addClass('cur'); }
 
 /***/ }),
 
@@ -762,67 +814,120 @@ var render = function() {
     [
       _vm._m(0),
       _vm._v(" "),
-      _c("div", { staticClass: "aside" }, [
-        _c("ul", [
-          _c("li", { staticClass: "signIn" }, [
+      _c(
+        "div",
+        { staticClass: "aside" },
+        [
+          _c("p", { staticClass: "signIn" }, [
             _c("img", { attrs: { src: "/dist/img/wang_light.png", alt: "" } }),
             _c("span", [_vm._v(_vm._s(_vm.teacherDate.name))])
           ]),
           _vm._v(" "),
           _c(
-            "li",
+            "el-col",
+            { attrs: { span: 12 } },
             [
-              _c("i", { staticClass: "el-icon-tickets" }),
-              _c("router-link", { attrs: { to: "/paper" } }, [_vm._v("论文")])
+              _c(
+                "el-menu",
+                {
+                  staticClass: "el-menu-vertical-demo",
+                  attrs: {
+                    "default-active": "2",
+                    "background-color": "#545c64",
+                    "text-color": "#fff",
+                    "active-text-color": "#ffd04b"
+                  },
+                  on: { open: _vm.handleOpen, close: _vm.handleClose }
+                },
+                [
+                  _c("el-menu-item", { attrs: { index: "1" } }, [
+                    _c("i", { staticClass: "el-icon-menu" }),
+                    _vm._v(" "),
+                    _c("span", { attrs: { slot: "title" }, slot: "title" }, [
+                      _vm._v("论文")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("el-menu-item", { attrs: { index: "2" } }, [
+                    _c("i", { staticClass: "el-icon-menu" }),
+                    _vm._v(" "),
+                    _c("span", { attrs: { slot: "title" }, slot: "title" }, [
+                      _vm._v("项目")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("el-menu-item", { attrs: { index: "3" } }, [
+                    _c("i", { staticClass: "el-icon-document" }),
+                    _vm._v(" "),
+                    _c("span", { attrs: { slot: "title" }, slot: "title" }, [
+                      _vm._v("著作")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("el-menu-item", { attrs: { index: "4" } }, [
+                    _c("i", { staticClass: "el-icon-setting" }),
+                    _vm._v(" "),
+                    _c("span", { attrs: { slot: "title" }, slot: "title" }, [
+                      _vm._v("获奖")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("el-menu-item", { attrs: { index: "5" } }, [
+                    _c("i", { staticClass: "el-icon-menu" }),
+                    _vm._v(" "),
+                    _c("span", { attrs: { slot: "title" }, slot: "title" }, [
+                      _vm._v("专利")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("el-menu-item", { attrs: { index: "6" } }, [
+                    _c("i", { staticClass: "el-icon-menu" }),
+                    _vm._v(" "),
+                    _c("span", { attrs: { slot: "title" }, slot: "title" }, [
+                      _vm._v("成果鉴定")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("el-menu-item", { attrs: { index: "7" } }, [
+                    _c("i", { staticClass: "el-icon-document" }),
+                    _vm._v(" "),
+                    _c("span", { attrs: { slot: "title" }, slot: "title" }, [
+                      _vm._v("举办会议")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("el-menu-item", { attrs: { index: "8" } }, [
+                    _c("i", { staticClass: "el-icon-setting" }),
+                    _vm._v(" "),
+                    _c("span", { attrs: { slot: "title" }, slot: "title" }, [
+                      _vm._v("参加会议")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("el-menu-item", { attrs: { index: "9" } }, [
+                    _c("i", { staticClass: "el-icon-menu" }),
+                    _vm._v(" "),
+                    _c("span", { attrs: { slot: "title" }, slot: "title" }, [
+                      _vm._v("专家讲学")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("el-menu-item", { attrs: { index: "10" } }, [
+                    _c("i", { staticClass: "el-icon-menu" }),
+                    _vm._v(" "),
+                    _c("span", { attrs: { slot: "title" }, slot: "title" }, [
+                      _vm._v("担任学术团体职务")
+                    ])
+                  ])
+                ],
+                1
+              )
             ],
             1
-          ),
-          _vm._v(" "),
-          _vm._m(1),
-          _vm._v(" "),
-          _vm._m(2),
-          _vm._v(" "),
-          _vm._m(3),
-          _vm._v(" "),
-          _vm._m(4),
-          _vm._v(" "),
-          _vm._m(5),
-          _vm._v(" "),
-          _vm._m(6),
-          _vm._v(" "),
-          _vm._m(7),
-          _vm._v(" "),
-          _c("li", [
-            _c("i", {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.show,
-                  expression: "show"
-                }
-              ],
-              staticClass: "el-icon-setting"
-            }),
-            _vm._v("  专家讲学")
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c("i", {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.show,
-                  expression: "show"
-                }
-              ],
-              staticClass: "el-icon-setting"
-            }),
-            _vm._v("  专担任学术团体职务")
-          ])
-        ])
-      ]),
+          )
+        ],
+        1
+      ),
       _vm._v(" "),
       _c("router-view")
     ],
@@ -840,10 +945,6 @@ var staticRenderFns = [
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "navRight" }, [
-        _c("span", [
-          _c("img", { attrs: { src: "/dist/img/sort.png", alt: "未加载" } })
-        ]),
-        _vm._v(" "),
         _c("span", [_vm._v("生命科技学院科研管理系统")]),
         _vm._v(" "),
         _c("div", { staticClass: "loginName" }, [
@@ -854,69 +955,6 @@ var staticRenderFns = [
           _c("img", { attrs: { src: "/dist/img/home.png", alt: "未加载" } })
         ])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("i", { staticClass: "el-icon-edit-outline" }),
-      _vm._v("  项目")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("i", { staticClass: "el-icon-edit" }),
-      _vm._v("  著作")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("i", { staticClass: "el-icon-setting" }),
-      _vm._v("  获奖")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("i", { staticClass: "el-icon-star-on" }),
-      _vm._v("  专利")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("i", { staticClass: "el-icon-setting" }),
-      _vm._v("  成果鉴定")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("i", { staticClass: "el-icon-setting" }),
-      _vm._v("  举办会议")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("i", { staticClass: "el-icon-setting" }),
-      _vm._v("  参加会议")
     ])
   }
 ]

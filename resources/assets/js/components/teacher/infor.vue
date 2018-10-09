@@ -56,12 +56,16 @@
                         <p><img src="/dist/img/pic_fill.png" alt=""></p>
                         <p >{{ teacherDate.name }}<span class="change">修改</span></p>
                         <p>
-                            <select id="test">
-                                <option value="0" selected>请选择 </option>
-                                <option value="1">一组</option>
-                                <option value="2">二组</option>
-                                <option value="3">三组</option>
-                            </select>
+                            <template>
+                                <el-select v-model="value" placeholder="请选择">
+                                    <el-option
+                                            v-for="item in options"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </template>
                         </p>
                         <p>{{ teacherDate.teacher_id }}<span class="change">修改</span></p>
                         <p>{{ teacherDate.office_phone }}<span class="change">修改</span></p>
@@ -70,57 +74,88 @@
                         <p>{{ teacherDate.native_place }}<span class="change">修改</span></p>
                         <p>{{ teacherDate.number }}<span class="change">修改</span></p>
                         <p>
-                            <select id="nation">
-                                <option value="0" selected>汉</option>
-                                <option value="1">回族</option>
-                                <option value="2">维吾尔族</option>
-                                <option value="3">苗族</option>
-                            </select>
+                            <template>
+                                <el-select v-model="value" placeholder="请选择">
+                                    <el-option
+                                            v-for="item in options"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </template>
+
                         </p>
                         <p>
-                            <select id="birth">
-                                <option value="0" selected>请选择 </option>
-                                <option value="1">option-1</option>
-                                <option value="2">option-2</option>
-                                <option value="3">option-3</option>
-                            </select>
+                            <template>
+                                <el-select v-model="value" placeholder="请选择">
+                                    <el-option
+                                            v-for="item in options"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </template>
+
                         </p>
                         <p>
-                            <select id="politics">
-                                <option value="0" selected>团员 </option>
-                                <option value="1">党员</option>
-                                <option value="2">共青团员</option>
-                                <option value="3">积极分子</option>
-                            </select>
+                            <template>
+                                <el-select v-model="value" placeholder="请选择">
+                                    <el-option
+                                            v-for="item in options"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </template>
+
                         </p>
                         <p>
-                            <select id="job">
-                                <option value="0" selected>教务处 </option>
-                                <option value="1">办公室</option>
-                                <option value="2">后勤部</option>
-                                <option value="3">党办</option>
-                            </select>
+                            <template>
+                                <el-select v-model="value" placeholder="请选择">
+                                    <el-option
+                                            v-for="item in options"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </template>
+
                         </p>
                         <p>
                             <input id="meeting" type="date" value=""/>
                         </p>
                         <p>
-                            <select id="level">
-                                <option value="0" selected>副处</option>
-                                <option value="1">正处</option>
-                                <option value="2">院长</option>
-                                <option value="3">级别</option>
-                            </select>
+                            <template>
+                                <el-select v-model="value" placeholder="请选择">
+                                    <el-option
+                                            v-for="item in options"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </template>
+
                         </p>
                         <p>
                             <input id="tenure" type="date" value=""/>
                         </p>
                         <p>
-                            <select id="majorSkill">
-                                <option value="0" selected>高级工程师</option>
-                                <option value="1">，，</option>
-                                <option value="2">，，</option>
-                            </select>
+                            <template>
+                                <el-select v-model="value" placeholder="请选择">
+                                    <el-option
+                                            v-for="item in options"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </template>
+
                         </p>
                         <p>
                             <input id="passTime" type="date" value=""/>
@@ -129,17 +164,30 @@
                             <input id="useTime" type="date" value=""/>
                         </p>
                         <p>
-                            <select id="system">
-                                <option value="0" selected>中文系 </option>
-                                <option value="1">外语系</option>
-                                <option value="2">国贸系</option>
-                            </select>
+                            <template>
+                                <el-select v-model="value" placeholder="请选择">
+                                    <el-option
+                                            v-for="item in options"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </template>
+
                         </p>
                         <p>
-                            <select id="quarters">
-                                <option value="0" selected>教师岗位 </option>
-                                <option value="1">行政岗位</option>
-                            </select>
+                            <template>
+                                <el-select v-model="value" placeholder="请选择">
+                                    <el-option
+                                            v-for="item in options"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </template>
+
                         </p>
                         <p>{{ teacherDate.company }}<span class="change">修改</span></p>
                         <p>{{ teacherDate.te_re_department }}<span class="change">修改</span></p>
@@ -151,10 +199,17 @@
                         <p>{{ teacherDate.identity_card }}<span class="change">修改</span></p>
                         <p></p><br>
                         <p>
-                            <select id="firstEducation">
-                                <option value="0" selected>博士 </option>
-                                <option value="1">硕士</option>
-                            </select>
+                            <template>
+                                <el-select v-model="value" placeholder="请选择">
+                                    <el-option
+                                            v-for="item in options"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </template>
+
                         </p>
                         <p>{{ teacherDate.edu_school }}<span class="change">修改</span></p>
                         <p>{{  }}信息工程专业<span class="change">修改</span></p>
@@ -163,10 +218,17 @@
                         </p>
                         <p></p><br>
                         <p>
-                            <select id="highEducation">
-                                <option value="0" selected>博士 </option>
-                                <option value="1">硕士</option>
-                            </select>
+                            <template>
+                                <el-select v-model="value" placeholder="请选择">
+                                    <el-option
+                                            v-for="item in options"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </template>
+
                         </p>
                         <p>河南科技学院<span class="change">修改</span></p>
                         <p>信息工程专业<span class="change">修改</span></p>
@@ -251,7 +313,7 @@
 <style>
     .main{
         width: 100%;
-        height: 935px;
+        /*height: 935px;*/
         margin:0 auto
         /*text-align: center;*/
         /*background-color: #1b6d85;*/
@@ -317,9 +379,13 @@
     }
     #meeting,#tenure,#passTime,#useTime,#workTime,#firstGraduation,#highGraduation,#getTime
     {
-        border-color: rgb(169, 169, 169);
-        margin: 0;
-        padding: 0;
+        border: 1px solid #dcdfe6;
+        color: #606266;
+        font-size: inherit;
+        height: 40px;
+        line-height: 40px;
+        outline: 0;
+        padding: 0 25px;
     }
     .change{
         color: rgba(0, 179, 138, 1);

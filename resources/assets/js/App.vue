@@ -5,7 +5,7 @@
                 <img src="/dist/img/hist.png" alt="未加载">
             </div>
             <div class="navRight">
-                <span><img src="/dist/img/sort.png" alt="未加载"></span>
+                <!--<span><img src="/dist/img/sort.png" alt="未加载"></span>-->
                 <span>生命科技学院科研管理系统</span>
                 <div class="loginName">
                     <img src="/dist/img/my.png" alt="未加载">
@@ -17,19 +17,58 @@
             </div>
         </div>
         <div class="aside">
-            <ul>
-                <li class="signIn"><img src="/dist/img/wang_light.png" alt=""><span>{{ teacherDate.name }}</span></li>
-                <li><i class="el-icon-tickets"></i><router-link to="/paper">论文</router-link></li>
-                <li><i class="el-icon-edit-outline"></i> &nbsp;项目</li>
-                <li><i class="el-icon-edit"></i> &nbsp;著作</li>
-                <li><i class="el-icon-setting"></i> &nbsp;获奖</li>
-                <li><i class="el-icon-star-on"></i> &nbsp;专利</li>
-                <li><i class="el-icon-setting"></i> &nbsp;成果鉴定</li>
-                <li><i class="el-icon-setting"></i> &nbsp;举办会议</li>
-                <li><i class="el-icon-setting"></i> &nbsp;参加会议</li>
-                <li><i class="el-icon-setting" v-show="show"></i> &nbsp;专家讲学</li>
-                <li><i class="el-icon-setting" v-show="show"></i> &nbsp;专担任学术团体职务</li>
-            </ul>
+            <p class="signIn"><img src="/dist/img/wang_light.png" alt=""><span>{{ teacherDate.name }}</span></p>
+            <el-col :span="12">
+                <el-menu
+                        default-active="2"
+                        class="el-menu-vertical-demo"
+                        @open="handleOpen"
+                        @close="handleClose"
+                        background-color="#545c64"
+                        text-color="#fff"
+                        active-text-color="#ffd04b">
+                    <el-menu-item index="1">
+                        <i class="el-icon-menu"></i>
+                        <span slot="title">论文</span>
+                    </el-menu-item>
+                    <el-menu-item index="2">
+                        <i class="el-icon-menu"></i>
+                        <span slot="title">项目</span>
+                    </el-menu-item>
+                    <el-menu-item index="3">
+                        <i class="el-icon-document"></i>
+                        <span slot="title">著作</span>
+                    </el-menu-item>
+                    <el-menu-item index="4">
+                        <i class="el-icon-setting"></i>
+                        <span slot="title">获奖</span>
+                    </el-menu-item>
+                    <el-menu-item index="5">
+                        <i class="el-icon-menu"></i>
+                        <span slot="title">专利</span>
+                    </el-menu-item>
+                    <el-menu-item index="6">
+                        <i class="el-icon-menu"></i>
+                        <span slot="title">成果鉴定</span>
+                    </el-menu-item>
+                    <el-menu-item index="7">
+                        <i class="el-icon-document"></i>
+                        <span slot="title">举办会议</span>
+                    </el-menu-item>
+                    <el-menu-item index="8">
+                        <i class="el-icon-setting"></i>
+                        <span slot="title">参加会议</span>
+                    </el-menu-item>
+                    <el-menu-item index="9">
+                        <i class="el-icon-menu"></i>
+                        <span slot="title">专家讲学</span>
+                    </el-menu-item>
+                    <el-menu-item index="10">
+                        <i class="el-icon-menu"></i>
+                        <span slot="title">担任学术团体职务</span>
+                    </el-menu-item>
+                </el-menu>
+            </el-col>
         </div>
         <router-view></router-view>
     </div>
@@ -58,19 +97,38 @@
                     }
                 });
             },
+            menu() {
+                var nav = document.getElementsByClassName("aside")[0].getElementsByTagName("li");
+                for(var i = 0;i <nav.length; i++){
+                    nav[i].onclick = function () {
+                        nav[i].style.backgroundColor = "red";
+                }
+            }
+    }
+
+
 
         },
         mounted() {
             this.getTeacherData();
         }
     }
-    function fun(){
-        var val = document.getElementById("val").value;
-        var txt = document.getElementById("txt").value;
-        var sel = document.getElementById("test");
-        var option = new Option(txt, val);
-        sel.options.add(option);
-    }
+
+
+//    var urlstr = location.href;
+//    //alert(urlstr);
+//    var urlstatus=false;
+//    $("#menu a").each(function () {
+//        if ((urlstr + '/').indexOf($(this).attr('href')) > -1&&$(this).attr('href')!='') {
+//            $(this).addClass('cur'); urlstatus = true;
+//        } else {
+//            $(this).removeClass('cur');
+//        }
+//    });
+//    if (!urlstatus) {$("#menu a").eq(0).addClass('cur'); }
+
+
+
 </script>
 
 <style>
@@ -110,14 +168,14 @@
         width: 11%;
         margin-top: 5px;
     }
-    .navRight span:first-child{
-        width: 5%;
-        height: 100%;
-        float: left;
-    }
-    .navRight span:first-child img{
-        width:42%;
-    }
+    /*.navRight span:first-child{*/
+        /*width: 5%;*/
+        /*height: 100%;*/
+        /*float: left;*/
+    /*}*/
+    /*.navRight span:first-child img{*/
+        /*width:42%;*/
+    /*}*/
     .loginName{
         width:15%;
         height: 100%;
@@ -129,20 +187,25 @@
     }
     .aside{
         width: 12%;
-        height:935px;
+        /*height:100%;*/
+        padding-bottom:107%;
         color: white;
         float: left;
         background-color:rgb(34,45,50);
         /*display: inline-block;*/
     }
-    .aside li:first-child{
-        /*position: absolute;*/
-        height: 70px;
+    /*.aside li:first-child{*/
+        /*!*position: absolute;*!*/
+        /*height: 70px;*/
+        /*background-color: black;*/
+        /*!*vertical-align:middle;*!*/
+    /*}*/
+    .aside p{
+        /*margin-left: 20px;*/
         background-color: black;
-        /*vertical-align:middle;*/
-    }
-    .aside li:first-child span{
-        margin-left: 20px;
+        height: 80px;
+        text-align: center;
+        line-height: 70px;
         /*margin-top: 5px;*/
     }
     .signIn img{
@@ -162,5 +225,9 @@
         list-style: none;
         color: white;
         text-decoration: none;
+    }
+    /*组件*/
+    .el-col-12 {
+        width: 100%;
     }
 </style>
