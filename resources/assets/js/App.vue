@@ -9,7 +9,7 @@
                 <span>生命科技学院科研管理系统</span>
                 <div class="loginName">
                     <img src="/dist/img/my.png" alt="未加载">
-                    <span>金凯杰</span>
+                    <span>{{ teacherDate.name }}</span>
                     <!--<span class="house">-->
                     <img src="/dist/img/home.png" alt="未加载">
                     <!--</span>-->
@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="aside">
-            <p class="signIn"><img src="/dist/img/wang_light.png" alt=""><span>{{ teacherDate.name }}</span></p>
+            <p class="signIn is-active"><router-link to="/"><img src="/dist/img/wang_light.png" alt=""><span>{{ teacherDate.name }}</span></router-link></p>
             <el-col :span="12">
                 <el-menu
                         default-active="2"
@@ -29,11 +29,11 @@
                         active-text-color="#ffd04b">
                     <el-menu-item index="1">
                         <i class="el-icon-menu"></i>
-                        <span slot="title">论文</span>
+                        <span slot="title"><router-link to="/paper">论文</router-link></span>
                     </el-menu-item>
                     <el-menu-item index="2">
                         <i class="el-icon-menu"></i>
-                        <span slot="title">项目</span>
+                        <span slot="title"><router-link to="/project">项目</router-link></span>
                     </el-menu-item>
                     <el-menu-item index="3">
                         <i class="el-icon-document"></i>
@@ -97,21 +97,26 @@
                     }
                 });
             },
+            handleOpen(key, keyPath) {
+                console.log(key, keyPath);
+            },
+            handleClose(key, keyPath) {
+                console.log(key, keyPath);
+            },
             menu() {
                 var nav = document.getElementsByClassName("aside")[0].getElementsByTagName("li");
                 for(var i = 0;i <nav.length; i++){
                     nav[i].onclick = function () {
                         nav[i].style.backgroundColor = "red";
+                    }
                 }
-            }
-    }
-
-
+            },
 
         },
         mounted() {
             this.getTeacherData();
         }
+
     }
 
 
@@ -212,6 +217,9 @@
         width:22%;
         vertical-align:middle;
         /*margin-top: 10px;*/
+    }
+    .signIn a{
+        color: white;
     }
     .aside li{
         height:55px;

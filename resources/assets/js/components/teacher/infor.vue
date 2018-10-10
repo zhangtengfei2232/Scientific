@@ -42,206 +42,68 @@
                         <p>毕业学校</p>
                         <p>所学专业</p>
                         <p>毕业时间</p><br/>
-
                         <p>现从事专业</p>
                         <p>所属学科</p>
                         <p>任教课程</p><br/>
                         <p>硕(博)导：</p>
                         <p>授予单位</p>
                         <p>获得时间</p><br/>
-
                         <p>毕业证书图片</p>
                     </div>
                     <div class="detialRight">
-                        <p><img src="/dist/img/pic_fill.png" alt=""></p>
-                        <p >{{ teacherDate.name }}<span class="change">修改</span></p>
+                        <p><img src="/dist/img/pic_fill.png" alt="未加载"></p>
+                        <p><el-input :value=" teacherDate.name" :disabled="true"></el-input><span class="change" @click.native = "clickchange">修改</span></p>
+                        <p><el-input :value=" teacherDate.name" :disabled="true"></el-input><span class="change" @click.native = "clickchange">修改</span></p>
+                        <p><el-input :value=" teacherDate.teacher_id" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.office_phone" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.home_phone" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.phone" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.native_place" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.number" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.nation" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.borth" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.polit_outlook" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.admin_duties" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.tenure_time" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.job_level" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.tenure_time" :disabled="true"></el-input><span class="change">修改</span></p>
                         <p>
-                            <template>
-                                <el-select v-model="value" placeholder="请选择">
-                                    <el-option
-                                            v-for="item in options"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </template>
+                            <!--专业技术职务-->
+                            <el-input :value=" teacherDate.edu_school":disabled="true"></el-input>
                         </p>
-                        <p>{{ teacherDate.teacher_id }}<span class="change">修改</span></p>
-                        <p>{{ teacherDate.office_phone }}<span class="change">修改</span></p>
-                        <p>{{ teacherDate.home_phone }}<span class="change">修改</span></p>
-                        <p>{{ teacherDate.phone }}<span class="change">修改</span></p>
-                        <p>{{ teacherDate.native_place }}<span class="change">修改</span></p>
-                        <p>{{ teacherDate.number }}<span class="change">修改</span></p>
+                        <p><el-input :value="teacherDate.name" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value="teacherDate.name" :disabled="true"></el-input><span class="change">修改</span></p>
                         <p>
-                            <template>
-                                <el-select v-model="value" placeholder="请选择">
-                                    <el-option
-                                            v-for="item in options"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </template>
-
+                            <!--系列-->
+                            <el-input :value=" teacherDate.series" :disabled="true"></el-input>
                         </p>
+                        <p><el-input :value="teacherDate.post_category" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.company" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <!--请输入所属教研室和实验室-->
                         <p>
-                            <template>
-                                <el-select v-model="value" placeholder="请选择">
-                                    <el-option
-                                            v-for="item in options"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </template>
-
+                            <el-input :value=" teacherDate.te_re_department":disabled="true"></el-input>
                         </p>
-                        <p>
-                            <template>
-                                <el-select v-model="value" placeholder="请选择">
-                                    <el-option
-                                            v-for="item in options"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </template>
-
-                        </p>
-                        <p>
-                            <template>
-                                <el-select v-model="value" placeholder="请选择">
-                                    <el-option
-                                            v-for="item in options"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </template>
-
-                        </p>
-                        <p>
-                            <input id="meeting" type="date" value=""/>
-                        </p>
-                        <p>
-                            <template>
-                                <el-select v-model="value" placeholder="请选择">
-                                    <el-option
-                                            v-for="item in options"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </template>
-
-                        </p>
-                        <p>
-                            <input id="tenure" type="date" value=""/>
-                        </p>
-                        <p>
-                            <template>
-                                <el-select v-model="value" placeholder="请选择">
-                                    <el-option
-                                            v-for="item in options"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </template>
-
-                        </p>
-                        <p>
-                            <input id="passTime" type="date" value=""/>
-                        </p>
-                        <p>
-                            <input id="useTime" type="date" value=""/>
-                        </p>
-                        <p>
-                            <template>
-                                <el-select v-model="value" placeholder="请选择">
-                                    <el-option
-                                            v-for="item in options"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </template>
-
-                        </p>
-                        <p>
-                            <template>
-                                <el-select v-model="value" placeholder="请选择">
-                                    <el-option
-                                            v-for="item in options"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </template>
-
-                        </p>
-                        <p>{{ teacherDate.company }}<span class="change">修改</span></p>
-                        <p>{{ teacherDate.te_re_department }}<span class="change">修改</span></p>
-                        <p>
-                            <input id="workTime" type="date" value=""/>
-                        </p>
-                        <p>{{ teacherDate.origin_work_unit }}<span class="change">修改</span></p>
-                        <p>{{ teacherDate.certificate_num }}<span class="change">修改</span></p>
-                        <p>{{ teacherDate.identity_card }}<span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.working_hours" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.origin_work_unit" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.certificate_num" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.identity_card" :disabled="true"></el-input><span class="change">修改</span></p>
                         <p></p><br>
-                        <p>
-                            <template>
-                                <el-select v-model="value" placeholder="请选择">
-                                    <el-option
-                                            v-for="item in options"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </template>
-
-                        </p>
-                        <p>{{ teacherDate.edu_school }}<span class="change">修改</span></p>
-                        <p>{{  }}信息工程专业<span class="change">修改</span></p>
-                        <p>
-                            <input id="firstGraduation" type="date" value=""/>
-                        </p>
+                        <p><el-input :value=" teacherDate.academic_id" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.edu_school" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.name" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.name" :disabled="true"></el-input><span class="change">修改</span></p>
                         <p></p><br>
-                        <p>
-                            <template>
-                                <el-select v-model="value" placeholder="请选择">
-                                    <el-option
-                                            v-for="item in options"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </template>
-
-                        </p>
-                        <p>河南科技学院<span class="change">修改</span></p>
-                        <p>信息工程专业<span class="change">修改</span></p>
-                        <p>
-                            <input id="highGraduation" type="date" value=""/>
+                        <p><el-input :value=" teacherDate.academic_id" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.edu_school" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.name" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.name" :disabled="true"></el-input><span class="change">修改</span>
                         </p><br>
-                        <p>教师<span class="change">修改</span></p>
-                        <p>心理<span class="change">修改</span></p>
-                        <p>计算机科学与技术<span class="change">修改</span></p><br>
-                        <p>中国石油大学 鲍志东<span class="change">修改</span></p>
-                        <p>河南科技学院<span class="change">修改</span></p>
-                        <p>
-                            <input id="getTime" type="date" value=""/>
+                        <p><el-input :value=" teacherDate.work_major" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.belong_subject" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.teach_course" :disabled="true"></el-input><span class="change">修改</span></p><br>
+                        <p><el-input :value=" teacherDate.master_insid" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.name" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.name" :disabled="true"></el-input><span class="change">修改</span>
                         </p><br>
                         <p>
                             <el-upload
@@ -265,12 +127,49 @@
 
 <script>
     export default {
-
         data() {
             return {
+//                list:[
+//                    {lis:'头像'}, {lis:'姓名'}, {lis:'分组'}, {lis:'工号'}, {lis:'办公电话'}, {lis:'住宅电话'},
+//                    {lis:'手机'}, {lis:'籍贯'}, {lis:'编号'}, {lis:'民族'}, {lis:'出生年月'}, {lis:'政治面貌'},
+//                    {lis:'行政职务'}, {lis:'任职时间'}, {lis:'职务级别'}, {lis:'任职时间'}, {lis:'专业技术职务'},
+//                    {lis:'评审通过时间'}, {lis:'聘任时间'}, {lis:'系列'}, {lis:'岗位类别'}, {lis:'所在单位'},
+//                    {lis:'所属教研室和实验室'}, {lis:'来校工作时间'}, {lis:'原工作单位'}, {lis:'教师资格证书编号'},
+//                    {lis:'身份证号'},
+//                    {lis:'第一学历'}, {lis:'毕业学校'}, {lis:'所学专业'}, {lis:'毕业时间'},
+//                    {lis:'最高学历：'}, {lis:'学历/学位'}, {lis:'毕业学校'}, {lis:'所学专业'}, {lis:'毕业时间'},
+//                    {lis:'最高学历：'}, {lis:'毕业学校'}, {lis:'所学专业'}, {lis:'毕业时间'}, {lis:'现从事专业'},
+//                    {lis:'所属学科'}, {lis:'任教课程'}, {lis:'硕(博)导：'}, {lis:'授予单位'}, {lis:'获得时间'},
+//                    {lis:'毕业证书图片'},
+//
+//                ],
                 fileList2: [{name: 'food.jpeg', url: '/dist/img/wang_light.png'}, {name: 'food2.jpeg', url: '/dist/img/wang_light.png'}],
                 teacherDate: {},
                 show: false,
+                inputJob:'' ,
+                input: '',
+                options: [{
+                    value: '选项1',
+                    label: '黄金糕'
+                }, {
+                    value: '选项4',
+                    label: '龙须面'
+                }, {
+                    value: '选项5',
+                    label: '北京烤鸭'
+                }],
+                options1:[{
+                    value: '选项1',
+                    label: '12'
+                },],
+                value: '',
+
+                pickerOptions1: {
+                    disabledDate(time) {
+                        return time.getTime() > Date.now();
+                    },
+                },
+                value1: '',
             }
         },
         methods: {
@@ -280,6 +179,28 @@
             handlePreview(file){
                 console.log(file);
             },
+
+//          getPage:function () {
+//              let self = this;
+//              axios.get("selectteacher").then(function (response) {
+//                    self.options = response.data;
+//              });
+//          },
+            clickchange(){
+                var change = document.getElementsByClassName("change")[0];
+                var txtArrs = document.getElementsByTagName('input');
+                for ( var i = 0; i < change.length; i++) {
+                    var txt = change[i];
+
+                    if (txt.type == 'text') {
+                        if (txt.disabled == true) {
+                            txt.disabled = false;
+                        } else {
+                            //txt.disabled = false;
+                        }
+                    }
+                }
+            },
             getTeacherData(){
                 let self = this;
                 axios.get("selectteacher").then(function (response) {
@@ -288,9 +209,9 @@
                     if(data.code == 0){
                         self.teacherDate = data.datas;
                         console.log(self.teacherDate);
-                        if (teacherDate.teacher_id == 1) {
+                        if (self.teacherDate.teacher_id == 1) {
                             show = true;
-                        }else if(teacherDate.teacher_id == 2) {
+                        }else if(self.teacherDate.teacher_id == 2) {
                             show = true;
                         }
                     }else{
@@ -302,12 +223,27 @@
                     }
                 });
             },
-
         },
         mounted() {
             this.getTeacherData();
+            this.clickchange();
         },
+
     }
+    //    function clickchange() {
+
+    //        var txtArrs = document.getElementsByTagName('input');
+    //        for ( var i = 0; i < txtArrs.length; i++) {
+    //            var txt = txtArrs[i];
+    //            if (txt.type == 'text') {
+    //                if (txt.disabled == true) {
+    //                    txt.disabled = false;
+    //                } else {
+    //                    //txt.disabled = false;
+    //                }
+    //            }
+    //        }
+    //    }
 </script>
 
 <style>
@@ -333,18 +269,18 @@
         border-bottom: 1px solid gray;
     }
     /*.detial{*/
-        /*width: 80%;*/
-        /*background-color: #5bc0de;*/
+    /*width: 80%;*/
+    /*background-color: #5bc0de;*/
     /*}*/
     /*.detial li{*/
-        /*height: 50px;*/
+    /*height: 50px;*/
     /*}*/
     /*.space{*/
-        /*margin-left: 70px;*/
+    /*margin-left: 70px;*/
     /*}*/
     /*.space img{*/
-        /*width: 33px;*/
-        /*vertical-align:middle;*/
+    /*width: 33px;*/
+    /*vertical-align:middle;*/
     /*}*/
     .detiaLeft{
         width: 10%;
@@ -368,34 +304,20 @@
         width: 33px;
         /*vertical-align:middle;*/
     }
-    #test,#birth,#politics,#nation,#job,#meeting,#level,
-    #tenure,#passTime,#useTime,#majorSkill,#system,#workTime,
-    #quarters,#firstEducation,#firstGraduation,#highGraduation,
-    #highEducation,#getTime{
-        width: 165px;
-        height: 30px;
-        border: 1px solid lightgray;
-        border-radius: 5px;
+    .el-date-editor.el-input{
+        width: 217px;
     }
-    #meeting,#tenure,#passTime,#useTime,#workTime,#firstGraduation,#highGraduation,#getTime
-    {
-        border: 1px solid #dcdfe6;
-        color: #606266;
-        font-size: inherit;
-        height: 40px;
-        line-height: 40px;
-        outline: 0;
-        padding: 0 25px;
-    }
+
     .change{
         color: rgba(0, 179, 138, 1);
-        margin-left:4%;
+        margin-left:2%;
     }
     /*//组件*/
-    /*.el-input el-input--suffix input{*/
-    /*margin: 10px -2%;*/
-    /*}*/
+
     .upload-demo{
         width: 320px;
+    }
+    .el-input{
+        width: 217px;
     }
 </style>
