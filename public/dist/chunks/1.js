@@ -6,13 +6,13 @@ webpackJsonp([1],{
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(214)
+  __webpack_require__(215)
 }
 var normalizeComponent = __webpack_require__(80)
 /* script */
-var __vue_script__ = __webpack_require__(216)
+var __vue_script__ = __webpack_require__(217)
 /* template */
-var __vue_template__ = __webpack_require__(217)
+var __vue_template__ = __webpack_require__(218)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -52,13 +52,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 214:
+/***/ 215:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(215);
+var content = __webpack_require__(216);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -79,7 +79,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 215:
+/***/ 216:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(48)(false);
@@ -94,7 +94,7 @@ exports.push([module.i, "\nheader[data-v-312dfdd0]{\n    border-bottom: 1px soli
 
 /***/ }),
 
-/***/ 216:
+/***/ 217:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -255,7 +255,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 217:
+/***/ 218:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -274,7 +274,7 @@ var render = function() {
         [
           _c(
             "router-link",
-            { attrs: { to: "/" } },
+            { attrs: { to: "/addPaper" } },
             [
               _c("el-button", { attrs: { type: "primary" } }, [
                 _c("i", { staticClass: "el-icon-plus el-icon--left" }, [
@@ -291,7 +291,40 @@ var render = function() {
     _vm._v(" "),
     _vm._m(0),
     _vm._v(" "),
-    _vm._m(1)
+    _c("div", { staticClass: "content" }, [
+      _c("div", { staticClass: "lists" }, [
+        _c("span", { staticClass: "numbers" }, [_vm._v("1")]),
+        _vm._v(" "),
+        _vm._m(1),
+        _vm._v(" "),
+        _vm._m(2),
+        _vm._v(" "),
+        _c("span", { staticClass: "times" }, [_vm._v("2018-09-10")]),
+        _vm._v(" "),
+        _c(
+          "span",
+          { staticClass: "dos" },
+          [_c("router-link", [_vm._v("编辑")])],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "span",
+          { staticClass: "tos" },
+          [_c("router-link", [_vm._v("导出")])],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "span",
+          { staticClass: "del" },
+          [_c("router-link", [_vm._v("删除")])],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "clear" })
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -313,32 +346,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "content" }, [
-      _c("div", { staticClass: "lists" }, [
-        _c("span", { staticClass: "numbers" }, [_vm._v("1")]),
-        _vm._v(" "),
-        _c("span", { staticClass: "picture" }, [
-          _c("img", {
-            attrs: { src: "/dist/img/text.png", alt: "文件加载失败" }
-          })
-        ]),
-        _vm._v(" "),
-        _c("span", { staticClass: "infos" }, [
-          _c("h5", [_vm._v("示例：论文题目")]),
-          _vm._v(" "),
-          _c("p", [_vm._v("作者 "), _c("small", [_vm._v("特别标注")])])
-        ]),
-        _vm._v(" "),
-        _c("span", { staticClass: "times" }, [_vm._v("2018-09-10")]),
-        _vm._v(" "),
-        _c("span", { staticClass: "dos" }, [_vm._v("编辑")]),
-        _vm._v(" "),
-        _c("span", { staticClass: "tos" }, [_vm._v("导出")]),
-        _vm._v(" "),
-        _c("span", { staticClass: "del" }, [_vm._v("删除")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "clear" })
-      ])
+    return _c("span", { staticClass: "picture" }, [
+      _c("img", { attrs: { src: "/dist/img/text.png", alt: "文件加载失败" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "infos" }, [
+      _c("h5", [_vm._v("示例：论文题目")]),
+      _vm._v(" "),
+      _c("p", [_vm._v("作者 "), _c("small", [_vm._v("特别标注")])])
     ])
   }
 ]
