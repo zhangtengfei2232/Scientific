@@ -2,13 +2,48 @@
     <div class="contents">
         <div class="add">
             <el-form ref="form" :model="form" label-width="80px">
-            <el-form-item label="活动名称">
+            <el-form-item label="第一作者（通讯录作者）">
                 <el-input v-model="form.name"></el-input>
             </el-form-item>
-            <el-form-item label="活动区域">
-                <el-select v-model="form.region" placeholder="请选择活动区域">
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
+            <el-form-item label="全部作者">
+                <el-input v-model="form.name"></el-input>
+            </el-form-item>
+            <el-form-item label="论文题目">
+                <el-input v-model="form.name"></el-input>
+            </el-form-item>
+            <el-form-item label="发表刊物名称">
+                <el-input v-model="form.name"></el-input>
+            </el-form-item>
+            <el-form-item label="刊号">
+                <el-input v-model="form.name"></el-input>
+            </el-form-item>
+            <el-form-item label="年，卷，期">
+                <el-input v-model="form.name"></el-input>
+            </el-form-item>
+            <el-form-item label="字数">
+                <el-input v-model="form.name"></el-input>
+            </el-form-item>
+            <el-form-item label="期刊级别">
+                <el-checkbox-group v-model="form.type">
+                <el-checkbox label="CSCD" name="type"></el-checkbox>
+                <el-checkbox label="SCI" name="type"></el-checkbox>
+                <el-checkbox label="CN" name="type"></el-checkbox>
+                <el-checkbox label="CSCD核心" name="type"></el-checkbox>
+                </el-checkbox-group>
+            </el-form-item>
+            <el-form-item label="所属项目">
+                <el-input v-model="form.name"></el-input>
+            </el-form-item>
+            <el-form-item label="研究类别">
+                <el-select v-model="form.region" placeholder="请选择类别">
+                <el-option label="1" value="1"></el-option>
+                <el-option label="2" value="2"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="学科门类">
+                <el-select v-model="form.region" placeholder="请选择学科门类">
+                <el-option label="农学" value="nongxue"></el-option>
+                <el-option label="作物学" value="zuowuxue"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="活动时间">
@@ -22,14 +57,6 @@
             </el-form-item>
             <el-form-item label="即时配送">
                 <el-switch v-model="form.delivery"></el-switch>
-            </el-form-item>
-            <el-form-item label="活动性质">
-                <el-checkbox-group v-model="form.type">
-                <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
-                <el-checkbox label="地推活动" name="type"></el-checkbox>
-                <el-checkbox label="线下主题活动" name="type"></el-checkbox>
-                <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
-                </el-checkbox-group>
             </el-form-item>
             <el-form-item label="特殊资源">
                 <el-radio-group v-model="form.resource">

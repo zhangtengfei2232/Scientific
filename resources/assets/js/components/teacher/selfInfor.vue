@@ -1,6 +1,6 @@
 <template>
     <div>
-        
+        <div class=""></div>
         <h1>{{ this.$route.params.teacher_id }}</h1>
     </div>
 </template>
