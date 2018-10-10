@@ -41,6 +41,7 @@
     .left img{
         width: 40%;
         margin: 20% 30% 45% 30%;
+
     }
     .right{
         float:left;

@@ -1,4 +1,4 @@
-webpackJsonp([5],{
+webpackJsonp([6],{
 
 /***/ 187:
 /***/ (function(module, exports, __webpack_require__) {
@@ -549,7 +549,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(195)
 }
-var normalizeComponent = __webpack_require__(80)
+var normalizeComponent = __webpack_require__(79)
 /* script */
 var __vue_script__ = __webpack_require__(198)
 /* template */
@@ -603,7 +603,7 @@ var content = __webpack_require__(196);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(79)("8d8bb1ea", content, false, {});
+var update = __webpack_require__(80)("8d8bb1ea", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -628,7 +628,7 @@ exports = module.exports = __webpack_require__(48)(false);
 
 
 // module
-exports.push([module.i, "\n*,ul,li,a{\n    margin: 0;\n    padding: 0;\n    text-decoration: none;\n    list-style: none;\n}\nbody, html{\n    width: 100%;\n    height: 100%;\n}\n.nav{\n    width: 100%;\n    height:35px;\n    background-color: plum;\n}\n.navLeft{\n    width: 12%;\n    height: 100%;\n    float: left;\n    text-align: center;\n    background-color:rgb(0,125,113) ;\n}\n.navRight{\n    width: 88%;\n    height: 100%;\n    float: right;\n    color: white;\n    text-align: center;\n    line-height:31px;\n    background-color: rgb(0,150,136);\n}\n.navLeft img{\n    width: 11%;\n    margin-top: 5px;\n}\n.navRight span:first-child{\n    width: 5%;\n    height: 100%;\n    float: left;\n}\n.navRight span:first-child img{\n    width:42%;\n}\n.loginName{\n    width:15%;\n    height: 100%;\n    float: right;\n}\n.loginName img{\n    width:10%;\n    vertical-align:middle;\n}\n.aside{\n    width: 12%;\n    height:935px;\n    color: white;\n    float: left;\n    background-color:rgb(34,45,50);\n    /*display: inline-block;*/\n}\n.aside li:first-child{\n    /*position: absolute;*/\n    height: 70px;\n    background-color: black;\n    /*vertical-align:middle;*/\n}\n.aside li:first-child span{\n    margin-left: 20px;\n    /*margin-top: 5px;*/\n}\n.signIn img{\n    width:22%;\n    vertical-align:middle;\n    /*margin-top: 10px;*/\n}\n.aside li{\n    height:55px;\n    text-align :center;\n    line-height: 55px;\n    background-color:rgb(34,45,50);\n    /*background-color: plum;*/\n    border-bottom: 0.5px solid gray;\n}\n.aside li a{\n    list-style: none;\n    color: white;\n    text-decoration: none;\n}\n", ""]);
+exports.push([module.i, "\n*,ul,li,a{\n    margin: 0;\n    padding: 0;\n    text-decoration: none;\n    list-style: none;\n}\nbody, html{\n    width: 100%;\n    height: 100%;\n}\n.nav{\n    width: 100%;\n    height:35px;\n    background-color: plum;\n}\n.navLeft{\n    width: 12%;\n    height: 100%;\n    float: left;\n    text-align: center;\n    background-color:rgb(0,125,113) ;\n}\n.navRight{\n    width: 88%;\n    height: 100%;\n    float: right;\n    color: white;\n    text-align: center;\n    line-height:31px;\n    background-color: rgb(0,150,136);\n}\n.navLeft img{\n    width: 11%;\n    margin-top: 5px;\n}\n/*.navRight span:first-child{*/\n    /*width: 5%;*/\n    /*height: 100%;*/\n    /*float: left;*/\n/*}*/\n/*.navRight span:first-child img{*/\n    /*width:42%;*/\n/*}*/\n.loginName{\n    width:15%;\n    height: 100%;\n    float: right;\n}\n.loginName img{\n    width:10%;\n    vertical-align:middle;\n}\n.aside{\n    width: 12%;\n    /*height:100%;*/\n    padding-bottom:107%;\n    color: white;\n    float: left;\n    background-color:rgb(34,45,50);\n    /*display: inline-block;*/\n}\n/*.aside li:first-child{*/\n    /*!*position: absolute;*!*/\n    /*height: 70px;*/\n    /*background-color: black;*/\n    /*!*vertical-align:middle;*!*/\n/*}*/\n.aside p{\n    /*margin-left: 20px;*/\n    background-color: black;\n    height: 80px;\n    text-align: center;\n    line-height: 70px;\n    /*margin-top: 5px;*/\n}\n.signIn img{\n    width:22%;\n    vertical-align:middle;\n    /*margin-top: 10px;*/\n}\n.signIn a{\n    color: white;\n}\n.aside li{\n    height:55px;\n    text-align :center;\n    line-height: 55px;\n    background-color:rgb(34,45,50);\n    /*background-color: plum;*/\n    border-bottom: 0.5px solid gray;\n}\n.aside li a{\n    list-style: none;\n    color: white;\n    text-decoration: none;\n}\n/*组件*/\n.el-col-12 {\n    width: 100%;\n}\n", ""]);
 
 // exports
 
@@ -710,6 +710,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -734,19 +773,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     });
                 }
             });
+        },
+        handleOpen: function handleOpen(key, keyPath) {
+            console.log(key, keyPath);
+        },
+        handleClose: function handleClose(key, keyPath) {
+            console.log(key, keyPath);
+        },
+        menu: function menu() {
+            var nav = document.getElementsByClassName("aside")[0].getElementsByTagName("li");
+            for (var i = 0; i < nav.length; i++) {
+                nav[i].onclick = function () {
+                    nav[i].style.backgroundColor = "red";
+                };
+            }
         }
     },
     mounted: function mounted() {
         this.getTeacherData();
     }
 });
-function fun() {
-    var val = document.getElementById("val").value;
-    var txt = document.getElementById("txt").value;
-    var sel = document.getElementById("test");
-    var option = new Option(txt, val);
-    sel.options.add(option);
-}
+
+//    var urlstr = location.href;
+//    //alert(urlstr);
+//    var urlstatus=false;
+//    $("#menu a").each(function () {
+//        if ((urlstr + '/').indexOf($(this).attr('href')) > -1&&$(this).attr('href')!='') {
+//            $(this).addClass('cur'); urlstatus = true;
+//        } else {
+//            $(this).removeClass('cur');
+//        }
+//    });
+//    if (!urlstatus) {$("#menu a").eq(0).addClass('cur'); }
 
 /***/ }),
 
@@ -760,69 +818,159 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm._m(0),
-      _vm._v(" "),
-      _c("div", { staticClass: "aside" }, [
-        _c("ul", [
-          _c("li", { staticClass: "signIn" }, [
-            _c("img", { attrs: { src: "/dist/img/wang_light.png", alt: "" } }),
-            _c("span", [_vm._v(_vm._s(_vm.teacherDate.name))])
-          ]),
+      _c("div", { staticClass: "nav" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "navRight" }, [
+          _c("span", [_vm._v("生命科技学院科研管理系统")]),
           _vm._v(" "),
+          _c("div", { staticClass: "loginName" }, [
+            _c("img", { attrs: { src: "/dist/img/my.png", alt: "未加载" } }),
+            _vm._v(" "),
+            _c("span", [_vm._v(_vm._s(_vm.teacherDate.name))]),
+            _vm._v(" "),
+            _c("img", { attrs: { src: "/dist/img/home.png", alt: "未加载" } })
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "aside" },
+        [
           _c(
-            "li",
+            "p",
+            { staticClass: "signIn is-active" },
             [
-              _c("i", { staticClass: "el-icon-tickets" }),
-              _c("router-link", { attrs: { to: "/paper" } }, [_vm._v("论文")])
+              _c("router-link", { attrs: { to: "/" } }, [
+                _c("img", {
+                  attrs: { src: "/dist/img/wang_light.png", alt: "" }
+                }),
+                _c("span", [_vm._v(_vm._s(_vm.teacherDate.name))])
+              ])
             ],
             1
           ),
           _vm._v(" "),
-          _vm._m(1),
-          _vm._v(" "),
-          _vm._m(2),
-          _vm._v(" "),
-          _vm._m(3),
-          _vm._v(" "),
-          _vm._m(4),
-          _vm._v(" "),
-          _vm._m(5),
-          _vm._v(" "),
-          _vm._m(6),
-          _vm._v(" "),
-          _vm._m(7),
-          _vm._v(" "),
-          _c("li", [
-            _c("i", {
-              directives: [
+          _c(
+            "el-col",
+            { attrs: { span: 12 } },
+            [
+              _c(
+                "el-menu",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.show,
-                  expression: "show"
-                }
-              ],
-              staticClass: "el-icon-setting"
-            }),
-            _vm._v("  专家讲学")
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c("i", {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.show,
-                  expression: "show"
-                }
-              ],
-              staticClass: "el-icon-setting"
-            }),
-            _vm._v("  专担任学术团体职务")
-          ])
-        ])
-      ]),
+                  staticClass: "el-menu-vertical-demo",
+                  attrs: {
+                    "default-active": "2",
+                    "background-color": "#545c64",
+                    "text-color": "#fff",
+                    "active-text-color": "#ffd04b"
+                  },
+                  on: { open: _vm.handleOpen, close: _vm.handleClose }
+                },
+                [
+                  _c("el-menu-item", { attrs: { index: "1" } }, [
+                    _c("i", { staticClass: "el-icon-menu" }),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      { attrs: { slot: "title" }, slot: "title" },
+                      [
+                        _c("router-link", { attrs: { to: "/paper" } }, [
+                          _vm._v("论文")
+                        ])
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("el-menu-item", { attrs: { index: "2" } }, [
+                    _c("i", { staticClass: "el-icon-menu" }),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      { attrs: { slot: "title" }, slot: "title" },
+                      [
+                        _c("router-link", { attrs: { to: "/project" } }, [
+                          _vm._v("项目")
+                        ])
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("el-menu-item", { attrs: { index: "3" } }, [
+                    _c("i", { staticClass: "el-icon-document" }),
+                    _vm._v(" "),
+                    _c("span", { attrs: { slot: "title" }, slot: "title" }, [
+                      _vm._v("著作")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("el-menu-item", { attrs: { index: "4" } }, [
+                    _c("i", { staticClass: "el-icon-setting" }),
+                    _vm._v(" "),
+                    _c("span", { attrs: { slot: "title" }, slot: "title" }, [
+                      _vm._v("获奖")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("el-menu-item", { attrs: { index: "5" } }, [
+                    _c("i", { staticClass: "el-icon-menu" }),
+                    _vm._v(" "),
+                    _c("span", { attrs: { slot: "title" }, slot: "title" }, [
+                      _vm._v("专利")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("el-menu-item", { attrs: { index: "6" } }, [
+                    _c("i", { staticClass: "el-icon-menu" }),
+                    _vm._v(" "),
+                    _c("span", { attrs: { slot: "title" }, slot: "title" }, [
+                      _vm._v("成果鉴定")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("el-menu-item", { attrs: { index: "7" } }, [
+                    _c("i", { staticClass: "el-icon-document" }),
+                    _vm._v(" "),
+                    _c("span", { attrs: { slot: "title" }, slot: "title" }, [
+                      _vm._v("举办会议")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("el-menu-item", { attrs: { index: "8" } }, [
+                    _c("i", { staticClass: "el-icon-setting" }),
+                    _vm._v(" "),
+                    _c("span", { attrs: { slot: "title" }, slot: "title" }, [
+                      _vm._v("参加会议")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("el-menu-item", { attrs: { index: "9" } }, [
+                    _c("i", { staticClass: "el-icon-menu" }),
+                    _vm._v(" "),
+                    _c("span", { attrs: { slot: "title" }, slot: "title" }, [
+                      _vm._v("专家讲学")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("el-menu-item", { attrs: { index: "10" } }, [
+                    _c("i", { staticClass: "el-icon-menu" }),
+                    _vm._v(" "),
+                    _c("span", { attrs: { slot: "title" }, slot: "title" }, [
+                      _vm._v("担任学术团体职务")
+                    ])
+                  ])
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
       _vm._v(" "),
       _c("router-view")
     ],
@@ -834,89 +982,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "nav" }, [
-      _c("div", { staticClass: "navLeft" }, [
-        _c("img", { attrs: { src: "/dist/img/hist.png", alt: "未加载" } })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "navRight" }, [
-        _c("span", [
-          _c("img", { attrs: { src: "/dist/img/sort.png", alt: "未加载" } })
-        ]),
-        _vm._v(" "),
-        _c("span", [_vm._v("生命科技学院科研管理系统")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "loginName" }, [
-          _c("img", { attrs: { src: "/dist/img/my.png", alt: "未加载" } }),
-          _vm._v(" "),
-          _c("span", [_vm._v("金凯杰")]),
-          _vm._v(" "),
-          _c("img", { attrs: { src: "/dist/img/home.png", alt: "未加载" } })
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("i", { staticClass: "el-icon-edit-outline" }),
-      _vm._v("  项目")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("i", { staticClass: "el-icon-edit" }),
-      _vm._v("  著作")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("i", { staticClass: "el-icon-setting" }),
-      _vm._v("  获奖")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("i", { staticClass: "el-icon-star-on" }),
-      _vm._v("  专利")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("i", { staticClass: "el-icon-setting" }),
-      _vm._v("  成果鉴定")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("i", { staticClass: "el-icon-setting" }),
-      _vm._v("  举办会议")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("i", { staticClass: "el-icon-setting" }),
-      _vm._v("  参加会议")
+    return _c("div", { staticClass: "navLeft" }, [
+      _c("img", { attrs: { src: "/dist/img/hist.png", alt: "未加载" } })
     ])
   }
 ]
@@ -967,6 +1034,12 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
         path: '/addPaper',
         component: function component(resolve) {
             return void __webpack_require__.e/* require */(3).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(206)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+        }
+    }, {
+        name: 'project',
+        path: '/project',
+        component: function component(resolve) {
+            return void __webpack_require__.e/* require */(4).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(207)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }]
 
@@ -11437,6 +11510,116 @@ return jQuery;
 /***/ }),
 
 /***/ 79:
+/***/ (function(module, exports) {
+
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file.
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+module.exports = function normalizeComponent (
+  rawScriptExports,
+  compiledTemplate,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier /* server only */
+) {
+  var esModule
+  var scriptExports = rawScriptExports = rawScriptExports || {}
+
+  // ES6 modules interop
+  var type = typeof rawScriptExports.default
+  if (type === 'object' || type === 'function') {
+    esModule = rawScriptExports
+    scriptExports = rawScriptExports.default
+  }
+
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (compiledTemplate) {
+    options.render = compiledTemplate.render
+    options.staticRenderFns = compiledTemplate.staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = injectStyles
+  }
+
+  if (hook) {
+    var functional = options.functional
+    var existing = functional
+      ? options.render
+      : options.beforeCreate
+
+    if (!functional) {
+      // inject component registration as beforeCreate hook
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    } else {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return existing(h, context)
+      }
+    }
+  }
+
+  return {
+    esModule: esModule,
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+
+/***/ 80:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -11659,116 +11842,6 @@ function applyToTag (styleElement, obj) {
       styleElement.removeChild(styleElement.firstChild)
     }
     styleElement.appendChild(document.createTextNode(css))
-  }
-}
-
-
-/***/ }),
-
-/***/ 80:
-/***/ (function(module, exports) {
-
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file.
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier /* server only */
-) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
-
-  // ES6 modules interop
-  var type = typeof rawScriptExports.default
-  if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
-  }
-
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = injectStyles
-  }
-
-  if (hook) {
-    var functional = options.functional
-    var existing = functional
-      ? options.render
-      : options.beforeCreate
-
-    if (!functional) {
-      // inject component registration as beforeCreate hook
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    } else {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functioal component in vue file
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return existing(h, context)
-      }
-    }
-  }
-
-  return {
-    esModule: esModule,
-    exports: scriptExports,
-    options: options
   }
 }
 

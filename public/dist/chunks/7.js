@@ -1,24 +1,24 @@
 webpackJsonp([7],{
 
-/***/ 205:
+/***/ 204:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(214)
+  __webpack_require__(211)
 }
 var normalizeComponent = __webpack_require__(80)
 /* script */
-var __vue_script__ = __webpack_require__(216)
+var __vue_script__ = __webpack_require__(213)
 /* template */
-var __vue_template__ = __webpack_require__(217)
+var __vue_template__ = __webpack_require__(214)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-312dfdd0"
+var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -29,7 +29,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/teacher/paper.vue"
+Component.options.__file = "resources/assets/js/components/teacher/teacher.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -38,9 +38,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-312dfdd0", Component.options)
+    hotAPI.createRecord("data-v-bab69924", Component.options)
   } else {
-    hotAPI.reload("data-v-312dfdd0", Component.options)
+    hotAPI.reload("data-v-bab69924", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -52,23 +52,23 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 214:
+/***/ 211:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(215);
+var content = __webpack_require__(212);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(79)("3b10cb51", content, false, {});
+var update = __webpack_require__(79)("109a3001", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-312dfdd0\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./paper.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-312dfdd0\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./paper.vue");
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-bab69924\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./teacher.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-bab69924\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./teacher.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -79,7 +79,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 215:
+/***/ 212:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(48)(false);
@@ -87,14 +87,14 @@ exports = module.exports = __webpack_require__(48)(false);
 
 
 // module
-exports.push([module.i, "\nheader[data-v-312dfdd0]{\n    border-bottom: 1px solid #eee;\n}\n.paper[data-v-312dfdd0]{\n    font-size: 18px;\n    color: #090909;\n    display: inline-block;\n    padding: 23px 60px;\n    border-right: 1px solid #eee;\n}\n.load[data-v-312dfdd0]{\n    display: inline-block;\n    margin: 0;\n    padding: 16px 60px;\n    border-right: 1px solid #eee;\n}\n.navbo[data-v-312dfdd0]{\n    border-bottom: 1px solid #eee;\n    background: rgba(187, 187, 187, 0.1);\n    height: 40px;\n}\n.info[data-v-312dfdd0],.number[data-v-312dfdd0],.do[data-v-312dfdd0],.time[data-v-312dfdd0]{\n    display: inline-block;\n    padding: 10px;\n    font-size: 14px;\n}\n.number[data-v-312dfdd0]{\n    margin: 0 2% 0 3%;\n}\n.time[data-v-312dfdd0]{\n    margin: 0 6% 0 45%;\n}\n.lists[data-v-312dfdd0]{\n    border-bottom: 1px solid #eee;\n    height: 80px;\n}\n.del[data-v-312dfdd0],.times[data-v-312dfdd0],.infos[data-v-312dfdd0],.numbers[data-v-312dfdd0],.dos[data-v-312dfdd0],.tos[data-v-312dfdd0]{\n    display: inline-block;\n    padding: 10px;\n    font-size: 14px;\n}\n.lists span[data-v-312dfdd0]{\n    float: left;\n}\n.lists img[data-v-312dfdd0]{\n    width: 35px;\n}\n.numbers[data-v-312dfdd0]{\n    margin: 20px 2% 0 3.5%;\n}\n.picture[data-v-312dfdd0]{\n    margin: 20px 5px 0 1%;\n}\n.infos[data-v-312dfdd0]{\n    margin: 10px 2% 0 0;\n}\n.infos h5[data-v-312dfdd0]{\n    font-size: 14px;\n    font-weight: lighter;\n}\n.infos p[data-v-312dfdd0]{\n    font-size: 13px;\n    font-weight: lighter;\n    margin: 8px 0 0 0;\n}\n.infos p small[data-v-312dfdd0]{\n    color: orange;\n    padding: 0 0 0 5px;\n}\n.times[data-v-312dfdd0]{\n    margin: 22px 3% 0 37.5%;\n}\n.dos[data-v-312dfdd0],.tos[data-v-312dfdd0],.del[data-v-312dfdd0]{\n    font-size: 13px;\n    margin: 23px 0 0 0;\n}\n.dos[data-v-312dfdd0],.tos[data-v-312dfdd0]{\n    color: rgba(61, 112, 206, 0.77);\n}\n.del[data-v-312dfdd0]{\n    color: rgba(229, 28, 35, 1);\n}\n.clear[data-v-312dfdd0]{\n    clear: both;\n    content: '';\n}\n", ""]);
+exports.push([module.i, "\n.el-header {\n    background-color: #B3C0D1;\n    color: #333;\n    line-height: 60px;\n}\n.el-aside {\n    color: #333;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 216:
+/***/ 213:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -191,182 +191,293 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        return {
-            ArticleDate: {}
+        var item = {
+            date: '2016-05-02',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1518 弄'
         };
-    },
-
-    methods: {
-        getArticleData: function getArticleData() {
-            var self = this;
-            axios.get("selectallarticalDatas").then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.ArticleDate = data.datas;
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.msg,
-                        duration: 2000
-                    });
-                }
-            });
-        }
-    },
-    mounted: function mounted() {
-        this.getArticleData();
+        return {
+            tableData: Array(20).fill(item)
+        };
     }
 });
 
 /***/ }),
 
-/***/ 217:
+/***/ 214:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("header", [
-      _c("span", { staticClass: "paper" }, [
-        _vm._v("\n            论文\n        ")
-      ]),
-      _vm._v(" "),
+  return _c(
+    "div",
+    [
       _c(
-        "span",
-        { staticClass: "load" },
+        "el-container",
+        { staticStyle: { height: "500px", border: "1px solid #eee" } },
         [
           _c(
-            "router-link",
-            { attrs: { to: "/addPaper" } },
+            "el-aside",
+            {
+              staticStyle: { "background-color": "rgb(238, 241, 246)" },
+              attrs: { width: "200px" }
+            },
             [
-              _c("el-button", { attrs: { type: "primary" } }, [
-                _c("i", { staticClass: "el-icon-plus el-icon--left" }, [
-                  _vm._v("上传")
-                ])
-              ])
+              _c(
+                "el-menu",
+                { attrs: { "default-openeds": ["1", "3"] } },
+                [
+                  _c(
+                    "el-submenu",
+                    { attrs: { index: "1" } },
+                    [
+                      _c(
+                        "template",
+                        { slot: "title" },
+                        [
+                          _c("i", { staticClass: "el-icon-message" }),
+                          _c("router-link", { attrs: { to: "/paper" } }, [
+                            _vm._v("论文")
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-menu-item-group",
+                        [
+                          _c("template", { slot: "title" }, [_vm._v("分组一")]),
+                          _vm._v(" "),
+                          _c("el-menu-item", { attrs: { index: "1-1" } }, [
+                            _vm._v("选项1")
+                          ]),
+                          _vm._v(" "),
+                          _c("el-menu-item", { attrs: { index: "1-2" } }, [
+                            _vm._v("选项2")
+                          ])
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-menu-item-group",
+                        { attrs: { title: "分组2" } },
+                        [
+                          _c("el-menu-item", { attrs: { index: "1-3" } }, [
+                            _vm._v("选项3")
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-submenu",
+                        { attrs: { index: "1-4" } },
+                        [
+                          _c("template", { slot: "title" }, [_vm._v("选项4")]),
+                          _vm._v(" "),
+                          _c("el-menu-item", { attrs: { index: "1-4-1" } }, [
+                            _vm._v("选项4-1")
+                          ])
+                        ],
+                        2
+                      )
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "el-submenu",
+                    { attrs: { index: "2" } },
+                    [
+                      _c("template", { slot: "title" }, [
+                        _c("i", { staticClass: "el-icon-menu" }),
+                        _vm._v("导航二")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "el-menu-item-group",
+                        [
+                          _c("template", { slot: "title" }, [_vm._v("分组一")]),
+                          _vm._v(" "),
+                          _c("el-menu-item", { attrs: { index: "2-1" } }, [
+                            _vm._v("选项1")
+                          ]),
+                          _vm._v(" "),
+                          _c("el-menu-item", { attrs: { index: "2-2" } }, [
+                            _vm._v("选项2")
+                          ])
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-menu-item-group",
+                        { attrs: { title: "分组2" } },
+                        [
+                          _c("el-menu-item", { attrs: { index: "2-3" } }, [
+                            _vm._v("选项3")
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-submenu",
+                        { attrs: { index: "2-4" } },
+                        [
+                          _c("template", { slot: "title" }, [_vm._v("选项4")]),
+                          _vm._v(" "),
+                          _c("el-menu-item", { attrs: { index: "2-4-1" } }, [
+                            _vm._v("选项4-1")
+                          ])
+                        ],
+                        2
+                      )
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "el-submenu",
+                    { attrs: { index: "3" } },
+                    [
+                      _c("template", { slot: "title" }, [
+                        _c("i", { staticClass: "el-icon-setting" }),
+                        _vm._v("导航三")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "el-menu-item-group",
+                        [
+                          _c("template", { slot: "title" }, [_vm._v("分组一")]),
+                          _vm._v(" "),
+                          _c("el-menu-item", { attrs: { index: "3-1" } }, [
+                            _vm._v("选项1")
+                          ]),
+                          _vm._v(" "),
+                          _c("el-menu-item", { attrs: { index: "3-2" } }, [
+                            _vm._v("选项2")
+                          ])
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-menu-item-group",
+                        { attrs: { title: "分组2" } },
+                        [
+                          _c("el-menu-item", { attrs: { index: "3-3" } }, [
+                            _vm._v("选项3")
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-submenu",
+                        { attrs: { index: "3-4" } },
+                        [
+                          _c("template", { slot: "title" }, [_vm._v("选项4")]),
+                          _vm._v(" "),
+                          _c("el-menu-item", { attrs: { index: "3-4-1" } }, [
+                            _vm._v("选项4-1")
+                          ])
+                        ],
+                        2
+                      )
+                    ],
+                    2
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "el-container",
+            [
+              _c(
+                "el-header",
+                { staticStyle: { "text-align": "right", "font-size": "12px" } },
+                [
+                  _c(
+                    "el-dropdown",
+                    [
+                      _c("i", {
+                        staticClass: "el-icon-setting",
+                        staticStyle: { "margin-right": "15px" }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "el-dropdown-menu",
+                        { attrs: { slot: "dropdown" }, slot: "dropdown" },
+                        [
+                          _c("el-dropdown-item", [_vm._v("查看")]),
+                          _vm._v(" "),
+                          _c("el-dropdown-item", [_vm._v("新增")]),
+                          _vm._v(" "),
+                          _c("el-dropdown-item", [_vm._v("删除")])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("span", [_vm._v("王小虎")])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "el-main",
+                [
+                  _c(
+                    "el-table",
+                    { attrs: { data: _vm.tableData } },
+                    [
+                      _c("el-table-column", {
+                        attrs: { prop: "date", label: "日期", width: "140" }
+                      }),
+                      _vm._v(" "),
+                      _c("el-table-column", {
+                        attrs: { prop: "name", label: "姓名", width: "120" }
+                      }),
+                      _vm._v(" "),
+                      _c("el-table-column", {
+                        attrs: { prop: "address", label: "地址" }
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
             ],
             1
           )
         ],
         1
       )
-    ]),
-    _vm._v(" "),
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", { staticClass: "content" }, [
-      _c("div", { staticClass: "lists" }, [
-        _c("span", { staticClass: "numbers" }, [_vm._v("1")]),
-        _vm._v(" "),
-        _vm._m(1),
-        _vm._v(" "),
-        _vm._m(2),
-        _vm._v(" "),
-        _c("span", { staticClass: "times" }, [_vm._v("2018-09-10")]),
-        _vm._v(" "),
-        _c(
-          "span",
-          { staticClass: "dos" },
-          [_c("router-link", [_vm._v("编辑")])],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "span",
-          { staticClass: "tos" },
-          [_c("router-link", [_vm._v("导出")])],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "span",
-          { staticClass: "del" },
-          [_c("router-link", [_vm._v("删除")])],
-          1
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "clear" })
-      ])
-    ])
-  ])
+    ],
+    1
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "navbo" }, [
-      _c("span", { staticClass: "number" }, [_vm._v("序号")]),
-      _vm._v(" "),
-      _c("span", { staticClass: "info" }, [_vm._v("论文信息")]),
-      _vm._v(" "),
-      _c("span", { staticClass: "time" }, [_vm._v("发表时间")]),
-      _vm._v(" "),
-      _c("span", { staticClass: "do" }, [_vm._v("操作")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "picture" }, [
-      _c("img", { attrs: { src: "/dist/img/text.png", alt: "文件加载失败" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "infos" }, [
-      _c("h5", [_vm._v("示例：论文题目")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("作者 "), _c("small", [_vm._v("特别标注")])])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-312dfdd0", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-bab69924", module.exports)
   }
 }
 
