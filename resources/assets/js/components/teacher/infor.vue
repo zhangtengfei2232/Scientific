@@ -69,19 +69,19 @@
                         <p><el-input :value=" teacherDate.tenure_time" :disabled="true"></el-input><span class="change">修改</span></p>
                         <p>
                             <!--专业技术职务-->
-                            <el-input :value=" teacherDate.edu_school":disabled="true"></el-input>
+                            <el-input :value=" teacherDate.edu_school":disabled="true"></el-input><span class="change">修改</span>
                         </p>
                         <p><el-input :value="teacherDate.name" :disabled="true"></el-input><span class="change">修改</span></p>
                         <p><el-input :value="teacherDate.name" :disabled="true"></el-input><span class="change">修改</span></p>
                         <p>
                             <!--系列-->
-                            <el-input :value=" teacherDate.series" :disabled="true"></el-input>
+                            <el-input :value=" teacherDate.series" :disabled="true"></el-input><span class="change">修改</span>
                         </p>
                         <p><el-input :value="teacherDate.post_category" :disabled="true"></el-input><span class="change">修改</span></p>
                         <p><el-input :value=" teacherDate.company" :disabled="true"></el-input><span class="change">修改</span></p>
                         <!--请输入所属教研室和实验室-->
                         <p>
-                            <el-input :value=" teacherDate.te_re_department":disabled="true"></el-input>
+                            <el-input :value=" teacherDate.te_re_department":disabled="true"></el-input><span class="change">修改</span>
                         </p>
                         <p><el-input :value=" teacherDate.working_hours" :disabled="true"></el-input><span class="change">修改</span></p>
                         <p><el-input :value=" teacherDate.origin_work_unit" :disabled="true"></el-input><span class="change">修改</span></p>
@@ -282,12 +282,17 @@
     /*width: 33px;*/
     /*vertical-align:middle;*/
     /*}*/
+    .body{
+        Font-size:25%
+    }
     .detiaLeft{
         width: 10%;
         /*background-color: #2ab27b;*/
+        font-size:0.95em;
         float: left;
         margin-left: 10%;
     }
+
     .detialRight{
         width: 78%;
         float: right;

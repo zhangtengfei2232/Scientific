@@ -87,7 +87,7 @@ exports = module.exports = __webpack_require__(48)(false);
 
 
 // module
-exports.push([module.i, "\n.main{\n    width: 100%;\n    /*height: 935px;*/\n    margin:0 auto\n    /*text-align: center;*/\n    /*background-color: #1b6d85;*/\n    /*display: inline-block;*/\n}\n.content{\n    width: 87%;\n    /*background-color: #1b6d85;*/\n    /*margin: 0;*/\n    float: right;\n}\n.perInfo{\n    width: 100%;\n    height: 50px;\n    line-height: 52px;\n    /*margin-left: 20px;*/\n    border-bottom: 1px solid gray;\n}\n/*.detial{*/\n/*width: 80%;*/\n/*background-color: #5bc0de;*/\n/*}*/\n/*.detial li{*/\n/*height: 50px;*/\n/*}*/\n/*.space{*/\n/*margin-left: 70px;*/\n/*}*/\n/*.space img{*/\n/*width: 33px;*/\n/*vertical-align:middle;*/\n/*}*/\n.detiaLeft{\n    width: 10%;\n    /*background-color: #2ab27b;*/\n    float: left;\n    margin-left: 10%;\n}\n.detialRight{\n    width: 78%;\n    float: right;\n    /*background-color: #4bb1b1;*/\n}\n.detial{\n    margin-top: 3%;\n}\n.detial p{\n    line-height: 43px;\n    height:50px;\n}\n.detialRight img{\n    width: 33px;\n    /*vertical-align:middle;*/\n}\n.el-date-editor.el-input{\n    width: 217px;\n}\n.change{\n    color: rgba(0, 179, 138, 1);\n    margin-left:2%;\n}\n/*//组件*/\n.upload-demo{\n    width: 320px;\n}\n.el-input{\n    width: 217px;\n}\n", ""]);
+exports.push([module.i, "\n.main{\n    width: 100%;\n    /*height: 935px;*/\n    margin:0 auto\n    /*text-align: center;*/\n    /*background-color: #1b6d85;*/\n    /*display: inline-block;*/\n}\n.content{\n    width: 87%;\n    /*background-color: #1b6d85;*/\n    /*margin: 0;*/\n    float: right;\n}\n.perInfo{\n    width: 100%;\n    height: 50px;\n    line-height: 52px;\n    /*margin-left: 20px;*/\n    border-bottom: 1px solid gray;\n}\n/*.detial{*/\n/*width: 80%;*/\n/*background-color: #5bc0de;*/\n/*}*/\n/*.detial li{*/\n/*height: 50px;*/\n/*}*/\n/*.space{*/\n/*margin-left: 70px;*/\n/*}*/\n/*.space img{*/\n/*width: 33px;*/\n/*vertical-align:middle;*/\n/*}*/\n.body{\n    Font-size:25%\n}\n.detiaLeft{\n    width: 10%;\n    /*background-color: #2ab27b;*/\n    font-size:0.95em;\n    float: left;\n    margin-left: 10%;\n}\n.detialRight{\n    width: 78%;\n    float: right;\n    /*background-color: #4bb1b1;*/\n}\n.detial{\n    margin-top: 3%;\n}\n.detial p{\n    line-height: 43px;\n    height:50px;\n}\n.detialRight img{\n    width: 33px;\n    /*vertical-align:middle;*/\n}\n.el-date-editor.el-input{\n    width: 217px;\n}\n.change{\n    color: rgba(0, 179, 138, 1);\n    margin-left:2%;\n}\n/*//组件*/\n.upload-demo{\n    width: 320px;\n}\n.el-input{\n    width: 217px;\n}\n", ""]);
 
 // exports
 
@@ -562,7 +562,8 @@ var render = function() {
               [
                 _c("el-input", {
                   attrs: { value: _vm.teacherDate.edu_school, disabled: true }
-                })
+                }),
+                _c("span", { staticClass: "change" }, [_vm._v("修改")])
               ],
               1
             ),
@@ -594,7 +595,8 @@ var render = function() {
               [
                 _c("el-input", {
                   attrs: { value: _vm.teacherDate.series, disabled: true }
-                })
+                }),
+                _c("span", { staticClass: "change" }, [_vm._v("修改")])
               ],
               1
             ),
@@ -632,7 +634,8 @@ var render = function() {
                     value: _vm.teacherDate.te_re_department,
                     disabled: true
                   }
-                })
+                }),
+                _c("span", { staticClass: "change" }, [_vm._v("修改")])
               ],
               1
             ),
