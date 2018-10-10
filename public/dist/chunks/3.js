@@ -6,13 +6,13 @@ webpackJsonp([3],{
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(219)
+  __webpack_require__(221)
 }
-var normalizeComponent = __webpack_require__(80)
+var normalizeComponent = __webpack_require__(79)
 /* script */
-var __vue_script__ = __webpack_require__(221)
+var __vue_script__ = __webpack_require__(223)
 /* template */
-var __vue_template__ = __webpack_require__(222)
+var __vue_template__ = __webpack_require__(224)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -52,17 +52,17 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 219:
+/***/ 221:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(220);
+var content = __webpack_require__(222);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(79)("60edf08f", content, false, {});
+var update = __webpack_require__(80)("60edf08f", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -79,7 +79,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 220:
+/***/ 222:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(48)(false);
@@ -94,11 +94,38 @@ exports.push([module.i, "\n.contents{\n    width: 75%;\n    float: left;\n}\n.ad
 
 /***/ }),
 
-/***/ 221:
+/***/ 223:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -188,7 +215,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 222:
+/***/ 224:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -206,7 +233,7 @@ var render = function() {
           [
             _c(
               "el-form-item",
-              { attrs: { label: "活动名称" } },
+              { attrs: { label: "第一作者（通讯录作者）" } },
               [
                 _c("el-input", {
                   model: {
@@ -223,12 +250,194 @@ var render = function() {
             _vm._v(" "),
             _c(
               "el-form-item",
-              { attrs: { label: "活动区域" } },
+              { attrs: { label: "全部作者" } },
+              [
+                _c("el-input", {
+                  model: {
+                    value: _vm.form.name,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "name", $$v)
+                    },
+                    expression: "form.name"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "el-form-item",
+              { attrs: { label: "论文题目" } },
+              [
+                _c("el-input", {
+                  model: {
+                    value: _vm.form.name,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "name", $$v)
+                    },
+                    expression: "form.name"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "el-form-item",
+              { attrs: { label: "发表刊物名称" } },
+              [
+                _c("el-input", {
+                  model: {
+                    value: _vm.form.name,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "name", $$v)
+                    },
+                    expression: "form.name"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "el-form-item",
+              { attrs: { label: "刊号" } },
+              [
+                _c("el-input", {
+                  model: {
+                    value: _vm.form.name,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "name", $$v)
+                    },
+                    expression: "form.name"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "el-form-item",
+              { attrs: { label: "年，卷，期" } },
+              [
+                _c("el-input", {
+                  model: {
+                    value: _vm.form.name,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "name", $$v)
+                    },
+                    expression: "form.name"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "el-form-item",
+              { attrs: { label: "字数" } },
+              [
+                _c("el-input", {
+                  model: {
+                    value: _vm.form.name,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "name", $$v)
+                    },
+                    expression: "form.name"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "el-form-item",
+              { attrs: { label: "期刊级别" } },
+              [
+                _c(
+                  "el-checkbox-group",
+                  {
+                    model: {
+                      value: _vm.form.type,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "type", $$v)
+                      },
+                      expression: "form.type"
+                    }
+                  },
+                  [
+                    _c("el-checkbox", {
+                      attrs: { label: "CSCD", name: "type" }
+                    }),
+                    _vm._v(" "),
+                    _c("el-checkbox", {
+                      attrs: { label: "SCI", name: "type" }
+                    }),
+                    _vm._v(" "),
+                    _c("el-checkbox", { attrs: { label: "CN", name: "type" } }),
+                    _vm._v(" "),
+                    _c("el-checkbox", {
+                      attrs: { label: "CSCD核心", name: "type" }
+                    })
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "el-form-item",
+              { attrs: { label: "所属项目" } },
+              [
+                _c("el-input", {
+                  model: {
+                    value: _vm.form.name,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "name", $$v)
+                    },
+                    expression: "form.name"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "el-form-item",
+              { attrs: { label: "研究类别" } },
               [
                 _c(
                   "el-select",
                   {
-                    attrs: { placeholder: "请选择活动区域" },
+                    attrs: { placeholder: "请选择类别" },
+                    model: {
+                      value: _vm.form.region,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "region", $$v)
+                      },
+                      expression: "form.region"
+                    }
+                  },
+                  [
+                    _c("el-option", { attrs: { label: "1", value: "1" } }),
+                    _vm._v(" "),
+                    _c("el-option", { attrs: { label: "2", value: "2" } })
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "el-form-item",
+              { attrs: { label: "学科门类" } },
+              [
+                _c(
+                  "el-select",
+                  {
+                    attrs: { placeholder: "请选择学科门类" },
                     model: {
                       value: _vm.form.region,
                       callback: function($$v) {
@@ -239,11 +448,11 @@ var render = function() {
                   },
                   [
                     _c("el-option", {
-                      attrs: { label: "区域一", value: "shanghai" }
+                      attrs: { label: "农学", value: "nongxue" }
                     }),
                     _vm._v(" "),
                     _c("el-option", {
-                      attrs: { label: "区域二", value: "beijing" }
+                      attrs: { label: "作物学", value: "zuowuxue" }
                     })
                   ],
                   1
@@ -314,44 +523,6 @@ var render = function() {
                     expression: "form.delivery"
                   }
                 })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "el-form-item",
-              { attrs: { label: "活动性质" } },
-              [
-                _c(
-                  "el-checkbox-group",
-                  {
-                    model: {
-                      value: _vm.form.type,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "type", $$v)
-                      },
-                      expression: "form.type"
-                    }
-                  },
-                  [
-                    _c("el-checkbox", {
-                      attrs: { label: "美食/餐厅线上活动", name: "type" }
-                    }),
-                    _vm._v(" "),
-                    _c("el-checkbox", {
-                      attrs: { label: "地推活动", name: "type" }
-                    }),
-                    _vm._v(" "),
-                    _c("el-checkbox", {
-                      attrs: { label: "线下主题活动", name: "type" }
-                    }),
-                    _vm._v(" "),
-                    _c("el-checkbox", {
-                      attrs: { label: "单纯品牌曝光", name: "type" }
-                    })
-                  ],
-                  1
-                )
               ],
               1
             ),

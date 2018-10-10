@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="aside">
-            <p class="signIn"><img src="/dist/img/wang_light.png" alt=""><span>{{ teacherDate.name }}</span></p>
+            <p class="signIn is-active"><router-link to="/"><img src="/dist/img/wang_light.png" alt=""><span>{{ teacherDate.name }}</span></router-link></p>
             <el-col :span="12">
                 <el-menu
                         default-active="2"
@@ -33,7 +33,7 @@
                     </el-menu-item>
                     <el-menu-item index="2">
                         <i class="el-icon-menu"></i>
-                        <span slot="title">项目</span>
+                        <span slot="title"><router-link to="/project">项目</router-link></span>
                     </el-menu-item>
                     <el-menu-item index="3">
                         <i class="el-icon-document"></i>
@@ -103,6 +103,12 @@
                     }
                 });
             },
+            handleOpen(key, keyPath) {
+                console.log(key, keyPath);
+            },
+            handleClose(key, keyPath) {
+                console.log(key, keyPath);
+            },
             menu() {
                 var nav = document.getElementsByClassName("aside")[0].getElementsByTagName("li");
                 for(var i = 0;i <nav.length; i++){
@@ -111,13 +117,11 @@
                     }
                 }
             }
-
-
-
         },
         mounted() {
             this.getTeacherData();
         }
+
     }
 
 
@@ -218,6 +222,9 @@
         width:22%;
         vertical-align:middle;
         /*margin-top: 10px;*/
+    }
+    .signIn a{
+        color: white;
     }
     .aside li{
         height:55px;

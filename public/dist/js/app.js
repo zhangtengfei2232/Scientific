@@ -1,4 +1,4 @@
-webpackJsonp([5],{
+webpackJsonp([7],{
 
 /***/ 187:
 /***/ (function(module, exports, __webpack_require__) {
@@ -549,7 +549,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(195)
 }
-var normalizeComponent = __webpack_require__(80)
+var normalizeComponent = __webpack_require__(79)
 /* script */
 var __vue_script__ = __webpack_require__(198)
 /* template */
@@ -603,7 +603,7 @@ var content = __webpack_require__(196);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(79)("8d8bb1ea", content, false, {});
+var update = __webpack_require__(80)("8d8bb1ea", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -628,7 +628,7 @@ exports = module.exports = __webpack_require__(48)(false);
 
 
 // module
-exports.push([module.i, "\n*,ul,li,a{\n    margin: 0;\n    padding: 0;\n    text-decoration: none;\n    list-style: none;\n}\nbody, html{\n    width: 100%;\n    height: 100%;\n}\n.nav{\n    width: 100%;\n    height:35px;\n    background-color: plum;\n}\n.navLeft{\n    width: 12%;\n    height: 100%;\n    float: left;\n    text-align: center;\n    background-color:rgb(0,125,113) ;\n}\n.navRight{\n    width: 88%;\n    height: 100%;\n    float: right;\n    color: white;\n    text-align: center;\n    line-height:31px;\n    background-color: rgb(0,150,136);\n}\n.navLeft img{\n    width: 11%;\n    margin-top: 5px;\n}\n/*.navRight span:first-child{*/\n    /*width: 5%;*/\n    /*height: 100%;*/\n    /*float: left;*/\n/*}*/\n/*.navRight span:first-child img{*/\n    /*width:42%;*/\n/*}*/\n.loginName{\n    width:15%;\n    height: 100%;\n    float: right;\n}\n.loginName img{\n    width:10%;\n    vertical-align:middle;\n}\n.aside{\n    width: 12%;\n    /*height:100%;*/\n    padding-bottom:107%;\n    color: white;\n    float: left;\n    background-color:rgb(34,45,50);\n    /*display: inline-block;*/\n}\n/*.aside li:first-child{*/\n    /*!*position: absolute;*!*/\n    /*height: 70px;*/\n    /*background-color: black;*/\n    /*!*vertical-align:middle;*!*/\n/*}*/\n.aside p{\n    /*margin-left: 20px;*/\n    background-color: black;\n    height: 80px;\n    text-align: center;\n    line-height: 70px;\n    /*margin-top: 5px;*/\n}\n.signIn img{\n    width:22%;\n    vertical-align:middle;\n    /*margin-top: 10px;*/\n}\n.aside li{\n    height:55px;\n    text-align :center;\n    line-height: 55px;\n    background-color:rgb(34,45,50);\n    /*background-color: plum;*/\n    border-bottom: 0.5px solid gray;\n}\n.aside li a{\n    list-style: none;\n    color: white;\n    text-decoration: none;\n}\n/*组件*/\n.el-col-12 {\n    width: 100%;\n}\n", ""]);
+exports.push([module.i, "\n*,ul,li,a{\n    margin: 0;\n    padding: 0;\n    text-decoration: none;\n    list-style: none;\n}\nbody, html{\n    width: 100%;\n    height: 100%;\n}\n.nav{\n    width: 100%;\n    height:35px;\n    background-color: plum;\n}\n.navLeft{\n    width: 12%;\n    height: 100%;\n    float: left;\n    text-align: center;\n    background-color:rgb(0,125,113) ;\n}\n.navRight{\n    width: 88%;\n    height: 100%;\n    float: right;\n    color: white;\n    text-align: center;\n    line-height:31px;\n    background-color: rgb(0,150,136);\n}\n.navLeft img{\n    width: 11%;\n    margin-top: 5px;\n}\n/*.navRight span:first-child{*/\n    /*width: 5%;*/\n    /*height: 100%;*/\n    /*float: left;*/\n/*}*/\n/*.navRight span:first-child img{*/\n    /*width:42%;*/\n/*}*/\n.loginName{\n    width:15%;\n    height: 100%;\n    float: right;\n}\n.loginName img{\n    width:10%;\n    vertical-align:middle;\n}\n.aside{\n    width: 12%;\n    /*height:100%;*/\n    padding-bottom:107%;\n    color: white;\n    float: left;\n    background-color:rgb(34,45,50);\n    /*display: inline-block;*/\n}\n/*.aside li:first-child{*/\n    /*!*position: absolute;*!*/\n    /*height: 70px;*/\n    /*background-color: black;*/\n    /*!*vertical-align:middle;*!*/\n/*}*/\n.aside p{\n    /*margin-left: 20px;*/\n    background-color: black;\n    height: 80px;\n    text-align: center;\n    line-height: 70px;\n    /*margin-top: 5px;*/\n}\n.signIn img{\n    width:22%;\n    vertical-align:middle;\n    /*margin-top: 10px;*/\n}\n.signIn a{\n    color: white;\n}\n.aside li{\n    height:55px;\n    text-align :center;\n    line-height: 55px;\n    background-color:rgb(34,45,50);\n    /*background-color: plum;*/\n    border-bottom: 0.5px solid gray;\n}\n.aside li a{\n    list-style: none;\n    color: white;\n    text-decoration: none;\n}\n/*组件*/\n.el-col-12 {\n    width: 100%;\n}\n", ""]);
 
 // exports
 
@@ -674,6 +674,10 @@ module.exports = function listToStyles (parentId, list) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+var _methods;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -758,7 +762,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
-    methods: {
+    methods: (_methods = {
         handleOpen: function handleOpen() {},
         handleClose: function handleClose() {},
         getTeacherData: function getTeacherData() {
@@ -775,16 +779,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     });
                 }
             });
-        },
-        menu: function menu() {
-            var nav = document.getElementsByClassName("aside")[0].getElementsByTagName("li");
-            for (var i = 0; i < nav.length; i++) {
-                nav[i].onclick = function () {
-                    nav[i].style.backgroundColor = "red";
-                };
-            }
         }
-    },
+    }, _defineProperty(_methods, "handleOpen", function handleOpen(key, keyPath) {
+        console.log(key, keyPath);
+    }), _defineProperty(_methods, "handleClose", function handleClose(key, keyPath) {
+        console.log(key, keyPath);
+    }), _defineProperty(_methods, "menu", function menu() {
+        var nav = document.getElementsByClassName("aside")[0].getElementsByTagName("li");
+        for (var i = 0; i < nav.length; i++) {
+            nav[i].onclick = function () {
+                nav[i].style.backgroundColor = "red";
+            };
+        }
+    }), _methods),
     mounted: function mounted() {
         this.getTeacherData();
     }
@@ -834,10 +841,19 @@ var render = function() {
         "div",
         { staticClass: "aside" },
         [
-          _c("p", { staticClass: "signIn" }, [
-            _c("img", { attrs: { src: "/dist/img/wang_light.png", alt: "" } }),
-            _c("span", [_vm._v(_vm._s(_vm.teacherDate.name))])
-          ]),
+          _c(
+            "p",
+            { staticClass: "signIn is-active" },
+            [
+              _c("router-link", { attrs: { to: "/" } }, [
+                _c("img", {
+                  attrs: { src: "/dist/img/wang_light.png", alt: "" }
+                }),
+                _c("span", [_vm._v(_vm._s(_vm.teacherDate.name))])
+              ])
+            ],
+            1
+          ),
           _vm._v(" "),
           _c(
             "el-col",
@@ -874,9 +890,16 @@ var render = function() {
                   _c("el-menu-item", { attrs: { index: "2" } }, [
                     _c("i", { staticClass: "el-icon-menu" }),
                     _vm._v(" "),
-                    _c("span", { attrs: { slot: "title" }, slot: "title" }, [
-                      _vm._v("项目")
-                    ])
+                    _c(
+                      "span",
+                      { attrs: { slot: "title" }, slot: "title" },
+                      [
+                        _c("router-link", { attrs: { to: "/project" } }, [
+                          _vm._v("项目")
+                        ])
+                      ],
+                      1
+                    )
                   ]),
                   _vm._v(" "),
                   _c("el-menu-item", { attrs: { index: "3" } }, [
@@ -995,31 +1018,37 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
         name: 'infor',
         path: '/',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(10).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(203)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(2).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(203)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }, {
         name: 'teacher',
         path: '/teacher',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(8).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(204)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(0).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(204)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }, {
         name: 'paper',
         path: '/paper',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(9).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(205)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(1).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(205)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }, {
         name: 'addPaper',
         path: '/addPaper',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(7).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(206)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(3).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(206)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }, {
         name: 'selfInfor',
         path: '/selfInfor/:teacher_id',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(0).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(229)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(4).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(207)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+        }
+    }, {
+        name: 'project',
+        path: '/project',
+        component: function component(resolve) {
+            return void __webpack_require__.e/* require */(5).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(208)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }]
 
@@ -11490,6 +11519,116 @@ return jQuery;
 /***/ }),
 
 /***/ 79:
+/***/ (function(module, exports) {
+
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file.
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+module.exports = function normalizeComponent (
+  rawScriptExports,
+  compiledTemplate,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier /* server only */
+) {
+  var esModule
+  var scriptExports = rawScriptExports = rawScriptExports || {}
+
+  // ES6 modules interop
+  var type = typeof rawScriptExports.default
+  if (type === 'object' || type === 'function') {
+    esModule = rawScriptExports
+    scriptExports = rawScriptExports.default
+  }
+
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (compiledTemplate) {
+    options.render = compiledTemplate.render
+    options.staticRenderFns = compiledTemplate.staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = injectStyles
+  }
+
+  if (hook) {
+    var functional = options.functional
+    var existing = functional
+      ? options.render
+      : options.beforeCreate
+
+    if (!functional) {
+      // inject component registration as beforeCreate hook
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    } else {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return existing(h, context)
+      }
+    }
+  }
+
+  return {
+    esModule: esModule,
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+
+/***/ 80:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -11712,116 +11851,6 @@ function applyToTag (styleElement, obj) {
       styleElement.removeChild(styleElement.firstChild)
     }
     styleElement.appendChild(document.createTextNode(css))
-  }
-}
-
-
-/***/ }),
-
-/***/ 80:
-/***/ (function(module, exports) {
-
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file.
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier /* server only */
-) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
-
-  // ES6 modules interop
-  var type = typeof rawScriptExports.default
-  if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
-  }
-
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = injectStyles
-  }
-
-  if (hook) {
-    var functional = options.functional
-    var existing = functional
-      ? options.render
-      : options.beforeCreate
-
-    if (!functional) {
-      // inject component registration as beforeCreate hook
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    } else {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functioal component in vue file
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return existing(h, context)
-      }
-    }
-  }
-
-  return {
-    esModule: esModule,
-    exports: scriptExports,
-    options: options
   }
 }
 
