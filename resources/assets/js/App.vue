@@ -9,7 +9,7 @@
                 <span>生命科技学院科研管理系统</span>
                 <div class="loginName">
                     <img src="/dist/img/my.png" alt="未加载">
-                    <span>金凯杰</span>
+                    <span>{{ teacherDate.name }}</span>
                     <!--<span class="house">-->
                     <img src="/dist/img/home.png" alt="未加载">
                     <!--</span>-->
@@ -29,7 +29,7 @@
                         active-text-color="#ffd04b">
                     <el-menu-item index="1">
                         <i class="el-icon-menu"></i>
-                        <span slot="title">论文</span>
+                        <span slot="title"><router-link to="/paper">论文</router-link></span>
                     </el-menu-item>
                     <el-menu-item index="2">
                         <i class="el-icon-menu"></i>
@@ -82,6 +82,12 @@
             }
         },
         methods: {
+            handleOpen() {
+
+            },
+            handleClose () {
+
+            },
             getTeacherData(){
                 let self = this;
                 axios.get("selectteacher").then(function (response) {
@@ -102,9 +108,9 @@
                 for(var i = 0;i <nav.length; i++){
                     nav[i].onclick = function () {
                         nav[i].style.backgroundColor = "red";
+                    }
                 }
             }
-    }
 
 
 

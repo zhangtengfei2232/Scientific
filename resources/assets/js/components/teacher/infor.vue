@@ -212,7 +212,7 @@
 
                         </p>
                         <p>{{ teacherDate.edu_school }}<span class="change">修改</span></p>
-                        <p>{{  }}信息工程专业<span class="change">修改</span></p>
+                        <p>信息工程专业<span class="change">修改</span></p>
                         <p>
                             <input id="firstGraduation" type="date" value=""/>
                         </p>
@@ -275,19 +275,17 @@
         },
         methods: {
             handleRemove(file, fileList) {
-                console.log(file, fileList);
+                //console.log(file, fileList);
             },
             handlePreview(file){
-                console.log(file);
+                //console.log(file);
             },
             getTeacherData(){
                 let self = this;
                 axios.get("selectteacher").then(function (response) {
                     var data = response.data;
-                    console.log(data);
                     if(data.code == 0){
                         self.teacherDate = data.datas;
-                        console.log(self.teacherDate);
                         if (teacherDate.teacher_id == 1) {
                             show = true;
                         }else if(teacherDate.teacher_id == 2) {
