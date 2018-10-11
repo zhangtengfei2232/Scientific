@@ -189,6 +189,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -229,7 +238,7 @@ var render = function() {
       [
         _c(
           "el-form",
-          { ref: "form", attrs: { model: _vm.form, "label-width": "80px" } },
+          { ref: "form", attrs: { model: _vm.form, "label-width": "200px" } },
           [
             _c(
               "el-form-item",
@@ -320,15 +329,24 @@ var render = function() {
               "el-form-item",
               { attrs: { label: "年，卷，期" } },
               [
-                _c("el-input", {
-                  model: {
-                    value: _vm.form.name,
-                    callback: function($$v) {
-                      _vm.$set(_vm.form, "name", $$v)
-                    },
-                    expression: "form.name"
-                  }
-                })
+                _c(
+                  "el-col",
+                  { attrs: { span: 11 } },
+                  [
+                    _c("el-date-picker", {
+                      staticStyle: { width: "100%" },
+                      attrs: { type: "date", placeholder: "选择日期" },
+                      model: {
+                        value: _vm.form.date1,
+                        callback: function($$v) {
+                          _vm.$set(_vm.form, "date1", $$v)
+                        },
+                        expression: "form.date1"
+                      }
+                    })
+                  ],
+                  1
+                )
               ],
               1
             ),
@@ -371,13 +389,19 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("el-checkbox", {
-                      attrs: { label: "SCI", name: "type" }
+                      attrs: { label: "核心", name: "type" }
                     }),
                     _vm._v(" "),
-                    _c("el-checkbox", { attrs: { label: "CN", name: "type" } }),
+                    _c("el-checkbox", {
+                      attrs: { label: "一般CN", name: "type" }
+                    }),
                     _vm._v(" "),
                     _c("el-checkbox", {
-                      attrs: { label: "CSCD核心", name: "type" }
+                      attrs: { label: "国外出版外文刊", name: "type" }
+                    }),
+                    _vm._v(" "),
+                    _c("el-checkbox", {
+                      attrs: { label: "其他", name: "type" }
                     })
                   ],
                   1
@@ -448,6 +472,50 @@ var render = function() {
                   },
                   [
                     _c("el-option", {
+                      attrs: { label: "逻辑学", value: "nongxue" }
+                    }),
+                    _vm._v(" "),
+                    _c("el-option", {
+                      attrs: { label: "宗教学", value: "nongxue" }
+                    }),
+                    _vm._v(" "),
+                    _c("el-option", {
+                      attrs: { label: "语言学", value: "nongxue" }
+                    }),
+                    _vm._v(" "),
+                    _c("el-option", {
+                      attrs: { label: "中国文学", value: "nongxue" }
+                    }),
+                    _vm._v(" "),
+                    _c("el-option", {
+                      attrs: { label: "外国文学", value: "nongxue" }
+                    }),
+                    _vm._v(" "),
+                    _c("el-option", {
+                      attrs: { label: "艺术学", value: "nongxue" }
+                    }),
+                    _vm._v(" "),
+                    _c("el-option", {
+                      attrs: { label: "历史学", value: "nongxue" }
+                    }),
+                    _vm._v(" "),
+                    _c("el-option", {
+                      attrs: { label: "考古学", value: "nongxue" }
+                    }),
+                    _vm._v(" "),
+                    _c("el-option", {
+                      attrs: { label: "经济学", value: "nongxue" }
+                    }),
+                    _vm._v(" "),
+                    _c("el-option", {
+                      attrs: { label: "政治学", value: "nongxue" }
+                    }),
+                    _vm._v(" "),
+                    _c("el-option", {
+                      attrs: { label: "法学", value: "nongxue" }
+                    }),
+                    _vm._v(" "),
+                    _c("el-option", {
                       attrs: { label: "农学", value: "nongxue" }
                     }),
                     _vm._v(" "),
@@ -463,110 +531,57 @@ var render = function() {
             _vm._v(" "),
             _c(
               "el-form-item",
-              { attrs: { label: "活动时间" } },
-              [
-                _c(
-                  "el-col",
-                  { attrs: { span: 11 } },
-                  [
-                    _c("el-date-picker", {
-                      staticStyle: { width: "100%" },
-                      attrs: { type: "date", placeholder: "选择日期" },
-                      model: {
-                        value: _vm.form.date1,
-                        callback: function($$v) {
-                          _vm.$set(_vm.form, "date1", $$v)
-                        },
-                        expression: "form.date1"
-                      }
-                    })
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c("el-col", { staticClass: "line", attrs: { span: 2 } }, [
-                  _vm._v("-")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "el-col",
-                  { attrs: { span: 11 } },
-                  [
-                    _c("el-time-picker", {
-                      staticStyle: { width: "100%" },
-                      attrs: { type: "fixed-time", placeholder: "选择时间" },
-                      model: {
-                        value: _vm.form.date2,
-                        callback: function($$v) {
-                          _vm.$set(_vm.form, "date2", $$v)
-                        },
-                        expression: "form.date2"
-                      }
-                    })
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "el-form-item",
-              { attrs: { label: "即时配送" } },
-              [
-                _c("el-switch", {
-                  model: {
-                    value: _vm.form.delivery,
-                    callback: function($$v) {
-                      _vm.$set(_vm.form, "delivery", $$v)
-                    },
-                    expression: "form.delivery"
-                  }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "el-form-item",
-              { attrs: { label: "特殊资源" } },
-              [
-                _c(
-                  "el-radio-group",
-                  {
-                    model: {
-                      value: _vm.form.resource,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "resource", $$v)
-                      },
-                      expression: "form.resource"
-                    }
-                  },
-                  [
-                    _c("el-radio", { attrs: { label: "线上品牌商赞助" } }),
-                    _vm._v(" "),
-                    _c("el-radio", { attrs: { label: "线下场地免费" } })
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "el-form-item",
-              { attrs: { label: "活动形式" } },
+              { attrs: { label: "积分" } },
               [
                 _c("el-input", {
-                  attrs: { type: "textarea" },
                   model: {
-                    value: _vm.form.desc,
+                    value: _vm.form.name,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "desc", $$v)
+                      _vm.$set(_vm.form, "name", $$v)
                     },
-                    expression: "form.desc"
+                    expression: "form.name"
                   }
                 })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "el-form-item",
+              { attrs: { label: "学校认定刊物级别" } },
+              [
+                _c("el-input", {
+                  model: {
+                    value: _vm.form.name,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "name", $$v)
+                    },
+                    expression: "form.name"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "el-form-item",
+              { attrs: { label: "论文全文PDF上传" } },
+              [
+                _c(
+                  "el-upload",
+                  {
+                    staticClass: "upload-demo",
+                    attrs: { drag: "", action: "#", multiple: "" }
+                  },
+                  [
+                    _c("i", { staticClass: "el-icon-upload" }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "el-upload__text" }, [
+                      _vm._v("将文件拖到此处，或"),
+                      _c("em", [_vm._v("点击上传")])
+                    ])
+                  ]
+                )
               ],
               1
             ),

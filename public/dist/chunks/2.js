@@ -221,32 +221,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -331,7 +305,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var data = response.data;
                 if (data.code == 0) {
                     self.teacherDate = data.datas;
-                    if (teacherDate.teacher_id == 1) {
+                    if (self.teacherDate.teacher_id == 1) {
                         show = true;
                     } else if (self.teacherDate.teacher_id == 2) {
                         show = true;
@@ -714,92 +688,6 @@ var render = function() {
             _vm._v(" "),
             _c("p"),
             _c("br"),
-            _vm._v("\n<<<<<<< HEAD\n                        "),
-            _c(
-              "p",
-              [
-                [
-                  _c(
-                    "el-select",
-                    {
-                      attrs: { placeholder: "请选择" },
-                      model: {
-                        value: _vm.value,
-                        callback: function($$v) {
-                          _vm.value = $$v
-                        },
-                        expression: "value"
-                      }
-                    },
-                    _vm._l(_vm.options, function(item) {
-                      return _c("el-option", {
-                        key: item.value,
-                        attrs: { label: item.label, value: item.value }
-                      })
-                    })
-                  )
-                ]
-              ],
-              2
-            ),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v(_vm._s(_vm.teacherDate.edu_school)),
-              _c("span", { staticClass: "change" }, [_vm._v("修改")])
-            ]),
-            _vm._v(" "),
-            _vm._m(3),
-            _vm._v(" "),
-            _vm._m(4),
-            _vm._v("\n=======\n                        "),
-            _c(
-              "p",
-              [
-                _c("el-input", {
-                  attrs: { value: _vm.teacherDate.academic_id, disabled: true }
-                }),
-                _c("span", { staticClass: "change" }, [_vm._v("修改")])
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "p",
-              [
-                _c("el-input", {
-                  attrs: { value: _vm.teacherDate.edu_school, disabled: true }
-                }),
-                _c("span", { staticClass: "change" }, [_vm._v("修改")])
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "p",
-              [
-                _c("el-input", {
-                  attrs: { value: _vm.teacherDate.name, disabled: true }
-                }),
-                _c("span", { staticClass: "change" }, [_vm._v("修改")])
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "p",
-              [
-                _c("el-input", {
-                  attrs: { value: _vm.teacherDate.name, disabled: true }
-                }),
-                _c("span", { staticClass: "change" }, [_vm._v("修改")])
-              ],
-              1
-            ),
-            _vm._v(
-              "\n>>>>>>> 0d8b49a6f808d6d97843a9ecb98f3df0c5d5d499\n                        "
-            ),
-            _c("p"),
-            _c("br"),
             _vm._v(" "),
             _c(
               "p",
@@ -1078,23 +966,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("p", [
       _c("img", { attrs: { src: "/dist/img/pic_fill.png", alt: "未加载" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("信息工程专业"),
-      _c("span", { staticClass: "change" }, [_vm._v("修改")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _c("input", { attrs: { id: "firstGraduation", type: "date", value: "" } })
     ])
   }
 ]

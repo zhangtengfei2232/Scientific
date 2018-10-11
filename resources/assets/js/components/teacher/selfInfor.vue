@@ -1,6 +1,8 @@
 <template>
     <div>
-        <div class=""></div>
+        <div class="table">
+            3
+        </div>
         <h1>{{ this.$route.params.teacher_id }}</h1>
     </div>
 </template>
@@ -25,7 +27,7 @@ export default {
                         self.$notify({
                             type: 'error',
                             message: data.msg,
-                            duration: 2000,
+                            duration: 2000,         
                         });
                     }
                 });

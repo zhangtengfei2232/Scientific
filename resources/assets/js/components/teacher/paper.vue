@@ -11,13 +11,15 @@
             </span>
         </header>
         <div class="navbo">
+            <span class="checks"><el-checkbox v-model="checked"></el-checkbox></span>
             <span class="number">序号</span>   
             <span class="info">论文信息</span>
             <span class="time">发表时间</span>
             <span class="do">操作</span>
         </div>
         <div class="content">
-            <div class="lists" v-for="(item,index) in ArticleDate" :key="index" @click="sentArticleSelfData(item.teacher_id)">
+            <div class="lists" v-for="(item,index) in ArticleDate" :key="index">
+                <span class="check"><el-checkbox v-model="checked"></el-checkbox></span>
                 <span class="numbers">{{ item.teacher_id }}</span>
                 <span class="picture"><img src="/dist/img/text.png" alt="文件加载失败"></span>
                 <span class="infos">
@@ -27,6 +29,7 @@
                 <span class="times">2018-09-10</span>
                 <span class="dos"><router-link to="/">编辑</router-link></span>
                 <span class="tos"><router-link to="/">导出</router-link></span>
+                <span class="dos" @click="sentArticleSelfData(item.teacher_id)">查看</span>
                 <span class="del"><router-link to="/">删除</router-link></span>
                 <div class="clear"></div>
             </div>
@@ -85,6 +88,12 @@
     .numbers{
         margin: 20px 2% 0 3.5%;
     }
+    .check{
+        margin: 25px 2% 0 3%;
+    }
+    .checks{
+        margin: 0 2% 0 3%;
+    }
     .picture{
         margin: 20px 5px 0 1%;
     }
@@ -110,6 +119,7 @@
     .dos,.tos,.del{
         font-size: 13px;
         margin: 23px 0 0 0;
+        color: rgba(61, 112, 206, 0.77);
     }
     .dos a,.tos a{
         color: rgba(61, 112, 206, 0.77);
@@ -127,6 +137,7 @@
         data() {
             return {
                 ArticleDate: [],
+                checked: false,
             }
         },
         methods: {
