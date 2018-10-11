@@ -80,35 +80,29 @@
                         <p><el-input :value="teacherDate.post_category" :disabled="true"></el-input><span class="change">修改</span></p>
                         <p><el-input :value=" teacherDate.company" :disabled="true"></el-input><span class="change">修改</span></p>
                         <!--请输入所属教研室和实验室-->
-                        <p>
-                            <el-input :value=" teacherDate.te_re_department":disabled="true"></el-input><span class="change">修改</span>
-                        </p>
+                        <p><el-input :value=" teacherDate.te_re_department":disabled="true"></el-input><span class="change">修改</span></p>
                         <p><el-input :value=" teacherDate.working_hours" :disabled="true"></el-input><span class="change">修改</span></p>
                         <p><el-input :value=" teacherDate.origin_work_unit" :disabled="true"></el-input><span class="change">修改</span></p>
                         <p><el-input :value=" teacherDate.certificate_num" :disabled="true"></el-input><span class="change">修改</span></p>
                         <p><el-input :value=" teacherDate.identity_card" :disabled="true"></el-input><span class="change">修改</span></p>
                         <p></p><br>
+                        <!--第一学历-->
                         <p><el-input :value=" teacherDate.name" :disabled="true"></el-input><span class="change">修改</span></p>
-                        <p><el-input :value=" teacherDate.edu_school" :disabled="true"></el-input><span class="change">修改</span></p>
-                        <p><el-input :value=" teacherDate.name" :disabled="true"></el-input><span class="change">修改</span></p>
-                        <p>
-                            <el-input :value=" teacherDate.name" :disabled="true"></el-input><span class="change">修改</span>
-                        </p>
-                        <!--<p><el-input :value=" teacherDate.academic_id" :disabled="true"></el-input><span class="change">修改</span></p>-->
-                        <!--<p><el-input :value=" teacherDate.edu_school" :disabled="true"></el-input><span class="change">修改</span></p>-->
-                        <!--<p><el-input :value=" teacherDate.name" :disabled="true"></el-input><span class="change">修改</span></p>-->
-                        <!--<p><el-input :value=" teacherDate.name" :disabled="true"></el-input><span class="change">修改</span></p>-->
-                        <br>
-                        <p><el-input :value=" teacherDate.academic_id" :disabled="true"></el-input><span class="change">修改</span></p>
                         <p><el-input :value=" teacherDate.edu_school" :disabled="true"></el-input><span class="change">修改</span></p>
                         <p><el-input :value=" teacherDate.name" :disabled="true"></el-input><span class="change">修改</span></p>
                         <p><el-input :value=" teacherDate.name" :disabled="true"></el-input><span class="change">修改</span></p>
                         <p></p><br>
+                        <!--最高学历-->
+                        <p><el-input :value=" teacherDate.academic_id" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.edu_school" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.name" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.name" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <br>
                         <p><el-input :value=" teacherDate.work_major" :disabled="true"></el-input><span class="change">修改</span></p>
                         <p><el-input :value=" teacherDate.belong_subject" :disabled="true"></el-input><span class="change">修改</span></p>
                         <p><el-input :value=" teacherDate.teach_course" :disabled="true"></el-input><span class="change">修改</span></p><br>
                         <br><br>
-                        <!--<p><el-input :value=" teacherDate.master_insid" :disabled="true"></el-input><span class="change">修改</span></p>-->
+                        <!--硕博导-->
                         <p><el-input :value=" teacherDate.name" :disabled="true"></el-input><span class="change">修改</span></p>
                         <p><el-input :value=" teacherDate.name" :disabled="true"></el-input><span class="change">修改</span>
                         </p><br>
@@ -214,11 +208,11 @@
                     var data = response.data;
                     if(data.code == 0){
                         self.teacherDate = data.datas;
-                        if (teacherDate.teacher_id == 1) {
-                            show = true;
-                        }else if(self.teacherDate.teacher_id == 2) {
-                            show = true;
-                        }
+//                        if (self.teacherDate.teacher_id == 1) {
+//                            show = true;
+//                        }else if(self.teacherDate.teacher_id == 2) {
+//                            show = true;
+//                        }
                     }else{
                         self.$notify({
                             type: 'error',
