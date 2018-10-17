@@ -82,6 +82,12 @@
             }
         },
         methods: {
+            handleOpen() {
+
+            },
+            handleClose () {
+
+            },
             getTeacherData(){
                 let self = this;
                 axios.get("selectteacher").then(function (response) {
@@ -110,8 +116,7 @@
                         nav[i].style.backgroundColor = "red";
                     }
                 }
-            },
-
+            }
         },
         mounted() {
             this.getTeacherData();

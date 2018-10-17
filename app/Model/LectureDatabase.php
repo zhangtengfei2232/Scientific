@@ -9,9 +9,7 @@
 namespace App\Model;
 
 
-use Illuminate\Database\Eloquent\Model;
-
-class LectureDatabase  extends Model
+class LectureDatabase  extends ModelDatabase
 {
 
 }

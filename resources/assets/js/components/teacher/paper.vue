@@ -17,17 +17,17 @@
             <span class="do">操作</span>
         </div>
         <div class="content">
-            <div class="lists">
-                <span class="numbers">1</span>
+            <div class="lists" v-for="(item,index) in ArticleDate" :key="index" @click="sentArticleSelfData(item.teacher_id)">
+                <span class="numbers">{{ item.teacher_id }}</span>
                 <span class="picture"><img src="/dist/img/text.png" alt="文件加载失败"></span>
                 <span class="infos">
-                    <h5>示例：论文题目</h5>
+                    <h5>{{ item.title }}</h5>
                     <p>作者 <small>特别标注</small></p>
                 </span>
                 <span class="times">2018-09-10</span>
-                <span class="dos"><router-link>编辑</router-link></span>
-                <span class="tos"><router-link>导出</router-link></span>
-                <span class="del"><router-link>删除</router-link></span>
+                <span class="dos"><router-link to="/">编辑</router-link></span>
+                <span class="tos"><router-link to="/">导出</router-link></span>
+                <span class="del"><router-link to="/">删除</router-link></span>
                 <div class="clear"></div>
             </div>
         </div>
@@ -111,10 +111,10 @@
         font-size: 13px;
         margin: 23px 0 0 0;
     }
-    .dos,.tos{
+    .dos a,.tos a{
         color: rgba(61, 112, 206, 0.77);
     }
-    .del{
+    .del a{
         color: rgba(229, 28, 35, 1);
     }
     .clear{
@@ -126,13 +126,13 @@
     export default {
         data() {
             return {
-                ArticleDate: {},
+                ArticleDate: [],
             }
         },
         methods: {
             getArticleData() {
                 let self = this;
-                axios.get("selectallarticalDatas").then(function (response) {
+                axios.get("selectallattical").then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
                         self.ArticleDate = data.datas;
@@ -144,7 +144,13 @@
                         });
                     }
                 });
+            },
+            sentArticleSelfData(teacher_id) {
+                this.$router.push({
+                path: `/selfInfor/${teacher_id}`,
+                })
             }
+
         },
         mounted() {
             this.getArticleData();

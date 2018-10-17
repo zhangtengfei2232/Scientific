@@ -1,9 +1,8 @@
 <?php
 namespace App\Model;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-class ArticalDatabase  extends Model
+class ArticalDatabase  extends ModelDatabase
 {
      //查找个人一篇论文信息
     /**
@@ -12,7 +11,10 @@ class ArticalDatabase  extends Model
      */
      public  static function selectArticalDatas($art_id)
      {
-         return DB::table('artical')->where('art_id',$art_id)->get();
+
+        $result =  DB::table('artical')->where('art_id',$art_id)->get();
+        $result->art_time = date('Y-m-d',$result->art_time);
+        return $result;
      }
      //查找个人全部论文信息
      public static function selectAllArticalDatas($teacher_id)
@@ -29,4 +31,5 @@ class ArticalDatabase  extends Model
     {
 
     }
+
 }

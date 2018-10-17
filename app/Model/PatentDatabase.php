@@ -9,9 +9,8 @@
 namespace App\Model;
 
 
-use Illuminate\Database\Eloquent\Model;
 
-class PatentDatabase  extends Model
+class PatentDatabase  extends ModelDatabase
 {
 
 }

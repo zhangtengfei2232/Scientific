@@ -6,7 +6,7 @@
  * @package  Laravel
  * @author   Taylor Otwell <taylor@laravel.com>
  */
-
+ini_set("memory_limit","1G");      //为PHP开辟运行内存
 define('LARAVEL_START', microtime(true));
 
 /*

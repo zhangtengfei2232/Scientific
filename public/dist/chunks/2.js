@@ -6,13 +6,13 @@ webpackJsonp([2],{
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(208)
+  __webpack_require__(209)
 }
 var normalizeComponent = __webpack_require__(79)
 /* script */
-var __vue_script__ = __webpack_require__(210)
+var __vue_script__ = __webpack_require__(211)
 /* template */
-var __vue_template__ = __webpack_require__(211)
+var __vue_template__ = __webpack_require__(212)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -52,13 +52,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 208:
+/***/ 209:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(209);
+var content = __webpack_require__(210);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -79,7 +79,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 209:
+/***/ 210:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(48)(false);
@@ -94,11 +94,32 @@ exports.push([module.i, "\n.main{\n    width: 100%;\n    /*height: 935px;*/\n   
 
 /***/ }),
 
-/***/ 210:
+/***/ 211:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -276,10 +297,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         handleRemove: function handleRemove(file, fileList) {
-            console.log(file, fileList);
+            //console.log(file, fileList);
         },
         handlePreview: function handlePreview(file) {
-            console.log(file);
+            //console.log(file);
         },
 
 
@@ -308,11 +329,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var self = this;
             axios.get("selectteacher").then(function (response) {
                 var data = response.data;
-                console.log(data);
                 if (data.code == 0) {
                     self.teacherDate = data.datas;
-                    console.log(self.teacherDate);
-                    if (self.teacherDate.teacher_id == 1) {
+                    if (teacherDate.teacher_id == 1) {
                         show = true;
                     } else if (self.teacherDate.teacher_id == 2) {
                         show = true;
@@ -349,7 +368,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 211:
+/***/ 212:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -695,7 +714,44 @@ var render = function() {
             _vm._v(" "),
             _c("p"),
             _c("br"),
+            _vm._v("\n<<<<<<< HEAD\n                        "),
+            _c(
+              "p",
+              [
+                [
+                  _c(
+                    "el-select",
+                    {
+                      attrs: { placeholder: "请选择" },
+                      model: {
+                        value: _vm.value,
+                        callback: function($$v) {
+                          _vm.value = $$v
+                        },
+                        expression: "value"
+                      }
+                    },
+                    _vm._l(_vm.options, function(item) {
+                      return _c("el-option", {
+                        key: item.value,
+                        attrs: { label: item.label, value: item.value }
+                      })
+                    })
+                  )
+                ]
+              ],
+              2
+            ),
             _vm._v(" "),
+            _c("p", [
+              _vm._v(_vm._s(_vm.teacherDate.edu_school)),
+              _c("span", { staticClass: "change" }, [_vm._v("修改")])
+            ]),
+            _vm._v(" "),
+            _vm._m(3),
+            _vm._v(" "),
+            _vm._m(4),
+            _vm._v("\n=======\n                        "),
             _c(
               "p",
               [
@@ -739,7 +795,9 @@ var render = function() {
               ],
               1
             ),
-            _vm._v(" "),
+            _vm._v(
+              "\n>>>>>>> 0d8b49a6f808d6d97843a9ecb98f3df0c5d5d499\n                        "
+            ),
             _c("p"),
             _c("br"),
             _vm._v(" "),
@@ -1020,6 +1078,23 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("p", [
       _c("img", { attrs: { src: "/dist/img/pic_fill.png", alt: "未加载" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", [
+      _vm._v("信息工程专业"),
+      _c("span", { staticClass: "change" }, [_vm._v("修改")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", [
+      _c("input", { attrs: { id: "firstGraduation", type: "date", value: "" } })
     ])
   }
 ]

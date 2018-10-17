@@ -9,9 +9,7 @@
 namespace App\Model;
 
 
-use Illuminate\Database\Eloquent\Model;
-
-class OpusDatabase  extends Model
+class OpusDatabase  extends ModelDatabase
 {
 
 }

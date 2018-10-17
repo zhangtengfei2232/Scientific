@@ -28,11 +28,15 @@ export default new VueRouter({
               component: resolve => void(require(['../components/teacher/addPaper.vue'], resolve))
           },
           {
+            name: 'selfInfor',
+            path: '/selfInfor/:teacher_id',
+            component: resolve => void(require(['../components/teacher/selfInfor.vue'], resolve))
+          },
+          {
               name: 'project',
               path: '/project',
               component: resolve => void(require(['../components/teacher/project.vue'], resolve))
           },
-
       ]
 
 })
