@@ -9,6 +9,24 @@
                     <el-button type="primary"><i class="el-icon-plus el-icon--left">上传</i></el-button>
                 </router-link>
             </span>
+            <span class="searchtime">
+                <el-form>
+                    <div class="block">
+                        <span class="demonstration">按发表时间检索:</span>
+                        <el-date-picker
+                        v-model="form.data1"
+                        type="date"
+                        placeholder="选择日期">
+                        </el-date-picker>
+                        <span>-</span>
+                        <el-date-picker
+                        v-model="form.data2"
+                        type="date"
+                        placeholder="选择日期">
+                        </el-date-picker>
+                    </div>
+                </el-form>
+            </span>
         </header>
         <div class="navbo">
             <span class="checks"><el-checkbox v-model="checked"></el-checkbox></span>
@@ -53,6 +71,14 @@
         margin: 0;
         padding: 16px 60px;
         border-right: 1px solid #eee;
+    }
+    .searchtime{
+         width: 45%;
+         display: inline-block;
+         margin: 15px 0 0 18%;
+    }
+    .demonstration{
+        font-weight: lighter;
     }
     .navbo{
         border-bottom: 1px solid #eee;
@@ -114,7 +140,7 @@
         padding: 0 0 0 5px;
     }
     .times{
-        margin: 22px 3% 0 37.5%;
+        margin: 22px 2% 0 39%;
     }
     .dos,.tos,.del{
         font-size: 13px;
@@ -138,6 +164,10 @@
             return {
                 ArticleDate: [],
                 checked: false,
+                form: {
+                    data1: '',
+                    data2: '',
+                },
             }
         },
         methods: {
@@ -156,9 +186,9 @@
                     }
                 });
             },
-            sentArticleSelfData(teacher_id) {
+            sentArticleSelfData(paper_id) {
                 this.$router.push({
-                path: `/selfInfor/${teacher_id}`,
+                path: `/selfInfor/${paper_id}`,
                 })
             }
 

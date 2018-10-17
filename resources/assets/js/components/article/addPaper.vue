@@ -26,13 +26,13 @@
                     <el-input v-model="form.name"></el-input>
                 </el-form-item>
                 <el-form-item label="期刊级别">
-                    <el-checkbox-group v-model="form.type">
-                        <el-checkbox label="CSCD" name="type"></el-checkbox>
-                        <el-checkbox label="核心" name="type"></el-checkbox>
-                        <el-checkbox label="一般CN" name="type"></el-checkbox>
-                        <el-checkbox label="国外出版外文刊" name="type"></el-checkbox>
-                        <el-checkbox label="其他" name="type"></el-checkbox>
-                    </el-checkbox-group>
+                    <el-radio-group v-model="form.type">
+                        <el-radio :label="3">CSCD</el-radio>
+                        <el-radio :label="6">核心</el-radio>
+                        <el-radio :label="9">一般CN</el-radio>
+                        <el-radio :label="12">国外出版外文刊</el-radio>
+                        <el-radio :label="15">其他</el-radio>
+                    </el-radio-group>
                 </el-form-item>
                 <el-form-item label="所属项目">
                     <el-input v-model="form.name"></el-input>
@@ -85,7 +85,7 @@
     </div>
 </template>
 
-<style>
+<style scoped>
     .contents{
         width: 75%;
         float: left;
