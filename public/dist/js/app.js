@@ -628,7 +628,7 @@ exports = module.exports = __webpack_require__(48)(false);
 
 
 // module
-exports.push([module.i, "\n*,ul,li,a{\n    margin: 0;\n    padding: 0;\n    text-decoration: none;\n    list-style: none;\n}\nbody, html{\n    width: 100%;\n    height: 100%;\n}\n.nav{\n    width: 100%;\n    height:35px;\n    background-color: plum;\n}\n.navLeft{\n    width: 12%;\n    height: 100%;\n    float: left;\n    text-align: center;\n    background-color:rgb(0,125,113) ;\n}\n.navRight{\n    width: 88%;\n    height: 100%;\n    float: right;\n    color: white;\n    text-align: center;\n    line-height:31px;\n    background-color: rgb(0,150,136);\n}\n.navLeft img{\n    width: 11%;\n    margin-top: 5px;\n}\n/*.navRight span:first-child{*/\n    /*width: 5%;*/\n    /*height: 100%;*/\n    /*float: left;*/\n/*}*/\n/*.navRight span:first-child img{*/\n    /*width:42%;*/\n/*}*/\n.loginName{\n    width:15%;\n    height: 100%;\n    float: right;\n}\n.loginName img{\n    width:10%;\n    vertical-align:middle;\n}\n.aside{\n    width: 12%;\n    /*height:100%;*/\n    padding-bottom:107%;\n    color: white;\n    float: left;\n    background-color:rgb(34,45,50);\n    /*display: inline-block;*/\n}\n/*.aside li:first-child{*/\n    /*!*position: absolute;*!*/\n    /*height: 70px;*/\n    /*background-color: black;*/\n    /*!*vertical-align:middle;*!*/\n/*}*/\n.aside p{\n    /*margin-left: 20px;*/\n    background-color: black;\n    height: 80px;\n    text-align: center;\n    line-height: 70px;\n    /*margin-top: 5px;*/\n}\n.signIn img{\n    width:22%;\n    vertical-align:middle;\n    /*margin-top: 10px;*/\n}\n.signIn a{\n    color: white;\n}\n.aside li{\n    height:55px;\n    text-align :center;\n    line-height: 55px;\n    background-color:rgb(34,45,50);\n    /*background-color: plum;*/\n    border-bottom: 0.5px solid gray;\n}\n.aside li a{\n    list-style: none;\n    color: white;\n    text-decoration: none;\n}\n/*组件*/\n.el-col-12 {\n    width: 100%;\n}\n", ""]);
+exports.push([module.i, "\n*,ul,li,a{\n    margin: 0;\n    padding: 0;\n    text-decoration: none;\n    list-style: none;\n}\nbody, html{\n    width: 100%;\n    height: 100%;\n}\n.nav{\n    width: 100%;\n    height:35px;\n    background-color: plum;\n}\n.navLeft{\n    width: 12%;\n    height: 100%;\n    float: left;\n    text-align: center;\n    background-color:rgb(0,125,113) ;\n}\n.navRight{\n    width: 88%;\n    height: 100%;\n    float: right;\n    color: white;\n    text-align: center;\n    line-height:31px;\n    background-color: rgb(0,150,136);\n}\n.navLeft img{\n    width: 11%;\n    margin-top: 5px;\n}\n.loginName{\n    width:17%;\n    height: 100%;\n    float: right;\n}\n.loginName img{\n    width:8%;\n    vertical-align:middle;\n}\n.aside{\n    width: 12%;\n    /*height:100%;*/\n    padding-bottom:107%;\n    color: white;\n    float: left;\n    background-color:rgb(34,45,50);\n    /*display: inline-block;*/\n}\n/*.aside li:first-child{*/\n    /*!*position: absolute;*!*/\n    /*height: 70px;*/\n    /*background-color: black;*/\n    /*!*vertical-align:middle;*!*/\n/*}*/\n/*.signIn{*/\n    /*!*margin-left: 20px;*!*/\n    /*background-color: black;*/\n    /*height: 80px;*/\n    /*text-align: center;*/\n    /*line-height: 70px;*/\n    /*!*margin-top: 5px;*!*/\n/*}*/\n.signIn img{\n    width:22%;\n    vertical-align:middle;\n    /*margin-top: 10px;*/\n}\n.signIn a{\n    color: white;\n}\n.aside li{\n    /*height:55px;*/\n    text-align :center;\n    /*line-height: 60px;*/\n    /*background-color:rgb(34,45,50);*/\n    /*background-color: plum;*/\n    border-bottom: 0.5px solid gray;\n}\n.aside li a{\n    list-style: none;\n    color: white;\n    text-decoration: none;\n}\n/*组件*/\n.el-col-12 {\n    width: 100%;\n}\n.el-menu-item.is-active {\n    background-color:#000 !important;\n}\n.router-link-active {\n    /*text-color:#ffd04b;*/\n    color:#ffd04b !important;\n}\n", ""]);
 
 // exports
 
@@ -678,6 +678,11 @@ var _methods;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
 //
 //
 //
@@ -830,9 +835,13 @@ var render = function() {
           _c("div", { staticClass: "loginName" }, [
             _c("img", { attrs: { src: "/dist/img/my.png", alt: "未加载" } }),
             _vm._v(" "),
-            _c("span", [_vm._v(_vm._s(_vm.teacherDate.name))]),
+            _c("span", { staticStyle: { "margin-right": "15px" } }, [
+              _vm._v(_vm._s(_vm.teacherDate.name))
+            ]),
             _vm._v(" "),
-            _c("img", { attrs: { src: "/dist/img/home.png", alt: "未加载" } })
+            _c("span", { staticStyle: { "margin-left": "10px" } }, [
+              _vm._v("退出系统")
+            ])
           ])
         ])
       ]),
@@ -842,20 +851,6 @@ var render = function() {
         { staticClass: "aside" },
         [
           _c(
-            "p",
-            { staticClass: "signIn is-active" },
-            [
-              _c("router-link", { attrs: { to: "/" } }, [
-                _c("img", {
-                  attrs: { src: "/dist/img/wang_light.png", alt: "" }
-                }),
-                _c("span", [_vm._v(_vm._s(_vm.teacherDate.name))])
-              ])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
             "el-col",
             { attrs: { span: 12 } },
             [
@@ -864,15 +859,37 @@ var render = function() {
                 {
                   staticClass: "el-menu-vertical-demo",
                   attrs: {
-                    "default-active": "2",
-                    "background-color": "#545c64",
+                    "default-active": "1",
+                    "background-color": "rgb(34,45,50)",
                     "text-color": "#fff",
                     "active-text-color": "#ffd04b"
                   },
                   on: { open: _vm.handleOpen, close: _vm.handleClose }
                 },
                 [
-                  _c("el-menu-item", { attrs: { index: "1" } }, [
+                  _c(
+                    "el-menu-item",
+                    {
+                      staticClass: "signIn",
+                      staticStyle: { height: "70px" },
+                      attrs: { index: "1" }
+                    },
+                    [
+                      _c("router-link", { attrs: { to: "/", exact: "" } }, [
+                        _c("img", {
+                          attrs: {
+                            src: "/dist/img/wang_light.png",
+                            alt: "未加载"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("span", [_vm._v(_vm._s(_vm.teacherDate.name))])
+                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("el-menu-item", { attrs: { index: "2" } }, [
                     _c("i", { staticClass: "el-icon-menu" }),
                     _vm._v(" "),
                     _c(
@@ -887,22 +904,15 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _c("el-menu-item", { attrs: { index: "2" } }, [
+                  _c("el-menu-item", { attrs: { index: "3" } }, [
                     _c("i", { staticClass: "el-icon-menu" }),
                     _vm._v(" "),
-                    _c(
-                      "span",
-                      { attrs: { slot: "title" }, slot: "title" },
-                      [
-                        _c("router-link", { attrs: { to: "/project" } }, [
-                          _vm._v("项目")
-                        ])
-                      ],
-                      1
-                    )
+                    _c("span", { attrs: { slot: "title" }, slot: "title" }, [
+                      _vm._v("项目")
+                    ])
                   ]),
                   _vm._v(" "),
-                  _c("el-menu-item", { attrs: { index: "3" } }, [
+                  _c("el-menu-item", { attrs: { index: "4" } }, [
                     _c("i", { staticClass: "el-icon-document" }),
                     _vm._v(" "),
                     _c("span", { attrs: { slot: "title" }, slot: "title" }, [
@@ -910,7 +920,7 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _c("el-menu-item", { attrs: { index: "4" } }, [
+                  _c("el-menu-item", { attrs: { index: "5" } }, [
                     _c("i", { staticClass: "el-icon-setting" }),
                     _vm._v(" "),
                     _c("span", { attrs: { slot: "title" }, slot: "title" }, [
@@ -918,7 +928,7 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _c("el-menu-item", { attrs: { index: "5" } }, [
+                  _c("el-menu-item", { attrs: { index: "6" } }, [
                     _c("i", { staticClass: "el-icon-menu" }),
                     _vm._v(" "),
                     _c("span", { attrs: { slot: "title" }, slot: "title" }, [
@@ -926,7 +936,7 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _c("el-menu-item", { attrs: { index: "6" } }, [
+                  _c("el-menu-item", { attrs: { index: "7" } }, [
                     _c("i", { staticClass: "el-icon-menu" }),
                     _vm._v(" "),
                     _c("span", { attrs: { slot: "title" }, slot: "title" }, [
@@ -934,7 +944,7 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _c("el-menu-item", { attrs: { index: "7" } }, [
+                  _c("el-menu-item", { attrs: { index: "8" } }, [
                     _c("i", { staticClass: "el-icon-document" }),
                     _vm._v(" "),
                     _c("span", { attrs: { slot: "title" }, slot: "title" }, [
@@ -942,7 +952,7 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _c("el-menu-item", { attrs: { index: "8" } }, [
+                  _c("el-menu-item", { attrs: { index: "9" } }, [
                     _c("i", { staticClass: "el-icon-setting" }),
                     _vm._v(" "),
                     _c("span", { attrs: { slot: "title" }, slot: "title" }, [
@@ -950,7 +960,7 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _c("el-menu-item", { attrs: { index: "9" } }, [
+                  _c("el-menu-item", { attrs: { index: "10" } }, [
                     _c("i", { staticClass: "el-icon-menu" }),
                     _vm._v(" "),
                     _c("span", { attrs: { slot: "title" }, slot: "title" }, [
@@ -958,7 +968,7 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _c("el-menu-item", { attrs: { index: "10" } }, [
+                  _c("el-menu-item", { attrs: { index: "11" } }, [
                     _c("i", { staticClass: "el-icon-menu" }),
                     _vm._v(" "),
                     _c("span", { attrs: { slot: "title" }, slot: "title" }, [

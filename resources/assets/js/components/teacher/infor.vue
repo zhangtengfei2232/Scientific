@@ -7,6 +7,7 @@
                     <div class="detiaLeft">
                         <p>头像</p>
                         <p>姓名</p>
+                        <p>性别</p>
                         <p>分组</p>
                         <p>工号</p>
                         <p>办公电话</p>
@@ -52,61 +53,62 @@
                     </div>
                     <div class="detialRight">
                         <p><img src="/dist/img/pic_fill.png" alt="未加载"></p>
-                        <p><el-input :value=" teacherDate.name" :disabled="true"></el-input><span class="change" @click.native = "clickchange">修改</span></p>
-                        <p><el-input :value=" teacherDate.name" :disabled="true"></el-input><span class="change" @click.native = "clickchange">修改</span></p>
-                        <p><el-input :value=" teacherDate.teacher_id" :disabled="true"></el-input><span class="change">修改</span></p>
-                        <p><el-input :value=" teacherDate.office_phone" :disabled="true"></el-input><span class="change">修改</span></p>
-                        <p><el-input :value=" teacherDate.home_phone" :disabled="true"></el-input><span class="change">修改</span></p>
-                        <p><el-input :value=" teacherDate.phone" :disabled="true"></el-input><span class="change">修改</span></p>
-                        <p><el-input :value=" teacherDate.native_place" :disabled="true"></el-input><span class="change">修改</span></p>
-                        <p><el-input :value=" teacherDate.number" :disabled="true"></el-input><span class="change">修改</span></p>
-                        <p><el-input :value=" teacherDate.nation" :disabled="true"></el-input><span class="change">修改</span></p>
-                        <p><el-input :value=" teacherDate.borth" :disabled="true"></el-input><span class="change">修改</span></p>
-                        <p><el-input :value=" teacherDate.polit_outlook" :disabled="true"></el-input><span class="change">修改</span></p>
-                        <p><el-input :value=" teacherDate.admin_duties" :disabled="true"></el-input><span class="change">修改</span></p>
-                        <p><el-input :value=" teacherDate.tenure_time" :disabled="true"></el-input><span class="change">修改</span></p>
-                        <p><el-input :value=" teacherDate.job_level" :disabled="true"></el-input><span class="change">修改</span></p>
-                        <p><el-input :value=" teacherDate.tenure_time" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.name"></el-input></p>
+                        <p><el-input :value=" teacherDate.sex"></el-input></p>
+                        <p><el-input :value=" teacherDate.name"></el-input></p>
+                        <p><el-input :value=" teacherDate.teacher_id"></el-input></p>
+                        <p><el-input :value=" teacherDate.office_phone"></el-input></p>
+                        <p><el-input :value=" teacherDate.home_phone"></el-input></p>
+                        <p><el-input :value=" teacherDate.phone"></el-input></p>
+                        <p><el-input :value=" teacherDate.native_place"></el-input></p>
+                        <p><el-input :value=" teacherDate.number"></el-input></p>
+                        <p><el-input :value=" teacherDate.nation"></el-input></p>
+                        <p><el-input :value=" teacherDate.borth"></el-input></p>
+                        <p><el-input :value=" teacherDate.polit_outlook"></el-input></p>
+                        <p><el-input :value=" teacherDate.admin_duties"></el-input></p>
+                        <p><el-input :value=" teacherDate.tenure_time"></el-input></p>
+                        <p><el-input :value=" teacherDate.job_level"></el-input></p>
+                        <p><el-input :value=" teacherDate.tenure_time"></el-input></p>
                         <p>
                             <!--专业技术职务-->
-                            <el-input :value=" teacherDate.edu_school":disabled="true"></el-input><span class="change">修改</span>
+                            <el-input :value=" teacherDate.edu_school"></el-input>
                         </p>
-                        <p><el-input :value="teacherDate.name" :disabled="true"></el-input><span class="change">修改</span></p>
-                        <p><el-input :value="teacherDate.name" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value="teacherDate.name"></el-input></p>
+                        <p><el-input :value="teacherDate.name"></el-input></p>
                         <p>
                             <!--系列-->
-                            <el-input :value=" teacherDate.series" :disabled="true"></el-input><span class="change">修改</span>
+                            <el-input :value=" teacherDate.series"></el-input>
                         </p>
-                        <p><el-input :value="teacherDate.post_category" :disabled="true"></el-input><span class="change">修改</span></p>
-                        <p><el-input :value=" teacherDate.company" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value="teacherDate.post_category"></el-input></p>
+                        <p><el-input :value=" teacherDate.company"></el-input></p>
                         <!--请输入所属教研室和实验室-->
-                        <p><el-input :value=" teacherDate.te_re_department":disabled="true"></el-input><span class="change">修改</span></p>
-                        <p><el-input :value=" teacherDate.working_hours" :disabled="true"></el-input><span class="change">修改</span></p>
-                        <p><el-input :value=" teacherDate.origin_work_unit" :disabled="true"></el-input><span class="change">修改</span></p>
-                        <p><el-input :value=" teacherDate.certificate_num" :disabled="true"></el-input><span class="change">修改</span></p>
-                        <p><el-input :value=" teacherDate.identity_card" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.te_re_department"></el-input></p>
+                        <p><el-input :value=" teacherDate.working_hours"></el-input></p>
+                        <p><el-input :value=" teacherDate.origin_work_unit"></el-input></p>
+                        <p><el-input :value=" teacherDate.certificate_num"></el-input></p>
+                        <p><el-input :value=" teacherDate.identity_card"></el-input></p>
                         <p></p><br>
                         <!--第一学历-->
-                        <p><el-input :value=" teacherDate.name" :disabled="true"></el-input><span class="change">修改</span></p>
-                        <p><el-input :value=" teacherDate.edu_school" :disabled="true"></el-input><span class="change">修改</span></p>
-                        <p><el-input :value=" teacherDate.name" :disabled="true"></el-input><span class="change">修改</span></p>
-                        <p><el-input :value=" teacherDate.name" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.name"></el-input></p>
+                        <p><el-input :value=" teacherDate.edu_school"></el-input></p>
+                        <p><el-input :value=" teacherDate.name"></el-input></p>
+                        <p><el-input :value=" teacherDate.name"></el-input></p>
                         <p></p><br>
                         <!--最高学历-->
-                        <p><el-input :value=" teacherDate.academic_id" :disabled="true"></el-input><span class="change">修改</span></p>
-                        <p><el-input :value=" teacherDate.edu_school" :disabled="true"></el-input><span class="change">修改</span></p>
-                        <p><el-input :value=" teacherDate.name" :disabled="true"></el-input><span class="change">修改</span></p>
-                        <p><el-input :value=" teacherDate.name" :disabled="true"></el-input><span class="change">修改</span></p>
+                        <p><el-input :value=" teacherDate.academic_id"></el-input></p>
+                        <p><el-input :value=" teacherDate.edu_school"></el-input></p>
+                        <p><el-input :value=" teacherDate.name"></el-input></p>
+                        <p><el-input :value=" teacherDate.name"></el-input></p>
                         <br>
-                        <p><el-input :value=" teacherDate.work_major" :disabled="true"></el-input><span class="change">修改</span></p>
-                        <p><el-input :value=" teacherDate.belong_subject" :disabled="true"></el-input><span class="change">修改</span></p>
-                        <p><el-input :value=" teacherDate.teach_course" :disabled="true"></el-input><span class="change">修改</span></p><br>
+                        <p><el-input :value=" teacherDate.work_major"></el-input></p>
+                        <p><el-input :value=" teacherDate.belong_subject"></el-input></p>
+                        <p><el-input :value=" teacherDate.teach_course"></el-input></p><br>
                         <br><br>
                         <!--硕博导-->
-                        <p><el-input :value=" teacherDate.name" :disabled="true"></el-input><span class="change">修改</span></p>
-                        <p><el-input :value=" teacherDate.name" :disabled="true"></el-input><span class="change">修改</span>
+                        <p><el-input :value=" teacherDate.name"></el-input></p>
+                        <p><el-input :value=" teacherDate.name"></el-input>
                         </p><br>
-                        <p>
+                        <p class="graduationPic">
                             <el-upload
                                     class="upload-demo"
                                     action="https://jsonplaceholder.typicode.com/posts/"
@@ -118,10 +120,12 @@
                                 <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
                             </el-upload>
                         </p>
+                        <el-button type="primary" plain disabled class="commit">保存修改</el-button>
                     </div>
                 </div>
             </div>
             <div style="clear: both"></div>
+
         </div>
     </div>
 </template>
@@ -130,40 +134,12 @@
     export default {
         data() {
             return {
-//                list:[
-//                    {lis:'头像'}, {lis:'姓名'}, {lis:'分组'}, {lis:'工号'}, {lis:'办公电话'}, {lis:'住宅电话'},
-//                    {lis:'手机'}, {lis:'籍贯'}, {lis:'编号'}, {lis:'民族'}, {lis:'出生年月'}, {lis:'政治面貌'},
-//                    {lis:'行政职务'}, {lis:'任职时间'}, {lis:'职务级别'}, {lis:'任职时间'}, {lis:'专业技术职务'},
-//                    {lis:'评审通过时间'}, {lis:'聘任时间'}, {lis:'系列'}, {lis:'岗位类别'}, {lis:'所在单位'},
-//                    {lis:'所属教研室和实验室'}, {lis:'来校工作时间'}, {lis:'原工作单位'}, {lis:'教师资格证书编号'},
-//                    {lis:'身份证号'},
-//                    {lis:'第一学历'}, {lis:'毕业学校'}, {lis:'所学专业'}, {lis:'毕业时间'},
-//                    {lis:'最高学历：'}, {lis:'学历/学位'}, {lis:'毕业学校'}, {lis:'所学专业'}, {lis:'毕业时间'},
-//                    {lis:'最高学历：'}, {lis:'毕业学校'}, {lis:'所学专业'}, {lis:'毕业时间'}, {lis:'现从事专业'},
-//                    {lis:'所属学科'}, {lis:'任教课程'}, {lis:'硕(博)导：'}, {lis:'授予单位'}, {lis:'获得时间'},
-//                    {lis:'毕业证书图片'},
-//
-//                ],
-                fileList2: [{name: 'food.jpeg', url: '/dist/img/wang_light.png'}, {name: 'food2.jpeg', url: '/dist/img/wang_light.png'}],
+                fileList2: [{name: 'food.jpeg', url: '/dist/img/wang_light.png'}],
+//                fileList2: [{name: 'food.jpeg', url: teacherDate.gra_cert_road}],
                 teacherDate: {},
                 show: false,
-                inputJob:'' ,
-                input: '',
-                options: [{
-                    value: '选项1',
-                    label: '黄金糕'
-                }, {
-                    value: '选项4',
-                    label: '龙须面'
-                }, {
-                    value: '选项5',
-                    label: '北京烤鸭'
-                }],
-                options1:[{
-                    value: '选项1',
-                    label: '12'
-                },],
-                value: '',
+//                inputJob:'' ,
+//                input: '',
 
                 pickerOptions1: {
                     disabledDate(time) {
@@ -180,32 +156,14 @@
             handlePreview(file){
                 //console.log(file);
             },
+            getInputValue(){
 
-//          getPage:function () {
-//              let self = this;
-//              axios.get("selectteacher").then(function (response) {
-//                    self.options = response.data;
-//              });
-//          },
-            clickchange(){
-                var change = document.getElementsByClassName("change")[0];
-                var txtArrs = document.getElementsByTagName('input');
-                for ( var i = 0; i < change.length; i++) {
-                    var txt = change[i];
-
-                    if (txt.type == 'text') {
-                        if (txt.disabled == true) {
-                            txt.disabled = false;
-                        } else {
-                            //txt.disabled = false;
-                        }
-                    }
-                }
             },
             getTeacherData(){
                 let self = this;
                 axios.get("selectteacher").then(function (response) {
                     var data = response.data;
+                    console.log(data.datas);
                     if(data.code == 0){
                         self.teacherDate = data.datas;
 //                        if (self.teacherDate.teacher_id == 1) {
@@ -225,67 +183,32 @@
         },
         mounted() {
             this.getTeacherData();
-            this.clickchange();
+//            this.clickchange();
         },
 
     }
-    //    function clickchange() {
-
-    //        var txtArrs = document.getElementsByTagName('input');
-    //        for ( var i = 0; i < txtArrs.length; i++) {
-    //            var txt = txtArrs[i];
-    //            if (txt.type == 'text') {
-    //                if (txt.disabled == true) {
-    //                    txt.disabled = false;
-    //                } else {
-    //                    //txt.disabled = false;
-    //                }
-    //            }
-    //        }
-    //    }
 </script>
 
 <style>
     .main{
         width: 100%;
-        /*height: 935px;*/
         margin:0 auto
-        /*text-align: center;*/
-        /*background-color: #1b6d85;*/
-        /*display: inline-block;*/
     }
     .content{
         width: 87%;
-        /*background-color: #1b6d85;*/
-        /*margin: 0;*/
         float: right;
     }
     .perInfo{
         width: 100%;
         height: 50px;
         line-height: 52px;
-        /*margin-left: 20px;*/
         border-bottom: 1px solid gray;
     }
-    /*.detial{*/
-    /*width: 80%;*/
-    /*background-color: #5bc0de;*/
-    /*}*/
-    /*.detial li{*/
-    /*height: 50px;*/
-    /*}*/
-    /*.space{*/
-    /*margin-left: 70px;*/
-    /*}*/
-    /*.space img{*/
-    /*width: 33px;*/
-    /*vertical-align:middle;*/
-    /*}*/
     .body{
         Font-size:25%
     }
     .detiaLeft{
-        width: 10%;
+        width: 12%;
         /*background-color: #2ab27b;*/
         font-size:0.95em;
         float: left;
@@ -295,7 +218,6 @@
     .detialRight{
         width: 78%;
         float: right;
-        /*background-color: #4bb1b1;*/
     }
     .detial{
         margin-top: 3%;
@@ -306,7 +228,6 @@
     }
     .detialRight img{
         width: 33px;
-        /*vertical-align:middle;*/
     }
     .el-date-editor.el-input{
         width: 217px;
@@ -316,6 +237,11 @@
         color: rgba(0, 179, 138, 1);
         margin-left:2%;
     }
+    .commit{
+        /*float: right;*/
+        width: 320px;
+        /*margin-right: 30%;*/
+    }
     /*//组件*/
 
     .upload-demo{
@@ -323,5 +249,8 @@
     }
     .el-input{
         width: 217px;
+    }
+    .graduationPic{
+        margin-bottom: 180px;
     }
 </style>
