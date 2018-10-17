@@ -20,8 +20,35 @@
                             <el-input v-model="form.publication_num"></el-input>
                         </el-form-item>
                         <el-form-item label="年，卷，期">
-                            <el-col :span="11">
-                            <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
+                            <el-col :span="1" style="width:50px;margin:0 10px 0 0">
+                                <el-date-picker type="date" placeholder="选择年份" v-model="form.year" style="width: 90px;"></el-date-picker>
+                            </el-col>
+                            <el-col :span="1" style="width:50px;margin: 0px -36px 0px 6%;">
+                                ，
+                            </el-col>
+                            <el-col :span="1" style="width:80px;margin:0 10px 0 0">
+                                <el-input v-model="input" placeholder="卷"></el-input>
+                            </el-col>
+                            <el-col :span="1"  style="width:80px;margin:0px -57px 0px 0px">
+                                (
+                            </el-col>
+                            <el-col :span="1"  style="width:80px;margin:0 10px 0 0">
+                                <el-input v-model="input" placeholder="卷号"></el-input>
+                            </el-col>
+                            <el-col :span="1" style="width:80px;margin:0 10px 0 0">
+                                )
+                            </el-col>
+                            <el-col :span="1" style="width:80px;margin:0px -37px 0px -47px;">
+                                :
+                            </el-col>
+                            <el-col :span="1" style="width:80px;margin:0 10px 0 0">
+                                <el-input v-model="input" placeholder="开始期"></el-input>
+                            </el-col>
+                            <el-col :span="1" style="width:80px;margin:0px -51px 0px 14px">
+                                -
+                            </el-col>
+                            <el-col :span="1"  style="width:80px;margin:0 10px 0 0">
+                                <el-input v-model="input" placeholder="结束期"></el-input>
                             </el-col>
                         </el-form-item>
                         <el-form-item label="字数">
@@ -29,11 +56,17 @@
                         </el-form-item>
                         <el-form-item label="期刊级别">
                             <el-radio-group v-model="form.periodical_cate">
-                                <el-radio :label="1">CSCD</el-radio>
-                                <el-radio :label="2">核心</el-radio>
-                                <el-radio :label="3">一般CN</el-radio>
-                                <el-radio :label="4">国外出版外文刊</el-radio>
-                                <el-radio :label="5">其他</el-radio>
+                                <el-radio :label="1" style="margin:10px">SCI一区</el-radio>
+                                <el-radio :label="2" style="margin:10px">SCI二区</el-radio>
+                                <el-radio :label="3" style="margin:10px">SCI三区</el-radio>
+                                <el-radio :label="4" style="margin:10px">SCI四区</el-radio>
+                                <el-radio :label="5" style="margin:10px">EI</el-radio>
+                                <el-radio :label="6" style="margin:10px">SSCI</el-radio>
+                                <el-radio :label="7" style="margin:10px">CN</el-radio>
+                                <el-radio :label="8" style="margin:10px">CSSCI核心库</el-radio>
+                                <el-radio :label="9" style="margin:10px">中文核心</el-radio>
+                                <el-radio :label="10" style="margin:10px">CSCD核心库</el-radio>
+                                <el-radio :label="11" style="margin:10px">河南科技学院期刊</el-radio>
                             </el-radio-group>
                         </el-form-item>
                         <el-form-item label="所属项目">
@@ -41,25 +74,30 @@
                         </el-form-item>
                         <el-form-item label="研究类别">
                             <el-select v-model="form.art_cate_research" placeholder="请选择类别">
-                            <el-option label="1" value="1"></el-option>
-                            <el-option label="2" value="2"></el-option>
+                                <el-option label="基础研究" value="1"></el-option>
+                                <el-option label="应用研究" value="2"></el-option>
                             </el-select>
                         </el-form-item>
                         <el-form-item label="学科门类">
                             <el-select v-model="form.art_sub_category" placeholder="请选择学科门类">
-                            <el-option label="逻辑学" value="nongxue"></el-option>
-                            <el-option label="宗教学" value="nongxue"></el-option>
-                            <el-option label="语言学" value="nongxue"></el-option>
-                            <el-option label="中国文学" value="nongxue"></el-option>
-                            <el-option label="外国文学" value="nongxue"></el-option>
-                            <el-option label="艺术学" value="nongxue"></el-option>
-                            <el-option label="历史学" value="nongxue"></el-option>
-                            <el-option label="考古学" value="nongxue"></el-option>
-                            <el-option label="经济学" value="nongxue"></el-option>
-                            <el-option label="政治学" value="nongxue"></el-option>
-                            <el-option label="法学" value="nongxue"></el-option>
-                            <el-option label="农学" value="nongxue"></el-option>
-                            <el-option label="作物学" value="zuowuxue"></el-option>
+                                <el-option label="理学" value="1"></el-option>
+                                <el-option label="工学" value="2"></el-option>
+                                <el-option label="农学" value="3"></el-option>
+                                <el-option label="医学" value="4"></el-option>
+                                <el-option label="管理学" value="5"></el-option>
+                                <el-option label="马克思主义" value="6"></el-option>
+                                <el-option label="哲学" value="7"></el-option>
+                                <el-option label="逻辑学" value="8"></el-option>
+                                <el-option label="宗教学" value="9"></el-option>
+                                <el-option label="语言学" value="10"></el-option>
+                                <el-option label="中国文学" value="11"></el-option>
+                                <el-option label="外国文学" value="12"></el-option>
+                                <el-option label="艺术学" value="13"></el-option>
+                                <el-option label="历史学" value="14"></el-option>
+                                <el-option label="考古学" value="15"></el-option>
+                                <el-option label="经济学" value="16"></el-option>
+                                <el-option label="政治学" value="17"></el-option>
+                                <el-option label="法学" value="18"></el-option>
                             </el-select>
                         </el-form-item>
                         <el-form-item label="积分">
@@ -79,7 +117,7 @@
                             </el-upload>
                         </el-form-item>
                         <el-form-item>
-                            <el-button type="primary" @click="onSubmit">立即创建</el-button>
+                            <el-button type="primary" @click="onSubmit">保存修改</el-button>
                             <el-button>取消</el-button>
                         </el-form-item>
                     </el-form>
@@ -107,6 +145,7 @@ export default {
     data() {
         return {
             ArticleSelfData: {},
+            input: '',
             form: {
                 author: '1',
                 art_all_author: '1',
@@ -120,12 +159,12 @@ export default {
                 art_sub_category: '',
                 art_integral: '',
                 region: '',
-                date1: '',
+                year: '',
                 date2: '',
                 delivery: false,
                 type: [],
                 resource: '',
-                desc: ''
+                desc: '',
             },
         }
     },

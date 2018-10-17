@@ -2,8 +2,6 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
-
-
 export default new VueRouter({
       saveScrollPosition: true,
       routes: [
@@ -32,11 +30,11 @@ export default new VueRouter({
             path: '/selfInfor/:paper_id',
             component: resolve => void(require(['../components/article/selfInfor.vue'], resolve))
           },
-          {
-              name: 'project',
-              path: '/project',
-              component: resolve => void(require(['../components/project/project.vue'], resolve))
-          },
+        //   {
+        //       name: 'project',
+        //       path: '/project',
+        //       component: resolve => void(require(['../components/project/project.vue'], resolve))
+        //   },
       ]
 
 })

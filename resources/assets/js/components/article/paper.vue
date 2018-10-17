@@ -24,6 +24,7 @@
                         type="date"
                         placeholder="选择日期">
                         </el-date-picker>
+                        <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch">搜索</el-button>
                     </div>
                 </el-form>
             </span>
@@ -45,7 +46,7 @@
                     <p>作者 <small>特别标注</small></p>
                 </span>
                 <span class="times">2018-09-10</span>
-                <span class="dos"><router-link to="/">编辑</router-link></span>
+                <span class="dos" @click="sentArticleSelfData(item.teacher_id)">编辑</span>
                 <span class="tos"><router-link to="/">导出</router-link></span>
                 <span class="dos" @click="sentArticleSelfData(item.teacher_id)">查看</span>
                 <span class="del"><router-link to="/">删除</router-link></span>
@@ -182,6 +183,22 @@
                             type: 'error',
                             message: data.msg,
                             duration: 2000,
+                        });
+                    }
+                });
+            },
+            byTimeSearch() {
+                axios.get("",form).then(function (response) {
+                    var data = response.data;
+                    //console.log(data);
+                    if (data.code == 0) {
+                        self.ArticleSelfData = data.datas;
+                        console.log(data.datas);
+                    } else {
+                        self.$notify({
+                            type: 'error',
+                            message: data.msg,
+                            duration: 2000,         
                         });
                     }
                 });

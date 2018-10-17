@@ -1,18 +1,18 @@
 webpackJsonp([4],{
 
-/***/ 239:
+/***/ 210:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(245)
+  __webpack_require__(224)
 }
-var normalizeComponent = __webpack_require__(79)
+var normalizeComponent = __webpack_require__(82)
 /* script */
-var __vue_script__ = __webpack_require__(247)
+var __vue_script__ = __webpack_require__(226)
 /* template */
-var __vue_template__ = __webpack_require__(248)
+var __vue_template__ = __webpack_require__(227)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -52,17 +52,17 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 245:
+/***/ 224:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(246);
+var content = __webpack_require__(225);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(80)("014742f6", content, false, {});
+var update = __webpack_require__(81)("014742f6", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -79,10 +79,10 @@ if(false) {
 
 /***/ }),
 
-/***/ 246:
+/***/ 225:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(48)(false);
+exports = module.exports = __webpack_require__(25)(false);
 // imports
 
 
@@ -94,11 +94,49 @@ exports.push([module.i, "\n.contents[data-v-1327127b]{\n    width: 75%;\n    flo
 
 /***/ }),
 
-/***/ 247:
+/***/ 226:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -203,6 +241,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   data: function data() {
     return {
       form: {
+        author: '',
+        art_all_author: '',
+        title: '',
+        publication_name: '',
+        publication_num: '',
+        num_words: '',
+        periodical_cate: '',
+        belong_project: '',
+        art_cate_research: '',
+        art_sub_category: '',
+        art_integral: '',
         name: '',
         region: '',
         date1: '',
@@ -224,7 +273,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 248:
+/***/ 227:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -246,11 +295,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.name,
+                    value: _vm.form.author,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "name", $$v)
+                      _vm.$set(_vm.form, "author", $$v)
                     },
-                    expression: "form.name"
+                    expression: "form.author"
                   }
                 })
               ],
@@ -263,11 +312,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.name,
+                    value: _vm.form.art_all_author,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "name", $$v)
+                      _vm.$set(_vm.form, "art_all_author", $$v)
                     },
-                    expression: "form.name"
+                    expression: "form.art_all_author"
                   }
                 })
               ],
@@ -280,11 +329,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.name,
+                    value: _vm.form.title,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "name", $$v)
+                      _vm.$set(_vm.form, "title", $$v)
                     },
-                    expression: "form.name"
+                    expression: "form.title"
                   }
                 })
               ],
@@ -297,11 +346,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.name,
+                    value: _vm.form.publication_name,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "name", $$v)
+                      _vm.$set(_vm.form, "publication_name", $$v)
                     },
-                    expression: "form.name"
+                    expression: "form.publication_name"
                   }
                 })
               ],
@@ -314,11 +363,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.name,
+                    value: _vm.form.publication_num,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "name", $$v)
+                      _vm.$set(_vm.form, "publication_num", $$v)
                     },
-                    expression: "form.name"
+                    expression: "form.publication_num"
                   }
                 })
               ],
@@ -331,17 +380,155 @@ var render = function() {
               [
                 _c(
                   "el-col",
-                  { attrs: { span: 11 } },
+                  {
+                    staticStyle: { width: "50px", margin: "0 10px 0 0" },
+                    attrs: { span: 1 }
+                  },
                   [
                     _c("el-date-picker", {
-                      staticStyle: { width: "100%" },
-                      attrs: { type: "date", placeholder: "选择日期" },
+                      staticStyle: { width: "90px" },
+                      attrs: { type: "date", placeholder: "选择年份" },
                       model: {
-                        value: _vm.form.date1,
+                        value: _vm.form.year,
                         callback: function($$v) {
-                          _vm.$set(_vm.form, "date1", $$v)
+                          _vm.$set(_vm.form, "year", $$v)
                         },
-                        expression: "form.date1"
+                        expression: "form.year"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "el-col",
+                  {
+                    staticStyle: { width: "50px", margin: "0px -36px 0px 6%" },
+                    attrs: { span: 1 }
+                  },
+                  [_vm._v("\n                    ，\n                ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "el-col",
+                  {
+                    staticStyle: { width: "80px", margin: "0 10px 0 0" },
+                    attrs: { span: 1 }
+                  },
+                  [
+                    _c("el-input", {
+                      attrs: { placeholder: "卷" },
+                      model: {
+                        value: _vm.input,
+                        callback: function($$v) {
+                          _vm.input = $$v
+                        },
+                        expression: "input"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "el-col",
+                  {
+                    staticStyle: { width: "80px", margin: "0px -57px 0px 0px" },
+                    attrs: { span: 1 }
+                  },
+                  [_vm._v("\n                    (\n                ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "el-col",
+                  {
+                    staticStyle: { width: "80px", margin: "0 10px 0 0" },
+                    attrs: { span: 1 }
+                  },
+                  [
+                    _c("el-input", {
+                      attrs: { placeholder: "卷号" },
+                      model: {
+                        value: _vm.input,
+                        callback: function($$v) {
+                          _vm.input = $$v
+                        },
+                        expression: "input"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "el-col",
+                  {
+                    staticStyle: { width: "80px", margin: "0 10px 0 0" },
+                    attrs: { span: 1 }
+                  },
+                  [_vm._v("\n                    )\n                ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "el-col",
+                  {
+                    staticStyle: {
+                      width: "80px",
+                      margin: "0px -37px 0px -47px"
+                    },
+                    attrs: { span: 1 }
+                  },
+                  [_vm._v("\n                    :\n                ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "el-col",
+                  {
+                    staticStyle: { width: "80px", margin: "0 10px 0 0" },
+                    attrs: { span: 1 }
+                  },
+                  [
+                    _c("el-input", {
+                      attrs: { placeholder: "开始期" },
+                      model: {
+                        value: _vm.input,
+                        callback: function($$v) {
+                          _vm.input = $$v
+                        },
+                        expression: "input"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "el-col",
+                  {
+                    staticStyle: {
+                      width: "80px",
+                      margin: "0px -51px 0px 14px"
+                    },
+                    attrs: { span: 1 }
+                  },
+                  [_vm._v("\n                    -\n                ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "el-col",
+                  {
+                    staticStyle: { width: "80px", margin: "0 10px 0 0" },
+                    attrs: { span: 1 }
+                  },
+                  [
+                    _c("el-input", {
+                      attrs: { placeholder: "结束期" },
+                      model: {
+                        value: _vm.input,
+                        callback: function($$v) {
+                          _vm.input = $$v
+                        },
+                        expression: "input"
                       }
                     })
                   ],
@@ -357,11 +544,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.name,
+                    value: _vm.form.num_words,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "name", $$v)
+                      _vm.$set(_vm.form, "num_words", $$v)
                     },
-                    expression: "form.name"
+                    expression: "form.num_words"
                   }
                 })
               ],
@@ -376,25 +563,79 @@ var render = function() {
                   "el-radio-group",
                   {
                     model: {
-                      value: _vm.form.type,
+                      value: _vm.form.periodical_cate,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "type", $$v)
+                        _vm.$set(_vm.form, "periodical_cate", $$v)
                       },
-                      expression: "form.type"
+                      expression: "form.periodical_cate"
                     }
                   },
                   [
-                    _c("el-radio", { attrs: { label: 3 } }, [_vm._v("CSCD")]),
+                    _c(
+                      "el-radio",
+                      { staticStyle: { margin: "10px" }, attrs: { label: 1 } },
+                      [_vm._v("SCI一区")]
+                    ),
                     _vm._v(" "),
-                    _c("el-radio", { attrs: { label: 6 } }, [_vm._v("核心")]),
+                    _c(
+                      "el-radio",
+                      { staticStyle: { margin: "10px" }, attrs: { label: 2 } },
+                      [_vm._v("SCI二区")]
+                    ),
                     _vm._v(" "),
-                    _c("el-radio", { attrs: { label: 9 } }, [_vm._v("一般CN")]),
+                    _c(
+                      "el-radio",
+                      { staticStyle: { margin: "10px" }, attrs: { label: 3 } },
+                      [_vm._v("SCI三区")]
+                    ),
                     _vm._v(" "),
-                    _c("el-radio", { attrs: { label: 12 } }, [
-                      _vm._v("国外出版外文刊")
-                    ]),
+                    _c(
+                      "el-radio",
+                      { staticStyle: { margin: "10px" }, attrs: { label: 4 } },
+                      [_vm._v("SCI四区")]
+                    ),
                     _vm._v(" "),
-                    _c("el-radio", { attrs: { label: 15 } }, [_vm._v("其他")])
+                    _c(
+                      "el-radio",
+                      { staticStyle: { margin: "10px" }, attrs: { label: 5 } },
+                      [_vm._v("EI")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "el-radio",
+                      { staticStyle: { margin: "10px" }, attrs: { label: 6 } },
+                      [_vm._v("SSCI")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "el-radio",
+                      { staticStyle: { margin: "10px" }, attrs: { label: 7 } },
+                      [_vm._v("CN")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "el-radio",
+                      { staticStyle: { margin: "10px" }, attrs: { label: 8 } },
+                      [_vm._v("CSSCI核心库")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "el-radio",
+                      { staticStyle: { margin: "10px" }, attrs: { label: 9 } },
+                      [_vm._v("中文核心")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "el-radio",
+                      { staticStyle: { margin: "10px" }, attrs: { label: 10 } },
+                      [_vm._v("CSCD核心库")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "el-radio",
+                      { staticStyle: { margin: "10px" }, attrs: { label: 11 } },
+                      [_vm._v("河南科技学院期刊")]
+                    )
                   ],
                   1
                 )
@@ -408,11 +649,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.name,
+                    value: _vm.form.belong_project,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "name", $$v)
+                      _vm.$set(_vm.form, "belong_project", $$v)
                     },
-                    expression: "form.name"
+                    expression: "form.belong_project"
                   }
                 })
               ],
@@ -428,17 +669,21 @@ var render = function() {
                   {
                     attrs: { placeholder: "请选择类别" },
                     model: {
-                      value: _vm.form.region,
+                      value: _vm.form.art_cate_research,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "region", $$v)
+                        _vm.$set(_vm.form, "art_cate_research", $$v)
                       },
-                      expression: "form.region"
+                      expression: "form.art_cate_research"
                     }
                   },
                   [
-                    _c("el-option", { attrs: { label: "1", value: "1" } }),
+                    _c("el-option", {
+                      attrs: { label: "基础研究", value: "1" }
+                    }),
                     _vm._v(" "),
-                    _c("el-option", { attrs: { label: "2", value: "2" } })
+                    _c("el-option", {
+                      attrs: { label: "应用研究", value: "2" }
+                    })
                   ],
                   1
                 )
@@ -455,65 +700,67 @@ var render = function() {
                   {
                     attrs: { placeholder: "请选择学科门类" },
                     model: {
-                      value: _vm.form.region,
+                      value: _vm.form.art_sub_category,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "region", $$v)
+                        _vm.$set(_vm.form, "art_sub_category", $$v)
                       },
-                      expression: "form.region"
+                      expression: "form.art_sub_category"
                     }
                   },
                   [
+                    _c("el-option", { attrs: { label: "理学", value: "1" } }),
+                    _vm._v(" "),
+                    _c("el-option", { attrs: { label: "工学", value: "2" } }),
+                    _vm._v(" "),
+                    _c("el-option", { attrs: { label: "农学", value: "3" } }),
+                    _vm._v(" "),
+                    _c("el-option", { attrs: { label: "医学", value: "4" } }),
+                    _vm._v(" "),
+                    _c("el-option", { attrs: { label: "管理学", value: "5" } }),
+                    _vm._v(" "),
                     _c("el-option", {
-                      attrs: { label: "逻辑学", value: "nongxue" }
+                      attrs: { label: "马克思主义", value: "6" }
+                    }),
+                    _vm._v(" "),
+                    _c("el-option", { attrs: { label: "哲学", value: "7" } }),
+                    _vm._v(" "),
+                    _c("el-option", { attrs: { label: "逻辑学", value: "8" } }),
+                    _vm._v(" "),
+                    _c("el-option", { attrs: { label: "宗教学", value: "9" } }),
+                    _vm._v(" "),
+                    _c("el-option", {
+                      attrs: { label: "语言学", value: "10" }
                     }),
                     _vm._v(" "),
                     _c("el-option", {
-                      attrs: { label: "宗教学", value: "nongxue" }
+                      attrs: { label: "中国文学", value: "11" }
                     }),
                     _vm._v(" "),
                     _c("el-option", {
-                      attrs: { label: "语言学", value: "nongxue" }
+                      attrs: { label: "外国文学", value: "12" }
                     }),
                     _vm._v(" "),
                     _c("el-option", {
-                      attrs: { label: "中国文学", value: "nongxue" }
+                      attrs: { label: "艺术学", value: "13" }
                     }),
                     _vm._v(" "),
                     _c("el-option", {
-                      attrs: { label: "外国文学", value: "nongxue" }
+                      attrs: { label: "历史学", value: "14" }
                     }),
                     _vm._v(" "),
                     _c("el-option", {
-                      attrs: { label: "艺术学", value: "nongxue" }
+                      attrs: { label: "考古学", value: "15" }
                     }),
                     _vm._v(" "),
                     _c("el-option", {
-                      attrs: { label: "历史学", value: "nongxue" }
+                      attrs: { label: "经济学", value: "16" }
                     }),
                     _vm._v(" "),
                     _c("el-option", {
-                      attrs: { label: "考古学", value: "nongxue" }
+                      attrs: { label: "政治学", value: "17" }
                     }),
                     _vm._v(" "),
-                    _c("el-option", {
-                      attrs: { label: "经济学", value: "nongxue" }
-                    }),
-                    _vm._v(" "),
-                    _c("el-option", {
-                      attrs: { label: "政治学", value: "nongxue" }
-                    }),
-                    _vm._v(" "),
-                    _c("el-option", {
-                      attrs: { label: "法学", value: "nongxue" }
-                    }),
-                    _vm._v(" "),
-                    _c("el-option", {
-                      attrs: { label: "农学", value: "nongxue" }
-                    }),
-                    _vm._v(" "),
-                    _c("el-option", {
-                      attrs: { label: "作物学", value: "zuowuxue" }
-                    })
+                    _c("el-option", { attrs: { label: "法学", value: "18" } })
                   ],
                   1
                 )
@@ -527,11 +774,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.name,
+                    value: _vm.form.art_integral,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "name", $$v)
+                      _vm.$set(_vm.form, "art_integral", $$v)
                     },
-                    expression: "form.name"
+                    expression: "form.art_integral"
                   }
                 })
               ],
