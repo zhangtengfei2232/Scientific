@@ -139,28 +139,29 @@
   export default {
     data() {
       return {
-        form: {
-            author: '',
-            art_all_author: '',
-            title: '',
-            publication_name: '',
-            publication_num : '',
-            num_words: '',
-            periodical_cate: '',
-            belong_project: '',
-            art_cate_research: '',
-            art_sub_category: '',
-            art_integral: '',  
-            name: '',
-            region: '',
-            date1: '',
-            date2: '',
-            delivery: false,
-            type: [],
-            resource: '',
-            desc: ''
+          input : '',
+            form: {
+                author: '',
+                art_all_author: '',
+                title: '',
+                publication_name: '',
+                publication_num : '',
+                num_words: '',
+                periodical_cate: '',
+                belong_project: '',
+                art_cate_research: '',
+                art_sub_category: '',
+                art_integral: '',  
+                name: '',
+                region: '',
+                date1: '',
+                date2: '',
+                delivery: false,
+                type: [],
+                resource: '',
+                desc: ''
+            }
         }
-      }
     },
     methods: {
       onSubmit() {

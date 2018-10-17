@@ -146,13 +146,13 @@
     .dos,.tos,.del{
         font-size: 13px;
         margin: 23px 0 0 0;
-        color: rgba(61, 112, 206, 0.77);
+        color: rgba(61, 112, 206, 0.77)!important;
     }
     .dos a,.tos a{
-        color: rgba(61, 112, 206, 0.77);
+        color: rgba(61, 112, 206, 0.77)!important;
     }
     .del a{
-        color: rgba(229, 28, 35, 1);
+        color: rgba(229, 28, 35, 1)!important;
     }
     .clear{
         clear: both;
