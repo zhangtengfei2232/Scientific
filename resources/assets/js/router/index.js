@@ -2,8 +2,6 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
-
-
 export default new VueRouter({
       saveScrollPosition: true,
       routes: [
@@ -20,23 +18,23 @@ export default new VueRouter({
           {
               name: 'paper',
               path: '/paper',
-              component: resolve => void(require(['../components/teacher/paper.vue'], resolve))
+              component: resolve => void(require(['../components/article/paper.vue'], resolve))
           },
           {
               name: 'addPaper',
               path: '/addPaper',
-              component: resolve => void(require(['../components/teacher/addPaper.vue'], resolve))
+              component: resolve => void(require(['../components/article/addPaper.vue'], resolve))
           },
           {
             name: 'selfInfor',
-            path: '/selfInfor/:teacher_id',
-            component: resolve => void(require(['../components/teacher/selfInfor.vue'], resolve))
+            path: '/selfInfor/:paper_id',
+            component: resolve => void(require(['../components/article/selfInfor.vue'], resolve))
           },
-          {
-              name: 'project',
-              path: '/project',
-              component: resolve => void(require(['../components/teacher/project.vue'], resolve))
-          },
+        //   {
+        //       name: 'project',
+        //       path: '/project',
+        //       component: resolve => void(require(['../components/project/project.vue'], resolve))
+        //   },
       ]
 
 })

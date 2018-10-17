@@ -250,7 +250,4 @@
     .el-input{
         width: 217px;
     }
-    .graduationPic{
-        margin-bottom: 180px;
-    }
 </style>

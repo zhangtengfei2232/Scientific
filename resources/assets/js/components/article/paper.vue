@@ -9,15 +9,36 @@
                     <el-button type="primary"><i class="el-icon-plus el-icon--left">上传</i></el-button>
                 </router-link>
             </span>
+            <span class="searchtime">
+                <el-form>
+                    <div class="block">
+                        <span class="demonstration">按发表时间检索:</span>
+                        <el-date-picker
+                        v-model="form.data1"
+                        type="date"
+                        placeholder="选择日期">
+                        </el-date-picker>
+                        <span>-</span>
+                        <el-date-picker
+                        v-model="form.data2"
+                        type="date"
+                        placeholder="选择日期">
+                        </el-date-picker>
+                        <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch">搜索</el-button>
+                    </div>
+                </el-form>
+            </span>
         </header>
         <div class="navbo">
+            <span class="checks"><el-checkbox v-model="checked"></el-checkbox></span>
             <span class="number">序号</span>   
             <span class="info">论文信息</span>
             <span class="time">发表时间</span>
             <span class="do">操作</span>
         </div>
         <div class="content">
-            <div class="lists" v-for="(item,index) in ArticleDate" :key="index" @click="sentArticleSelfData(item.teacher_id)">
+            <div class="lists" v-for="(item,index) in ArticleDate" :key="index">
+                <span class="check"><el-checkbox v-model="checked"></el-checkbox></span>
                 <span class="numbers">{{ item.teacher_id }}</span>
                 <span class="picture"><img src="/dist/img/text.png" alt="文件加载失败"></span>
                 <span class="infos">
@@ -25,8 +46,9 @@
                     <p>作者 <small>特别标注</small></p>
                 </span>
                 <span class="times">2018-09-10</span>
-                <span class="dos"><router-link to="/">编辑</router-link></span>
+                <span class="dos" @click="sentArticleSelfData(item.teacher_id)">编辑</span>
                 <span class="tos"><router-link to="/">导出</router-link></span>
+                <span class="dos" @click="sentArticleSelfData(item.teacher_id)">查看</span>
                 <span class="del"><router-link to="/">删除</router-link></span>
                 <div class="clear"></div>
             </div>
@@ -50,6 +72,14 @@
         margin: 0;
         padding: 16px 60px;
         border-right: 1px solid #eee;
+    }
+    .searchtime{
+         width: 45%;
+         display: inline-block;
+         margin: 15px 0 0 18%;
+    }
+    .demonstration{
+        font-weight: lighter;
     }
     .navbo{
         border-bottom: 1px solid #eee;
@@ -85,6 +115,12 @@
     .numbers{
         margin: 20px 2% 0 3.5%;
     }
+    .check{
+        margin: 25px 2% 0 3%;
+    }
+    .checks{
+        margin: 0 2% 0 3%;
+    }
     .picture{
         margin: 20px 5px 0 1%;
     }
@@ -105,11 +141,12 @@
         padding: 0 0 0 5px;
     }
     .times{
-        margin: 22px 3% 0 37.5%;
+        margin: 22px 2% 0 39%;
     }
     .dos,.tos,.del{
         font-size: 13px;
         margin: 23px 0 0 0;
+        color: rgba(61, 112, 206, 0.77);
     }
     .dos a,.tos a{
         color: rgba(61, 112, 206, 0.77);
@@ -127,6 +164,11 @@
         data() {
             return {
                 ArticleDate: [],
+                checked: false,
+                form: {
+                    data1: '',
+                    data2: '',
+                },
             }
         },
         methods: {
@@ -145,9 +187,25 @@
                     }
                 });
             },
-            sentArticleSelfData(teacher_id) {
+            byTimeSearch() {
+                axios.get("",form).then(function (response) {
+                    var data = response.data;
+                    //console.log(data);
+                    if (data.code == 0) {
+                        self.ArticleSelfData = data.datas;
+                        console.log(data.datas);
+                    } else {
+                        self.$notify({
+                            type: 'error',
+                            message: data.msg,
+                            duration: 2000,         
+                        });
+                    }
+                });
+            },
+            sentArticleSelfData(paper_id) {
                 this.$router.push({
-                path: `/selfInfor/${teacher_id}`,
+                path: `/selfInfor/${paper_id}`,
                 })
             }
 
