@@ -23,6 +23,7 @@ window.Vue = require('vue');
 // Vue.component('example-component', require('./components/ExampleComponent.vue'));
     import ElementUI from 'element-ui';
     import 'element-ui/lib/theme-chalk/index.css';
+    import '../css/element-color/index.css'
     import App from './App.vue';
     import router from "./router/index.js"
     import axios from 'axios';
