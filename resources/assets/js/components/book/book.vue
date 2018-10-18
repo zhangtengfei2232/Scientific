@@ -46,9 +46,9 @@
                     <p>作者 <small>特别标注</small></p>
                 </span>
                 <span class="times">2018-09-10</span>
-                <span class="dos" @click="sentArticleSelfData(item.art_id)">编辑</span>
+                <span class="dos" @click="sentBookSelfData(item.art_id)">编辑</span>
                 <span class="tos"><router-link to="/">导出</router-link></span>
-                <span class="dos" @click="sentArticleSelfData(item.art_id)">查看</span>
+                <span class="dos" @click="sentBookSelfData(item.art_id)">查看</span>
                 <span class="del"><router-link to="/">删除</router-link></span>
                 <div class="clear"></div>
             </div>

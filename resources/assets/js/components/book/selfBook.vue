@@ -23,7 +23,7 @@
                 <el-form-item label="出版社">
                     <el-input v-model="form.publication_name"></el-input>
                 </el-form-item>
-                <el-form-item label="出版社">
+                <el-form-item label="出版时间">
                     <el-col :span="15">
                     <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
                     </el-col>
