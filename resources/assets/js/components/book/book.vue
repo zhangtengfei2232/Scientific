@@ -2,10 +2,10 @@
     <div>
         <header>
             <span class="paper">
-                论文
+                著作
             </span>
             <span class="load">
-                <router-link to="/addPaper">
+                <router-link to="/addBook">
                     <el-button type="primary"><i class="el-icon-plus el-icon--left">上传</i></el-button>
                 </router-link>
             </span>
@@ -37,7 +37,7 @@
             <span class="do">操作</span>
         </div>
         <div class="content">
-            <div class="lists" v-for="(item,index) in ArticleDate" :key="index">
+            <div class="lists" v-for="(item,index) in BookDate" :key="index">
                 <span class="check"><el-checkbox v-model="checked"></el-checkbox></span>
                 <span class="numbers">{{ item.teacher_id }}</span>
                 <span class="picture"><img src="/dist/img/text.png" alt="文件加载失败"></span>
@@ -163,7 +163,7 @@
     export default {
         data() {
             return {
-                ArticleDate: [],
+                BookDate: [],
                 checked: false,
                 form: {
                     data1: '',
@@ -172,12 +172,12 @@
             }
         },
         methods: {
-            getArticleData() {
+            getBookData() {
                 let self = this;
-                axios.get("selectallattical").then(function (response) {
+                axios.get("selectopus").then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
-                        self.ArticleDate = data.datas;
+                        self.BookDate = data.datas;
                     } else {
                         self.$notify({
                             type: 'error',
@@ -187,7 +187,7 @@
                     }
                 });
             },
-            sentArticleSelfData(art_id) {
+            sentBookSelfData(art_id) {
                 this.$router.push({
                 path: `/selfInfor/${art_id}`,
                 })
@@ -196,7 +196,7 @@
                 axios.get("",form).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
-                        self.ArticleDate = data.datas;
+                        self.BookDate = data.datas;
                     } else {
                         self.$notify({
                             type: 'error',
@@ -209,7 +209,7 @@
 
         },
         mounted() {
-            this.getArticleData();
+            this.getBookData();
         }
     }
 </script>

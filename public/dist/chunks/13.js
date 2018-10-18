@@ -1,4 +1,4 @@
-webpackJsonp([2],{
+webpackJsonp([13],{
 
 /***/ 214:
 /***/ (function(module, exports, __webpack_require__) {
@@ -217,9 +217,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         onSubmit: function onSubmit() {
             console.log('submit!');
         }
-    },
-    mounted: function mounted() {
-        this.ProjectSelfData();
     }
 });
 

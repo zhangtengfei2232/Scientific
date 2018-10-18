@@ -2,16 +2,16 @@
     <div>
         <header>
             <span class="paper">
-                论文
+                项目
             </span>
             <span class="load">
-                <router-link to="/addPaper">
+                <router-link to="/addProject">
                     <el-button type="primary"><i class="el-icon-plus el-icon--left">上传</i></el-button>
                 </router-link>
             </span>
-            <span class="searchtime">
+            <span class="searchtimes">
                 <el-form>
-                    <div class="block">
+                    <div class="blocks">
                         <span class="demonstration">按发表时间检索:</span>
                         <el-date-picker
                         v-model="form.data1"
@@ -37,7 +37,7 @@
             <span class="do">操作</span>
         </div>
         <div class="content">
-            <div class="lists" v-for="(item,index) in ArticleDate" :key="index">
+            <div class="lists" v-for="(item,index) in ProjectDate" :key="index">
                 <span class="check"><el-checkbox v-model="checked"></el-checkbox></span>
                 <span class="numbers">{{ item.teacher_id }}</span>
                 <span class="picture"><img src="/dist/img/text.png" alt="文件加载失败"></span>
@@ -46,9 +46,9 @@
                     <p>作者 <small>特别标注</small></p>
                 </span>
                 <span class="times">2018-09-10</span>
-                <span class="dos" @click="sentArticleSelfData(item.art_id)">编辑</span>
+                <span class="dos" @click="sentProjectSelfData(item.teacher_id)">编辑</span>
                 <span class="tos"><router-link to="/">导出</router-link></span>
-                <span class="dos" @click="sentArticleSelfData(item.art_id)">查看</span>
+                <span class="dos" @click="sentProjectSelfData(item.teacher_id)">查看</span>
                 <span class="del"><router-link to="/">删除</router-link></span>
                 <div class="clear"></div>
             </div>
@@ -73,7 +73,7 @@
         padding: 16px 60px;
         border-right: 1px solid #eee;
     }
-    .searchtime{
+    .searchtimes{
          width: 45%;
          display: inline-block;
          margin: 15px 0 0 18%;
@@ -163,7 +163,7 @@
     export default {
         data() {
             return {
-                ArticleDate: [],
+                ProjectDate: [],
                 checked: false,
                 form: {
                     data1: '',
@@ -172,12 +172,14 @@
             }
         },
         methods: {
-            getArticleData() {
+            getProjectData() {
                 let self = this;
-                axios.get("selectallattical").then(function (response) {
+                axios.get("selectproject").then(function (response) {
                     var data = response.data;
+                    console.log(self.data);
                     if (data.code == 0) {
-                        self.ArticleDate = data.datas;
+                        self.ProjectDate = data.datas;
+                        //console.log(self.ProjectDate);
                     } else {
                         self.$notify({
                             type: 'error',
@@ -187,16 +189,11 @@
                     }
                 });
             },
-            sentArticleSelfData(art_id) {
-                this.$router.push({
-                path: `/selfInfor/${art_id}`,
-                })
-            },
             byTimeSearch() {
                 axios.get("",form).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
-                        self.ArticleDate = data.datas;
+                        self.ProjectDate = data.datas;
                     } else {
                         self.$notify({
                             type: 'error',
@@ -206,10 +203,15 @@
                     }
                 });
             },
+            sentProjectSelfData() {
+                this.$router.push({
+               // path: `/selfInfor/${}`,
+                })
+            }
 
         },
         mounted() {
-            this.getArticleData();
+            this.getProjectData();
         }
     }
 </script>

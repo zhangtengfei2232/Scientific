@@ -1,24 +1,24 @@
-webpackJsonp([2],{
+webpackJsonp([15],{
 
-/***/ 214:
+/***/ 213:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(253)
+  __webpack_require__(249)
 }
 var normalizeComponent = __webpack_require__(81)
 /* script */
-var __vue_script__ = __webpack_require__(247)
+var __vue_script__ = __webpack_require__(251)
 /* template */
-var __vue_template__ = __webpack_require__(255)
+var __vue_template__ = __webpack_require__(252)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-5c276770"
+var __vue_scopeId__ = "data-v-50401b45"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -29,7 +29,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/project/selfProject.vue"
+Component.options.__file = "resources/assets/js/components/project/addProject.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -38,9 +38,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-5c276770", Component.options)
+    hotAPI.createRecord("data-v-50401b45", Component.options)
   } else {
-    hotAPI.reload("data-v-5c276770", Component.options)
+    hotAPI.reload("data-v-50401b45", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -52,7 +52,49 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 247:
+/***/ 249:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(250);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(82)("ea4b57ba", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-50401b45\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./addProject.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-50401b45\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./addProject.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 250:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(25)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.contents[data-v-50401b45]{\n    width: 75%;\n    float: left;\n}\n.add[data-v-50401b45]{\n    width: 73%;\n    margin: 35px 0 0 35px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 251:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -168,106 +210,46 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            ProjectSelfData: {},
-            input: '',
-            form: {
-                author: '',
-                art_all_author: '',
-                title: '',
-                publication_name: '',
-                publication_num: '',
-                num_words: '',
-                periodical_cate: '',
-                belong_project: '',
-                art_cate_research: '',
-                art_sub_category: '',
-                art_integral: '',
-                name: '',
-                region: '',
-                date1: '',
-                date2: '',
-                type: [],
-                desc: ''
-            }
-        };
-    },
+  data: function data() {
+    return {
+      input: '',
+      form: {
+        author: '',
+        art_all_author: '',
+        title: '',
+        publication_name: '',
+        publication_num: '',
+        num_words: '',
+        periodical_cate: '',
+        belong_project: '',
+        art_cate_research: '',
+        art_sub_category: '',
+        art_integral: '',
+        name: '',
+        region: '',
+        date1: '',
+        date2: '',
+        delivery: false,
+        type: [],
+        resource: '',
+        desc: ''
+      }
+    };
+  },
 
-    methods: {
-        getProjectSelfData: function getProjectSelfData() {
-            var self = this;
-            var art_id = self.$route.params.art_id;
-            axios.get("selectartical", art_id).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.ProjectSelfData = data.datas;
-                    console.log(data.datas);
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.msg,
-                        duration: 2000
-                    });
-                }
-            });
-        },
-        onSubmit: function onSubmit() {
-            console.log('submit!');
-        }
-    },
-    mounted: function mounted() {
-        this.ProjectSelfData();
+  methods: {
+    onSubmit: function onSubmit() {
+      console.log('submit!');
     }
+  }
 });
 
 /***/ }),
 
-/***/ 253:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(254);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(82)("dee8c78a", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5c276770\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./selfProject.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5c276770\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./selfProject.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
-/***/ 254:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(25)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.contents[data-v-5c276770]{\n    width: 75%;\n    float: left;\n}\n.add[data-v-5c276770]{\n    width: 73%;\n    margin: 35px 0 0 35px;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ 255:
+/***/ 252:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -704,7 +686,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-5c276770", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-50401b45", module.exports)
   }
 }
 
