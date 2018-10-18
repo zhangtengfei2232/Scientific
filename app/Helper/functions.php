@@ -1,11 +1,14 @@
 <?php
     //返回前台的信息，全部转化为JSON数据
     function showMsg($code = 0,$message = '',$datas = ''){
-        return json_encode([
-            'code'    => $code,
-            'message' => $message,
-            'datas'   => $datas
-        ]);
+        $response["code"] = $code;
+        if(!empty($datas)){
+            $response["datas"] = $datas;
+        }
+        if(!empty($message)){
+            $response["message"] = $message;
+        }
+       return response()->json($response);
     }
     //对象转化为数组
     function objectToArray($e){
@@ -29,12 +32,12 @@
     //循环遍历数组是否存在空值
     function emptyarray($datas){
          foreach ($datas as $key => $data){
-             if(empty($data)) return 1;
+             if(empty($data)) return true;
          }
-         return 0;
+         return false;
     }
     //判断老师字段是否合法
-    function judgeTeacherField($datas){
+    function judgeDatas($datas){
          if(emptyarray($datas)){
              return showMsg(1,'你填写的个人信息不全');
          }
@@ -81,8 +84,23 @@
              return showMsg(1,'你输入的从事专业所属学科有误');
          }elseif (strlen($datas->teach_course) > 20){
              return showMsg(1,'你输入的任教课程有误');
+         }else{
+             return showMsg(0,'验证通过');
          }
-
+    }
+    //判断老师-学术字段是否合法
+    function judgeAcademic($academic){
+        if(strlen($academic->first_graduate_school) > 30){
+            return showMsg(1,'你输入的老师第一学历毕业学校有误');
+        }elseif (strlen($academic->first_study_major) > 20){
+            return showMsg(1,'你输入的老师第一学历专业有误');
+        }elseif (strlen($academic->most_graduate_school) > 30){
+            return showMsg(1,'你输入的老师最高学历专业有误');
+        }elseif (strlen($academic->most_study_major) > 20){
+            return showMsg(1,'你输入的老师最高学历专业有误');
+        }else{
+            return showMsg(0,'验证通过');
+        }
     }
     //判断论文字段是否合法
     function judgeArticalField($datas){
@@ -113,8 +131,29 @@
              return showMsg(1,'你输入的积分不合法');
          }
     }
+    //上传前先判断文件是否接收成功
+    function judgeReceiveFiles($certificate_image){
+       if(!$certificate_image->isValid()){
+           return showMsg(1);
+       }
+       return showMsg(0);
+    }
+    //上传单个图片
+    function uploadImg($subjection,$certificate_image){
+        $originalName = $certificate_image->getClientOriginalName();
+        $certificate_image->storeAs($subjection,$originalName);
+        $certificate_road = $subjection.'/'.$originalName;
+        return $certificate_road;
+    }
+    //删除单个文件
+    function deleteImg($disk,$certificate_road){
+        if($certificate_road == null){
+            return ;
+        }
+        Storage::disk($disk)->delete($certificate_road);
+    }
     //上传文件
-    function uploadfiles($subjection, $artical_file){
+    function uploadFiles($subjection, $artical_file){
         $extention = $artical_file->extension();          //获取文件的扩展名
         $filename  = time().'.'.$extention;               //拼接成文件名字
         $artical_file->storeAs($subjection,$filename);
@@ -130,16 +169,16 @@
         }
 
     }
-    //上传图片
-    function uploadimg($subjection,$files){
+    //上传多个图片
+    function uploadimgs($subjection,$files){
         $image_road = [];
         for($i = 0; $i < count($files); $i++){
 
         }
 
     }
-    //删除图片
-    function deleteimg(){
+    //删除多个图片
+    function deleteimgs(){
 
     }
 

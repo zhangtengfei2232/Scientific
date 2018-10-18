@@ -59,9 +59,8 @@ class TeacherDatabase extends ModelDatabase
     /**查询老师的信息
      * @return string
      */
-     public static function selectTeacherDatas(){
-         $usercount          = session('usercount');
-         $buffer             = DB::table('teacher')->where('teacher_id', $usercount)->first();
+     public static function selectTeacherDatas($teacher_id){
+         $buffer             = DB::table('teacher')->where('teacher_id', $teacher_id)->first();
          $academic           = AcademicDatabase::selectAcademic($buffer->teacher_id);
          $buffer             = (array)$buffer;                         //把数据转化为数组格式
          $buffer['status']   = session('status');                 //登录角色判断
@@ -69,61 +68,94 @@ class TeacherDatabase extends ModelDatabase
          return showMsg(0,'查询成功',$buffer);
      }
      //查找老师证书图片路径
-     public static function selectCertificateRoad($status){
+     public static function selectCertificateRoad($teacher_id,$status){
          if($status == 1){
-             return DB::table('teacher')
-                 ->select('gra_cert_road')
-                 ->where('teacher_id',session('usercount'))
-                 ->get();
+             $image =  DB::table('teacher')
+                     ->select('gra_cert_road')
+                     ->where('teacher_id',$teacher_id)
+                     ->get();
+             return $image->gra_cert_road;
          }elseif ($status == 2){
-             return DB::table('teacher')
+             $image =  DB::table('teacher')
                  ->select('edu_cert_road')
-                 ->where('teacher_id',session('usercount'))
+                 ->where('teacher_id',$teacher_id)
                  ->get();
+             return $image->edu_cert_road;
          }else{
              return DB::table('teacher')
                  ->select('gra_cert_road','edu_cert_road')
-                 ->where('teacher_id',session('usercount'))
+                 ->where('teacher_id',$teacher_id)
                  ->get();
          }
      }
      //修改老师的信息
-
     /**
      * @param $datas
-     * @param $status
+     * @return bool
      */
-     public static function updateTeacherDatas($datas,$status){
+     public static function updateTeacherDatas($datas){
          $teacher_id = session('usercount');
-         if($status == 1){                       //只修改老师的毕业证书图片路径
-             $retUpdate = DB::table('teacher')
-                 ->where('teacher_id',$teacher_id)
-                 ->update([
-
-                 ]);
-         }elseif($status == 2){                  //只修改老师的学历证书图片路径
-             $retUpdate = DB::table('teacher')
-                 ->where('teacher_id',$teacher_id)
-                 ->update([
-
-                 ]);
-         }elseif($status == 3){                  //学历和毕业证书图片都修改
-             $retUpdate = DB::table('teacher')
-                 ->where('teacher_id',$teacher_id)
-                 ->update([
-
-                 ]);
-         }
          $retUpdate = DB::table('teacher')
                   ->where('teacher_id',$teacher_id)
                   ->update([
-
+                      'teacher_department' => $datas->teacher_department,
+                      'name'               => $datas->name,
+                      'office_phone'       => $datas->office_phone,
+                      'home_phone'         => $datas->home_phone,
+                      'phone'              => $datas->phone,
+                      'number'             => $datas->number,
+                      'sex'                => $datas->sex,
+                      'nation'             => $datas->nation,
+                      'borth'              => strtotime($datas->borth),
+                      'polit_outlook'      => $datas->polit_outlook,
+                      'native_place'       => $datas->native_place,
+                      'admin_duties'       => $datas->admin_duties,
+                      'admin_tenure_time'  => strtotime($datas->admin_tenure_time),
+                      'job_level'          => $datas->job_level,
+                      'technical_position' => $datas->technical_position,
+                      'academic_title'     => $datas->academic_title,
+                      'review_time'        => strtotime($datas->review_time),
+                      'appointment_time'   => strtotime($datas->appointment_time),
+                      'series'             => $datas->series,
+                      'post_category'      => $datas->post_category,
+                      'company'            => $datas->company,
+                      'te_re_department'   => $datas->te_re_department,
+                      'working_hours'      => $datas->working_hours,
+                      'origin_work_unit'   => $datas->origin_work_unit,
+                      'certificate_num'    => $datas->certificate_num,
+                      'identity_card'      => $datas->identity_card,
+                      'edu_school'         => $datas->edu_school,
+                      'work_major'         => $datas->work_major,
+                      'belong_subject'     => $datas->belong_subject,
+                      'teach_course'       => $datas->teach_course,
+                      'master_insid'       => $datas->master_insid,
+                      'update_time'        => time()
                   ]);
-
-
-
+         if($retUpdate != 1){
+             return false;
+         }
+         return true;
      }
-
+    //修改老师证书图片路径
+    /**
+     * @param $teacher_id
+     * @param $certificate_road
+     * @param $status
+     * @return bool
+     */
+    public static function updateCertificate($teacher_id,$certificate_road,$status){
+        if($status == 1){
+            $response = DB::table('teacher')->where('teacher_id',$teacher_id)
+                ->update(['gra_cert_road' => $certificate_road]);
+        }elseif ($status == 2){
+            $response = DB::table('teacher')->where('teacher_id',$teacher_id)
+                ->update(['edu_cert_road' => $certificate_road]);
+        }
+        if($response != 1){
+            return false;
+        }
+        return true;
+    }
     /**把老师账号和身份验证信息存入session
      * @param $usercount
      * @param $status
