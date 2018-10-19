@@ -93,6 +93,21 @@
             handleClose () {
 
             },
+//            $(document).ready(function(){
+//            var he=$(window).height();          //获取窗口需要的高度
+//            var el=$(".content").height();      //获取当前右边内容的高度
+//            console.log(he);
+//            alert(he);
+//            if(he>el)                           //如果右边的内容高度并没有超过窗口的高度，也就是说并没有产生滚动条的话
+//            {
+//                $(".aside").height(he);         //填充左边导航条的高度至整个屏幕的高度
+//            }
+//            else{
+//                $(".aside").height(el);         //否则的话把右边的内容高度设置成左边导航条的高度，也就是设为同高
+////            $("#all").height(el);         //这句话是我为了让整个页面缩小比列后不会造成变形，这是后面讨论的第二个问题
+//            }
+//        }),
+
             getTeacherData(){
                 let self = this;
                 axios.get("selectteacher").then(function (response) {
@@ -129,20 +144,20 @@
 
     }
 
-
-//    var urlstr = location.href;
-//    //alert(urlstr);
-//    var urlstatus=false;
-//    $("#menu a").each(function () {
-//        if ((urlstr + '/').indexOf($(this).attr('href')) > -1&&$(this).attr('href')!='') {
-//            $(this).addClass('cur'); urlstatus = true;
-//        } else {
-//            $(this).removeClass('cur');
-//        }
-//    });
-//    if (!urlstatus) {$("#menu a").eq(0).addClass('cur'); }
-
-
+    $(document).ready(function(){
+        var he=$(window).height();          //获取窗口需要的高度
+        var el=$(".content").height();      //获取当前右边内容的高度
+        console.log(el);
+//        alert(he);
+        if(he>el)                           //如果右边的内容高度并没有超过窗口的高度，也就是说并没有产生滚动条的话
+        {
+            $(".aside").height(he);         //填充左边导航条的高度至整个屏幕的高度
+        }
+        else{
+            $(".aside").height(el);         //否则的话把右边的内容高度设置成左边导航条的高度，也就是设为同高
+//            $("#all").height(el);         //这句话是我为了让整个页面缩小比列后不会造成变形，这是后面讨论的第二个问题
+        }
+    });
 
 </script>
 
@@ -160,7 +175,7 @@
     .nav{
         width: 100%;
         height:35px;
-        background-color: plum;
+        /*background-color: plum;*/
     }
 
     .navLeft{
@@ -185,7 +200,7 @@
     }
     .loginName{
         width:17%;
-        height: 100%;
+        /*height: 100%;*/
         float: right;
     }
     .loginName img{
@@ -194,27 +209,12 @@
     }
     .aside{
         width: 12%;
-        /*height:100%;*/
-        padding-bottom:107%;
+        height: auto;
+        /*padding-bottom:107%;*/
         color: white;
         float: left;
         background-color:rgb(34,45,50);
-        /*display: inline-block;*/
     }
-    /*.aside li:first-child{*/
-        /*!*position: absolute;*!*/
-        /*height: 70px;*/
-        /*background-color: black;*/
-        /*!*vertical-align:middle;*!*/
-    /*}*/
-    /*.signIn{*/
-        /*!*margin-left: 20px;*!*/
-        /*background-color: black;*/
-        /*height: 80px;*/
-        /*text-align: center;*/
-        /*line-height: 70px;*/
-        /*!*margin-top: 5px;*!*/
-    /*}*/
     .signIn img{
         width:22%;
         vertical-align:middle;
@@ -240,9 +240,9 @@
     .el-col-12 {
         width: 100%;
     }
-    .el-menu-item.is-active {
-        background-color:#000 !important;
-    }
+    /*.el-menu-item.is-active {*/
+        /*background-color:#000 !important;*/
+    /*}*/
     .router-link-active {
         /*text-color:#ffd04b;*/
         color:#ffd04b !important;
