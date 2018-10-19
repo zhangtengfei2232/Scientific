@@ -12,17 +12,21 @@ Route::group(['namespace' => 'Login'], function (){
 Route::group(['namespace' => 'ScientificController','middleware'=>['validate']], function (){
     Route::get('indexpage', 'InformationController@showIndex');
     //老师对信息的操作
-    Route::post('addteacher', 'InformationController@addTeacher');
-    Route::get('deleteteacher', 'InformationController@deleteTeacher');
-    Route::get('selectteacher', 'InformationController@selectTeacher');
-    Route::post('updateteacher', 'InformationController@updateTeacher');
+    Route::post('addteacher', 'InformationController@addTeacher');          //添加老师信息
+    Route::get('deleteteacher', 'InformationController@deleteTeacher');     //删除老师信息
+    Route::get('selectteacher', 'InformationController@selectTeacher');     //查询老师信息
+    Route::post('updateteacher', 'InformationController@updateTeacher');    //修改老师信息
 
     //老师对论文的操作
-    Route::post('addartical', 'ArticalController@addArtical');
-    Route::get('deleteartical', 'ArticalController@deleteArtical');
-    Route::get('selectartical', 'ArticalController@selectArtical');
-    Route::post('updateartical', 'ArticalController@updateArtical');
-    Route::get('selectallattical', 'ArticalController@selectAllAttical');
+    Route::post('addartical', 'ArticalController@addArtical');              //添加论文
+    Route::get('deleteartical', 'ArticalController@deleteArtical');         //删除论文
+    Route::get('selectartical', 'ArticalController@selectArtical');         //查询单个论文
+    Route::get('dateselectartical', 'ArticalController@dateSelectArtical'); //根据日期查找论文
+    Route::post('updateartical', 'ArticalController@updateArtical');        //修改论文
+    Route::get('selectallattical', 'ArticalController@selectAllAttical');   //查询全部论文
+    Route::get('exportartical', 'ArticalController@exportArtical');         //导出一篇论文
+    Route::get('exportsomeartical', 'ArticalController@exportSomeArtical'); //导出多个论文，取第一页
+
     //老师对成果鉴定的操作
     Route::post('addappraisal', 'AppraisalController@addAppraisal');
     Route::get('deleteappraisal', 'AppraisalController@deleteAppraisal');
