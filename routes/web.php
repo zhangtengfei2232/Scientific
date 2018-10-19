@@ -69,6 +69,7 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     Route::post('addopus', 'OpusController@addOpus');
     Route::get('deleteopus', 'OpusController@deleteOpus');
     Route::get('selectopus', 'OpusController@selectOpus');
+    Route::get('selectallOpus', 'OpusController@selectAllOpus');
     Route::post('updateopus', 'OpusController@updateOpus');
 
     //老师对专利的操作
@@ -79,8 +80,9 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
 
     //老师对项目的操作
     Route::post('addproject', 'ProjectController@addProject');
-    Route::get('deleteproject', 'ProjectController@deleteproject');
-    Route::get('selectproject', 'ProjectController@selectproject');
-    Route::post('updateproject', 'ProjectController@updateproject');
+    Route::get('deleteproject', 'ProjectController@deleteProject');
+    Route::get('selectproject', 'ProjectController@selectProject');
+    Route::get('selectallproject', 'ProjectController@selectAllProject');
+    Route::post('updateproject', 'ProjectController@updateProject');
 });
 

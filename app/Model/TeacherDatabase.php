@@ -47,9 +47,53 @@ class TeacherDatabase extends ModelDatabase
          }
      }
      //添加老师的信息
-     public static function addTeacherDatas(){
-
-
+     public static function addTeacherDatas($datas){
+         return DB::table('teacher')
+             ->insert([
+                 'teacher_id'            => $datas->teacher_id,
+                 'password'              => $datas->teacher_id,     //初始密码设置为工号
+                 'teacher_department'    => $datas->teacher_department,
+                 'name'                  => $datas->name,
+                 'office_phone'          => $datas->office_phone,
+                 'home_phone'            => $datas->home_phone,
+                 'phone'                 => $datas->phone,
+                 'number'                => $datas->number,
+                 'sex'                   => $datas->sex,
+                 'nation'                => $datas->nation,
+                 'borth'                 => strtotime($datas->borth),
+                 'polit_outlook'         => $datas->polit_outlook,
+                 'native_place'          => $datas->native_place,
+                 'admin_duties'          => $datas->admin_duties,
+                 'admin_tenure_time'     => strtotime($datas->admin_tenure_time),
+                 'job_level'             => $datas->job_level,
+                 'technical_position'    => $datas->technical_position,
+                 'academic_title'        => $datas->academic_title,
+                 'review_time'           => strtotime($datas->review_time),
+                 'appointment_time'      => strtotime($datas->appointment_time),
+                 'series'                => $datas->series,
+                 'post_category'         => $datas->post_category,
+                 'company'               => $datas->company,
+                 'te_re_department'      => $datas->te_re_department,
+                 'working_hours'         => strtotime($datas->working_hours),
+                 'origin_work_unit'      => $datas->origin_work_unit,
+                 'certificate_num'       => $datas->certificate_num,
+                 'identity_card'         => $datas->identity_card,
+                 'edu_school'            => $datas->edu_school,
+                 'first_academic'        => $datas->first_academic,
+                 'first_graduate_school' => $datas->first_graduate_school,
+                 'first_study_major'     => $datas->first_study_major,
+                 'first_graduation_time' => strtotime($datas->first_graduation_time),
+                 'most_academic'         => $datas->most_academic,
+                 'most_graduate_school'  => $datas->most_graduate_school,
+                 'most_study_major'      => $datas->most_study_major,
+                 'most_graduation_time'  => strtotime($datas->most_graduation_time),
+                 'work_major'            => $datas->work_major,
+                 'belong_subject'        => $datas->belong_subject,
+                 'teach_course'          => $datas->teach_course,
+                 'master_company'        => $datas->master_company,
+                 'master_time'           => strtotime($datas->master_time),
+                 'create_time'           => time()
+             ]);
      }
      //删除老师的信息
      public static function deleteTeacherDatas(){
@@ -61,10 +105,16 @@ class TeacherDatabase extends ModelDatabase
      */
      public static function selectTeacherDatas($teacher_id){
          $buffer             = DB::table('teacher')->where('teacher_id', $teacher_id)->first();
-         $academic           = AcademicDatabase::selectAcademic($buffer->teacher_id);
          $buffer             = (array)$buffer;                         //把数据转化为数组格式
          $buffer['status']   = session('status');                 //登录角色判断
-         $buffer['academic'] = $academic;                             //在数组后面追加老师的毕业信息
+         $buffer->borth      = date('Y-m-d',$buffer->borth);
+         $buffer->admin_tenure_time      = date('Y-m-d',$buffer->admin_tenure_time);
+         $buffer->review_time            = date('Y-m-d',$buffer->review_time);
+         $buffer->appointment_time       = date('Y-m-d',$buffer->appointment_time);
+         $buffer->working_hours          = date('Y-m-d',$buffer->working_hours);
+         $buffer->first_graduation_time  = date('Y-m-d',$buffer->first_graduation_time);
+         $buffer->most_graduation_time   = date('Y-m-d',$buffer->most_graduation_time);
+         $buffer->master_time            = date('Y-m-d',$buffer->master_time);
          return showMsg(0,'查询成功',$buffer);
      }
      //查找老师证书图片路径
@@ -93,48 +143,53 @@ class TeacherDatabase extends ModelDatabase
      * @param $datas
      * @return bool
      */
-     public static function updateTeacherDatas($datas){
-         $teacher_id = session('usercount');
+     public static function updateTeacherDatas($teacher_id,$datas){
          $retUpdate = DB::table('teacher')
                   ->where('teacher_id',$teacher_id)
                   ->update([
-                      'teacher_department' => $datas->teacher_department,
-                      'name'               => $datas->name,
-                      'office_phone'       => $datas->office_phone,
-                      'home_phone'         => $datas->home_phone,
-                      'phone'              => $datas->phone,
-                      'number'             => $datas->number,
-                      'sex'                => $datas->sex,
-                      'nation'             => $datas->nation,
-                      'borth'              => strtotime($datas->borth),
-                      'polit_outlook'      => $datas->polit_outlook,
-                      'native_place'       => $datas->native_place,
-                      'admin_duties'       => $datas->admin_duties,
-                      'admin_tenure_time'  => strtotime($datas->admin_tenure_time),
-                      'job_level'          => $datas->job_level,
-                      'technical_position' => $datas->technical_position,
-                      'academic_title'     => $datas->academic_title,
-                      'review_time'        => strtotime($datas->review_time),
-                      'appointment_time'   => strtotime($datas->appointment_time),
-                      'series'             => $datas->series,
-                      'post_category'      => $datas->post_category,
-                      'company'            => $datas->company,
-                      'te_re_department'   => $datas->te_re_department,
-                      'working_hours'      => $datas->working_hours,
-                      'origin_work_unit'   => $datas->origin_work_unit,
-                      'certificate_num'    => $datas->certificate_num,
-                      'identity_card'      => $datas->identity_card,
-                      'edu_school'         => $datas->edu_school,
-                      'work_major'         => $datas->work_major,
-                      'belong_subject'     => $datas->belong_subject,
-                      'teach_course'       => $datas->teach_course,
-                      'master_insid'       => $datas->master_insid,
-                      'update_time'        => time()
+                      'teacher_department'    => $datas->teacher_department,
+                      'name'                  => $datas->name,
+                      'office_phone'          => $datas->office_phone,
+                      'home_phone'            => $datas->home_phone,
+                      'phone'                 => $datas->phone,
+                      'number'                => $datas->number,
+                      'sex'                   => $datas->sex,
+                      'nation'                => $datas->nation,
+                      'borth'                 => strtotime($datas->borth),
+                      'polit_outlook'         => $datas->polit_outlook,
+                      'native_place'          => $datas->native_place,
+                      'admin_duties'          => $datas->admin_duties,
+                      'admin_tenure_time'     => strtotime($datas->admin_tenure_time),
+                      'job_level'             => $datas->job_level,
+                      'technical_position'    => $datas->technical_position,
+                      'academic_title'        => $datas->academic_title,
+                      'review_time'           => strtotime($datas->review_time),
+                      'appointment_time'      => strtotime($datas->appointment_time),
+                      'series'                => $datas->series,
+                      'post_category'         => $datas->post_category,
+                      'company'               => $datas->company,
+                      'te_re_department'      => $datas->te_re_department,
+                      'working_hours'         => strtotime($datas->working_hours),
+                      'origin_work_unit'      => $datas->origin_work_unit,
+                      'certificate_num'       => $datas->certificate_num,
+                      'identity_card'         => $datas->identity_card,
+                      'edu_school'            => $datas->edu_school,
+                      'first_academic'        => $datas->first_academic,
+                      'first_graduate_school' => $datas->first_graduate_school,
+                      'first_study_major'     => $datas->first_study_major,
+                      'first_graduation_time' => strtotime($datas->first_graduation_time),
+                      'most_academic'         => $datas->most_academic,
+                      'most_graduate_school'  => $datas->most_graduate_school,
+                      'most_study_major'      => $datas->most_study_major,
+                      'most_graduation_time'  => strtotime($datas->most_graduation_time),
+                      'work_major'            => $datas->work_major,
+                      'belong_subject'        => $datas->belong_subject,
+                      'teach_course'          => $datas->teach_course,
+                      'master_company'        => $datas->master_company,
+                      'master_time'           => strtotime($datas->master_time),
+                      'update_time'           => time()
                   ]);
-         if($retUpdate != 1){
-             return false;
-         }
-         return true;
+         return ($retUpdate != 1) ? false : true;
      }
     //修改老师证书图片路径
     /**
@@ -151,10 +206,7 @@ class TeacherDatabase extends ModelDatabase
             $response = DB::table('teacher')->where('teacher_id',$teacher_id)
                 ->update(['edu_cert_road' => $certificate_road]);
         }
-        if($response != 1){
-            return false;
-        }
-        return true;
+        return ($response != 1) ? false : true;
     }
     /**把老师账号和身份验证信息存入session
      * @param $usercount
@@ -167,7 +219,6 @@ class TeacherDatabase extends ModelDatabase
          Session::save();
          return showMsg(0,"登录成功");
      }
-
     /**把session里的用户信息清空
      *
      */

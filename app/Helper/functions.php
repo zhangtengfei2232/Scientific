@@ -37,13 +37,18 @@
          return false;
     }
     //判断老师字段是否合法
-    function judgeDatas($datas){
+    function judgeTeacherField($datas){
          if(emptyarray($datas)){
              return showMsg(1,'你填写的个人信息不全');
          }
          $isMob="/^1[3-5,8]{1}[0-9]{9}$/";
          $isTel="/^([0-9]{3,4}-)?[0-9]{7,8}$/";
          $preg_card='/^\d{15}$)|(^\d{17}([0-9]|X)$/isu';
+         if(array_key_exists('teacher_id',$datas)){
+             if(strlen($datas->teacher_id) > 7){
+                 return showMsg(1,'你输入的工号有误');
+             }
+         }
          if(strlen($datas->name) > 15){
              return showMsg(1,'你填写的老师姓名不合法');
          }elseif (strlen($datas->office_phone) > 30
@@ -84,21 +89,17 @@
              return showMsg(1,'你输入的从事专业所属学科有误');
          }elseif (strlen($datas->teach_course) > 20){
              return showMsg(1,'你输入的任教课程有误');
-         }else{
-             return showMsg(0,'验证通过');
-         }
-    }
-    //判断老师-学术字段是否合法
-    function judgeAcademic($academic){
-        if(strlen($academic->first_graduate_school) > 30){
+         }elseif (strlen($datas->first_graduate_school) > 30){
             return showMsg(1,'你输入的老师第一学历毕业学校有误');
-        }elseif (strlen($academic->first_study_major) > 20){
+        }elseif (strlen($datas->first_study_major) > 20){
             return showMsg(1,'你输入的老师第一学历专业有误');
-        }elseif (strlen($academic->most_graduate_school) > 30){
+        }elseif (strlen($datas->most_graduate_school) > 30){
             return showMsg(1,'你输入的老师最高学历专业有误');
-        }elseif (strlen($academic->most_study_major) > 20){
+        }elseif (strlen($datas->most_study_major) > 20){
             return showMsg(1,'你输入的老师最高学历专业有误');
-        }else{
+        }elseif (strlen($datas->master_company) > 100){
+             return showMsg(1,'你输入的老师硕博导授予单位有误');
+         }else{
             return showMsg(0,'验证通过');
         }
     }
@@ -129,45 +130,72 @@
          }elseif (!is_numeric($datas->art_integral)
              || strlen($datas->art_integral) > 11){
              return showMsg(1,'你输入的积分不合法');
+         }elseif (strlen($datas->sch_percal_cate) > 20){
+             return showMsg(1,'你输入的学校认证期刊级别有误');
+         }else{
+             return showMsg(0,'验证通过');
          }
     }
+    //验证项目字段
+    function judgeProjectField($datas){
+        if(strlen($datas->pro_host) > 10){
+            return showMsg(1,'你输入的主持人有误');
+        }elseif (strlen($datas->entry_name) > 40){
+            return showMsg(1,'你输入的项目名称过长');
+        }elseif (strlen($datas->project_category) > 20){
+            return showMsg(1,'你输入的项目类别名过长');
+        }elseif (strlen($datas->approval_unit) > 20){
+            return showMsg(1,'你输入的批准单位名字过长');
+        }elseif (!is_numeric($datas->approval_funds)){
+            return showMsg(1,'你输入的批准经费必须全为数字');
+        }elseif (!is_numeric($datas->account_outlay)){
+            return showMsg(1,'你输入的当年到账经费必须全为数字');
+        }elseif (!is_numeric($datas->pro_integral)){
+            return showMsg(1,'你输入的积分必须全为数字');
+        }elseif (strlen($datas->pro_cate_research) > 20){
+            return showMsg(1,'你输入的研究类别名字过长');
+        }elseif (strlen($datas->social_eco_goal) > 50){
+            return showMsg(1,'你输入的社会经济目标过长');
+        }else{
+            return showMsg(0,'验证通过');
+        }
+    }
     //上传前先判断文件是否接收成功
-    function judgeReceiveFiles($certificate_image){
-       if(!$certificate_image->isValid()){
-           return showMsg(1);
+    function judgeReceiveFiles($certificate_pdf){
+       if($certificate_pdf->getClientOriginalExtension() != 'pdf'){
+           return showMsg(1,'请你上传PDF文件');
+       }
+       if(!$certificate_pdf->isValid()){
+           return showMsg(1,'上传失败,请重新上传');
        }
        return showMsg(0);
     }
-    //上传单个图片
-    function uploadImg($subjection,$certificate_image){
-        $originalName = $certificate_image->getClientOriginalName();
-        $certificate_image->storeAs($subjection,$originalName);
+    //上传文件
+    function uploadFiles($subjection,$artical_file){
+        $originalName = $artical_file->getClientOriginalName();
+        $artical_file->storeAs($subjection,$originalName);
         $certificate_road = $subjection.'/'.$originalName;
         return $certificate_road;
     }
-    //删除单个文件
-    function deleteImg($disk,$certificate_road){
+    //删除文件
+    function deletefiles($disk,$certificate_road){
         if($certificate_road == null){
             return ;
         }
         Storage::disk($disk)->delete($certificate_road);
     }
-    //上传文件
-    function uploadFiles($subjection, $artical_file){
-        $extention = $artical_file->extension();          //获取文件的扩展名
-        $filename  = time().'.'.$extention;               //拼接成文件名字
-        $artical_file->storeAs($subjection,$filename);
-        if(!file_exists($filename)){
-            return false;
+    //判断上传的文件是否为图片
+    function judgeFileImage($certificate_image){
+        $fileTypes = array('jpg','png','jpeg');
+        $extension = $certificate_image->getClientOriginalExtension();
+        $isInFileType = in_array($extension,$fileTypes);
+        if(!$isInFileType){
+            return showMsg(1,'你上传的图片不合法');
         }
-        return $filename;
-    }
-    //删除文件
-    function deletefiles($filelist){
-        foreach ($filelist as $file){
-            Storage::disk('image')->delete($file->name);
+        if(!$certificate_image->isValid()){
+            return showMsg(1,'上传失败,请重新上传');
         }
-
+        return showMsg(0);
     }
     //上传多个图片
     function uploadimgs($subjection,$files){
@@ -180,6 +208,26 @@
     //删除多个图片
     function deleteimgs(){
 
+    }
+    //生成PDF第一页缩略图
+    function pdfToPngUpload($disk,$artical_road,$subjection,$artical_name,$page){
+        $pdf  = $disk.'/'.$artical_road;
+        if(!file_exists($pdf)){
+            return showMsg(1,'没有找到PDF文件');
+        }
+        $path = $subjection.'/'.$artical_name.'首页.png';
+        $im   = new Imagick();
+        $im->setResolution(120,120);   //设置图像分辨率
+        $im->setCompressionQuality(80);                //压缩比
+        $im->readImage($pdf."[".$page."]");           //设置读取pdf的第一页
+        //$im->thumbnailImage(200, 100, true);                // 改变图像的大小
+        $im->scaleImage(200,100,true);       //缩放大小图像
+        $filename = $disk.'/'.$path;
+        if($im->writeImage($filename) == true)
+        {
+            return  $path;
+        }
+        return false;
     }
 
 

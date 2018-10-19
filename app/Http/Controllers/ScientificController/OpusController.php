@@ -23,6 +23,11 @@ class OpusController  extends Controller
     {
 
     }
+    //查看所有著作信息
+    public function selectAllOpus(Request $request)
+    {
+
+    }
     //修改著作信息
     public function updateOpus(Request $request)
     {
