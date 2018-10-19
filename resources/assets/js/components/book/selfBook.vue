@@ -1,5 +1,5 @@
 <template>
-    <div class="contents">
+    <div class="information">
         <div class="add">
             <el-form ref="form" :model="form" label-width="200px">
                 <el-form-item label="第一作者（或主编）">

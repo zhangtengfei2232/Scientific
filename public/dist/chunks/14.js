@@ -1,24 +1,24 @@
 webpackJsonp([14],{
 
-/***/ 212:
+/***/ 223:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(235)
+  __webpack_require__(300)
 }
 var normalizeComponent = __webpack_require__(81)
 /* script */
-var __vue_script__ = __webpack_require__(237)
+var __vue_script__ = __webpack_require__(302)
 /* template */
-var __vue_template__ = __webpack_require__(238)
+var __vue_template__ = __webpack_require__(303)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-6c7123dc"
+var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -29,7 +29,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/project/project.vue"
+Component.options.__file = "resources/assets/js/components/patent/selfPatent.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -38,9 +38,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6c7123dc", Component.options)
+    hotAPI.createRecord("data-v-3215a758", Component.options)
   } else {
-    hotAPI.reload("data-v-6c7123dc", Component.options)
+    hotAPI.reload("data-v-3215a758", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -52,23 +52,23 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 235:
+/***/ 300:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(236);
+var content = __webpack_require__(301);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(82)("117eb7d5", content, false, {});
+var update = __webpack_require__(82)("5c6faaba", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6c7123dc\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./project.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6c7123dc\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./project.vue");
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3215a758\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./selfPatent.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3215a758\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./selfPatent.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -79,7 +79,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 236:
+/***/ 301:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(25)(false);
@@ -87,14 +87,14 @@ exports = module.exports = __webpack_require__(25)(false);
 
 
 // module
-exports.push([module.i, "\nheader[data-v-6c7123dc]{\n    border-bottom: 1px solid #eee;\n}\n.paper[data-v-6c7123dc]{\n    font-size: 18px;\n    color: #090909;\n    display: inline-block;\n    padding: 23px 60px;\n    border-right: 1px solid #eee;\n}\n.load[data-v-6c7123dc]{\n    display: inline-block;\n    margin: 0;\n    padding: 16px 60px;\n    border-right: 1px solid #eee;\n}\n.searchtimes[data-v-6c7123dc]{\n     width: 45%;\n     display: inline-block;\n     margin: 15px 0 0 18%;\n}\n.demonstration[data-v-6c7123dc]{\n    font-weight: lighter;\n}\n.navbo[data-v-6c7123dc]{\n    border-bottom: 1px solid #eee;\n    background: rgba(187, 187, 187, 0.1);\n    height: 40px;\n}\n.info[data-v-6c7123dc],.number[data-v-6c7123dc],.do[data-v-6c7123dc],.time[data-v-6c7123dc]{\n    display: inline-block;\n    padding: 10px;\n    font-size: 14px;\n}\n.number[data-v-6c7123dc]{\n    margin: 0 2% 0 3%;\n}\n.time[data-v-6c7123dc]{\n    margin: 0 6% 0 45%;\n}\n.lists[data-v-6c7123dc]{\n    border-bottom: 1px solid #eee;\n    height: 80px;\n}\n.del[data-v-6c7123dc],.times[data-v-6c7123dc],.infos[data-v-6c7123dc],.numbers[data-v-6c7123dc],.dos[data-v-6c7123dc],.tos[data-v-6c7123dc]{\n    display: inline-block;\n    padding: 10px;\n    font-size: 14px;\n}\n.lists span[data-v-6c7123dc]{\n    float: left;\n}\n.lists img[data-v-6c7123dc]{\n    width: 35px;\n}\n.numbers[data-v-6c7123dc]{\n    margin: 20px 2% 0 3.5%;\n}\n.check[data-v-6c7123dc]{\n    margin: 25px 2% 0 3%;\n}\n.checks[data-v-6c7123dc]{\n    margin: 0 2% 0 3%;\n}\n.picture[data-v-6c7123dc]{\n    margin: 20px 5px 0 1%;\n}\n.infos[data-v-6c7123dc]{\n    margin: 10px 2% 0 0;\n}\n.infos h5[data-v-6c7123dc]{\n    font-size: 14px;\n    font-weight: lighter;\n}\n.infos p[data-v-6c7123dc]{\n    font-size: 13px;\n    font-weight: lighter;\n    margin: 8px 0 0 0;\n}\n.infos p small[data-v-6c7123dc]{\n    color: orange;\n    padding: 0 0 0 5px;\n}\n.times[data-v-6c7123dc]{\n    margin: 22px 2% 0 39%;\n}\n.dos[data-v-6c7123dc],.tos[data-v-6c7123dc],.del[data-v-6c7123dc]{\n    font-size: 13px;\n    margin: 23px 0 0 0;\n    color: rgba(61, 112, 206, 0.77)!important;\n}\n.dos a[data-v-6c7123dc],.tos a[data-v-6c7123dc]{\n    color: rgba(61, 112, 206, 0.77)!important;\n}\n.del a[data-v-6c7123dc]{\n    color: rgba(229, 28, 35, 1)!important;\n}\n.clear[data-v-6c7123dc]{\n    clear: both;\n    content: '';\n}\n", ""]);
+exports.push([module.i, "\n.information{\n       width: 75%;\n       float: left;\n}\n.add{\n       width: 80%;\n       margin: 35px 0 0 35px;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 237:
+/***/ 302:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -175,113 +175,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            ProjectDate: [],
-            checked: false,
+            PatetSelfData: {},
+            input: '',
             form: {
-                data1: '',
-                data2: ''
+                author: '1',
+                art_all_author: '1',
+                title: '2',
+                publication_name: '3',
+                publication_num: '4',
+                num_words: '456',
+                periodical_cate: '',
+                belong_project: 'xgxy',
+                art_cate_research: '',
+                art_sub_category: '',
+                art_integral: '',
+                region: '',
+                year: '',
+                date2: '',
+                delivery: false,
+                type: [],
+                resource: '',
+                desc: ''
             }
         };
     },
 
+
     methods: {
-        getProjectData: function getProjectData() {
+        getPatentSelfData: function getPatentSelfData() {
             var self = this;
-            axios.get("selectproject").then(function (response) {
+            var art_id = self.$route.params.art_id;
+            axios.get("selectartical", art_id).then(function (response) {
                 var data = response.data;
-                console.log(self.data);
                 if (data.code == 0) {
-                    self.ProjectDate = data.datas;
-                    //console.log(self.ProjectDate);
+                    self.PatentSelfData = data.datas;
+                    console.log(data.datas);
                 } else {
                     self.$notify({
                         type: 'error',
@@ -291,252 +223,309 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             });
         },
-        byTimeSearch: function byTimeSearch() {
-            axios.get("", form).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.ProjectDate = data.datas;
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.msg,
-                        duration: 2000
-                    });
-                }
-            });
-        },
-        sentProjectSelfData: function sentProjectSelfData() {
-            this.$router.push({
-                // path: `/selfInfor/${}`,
-            });
+        onSubmit: function onSubmit() {
+            console.log('submit!');
         }
     },
     mounted: function mounted() {
-        this.getProjectData();
+        this.getPatentSelfData();
     }
 });
 
 /***/ }),
 
-/***/ 238:
+/***/ 303:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("header", [
-      _c("span", { staticClass: "paper" }, [
-        _vm._v("\n            项目\n        ")
-      ]),
-      _vm._v(" "),
-      _c(
-        "span",
-        { staticClass: "load" },
-        [
-          _c(
-            "router-link",
-            { attrs: { to: "/addProject" } },
-            [
-              _c("el-button", { attrs: { type: "primary" } }, [
-                _c("i", { staticClass: "el-icon-plus el-icon--left" }, [
-                  _vm._v("上传")
-                ])
-              ])
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "span",
-        { staticClass: "searchtimes" },
-        [
-          _c("el-form", [
+  return _c("div", { staticClass: "information" }, [
+    _c(
+      "div",
+      { staticClass: "add" },
+      [
+        _c(
+          "el-form",
+          { ref: "form", attrs: { model: _vm.form, "label-width": "200px" } },
+          [
             _c(
-              "div",
-              { staticClass: "blocks" },
+              "el-form-item",
+              { attrs: { label: "专利权人" } },
               [
-                _c("span", { staticClass: "demonstration" }, [
-                  _vm._v("按发表时间检索:")
-                ]),
-                _vm._v(" "),
-                _c("el-date-picker", {
-                  attrs: { type: "date", placeholder: "选择日期" },
+                _c("el-input", {
                   model: {
-                    value: _vm.form.data1,
+                    value: _vm.form.author,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "data1", $$v)
+                      _vm.$set(_vm.form, "author", $$v)
                     },
-                    expression: "form.data1"
+                    expression: "form.author"
                   }
-                }),
-                _vm._v(" "),
-                _c("span", [_vm._v("-")]),
-                _vm._v(" "),
-                _c("el-date-picker", {
-                  attrs: { type: "date", placeholder: "选择日期" },
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "el-form-item",
+              { attrs: { label: "第一发明人" } },
+              [
+                _c("el-input", {
                   model: {
-                    value: _vm.form.data2,
+                    value: _vm.form.art_all_author,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "data2", $$v)
+                      _vm.$set(_vm.form, "art_all_author", $$v)
                     },
-                    expression: "form.data2"
+                    expression: "form.art_all_author"
                   }
-                }),
-                _vm._v(" "),
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "el-form-item",
+              { attrs: { label: "全部发明人" } },
+              [
+                _c("el-input", {
+                  model: {
+                    value: _vm.form.title,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "title", $$v)
+                    },
+                    expression: "form.title"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "el-form-item",
+              { attrs: { label: "专利类型" } },
+              [
                 _c(
-                  "el-button",
+                  "el-select",
                   {
-                    staticStyle: { "margin-left": "10px" },
-                    attrs: { type: "primary" },
-                    on: { click: _vm.byTimeSearch }
+                    attrs: { placeholder: "请选择类别" },
+                    model: {
+                      value: _vm.form.art_cate_research,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "art_cate_research", $$v)
+                      },
+                      expression: "form.art_cate_research"
+                    }
                   },
-                  [_vm._v("搜索")]
+                  [
+                    _c("el-option", {
+                      attrs: { label: "发明专利", value: "1" }
+                    }),
+                    _vm._v(" "),
+                    _c("el-option", {
+                      attrs: { label: "实用新型专利", value: "2" }
+                    }),
+                    _vm._v(" "),
+                    _c("el-option", {
+                      attrs: { label: "外观设计专利", value: "3" }
+                    })
+                  ],
+                  1
                 )
               ],
               1
-            )
-          ])
-        ],
-        1
-      )
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "navbo" }, [
-      _c(
-        "span",
-        { staticClass: "checks" },
-        [
-          _c("el-checkbox", {
-            model: {
-              value: _vm.checked,
-              callback: function($$v) {
-                _vm.checked = $$v
-              },
-              expression: "checked"
-            }
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("span", { staticClass: "number" }, [_vm._v("序号")]),
-      _vm._v(" "),
-      _c("span", { staticClass: "info" }, [_vm._v("论文信息")]),
-      _vm._v(" "),
-      _c("span", { staticClass: "time" }, [_vm._v("发表时间")]),
-      _vm._v(" "),
-      _c("span", { staticClass: "do" }, [_vm._v("操作")])
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "content" },
-      _vm._l(_vm.ProjectDate, function(item, index) {
-        return _c("div", { key: index, staticClass: "lists" }, [
-          _c(
-            "span",
-            { staticClass: "check" },
-            [
-              _c("el-checkbox", {
-                model: {
-                  value: _vm.checked,
-                  callback: function($$v) {
-                    _vm.checked = $$v
-                  },
-                  expression: "checked"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("span", { staticClass: "numbers" }, [
-            _vm._v(_vm._s(item.teacher_id))
-          ]),
-          _vm._v(" "),
-          _vm._m(0, true),
-          _vm._v(" "),
-          _c("span", { staticClass: "infos" }, [
-            _c("h5", [_vm._v(_vm._s(item.title))]),
+            ),
             _vm._v(" "),
-            _vm._m(1, true)
-          ]),
-          _vm._v(" "),
-          _c("span", { staticClass: "times" }, [_vm._v("2018-09-10")]),
-          _vm._v(" "),
-          _c(
-            "span",
-            {
-              staticClass: "dos",
-              on: {
-                click: function($event) {
-                  _vm.sentProjectSelfData(item.teacher_id)
-                }
-              }
-            },
-            [_vm._v("编辑")]
-          ),
-          _vm._v(" "),
-          _c(
-            "span",
-            { staticClass: "tos" },
-            [_c("router-link", { attrs: { to: "/" } }, [_vm._v("导出")])],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "span",
-            {
-              staticClass: "dos",
-              on: {
-                click: function($event) {
-                  _vm.sentProjectSelfData(item.teacher_id)
-                }
-              }
-            },
-            [_vm._v("查看")]
-          ),
-          _vm._v(" "),
-          _c(
-            "span",
-            { staticClass: "del" },
-            [_c("router-link", { attrs: { to: "/" } }, [_vm._v("删除")])],
-            1
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "clear" })
-        ])
-      })
+            _c(
+              "el-form-item",
+              { attrs: { label: "专利名称" } },
+              [
+                _c("el-input", {
+                  model: {
+                    value: _vm.form.publication_name,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "publication_name", $$v)
+                    },
+                    expression: "form.publication_name"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "el-form-item",
+              { attrs: { label: "实施情况" } },
+              [
+                _c(
+                  "el-select",
+                  {
+                    attrs: { placeholder: "请选择类别" },
+                    model: {
+                      value: _vm.form.art_cate_research,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "art_cate_research", $$v)
+                      },
+                      expression: "form.art_cate_research"
+                    }
+                  },
+                  [
+                    _c("el-option", { attrs: { label: "授权", value: "1" } }),
+                    _vm._v(" "),
+                    _c("el-option", { attrs: { label: "受理", value: "2" } })
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "el-form-item",
+              { attrs: { label: "授权编号或申请号" } },
+              [
+                _c("el-input", {
+                  model: {
+                    value: _vm.form.publication_num,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "publication_num", $$v)
+                    },
+                    expression: "form.publication_num"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "el-form-item",
+              { attrs: { label: "授权证书编号" } },
+              [
+                _c("el-input", {
+                  model: {
+                    value: _vm.form.publication_num,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "publication_num", $$v)
+                    },
+                    expression: "form.publication_num"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "el-form-item",
+              { attrs: { label: "授权公告日或受理日期" } },
+              [
+                _c(
+                  "el-col",
+                  { attrs: { span: 15 } },
+                  [
+                    _c("el-date-picker", {
+                      staticStyle: { width: "100%" },
+                      attrs: { type: "date", placeholder: "选择日期" },
+                      model: {
+                        value: _vm.form.date1,
+                        callback: function($$v) {
+                          _vm.$set(_vm.form, "date1", $$v)
+                        },
+                        expression: "form.date1"
+                      }
+                    })
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "el-form-item",
+              { attrs: { label: "积分" } },
+              [
+                _c("el-input", {
+                  model: {
+                    value: _vm.form.art_integral,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "art_integral", $$v)
+                    },
+                    expression: "form.art_integral"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "el-form-item",
+              { attrs: { label: "备注" } },
+              [
+                _c("el-input", {
+                  attrs: { type: "textarea" },
+                  model: {
+                    value: _vm.form.desc,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "desc", $$v)
+                    },
+                    expression: "form.desc"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "el-form-item",
+              { attrs: { label: "专利图片" } },
+              [
+                _c(
+                  "el-upload",
+                  {
+                    staticClass: "upload-demo",
+                    attrs: { drag: "", action: "#", multiple: "" }
+                  },
+                  [
+                    _c("i", { staticClass: "el-icon-upload" }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "el-upload__text" }, [
+                      _vm._v("将文件拖到此处，或"),
+                      _c("em", [_vm._v("点击上传")])
+                    ])
+                  ]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "el-form-item",
+              [
+                _c(
+                  "el-button",
+                  { attrs: { type: "primary" }, on: { click: _vm.onSubmit } },
+                  [_vm._v("立即创建")]
+                ),
+                _vm._v(" "),
+                _c("el-button", [_vm._v("取消")])
+              ],
+              1
+            )
+          ],
+          1
+        )
+      ],
+      1
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "picture" }, [
-      _c("img", { attrs: { src: "/dist/img/text.png", alt: "文件加载失败" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [_vm._v("作者 "), _c("small", [_vm._v("特别标注")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-6c7123dc", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-3215a758", module.exports)
   }
 }
 

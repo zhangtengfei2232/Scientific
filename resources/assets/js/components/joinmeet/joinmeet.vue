@@ -2,10 +2,10 @@
     <div>
         <header>
             <span class="paper">
-                专利
+                参加会议
             </span>
             <span class="load">
-                <router-link to="/addPatent">
+                <router-link to="/addJoinmeet">
                     <el-button type="primary"><i class="el-icon-plus el-icon--left">上传</i></el-button>
                 </router-link>
             </span>
@@ -32,7 +32,7 @@
         <div class="navbo">
             <span class="checks"><el-checkbox v-model="checked"></el-checkbox></span>
             <span class="number">序号</span>   
-            <span class="info">专利信息</span>
+            <span class="info">参加会议信息</span>
             <span class="time">发表时间</span>
             <span class="do">操作</span>
         </div>
@@ -46,9 +46,9 @@
                     <p>作者 <small>特别标注</small></p>
                 </span>
                 <span class="times">2018-09-10</span>
-                <span class="dos" @click="sentPatentSelfData(item.art_id)">编辑</span>
+                <span class="dos" @click="sentJoinmeetSelfData(item.art_id)">编辑</span>
                 <span class="tos"><router-link to="/">导出</router-link></span>
-                <span class="dos" @click="sentPatentSelfData(item.art_id)">查看</span>
+                <span class="dos" @click="sentJoinmeetSelfData(item.art_id)">查看</span>
                 <span class="del"><router-link to="/">删除</router-link></span>
                 <div class="clear"></div>
             </div>
@@ -163,7 +163,7 @@
     export default {
         data() {
             return {
-                PatentDate: [],
+                JoinmeetDate: [],
                 checked: false,
                 form: {
                     data1: '',
@@ -172,12 +172,12 @@
             }
         },
         methods: {
-            getPatentDate() {
+            getAppraisalDate() {
                 let self = this;
                 axios.get("").then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
-                        self.PatentDate = data.datas;
+                        self.JoinmeetDate = data.datas;
                     } else {
                         self.$notify({
                             type: 'error',
@@ -187,7 +187,7 @@
                     }
                 });
             },
-            sentPatentSelfData(art_id) {
+            sentJoinmeetSelfData(art_id) {
                 this.$router.push({
                 path: `/selfInfor/${art_id}`,
                 })
@@ -196,7 +196,7 @@
                 axios.get("",form).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
-                        self.PatentDate = data.datas;
+                        self.JoinmeetDate = data.datas;
                     } else {
                         self.$notify({
                             type: 'error',
@@ -209,7 +209,7 @@
 
         },
         mounted() {
-            this.getPatentDate();
+            this.getJoinmeetDate();
         }
     }
 </script>

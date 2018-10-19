@@ -68,7 +68,7 @@ export default new VueRouter({
              {
                 name: 'award',
                 path: '/award',
-                component: resolve => void(require(['../components/award/book.vue'], resolve))
+                component: resolve => void(require(['../components/award/award.vue'], resolve))
             },
             {
                 name: 'addAward',
