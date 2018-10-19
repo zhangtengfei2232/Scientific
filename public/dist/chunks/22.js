@@ -235,42 +235,88 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      input: '',
-      form: {
-        author: '',
-        art_all_author: '',
-        title: '',
-        publication_name: '',
-        publication_num: '',
-        num_words: '',
-        periodical_cate: '',
-        belong_project: '',
-        art_cate_research: '',
-        art_sub_category: '',
-        art_integral: '',
-        name: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
-      }
-    };
-  },
+    data: function data() {
+        return {
+            year1: '',
+            year2: '',
+            year3: '',
+            year4: '',
+            year5: '',
+            form: {
+                author: '',
+                art_all_author: '',
+                title: '',
+                publication_name: '',
+                publication_num: '',
+                num_words: '',
+                periodical_cate: '',
+                belong_project: '',
+                art_cate_research: '',
+                art_sub_category: '',
+                art_integral: '',
+                percal_cate: '',
+                year: ''
+            }
+        };
+    },
 
-  methods: {
-    onSubmit: function onSubmit() {
-      console.log('submit!');
-      alert("kkk");
+    methods: {
+        onSubmit: function onSubmit(form, year2, year3, year4, year5, year1) {
+            form.year = year1 + year2 + year3 + year4 + year5;
+            if (form.author == '') {
+                this.$message.error('第一作者不能为空');
+            } else if (form.art_all_author == '') {
+                this.$message.error('全部作者不能为空');
+            } else if (form.title == '') {
+                this.$message.error('论文题目不能为空');
+            } else if (form.publication_name == '') {
+                this.$message.error('发表刊物名称不能为空');
+            } else if (form.publication_num == '') {
+                this.$message.error('刊号不能为空');
+            } else if (year1 == '') {
+                this.$message.error('年，卷，期不能为空');
+            } else if (year2 == '') {
+                this.$message.error('年，卷，期不能为空');
+            } else if (year3 == '') {
+                this.$message.error('年，卷，期不能为空');
+            } else if (year4 == '') {
+                this.$message.error('年，卷，期不能为空');
+            } else if (year5 == '') {
+                this.$message.error('年，卷，期不能为空');
+            } else if (form.num_words == '') {
+                this.$message.error('字数不能为空');
+            } else if (form.periodical_cate == '') {
+                this.$message.error('期刊级别不能为空');
+            } else if (form.belong_project == '') {
+                this.$message.error('所属项目不能为空');
+            } else if (form.art_cate_research == '') {
+                this.$message.error('研究类别不能为空');
+            } else if (form.art_sub_category == '') {
+                this.$message.error('学科门类不能为空');
+            } else if (form.art_integral == '') {
+                this.$message.error('积分不能为空');
+            } else if (form.percal_cate == '') {
+                this.$message.error('学校认定刊物级别不能为空');
+            } else {
+                this.addArticleData(form);
+            }
+        },
+        addArticleData: function addArticleData(form) {
+            var self = this;
+            axios.get("addartical", form).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {} else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.msg,
+                        duration: 2000
+                    });
+                }
+            });
+        }
     }
-  }
 });
 
 /***/ }),
@@ -391,11 +437,11 @@ var render = function() {
                       staticStyle: { width: "90px" },
                       attrs: { type: "year", placeholder: "选择年份" },
                       model: {
-                        value: _vm.form.year,
+                        value: _vm.year1,
                         callback: function($$v) {
-                          _vm.$set(_vm.form, "year", $$v)
+                          _vm.year1 = $$v
                         },
-                        expression: "form.year"
+                        expression: "year1"
                       }
                     })
                   ],
@@ -421,11 +467,11 @@ var render = function() {
                     _c("el-input", {
                       attrs: { placeholder: "卷" },
                       model: {
-                        value: _vm.input,
+                        value: _vm.year2,
                         callback: function($$v) {
-                          _vm.input = $$v
+                          _vm.year2 = $$v
                         },
-                        expression: "input"
+                        expression: "year2"
                       }
                     })
                   ],
@@ -451,11 +497,11 @@ var render = function() {
                     _c("el-input", {
                       attrs: { placeholder: "卷号" },
                       model: {
-                        value: _vm.input,
+                        value: _vm.year3,
                         callback: function($$v) {
-                          _vm.input = $$v
+                          _vm.year3 = $$v
                         },
-                        expression: "input"
+                        expression: "year3"
                       }
                     })
                   ],
@@ -493,11 +539,11 @@ var render = function() {
                     _c("el-input", {
                       attrs: { placeholder: "开始期" },
                       model: {
-                        value: _vm.input,
+                        value: _vm.year4,
                         callback: function($$v) {
-                          _vm.input = $$v
+                          _vm.year4 = $$v
                         },
-                        expression: "input"
+                        expression: "year4"
                       }
                     })
                   ],
@@ -526,11 +572,11 @@ var render = function() {
                     _c("el-input", {
                       attrs: { placeholder: "结束期" },
                       model: {
-                        value: _vm.input,
+                        value: _vm.year5,
                         callback: function($$v) {
-                          _vm.input = $$v
+                          _vm.year5 = $$v
                         },
-                        expression: "input"
+                        expression: "year5"
                       }
                     })
                   ],
@@ -793,11 +839,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.name,
+                    value: _vm.form.percal_cate,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "name", $$v)
+                      _vm.$set(_vm.form, "percal_cate", $$v)
                     },
-                    expression: "form.name"
+                    expression: "form.percal_cate"
                   }
                 })
               ],
@@ -832,11 +878,33 @@ var render = function() {
               [
                 _c(
                   "el-button",
-                  { attrs: { type: "primary" }, on: { click: _vm.onSubmit } },
+                  {
+                    attrs: { type: "primary" },
+                    on: {
+                      click: function($event) {
+                        _vm.onSubmit(
+                          _vm.form,
+                          _vm.year2,
+                          _vm.year3,
+                          _vm.year4,
+                          _vm.year5,
+                          _vm.year1
+                        )
+                      }
+                    }
+                  },
                   [_vm._v("立即创建")]
                 ),
                 _vm._v(" "),
-                _c("el-button", [_vm._v("取消")])
+                _c(
+                  "el-button",
+                  [
+                    _c("router-link", { attrs: { to: "/paper" } }, [
+                      _vm._v("取消")
+                    ])
+                  ],
+                  1
+                )
               ],
               1
             )

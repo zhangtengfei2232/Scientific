@@ -99,6 +99,8 @@ exports.push([module.i, "\n.information{\n       width: 75%;\n       float: left
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -196,29 +198,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
+        var _form;
+
         return {
             AwardSelfData: {},
-            input: '',
-            form: {
-                author: '1',
-                art_all_author: '1',
-                title: '2',
-                publication_name: '3',
-                publication_num: '4',
-                num_words: '456',
-                periodical_cate: '',
-                belong_project: 'xgxy',
-                art_cate_research: '',
-                art_sub_category: '',
-                art_integral: '',
-                region: '',
-                year: '',
-                date2: '',
-                delivery: false,
-                type: [],
-                resource: '',
-                desc: ''
-            }
+            form: (_form = {
+                aw_first_author: ''
+            }, _defineProperty(_form, 'aw_first_author', ''), _defineProperty(_form, 'prize_win_name', ''), _defineProperty(_form, 'award_name', ''), _defineProperty(_form, 'form_achievement', ''), _defineProperty(_form, 'aw_grade', ''), _defineProperty(_form, 'aw_level', ''), _defineProperty(_form, 'aw_grant_unit', ''), _defineProperty(_form, 'aw_grant_time', ''), _defineProperty(_form, 'aw_certi_number', ''), _defineProperty(_form, 'aw_sch_rank', ''), _defineProperty(_form, 'aw_integral', ''), _form)
         };
     },
 
@@ -242,7 +228,46 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         onSubmit: function onSubmit() {
-            console.log('submit!');
+            if (form.author == '') {
+                this.$message.error('第一获奖人不能为空');
+            } else if (form.art_all_author == '') {
+                this.$message.error('全部获奖人不能为空');
+            } else if (form.title == '') {
+                this.$message.error('获奖成果名称不能为空');
+            } else if (form.publication_name == '') {
+                this.$message.error('奖励名称不能为空');
+            } else if (form.publication_num == '') {
+                this.$message.error('成果形式不能为空');
+            } else if (year1 == '') {
+                this.$message.error('等级不能为空');
+            } else if (year2 == '') {
+                this.$message.error('奖励级别不能为空');
+            } else if (year3 == '') {
+                this.$message.error('授奖单位不能为空');
+            } else if (year4 == '') {
+                this.$message.error('授奖时间不能为空');
+            } else if (year5 == '') {
+                this.$message.error('证书编号不能为空');
+            } else if (form.num_words == '') {
+                this.$message.error('我校名次不能为空');
+            } else if (form.periodical_cate == '') {
+                this.$message.error('积分不能为空');
+            } else {
+                this.changeAwardData(form);
+            }
+        },
+        changeAwardData: function changeAwardData(form) {
+            var self = this;
+            axios.get("", form).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {} else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.msg,
+                        duration: 2000
+                    });
+                }
+            });
         }
     },
     mounted: function mounted() {
@@ -274,11 +299,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.author,
+                    value: _vm.form.aw_first_author,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "author", $$v)
+                      _vm.$set(_vm.form, "aw_first_author", $$v)
                     },
-                    expression: "form.author"
+                    expression: "form.aw_first_author"
                   }
                 })
               ],
@@ -291,11 +316,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.art_all_author,
+                    value: _vm.form.aw_all_author,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "art_all_author", $$v)
+                      _vm.$set(_vm.form, "aw_all_author", $$v)
                     },
-                    expression: "form.art_all_author"
+                    expression: "form.aw_all_author"
                   }
                 })
               ],
@@ -308,11 +333,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.title,
+                    value: _vm.form.prize_win_name,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "title", $$v)
+                      _vm.$set(_vm.form, "prize_win_name", $$v)
                     },
-                    expression: "form.title"
+                    expression: "form.prize_win_name"
                   }
                 })
               ],
@@ -325,11 +350,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.publication_name,
+                    value: _vm.form.award_name,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "publication_name", $$v)
+                      _vm.$set(_vm.form, "award_name", $$v)
                     },
-                    expression: "form.publication_name"
+                    expression: "form.award_name"
                   }
                 })
               ],
@@ -345,11 +370,11 @@ var render = function() {
                   {
                     attrs: { placeholder: "请选择类别" },
                     model: {
-                      value: _vm.form.art_cate_research,
+                      value: _vm.form.form_achievement,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "art_cate_research", $$v)
+                        _vm.$set(_vm.form, "form_achievement", $$v)
                       },
-                      expression: "form.art_cate_research"
+                      expression: "form.form_achievement"
                     }
                   },
                   [
@@ -394,11 +419,11 @@ var render = function() {
                   {
                     attrs: { placeholder: "请选择类别" },
                     model: {
-                      value: _vm.form.art_cate_research,
+                      value: _vm.form.aw_grade,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "art_cate_research", $$v)
+                        _vm.$set(_vm.form, "aw_grade", $$v)
                       },
-                      expression: "form.art_cate_research"
+                      expression: "form.aw_grade"
                     }
                   },
                   [
@@ -423,21 +448,21 @@ var render = function() {
                   {
                     attrs: { placeholder: "请选择类别" },
                     model: {
-                      value: _vm.form.art_cate_research,
+                      value: _vm.form.aw_level,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "art_cate_research", $$v)
+                        _vm.$set(_vm.form, "aw_level", $$v)
                       },
-                      expression: "form.art_cate_research"
+                      expression: "form.aw_level"
                     }
                   },
                   [
-                    _c("el-option", { attrs: { label: "专著", value: "1" } }),
+                    _c("el-option", { attrs: { label: "国家级", value: "1" } }),
                     _vm._v(" "),
-                    _c("el-option", { attrs: { label: "教科书", value: "2" } }),
+                    _c("el-option", { attrs: { label: "省部级", value: "2" } }),
                     _vm._v(" "),
-                    _c("el-option", { attrs: { label: "译著", value: "3" } }),
+                    _c("el-option", { attrs: { label: "厅局级", value: "3" } }),
                     _vm._v(" "),
-                    _c("el-option", { attrs: { label: "编著", value: "4" } }),
+                    _c("el-option", { attrs: { label: "校级", value: "4" } }),
                     _vm._v(" "),
                     _c("el-option", { attrs: { label: "其他", value: "5" } })
                   ],
@@ -453,11 +478,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.publication_num,
+                    value: _vm.form.aw_grant_unit,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "publication_num", $$v)
+                      _vm.$set(_vm.form, "aw_grant_unit", $$v)
                     },
-                    expression: "form.publication_num"
+                    expression: "form.aw_grant_unit"
                   }
                 })
               ],
@@ -476,11 +501,11 @@ var render = function() {
                       staticStyle: { width: "100%" },
                       attrs: { type: "date", placeholder: "选择日期" },
                       model: {
-                        value: _vm.form.date1,
+                        value: _vm.form.aw_grant_time,
                         callback: function($$v) {
-                          _vm.$set(_vm.form, "date1", $$v)
+                          _vm.$set(_vm.form, "aw_grant_time", $$v)
                         },
-                        expression: "form.date1"
+                        expression: "form.aw_grant_time"
                       }
                     })
                   ],
@@ -496,11 +521,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.publication_num,
+                    value: _vm.form.aw_certi_number,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "publication_num", $$v)
+                      _vm.$set(_vm.form, "aw_certi_number", $$v)
                     },
-                    expression: "form.publication_num"
+                    expression: "form.aw_certi_number"
                   }
                 })
               ],
@@ -513,11 +538,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.publication_num,
+                    value: _vm.form.aw_sch_rank,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "publication_num", $$v)
+                      _vm.$set(_vm.form, "aw_sch_rank", $$v)
                     },
-                    expression: "form.publication_num"
+                    expression: "form.aw_sch_rank"
                   }
                 })
               ],
@@ -530,11 +555,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.art_integral,
+                    value: _vm.form.aw_integral,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "art_integral", $$v)
+                      _vm.$set(_vm.form, "aw_integral", $$v)
                     },
-                    expression: "form.art_integral"
+                    expression: "form.aw_integral"
                   }
                 })
               ],
@@ -573,7 +598,15 @@ var render = function() {
                   [_vm._v("立即创建")]
                 ),
                 _vm._v(" "),
-                _c("el-button", [_vm._v("取消")])
+                _c(
+                  "el-button",
+                  [
+                    _c("router-link", { attrs: { to: "/award" } }, [
+                      _vm._v("取消")
+                    ])
+                  ],
+                  1
+                )
               ],
               1
             )

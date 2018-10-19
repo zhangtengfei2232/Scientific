@@ -3,19 +3,19 @@
         <div class="add">
             <el-form ref="form" :model="form" label-width="200px">
                 <el-form-item label="第一获奖人">
-                    <el-input v-model="form.author"></el-input>
+                    <el-input v-model="form.aw_first_author"></el-input>
                 </el-form-item>
                 <el-form-item label="全部获奖人">
-                    <el-input v-model="form.art_all_author"></el-input>
+                    <el-input v-model="form.aw_all_author"></el-input>
                 </el-form-item>
                 <el-form-item label="获奖成果名称">
-                    <el-input v-model="form.title"></el-input>
+                    <el-input v-model="form.prize_win_name"></el-input>
                 </el-form-item>
                 <el-form-item label="奖励名称">
-                    <el-input v-model="form.publication_name"></el-input>
+                    <el-input v-model="form.award_name"></el-input>
                 </el-form-item>  
                 <el-form-item label="成果形式">
-                    <el-select v-model="form.art_cate_research" placeholder="请选择类别">
+                    <el-select v-model="form.form_achievement" placeholder="请选择类别">
                         <el-option label="论文" value="1"></el-option>
                         <el-option label="研究报告" value="2"></el-option>
                         <el-option label="新技术" value="3"></el-option>
@@ -30,37 +30,37 @@
                     </el-select>
                 </el-form-item>
                  <el-form-item label="等级">
-                    <el-select v-model="form.art_cate_research" placeholder="请选择类别">
+                    <el-select v-model="form.aw_grade" placeholder="请选择类别">
                         <el-option label="一等奖" value="1"></el-option>
                         <el-option label="二等奖" value="2"></el-option>
                         <el-option label="三等奖" value="3"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="奖励级别">
-                    <el-select v-model="form.art_cate_research" placeholder="请选择类别">
-                        <el-option label="专著" value="1"></el-option>
-                        <el-option label="教科书" value="2"></el-option>
-                        <el-option label="译著" value="3"></el-option>
-                        <el-option label="编著" value="4"></el-option>
+                    <el-select v-model="form.aw_level" placeholder="请选择类别">
+                        <el-option label="国家级" value="1"></el-option>
+                        <el-option label="省部级" value="2"></el-option>
+                        <el-option label="厅局级" value="3"></el-option>
+                        <el-option label="校级" value="4"></el-option>
                         <el-option label="其他" value="5"></el-option>
                     </el-select>
                 </el-form-item>
                  <el-form-item label="授奖单位">
-                    <el-input v-model="form.publication_num"></el-input>
+                    <el-input v-model="form.aw_grant_unit"></el-input>
                 </el-form-item>
                 <el-form-item label="授奖时间">
                     <el-col :span="15">
-                    <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
+                        <el-date-picker type="date" placeholder="选择日期" v-model="form.aw_grant_time" style="width: 100%;"></el-date-picker>
                     </el-col>
                 </el-form-item>  
                 <el-form-item label="证书编号">
-                    <el-input v-model="form.publication_num"></el-input>
+                    <el-input v-model="form.aw_certi_number"></el-input>
                 </el-form-item>
                 <el-form-item label="我校名次">
-                    <el-input v-model="form.publication_num"></el-input>
+                    <el-input v-model="form.aw_sch_rank"></el-input>
                 </el-form-item>
                 <el-form-item label="积分">
-                    <el-input v-model="form.art_integral"></el-input>
+                    <el-input v-model="form.aw_integral"></el-input>
                 </el-form-item>
                 <el-form-item label="证书图片">
                     <el-upload
@@ -74,7 +74,7 @@
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="onSubmit">立即创建</el-button>
-                    <el-button>取消</el-button>
+                    <el-button><router-link to="/award">取消</router-link></el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -97,26 +97,19 @@ export default {
     data() {
         return {
             AwardSelfData: {},
-            input: '',
             form: {
-                author: '1',
-                art_all_author: '1',
-                title: '2',
-                publication_name: '3',
-                publication_num : '4',
-                num_words: '456',
-                periodical_cate: '',
-                belong_project: 'xgxy',
-                art_cate_research: '',
-                art_sub_category: '',
-                art_integral: '',
-                region: '',
-                year: '',
-                date2: '',
-                delivery: false,
-                type: [],
-                resource: '',
-                desc: '',
+                aw_first_author: '',
+                aw_first_author: '',
+                prize_win_name: '',
+                award_name: '',
+                form_achievement : '',
+                aw_grade: '',
+                aw_level: '',
+                aw_grant_unit: '',
+                aw_grant_time: '',
+                aw_certi_number: '',
+                aw_sch_rank: '',  
+                aw_integral: '',
             },
         }
     },
@@ -140,7 +133,48 @@ export default {
                 });
         },
         onSubmit() {
-            console.log('submit!');
+            if(form.author == '') {
+                    this.$message.error('第一获奖人不能为空');
+                }else if(form.art_all_author == ''){
+                    this.$message.error('全部获奖人不能为空');
+                }else if(form.title == '') {
+                    this.$message.error('获奖成果名称不能为空');
+                }else if(form.publication_name == '') {
+                    this.$message.error('奖励名称不能为空');
+                }else if(form.publication_num == '') {
+                    this.$message.error('成果形式不能为空');
+                }else if(year1 == '') {
+                    this.$message.error('等级不能为空');
+                }else if(year2 == '') {
+                    this.$message.error('奖励级别不能为空');
+                }else if(year3 == '') {
+                    this.$message.error('授奖单位不能为空');
+                }else if(year4 == '') {
+                    this.$message.error('授奖时间不能为空');
+                }else if(year5 == '') {
+                    this.$message.error('证书编号不能为空');
+                }else if(form.num_words == '') {
+                    this.$message.error('我校名次不能为空');
+                }else if(form.periodical_cate == '') {
+                    this.$message.error('积分不能为空');
+                }else{
+                    this.changeAwardData(form);
+                }
+        },
+        changeAwardData(form) {
+            let self = this;
+            axios.get("",form).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.msg,
+                        duration: 2000,
+                    });
+                }
+            });
         },
     },
     mounted() {

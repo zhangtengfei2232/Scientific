@@ -24,7 +24,7 @@
                         type="date"
                         placeholder="选择日期">
                         </el-date-picker>
-                        <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch">搜索</el-button>
+                        <span><el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch">搜索</el-button></span>
                     </div>
                 </el-form>
             </span>
@@ -76,7 +76,7 @@
     .searchtime{
          width: 45%;
          display: inline-block;
-         margin: 15px 0 0 18%;
+         margin: 15px 0 0 9%;
     }
     .demonstration{
         font-weight: lighter;

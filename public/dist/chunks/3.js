@@ -260,6 +260,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -274,14 +276,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
+        handleCheckAllChange: function handleCheckAllChange(val) {
+            this.checkedCities = val ? this.ProjectDate : [];
+            this.isIndeterminate = false;
+        },
+        handleCheckedCitiesChange: function handleCheckedCitiesChange(value) {
+            var checkedCount = value.length;
+            this.checkAll = checkedCount === this.ProjectDate.length;
+            this.isIndeterminate = checkedCount > 0 && checkedCount < this.ProjectDate.length;
+        },
         getProjectData: function getProjectData() {
             var self = this;
             axios.get("selectproject").then(function (response) {
                 var data = response.data;
-                console.log(self.data);
                 if (data.code == 0) {
                     self.ProjectDate = data.datas;
-                    //console.log(self.ProjectDate);
                 } else {
                     self.$notify({
                         type: 'error',
@@ -291,7 +300,39 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             });
         },
-        byTimeSearch: function byTimeSearch() {
+        deleteProjectData: function deleteProjectData(pro_id) {
+            var _this = this;
+
+            this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(function () {
+                var self = _this;
+                axios.get("", pro_id).then(function (response) {
+                    var data = response.data;
+                    if (data.code == 0) {
+                        this.$message({
+                            type: 'success',
+                            message: '删除成功!'
+                        });
+                    } else {
+                        self.$notify({
+                            type: 'error',
+                            message: data.msg,
+                            duration: 2000
+                        });
+                    }
+                });
+            }).catch(function () {
+                _this.$message({
+                    type: 'info',
+                    message: '已取消删除'
+                });
+            });
+        },
+        byTimeSearch: function byTimeSearch(form) {
+            var self = this;
             axios.get("", form).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
@@ -305,9 +346,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             });
         },
-        sentProjectSelfData: function sentProjectSelfData() {
+        sentProjectSelfData: function sentProjectSelfData(pro_id) {
             this.$router.push({
-                // path: `/selfInfor/${}`,
+                path: '/selfProject/' + pro_id
             });
         }
     },
@@ -393,7 +434,11 @@ var render = function() {
                   {
                     staticStyle: { "margin-left": "10px" },
                     attrs: { type: "primary" },
-                    on: { click: _vm.byTimeSearch }
+                    on: {
+                      click: function($event) {
+                        _vm.byTimeSearch(_vm.form)
+                      }
+                    }
                   },
                   [_vm._v("搜索")]
                 )
@@ -436,101 +481,112 @@ var render = function() {
     _c(
       "div",
       { staticClass: "content" },
-      _vm._l(_vm.ProjectDate, function(item, index) {
-        return _c("div", { key: index, staticClass: "lists" }, [
-          _c(
-            "span",
-            { staticClass: "check" },
-            [
-              _c("el-checkbox", {
-                model: {
-                  value: _vm.checked,
-                  callback: function($$v) {
-                    _vm.checked = $$v
-                  },
-                  expression: "checked"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("span", { staticClass: "numbers" }, [
-            _vm._v(_vm._s(item.teacher_id))
-          ]),
-          _vm._v(" "),
-          _vm._m(0, true),
-          _vm._v(" "),
-          _c("span", { staticClass: "infos" }, [
-            _c("h5", [_vm._v(_vm._s(item.title))]),
-            _vm._v(" "),
-            _vm._m(1, true)
-          ]),
-          _vm._v(" "),
-          _c("span", { staticClass: "times" }, [_vm._v("2018-09-10")]),
-          _vm._v(" "),
-          _c(
-            "span",
-            {
-              staticClass: "dos",
-              on: {
-                click: function($event) {
-                  _vm.sentProjectSelfData(item.teacher_id)
-                }
-              }
-            },
-            [_vm._v("编辑")]
-          ),
-          _vm._v(" "),
-          _c(
-            "span",
-            { staticClass: "tos" },
-            [_c("router-link", { attrs: { to: "/" } }, [_vm._v("导出")])],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "span",
-            {
-              staticClass: "dos",
-              on: {
-                click: function($event) {
-                  _vm.sentProjectSelfData(item.teacher_id)
-                }
-              }
-            },
-            [_vm._v("查看")]
-          ),
-          _vm._v(" "),
-          _c(
-            "span",
-            { staticClass: "del" },
-            [_c("router-link", { attrs: { to: "/" } }, [_vm._v("删除")])],
-            1
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "clear" })
-        ])
-      })
+      [
+        _c(
+          "el-checkbox-group",
+          {
+            on: { change: _vm.handleCheckedCitiesChange },
+            model: {
+              value: _vm.checkAll,
+              callback: function($$v) {
+                _vm.checkAll = $$v
+              },
+              expression: "checkAll"
+            }
+          },
+          _vm._l(_vm.ProjectDate, function(item, index) {
+            return _c("div", { key: index, staticClass: "lists" }, [
+              _c(
+                "span",
+                { staticClass: "check" },
+                [
+                  _c("el-checkbox", {
+                    model: {
+                      value: _vm.checked,
+                      callback: function($$v) {
+                        _vm.checked = $$v
+                      },
+                      expression: "checked"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("span", { staticClass: "numbers" }, [
+                _vm._v(_vm._s(item.teacher_id))
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "picture" }, [
+                _c("img", {
+                  attrs: { src: "/dist/img/text.png", alt: "文件加载失败" }
+                })
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "infos" }, [
+                _c("h5", [_vm._v(_vm._s(item.title))]),
+                _vm._v(" "),
+                _c("p", [_vm._v("作者 "), _c("small", [_vm._v("特别标注")])])
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "times" }, [_vm._v("2018-09-10")]),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  staticClass: "dos",
+                  on: {
+                    click: function($event) {
+                      _vm.sentProjectSelfData(item.pro_id)
+                    }
+                  }
+                },
+                [_vm._v("编辑")]
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                { staticClass: "tos" },
+                [_c("router-link", { attrs: { to: "/" } }, [_vm._v("导出")])],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  staticClass: "dos",
+                  on: {
+                    click: function($event) {
+                      _vm.sentProjectSelfData(item.pro_id)
+                    }
+                  }
+                },
+                [_vm._v("查看")]
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  staticClass: "del",
+                  on: {
+                    click: function($event) {
+                      _vm.deleteProjectData(item.pro_id)
+                    }
+                  }
+                },
+                [_vm._v("删除")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "clear" })
+            ])
+          })
+        )
+      ],
+      1
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "picture" }, [
-      _c("img", { attrs: { src: "/dist/img/text.png", alt: "文件加载失败" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [_vm._v("作者 "), _c("small", [_vm._v("特别标注")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

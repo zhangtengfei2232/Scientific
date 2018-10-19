@@ -45,7 +45,7 @@ export default new VueRouter({
             },
             {
                 name: 'selfProject',
-                path: '/selfProject/:',
+                path: '/selfProject/:pro_id',
                 component: resolve => void(require(['../components/project/selfProject.vue'], resolve))
             },
             /*著作信息*/
@@ -61,7 +61,7 @@ export default new VueRouter({
             },
             {
                 name: 'selfBook',
-                path: '/selfBook',
+                path: '/selfBook/:op_id',
                 component: resolve => void(require(['../components/book/selfBook.vue'], resolve))
             },
              /*获奖信息*/
@@ -77,7 +77,7 @@ export default new VueRouter({
             },
             {
                 name: 'selfAward',
-                path: '/selfAward',
+                path: '/selfAward/:aw_id',
                 component: resolve => void(require(['../components/award/selfAward.vue'], resolve))
             },
             /*专利信息*/
@@ -135,13 +135,13 @@ export default new VueRouter({
                 component: resolve => void(require(['../components/joinmeet/joinmeet.vue'], resolve))
             },
             {
-                name: 'addHoldmeet',
-                path: '/addHoldmeet',
+                name: 'addJoinmeet',
+                path: '/addJoinmeet',
                 component: resolve => void(require(['../components/joinmeet/addJoinmeet.vue'], resolve))
             },
             {
-                name: 'selfHoldmeet',
-                path: '/selfHoldmeet',
+                name: 'selfJoinmeet',
+                path: '/selfJoinmeet',
                 component: resolve => void(require(['../components/joinmeet/selfJoinmeet.vue'], resolve))
             },
            // 专家讲学

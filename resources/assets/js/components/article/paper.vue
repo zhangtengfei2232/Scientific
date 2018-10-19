@@ -24,7 +24,7 @@
                         type="date"
                         placeholder="选择日期">
                         </el-date-picker>
-                        <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch">搜索</el-button>
+                        <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch(form)">搜索</el-button>
                     </div>
                 </el-form>
             </span>
@@ -35,7 +35,7 @@
             <span class="info">论文信息</span>
             <span class="time">发表时间</span>
             <span class="do">操作</span>
-        </div>
+        </div> 
         <div class="content">
             <el-checkbox-group v-model="checkAll" @change="handleCheckedCitiesChange"> 
                 <div class="lists" v-for="(item,index) in ArticleDate" :key="index">
@@ -168,7 +168,6 @@
         data() {
             return {
                 ArticleDate: [],
-                checkAll:false,
                 checked: false,
                 checkAll: false,
                 isIndeterminate: true,
@@ -194,7 +193,6 @@
                     var data = response.data;
                     if (data.code == 0) {
                         self.ArticleDate = data.datas;
-                        console.log(self.ArticleDate);
                     } else {
                         self.$notify({
                             type: 'error',
@@ -206,7 +204,7 @@
             },
             sentArticleSelfData(art_id) {
                 this.$router.push({
-                path: `/selfInfor/${art_id}`,
+                    path: `/selfInfor/${art_id}`,
                 })
             },
             deleteArticleData(art_id) {
@@ -238,11 +236,12 @@
                     });          
                 });
             },
-            byTimeSearch() {
+            byTimeSearch(form) {
+                let self = this;
                 axios.get("",form).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
-                        self.ArticleDate = data.datas;
+                        
                     } else {
                         self.$notify({
                             type: 'error',
