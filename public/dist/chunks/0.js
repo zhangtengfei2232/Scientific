@@ -1,18 +1,18 @@
 webpackJsonp([0],{
 
-/***/ 330:
+/***/ 208:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(339)
+  __webpack_require__(237)
 }
 var normalizeComponent = __webpack_require__(82)
 /* script */
-var __vue_script__ = __webpack_require__(341)
+var __vue_script__ = __webpack_require__(239)
 /* template */
-var __vue_template__ = __webpack_require__(342)
+var __vue_template__ = __webpack_require__(240)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -29,7 +29,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/joinmeet/selfJoinmeet.vue"
+Component.options.__file = "resources/assets/js/components/teacher/teacher.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -38,9 +38,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-01ad89b4", Component.options)
+    hotAPI.createRecord("data-v-bab69924", Component.options)
   } else {
-    hotAPI.reload("data-v-01ad89b4", Component.options)
+    hotAPI.reload("data-v-bab69924", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -52,23 +52,23 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 339:
+/***/ 237:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(340);
+var content = __webpack_require__(238);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(81)("06988a0c", content, false, {});
+var update = __webpack_require__(81)("109a3001", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-01ad89b4\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./selfJoinmeet.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-01ad89b4\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./selfJoinmeet.vue");
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-bab69924\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./teacher.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-bab69924\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./teacher.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -79,7 +79,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 340:
+/***/ 238:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(25)(false);
@@ -87,14 +87,14 @@ exports = module.exports = __webpack_require__(25)(false);
 
 
 // module
-exports.push([module.i, "\n.information{\n       width: 75%;\n       float: left;\n}\n.add{\n       width: 80%;\n       margin: 35px 0 0 35px;\n}\n", ""]);
+exports.push([module.i, "\n.el-header {\n    background-color: #B3C0D1;\n    color: #333;\n    line-height: 60px;\n}\n.el-aside {\n    color: #333;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 341:
+/***/ 239:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -183,359 +183,293 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        return {
-            JoinmeetSelfData: {},
-            input: '',
-            form: {
-                author: '1',
-                art_all_author: '1',
-                title: '2',
-                publication_name: '3',
-                publication_num: '4',
-                num_words: '456',
-                periodical_cate: '',
-                belong_project: 'xgxy',
-                art_cate_research: '',
-                art_sub_category: '',
-                art_integral: '',
-                region: '',
-                year: '',
-                date2: '',
-                delivery: false,
-                type: [],
-                resource: '',
-                desc: ''
-            }
+        var item = {
+            date: '2016-05-02',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1518 弄'
         };
-    },
-
-
-    methods: {
-        getJoinmeetSelfData: function getJoinmeetSelfData() {
-            var self = this;
-            var art_id = self.$route.params.art_id;
-            axios.get("", art_id).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.JoinmeetSelfData = data.datas;
-                    console.log(data.datas);
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.msg,
-                        duration: 2000
-                    });
-                }
-            });
-        },
-        onSubmit: function onSubmit() {
-            console.log('submit!');
-        }
-    },
-    mounted: function mounted() {
-        this.getJoinmeetSelfData();
+        return {
+            tableData: Array(20).fill(item)
+        };
     }
 });
 
 /***/ }),
 
-/***/ 342:
+/***/ 240:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "information" }, [
-    _c(
-      "div",
-      { staticClass: "add" },
-      [
-        _c(
-          "el-form",
-          { ref: "form", attrs: { model: _vm.form, "label-width": "200px" } },
-          [
-            _c(
-              "el-form-item",
-              { attrs: { label: "参会人" } },
-              [
-                _c("el-input", {
-                  model: {
-                    value: _vm.form.author,
-                    callback: function($$v) {
-                      _vm.$set(_vm.form, "author", $$v)
-                    },
-                    expression: "form.author"
-                  }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "el-form-item",
-              { attrs: { label: "学术会议名称" } },
-              [
-                _c("el-input", {
-                  model: {
-                    value: _vm.form.art_all_author,
-                    callback: function($$v) {
-                      _vm.$set(_vm.form, "art_all_author", $$v)
-                    },
-                    expression: "form.art_all_author"
-                  }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "el-form-item",
-              { attrs: { label: "主办单位" } },
-              [
-                _c("el-input", {
-                  model: {
-                    value: _vm.form.title,
-                    callback: function($$v) {
-                      _vm.$set(_vm.form, "title", $$v)
-                    },
-                    expression: "form.title"
-                  }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "el-form-item",
-              { attrs: { label: "承办单位" } },
-              [
-                _c("el-input", {
-                  model: {
-                    value: _vm.form.publication_name,
-                    callback: function($$v) {
-                      _vm.$set(_vm.form, "publication_name", $$v)
-                    },
-                    expression: "form.publication_name"
-                  }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "el-form-item",
-              { attrs: { label: "会议级别" } },
-              [
-                _c(
-                  "el-select",
-                  {
-                    attrs: { placeholder: "请选择类别" },
-                    model: {
-                      value: _vm.form.art_cate_research,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "art_cate_research", $$v)
-                      },
-                      expression: "form.art_cate_research"
-                    }
-                  },
-                  [
-                    _c("el-option", { attrs: { label: "省级", value: "1" } }),
-                    _vm._v(" "),
-                    _c("el-option", { attrs: { label: "大区级", value: "2" } }),
-                    _vm._v(" "),
-                    _c("el-option", { attrs: { label: "国家级", value: "3" } }),
-                    _vm._v(" "),
-                    _c("el-option", {
-                      attrs: { label: "国际会议", value: "4" }
-                    })
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "el-form-item",
-              { attrs: { label: "会议时间" } },
-              [
-                _c(
-                  "el-col",
-                  { attrs: { span: 15 } },
-                  [
-                    _c("el-date-picker", {
-                      staticStyle: { width: "100%" },
-                      attrs: { type: "date", placeholder: "选择日期" },
-                      model: {
-                        value: _vm.form.date1,
-                        callback: function($$v) {
-                          _vm.$set(_vm.form, "date1", $$v)
-                        },
-                        expression: "form.date1"
-                      }
-                    })
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "el-form-item",
-              { attrs: { label: "会议地点" } },
-              [
-                _c("el-input", {
-                  model: {
-                    value: _vm.form.title,
-                    callback: function($$v) {
-                      _vm.$set(_vm.form, "title", $$v)
-                    },
-                    expression: "form.title"
-                  }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "el-form-item",
-              { attrs: { label: "提交论文数" } },
-              [
-                _c("el-input", {
-                  model: {
-                    value: _vm.form.title,
-                    callback: function($$v) {
-                      _vm.$set(_vm.form, "title", $$v)
-                    },
-                    expression: "form.title"
-                  }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "el-form-item",
-              { attrs: { label: "是否被邀大会或分会场报告" } },
-              [
-                _c(
-                  "el-radio-group",
-                  {
-                    model: {
-                      value: _vm.form.periodical_cate,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "periodical_cate", $$v)
-                      },
-                      expression: "form.periodical_cate"
-                    }
-                  },
-                  [
-                    _c(
-                      "el-radio",
-                      { staticStyle: { margin: "10px" }, attrs: { label: 1 } },
-                      [_vm._v("是")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "el-radio",
-                      { staticStyle: { margin: "10px" }, attrs: { label: 2 } },
-                      [_vm._v("否")]
-                    )
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "el-form-item",
-              { attrs: { label: "报告题目" } },
-              [
-                _c("el-input", {
-                  model: {
-                    value: _vm.form.title,
-                    callback: function($$v) {
-                      _vm.$set(_vm.form, "title", $$v)
-                    },
-                    expression: "form.title"
-                  }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "el-form-item",
-              { attrs: { label: "会议图注" } },
-              [
-                _c(
-                  "el-upload",
-                  {
-                    staticClass: "upload-demo",
-                    attrs: { drag: "", action: "#", multiple: "" }
-                  },
-                  [
-                    _c("i", { staticClass: "el-icon-upload" }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "el-upload__text" }, [
-                      _vm._v("将文件拖到此处，或"),
-                      _c("em", [_vm._v("点击上传")])
-                    ])
-                  ]
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "el-form-item",
-              { attrs: { label: "餐会图注" } },
-              [
-                _c(
-                  "el-upload",
-                  {
-                    staticClass: "upload-demo",
-                    attrs: { drag: "", action: "#", multiple: "" }
-                  },
-                  [
-                    _c("i", { staticClass: "el-icon-upload" }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "el-upload__text" }, [
-                      _vm._v("将文件拖到此处，或"),
-                      _c("em", [_vm._v("点击上传")])
-                    ])
-                  ]
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "el-form-item",
-              [
-                _c(
-                  "el-button",
-                  { attrs: { type: "primary" }, on: { click: _vm.onSubmit } },
-                  [_vm._v("立即创建")]
-                ),
-                _vm._v(" "),
-                _c("el-button", [_vm._v("取消")])
-              ],
-              1
-            )
-          ],
-          1
-        )
-      ],
-      1
-    )
-  ])
+  return _c(
+    "div",
+    [
+      _c(
+        "el-container",
+        { staticStyle: { height: "500px", border: "1px solid #eee" } },
+        [
+          _c(
+            "el-aside",
+            {
+              staticStyle: { "background-color": "rgb(238, 241, 246)" },
+              attrs: { width: "200px" }
+            },
+            [
+              _c(
+                "el-menu",
+                { attrs: { "default-openeds": ["1", "3"] } },
+                [
+                  _c(
+                    "el-submenu",
+                    { attrs: { index: "1" } },
+                    [
+                      _c(
+                        "template",
+                        { slot: "title" },
+                        [
+                          _c("i", { staticClass: "el-icon-message" }),
+                          _c("router-link", { attrs: { to: "/paper" } }, [
+                            _vm._v("论文")
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-menu-item-group",
+                        [
+                          _c("template", { slot: "title" }, [_vm._v("分组一")]),
+                          _vm._v(" "),
+                          _c("el-menu-item", { attrs: { index: "1-1" } }, [
+                            _vm._v("选项1")
+                          ]),
+                          _vm._v(" "),
+                          _c("el-menu-item", { attrs: { index: "1-2" } }, [
+                            _vm._v("选项2")
+                          ])
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-menu-item-group",
+                        { attrs: { title: "分组2" } },
+                        [
+                          _c("el-menu-item", { attrs: { index: "1-3" } }, [
+                            _vm._v("选项3")
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-submenu",
+                        { attrs: { index: "1-4" } },
+                        [
+                          _c("template", { slot: "title" }, [_vm._v("选项4")]),
+                          _vm._v(" "),
+                          _c("el-menu-item", { attrs: { index: "1-4-1" } }, [
+                            _vm._v("选项4-1")
+                          ])
+                        ],
+                        2
+                      )
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "el-submenu",
+                    { attrs: { index: "2" } },
+                    [
+                      _c("template", { slot: "title" }, [
+                        _c("i", { staticClass: "el-icon-menu" }),
+                        _vm._v("导航二")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "el-menu-item-group",
+                        [
+                          _c("template", { slot: "title" }, [_vm._v("分组一")]),
+                          _vm._v(" "),
+                          _c("el-menu-item", { attrs: { index: "2-1" } }, [
+                            _vm._v("选项1")
+                          ]),
+                          _vm._v(" "),
+                          _c("el-menu-item", { attrs: { index: "2-2" } }, [
+                            _vm._v("选项2")
+                          ])
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-menu-item-group",
+                        { attrs: { title: "分组2" } },
+                        [
+                          _c("el-menu-item", { attrs: { index: "2-3" } }, [
+                            _vm._v("选项3")
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-submenu",
+                        { attrs: { index: "2-4" } },
+                        [
+                          _c("template", { slot: "title" }, [_vm._v("选项4")]),
+                          _vm._v(" "),
+                          _c("el-menu-item", { attrs: { index: "2-4-1" } }, [
+                            _vm._v("选项4-1")
+                          ])
+                        ],
+                        2
+                      )
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "el-submenu",
+                    { attrs: { index: "3" } },
+                    [
+                      _c("template", { slot: "title" }, [
+                        _c("i", { staticClass: "el-icon-setting" }),
+                        _vm._v("导航三")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "el-menu-item-group",
+                        [
+                          _c("template", { slot: "title" }, [_vm._v("分组一")]),
+                          _vm._v(" "),
+                          _c("el-menu-item", { attrs: { index: "3-1" } }, [
+                            _vm._v("选项1")
+                          ]),
+                          _vm._v(" "),
+                          _c("el-menu-item", { attrs: { index: "3-2" } }, [
+                            _vm._v("选项2")
+                          ])
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-menu-item-group",
+                        { attrs: { title: "分组2" } },
+                        [
+                          _c("el-menu-item", { attrs: { index: "3-3" } }, [
+                            _vm._v("选项3")
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-submenu",
+                        { attrs: { index: "3-4" } },
+                        [
+                          _c("template", { slot: "title" }, [_vm._v("选项4")]),
+                          _vm._v(" "),
+                          _c("el-menu-item", { attrs: { index: "3-4-1" } }, [
+                            _vm._v("选项4-1")
+                          ])
+                        ],
+                        2
+                      )
+                    ],
+                    2
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "el-container",
+            [
+              _c(
+                "el-header",
+                { staticStyle: { "text-align": "right", "font-size": "12px" } },
+                [
+                  _c(
+                    "el-dropdown",
+                    [
+                      _c("i", {
+                        staticClass: "el-icon-setting",
+                        staticStyle: { "margin-right": "15px" }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "el-dropdown-menu",
+                        { attrs: { slot: "dropdown" }, slot: "dropdown" },
+                        [
+                          _c("el-dropdown-item", [_vm._v("查看")]),
+                          _vm._v(" "),
+                          _c("el-dropdown-item", [_vm._v("新增")]),
+                          _vm._v(" "),
+                          _c("el-dropdown-item", [_vm._v("删除")])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("span", [_vm._v("王小虎")])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "el-main",
+                [
+                  _c(
+                    "el-table",
+                    { attrs: { data: _vm.tableData } },
+                    [
+                      _c("el-table-column", {
+                        attrs: { prop: "date", label: "日期", width: "140" }
+                      }),
+                      _vm._v(" "),
+                      _c("el-table-column", {
+                        attrs: { prop: "name", label: "姓名", width: "120" }
+                      }),
+                      _vm._v(" "),
+                      _c("el-table-column", {
+                        attrs: { prop: "address", label: "地址" }
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -543,7 +477,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-01ad89b4", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-bab69924", module.exports)
   }
 }
 

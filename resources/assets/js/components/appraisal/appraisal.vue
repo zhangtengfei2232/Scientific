@@ -5,7 +5,7 @@
                 成果鉴定
             </span>
             <span class="load">
-                <router-link to="/addPatent">
+                <router-link to="/addAppraisal">
                     <el-button type="primary"><i class="el-icon-plus el-icon--left">上传</i></el-button>
                 </router-link>
             </span>

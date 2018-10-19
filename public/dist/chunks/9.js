@@ -1,42 +1,24 @@
 webpackJsonp([9],{
 
-<<<<<<< HEAD
-/***/ 227:
-=======
-/***/ 205:
->>>>>>> b62049adc26d8973fccd4f717637358b44800308
+/***/ 230:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-<<<<<<< HEAD
-  __webpack_require__(310)
+  __webpack_require__(325)
 }
 var normalizeComponent = __webpack_require__(82)
 /* script */
-var __vue_script__ = __webpack_require__(312)
+var __vue_script__ = __webpack_require__(327)
 /* template */
-var __vue_template__ = __webpack_require__(313)
-=======
-  __webpack_require__(216)
-}
-var normalizeComponent = __webpack_require__(79)
-/* script */
-var __vue_script__ = __webpack_require__(218)
-/* template */
-var __vue_template__ = __webpack_require__(219)
->>>>>>> b62049adc26d8973fccd4f717637358b44800308
+var __vue_template__ = __webpack_require__(328)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-<<<<<<< HEAD
-var __vue_scopeId__ = "data-v-b5f67130"
-=======
-var __vue_scopeId__ = "data-v-312dfdd0"
->>>>>>> b62049adc26d8973fccd4f717637358b44800308
+var __vue_scopeId__ = "data-v-001dafc8"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -47,11 +29,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-<<<<<<< HEAD
-Component.options.__file = "resources/assets/js/components/holdmeet/holdmeet.vue"
-=======
-Component.options.__file = "resources/assets/js/components/teacher/paper.vue"
->>>>>>> b62049adc26d8973fccd4f717637358b44800308
+Component.options.__file = "resources/assets/js/components/joinmeet/joinmeet.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -60,15 +38,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-<<<<<<< HEAD
-    hotAPI.createRecord("data-v-b5f67130", Component.options)
+    hotAPI.createRecord("data-v-001dafc8", Component.options)
   } else {
-    hotAPI.reload("data-v-b5f67130", Component.options)
-=======
-    hotAPI.createRecord("data-v-312dfdd0", Component.options)
-  } else {
-    hotAPI.reload("data-v-312dfdd0", Component.options)
->>>>>>> b62049adc26d8973fccd4f717637358b44800308
+    hotAPI.reload("data-v-001dafc8", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -80,40 +52,23 @@ module.exports = Component.exports
 
 /***/ }),
 
-<<<<<<< HEAD
-/***/ 310:
-=======
-/***/ 216:
->>>>>>> b62049adc26d8973fccd4f717637358b44800308
+/***/ 325:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-<<<<<<< HEAD
-var content = __webpack_require__(311);
+var content = __webpack_require__(326);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(81)("bbcee8b6", content, false, {});
-=======
-var content = __webpack_require__(217);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(80)("3b10cb51", content, false, {});
->>>>>>> b62049adc26d8973fccd4f717637358b44800308
+var update = __webpack_require__(81)("39e11147", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-<<<<<<< HEAD
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-b5f67130\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./holdmeet.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-b5f67130\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./holdmeet.vue");
-=======
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-312dfdd0\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./paper.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-312dfdd0\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./paper.vue");
->>>>>>> b62049adc26d8973fccd4f717637358b44800308
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-001dafc8\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./joinmeet.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-001dafc8\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./joinmeet.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -124,37 +79,22 @@ if(false) {
 
 /***/ }),
 
-<<<<<<< HEAD
-/***/ 311:
+/***/ 326:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(25)(false);
-=======
-/***/ 217:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(48)(false);
->>>>>>> b62049adc26d8973fccd4f717637358b44800308
 // imports
 
 
 // module
-<<<<<<< HEAD
-exports.push([module.i, "\nheader[data-v-b5f67130]{\n    border-bottom: 1px solid #eee;\n}\n.paper[data-v-b5f67130]{\n    font-size: 18px;\n    color: #090909;\n    display: inline-block;\n    padding: 23px 60px;\n    border-right: 1px solid #eee;\n}\n.load[data-v-b5f67130]{\n    display: inline-block;\n    margin: 0;\n    padding: 16px 60px;\n    border-right: 1px solid #eee;\n}\n.searchtime[data-v-b5f67130]{\n     width: 45%;\n     display: inline-block;\n     margin: 15px 0 0 18%;\n}\n.demonstration[data-v-b5f67130]{\n    font-weight: lighter;\n}\n.navbo[data-v-b5f67130]{\n    border-bottom: 1px solid #eee;\n    background: rgba(187, 187, 187, 0.1);\n    height: 40px;\n}\n.info[data-v-b5f67130],.number[data-v-b5f67130],.do[data-v-b5f67130],.time[data-v-b5f67130]{\n    display: inline-block;\n    padding: 10px;\n    font-size: 14px;\n}\n.number[data-v-b5f67130]{\n    margin: 0 2% 0 3%;\n}\n.time[data-v-b5f67130]{\n    margin: 0 6% 0 45%;\n}\n.lists[data-v-b5f67130]{\n    border-bottom: 1px solid #eee;\n    height: 80px;\n}\n.del[data-v-b5f67130],.times[data-v-b5f67130],.infos[data-v-b5f67130],.numbers[data-v-b5f67130],.dos[data-v-b5f67130],.tos[data-v-b5f67130]{\n    display: inline-block;\n    padding: 10px;\n    font-size: 14px;\n}\n.lists span[data-v-b5f67130]{\n    float: left;\n}\n.lists img[data-v-b5f67130]{\n    width: 35px;\n}\n.numbers[data-v-b5f67130]{\n    margin: 20px 2% 0 3.5%;\n}\n.check[data-v-b5f67130]{\n    margin: 25px 2% 0 3%;\n}\n.checks[data-v-b5f67130]{\n    margin: 0 2% 0 3%;\n}\n.picture[data-v-b5f67130]{\n    margin: 20px 5px 0 1%;\n}\n.infos[data-v-b5f67130]{\n    margin: 10px 2% 0 0;\n}\n.infos h5[data-v-b5f67130]{\n    font-size: 14px;\n    font-weight: lighter;\n}\n.infos p[data-v-b5f67130]{\n    font-size: 13px;\n    font-weight: lighter;\n    margin: 8px 0 0 0;\n}\n.infos p small[data-v-b5f67130]{\n    color: orange;\n    padding: 0 0 0 5px;\n}\n.times[data-v-b5f67130]{\n    margin: 22px 2% 0 39%;\n}\n.dos[data-v-b5f67130],.tos[data-v-b5f67130],.del[data-v-b5f67130]{\n    font-size: 13px;\n    margin: 23px 0 0 0;\n    color: rgba(61, 112, 206, 0.77)!important;\n}\n.dos a[data-v-b5f67130],.tos a[data-v-b5f67130]{\n    color: rgba(61, 112, 206, 0.77)!important;\n}\n.del a[data-v-b5f67130]{\n    color: rgba(229, 28, 35, 1)!important;\n}\n.clear[data-v-b5f67130]{\n    clear: both;\n    content: '';\n}\n", ""]);
-=======
-exports.push([module.i, "\nheader[data-v-312dfdd0]{\n    border-bottom: 1px solid #eee;\n}\n.paper[data-v-312dfdd0]{\n    font-size: 18px;\n    color: #090909;\n    display: inline-block;\n    padding: 23px 60px;\n    border-right: 1px solid #eee;\n}\n.load[data-v-312dfdd0]{\n    display: inline-block;\n    margin: 0;\n    padding: 16px 60px;\n    border-right: 1px solid #eee;\n}\n.navbo[data-v-312dfdd0]{\n    border-bottom: 1px solid #eee;\n    background: rgba(187, 187, 187, 0.1);\n    height: 40px;\n}\n.info[data-v-312dfdd0],.number[data-v-312dfdd0],.do[data-v-312dfdd0],.time[data-v-312dfdd0]{\n    display: inline-block;\n    padding: 10px;\n    font-size: 14px;\n}\n.number[data-v-312dfdd0]{\n    margin: 0 2% 0 3%;\n}\n.time[data-v-312dfdd0]{\n    margin: 0 6% 0 45%;\n}\n.lists[data-v-312dfdd0]{\n    border-bottom: 1px solid #eee;\n    height: 80px;\n}\n.del[data-v-312dfdd0],.times[data-v-312dfdd0],.infos[data-v-312dfdd0],.numbers[data-v-312dfdd0],.dos[data-v-312dfdd0],.tos[data-v-312dfdd0]{\n    display: inline-block;\n    padding: 10px;\n    font-size: 14px;\n}\n.lists span[data-v-312dfdd0]{\n    float: left;\n}\n.lists img[data-v-312dfdd0]{\n    width: 35px;\n}\n.numbers[data-v-312dfdd0]{\n    margin: 20px 2% 0 3.5%;\n}\n.picture[data-v-312dfdd0]{\n    margin: 20px 5px 0 1%;\n}\n.infos[data-v-312dfdd0]{\n    margin: 10px 2% 0 0;\n}\n.infos h5[data-v-312dfdd0]{\n    font-size: 14px;\n    font-weight: lighter;\n}\n.infos p[data-v-312dfdd0]{\n    font-size: 13px;\n    font-weight: lighter;\n    margin: 8px 0 0 0;\n}\n.infos p small[data-v-312dfdd0]{\n    color: orange;\n    padding: 0 0 0 5px;\n}\n.times[data-v-312dfdd0]{\n    margin: 22px 3% 0 37.5%;\n}\n.dos[data-v-312dfdd0],.tos[data-v-312dfdd0],.del[data-v-312dfdd0]{\n    font-size: 13px;\n    margin: 23px 0 0 0;\n}\n.dos a[data-v-312dfdd0],.tos a[data-v-312dfdd0]{\n    color: rgba(61, 112, 206, 0.77);\n}\n.del a[data-v-312dfdd0]{\n    color: rgba(229, 28, 35, 1);\n}\n.clear[data-v-312dfdd0]{\n    clear: both;\n    content: '';\n}\n", ""]);
->>>>>>> b62049adc26d8973fccd4f717637358b44800308
+exports.push([module.i, "\nheader[data-v-001dafc8]{\n    border-bottom: 1px solid #eee;\n}\n.paper[data-v-001dafc8]{\n    font-size: 18px;\n    color: #090909;\n    display: inline-block;\n    padding: 23px 60px;\n    border-right: 1px solid #eee;\n}\n.load[data-v-001dafc8]{\n    display: inline-block;\n    margin: 0;\n    padding: 16px 60px;\n    border-right: 1px solid #eee;\n}\n.searchtime[data-v-001dafc8]{\n     width: 45%;\n     display: inline-block;\n     margin: 15px 0 0 18%;\n}\n.demonstration[data-v-001dafc8]{\n    font-weight: lighter;\n}\n.navbo[data-v-001dafc8]{\n    border-bottom: 1px solid #eee;\n    background: rgba(187, 187, 187, 0.1);\n    height: 40px;\n}\n.info[data-v-001dafc8],.number[data-v-001dafc8],.do[data-v-001dafc8],.time[data-v-001dafc8]{\n    display: inline-block;\n    padding: 10px;\n    font-size: 14px;\n}\n.number[data-v-001dafc8]{\n    margin: 0 2% 0 3%;\n}\n.time[data-v-001dafc8]{\n    margin: 0 6% 0 45%;\n}\n.lists[data-v-001dafc8]{\n    border-bottom: 1px solid #eee;\n    height: 80px;\n}\n.del[data-v-001dafc8],.times[data-v-001dafc8],.infos[data-v-001dafc8],.numbers[data-v-001dafc8],.dos[data-v-001dafc8],.tos[data-v-001dafc8]{\n    display: inline-block;\n    padding: 10px;\n    font-size: 14px;\n}\n.lists span[data-v-001dafc8]{\n    float: left;\n}\n.lists img[data-v-001dafc8]{\n    width: 35px;\n}\n.numbers[data-v-001dafc8]{\n    margin: 20px 2% 0 3.5%;\n}\n.check[data-v-001dafc8]{\n    margin: 25px 2% 0 3%;\n}\n.checks[data-v-001dafc8]{\n    margin: 0 2% 0 3%;\n}\n.picture[data-v-001dafc8]{\n    margin: 20px 5px 0 1%;\n}\n.infos[data-v-001dafc8]{\n    margin: 10px 2% 0 0;\n}\n.infos h5[data-v-001dafc8]{\n    font-size: 14px;\n    font-weight: lighter;\n}\n.infos p[data-v-001dafc8]{\n    font-size: 13px;\n    font-weight: lighter;\n    margin: 8px 0 0 0;\n}\n.infos p small[data-v-001dafc8]{\n    color: orange;\n    padding: 0 0 0 5px;\n}\n.times[data-v-001dafc8]{\n    margin: 22px 2% 0 39%;\n}\n.dos[data-v-001dafc8],.tos[data-v-001dafc8],.del[data-v-001dafc8]{\n    font-size: 13px;\n    margin: 23px 0 0 0;\n    color: rgba(61, 112, 206, 0.77)!important;\n}\n.dos a[data-v-001dafc8],.tos a[data-v-001dafc8]{\n    color: rgba(61, 112, 206, 0.77)!important;\n}\n.del a[data-v-001dafc8]{\n    color: rgba(229, 28, 35, 1)!important;\n}\n.clear[data-v-001dafc8]{\n    clear: both;\n    content: '';\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-<<<<<<< HEAD
-/***/ 312:
-=======
-/***/ 218:
->>>>>>> b62049adc26d8973fccd4f717637358b44800308
+/***/ 327:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -283,7 +223,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-<<<<<<< HEAD
 //
 //
 //
@@ -321,41 +260,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-=======
->>>>>>> b62049adc26d8973fccd4f717637358b44800308
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-<<<<<<< HEAD
-            PatentDate: [],
+            JoinmeetDate: [],
             checked: false,
             form: {
                 data1: '',
                 data2: ''
             }
-=======
-            ArticleDate: []
->>>>>>> b62049adc26d8973fccd4f717637358b44800308
         };
     },
 
     methods: {
-<<<<<<< HEAD
         getAppraisalDate: function getAppraisalDate() {
             var self = this;
             axios.get("").then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
-                    self.AppraisalDate = data.datas;
-=======
-        getArticleData: function getArticleData() {
-            var self = this;
-            axios.get("selectallattical").then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.ArticleDate = data.datas;
->>>>>>> b62049adc26d8973fccd4f717637358b44800308
+                    self.JoinmeetDate = data.datas;
                 } else {
                     self.$notify({
                         type: 'error',
@@ -365,8 +289,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             });
         },
-<<<<<<< HEAD
-        sentAppraisalSelfData: function sentAppraisalSelfData(art_id) {
+        sentJoinmeetSelfData: function sentJoinmeetSelfData(art_id) {
             this.$router.push({
                 path: '/selfInfor/' + art_id
             });
@@ -375,7 +298,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.get("", form).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
-                    self.AppraisalDate = data.datas;
+                    self.JoinmeetDate = data.datas;
                 } else {
                     self.$notify({
                         type: 'error',
@@ -383,30 +306,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         duration: 2000
                     });
                 }
-=======
-        sentArticleSelfData: function sentArticleSelfData(teacher_id) {
-            this.$router.push({
-                path: "/selfInfor/" + teacher_id
->>>>>>> b62049adc26d8973fccd4f717637358b44800308
             });
         }
     },
     mounted: function mounted() {
-<<<<<<< HEAD
-        this.getAppraisalDate();
-=======
-        this.getArticleData();
->>>>>>> b62049adc26d8973fccd4f717637358b44800308
+        this.getJoinmeetDate();
     }
 });
 
 /***/ }),
 
-<<<<<<< HEAD
-/***/ 313:
-=======
-/***/ 219:
->>>>>>> b62049adc26d8973fccd4f717637358b44800308
+/***/ 328:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -416,11 +326,7 @@ var render = function() {
   return _c("div", [
     _c("header", [
       _c("span", { staticClass: "paper" }, [
-<<<<<<< HEAD
-        _vm._v("\n            举办会议\n        ")
-=======
-        _vm._v("\n            论文\n        ")
->>>>>>> b62049adc26d8973fccd4f717637358b44800308
+        _vm._v("\n            参加会议\n        ")
       ]),
       _vm._v(" "),
       _c(
@@ -429,11 +335,7 @@ var render = function() {
         [
           _c(
             "router-link",
-<<<<<<< HEAD
-            { attrs: { to: "/addHoldmeet" } },
-=======
-            { attrs: { to: "/addPaper" } },
->>>>>>> b62049adc26d8973fccd4f717637358b44800308
+            { attrs: { to: "/addJoinmeet" } },
             [
               _c("el-button", { attrs: { type: "primary" } }, [
                 _c("i", { staticClass: "el-icon-plus el-icon--left" }, [
@@ -445,7 +347,6 @@ var render = function() {
           )
         ],
         1
-<<<<<<< HEAD
       ),
       _vm._v(" "),
       _c(
@@ -523,23 +424,16 @@ var render = function() {
       _vm._v(" "),
       _c("span", { staticClass: "number" }, [_vm._v("序号")]),
       _vm._v(" "),
-      _c("span", { staticClass: "info" }, [_vm._v("成果鉴定信息")]),
+      _c("span", { staticClass: "info" }, [_vm._v("参加会议信息")]),
       _vm._v(" "),
       _c("span", { staticClass: "time" }, [_vm._v("发表时间")]),
       _vm._v(" "),
       _c("span", { staticClass: "do" }, [_vm._v("操作")])
     ]),
-=======
-      )
-    ]),
-    _vm._v(" "),
-    _vm._m(0),
->>>>>>> b62049adc26d8973fccd4f717637358b44800308
     _vm._v(" "),
     _c(
       "div",
       { staticClass: "content" },
-<<<<<<< HEAD
       _vm._l(_vm.BookDate, function(item, index) {
         return _c("div", { key: index, staticClass: "lists" }, [
           _c(
@@ -579,7 +473,7 @@ var render = function() {
               staticClass: "dos",
               on: {
                 click: function($event) {
-                  _vm.sentAppraisalSelfData(item.art_id)
+                  _vm.sentJoinmeetSelfData(item.art_id)
                 }
               }
             },
@@ -599,7 +493,7 @@ var render = function() {
               staticClass: "dos",
               on: {
                 click: function($event) {
-                  _vm.sentAppraisalSelfData(item.art_id)
+                  _vm.sentJoinmeetSelfData(item.art_id)
                 }
               }
             },
@@ -615,59 +509,6 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "clear" })
         ])
-=======
-      _vm._l(_vm.ArticleDate, function(item, index) {
-        return _c(
-          "div",
-          {
-            key: index,
-            staticClass: "lists",
-            on: {
-              click: function($event) {
-                _vm.sentArticleSelfData(item.teacher_id)
-              }
-            }
-          },
-          [
-            _c("span", { staticClass: "numbers" }, [
-              _vm._v(_vm._s(item.teacher_id))
-            ]),
-            _vm._v(" "),
-            _vm._m(1, true),
-            _vm._v(" "),
-            _c("span", { staticClass: "infos" }, [
-              _c("h5", [_vm._v(_vm._s(item.title))]),
-              _vm._v(" "),
-              _vm._m(2, true)
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "times" }, [_vm._v("2018-09-10")]),
-            _vm._v(" "),
-            _c(
-              "span",
-              { staticClass: "dos" },
-              [_c("router-link", { attrs: { to: "/" } }, [_vm._v("编辑")])],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "span",
-              { staticClass: "tos" },
-              [_c("router-link", { attrs: { to: "/" } }, [_vm._v("导出")])],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "span",
-              { staticClass: "del" },
-              [_c("router-link", { attrs: { to: "/" } }, [_vm._v("删除")])],
-              1
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "clear" })
-          ]
-        )
->>>>>>> b62049adc26d8973fccd4f717637358b44800308
       })
     )
   ])
@@ -677,23 +518,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-<<<<<<< HEAD
-=======
-    return _c("div", { staticClass: "navbo" }, [
-      _c("span", { staticClass: "number" }, [_vm._v("序号")]),
-      _vm._v(" "),
-      _c("span", { staticClass: "info" }, [_vm._v("论文信息")]),
-      _vm._v(" "),
-      _c("span", { staticClass: "time" }, [_vm._v("发表时间")]),
-      _vm._v(" "),
-      _c("span", { staticClass: "do" }, [_vm._v("操作")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
->>>>>>> b62049adc26d8973fccd4f717637358b44800308
     return _c("span", { staticClass: "picture" }, [
       _c("img", { attrs: { src: "/dist/img/text.png", alt: "文件加载失败" } })
     ])
@@ -710,11 +534,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-<<<<<<< HEAD
-    require("vue-hot-reload-api")      .rerender("data-v-b5f67130", module.exports)
-=======
-    require("vue-hot-reload-api")      .rerender("data-v-312dfdd0", module.exports)
->>>>>>> b62049adc26d8973fccd4f717637358b44800308
+    require("vue-hot-reload-api")      .rerender("data-v-001dafc8", module.exports)
   }
 }
 

@@ -30,28 +30,32 @@
             </span>
         </header>
         <div class="navbo">
-            <span class="checks"><el-checkbox v-model="checked"></el-checkbox></span>
+            <span class="checks"><el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox></span>
             <span class="number">序号</span>   
             <span class="info">论文信息</span>
             <span class="time">发表时间</span>
             <span class="do">操作</span>
         </div>
         <div class="content">
-            <div class="lists" v-for="(item,index) in ArticleDate" :key="index">
-                <span class="check"><el-checkbox v-model="checked"></el-checkbox></span>
-                <span class="numbers">{{ item.teacher_id }}</span>
-                <span class="picture"><img src="/dist/img/text.png" alt="文件加载失败"></span>
-                <span class="infos">
-                    <h5>{{ item.title }}</h5>
-                    <p>作者 <small>特别标注</small></p>
-                </span>
-                <span class="times">2018-09-10</span>
-                <span class="dos" @click="sentArticleSelfData(item.art_id)">编辑</span>
-                <span class="tos"><router-link to="/">导出</router-link></span>
-                <span class="dos" @click="sentArticleSelfData(item.art_id)">查看</span>
-                <span class="del"><router-link to="/">删除</router-link></span>
-                <div class="clear"></div>
-            </div>
+            <el-checkbox-group v-model="checkAll" @change="handleCheckedCitiesChange"> 
+                <div class="lists" v-for="(item,index) in ArticleDate" :key="index">
+                    <span class="check"><el-checkbox v-model="checked"></el-checkbox></span>
+                    <span class="numbers">{{ item.teacher_id }}</span>
+                    <span class="picture"><img src="/dist/img/text.png" alt="文件加载失败"></span>
+                    <span class="infos">
+                        <h5 style="width: 78px;">{{ item.title }}</h5>
+                        <p  style="width: 78px;">{{item.author}} <small>{{item.art_sub_category}}</small></p>
+                    </span>
+                    <span class="times">2018-09-10</span>
+                    <span class="dos" @click="sentArticleSelfData(item.art_id)">编辑</span>
+                    <span class="tos"><router-link to="/">导出</router-link></span>
+                    <span class="dos" @click="sentArticleSelfData(item.art_id)">查看</span>
+                    <span class="del"><el-button type="text" @click="deleteArticleData(item.art_id)" 
+                        style="color: rgba(229, 28, 35, 1)!important;padding: 0px 5px;font-size: 13px;">删除</el-button>
+                    </span>
+                    <div class="clear"></div>
+                </div>
+            </el-checkbox-group>
         </div>
     </div>
 </template>
@@ -92,10 +96,10 @@
         font-size: 14px;
     }
     .number{
-        margin: 0 2% 0 3%;
+        margin: 0px 3.5% 0 0%;
     }
     .time{
-        margin: 0 6% 0 45%;
+        margin:0 7% 0 44%;
     }
     .lists{
         border-bottom: 1px solid #eee;
@@ -164,7 +168,10 @@
         data() {
             return {
                 ArticleDate: [],
+                checkAll:false,
                 checked: false,
+                checkAll: false,
+                isIndeterminate: true,
                 form: {
                     data1: '',
                     data2: '',
@@ -172,12 +179,22 @@
             }
         },
         methods: {
+            handleCheckAllChange(val) {
+                this.checkedCities = val ? this.ArticleDate : [];
+                this.isIndeterminate = false;
+            },
+             handleCheckedCitiesChange(value) {
+                let checkedCount = value.length;
+                this.checkAll = checkedCount === this.ArticleDate.length;
+                this.isIndeterminate = checkedCount > 0 && checkedCount < this.ArticleDate.length;
+            },
             getArticleData() {
                 let self = this;
                 axios.get("selectallattical").then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
                         self.ArticleDate = data.datas;
+                        console.log(self.ArticleDate);
                     } else {
                         self.$notify({
                             type: 'error',
@@ -191,6 +208,35 @@
                 this.$router.push({
                 path: `/selfInfor/${art_id}`,
                 })
+            },
+            deleteArticleData(art_id) {
+                this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    let self = this;
+                    axios.get("deleteartical",art_id).then(function (response) {
+                    var data = response.data;
+                        if (data.code == 0) {
+                             this.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                        } else {
+                            self.$notify({
+                                type: 'error',
+                                message: data.msg,
+                                duration: 2000,
+                            });
+                        }
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });          
+                });
             },
             byTimeSearch() {
                 axios.get("",form).then(function (response) {

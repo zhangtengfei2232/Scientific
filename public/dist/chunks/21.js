@@ -1,24 +1,24 @@
 webpackJsonp([21],{
 
-/***/ 224:
+/***/ 209:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(298)
+  __webpack_require__(241)
 }
 var normalizeComponent = __webpack_require__(82)
 /* script */
-var __vue_script__ = __webpack_require__(300)
+var __vue_script__ = __webpack_require__(243)
 /* template */
-var __vue_template__ = __webpack_require__(301)
+var __vue_template__ = __webpack_require__(244)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-4fab8574"
+var __vue_scopeId__ = "data-v-5360b92c"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -29,7 +29,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/appraisal/appraisal.vue"
+Component.options.__file = "resources/assets/js/components/article/paper.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -38,9 +38,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-4fab8574", Component.options)
+    hotAPI.createRecord("data-v-5360b92c", Component.options)
   } else {
-    hotAPI.reload("data-v-4fab8574", Component.options)
+    hotAPI.reload("data-v-5360b92c", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -52,23 +52,23 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 298:
+/***/ 241:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(299);
+var content = __webpack_require__(242);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(81)("f55018f2", content, false, {});
+var update = __webpack_require__(81)("3937b3ab", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4fab8574\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./appraisal.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4fab8574\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./appraisal.vue");
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5360b92c\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./paper.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5360b92c\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./paper.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -79,7 +79,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 299:
+/***/ 242:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(25)(false);
@@ -87,18 +87,24 @@ exports = module.exports = __webpack_require__(25)(false);
 
 
 // module
-exports.push([module.i, "\nheader[data-v-4fab8574]{\n    border-bottom: 1px solid #eee;\n}\n.paper[data-v-4fab8574]{\n    font-size: 18px;\n    color: #090909;\n    display: inline-block;\n    padding: 23px 60px;\n    border-right: 1px solid #eee;\n}\n.load[data-v-4fab8574]{\n    display: inline-block;\n    margin: 0;\n    padding: 16px 60px;\n    border-right: 1px solid #eee;\n}\n.searchtime[data-v-4fab8574]{\n     width: 45%;\n     display: inline-block;\n     margin: 15px 0 0 18%;\n}\n.demonstration[data-v-4fab8574]{\n    font-weight: lighter;\n}\n.navbo[data-v-4fab8574]{\n    border-bottom: 1px solid #eee;\n    background: rgba(187, 187, 187, 0.1);\n    height: 40px;\n}\n.info[data-v-4fab8574],.number[data-v-4fab8574],.do[data-v-4fab8574],.time[data-v-4fab8574]{\n    display: inline-block;\n    padding: 10px;\n    font-size: 14px;\n}\n.number[data-v-4fab8574]{\n    margin: 0 2% 0 3%;\n}\n.time[data-v-4fab8574]{\n    margin: 0 6% 0 45%;\n}\n.lists[data-v-4fab8574]{\n    border-bottom: 1px solid #eee;\n    height: 80px;\n}\n.del[data-v-4fab8574],.times[data-v-4fab8574],.infos[data-v-4fab8574],.numbers[data-v-4fab8574],.dos[data-v-4fab8574],.tos[data-v-4fab8574]{\n    display: inline-block;\n    padding: 10px;\n    font-size: 14px;\n}\n.lists span[data-v-4fab8574]{\n    float: left;\n}\n.lists img[data-v-4fab8574]{\n    width: 35px;\n}\n.numbers[data-v-4fab8574]{\n    margin: 20px 2% 0 3.5%;\n}\n.check[data-v-4fab8574]{\n    margin: 25px 2% 0 3%;\n}\n.checks[data-v-4fab8574]{\n    margin: 0 2% 0 3%;\n}\n.picture[data-v-4fab8574]{\n    margin: 20px 5px 0 1%;\n}\n.infos[data-v-4fab8574]{\n    margin: 10px 2% 0 0;\n}\n.infos h5[data-v-4fab8574]{\n    font-size: 14px;\n    font-weight: lighter;\n}\n.infos p[data-v-4fab8574]{\n    font-size: 13px;\n    font-weight: lighter;\n    margin: 8px 0 0 0;\n}\n.infos p small[data-v-4fab8574]{\n    color: orange;\n    padding: 0 0 0 5px;\n}\n.times[data-v-4fab8574]{\n    margin: 22px 2% 0 39%;\n}\n.dos[data-v-4fab8574],.tos[data-v-4fab8574],.del[data-v-4fab8574]{\n    font-size: 13px;\n    margin: 23px 0 0 0;\n    color: rgba(61, 112, 206, 0.77)!important;\n}\n.dos a[data-v-4fab8574],.tos a[data-v-4fab8574]{\n    color: rgba(61, 112, 206, 0.77)!important;\n}\n.del a[data-v-4fab8574]{\n    color: rgba(229, 28, 35, 1)!important;\n}\n.clear[data-v-4fab8574]{\n    clear: both;\n    content: '';\n}\n", ""]);
+exports.push([module.i, "\nheader[data-v-5360b92c]{\n    border-bottom: 1px solid #eee;\n}\n.paper[data-v-5360b92c]{\n    font-size: 18px;\n    color: #090909;\n    display: inline-block;\n    padding: 23px 60px;\n    border-right: 1px solid #eee;\n}\n.load[data-v-5360b92c]{\n    display: inline-block;\n    margin: 0;\n    padding: 16px 60px;\n    border-right: 1px solid #eee;\n}\n.searchtime[data-v-5360b92c]{\n     width: 45%;\n     display: inline-block;\n     margin: 15px 0 0 18%;\n}\n.demonstration[data-v-5360b92c]{\n    font-weight: lighter;\n}\n.navbo[data-v-5360b92c]{\n    border-bottom: 1px solid #eee;\n    background: rgba(187, 187, 187, 0.1);\n    height: 40px;\n}\n.info[data-v-5360b92c],.number[data-v-5360b92c],.do[data-v-5360b92c],.time[data-v-5360b92c]{\n    display: inline-block;\n    padding: 10px;\n    font-size: 14px;\n}\n.number[data-v-5360b92c]{\n    margin: 0px 3.5% 0 0%;\n}\n.time[data-v-5360b92c]{\n    margin:0 7% 0 44%;\n}\n.lists[data-v-5360b92c]{\n    border-bottom: 1px solid #eee;\n    height: 80px;\n}\n.del[data-v-5360b92c],.times[data-v-5360b92c],.infos[data-v-5360b92c],.numbers[data-v-5360b92c],.dos[data-v-5360b92c],.tos[data-v-5360b92c]{\n    display: inline-block;\n    padding: 10px;\n    font-size: 14px;\n}\n.lists span[data-v-5360b92c]{\n    float: left;\n}\n.lists img[data-v-5360b92c]{\n    width: 35px;\n}\n.numbers[data-v-5360b92c]{\n    margin: 20px 2% 0 3.5%;\n}\n.check[data-v-5360b92c]{\n    margin: 25px 2% 0 3%;\n}\n.checks[data-v-5360b92c]{\n    margin: 0 2% 0 3%;\n}\n.picture[data-v-5360b92c]{\n    margin: 20px 5px 0 1%;\n}\n.infos[data-v-5360b92c]{\n    margin: 10px 2% 0 0;\n}\n.infos h5[data-v-5360b92c]{\n    font-size: 14px;\n    font-weight: lighter;\n}\n.infos p[data-v-5360b92c]{\n    font-size: 13px;\n    font-weight: lighter;\n    margin: 8px 0 0 0;\n}\n.infos p small[data-v-5360b92c]{\n    color: orange;\n    padding: 0 0 0 5px;\n}\n.times[data-v-5360b92c]{\n    margin: 22px 2% 0 39%;\n}\n.dos[data-v-5360b92c],.tos[data-v-5360b92c],.del[data-v-5360b92c]{\n    font-size: 13px;\n    margin: 23px 0 0 0;\n    color: rgba(61, 112, 206, 0.77)!important;\n}\n.dos a[data-v-5360b92c],.tos a[data-v-5360b92c]{\n    color: rgba(61, 112, 206, 0.77)!important;\n}\n.del a[data-v-5360b92c]{\n    color: rgba(229, 28, 35, 1)!important;\n}\n.clear[data-v-5360b92c]{\n    clear: both;\n    content: '';\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 300:
+/***/ 243:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
 //
 //
 //
@@ -263,23 +269,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        return {
-            PatentDate: [],
-            checked: false,
-            form: {
-                data1: '',
-                data2: ''
-            }
-        };
+        var _ref;
+
+        return _ref = {
+            ArticleDate: [],
+            checkAll: false,
+            checked: false
+        }, _defineProperty(_ref, 'checkAll', false), _defineProperty(_ref, 'isIndeterminate', true), _defineProperty(_ref, 'form', {
+            data1: '',
+            data2: ''
+        }), _ref;
     },
 
     methods: {
-        getAppraisalDate: function getAppraisalDate() {
+        handleCheckAllChange: function handleCheckAllChange(val) {
+            this.checkedCities = val ? this.ArticleDate : [];
+            this.isIndeterminate = false;
+        },
+        handleCheckedCitiesChange: function handleCheckedCitiesChange(value) {
+            var checkedCount = value.length;
+            this.checkAll = checkedCount === this.ArticleDate.length;
+            this.isIndeterminate = checkedCount > 0 && checkedCount < this.ArticleDate.length;
+        },
+        getArticleData: function getArticleData() {
             var self = this;
-            axios.get("").then(function (response) {
+            axios.get("selectallattical").then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
-                    self.AppraisalDate = data.datas;
+                    self.ArticleDate = data.datas;
+                    console.log(self.ArticleDate);
                 } else {
                     self.$notify({
                         type: 'error',
@@ -289,16 +307,47 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             });
         },
-        sentAppraisalSelfData: function sentAppraisalSelfData(art_id) {
+        sentArticleSelfData: function sentArticleSelfData(art_id) {
             this.$router.push({
                 path: '/selfInfor/' + art_id
+            });
+        },
+        deleteArticleData: function deleteArticleData(art_id) {
+            var _this = this;
+
+            this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(function () {
+                var self = _this;
+                axios.get("deleteartical", art_id).then(function (response) {
+                    var data = response.data;
+                    if (data.code == 0) {
+                        this.$message({
+                            type: 'success',
+                            message: '删除成功!'
+                        });
+                    } else {
+                        self.$notify({
+                            type: 'error',
+                            message: data.msg,
+                            duration: 2000
+                        });
+                    }
+                });
+            }).catch(function () {
+                _this.$message({
+                    type: 'info',
+                    message: '已取消删除'
+                });
             });
         },
         byTimeSearch: function byTimeSearch() {
             axios.get("", form).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
-                    self.AppraisalDate = data.datas;
+                    self.ArticleDate = data.datas;
                 } else {
                     self.$notify({
                         type: 'error',
@@ -310,13 +359,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     mounted: function mounted() {
-        this.getAppraisalDate();
+        this.getArticleData();
     }
 });
 
 /***/ }),
 
-/***/ 301:
+/***/ 244:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -326,7 +375,7 @@ var render = function() {
   return _c("div", [
     _c("header", [
       _c("span", { staticClass: "paper" }, [
-        _vm._v("\n            成果鉴定\n        ")
+        _vm._v("\n            论文\n        ")
       ]),
       _vm._v(" "),
       _c(
@@ -335,7 +384,7 @@ var render = function() {
         [
           _c(
             "router-link",
-            { attrs: { to: "/addPatent" } },
+            { attrs: { to: "/addPaper" } },
             [
               _c("el-button", { attrs: { type: "primary" } }, [
                 _c("i", { staticClass: "el-icon-plus el-icon--left" }, [
@@ -409,22 +458,28 @@ var render = function() {
         "span",
         { staticClass: "checks" },
         [
-          _c("el-checkbox", {
-            model: {
-              value: _vm.checked,
-              callback: function($$v) {
-                _vm.checked = $$v
-              },
-              expression: "checked"
-            }
-          })
+          _c(
+            "el-checkbox",
+            {
+              attrs: { indeterminate: _vm.isIndeterminate },
+              on: { change: _vm.handleCheckAllChange },
+              model: {
+                value: _vm.checkAll,
+                callback: function($$v) {
+                  _vm.checkAll = $$v
+                },
+                expression: "checkAll"
+              }
+            },
+            [_vm._v("全选")]
+          )
         ],
         1
       ),
       _vm._v(" "),
       _c("span", { staticClass: "number" }, [_vm._v("序号")]),
       _vm._v(" "),
-      _c("span", { staticClass: "info" }, [_vm._v("成果鉴定信息")]),
+      _c("span", { staticClass: "info" }, [_vm._v("论文信息")]),
       _vm._v(" "),
       _c("span", { staticClass: "time" }, [_vm._v("发表时间")]),
       _vm._v(" "),
@@ -434,107 +489,135 @@ var render = function() {
     _c(
       "div",
       { staticClass: "content" },
-      _vm._l(_vm.BookDate, function(item, index) {
-        return _c("div", { key: index, staticClass: "lists" }, [
-          _c(
-            "span",
-            { staticClass: "check" },
-            [
-              _c("el-checkbox", {
-                model: {
-                  value: _vm.checked,
-                  callback: function($$v) {
-                    _vm.checked = $$v
-                  },
-                  expression: "checked"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("span", { staticClass: "numbers" }, [
-            _vm._v(_vm._s(item.teacher_id))
-          ]),
-          _vm._v(" "),
-          _vm._m(0, true),
-          _vm._v(" "),
-          _c("span", { staticClass: "infos" }, [
-            _c("h5", [_vm._v(_vm._s(item.title))]),
-            _vm._v(" "),
-            _vm._m(1, true)
-          ]),
-          _vm._v(" "),
-          _c("span", { staticClass: "times" }, [_vm._v("2018-09-10")]),
-          _vm._v(" "),
-          _c(
-            "span",
-            {
-              staticClass: "dos",
-              on: {
-                click: function($event) {
-                  _vm.sentAppraisalSelfData(item.art_id)
-                }
-              }
-            },
-            [_vm._v("编辑")]
-          ),
-          _vm._v(" "),
-          _c(
-            "span",
-            { staticClass: "tos" },
-            [_c("router-link", { attrs: { to: "/" } }, [_vm._v("导出")])],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "span",
-            {
-              staticClass: "dos",
-              on: {
-                click: function($event) {
-                  _vm.sentAppraisalSelfData(item.art_id)
-                }
-              }
-            },
-            [_vm._v("查看")]
-          ),
-          _vm._v(" "),
-          _c(
-            "span",
-            { staticClass: "del" },
-            [_c("router-link", { attrs: { to: "/" } }, [_vm._v("删除")])],
-            1
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "clear" })
-        ])
-      })
+      [
+        _c(
+          "el-checkbox-group",
+          {
+            on: { change: _vm.handleCheckedCitiesChange },
+            model: {
+              value: _vm.checkAll,
+              callback: function($$v) {
+                _vm.checkAll = $$v
+              },
+              expression: "checkAll"
+            }
+          },
+          _vm._l(_vm.ArticleDate, function(item, index) {
+            return _c("div", { key: index, staticClass: "lists" }, [
+              _c(
+                "span",
+                { staticClass: "check" },
+                [
+                  _c("el-checkbox", {
+                    model: {
+                      value: _vm.checked,
+                      callback: function($$v) {
+                        _vm.checked = $$v
+                      },
+                      expression: "checked"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("span", { staticClass: "numbers" }, [
+                _vm._v(_vm._s(item.teacher_id))
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "picture" }, [
+                _c("img", {
+                  attrs: { src: "/dist/img/text.png", alt: "文件加载失败" }
+                })
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "infos" }, [
+                _c("h5", { staticStyle: { width: "78px" } }, [
+                  _vm._v(_vm._s(item.title))
+                ]),
+                _vm._v(" "),
+                _c("p", { staticStyle: { width: "78px" } }, [
+                  _vm._v(_vm._s(item.author) + " "),
+                  _c("small", [_vm._v(_vm._s(item.art_sub_category))])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "times" }, [_vm._v("2018-09-10")]),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  staticClass: "dos",
+                  on: {
+                    click: function($event) {
+                      _vm.sentArticleSelfData(item.art_id)
+                    }
+                  }
+                },
+                [_vm._v("编辑")]
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                { staticClass: "tos" },
+                [_c("router-link", { attrs: { to: "/" } }, [_vm._v("导出")])],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  staticClass: "dos",
+                  on: {
+                    click: function($event) {
+                      _vm.sentArticleSelfData(item.art_id)
+                    }
+                  }
+                },
+                [_vm._v("查看")]
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                { staticClass: "del" },
+                [
+                  _c(
+                    "el-button",
+                    {
+                      staticStyle: {
+                        color: "rgba(229, 28, 35, 1)!important",
+                        padding: "0px 5px",
+                        "font-size": "13px"
+                      },
+                      attrs: { type: "text" },
+                      on: {
+                        click: function($event) {
+                          _vm.deleteArticleData(item.art_id)
+                        }
+                      }
+                    },
+                    [_vm._v("删除")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "clear" })
+            ])
+          })
+        )
+      ],
+      1
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "picture" }, [
-      _c("img", { attrs: { src: "/dist/img/text.png", alt: "文件加载失败" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [_vm._v("作者 "), _c("small", [_vm._v("特别标注")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-4fab8574", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-5360b92c", module.exports)
   }
 }
 

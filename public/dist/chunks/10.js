@@ -1,24 +1,24 @@
 webpackJsonp([10],{
 
-/***/ 228:
+/***/ 231:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(314)
+  __webpack_require__(329)
 }
 var normalizeComponent = __webpack_require__(82)
 /* script */
-var __vue_script__ = __webpack_require__(316)
+var __vue_script__ = __webpack_require__(331)
 /* template */
-var __vue_template__ = __webpack_require__(317)
+var __vue_template__ = __webpack_require__(332)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-c27dbc56"
+var __vue_scopeId__ = "data-v-7e5ff42b"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -29,7 +29,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/holdmeet/addHoldmeet.vue"
+Component.options.__file = "resources/assets/js/components/joinmeet/addJoinmeet.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -38,9 +38,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-c27dbc56", Component.options)
+    hotAPI.createRecord("data-v-7e5ff42b", Component.options)
   } else {
-    hotAPI.reload("data-v-c27dbc56", Component.options)
+    hotAPI.reload("data-v-7e5ff42b", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -52,23 +52,23 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 314:
+/***/ 329:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(315);
+var content = __webpack_require__(330);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(81)("009ba58e", content, false, {});
+var update = __webpack_require__(81)("1194d09b", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-c27dbc56\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./addHoldmeet.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-c27dbc56\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./addHoldmeet.vue");
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7e5ff42b\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./addJoinmeet.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7e5ff42b\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./addJoinmeet.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -79,7 +79,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 315:
+/***/ 330:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(25)(false);
@@ -87,18 +87,27 @@ exports = module.exports = __webpack_require__(25)(false);
 
 
 // module
-exports.push([module.i, "\n.contents[data-v-c27dbc56]{\n    width: 75%;\n    float: left;\n}\n.add[data-v-c27dbc56]{\n    width: 73%;\n    margin: 35px 0 0 35px;\n}\n", ""]);
+exports.push([module.i, "\n.contents[data-v-7e5ff42b]{\n    width: 75%;\n    float: left;\n}\n.add[data-v-7e5ff42b]{\n    width: 73%;\n    margin: 35px 0 0 35px;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 316:
+/***/ 331:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -213,7 +222,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 317:
+/***/ 332:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -231,7 +240,7 @@ var render = function() {
           [
             _c(
               "el-form-item",
-              { attrs: { label: "学术会议名称" } },
+              { attrs: { label: "参会人" } },
               [
                 _c("el-input", {
                   model: {
@@ -248,41 +257,7 @@ var render = function() {
             _vm._v(" "),
             _c(
               "el-form-item",
-              { attrs: { label: "有无论文集" } },
-              [
-                _c(
-                  "el-radio-group",
-                  {
-                    model: {
-                      value: _vm.form.periodical_cate,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "periodical_cate", $$v)
-                      },
-                      expression: "form.periodical_cate"
-                    }
-                  },
-                  [
-                    _c(
-                      "el-radio",
-                      { staticStyle: { margin: "10px" }, attrs: { label: 1 } },
-                      [_vm._v("有")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "el-radio",
-                      { staticStyle: { margin: "10px" }, attrs: { label: 2 } },
-                      [_vm._v("无")]
-                    )
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "el-form-item",
-              { attrs: { label: "参与人数" } },
+              { attrs: { label: "学术会议名称" } },
               [
                 _c("el-input", {
                   model: {
@@ -392,6 +367,91 @@ var render = function() {
             _vm._v(" "),
             _c(
               "el-form-item",
+              { attrs: { label: "会议地点" } },
+              [
+                _c("el-input", {
+                  model: {
+                    value: _vm.form.title,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "title", $$v)
+                    },
+                    expression: "form.title"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "el-form-item",
+              { attrs: { label: "提交论文数" } },
+              [
+                _c("el-input", {
+                  model: {
+                    value: _vm.form.title,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "title", $$v)
+                    },
+                    expression: "form.title"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "el-form-item",
+              { attrs: { label: "是否被邀大会或分会场报告" } },
+              [
+                _c(
+                  "el-radio-group",
+                  {
+                    model: {
+                      value: _vm.form.periodical_cate,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "periodical_cate", $$v)
+                      },
+                      expression: "form.periodical_cate"
+                    }
+                  },
+                  [
+                    _c(
+                      "el-radio",
+                      { staticStyle: { margin: "10px" }, attrs: { label: 1 } },
+                      [_vm._v("是")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "el-radio",
+                      { staticStyle: { margin: "10px" }, attrs: { label: 2 } },
+                      [_vm._v("否")]
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "el-form-item",
+              { attrs: { label: "报告题目" } },
+              [
+                _c("el-input", {
+                  model: {
+                    value: _vm.form.title,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "title", $$v)
+                    },
+                    expression: "form.title"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "el-form-item",
               { attrs: { label: "会议图注" } },
               [
                 _c(
@@ -463,7 +523,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-c27dbc56", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-7e5ff42b", module.exports)
   }
 }
 

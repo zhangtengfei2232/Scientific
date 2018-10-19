@@ -19,7 +19,7 @@
                 </el-form-item>
                 <el-form-item label="年，卷，期">
                      <el-col :span="1" style="width:50px;margin:0 10px 0 0">
-                        <el-date-picker type="date" placeholder="选择年份" v-model="form.year" style="width: 90px;"></el-date-picker>
+                        <el-date-picker v-model="form.year" type="year" placeholder="选择年份" style="width: 90px;"> </el-date-picker>
                     </el-col>
                     <el-col :span="1" style="width:50px;margin: 0px -36px 0px 6%;">
                         ，
@@ -166,6 +166,7 @@
     methods: {
       onSubmit() {
         console.log('submit!');
+        alert("kkk");
       }
     }
   }
