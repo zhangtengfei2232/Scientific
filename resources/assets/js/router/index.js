@@ -128,6 +128,22 @@ export default new VueRouter({
                 path: '/selfHoldmeet',
                 component: resolve => void(require(['../components/holdmeet/selfHoldmeet.vue'], resolve))
             },
+            /*参加会议信息*/
+            {
+                name: 'joinmeet',
+                path: '/joinmeet',
+                component: resolve => void(require(['../components/joinmeet/joinmeet.vue'], resolve))
+            },
+            {
+                name: 'addHoldmeet',
+                path: '/addHoldmeet',
+                component: resolve => void(require(['../components/joinmeet/addJoinmeet.vue'], resolve))
+            },
+            {
+                name: 'selfHoldmeet',
+                path: '/selfHoldmeet',
+                component: resolve => void(require(['../components/joinmeet/selfJoinmeet.vue'], resolve))
+            },
       ]
 
 })

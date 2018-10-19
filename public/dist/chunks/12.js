@@ -1,24 +1,24 @@
 webpackJsonp([12],{
 
-/***/ 209:
+/***/ 215:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(238)
+  __webpack_require__(262)
 }
-var normalizeComponent = __webpack_require__(81)
+var normalizeComponent = __webpack_require__(82)
 /* script */
-var __vue_script__ = __webpack_require__(240)
+var __vue_script__ = __webpack_require__(264)
 /* template */
-var __vue_template__ = __webpack_require__(241)
+var __vue_template__ = __webpack_require__(265)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-5360b92c"
+var __vue_scopeId__ = "data-v-178a8ac8"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -29,7 +29,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/article/paper.vue"
+Component.options.__file = "resources/assets/js/components/book/book.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -38,9 +38,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-5360b92c", Component.options)
+    hotAPI.createRecord("data-v-178a8ac8", Component.options)
   } else {
-    hotAPI.reload("data-v-5360b92c", Component.options)
+    hotAPI.reload("data-v-178a8ac8", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -52,23 +52,23 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 238:
+/***/ 262:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(239);
+var content = __webpack_require__(263);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(82)("3937b3ab", content, false, {});
+var update = __webpack_require__(81)("29bd3b4f", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5360b92c\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./paper.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5360b92c\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./paper.vue");
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-178a8ac8\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./book.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-178a8ac8\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./book.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -79,7 +79,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 239:
+/***/ 263:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(25)(false);
@@ -87,14 +87,14 @@ exports = module.exports = __webpack_require__(25)(false);
 
 
 // module
-exports.push([module.i, "\nheader[data-v-5360b92c]{\n    border-bottom: 1px solid #eee;\n}\n.paper[data-v-5360b92c]{\n    font-size: 18px;\n    color: #090909;\n    display: inline-block;\n    padding: 23px 60px;\n    border-right: 1px solid #eee;\n}\n.load[data-v-5360b92c]{\n    display: inline-block;\n    margin: 0;\n    padding: 16px 60px;\n    border-right: 1px solid #eee;\n}\n.searchtime[data-v-5360b92c]{\n     width: 45%;\n     display: inline-block;\n     margin: 15px 0 0 18%;\n}\n.demonstration[data-v-5360b92c]{\n    font-weight: lighter;\n}\n.navbo[data-v-5360b92c]{\n    border-bottom: 1px solid #eee;\n    background: rgba(187, 187, 187, 0.1);\n    height: 40px;\n}\n.info[data-v-5360b92c],.number[data-v-5360b92c],.do[data-v-5360b92c],.time[data-v-5360b92c]{\n    display: inline-block;\n    padding: 10px;\n    font-size: 14px;\n}\n.number[data-v-5360b92c]{\n    margin: 0 2% 0 3%;\n}\n.time[data-v-5360b92c]{\n    margin: 0 6% 0 45%;\n}\n.lists[data-v-5360b92c]{\n    border-bottom: 1px solid #eee;\n    height: 80px;\n}\n.del[data-v-5360b92c],.times[data-v-5360b92c],.infos[data-v-5360b92c],.numbers[data-v-5360b92c],.dos[data-v-5360b92c],.tos[data-v-5360b92c]{\n    display: inline-block;\n    padding: 10px;\n    font-size: 14px;\n}\n.lists span[data-v-5360b92c]{\n    float: left;\n}\n.lists img[data-v-5360b92c]{\n    width: 35px;\n}\n.numbers[data-v-5360b92c]{\n    margin: 20px 2% 0 3.5%;\n}\n.check[data-v-5360b92c]{\n    margin: 25px 2% 0 3%;\n}\n.checks[data-v-5360b92c]{\n    margin: 0 2% 0 3%;\n}\n.picture[data-v-5360b92c]{\n    margin: 20px 5px 0 1%;\n}\n.infos[data-v-5360b92c]{\n    margin: 10px 2% 0 0;\n}\n.infos h5[data-v-5360b92c]{\n    font-size: 14px;\n    font-weight: lighter;\n}\n.infos p[data-v-5360b92c]{\n    font-size: 13px;\n    font-weight: lighter;\n    margin: 8px 0 0 0;\n}\n.infos p small[data-v-5360b92c]{\n    color: orange;\n    padding: 0 0 0 5px;\n}\n.times[data-v-5360b92c]{\n    margin: 22px 2% 0 39%;\n}\n.dos[data-v-5360b92c],.tos[data-v-5360b92c],.del[data-v-5360b92c]{\n    font-size: 13px;\n    margin: 23px 0 0 0;\n    color: rgba(61, 112, 206, 0.77)!important;\n}\n.dos a[data-v-5360b92c],.tos a[data-v-5360b92c]{\n    color: rgba(61, 112, 206, 0.77)!important;\n}\n.del a[data-v-5360b92c]{\n    color: rgba(229, 28, 35, 1)!important;\n}\n.clear[data-v-5360b92c]{\n    clear: both;\n    content: '';\n}\n", ""]);
+exports.push([module.i, "\nheader[data-v-178a8ac8]{\n    border-bottom: 1px solid #eee;\n}\n.paper[data-v-178a8ac8]{\n    font-size: 18px;\n    color: #090909;\n    display: inline-block;\n    padding: 23px 60px;\n    border-right: 1px solid #eee;\n}\n.load[data-v-178a8ac8]{\n    display: inline-block;\n    margin: 0;\n    padding: 16px 60px;\n    border-right: 1px solid #eee;\n}\n.searchtime[data-v-178a8ac8]{\n     width: 45%;\n     display: inline-block;\n     margin: 15px 0 0 18%;\n}\n.demonstration[data-v-178a8ac8]{\n    font-weight: lighter;\n}\n.navbo[data-v-178a8ac8]{\n    border-bottom: 1px solid #eee;\n    background: rgba(187, 187, 187, 0.1);\n    height: 40px;\n}\n.info[data-v-178a8ac8],.number[data-v-178a8ac8],.do[data-v-178a8ac8],.time[data-v-178a8ac8]{\n    display: inline-block;\n    padding: 10px;\n    font-size: 14px;\n}\n.number[data-v-178a8ac8]{\n    margin: 0 2% 0 3%;\n}\n.time[data-v-178a8ac8]{\n    margin: 0 6% 0 45%;\n}\n.lists[data-v-178a8ac8]{\n    border-bottom: 1px solid #eee;\n    height: 80px;\n}\n.del[data-v-178a8ac8],.times[data-v-178a8ac8],.infos[data-v-178a8ac8],.numbers[data-v-178a8ac8],.dos[data-v-178a8ac8],.tos[data-v-178a8ac8]{\n    display: inline-block;\n    padding: 10px;\n    font-size: 14px;\n}\n.lists span[data-v-178a8ac8]{\n    float: left;\n}\n.lists img[data-v-178a8ac8]{\n    width: 35px;\n}\n.numbers[data-v-178a8ac8]{\n    margin: 20px 2% 0 3.5%;\n}\n.check[data-v-178a8ac8]{\n    margin: 25px 2% 0 3%;\n}\n.checks[data-v-178a8ac8]{\n    margin: 0 2% 0 3%;\n}\n.picture[data-v-178a8ac8]{\n    margin: 20px 5px 0 1%;\n}\n.infos[data-v-178a8ac8]{\n    margin: 10px 2% 0 0;\n}\n.infos h5[data-v-178a8ac8]{\n    font-size: 14px;\n    font-weight: lighter;\n}\n.infos p[data-v-178a8ac8]{\n    font-size: 13px;\n    font-weight: lighter;\n    margin: 8px 0 0 0;\n}\n.infos p small[data-v-178a8ac8]{\n    color: orange;\n    padding: 0 0 0 5px;\n}\n.times[data-v-178a8ac8]{\n    margin: 22px 2% 0 39%;\n}\n.dos[data-v-178a8ac8],.tos[data-v-178a8ac8],.del[data-v-178a8ac8]{\n    font-size: 13px;\n    margin: 23px 0 0 0;\n    color: rgba(61, 112, 206, 0.77)!important;\n}\n.dos a[data-v-178a8ac8],.tos a[data-v-178a8ac8]{\n    color: rgba(61, 112, 206, 0.77)!important;\n}\n.del a[data-v-178a8ac8]{\n    color: rgba(229, 28, 35, 1)!important;\n}\n.clear[data-v-178a8ac8]{\n    clear: both;\n    content: '';\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 240:
+/***/ 264:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -264,7 +264,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            ArticleDate: [],
+            BookDate: [],
             checked: false,
             form: {
                 data1: '',
@@ -274,12 +274,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
-        getArticleData: function getArticleData() {
+        getBookData: function getBookData() {
             var self = this;
-            axios.get("selectallattical").then(function (response) {
+            axios.get("selectopus").then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
-                    self.ArticleDate = data.datas;
+                    self.BookDate = data.datas;
                 } else {
                     self.$notify({
                         type: 'error',
@@ -289,7 +289,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             });
         },
-        sentArticleSelfData: function sentArticleSelfData(art_id) {
+        sentBookSelfData: function sentBookSelfData(art_id) {
             this.$router.push({
                 path: '/selfInfor/' + art_id
             });
@@ -298,7 +298,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.get("", form).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
-                    self.ArticleDate = data.datas;
+                    self.BookDate = data.datas;
                 } else {
                     self.$notify({
                         type: 'error',
@@ -310,13 +310,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     mounted: function mounted() {
-        this.getArticleData();
+        this.getBookData();
     }
 });
 
 /***/ }),
 
-/***/ 241:
+/***/ 265:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -326,7 +326,7 @@ var render = function() {
   return _c("div", [
     _c("header", [
       _c("span", { staticClass: "paper" }, [
-        _vm._v("\n            论文\n        ")
+        _vm._v("\n            著作\n        ")
       ]),
       _vm._v(" "),
       _c(
@@ -335,7 +335,7 @@ var render = function() {
         [
           _c(
             "router-link",
-            { attrs: { to: "/addPaper" } },
+            { attrs: { to: "/addBook" } },
             [
               _c("el-button", { attrs: { type: "primary" } }, [
                 _c("i", { staticClass: "el-icon-plus el-icon--left" }, [
@@ -434,7 +434,7 @@ var render = function() {
     _c(
       "div",
       { staticClass: "content" },
-      _vm._l(_vm.ArticleDate, function(item, index) {
+      _vm._l(_vm.BookDate, function(item, index) {
         return _c("div", { key: index, staticClass: "lists" }, [
           _c(
             "span",
@@ -473,7 +473,7 @@ var render = function() {
               staticClass: "dos",
               on: {
                 click: function($event) {
-                  _vm.sentArticleSelfData(item.art_id)
+                  _vm.sentBookSelfData(item.art_id)
                 }
               }
             },
@@ -493,7 +493,7 @@ var render = function() {
               staticClass: "dos",
               on: {
                 click: function($event) {
-                  _vm.sentArticleSelfData(item.art_id)
+                  _vm.sentBookSelfData(item.art_id)
                 }
               }
             },
@@ -534,7 +534,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-5360b92c", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-178a8ac8", module.exports)
   }
 }
 
