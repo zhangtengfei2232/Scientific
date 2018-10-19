@@ -274,7 +274,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
-        getAppraisalDate: function getAppraisalDate() {
+        getJoinmeetDate: function getJoinmeetDate() {
             var self = this;
             axios.get("").then(function (response) {
                 var data = response.data;
@@ -434,7 +434,7 @@ var render = function() {
     _c(
       "div",
       { staticClass: "content" },
-      _vm._l(_vm.BookDate, function(item, index) {
+      _vm._l(_vm.JoinmeetDate, function(item, index) {
         return _c("div", { key: index, staticClass: "lists" }, [
           _c(
             "span",

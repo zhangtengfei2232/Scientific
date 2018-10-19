@@ -87,7 +87,7 @@ exports = module.exports = __webpack_require__(25)(false);
 
 
 // module
-exports.push([module.i, "\n.main{\n    width: 100%;\n    margin:0 auto\n}\n.content{\n    width: 87%;\n    float: right;\n}\n.perInfo{\n    width: 100%;\n    height: 50px;\n    line-height: 52px;\n    border-bottom: 1px solid gray;\n}\n.body{\n    Font-size:25%\n}\n.detiaLeft{\n    width: 12%;\n    /*background-color: #2ab27b;*/\n    font-size:0.95em;\n    float: left;\n    margin-left: 10%;\n}\n.detialRight{\n    width: 78%;\n    float: right;\n}\n.detial{\n    margin-top: 3%;\n}\n.detial p{\n    line-height: 43px;\n    height:50px;\n}\n.detialRight img{\n    width: 33px;\n}\n.el-date-editor.el-input{\n    width: 217px;\n}\n.change{\n    color: rgba(0, 179, 138, 1);\n    margin-left:2%;\n}\n.commit{\n    /*float: right;*/\n    width: 320px;\n    /*margin-right: 30%;*/\n}\n/*//组件*/\n.upload-demo{\n    width: 320px;\n}\n.el-input{\n    width: 217px;\n}\n", ""]);
+exports.push([module.i, "\n.main{\n    width: 100%;\n    margin:0 auto\n}\n.content{\n    width: 87%;\n    float: right;\n}\n.perInfo{\n    width: 100%;\n    height: 50px;\n    line-height: 52px;\n    border-bottom: 1px solid gray;\n}\n.body{\n    Font-size:25%\n}\n.detiaLeft{\n    width: 12%;\n    /*background-color: #2ab27b;*/\n    font-size:0.95em;\n    float: left;\n    margin-left: 10%;\n}\n.detialRight{\n    width: 78%;\n    float: right;\n}\n.detial{\n    margin-top: 3%;\n}\n.detial p{\n    line-height: 43px;\n    height:50px;\n}\n.detialRight img{\n    width: 33px;\n}\n.el-date-editor.el-input{\n    width: 217px;\n}\n.change{\n    color: rgba(0, 179, 138, 1);\n    margin-left:2%;\n}\n.commit{\n    /*float: right;*/\n    width: 320px;\n    /*margin-right: 30%;*/\n}\n.graduationPic{\n    margin-bottom: 170px;\n}\n/*//组件*/\n.upload-demo{\n    width: 320px;\n}\n.el-input{\n    width: 217px;\n}\n", ""]);
 
 // exports
 
@@ -99,7 +99,6 @@ exports.push([module.i, "\n.main{\n    width: 100%;\n    margin:0 auto\n}\n.cont
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
 //
 //
 //

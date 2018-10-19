@@ -264,7 +264,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            PatentDate: [],
+            HoldmeetlDate: [],
             checked: false,
             form: {
                 data1: '',
@@ -274,12 +274,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
-        getAppraisalDate: function getAppraisalDate() {
+        getHoldmeetDate: function getHoldmeetDate() {
             var self = this;
             axios.get("").then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
-                    self.AppraisalDate = data.datas;
+                    self.HoldmeetlDate = data.datas;
                 } else {
                     self.$notify({
                         type: 'error',
@@ -289,7 +289,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             });
         },
-        sentAppraisalSelfData: function sentAppraisalSelfData(art_id) {
+        sentHoldmeetSelfData: function sentHoldmeetSelfData(art_id) {
             this.$router.push({
                 path: '/selfInfor/' + art_id
             });
@@ -310,7 +310,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     mounted: function mounted() {
-        this.getAppraisalDate();
+        this.getHoldmeetDate();
     }
 });
 
@@ -434,7 +434,7 @@ var render = function() {
     _c(
       "div",
       { staticClass: "content" },
-      _vm._l(_vm.BookDate, function(item, index) {
+      _vm._l(_vm.HoldmeetlDate, function(item, index) {
         return _c("div", { key: index, staticClass: "lists" }, [
           _c(
             "span",

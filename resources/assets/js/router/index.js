@@ -144,6 +144,15 @@ export default new VueRouter({
                 path: '/selfHoldmeet',
                 component: resolve => void(require(['../components/joinmeet/selfJoinmeet.vue'], resolve))
             },
+           // 专家讲学
+           //  {
+           //      name: 'joinmeet',
+           //      path: '/joinmeet',
+           //      component: resolve => void(require(['../components/joinmeet/joinmeet.vue'], resolve))
+           //  },
+
+
+          // 担任学术团体职务
       ]
 
 })

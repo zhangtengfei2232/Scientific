@@ -434,7 +434,7 @@ var render = function() {
     _c(
       "div",
       { staticClass: "content" },
-      _vm._l(_vm.BookDate, function(item, index) {
+      _vm._l(_vm.PatentDate, function(item, index) {
         return _c("div", { key: index, staticClass: "lists" }, [
           _c(
             "span",

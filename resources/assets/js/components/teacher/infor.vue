@@ -125,7 +125,6 @@
                 </div>
             </div>
             <div style="clear: both"></div>
-
         </div>
     </div>
 </template>
@@ -241,6 +240,9 @@
         /*float: right;*/
         width: 320px;
         /*margin-right: 30%;*/
+    }
+    .graduationPic{
+        margin-bottom: 170px;
     }
     /*//组件*/
 
