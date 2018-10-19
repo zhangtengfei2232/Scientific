@@ -47,7 +47,50 @@ return [
             'driver' => 'local',
             'root' => storage_path('app'),
         ],
-
+        'agreement' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/data/agreement'),
+        ],
+        'appraisal' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/data/appraisal'),
+        ],
+        'artical' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/data/artical'),
+        ],
+        'award' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/data/award'),
+        ],
+        'document' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/data/document'),
+        ],
+        'duties' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/data/duties'),
+        ],
+        'lecture' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/data/lecture'),
+        ],
+        'meeting' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/data/meeting'),
+        ],
+        'opus' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/data/opus'),
+        ],
+        'patent' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/data/patent'),
+        ],
+        'teacher' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/data/teacher'),
+        ],
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

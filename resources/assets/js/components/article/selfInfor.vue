@@ -123,8 +123,7 @@
                     </el-form>
                 </div>
             </div>
-        </div>
-       
+        </div>  
     </div>
 </template>
 
@@ -172,10 +171,9 @@ export default {
     methods: {
         getArticleSelfData() {
                 let self = this;
-                let art_id = self.$route.params.paper_id;
+                let art_id = self.$route.params.art_id;
                 axios.get("selectartical",art_id).then(function (response) {
                     var data = response.data;
-                    //console.log(data);
                     if (data.code == 0) {
                         self.ArticleSelfData = data.datas;
                         console.log(data.datas);

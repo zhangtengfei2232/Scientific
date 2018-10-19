@@ -38,31 +38,31 @@
                     </el-menu-item>
                     <el-menu-item index="3">
                         <i class="el-icon-menu"></i>
-                       <span slot="title">项目</span>
+                       <span slot="title"><router-link to="/project">项目</router-link></span>
                     </el-menu-item>
                     <el-menu-item index="4">
                         <i class="el-icon-document"></i>
-                        <span slot="title">著作</span>
+                        <span slot="title"><router-link to="/book">著作</router-link></span>
                     </el-menu-item>
                     <el-menu-item index="5">
                         <i class="el-icon-setting"></i>
-                        <span slot="title">获奖</span>
+                        <span slot="title"><router-link to="/award">获奖</router-link></span>
                     </el-menu-item>
                     <el-menu-item index="6">
                         <i class="el-icon-menu"></i>
-                        <span slot="title">专利</span>
+                        <span slot="title"><router-link to="/patent">专利</router-link></span>
                     </el-menu-item>
                     <el-menu-item index="7">
                         <i class="el-icon-menu"></i>
-                        <span slot="title">成果鉴定</span>
+                        <span slot="title"><router-link to="/appraisal">成果鉴定</router-link></span>
                     </el-menu-item>
                     <el-menu-item index="8">
                         <i class="el-icon-document"></i>
-                        <span slot="title">举办会议</span>
+                        <span slot="title"><router-link to="/holdmeet">举办会议</router-link></span>
                     </el-menu-item>
                     <el-menu-item index="9">
                         <i class="el-icon-setting"></i>
-                        <span slot="title">参加会议</span>
+                        <span slot="title"><router-link to="/joinmeet">参加会议</router-link></span>
                     </el-menu-item>
                     <el-menu-item index="10">
                         <i class="el-icon-menu"></i>
@@ -70,7 +70,7 @@
                     </el-menu-item>
                     <el-menu-item index="11">
                         <i class="el-icon-menu"></i>
-                        <span slot="title">担任学术团体职务</span>
+                        <span slot="title">>担任学术团体职务</span>
                     </el-menu-item>
                 </el-menu>
             </el-col>

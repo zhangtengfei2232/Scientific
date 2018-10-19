@@ -46,9 +46,9 @@
                     <p>作者 <small>特别标注</small></p>
                 </span>
                 <span class="times">2018-09-10</span>
-                <span class="dos" @click="sentArticleSelfData(item.teacher_id)">编辑</span>
+                <span class="dos" @click="sentArticleSelfData(item.art_id)">编辑</span>
                 <span class="tos"><router-link to="/">导出</router-link></span>
-                <span class="dos" @click="sentArticleSelfData(item.teacher_id)">查看</span>
+                <span class="dos" @click="sentArticleSelfData(item.art_id)">查看</span>
                 <span class="del"><router-link to="/">删除</router-link></span>
                 <div class="clear"></div>
             </div>
@@ -187,13 +187,16 @@
                     }
                 });
             },
+            sentArticleSelfData(art_id) {
+                this.$router.push({
+                path: `/selfInfor/${art_id}`,
+                })
+            },
             byTimeSearch() {
                 axios.get("",form).then(function (response) {
                     var data = response.data;
-                    //console.log(data);
                     if (data.code == 0) {
-                        self.ArticleSelfData = data.datas;
-                        console.log(data.datas);
+                        self.ArticleDate = data.datas;
                     } else {
                         self.$notify({
                             type: 'error',
@@ -203,11 +206,6 @@
                     }
                 });
             },
-            sentArticleSelfData(paper_id) {
-                this.$router.push({
-                path: `/selfInfor/${paper_id}`,
-                })
-            }
 
         },
         mounted() {
