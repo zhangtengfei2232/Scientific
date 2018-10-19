@@ -2,10 +2,10 @@
     <div>
         <header>
             <span class="paper">
-                论文
+                著作
             </span>
             <span class="load">
-                <router-link to="/addPaper">
+                <router-link to="/addBook">
                     <el-button type="primary"><i class="el-icon-plus el-icon--left">上传</i></el-button>
                 </router-link>
             </span>
@@ -30,29 +30,27 @@
             </span>
         </header>
         <div class="navbo">
-            <span class="checks"><el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox></span>
+            <span class="checks"><el-checkbox v-model="checked"></el-checkbox></span>
             <span class="number">序号</span>   
             <span class="info">论文信息</span>
             <span class="time">发表时间</span>
             <span class="do">操作</span>
-        </div> 
+        </div>
         <div class="content">
             <el-checkbox-group v-model="checkAll" @change="handleCheckedCitiesChange"> 
-                <div class="lists" v-for="(item,index) in ArticleDate" :key="index">
+                <div class="lists" v-for="(item,index) in BookDate" :key="index">
                     <span class="check"><el-checkbox v-model="checked"></el-checkbox></span>
                     <span class="numbers">{{ item.teacher_id }}</span>
                     <span class="picture"><img src="/dist/img/text.png" alt="文件加载失败"></span>
                     <span class="infos">
-                        <h5 style="width: 78px;">{{ item.title }}</h5>
-                        <p  style="width: 78px;">{{item.author}} <small>{{item.art_sub_category}}</small></p>
+                        <h5>{{ item.title }}</h5>
+                        <p>作者<small>特别标注</small></p>
                     </span>
                     <span class="times">2018-09-10</span>
-                    <span class="dos" @click="sentArticleSelfData(item.art_id)">编辑</span>
+                    <span class="dos" @click="sentBookSelfData(item.op_id)">编辑</span>
                     <span class="tos"><router-link to="/">导出</router-link></span>
-                    <span class="dos" @click="sentArticleSelfData(item.art_id)">查看</span>
-                    <span class="del"><el-button type="text" @click="deleteArticleData(item.art_id)" 
-                        style="color: rgba(229, 28, 35, 1)!important;padding: 0px 5px;font-size: 13px;">删除</el-button>
-                    </span>
+                    <span class="dos" @click="sentBookSelfData(item.op_id)">查看</span>
+                    <span class="del" @click="deleteBookData(item.op_id)">删除</span>
                     <div class="clear"></div>
                 </div>
             </el-checkbox-group>
@@ -96,10 +94,10 @@
         font-size: 14px;
     }
     .number{
-        margin: 0px 3.5% 0 0%;
+        margin: 0 2% 0 3%;
     }
     .time{
-        margin:0 7% 0 44%;
+        margin: 0 6% 0 45%;
     }
     .lists{
         border-bottom: 1px solid #eee;
@@ -163,14 +161,14 @@
         content: '';
     }
 </style>
+
 <script>
     export default {
         data() {
             return {
-                ArticleDate: [],
+                BookDate: [],
                 checked: false,
                 checkAll: false,
-                isIndeterminate: true,
                 form: {
                     data1: '',
                     data2: '',
@@ -179,20 +177,20 @@
         },
         methods: {
             handleCheckAllChange(val) {
-                this.checkedCities = val ? this.ArticleDate : [];
+                this.checkedCities = val ? this.BookDate : [];
                 this.isIndeterminate = false;
             },
              handleCheckedCitiesChange(value) {
                 let checkedCount = value.length;
-                this.checkAll = checkedCount === this.ArticleDate.length;
-                this.isIndeterminate = checkedCount > 0 && checkedCount < this.ArticleDate.length;
+                this.checkAll = checkedCount === this.BookDate.length;
+                this.isIndeterminate = checkedCount > 0 && checkedCount < this.BookDate.length;
             },
-            getArticleData() {
+            getBookData() {
                 let self = this;
-                axios.get("selectallattical").then(function (response) {
+                axios.get("selectopus").then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
-                        self.ArticleDate = data.datas;
+                        self.BookDate = data.datas;
                     } else {
                         self.$notify({
                             type: 'error',
@@ -202,19 +200,19 @@
                     }
                 });
             },
-            sentArticleSelfData(art_id) {
+            sentBookSelfData(op_id) {
                 this.$router.push({
-                    path: `/selfInfor/${art_id}`,
+                path: `/selfBook/${op_id}`,
                 })
             },
-            deleteArticleData(art_id) {
+            deleteBookData(op_id) {
                 this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
                     let self = this;
-                    axios.get("deleteartical",art_id).then(function (response) {
+                    axios.get("",).then(function (response) {
                     var data = response.data;
                         if (data.code == 0) {
                              this.$message({
@@ -237,11 +235,10 @@
                 });
             },
             byTimeSearch(form) {
-                let self = this;
                 axios.get("",form).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
-                        
+                        self.BookDate = data.datas;
                     } else {
                         self.$notify({
                             type: 'error',
@@ -254,7 +251,7 @@
 
         },
         mounted() {
-            this.getArticleData();
+            this.getBookData();
         }
     }
 </script>

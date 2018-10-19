@@ -6,13 +6,13 @@ webpackJsonp([1],{
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(212)
+  __webpack_require__(233)
 }
 var normalizeComponent = __webpack_require__(82)
 /* script */
-var __vue_script__ = __webpack_require__(214)
+var __vue_script__ = __webpack_require__(235)
 /* template */
-var __vue_template__ = __webpack_require__(215)
+var __vue_template__ = __webpack_require__(236)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -52,13 +52,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 212:
+/***/ 233:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(213);
+var content = __webpack_require__(234);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -79,7 +79,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 213:
+/***/ 234:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(25)(false);
@@ -87,19 +87,18 @@ exports = module.exports = __webpack_require__(25)(false);
 
 
 // module
-exports.push([module.i, "\n.main{\n    width: 100%;\n    margin:0 auto\n}\n.content{\n    width: 87%;\n    float: right;\n}\n.perInfo{\n    width: 100%;\n    height: 50px;\n    line-height: 52px;\n    border-bottom: 1px solid gray;\n}\n.body{\n    Font-size:25%\n}\n.detiaLeft{\n    width: 12%;\n    /*background-color: #2ab27b;*/\n    font-size:0.95em;\n    float: left;\n    margin-left: 10%;\n}\n.detialRight{\n    width: 78%;\n    float: right;\n}\n.detial{\n    margin-top: 3%;\n}\n.detial p{\n    line-height: 43px;\n    height:50px;\n}\n.detialRight img{\n    width: 33px;\n}\n.el-date-editor.el-input{\n    width: 217px;\n}\n.change{\n    color: rgba(0, 179, 138, 1);\n    margin-left:2%;\n}\n.commit{\n    /*float: right;*/\n    width: 320px;\n    /*margin-right: 30%;*/\n}\n/*//组件*/\n.upload-demo{\n    width: 320px;\n}\n.el-input{\n    width: 217px;\n}\n", ""]);
+exports.push([module.i, "\n.main{\n    width: 100%;\n    margin:0 auto\n}\n.content{\n    width: 87%;\n    float: right;\n}\n.perInfo{\n    width: 100%;\n    height: 50px;\n    line-height: 52px;\n    border-bottom: 1px solid gray;\n}\n.body{\n    Font-size:25%\n}\n.detiaLeft{\n    width: 12%;\n    /*background-color: #2ab27b;*/\n    font-size:0.95em;\n    float: left;\n    margin-left: 10%;\n}\n.detialRight{\n    width: 78%;\n    float: right;\n}\n.detial{\n    margin-top: 3%;\n}\n.detial p{\n    line-height: 43px;\n    height:50px;\n}\n.detialRight img{\n    width: 33px;\n}\n.el-date-editor.el-input{\n    width: 217px;\n}\n.change{\n    color: rgba(0, 179, 138, 1);\n    margin-left:2%;\n}\n.commit{\n    /*float: right;*/\n    width: 320px;\n    /*margin-right: 30%;*/\n}\n.graduationPic{\n    margin-bottom: 170px;\n}\n/*//组件*/\n.upload-demo{\n    width: 320px;\n}\n.el-input{\n    width: 217px;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 214:
+/***/ 235:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
 //
 //
 //
@@ -289,7 +288,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 215:
+/***/ 236:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
