@@ -125,8 +125,6 @@
              return showMsg(1,'你输入的所属项目名称不合法');
          }elseif (strlen($datas->art_cate_research) > 20){
              return showMsg(1,'你输入的研究类别名称不合法');
-         }elseif (strlen($datas->art_sub_category) > 10){
-             return showMsg(1,'你输入的学科门类名称不合法');
          }elseif (!is_numeric($datas->art_integral)
              || strlen($datas->art_integral) > 11){
              return showMsg(1,'你输入的积分不合法');
@@ -138,6 +136,9 @@
     }
     //验证项目字段
     function judgeProjectField($datas){
+        if(emptyarray($datas)){
+            return showMsg(1,'你填写的的项目信息不全');
+        }
         if(strlen($datas->pro_host) > 10){
             return showMsg(1,'你输入的主持人有误');
         }elseif (strlen($datas->entry_name) > 40){
@@ -146,12 +147,15 @@
             return showMsg(1,'你输入的项目类别名过长');
         }elseif (strlen($datas->approval_unit) > 20){
             return showMsg(1,'你输入的批准单位名字过长');
-        }elseif (!is_numeric($datas->approval_funds)){
-            return showMsg(1,'你输入的批准经费必须全为数字');
-        }elseif (!is_numeric($datas->account_outlay)){
-            return showMsg(1,'你输入的当年到账经费必须全为数字');
-        }elseif (!is_numeric($datas->pro_integral)){
-            return showMsg(1,'你输入的积分必须全为数字');
+        }elseif (!is_numeric($datas->approval_funds)
+            || strlen($datas->approval_funds) > 10){
+            return showMsg(1,'你输入的批准经费必须全为数字且不超过10位');
+        }elseif (!is_numeric($datas->account_outlay)
+            || strlen($datas->account_outlay) > 10){
+            return showMsg(1,'你输入的当年到账经费必须全为数字且不超过10位');
+        }elseif (!is_numeric($datas->pro_integral)
+            || strlen($datas->pro_integral) > 10){
+            return showMsg(1,'你输入的积分必须全为数字且不超过10位');
         }elseif (strlen($datas->pro_cate_research) > 20){
             return showMsg(1,'你输入的研究类别名字过长');
         }elseif (strlen($datas->social_eco_goal) > 50){
@@ -159,6 +163,81 @@
         }else{
             return showMsg(0,'验证通过');
         }
+    }
+    //验证著作字段
+    function judgeOpusField($datas){
+       if(emptyarray($datas)){
+           return showMsg(1,'你填写著作信息不完整');
+       }
+       if(strlen($datas->op_first_author) > 15){
+           return showMsg(1,'你填写的著作第一作者名字过长');
+       }elseif (strlen($datas->op_name) > 50){
+           return showMsg(1,'你填写的著作名称过长');
+       }elseif (strlen($datas->op_publish) > 50){
+           return showMsg(1,'你填写的著作出版社名字过长');
+       }elseif (strlen($datas->op_number) > 30){
+           return showMsg(1,'你填写的著作书号过长');
+       }elseif (strlen($datas->op_total_words) > 10
+           || !is_numeric($datas->op_total_words)){
+           return showMsg(1,'你填写的著作总字数必须全为数字且不超过10位');
+       }elseif (strlen($datas->op_self_words) > 10
+           || !is_numeric($datas->op_self_words)){
+           return showMsg(1,'你填写的著作本人字数必须全为数字且不超过10位');
+       }elseif (strlen($datas->op_integral) > 10
+           || !is_numeric($datas->op_integral)){
+           return showMsg(1,'你填写的著作积分必须全为数字且不超过10位');
+       }elseif (strlen($datas->op_cate_research) > 20){
+           return showMsg(1,'你填写的著作研究类别名称过长');
+       }else{
+           return showMsg(0,'验证通过');
+       }
+    }
+    //验证获奖字段
+    function judgeAwardField($datas){
+       if(emptyarray($datas)){
+           return showMsg(1,'你填写的信息不完整');
+       }
+       if(strlen($datas->aw_first_author) > 15){
+           return showMsg(1,'你输入的第一获奖人姓名过长');
+       }elseif (strlen($datas->prize_win_name) > 40){
+           return showMsg(1,'你输入的获奖成果名称过长');
+       }elseif (strlen($datas->award_name) > 20){
+           return showMsg(1,'你输入的奖励名称过长');
+       }elseif (strlen($datas->aw_grant_unit) > 40){
+           return showMsg(1,'你输入的授予单位过长');
+       }elseif (strlen($datas->aw_certi_number) > 30){
+           return showMsg(1,'你输入的证书编号过长');
+       }elseif (!is_numeric($datas->aw_integral)
+           || strlen($datas->aw_integral) > 10){
+           return showMsg(1,'你输入的积分必须全为数字且不超过10位');
+       }else{
+           return showMsg(0,'验证通过');
+       }
+    }
+    //验证专利字段
+    function judgePatenField($datas){
+        if(emptyarray($datas)){
+            return showMsg(1,'你输入的信息不完整');
+        }
+        if(strlen($datas->first_inventor) > 10){
+            return showMsg(1,'你输入的第一发明人名字过长');
+        }elseif (strlen($datas->pa_name) > 50){
+            return showMsg(1,'你输入的专利名字过长');
+        }elseif (strlen($datas->author_num) > 30){
+            return showMsg(1,'你输入的授权编号过长');
+        }elseif (!is_numeric($datas->author_cert_num)
+                 || strlen($datas->author_cert_num) >10){
+            return showMsg(1,'你输入的授权证书编号必须全为数字且不超过10位');
+        }elseif (!is_numeric($datas->pa_integral)
+            ||strlen($datas->pa_integral) > 10){
+            return showMsg(1,'你输入的积分必须全为数字且不超过10位');
+        }else{
+            return showMsg(0,'通过验证');
+        }
+    }
+    //验证鉴定字段
+    function judgeAppraisalField(){
+
     }
     //上传前先判断文件是否接收成功
     function judgeReceiveFiles($certificate_pdf){

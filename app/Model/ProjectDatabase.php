@@ -47,7 +47,7 @@ class ProjectDatabase extends ModelDatabase
       foreach ($result as $datas){
           $datas->project_year = date('Y-m-d',$datas->project_year);
       }
-      return $result;
+      return $datas;
     }
     //修改老师项目和项目合同信息
     public static function updateProjectImage($datas){

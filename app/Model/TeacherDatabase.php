@@ -48,7 +48,7 @@ class TeacherDatabase extends ModelDatabase
      }
      //添加老师的信息
      public static function addTeacherDatas($datas){
-         return DB::table('teacher')
+        $response =  DB::table('teacher')
              ->insert([
                  'teacher_id'            => $datas->teacher_id,
                  'password'              => $datas->teacher_id,     //初始密码设置为工号
@@ -94,6 +94,8 @@ class TeacherDatabase extends ModelDatabase
                  'master_time'           => strtotime($datas->master_time),
                  'create_time'           => time()
              ]);
+        return ($response) ? showMsg(0,'添加老师信息成功')
+               : showMsg(1,'添加老师信息失败');
      }
      //删除老师的信息
      public static function deleteTeacherDatas(){
@@ -131,11 +133,6 @@ class TeacherDatabase extends ModelDatabase
                  ->where('teacher_id',$teacher_id)
                  ->get();
              return $image->edu_cert_road;
-         }else{
-             return DB::table('teacher')
-                 ->select('gra_cert_road','edu_cert_road')
-                 ->where('teacher_id',$teacher_id)
-                 ->get();
          }
      }
      //修改老师的信息
@@ -189,7 +186,8 @@ class TeacherDatabase extends ModelDatabase
                       'master_time'           => strtotime($datas->master_time),
                       'update_time'           => time()
                   ]);
-         return ($retUpdate != 1) ? false : true;
+         return ($retUpdate != 1) ? showMsg(1,'修改信息失败')
+                : showMsg(0,'修改信息成功');
      }
     //修改老师证书图片路径
     /**

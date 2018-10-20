@@ -72,13 +72,7 @@ class InformationController extends Controller
             return $judge_datas;
         }
         $add_teacher = TeacherDatabase::addTeacherDatas($datas);
-        TeacherDatabase::beginTraction();
-        if(! $add_teacher){
-            TeacherDatabase::rollback();
-            return showMsg(1,'添加老师信息失败');
-        }
-        TeacherDatabase::commit();
-        return showMsg(0,'添加老师信息成功');
+        return $add_teacher;
     }
     //添加老师证书信息
     public function addCertificate(Request $request){
@@ -86,7 +80,7 @@ class InformationController extends Controller
             return showMsg(1,'你请求的方式不对');
         }
         $certificate    = $request->file('certificate_image');            //接收证书图片
-        $status         = trim($request->resetimage);                         //老师修改证书的状态
+        $status         = trim($request->reset_image_status);                 //老师修改证书的状态
         $is_add_teacher = trim($request->is_add_teacher);                     //是否添加老师
         if(!$is_add_teacher){
             return showMsg(1,'请你先添加老师信息');
@@ -173,14 +167,8 @@ class InformationController extends Controller
             return $judge_datas;
         }
         $teacher_id = session('usercount');
-        TeacherDatabase::beginTraction();
         $reset_teacher  = TeacherDatabase::updateTeacherDatas($teacher_id,$datas);
-        if(!$reset_teacher){
-            TeacherDatabase::rollback();
-            return showMsg(1,'修改信息失败');
-        }
-        TeacherDatabase::commit();
-        return showMsg(0,'修改信息成功');
+        return $reset_teacher;
     }
     //修改证书图片
     public function updateCertificate(Request $request){

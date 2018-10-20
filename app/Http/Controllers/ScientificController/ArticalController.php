@@ -60,15 +60,15 @@ class ArticalController extends Controller
          $datas['home_page_road'] = $artical_first_road;
          $datas['art_sci_road']   = $artical_sci_road;
          $add_artical = ArticalDatabase::addArticalDatas($datas);
-         if(!$add_artical){
-             ArticalDatabase::rollback();
-             deletefiles($disk,$artical_road);
-             deletefiles($disk,$artical_sci_road);
-             deletefiles($disk,$artical_first_road);
-             return showMsg(1,'添加论文失败');
+         if($add_artical){
+             ArticalDatabase::commit();
+             return showMsg(0,'添加论文成功');
          }
-         ArticalDatabase::commit();
-         return showMsg(0,'添加论文成功');
+         ArticalDatabase::rollback();
+         deletefiles($disk,$artical_road);
+         deletefiles($disk,$artical_sci_road);
+         deletefiles($disk,$artical_first_road);
+         return showMsg(1,'添加论文失败');
      }
      //删除论文
      public function deleteArtical(Request $request){

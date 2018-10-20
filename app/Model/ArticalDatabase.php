@@ -21,7 +21,7 @@ class ArticalDatabase  extends ModelDatabase
          foreach ($result as  $datas){
              $datas->art_time = date('Y-m-d',$datas->art_time);
          }
-         return $result;
+         return $datas;
      }
      //添加个人论文信息
      public static function addArticalDatas($datas){
@@ -100,7 +100,8 @@ class ArticalDatabase  extends ModelDatabase
                 'art_time'          => strtotime($datas->art_time),
                 'art_remarks'       => $datas->art_remarks
             ]);
-        return ($response != 1) ? false : true;
+        return ($response != 1) ? showMsg(1,'修改论文失败')
+               : showMsg(0,'修改论文成功');
     }
     //查找论文、首页原始、SCI索引报告路径
     public static function selectArticalRoad($artical_id){

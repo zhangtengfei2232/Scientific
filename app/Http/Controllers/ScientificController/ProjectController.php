@@ -1,7 +1,6 @@
 <?php
 namespace App\Http\Controllers\ScientificController;
 
-
 use App\Http\Controllers\Controller;
 use App\Model\ProjectDatabase;
 use Illuminate\Http\Request;
