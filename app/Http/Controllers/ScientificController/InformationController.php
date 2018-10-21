@@ -79,8 +79,15 @@ class InformationController extends Controller
         if(!$request->isMethod('POST')){
             return showMsg(1,'你请求的方式不对');
         }
-        $certificate    = $request->file('certificate_image');            //接收证书图片
+
         $status         = trim($request->reset_image_status);                 //老师修改证书的状态
+        if($status == 1){
+            $subjection     = uploadsubjectionconfig::GRADUCETION_IMG;
+            $certificate    = $request->file('graducation_image');       //接收证书图片
+        }else{
+            $subjection     = uploadsubjectionconfig::EDUCATION_IMG;
+            $certificate    = $request->file('education_image');       //接收证书图片
+        }
         $is_add_teacher = trim($request->is_add_teacher);                     //是否添加老师
         if(!$is_add_teacher){
             return showMsg(1,'请你先添加老师信息');
@@ -90,7 +97,7 @@ class InformationController extends Controller
             return $response;
         }
         $teacher_id = session('usercount');
-        $new_certificate_road = uploadFiles(uploadsubjectionconfig::CERTIFICATE,$certificate);
+        $new_certificate_road = uploadFiles($subjection,$certificate);
         $add_certificate = TeacherDatabase::updateCertificate($teacher_id,$new_certificate_road,$status);
         TeacherDatabase::beginTraction();
         if(! $add_certificate){
@@ -175,8 +182,14 @@ class InformationController extends Controller
         if(!$request->isMethod('PSOT')){
             return showMsg(1,'你请求的方式不对');
         }
-        $certificate = $request->file('certificate_image');              //接收证书图片文件
         $status      = trim($request->resetimage);                           //老师修改证书的状态
+        if($status == 1){
+            $certificate = $request->file('graducation_image');         //接收证书图片文件
+            $subjection  = uploadsubjectionconfig::GRADUCETION_IMG;
+        }else{
+            $certificate = $request->file('education_image');           //接收证书图片文件
+            $subjection  = uploadsubjectionconfig::EDUCATION_IMG;
+        }
         $response = judgeFileImage($certificate);                            //判断文件是否合法
         if($response->code == 1){
            return $response;
@@ -186,7 +199,7 @@ class InformationController extends Controller
         $certificate_road = TeacherDatabase::selectCertificateRoad($teacher_id,$status);
         TeacherDatabase::beginTraction();
         //上传新的老师证书图片
-        $new_certificate_road = uploadFiles(uploadsubjectionconfig::CERTIFICATE,$certificate);
+        $new_certificate_road = uploadFiles($subjection,$certificate);
         //修改老师证书路径
         $reset_certificate = TeacherDatabase::updateCertificate($teacher_id,$new_certificate_road,$status);
         if(! $reset_certificate){

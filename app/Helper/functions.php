@@ -236,7 +236,49 @@
         }
     }
     //验证鉴定字段
-    function judgeAppraisalField(){
+    function judgeAppraisalField($datas){
+        if(emptyarray($datas)){
+            return showMsg(1,'你输入的信息不完整');
+        }
+        if(strlen($datas->ap_first_author) > 15){
+            return showMsg(1,'你输入的鉴定第一作者名字过长');
+        }elseif (strlen($datas->ap_res_name) > 20){
+            return showMsg(1,'你输入的鉴定成果名称过长');
+        }elseif (strlen($datas->ap_form) > 30){
+            return showMsg(1,'你输入的鉴定形式过长');
+        }elseif (strlen($datas->ap_num) > 20){
+            return showMsg(1,'你输入的鉴定编号过长');
+        }elseif (strlen($datas->ap_integral) > 10
+                || !is_numeric($datas->ap_integral)){
+            return showMsg(1,'你输入的积分必须全为数字且不超过10位');
+        }else{
+            return showMsg(0,'验证通过');
+        }
+    }
+    //验证举办会议字段
+    function judgeHoldmeetField($datas){
+        if(emptyarray($datas)){
+            return showMsg(1,'你输入的信息不完整');
+        }
+        if(strlen($datas->ho_name) > 50){
+            return showMsg(1,'你输入的会议名称过长');
+        }elseif (strlen($datas->people_num) > 6
+                || !is_numeric($datas->people_num)){
+            return showMsg(1,'你输入的会议参加人数必须全为数字且不超过7位');
+        }elseif (strlen($datas->ho_unit) > 50){
+            return showMsg(1,'你输入的会议主办方单位名字过长');
+        }elseif (strlen($datas->undertake_unit) > 50){
+            return showMsg(1,'你输入的会议承办方单位名字过长');
+        }else{
+            return showMsg(0,'验证通过');
+        }
+    }
+    //验证参加会议字段
+    function judgeJoinmeetField(){
+
+    }
+    //验证讲学字段
+    function judgeLectureField(){
 
     }
     //上传前先判断文件是否接收成功
@@ -277,16 +319,41 @@
         return showMsg(0);
     }
     //上传多个图片
-    function uploadimgs($subjection,$files){
+    function uploadAllImgs($subjection,$files){
         $image_road = [];
         for($i = 0; $i < count($files); $i++){
-
+            $new_image_road = uploadFiles($subjection,$files[$i]);
+            $image_road[$i] = $new_image_road;
         }
-
+        return $image_road;
     }
     //删除多个图片
-    function deleteimgs(){
-
+    function deleteAllImgs($disk,$files_road){
+        for($i = 0; $i < count($files_road); $i++){
+            deletefiles($disk,$files_road[$i]);
+        }
+    }
+    //验证多张图片
+    function judgeAllFileImage($files_images){
+        $status        = true;
+        $success_image = [];
+        $error_image   = [];
+        for($i = 0; $i < count($files_images); $i++){
+            $judge_image = judgeFileImage($files_images[$i]);
+            if($judge_image->code == 1){
+                $status = false;
+                $image_name = $files_images[$i]->getClientOriginalName();
+                $error_image[$image_name] = $judge_image->message;
+            }else{
+                array_push($files_images[$i],$success_image);
+            }
+        }
+        $image_datas['error_images'] = $error_image;
+        $image_datas['success_images']     = $success_image;
+        if($status){
+            return showMsg(0,'验证通过');
+        }
+        return showMsg(1,'验证存在错误',$image_datas);
     }
     //生成PDF第一页缩略图
     function pdfToPngUpload($disk,$artical_road,$subjection,$artical_name,$page){

@@ -34,16 +34,22 @@ class OpusController  extends Controller
         if($judge_datas->code == 1){
             return $judge_datas;
         }
-        $add_opus   = OpusDatabase::addOpusDatas($datas);
-        return $add_opus;
+        return OpusDatabase::addOpusDatas($datas);
     }
     //添加著作封面和版权图片
     public function addOpusImage(Request $request){
         if(!$request->isMethod('POST')){
             return showMsg('1','你请求的方式不对');
         }
-        $opus_iamge       = $request->file('opu_iamge');
-        $judge_opu_iamge  = judgeFileImage($opus_iamge);
+        $add_image_status = $request->add_image_status;
+        if($add_image_status == 1){
+            $opus_image = $request->file('op_cover_image');
+            $subjection = uploadsubjectionconfig::OPUS_COVER_IMG;
+        }else{
+            $opus_image = $request->file('op_coright_image');
+            $subjection = uploadsubjectionconfig::COPYRIGHT_IMG;
+        }
+        $judge_opu_iamge  = judgeFileImage($opus_image);
         $is_add_opus = $request->is_add_opus;
         if(!$is_add_opus){
             return showMsg(1,'请你先添加著作信息');
@@ -51,7 +57,6 @@ class OpusController  extends Controller
         if($judge_opu_iamge->code == 1){
             return $judge_opu_iamge;
         }
-        $add_image_status = $request->add_image_status;
         if($add_image_status == 1){
             $subjection   = uploadsubjectionconfig::OPUS_COVER_IMG;
         }elseif ($add_image_status == 2){
@@ -59,16 +64,13 @@ class OpusController  extends Controller
         }
         $op_id       = $request->op_id;
         $disk        = uploadsubjectionconfig::OPUS;
-        OpusDatabase::beginTraction();
-        $new_image_road = uploadFiles($subjection,$opus_iamge);
+        $new_image_road = uploadFiles($subjection,$opus_image);
         $add_image      = OpusDatabase::updateImageDatas($new_image_road,$add_image_status,$op_id);
-        if(!$add_image){
-            OpusDatabase::rollback();
-            deletefiles($disk,$new_image_road);
-            return showMsg(1,'上传图片失败');
+        if($add_image){
+            return showMsg(0,'上传图片成功');
         }
-        OpusDatabase::commit();
-        return showMsg(0,'上传图片成功');
+        deletefiles($disk,$new_image_road);
+        return showMsg(1,'上传图片失败');
     }
     //删除著作信息
     public function deleteOpus(Request $request)
@@ -117,8 +119,7 @@ class OpusController  extends Controller
         if($judge_datas->code == 1){
             return $judge_datas;
         }
-        $reset_opus = OpusDatabase::updateOpusDatas($datas);
-        return $reset_opus;
+        return  OpusDatabase::updateOpusDatas($datas);
     }
     //修改著作图片信息
     public function updateOpusImage(Request $request){
@@ -127,15 +128,16 @@ class OpusController  extends Controller
         }
         $op_id               = $request->op_id;
         $update_image_status = $request->update_image_status;
-        $opus_image          = $request->file('opus_image');
-        $response            = judgeFileImage($opus_image);
+        if($update_image_status == 1){
+            $opus_image = $request->file('op_cover_image');
+            $subjection = uploadsubjectionconfig::OPUS_COVER_IMG;
+        }else{
+            $opus_image = $request->file('op_coright_image');
+            $subjection = uploadsubjectionconfig::COPYRIGHT_IMG;
+        }
+        $response       = judgeFileImage($opus_image);
         if($response->code == 1){
             return $response;
-        }
-        if($update_image_status == 1){
-            $subjection = uploadsubjectionconfig::OPUS_COVER_IMG;
-        }elseif ($update_image_status == 2){
-            $subjection = uploadsubjectionconfig::COPYRIGHT_IMG;
         }
         $disk = uploadsubjectionconfig::OPUS;
         $old_image_road = OpusDatabase::selectOpusImageRoad($op_id,$update_image_status);
@@ -151,12 +153,5 @@ class OpusController  extends Controller
             deletefiles($disk,$old_image_road);
             return showMsg(0,'修改图片成功');
         }
-
     }
-
-
-
-
-
-
 }

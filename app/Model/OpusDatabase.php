@@ -10,7 +10,7 @@ class OpusDatabase  extends ModelDatabase
     //添加著作信息
     public static function addOpusDatas($datas){
        $response =  DB::table('opus')
-                ->insert([
+                ->insertGetId([
                     'teacher_id'       => $datas->teacher_id,
                     'op_first_author'  => $datas->op_first_author,
                     'op_all_author'    => $datas->op_all_author,
@@ -27,7 +27,7 @@ class OpusDatabase  extends ModelDatabase
                     'op_sub_category'  => $datas->op_sub_category,
                     'op_remarks'       => $datas->op_remarks
                 ]);
-       return ($response) ? showMsg(0,'添加著作信息成功')
+       return ($response) ? showMsg(0,'添加著作信息成功',$response)
               : showMsg(1,'添加著作信息失败');
     }
     //删除著作信息

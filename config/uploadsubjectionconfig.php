@@ -6,8 +6,8 @@ class uploadsubjectionconfig
     const TEACHER             = 'teacher';               //老师证书文件夹名
     const PATENT              = 'patent';                //老师专利文件夹名
     const OPUS                = 'opus';                  //老师著作文件夹名
-    const HOLD_MEET           = 'joinmeet';              //老师举办会议文件夹名
-    const JOIN_MEET           = 'holdmeet';              //老师参加会议文件夹名
+    const HOLD_MEET           = 'holdmeet';              //老师举办会议文件夹名
+    const JOIN_MEET           = 'joinmeet';              //老师参加会议文件夹名
     const LECTURE             = 'lecture';               //老师讲学文件夹名
     const DUTIES              = 'duties';                //老师职务文件夹名
     const DOCUMENT            = 'document';              //校发文件文件夹名
@@ -16,7 +16,8 @@ class uploadsubjectionconfig
     const APPRAISAL           = 'appraisal';             //老师鉴定文件夹名
     const AGREEMENT           = 'agreement';             //老师协议文件夹名
     const PROJECT             = 'project';               //老师项目文件夹名
-    const CERTIFICATE         = 'certificate';           //老师上传毕业证书文件夹名
+    const GRADUCETION_IMG     = 'graducationimg';        //老师上传毕业证书文件夹名
+    const EDUCATION_IMG       = 'educationimg';          //老师上传学历证书文件夹名
     const PATENT_IMG          = 'patentimg';             //老师上传专利图片文件夹名
     const COPYRIGHT_IMG       = 'copyrightimg';          //老师上传著作版权图片文件夹名
     const OPUS_COVER_IMG      = 'opuscoverimg';          //老师上传著作封面图片文件夹名
