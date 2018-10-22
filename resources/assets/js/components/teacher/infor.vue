@@ -120,7 +120,7 @@
                                 <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
                             </el-upload>
                         </p>
-                        <el-button type="primary" plain disabled class="commit">保存修改</el-button>
+                        <el-button type="primary" class="commit">保存修改</el-button>
                     </div>
                 </div>
             </div>
@@ -239,6 +239,7 @@
     .commit{
         /*float: right;*/
         width: 320px;
+        margin-bottom: 20px;
         /*margin-right: 30%;*/
     }
     .graduationPic{

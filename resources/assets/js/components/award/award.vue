@@ -41,7 +41,7 @@
                 <div class="lists" v-for="(item,index) in AwardDate" :key="index">
                     <span class="check"><el-checkbox v-model="checked"></el-checkbox></span>
                     <span class="numbers">{{ item.teacher_id }}</span>
-                    <span class="picture"><img src="/dist/img/text.png" alt="文件加载失败"></span>
+                    <span class="picture"><img src="/dist/img/hj.png" alt="文件加载失败"></span>
                     <span class="infos">
                         <h5>{{ item.title }}</h5>
                         <p>作者 <small>特别标注</small></p>

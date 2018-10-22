@@ -188,26 +188,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             JoinmeetSelfData: {},
-            input: '',
             form: {
-                author: '1',
-                art_all_author: '1',
-                title: '2',
-                publication_name: '3',
-                publication_num: '4',
-                num_words: '456',
-                periodical_cate: '',
-                belong_project: 'xgxy',
-                art_cate_research: '',
-                art_sub_category: '',
-                art_integral: '',
-                region: '',
-                year: '',
-                date2: '',
-                delivery: false,
-                type: [],
-                resource: '',
-                desc: ''
+                join_people: '',
+                jo_name: '',
+                jo_hold_unit: '',
+                jo_take_unit: '',
+                jo_level: '',
+                jo_time: '',
+                jo_place: '',
+                jo_art_num: '',
+                jo_is_invite: '',
+                jo_title: ''
             }
         };
     },
@@ -264,11 +255,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.author,
+                    value: _vm.form.join_people,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "author", $$v)
+                      _vm.$set(_vm.form, "join_people", $$v)
                     },
-                    expression: "form.author"
+                    expression: "form.join_people"
                   }
                 })
               ],
@@ -281,11 +272,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.art_all_author,
+                    value: _vm.form.jo_name,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "art_all_author", $$v)
+                      _vm.$set(_vm.form, "jo_name", $$v)
                     },
-                    expression: "form.art_all_author"
+                    expression: "form.jo_name"
                   }
                 })
               ],
@@ -298,11 +289,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.title,
+                    value: _vm.form.jo_hold_unit,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "title", $$v)
+                      _vm.$set(_vm.form, "jo_hold_unit", $$v)
                     },
-                    expression: "form.title"
+                    expression: "form.jo_hold_unit"
                   }
                 })
               ],
@@ -315,11 +306,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.publication_name,
+                    value: _vm.form.jo_take_unit,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "publication_name", $$v)
+                      _vm.$set(_vm.form, "jo_take_unit", $$v)
                     },
-                    expression: "form.publication_name"
+                    expression: "form.jo_take_unit"
                   }
                 })
               ],
@@ -335,11 +326,11 @@ var render = function() {
                   {
                     attrs: { placeholder: "请选择类别" },
                     model: {
-                      value: _vm.form.art_cate_research,
+                      value: _vm.form.jo_level,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "art_cate_research", $$v)
+                        _vm.$set(_vm.form, "jo_level", $$v)
                       },
-                      expression: "form.art_cate_research"
+                      expression: "form.jo_level"
                     }
                   },
                   [
@@ -371,11 +362,11 @@ var render = function() {
                       staticStyle: { width: "100%" },
                       attrs: { type: "date", placeholder: "选择日期" },
                       model: {
-                        value: _vm.form.date1,
+                        value: _vm.form.jo_time,
                         callback: function($$v) {
-                          _vm.$set(_vm.form, "date1", $$v)
+                          _vm.$set(_vm.form, "jo_time", $$v)
                         },
-                        expression: "form.date1"
+                        expression: "form.jo_time"
                       }
                     })
                   ],
@@ -391,11 +382,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.title,
+                    value: _vm.form.jo_place,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "title", $$v)
+                      _vm.$set(_vm.form, "jo_place", $$v)
                     },
-                    expression: "form.title"
+                    expression: "form.jo_place"
                   }
                 })
               ],
@@ -408,11 +399,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.title,
+                    value: _vm.form.jo_art_num,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "title", $$v)
+                      _vm.$set(_vm.form, "jo_art_num", $$v)
                     },
-                    expression: "form.title"
+                    expression: "form.jo_art_num"
                   }
                 })
               ],
@@ -427,11 +418,11 @@ var render = function() {
                   "el-radio-group",
                   {
                     model: {
-                      value: _vm.form.periodical_cate,
+                      value: _vm.form.jo_is_invite,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "periodical_cate", $$v)
+                        _vm.$set(_vm.form, "jo_is_invite", $$v)
                       },
-                      expression: "form.periodical_cate"
+                      expression: "form.jo_is_invite"
                     }
                   },
                   [
@@ -459,11 +450,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.title,
+                    value: _vm.form.jo_title,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "title", $$v)
+                      _vm.$set(_vm.form, "jo_title", $$v)
                     },
-                    expression: "form.title"
+                    expression: "form.jo_title"
                   }
                 })
               ],

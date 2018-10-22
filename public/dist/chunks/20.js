@@ -273,7 +273,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getArticleSelfData: function getArticleSelfData() {
             var self = this;
             var art_id = self.$route.params.art_id;
-            axios.get("", art_id).then(function (response) {
+            axios.get("selectartical", art_id).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.ArticleSelfData = data.datas;
@@ -329,7 +329,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         changeArticleData: function changeArticleData(form) {
             var self = this;
-            axios.get("addartical", form).then(function (response) {
+            axios.get("updateartical", form).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {} else {
                     self.$notify({

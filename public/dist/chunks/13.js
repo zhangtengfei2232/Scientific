@@ -179,27 +179,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      input: '',
       form: {
-        author: '',
-        art_all_author: '',
-        title: '',
-        publication_name: '',
-        publication_num: '',
-        num_words: '',
-        periodical_cate: '',
-        belong_project: '',
-        art_cate_research: '',
-        art_sub_category: '',
-        art_integral: '',
-        name: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
+        ho_name: '',
+        ho_art_status: '',
+        people_num: '',
+        ho_unit: '',
+        undertake_unit: '',
+        ho_level: '',
+        ho_time: ''
       }
     };
   },
@@ -235,11 +222,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.author,
+                    value: _vm.form.ho_name,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "author", $$v)
+                      _vm.$set(_vm.form, "ho_name", $$v)
                     },
-                    expression: "form.author"
+                    expression: "form.ho_name"
                   }
                 })
               ],
@@ -254,11 +241,11 @@ var render = function() {
                   "el-radio-group",
                   {
                     model: {
-                      value: _vm.form.periodical_cate,
+                      value: _vm.form.ho_art_status,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "periodical_cate", $$v)
+                        _vm.$set(_vm.form, "ho_art_status", $$v)
                       },
-                      expression: "form.periodical_cate"
+                      expression: "form.ho_art_status"
                     }
                   },
                   [
@@ -286,11 +273,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.art_all_author,
+                    value: _vm.form.people_num,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "art_all_author", $$v)
+                      _vm.$set(_vm.form, "people_num", $$v)
                     },
-                    expression: "form.art_all_author"
+                    expression: "form.people_num"
                   }
                 })
               ],
@@ -303,11 +290,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.title,
+                    value: _vm.form.ho_unit,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "title", $$v)
+                      _vm.$set(_vm.form, "ho_unit", $$v)
                     },
-                    expression: "form.title"
+                    expression: "form.ho_unit"
                   }
                 })
               ],
@@ -320,11 +307,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.publication_name,
+                    value: _vm.form.undertake_unit,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "publication_name", $$v)
+                      _vm.$set(_vm.form, "undertake_unit", $$v)
                     },
-                    expression: "form.publication_name"
+                    expression: "form.undertake_unit"
                   }
                 })
               ],
@@ -340,11 +327,11 @@ var render = function() {
                   {
                     attrs: { placeholder: "请选择类别" },
                     model: {
-                      value: _vm.form.art_cate_research,
+                      value: _vm.form.ho_level,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "art_cate_research", $$v)
+                        _vm.$set(_vm.form, "ho_level", $$v)
                       },
-                      expression: "form.art_cate_research"
+                      expression: "form.ho_level"
                     }
                   },
                   [
@@ -376,11 +363,11 @@ var render = function() {
                       staticStyle: { width: "100%" },
                       attrs: { type: "date", placeholder: "选择日期" },
                       model: {
-                        value: _vm.form.date1,
+                        value: _vm.form.ho_time,
                         callback: function($$v) {
-                          _vm.$set(_vm.form, "date1", $$v)
+                          _vm.$set(_vm.form, "ho_time", $$v)
                         },
-                        expression: "form.date1"
+                        expression: "form.ho_time"
                       }
                     })
                   ],

@@ -519,7 +519,7 @@ var render = function() {
               _vm._v(" "),
               _c("span", { staticClass: "picture" }, [
                 _c("img", {
-                  attrs: { src: "/dist/img/text.png", alt: "文件加载失败" }
+                  attrs: { src: "/dist/img/hj.png", alt: "文件加载失败" }
                 })
               ]),
               _vm._v(" "),
