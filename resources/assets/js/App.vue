@@ -8,7 +8,8 @@
                 <!--<span><img src="/dist/img/sort.png" alt="未加载"></span>-->
                 <span>生命科技学院科研管理系统</span>
                 <div class="loginName">
-                    <!--<img src="/dist/img/my.png" alt="未加载">-->
+                    <!--<img src="/dist/img/my.png" alt="未加
+                    载">-->
                     <i class="el-icon-view"></i>
                     <span style="margin-right: 15px;">{{ teacherDate.name }}</span>
                     <!--<span class="house">-->

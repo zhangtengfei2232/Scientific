@@ -171,8 +171,8 @@
                 checked: false,
                 form: {
                     teacher_name:'',
-                    data1: '',
-                    data2: '',
+//                    data1: '',
+//                    data2: '',
                 },
             }
         },
