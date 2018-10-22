@@ -8,10 +8,11 @@
                 <!--<span><img src="/dist/img/sort.png" alt="未加载"></span>-->
                 <span>生命科技学院科研管理系统</span>
                 <div class="loginName">
-                    <img src="/dist/img/my.png" alt="未加载">
+                    <!--<img src="/dist/img/my.png" alt="未加载">-->
+                    <i class="el-icon-view"></i>
                     <span style="margin-right: 15px;">{{ teacherDate.name }}</span>
                     <!--<span class="house">-->
-                    <span style="margin-left: 10px;">退出系统</span>
+                    <span style="margin-left: 10px;">退出系统</span><i class="el-icon-caret-right"></i>
                     <!--<img src="/dist/img/home.png" alt="未加载">-->
                     <!--</span>-->
                 </div>
@@ -19,61 +20,23 @@
         </div>
         <div class="aside">
             <!--<p class="signIn is-active"><router-link to="/"><img src="/dist/img/wang_light.png" alt=""><span>{{ teacherDate.name }}</span></router-link></p>-->
-            <el-col :span="12">
-                <el-menu
-                        default-active="1"
-                        class="el-menu-vertical-demo"
-                        @open="handleOpen"
-                        @close="handleClose"
-                        background-color="rgb(34,45,50)"
-                        text-color="#fff"
-                        active-text-color="#ffd04b">
-                    <el-menu-item index="1" class="signIn" style="height: 70px;">
-                        <router-link to="/" exact><img src="/dist/img/wang_light.png" alt="未加载">
-                        <span>{{ teacherDate.name }}</span></router-link>
-                    </el-menu-item>
-                    <el-menu-item index="2">
-                       <i class="el-icon-menu"></i>
-                        <span slot="title"><router-link to="/paper">论文</router-link></span>
-                    </el-menu-item>
-                    <el-menu-item index="3">
-                        <i class="el-icon-menu"></i>
-                       <span slot="title"><router-link to="/project">项目</router-link></span>
-                    </el-menu-item>
-                    <el-menu-item index="4">
-                        <i class="el-icon-document"></i>
-                        <span slot="title"><router-link to="/book">著作</router-link></span>
-                    </el-menu-item>
-                    <el-menu-item index="5">
-                        <i class="el-icon-setting"></i>
-                        <span slot="title"><router-link to="/award">获奖</router-link></span>
-                    </el-menu-item>
-                    <el-menu-item index="6">
-                        <i class="el-icon-menu"></i>
-                        <span slot="title"><router-link to="/patent">专利</router-link></span>
-                    </el-menu-item>
-                    <el-menu-item index="7">
-                        <i class="el-icon-menu"></i>
-                        <span slot="title"><router-link to="/appraisal">成果鉴定</router-link></span>
-                    </el-menu-item>
-                    <el-menu-item index="8">
-                        <i class="el-icon-document"></i>
-                        <span slot="title"><router-link to="/holdmeet">举办会议</router-link></span>
-                    </el-menu-item>
-                    <el-menu-item index="9">
-                        <i class="el-icon-setting"></i>
-                        <span slot="title"><router-link to="/joinmeet">参加会议</router-link></span>
-                    </el-menu-item>
-                    <el-menu-item index="10">
-                        <i class="el-icon-menu"></i>
-                        <span slot="title">专家讲学</span>
-                    </el-menu-item>
-                    <el-menu-item index="11">
-                        <i class="el-icon-menu"></i>
-                        <span slot="title">>担任学术团体职务</span>
-                    </el-menu-item>
-                </el-menu>
-            </el-col>
+            <el-menu
+                    :default-active="this.$router.path"
+                    background-color="rgb(34,45,50)"
+                    text-color="#fff"
+                    active-text-color="#ffd04b"
+                    mode="horizontal"
+                    class="el-menu-vertical-demo"
+                    router>
+                <el-menu-item index="/" class="signIn" style="height: 70px;border-bottom: 1px solid gray">
+                <img src="/dist/img/wang_light.png" alt="未加载">
+                <span>{{ teacherDate.name }}</span>
+                </el-menu-item>
+                <el-menu-item v-for="(item,i) in navList" :key="i" :index="item.name" style="width: 100%;border-bottom: 1px gray solid">
+                    <i :class="item.icon"></i>
+                    <span slot="title">{{ item.navItem }}</span>
+                </el-menu-item>
+            </el-menu>
         </div>
         <router-view></router-view>
     </div>
@@ -84,6 +47,24 @@
             return {
                 teacherDate: {},
                 show: false,
+//                icon:[
+//                    {el-icon-picture},
+//
+//                ],
+                navList:[
+//                    {icon:'el-icon-picture',name:'/',navItem:'ft'},
+                    {icon:'el-icon-bell',name:'/paper',navItem:'论文'},
+                    {icon:'el-icon-tickets',name:'/project',navItem:'项目'},
+                    {icon:'el-icon-edit',name:'/book',navItem:'著作'},
+                    {icon:'el-icon-star-off',name:'/award',navItem:'获奖'},
+                    {icon:'el-icon-setting',name:'/patent',navItem:'专利'},
+                    {icon:'el-icon-view',name:'/appraisal',navItem:'成果鉴定'},
+                    {icon:'el-icon-time',name:'/holdmeet',navItem:'举办会议'},
+                    {icon:'el-icon-edit-outline',name:'/joinmeet',navItem:'参加会议'},
+                    {icon:'el-icon-date',name:'/experteach',navItem:'专家讲学'},
+                    {icon:'el-icon-news',name:'/bearstudyjob',navItem:'担任学术团体职务'},
+
+                ]
             }
         },
         methods: {
@@ -129,14 +110,14 @@
             handleClose(key, keyPath) {
                 console.log(key, keyPath);
             },
-            menu() {
-                var nav = document.getElementsByClassName("aside")[0].getElementsByTagName("li");
-                for(var i = 0;i <nav.length; i++){
-                    nav[i].onclick = function () {
-                        nav[i].style.backgroundColor = "red";
-                    }
-                }
-            }
+//            menu() {
+//                var nav = document.getElementsByClassName("aside")[0].getElementsByTagName("li");
+//                for(var i = 0;i <nav.length; i++){
+//                    nav[i].onclick = function () {
+//                        nav[i].style.backgroundColor = "red";
+//                    }
+//                }
+//            }
         },
         mounted() {
             this.getTeacherData();
@@ -240,11 +221,11 @@
     .el-col-12 {
         width: 100%;
     }
-    /*.el-menu-item.is-active {*/
-        /*background-color:#000 !important;*/
-    /*}*/
-    .router-link-active {
-        /*text-color:#ffd04b;*/
-        color:#ffd04b !important;
+    .aside .is-active {
+        background-color:#000 !important;
     }
+    /*.router-link-active {*/
+        /*!*text-color:#ffd04b;*!*/
+        /*color:#ffd04b !important;*/
+    /*}*/
 </style>
