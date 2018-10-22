@@ -5,7 +5,7 @@
                 成果鉴定
             </span>
             <span class="load">
-                <router-link to="/addPatent">
+                <router-link to="/addAppraisal">
                     <el-button type="primary"><i class="el-icon-plus el-icon--left">上传</i></el-button>
                 </router-link>
             </span>
@@ -24,7 +24,7 @@
                         type="date"
                         placeholder="选择日期">
                         </el-date-picker>
-                        <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch">搜索</el-button>
+                        <span><el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch">搜索</el-button></span>
                     </div>
                 </el-form>
             </span>
@@ -37,10 +37,10 @@
             <span class="do">操作</span>
         </div>
         <div class="content">
-            <div class="lists" v-for="(item,index) in BookDate" :key="index">
+            <div class="lists" v-for="(item,index) in AppraisalDate" :key="index">
                 <span class="check"><el-checkbox v-model="checked"></el-checkbox></span>
                 <span class="numbers">{{ item.teacher_id }}</span>
-                <span class="picture"><img src="/dist/img/text.png" alt="文件加载失败"></span>
+                <span class="picture"><img src="/dist/img/cgjd.png" alt="文件加载失败"></span>
                 <span class="infos">
                     <h5>{{ item.title }}</h5>
                     <p>作者 <small>特别标注</small></p>
@@ -76,7 +76,7 @@
     .searchtime{
          width: 45%;
          display: inline-block;
-         margin: 15px 0 0 18%;
+         margin: 15px 0 0 9%;
     }
     .demonstration{
         font-weight: lighter;
@@ -163,7 +163,7 @@
     export default {
         data() {
             return {
-                PatentDate: [],
+                AppraisalDate: [],
                 checked: false,
                 form: {
                     data1: '',

@@ -3,19 +3,19 @@
         <div class="add">
             <el-form ref="form" :model="form" label-width="200px">
                 <el-form-item label="参会人">
-                    <el-input v-model="form.author"></el-input>
+                    <el-input v-model="form.join_people"></el-input>
                 </el-form-item>
                 <el-form-item label="学术会议名称">
-                    <el-input v-model="form.art_all_author"></el-input>
+                    <el-input v-model="form.jo_name"></el-input>
                 </el-form-item>
                  <el-form-item label="主办单位">
-                    <el-input v-model="form.title"></el-input>
+                    <el-input v-model="form.jo_hold_unit"></el-input>
                 </el-form-item>
                 <el-form-item label="承办单位">
-                    <el-input v-model="form.publication_name"></el-input>
+                    <el-input v-model="form.jo_take_unit"></el-input>
                 </el-form-item> 
                 <el-form-item label="会议级别">
-                    <el-select v-model="form.art_cate_research" placeholder="请选择类别">
+                    <el-select v-model="form.jo_level" placeholder="请选择类别">
                         <el-option label="省级" value="1"></el-option>
                         <el-option label="大区级" value="2"></el-option>
                         <el-option label="国家级" value="3"></el-option>
@@ -24,23 +24,23 @@
                 </el-form-item>
                  <el-form-item label="会议时间">
                     <el-col :span="15">
-                    <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
+                    <el-date-picker type="date" placeholder="选择日期" v-model="form.jo_time" style="width: 100%;"></el-date-picker>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="会议地点">
-                    <el-input v-model="form.title"></el-input>
+                    <el-input v-model="form.jo_place"></el-input>
                 </el-form-item>
                 <el-form-item label="提交论文数">
-                    <el-input v-model="form.title"></el-input>
+                    <el-input v-model="form.jo_art_num"></el-input>
                 </el-form-item>
                 <el-form-item label="是否被邀大会或分会场报告">
-                    <el-radio-group v-model="form.periodical_cate">
+                    <el-radio-group v-model="form.jo_is_invite">
                         <el-radio :label="1" style="margin:10px">是</el-radio>
                         <el-radio :label="2" style="margin:10px">否</el-radio>
                     </el-radio-group>
                 </el-form-item>
                 <el-form-item label="报告题目">
-                    <el-input v-model="form.title"></el-input>
+                    <el-input v-model="form.jo_title"></el-input>
                 </el-form-item>
                 <el-form-item label="会议图注">
                     <el-upload
@@ -87,26 +87,17 @@ export default {
     data() {
         return {
             JoinmeetSelfData: {},
-            input: '',
             form: {
-                author: '1',
-                art_all_author: '1',
-                title: '2',
-                publication_name: '3',
-                publication_num : '4',
-                num_words: '456',
-                periodical_cate: '',
-                belong_project: 'xgxy',
-                art_cate_research: '',
-                art_sub_category: '',
-                art_integral: '',
-                region: '',
-                year: '',
-                date2: '',
-                delivery: false,
-                type: [],
-                resource: '',
-                desc: '',
+                 join_people: '',
+                jo_name: '',
+                jo_hold_unit: '',
+                jo_take_unit: '',
+                jo_level: '',
+                jo_time: '',
+                jo_place: '',
+                jo_art_num: '',
+                jo_is_invite: '',
+                jo_title: '',
             },
         }
     },

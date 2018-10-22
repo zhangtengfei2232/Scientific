@@ -12,6 +12,5 @@ class LoginMiddleware
             return redirect('/');
         }
         return $next($request);
-
     }
 }

@@ -37,10 +37,10 @@
             <span class="do">操作</span>
         </div>
         <div class="content">
-            <div class="lists" v-for="(item,index) in BookDate" :key="index">
+            <div class="lists" v-for="(item,index) in HoldmeetlDate" :key="index">
                 <span class="check"><el-checkbox v-model="checked"></el-checkbox></span>
                 <span class="numbers">{{ item.teacher_id }}</span>
-                <span class="picture"><img src="/dist/img/text.png" alt="文件加载失败"></span>
+                <span class="picture"><img src="/dist/img/jbhy.png" alt="文件加载失败"></span>
                 <span class="infos">
                     <h5>{{ item.title }}</h5>
                     <p>作者 <small>特别标注</small></p>
@@ -76,7 +76,7 @@
     .searchtime{
          width: 45%;
          display: inline-block;
-         margin: 15px 0 0 18%;
+         margin: 15px 0 0 9%;
     }
     .demonstration{
         font-weight: lighter;
@@ -163,7 +163,7 @@
     export default {
         data() {
             return {
-                PatentDate: [],
+                HoldmeetlDate: [],
                 checked: false,
                 form: {
                     data1: '',
@@ -172,12 +172,12 @@
             }
         },
         methods: {
-            getAppraisalDate() {
+            getHoldmeetDate() {
                 let self = this;
                 axios.get("").then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
-                        self.AppraisalDate = data.datas;
+                        self.HoldmeetlDate = data.datas;
                     } else {
                         self.$notify({
                             type: 'error',
@@ -187,7 +187,7 @@
                     }
                 });
             },
-            sentAppraisalSelfData(art_id) {
+            sentHoldmeetSelfData(art_id) {
                 this.$router.push({
                 path: `/selfInfor/${art_id}`,
                 })
@@ -209,7 +209,7 @@
 
         },
         mounted() {
-            this.getAppraisalDate();
+            this.getHoldmeetDate();
         }
     }
 </script>

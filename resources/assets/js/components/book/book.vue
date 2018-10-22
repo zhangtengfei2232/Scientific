@@ -24,7 +24,7 @@
                         type="date"
                         placeholder="选择日期">
                         </el-date-picker>
-                        <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch">搜索</el-button>
+                        <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch(form)">搜索</el-button>
                     </div>
                 </el-form>
             </span>
@@ -37,21 +37,23 @@
             <span class="do">操作</span>
         </div>
         <div class="content">
-            <div class="lists" v-for="(item,index) in BookDate" :key="index">
-                <span class="check"><el-checkbox v-model="checked"></el-checkbox></span>
-                <span class="numbers">{{ item.teacher_id }}</span>
-                <span class="picture"><img src="/dist/img/text.png" alt="文件加载失败"></span>
-                <span class="infos">
-                    <h5>{{ item.title }}</h5>
-                    <p>作者 <small>特别标注</small></p>
-                </span>
-                <span class="times">2018-09-10</span>
-                <span class="dos" @click="sentBookSelfData(item.art_id)">编辑</span>
-                <span class="tos"><router-link to="/">导出</router-link></span>
-                <span class="dos" @click="sentBookSelfData(item.art_id)">查看</span>
-                <span class="del"><router-link to="/">删除</router-link></span>
-                <div class="clear"></div>
-            </div>
+            <el-checkbox-group v-model="checkAll" @change="handleCheckedCitiesChange"> 
+                <div class="lists" v-for="(item,index) in BookDate" :key="index">
+                    <span class="check"><el-checkbox v-model="checked"></el-checkbox></span>
+                    <span class="numbers">{{ item.teacher_id }}</span>
+                    <span class="picture"><img src="/dist/img/zz.png" alt="文件加载失败"></span>
+                    <span class="infos">
+                        <h5>{{ item.title }}</h5>
+                        <p>作者<small>特别标注</small></p>
+                    </span>
+                    <span class="times">2018-09-10</span>
+                    <span class="dos" @click="sentBookSelfData(item.op_id)">编辑</span>
+                    <span class="tos"><router-link to="/">导出</router-link></span>
+                    <span class="dos" @click="sentBookSelfData(item.op_id)">查看</span>
+                    <span class="del" @click="deleteBookData(item.op_id)">删除</span>
+                    <div class="clear"></div>
+                </div>
+            </el-checkbox-group>
         </div>
     </div>
 </template>
@@ -159,12 +161,14 @@
         content: '';
     }
 </style>
+
 <script>
     export default {
         data() {
             return {
                 BookDate: [],
                 checked: false,
+                checkAll: false,
                 form: {
                     data1: '',
                     data2: '',
@@ -172,6 +176,15 @@
             }
         },
         methods: {
+            handleCheckAllChange(val) {
+                this.checkedCities = val ? this.BookDate : [];
+                this.isIndeterminate = false;
+            },
+             handleCheckedCitiesChange(value) {
+                let checkedCount = value.length;
+                this.checkAll = checkedCount === this.BookDate.length;
+                this.isIndeterminate = checkedCount > 0 && checkedCount < this.BookDate.length;
+            },
             getBookData() {
                 let self = this;
                 axios.get("selectopus").then(function (response) {
@@ -187,12 +200,41 @@
                     }
                 });
             },
-            sentBookSelfData(art_id) {
+            sentBookSelfData(op_id) {
                 this.$router.push({
-                path: `/selfInfor/${art_id}`,
+                path: `/selfBook/${op_id}`,
                 })
             },
-            byTimeSearch() {
+            deleteBookData(op_id) {
+                this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    let self = this;
+                    axios.get("",).then(function (response) {
+                    var data = response.data;
+                        if (data.code == 0) {
+                             this.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                        } else {
+                            self.$notify({
+                                type: 'error',
+                                message: data.msg,
+                                duration: 2000,
+                            });
+                        }
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });          
+                });
+            },
+            byTimeSearch(form) {
                 axios.get("",form).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {

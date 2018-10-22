@@ -87,6 +87,10 @@ return [
             'driver' => 'local',
             'root'   => storage_path('app/data/patent'),
         ],
+        'project' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/data/project'),
+        ],
         'teacher' => [
             'driver' => 'local',
             'root'   => storage_path('app/data/teacher'),
