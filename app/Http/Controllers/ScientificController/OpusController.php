@@ -41,6 +41,9 @@ class OpusController  extends Controller
         if(!$request->isMethod('POST')){
             return showMsg('1','你请求的方式不对');
         }
+        if(!$request->is_add_opus){
+            return showMsg(1,'请你先添加著作信息');
+        }
         $add_image_status = $request->add_image_status;
         if($add_image_status == 1){
             $opus_image = $request->file('op_cover_image');
@@ -50,10 +53,6 @@ class OpusController  extends Controller
             $subjection = uploadsubjectionconfig::COPYRIGHT_IMG;
         }
         $judge_opu_iamge  = judgeFileImage($opus_image);
-        $is_add_opus = $request->is_add_opus;
-        if(!$is_add_opus){
-            return showMsg(1,'请你先添加著作信息');
-        }
         if($judge_opu_iamge->code == 1){
             return $judge_opu_iamge;
         }

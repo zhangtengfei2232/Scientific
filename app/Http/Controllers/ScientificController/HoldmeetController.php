@@ -36,17 +36,17 @@ class HoldmeetController extends Controller
         if(!$request->isMethod('POST')){
             return showMsg(1,'你请求的方式不对');
         }
-        $holdmeet_inject = $request->file('holdmeet_inject');
-        $judge_in   = judgeFileImage($holdmeet_inject);
-        if($judge_in->code == 1){
-            return $judge_in;
-        }
         if(!$request->is_add_holdmeet){
             return showMsg(1,'请你先添加会议信息');
         }
+        $holdmeet_inject = $request->file('holdmeet_inject');
+        $judge_inject   = judgeFileImage($holdmeet_inject);
+        if($judge_inject->code == 1){
+            return $judge_inject;
+        }
         $ho_id           = $request->ho_id;
         $new_inject_road = uploadFiles(uploadsubjectionconfig::HOLD_INJECTION,$holdmeet_inject);
-        $add_inject      = HoldmeetDatas::updateHoldmeetImageDatas($ho_id,$new_inject_road);
+        $add_inject      = HoldmeetDatas::updateHoldmeetInjectRoad($ho_id,$new_inject_road);
         if($add_inject){
             return showMsg(0,'添加会议图注成功');
         }
@@ -54,10 +54,13 @@ class HoldmeetController extends Controller
         return showMsg(1,'添加会议图注失败');
     }
     //添加举行会议图片
-    public function addHoldmeetImage(Request $request){
+    public function addHoldmeetImages(Request $request){
         $validate = true;
         if(!$request->isMethod('POST')){
             return showMsg(1,'你请求的方式不对');
+        }
+        if(!$request->is_add_holdmeet){
+            return showMsg(1,'请你先添加会议信息');
         }
         $holdmeet_images = $request->file('hold_images');    //接收数组形式的图片文件
         $judge_images    = judgeAllFileImage($holdmeet_images);
@@ -66,13 +69,16 @@ class HoldmeetController extends Controller
         }
         $success_image   = $judge_images['success_images'];
         $subjection      = uploadsubjectionconfig::HOLD_IMG;
+        $ho_id           = $request->ho_id;
         $all_images_road = uploadAllImgs($subjection,$success_image);
-        $add_images      = ImageDatas::addImagesDatas($all_images_road);
+        $image_status    = uploadsubjectionconfig::HOLD_IMG_STATUS;
+        $add_images      = ImageDatas::addImagesDatas($all_images_road,$ho_id,$image_status);
         if($validate && $add_images->code == 0){
             return showMsg(0,'全部图片添加成功');
         }
         if($add_images->code == 1){
             $delete_fail_images = [];
+            $fail_iamges = [];
             for($i = 0; $i < count($add_images); $i++){
                 $index = $add_images->datas[$i];
                 //获取添加失败的图片名字
@@ -93,8 +99,18 @@ class HoldmeetController extends Controller
     }
     //删除举行会议的图片
     public function deleteHoldImages(Request $request){
-
-
+        $delete_im_id = $request->ho_id_datas;
+        //先去查询所有删除的图片路径
+        $all_images_raod = ImageDatas::selectAllImageRoadDatas($delete_im_id);
+        ImageDatas::beginTraction();                                   //开启事务处理
+        $delete_images = ImageDatas::deleteImagesDatas($delete_im_id); //删除数据库图片路径
+        if($delete_images){
+            ImageDatas::commit();
+            deleteAllImgs(uploadsubjectionconfig::HOLD_MEET,$all_images_raod);
+            return showMsg(0,'删除举办会议图片成功');
+        }
+        ImageDatas::rollback();                                        //回滚，回复数据库数据
+        return showMsg(1,'删除举办会议图片失败');
     }
     //删除举行会议信息
     public function deleteHoldmeet(Request $request){
@@ -103,12 +119,18 @@ class HoldmeetController extends Controller
     }
     //查看单个举行会议信息
     public function selectHoldmeet(Request $request){
-
-
+        $ho_id                = $request->ho_id;
+        $holdmeet_information = HoldmeetDatas::selectHoldmetDatas($ho_id);
+        $owner_status         = uploadsubjectionconfig::HOLD_IMG_STATUS;
+        $hold_images          = ImageDatas::selectAllOwnerImage($ho_id,$owner_status);
+        $datas['holdmeet_information'] = $holdmeet_information;
+        $datas['hold_images']          = $hold_images;
+        return showMsg(0,'查询成功',$datas);
     }
     //查看所有会议信息
     public function selectAllHoldmeet(){
-
+        $result = HoldmeetDatas::selectAllHoldmeetDatas(session('usercount'));
+        return showMsg(0,'查询成功',$result);
     }
     //修改举行会议信息
     public function updateHoldmeet(Request $request){
@@ -133,25 +155,25 @@ class HoldmeetController extends Controller
         return HoldmeetDatas::updateHoldmeetDatas($datas);
     }
     //修改会议图注
-    public function updateHoldmeetImage(Request $request){
+    public function updateHoldmeetInject(Request $request){
         if(!$request->isMethod('POST')){
             return showMsg(1,'你请求的方式不对');
         }
-        $update_image = $request->file('holdmeet_inject');
-        $judge_iamge  = judgeFileImage($update_image);
-        if($judge_iamge->code == 1){
-            return $judge_iamge;
+        $update_inject = $request->file('holdmeet_inject');
+        $judge_inject  = judgeFileImage($update_inject);
+        if($judge_inject->code == 1){
+            return $judge_inject;
         }
-        $disk           = uploadsubjectionconfig::HOLD_MEET;
-        $ho_id          = $request->ho_id;
-        $old_image_road = HoldmeetDatas::selectHoldmeetInjectRoad($ho_id);
-        $new_image_road = uploadFiles(uploadsubjectionconfig::HOLD_INJECTION,$update_image);
-        $reset_image    = HoldmeetDatas::updateHoldmeetImageDatas($ho_id,$new_image_road);
-        if($reset_image){
-            deletefiles($disk,$old_image_road);
+        $ho_id             = $request->ho_id;
+        $old_inject_road   = HoldmeetDatas::selectHoldmeetInjectRoad($ho_id);
+        $disk              = uploadsubjectionconfig::HOLD_MEET;
+        $new_inject_road   = uploadFiles(uploadsubjectionconfig::HOLD_INJECTION,$update_inject);
+        $reset_inject_road = HoldmeetDatas::updateHoldmeetInjectRoad($ho_id,$new_inject_road);
+        if($reset_inject_road){
+            deletefiles($disk,$old_inject_road);
             return showMsg(0,'修改会议图注成功');
         }
-        deletefiles($disk,$new_image_road);
+        deletefiles($disk,$new_inject_road);
         return showMsg(1,'修改会议图注失败');
     }
 }

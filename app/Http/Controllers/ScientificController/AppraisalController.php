@@ -38,6 +38,9 @@ class AppraisalController extends Controller
          if(!$request->isMethod('POST')){
              return showMsg(1,'你请求的方式不对');
          }
+         if(!$request->is_add_appraisal){
+            return showMsg(1,'请你先添加成功鉴定信息');
+         }
          $add_image_status = $request->add_image_status;
          if($add_image_status == 1){
              $subjection       = uploadsubjectionconfig::APPRAISAL_IMG;
@@ -49,9 +52,6 @@ class AppraisalController extends Controller
          $judge_image = judgeFileImage($appraisal_image);
          if($judge_image->code == 1){
              return $judge_image;
-         }
-         if(!$request->is_add_appraisal){
-             return showMsg(1,'请你先添加成功鉴定信息');
          }
          $ap_id     = $request->ap_id;
          $new_image_road = uploadFiles($subjection,$appraisal_image);

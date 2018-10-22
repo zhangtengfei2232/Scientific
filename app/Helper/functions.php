@@ -18,7 +18,7 @@
             if (gettype($v) == 'object' || gettype($v) == 'array')
                 $e[$k] = (array)objectToArray($v);
         }
-     return $e;
+        return $e;
     }
     //数组转化为对象
     function arrayToObject($e){
@@ -274,11 +274,27 @@
         }
     }
     //验证参加会议字段
-    function judgeJoinmeetField(){
-
+    function judgeJoinmeetField($datas){
+        if(emptyarray($datas)){
+            return showMsg(1,'你输入的信息不完整');
+        }
+        if(strlen($datas->jo_name) > 50){
+            return showMsg(1,'你输入的会议名称过长');
+        }elseif (strlen($datas->jo_hold_unit) > 50){
+            return showMsg(1,'你输入的会议主办方单位名称过长');
+        }elseif (strlen($datas->jo_take_unit) > 50){
+            return showMsg(1,'你输入的会议承办方单位过长');
+        }elseif (strlen($datas->jo_place) > 50){
+            return showMsg(1,'你输入的会议地点名称过长');
+        }elseif (strlen($datas->jo_art_num) > 9
+                || is_numeric($datas->jo_art_num)){
+            return showMsg(1,'你输入的会议论文提交次数必须为数字且不超过9位');
+        }elseif (strlen($datas->jo_title) > 50){
+            return showMsg(1,'你输入的会议题目名称过长');
+        }
     }
     //验证讲学字段
-    function judgeLectureField(){
+    function judgeLectureField($datas){
 
     }
     //上传前先判断文件是否接收成功
@@ -293,7 +309,14 @@
     }
     //上传文件
     function uploadFiles($subjection,$artical_file){
-        $originalName = $artical_file->getClientOriginalName();
+        $fileTypes = array('jpg','png','jpeg');
+        $extension = $artical_file->getClientOriginalExtension();
+        $isInFileType = in_array($extension,$fileTypes);
+        if($isInFileType){
+            $originalName = time();
+        }else{
+            $originalName = $artical_file->getClientOriginalName();
+        }
         $artical_file->storeAs($subjection,$originalName);
         $certificate_road = $subjection.'/'.$originalName;
         return $certificate_road;

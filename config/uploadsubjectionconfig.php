@@ -23,9 +23,9 @@ class uploadsubjectionconfig
     const OPUS_COVER_IMG      = 'opuscoverimg';          //老师上传著作封面图片文件夹名
     const HOLD_IMG            = 'holdimage';             //老师上传举行会议图片文件夹名
     const HOLD_INJECTION      = 'holdinjection';         //老师上传举行会议图注图片文件夹名
-    const JOIN_IMG            = 'joinmeeting';           //老师上传参加会议图片文件夹名
+    const JOIN_IMG            = 'joinimage';             //老师上传参加会议图片文件夹名
     const JOIN_INJECTION      = 'joininjection';         //老师上传参加会议图注图片文件夹名
-    const LECTURE_IMG         = 'lectureimg';            //老师上传讲学图片文件夹名
+    const LECTURE_IMG         = 'lectureimage';          //老师上传讲学图片文件夹名
     const LECTURE_INJECTION   = 'lectureinjection';      //老师上传讲学图注图片文件夹名
     const AWARD_IMG           = 'awardimg';              //老师上传获奖图片文件夹名
     const ARTICAL_IMG         = 'articalimg';            //老师上传论文首页图片文件夹名
@@ -35,4 +35,7 @@ class uploadsubjectionconfig
     const APPRAISAL_IMG       = 'appraisalimg';          //老师上传鉴定证书图片文件夹名
     const PROJECT_IMG         = 'projectimg';            //老师上传项目合同图片文件夹
     const DUTIES_IMG          = 'dutiesimg';             //老师担任团体职务证书
+    const HOLD_IMG_STATUS     = 0;                       //举办会议照片状态
+    const JOIN_IMG_STATUS     = 1;                       //参加会议照片状态
+    const LECTURE_IMG_STATUS  = 2;                       //讲学照片状态
 }
