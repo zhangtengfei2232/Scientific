@@ -1,24 +1,24 @@
 webpackJsonp([16],{
 
-/***/ 216:
+/***/ 217:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(269)
+  __webpack_require__(277)
 }
 var normalizeComponent = __webpack_require__(82)
 /* script */
-var __vue_script__ = __webpack_require__(271)
+var __vue_script__ = __webpack_require__(279)
 /* template */
-var __vue_template__ = __webpack_require__(272)
+var __vue_template__ = __webpack_require__(280)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-61c4ccca"
+var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -29,7 +29,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/book/addBook.vue"
+Component.options.__file = "resources/assets/js/components/book/selfBook.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -38,9 +38,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-61c4ccca", Component.options)
+    hotAPI.createRecord("data-v-775c76b4", Component.options)
   } else {
-    hotAPI.reload("data-v-61c4ccca", Component.options)
+    hotAPI.reload("data-v-775c76b4", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -52,23 +52,23 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 269:
+/***/ 277:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(270);
+var content = __webpack_require__(278);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(81)("48984856", content, false, {});
+var update = __webpack_require__(81)("4480803c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-61c4ccca\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./addBook.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-61c4ccca\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./addBook.vue");
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-775c76b4\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./selfBook.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-775c76b4\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./selfBook.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -79,7 +79,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 270:
+/***/ 278:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(25)(false);
@@ -87,14 +87,14 @@ exports = module.exports = __webpack_require__(25)(false);
 
 
 // module
-exports.push([module.i, "\n.contents[data-v-61c4ccca]{\n    width: 75%;\n    float: left;\n}\n.add[data-v-61c4ccca]{\n    width: 73%;\n    margin: 35px 0 0 35px;\n}\n", ""]);
+exports.push([module.i, "\n.information{\n       width: 75%;\n       float: left;\n}\n.add{\n       width: 80%;\n       margin: 35px 0 0 35px;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 271:
+/***/ 279:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -211,47 +211,68 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      form: {
-        op_first_author: '',
-        op_all_author: '',
-        op_name: '',
-        op_form_write: '',
-        op_publish: '',
-        op_publish_time: '',
-        op_number: '',
-        op_total_words: '',
-        op_self_words: '',
-        op_cate_work: '',
-        op_integral: '',
-        op_cate_research: '',
-        op_sub_category: '',
-        op_remarks: ''
-      }
-    };
-  },
+    data: function data() {
+        return {
+            BookSelfData: {},
+            form: {
+                op_first_author: '',
+                op_all_author: '',
+                op_name: '',
+                op_form_write: '',
+                op_publish: '',
+                op_publish_time: '',
+                op_number: '',
+                op_total_words: '',
+                op_self_words: '',
+                op_cate_work: '',
+                op_integral: '',
+                op_cate_research: '',
+                op_sub_category: '',
+                op_remarks: ''
+            }
+        };
+    },
 
-  methods: {
-    onSubmit: function onSubmit() {
-      console.log('submit!');
+
+    methods: {
+        getBookSelfData: function getBookSelfData() {
+            var self = this;
+            var art_id = self.$route.params.art_id;
+            axios.get("", art_id).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.BookSelfData = data.datas;
+                    console.log(data.datas);
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.msg,
+                        duration: 2000
+                    });
+                }
+            });
+        },
+        onSubmit: function onSubmit() {
+            console.log('submit!');
+        }
+    },
+    mounted: function mounted() {
+        this.getBookSelfData();
     }
-  }
 });
 
 /***/ }),
 
-/***/ 272:
+/***/ 280:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "contents" }, [
+  return _c("div", { staticClass: "information" }, [
     _c(
       "div",
       { staticClass: "add" },
@@ -664,7 +685,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-61c4ccca", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-775c76b4", module.exports)
   }
 }
 

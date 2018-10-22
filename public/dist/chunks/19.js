@@ -1,24 +1,24 @@
 webpackJsonp([19],{
 
-/***/ 219:
+/***/ 220:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(281)
+  __webpack_require__(289)
 }
 var normalizeComponent = __webpack_require__(82)
 /* script */
-var __vue_script__ = __webpack_require__(283)
+var __vue_script__ = __webpack_require__(291)
 /* template */
-var __vue_template__ = __webpack_require__(284)
+var __vue_template__ = __webpack_require__(292)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-3ae9def6"
+var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -29,7 +29,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/award/addAward.vue"
+Component.options.__file = "resources/assets/js/components/award/selfAward.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -38,9 +38,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3ae9def6", Component.options)
+    hotAPI.createRecord("data-v-6fdea4f8", Component.options)
   } else {
-    hotAPI.reload("data-v-3ae9def6", Component.options)
+    hotAPI.reload("data-v-6fdea4f8", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -52,23 +52,23 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 281:
+/***/ 289:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(282);
+var content = __webpack_require__(290);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(81)("79a117d1", content, false, {});
+var update = __webpack_require__(81)("89fe1a0a", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3ae9def6\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./addAward.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3ae9def6\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./addAward.vue");
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6fdea4f8\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./selfAward.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6fdea4f8\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./selfAward.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -79,7 +79,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 282:
+/***/ 290:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(25)(false);
@@ -87,14 +87,14 @@ exports = module.exports = __webpack_require__(25)(false);
 
 
 // module
-exports.push([module.i, "\n.contents[data-v-3ae9def6]{\n    width: 75%;\n    float: left;\n}\n.add[data-v-3ae9def6]{\n    width: 73%;\n    margin: 35px 0 0 35px;\n}\n", ""]);
+exports.push([module.i, "\n.information{\n       width: 75%;\n       float: left;\n}\n.add{\n       width: 80%;\n       margin: 35px 0 0 35px;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 283:
+/***/ 291:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -201,14 +201,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         var _form;
 
         return {
+            AwardSelfData: {},
             form: (_form = {
                 aw_first_author: ''
             }, _defineProperty(_form, 'aw_first_author', ''), _defineProperty(_form, 'prize_win_name', ''), _defineProperty(_form, 'award_name', ''), _defineProperty(_form, 'form_achievement', ''), _defineProperty(_form, 'aw_grade', ''), _defineProperty(_form, 'aw_level', ''), _defineProperty(_form, 'aw_grant_unit', ''), _defineProperty(_form, 'aw_grant_time', ''), _defineProperty(_form, 'aw_certi_number', ''), _defineProperty(_form, 'aw_sch_rank', ''), _defineProperty(_form, 'aw_integral', ''), _form)
         };
     },
 
+
     methods: {
-        onSubmit: function onSubmit(form) {
+        getBookSelfData: function getBookSelfData() {
+            var self = this;
+            var art_id = self.$route.params.art_id;
+            axios.get("", art_id).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.AwardSelfData = data.datas;
+                    console.log(data.datas);
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.msg,
+                        duration: 2000
+                    });
+                }
+            });
+        },
+        onSubmit: function onSubmit() {
             if (form.author == '') {
                 this.$message.error('第一获奖人不能为空');
             } else if (form.art_all_author == '') {
@@ -234,12 +253,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             } else if (form.periodical_cate == '') {
                 this.$message.error('积分不能为空');
             } else {
-                this.addAwardData(form);
+                this.changeAwardData(form);
             }
         },
-        addAwardData: function addAwardData(form) {
+        changeAwardData: function changeAwardData(form) {
             var self = this;
-            axios.get("addartical", form).then(function (response) {
+            axios.get("", form).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {} else {
                     self.$notify({
@@ -250,19 +269,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 }
             });
         }
+    },
+    mounted: function mounted() {
+        this.getBookSelfData();
     }
 });
 
 /***/ }),
 
-/***/ 284:
+/***/ 292:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "contents" }, [
+  return _c("div", { staticClass: "information" }, [
     _c(
       "div",
       { staticClass: "add" },
@@ -602,7 +624,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-3ae9def6", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-6fdea4f8", module.exports)
   }
 }
 

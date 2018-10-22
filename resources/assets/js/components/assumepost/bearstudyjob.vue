@@ -2,18 +2,18 @@
     <div>
         <header>
             <span class="paper">
-                专家讲学
+                担任学术团体职务
             </span>
-        <span class="load">
-                <router-link to="/addspeak">
+            <span class="load">
+                <router-link to="/addutygroup">
                     <el-button type="primary"><i class="el-icon-plus el-icon--left">上传</i></el-button>
                 </router-link>
             </span>
-        <span class="searchtime">
+            <span class="searchtime">
                 <el-form>
                     <div class="block">
-                        <span class="demonstration">按专家姓名检索:</span>
-                         <el-input v-model="form.le_expert_name" placeholder="请输入专家姓名" style="width:30%;"></el-input>
+                        <span class="demonstration">按老师姓名检索:</span>
+                        <el-input v-model="form.teacher_name" placeholder="请输入老师姓名" style="width: 30%;"></el-input>
                         <!--<el-date-picker-->
                                 <!--v-model="form.data1"-->
                                 <!--type="date"-->
@@ -29,16 +29,16 @@
                     </div>
                 </el-form>
             </span>
-    </header>
+        </header>
         <div class="navbo">
             <span class="checks"><el-checkbox v-model="checked"></el-checkbox></span>
             <span class="number">序号</span>
-            <span class="info">专家姓名</span>
-            <span class="time">讲学时间</span>
+            <span class="info">老师姓名</span>
+            <span class="time">担任学术团体名称</span>
             <span class="do">操作</span>
         </div>
         <div class="content">
-            <div class="lists" v-for="(item,index) in ExperspeakDate" :key="index">
+            <div class="lists" v-for="(item,index) in StudygroupDate" :key="index">
                 <span class="check"><el-checkbox v-model="checked"></el-checkbox></span>
                 <span class="numbers">{{ item.teacher_id }}</span>
                 <span class="picture"><img src="/dist/img/text.png" alt="文件加载失败"></span>
@@ -47,9 +47,9 @@
                     <p>作者 <small>特别标注</small></p>
                 </span>
                 <span class="times">2018-09-10</span>
-                <span class="dos" @click="sentExperspeakDate(item.art_id)">编辑</span>
+                <span class="dos" @click="sentStudygroupDate(item.art_id)">编辑</span>
                 <span class="tos"><router-link to="/">导出</router-link></span>
-                <span class="dos" @click="sentExperspeakDate(item.art_id)">查看</span>
+                <span class="dos" @click="sentStudygroupDate(item.art_id)">查看</span>
                 <span class="del"><router-link to="/">删除</router-link></span>
                 <div class="clear"></div>
             </div>
@@ -64,7 +64,7 @@
         font-size: 18px;
         color: #090909;
         display: inline-block;
-        padding: 23px 60px;
+        padding: 23px 48px;
         border-right: 1px solid #eee;
     }
     .load{
@@ -167,22 +167,22 @@
     export default {
         data() {
             return {
-                ExperspeakDate: [],
+                StudygroupDate: [],
                 checked: false,
                 form: {
-                    le_expert_name:'',
+                    teacher_name:'',
                     data1: '',
                     data2: '',
                 },
             }
         },
         methods: {
-            getExperspeakDate() {
+            getStudygroupDate() {
                 let self = this;
                 axios.get("selectopus").then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
-                        self.ExperspeakDate = data.datas;
+                        self.StudygroupDate = data.datas;
                     } else {
                         self.$notify({
                             type: 'error',
@@ -192,7 +192,7 @@
                     }
                 });
             },
-            sentExperspeakDate(art_id) {
+            sentStudygroupDate(art_id) {
                 this.$router.push({
                     path: `/selfInfor/${art_id}`,
                 })
@@ -201,7 +201,7 @@
                 axios.get("",form).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
-                        self.ExperspeakDate = data.datas;
+                        self.StudygroupDate = data.datas;
                     } else {
                         self.$notify({
                             type: 'error',
@@ -214,7 +214,7 @@
 
         },
         mounted() {
-            this.getExperspeakDate();
+            this.getStudygroupDate();
         }
     }
 </script>
