@@ -180,27 +180,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      input: '',
       form: {
-        author: '',
-        art_all_author: '',
-        title: '',
-        publication_name: '',
-        publication_num: '',
-        num_words: '',
-        periodical_cate: '',
-        belong_project: '',
-        art_cate_research: '',
-        art_sub_category: '',
-        art_integral: '',
-        name: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
+        teacher_id: '',
+        first_inventor: '',
+        pa_all_author: '',
+        pa_type: '',
+        pa_name: '',
+        pa_imple_situ: '',
+        author_num: '',
+        author_cert_num: '',
+        author_notic_day: '',
+        pa_integral: '',
+        pa_remarks: ''
       }
     };
   },
@@ -236,11 +227,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.author,
+                    value: _vm.form.teacher_id,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "author", $$v)
+                      _vm.$set(_vm.form, "teacher_id", $$v)
                     },
-                    expression: "form.author"
+                    expression: "form.teacher_id"
                   }
                 })
               ],
@@ -253,11 +244,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.art_all_author,
+                    value: _vm.form.first_inventor,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "art_all_author", $$v)
+                      _vm.$set(_vm.form, "first_inventor", $$v)
                     },
-                    expression: "form.art_all_author"
+                    expression: "form.first_inventor"
                   }
                 })
               ],
@@ -270,11 +261,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.title,
+                    value: _vm.form.pa_all_author,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "title", $$v)
+                      _vm.$set(_vm.form, "pa_all_author", $$v)
                     },
-                    expression: "form.title"
+                    expression: "form.pa_all_author"
                   }
                 })
               ],
@@ -290,11 +281,11 @@ var render = function() {
                   {
                     attrs: { placeholder: "请选择类别" },
                     model: {
-                      value: _vm.form.art_cate_research,
+                      value: _vm.form.pa_type,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "art_cate_research", $$v)
+                        _vm.$set(_vm.form, "pa_type", $$v)
                       },
-                      expression: "form.art_cate_research"
+                      expression: "form.pa_type"
                     }
                   },
                   [
@@ -322,11 +313,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.publication_name,
+                    value: _vm.form.pa_name,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "publication_name", $$v)
+                      _vm.$set(_vm.form, "pa_name", $$v)
                     },
-                    expression: "form.publication_name"
+                    expression: "form.pa_name"
                   }
                 })
               ],
@@ -342,11 +333,11 @@ var render = function() {
                   {
                     attrs: { placeholder: "请选择类别" },
                     model: {
-                      value: _vm.form.art_cate_research,
+                      value: _vm.form.pa_imple_situ,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "art_cate_research", $$v)
+                        _vm.$set(_vm.form, "pa_imple_situ", $$v)
                       },
-                      expression: "form.art_cate_research"
+                      expression: "form.pa_imple_situ"
                     }
                   },
                   [
@@ -366,11 +357,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.publication_num,
+                    value: _vm.form.author_num,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "publication_num", $$v)
+                      _vm.$set(_vm.form, "author_num", $$v)
                     },
-                    expression: "form.publication_num"
+                    expression: "form.author_num"
                   }
                 })
               ],
@@ -383,11 +374,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.publication_num,
+                    value: _vm.form.author_cert_num,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "publication_num", $$v)
+                      _vm.$set(_vm.form, "author_cert_num", $$v)
                     },
-                    expression: "form.publication_num"
+                    expression: "form.author_cert_num"
                   }
                 })
               ],
@@ -406,11 +397,11 @@ var render = function() {
                       staticStyle: { width: "100%" },
                       attrs: { type: "date", placeholder: "选择日期" },
                       model: {
-                        value: _vm.form.date1,
+                        value: _vm.form.author_notic_day,
                         callback: function($$v) {
-                          _vm.$set(_vm.form, "date1", $$v)
+                          _vm.$set(_vm.form, "author_notic_day", $$v)
                         },
-                        expression: "form.date1"
+                        expression: "form.author_notic_day"
                       }
                     })
                   ],
@@ -426,11 +417,11 @@ var render = function() {
               [
                 _c("el-input", {
                   model: {
-                    value: _vm.form.art_integral,
+                    value: _vm.form.pa_integral,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "art_integral", $$v)
+                      _vm.$set(_vm.form, "pa_integral", $$v)
                     },
-                    expression: "form.art_integral"
+                    expression: "form.pa_integral"
                   }
                 })
               ],
@@ -444,11 +435,11 @@ var render = function() {
                 _c("el-input", {
                   attrs: { type: "textarea" },
                   model: {
-                    value: _vm.form.desc,
+                    value: _vm.form.pa_remarks,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "desc", $$v)
+                      _vm.$set(_vm.form, "pa_remarks", $$v)
                     },
-                    expression: "form.desc"
+                    expression: "form.pa_remarks"
                   }
                 })
               ],

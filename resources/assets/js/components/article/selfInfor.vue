@@ -171,7 +171,7 @@ export default {
         getArticleSelfData() {
                 let self = this;
                 let art_id = self.$route.params.art_id;
-                axios.get("",art_id).then(function (response) {
+                axios.get("selectartical",art_id).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
                         self.ArticleSelfData = data.datas;
@@ -227,7 +227,7 @@ export default {
         },
         changeArticleData(form) {
                 let self = this;
-                axios.get("addartical",form).then(function (response) {
+                axios.get("updateartical",form).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
                         
