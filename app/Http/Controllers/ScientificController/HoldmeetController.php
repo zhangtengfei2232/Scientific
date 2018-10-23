@@ -78,18 +78,18 @@ class HoldmeetController extends Controller
         }
         if($add_images->code == 1){
             $delete_fail_images = [];
-            $fail_iamges = [];
+            $fail_images = [];
             for($i = 0; $i < count($add_images); $i++){
                 $index = $add_images->datas[$i];
                 //获取添加失败的图片名字
                 $fail_image_name = $success_image[$index]->getClientOriginalName();
-                $fail_iamges[$i] = $fail_image_name;               //添加失败的图片名字数组
+                $fail_images[$i] = $fail_image_name;               //添加失败的图片名字数组
                 //取出添加数据库失败的图片路径
                 $delete_fail_images[$i] = $all_images_road[$index];//添加失败的图片路径数组
             }
             $disk = uploadsubjectionconfig::HOLD_MEET;
             deleteAllImgs($disk,$delete_fail_images);              //删除数据库添加失败的图片
-            $response['fail_images'] = $fail_iamges;
+            $response['fail_images'] = $fail_images;
         }
         if(!$validate){
             //有的图片验证也没通过，错误信息也返回
@@ -101,12 +101,12 @@ class HoldmeetController extends Controller
     public function deleteHoldImages(Request $request){
         $delete_im_id = $request->ho_id_datas;
         //先去查询所有删除的图片路径
-        $all_images_raod = ImageDatas::selectAllImageRoadDatas($delete_im_id);
+        $all_images_road = ImageDatas::selectAllImageRoadDatas($delete_im_id);
         ImageDatas::beginTraction();                                   //开启事务处理
         $delete_images = ImageDatas::deleteImagesDatas($delete_im_id); //删除数据库图片路径
         if($delete_images){
             ImageDatas::commit();
-            deleteAllImgs(uploadsubjectionconfig::HOLD_MEET,$all_images_raod);
+            deleteAllImgs(uploadsubjectionconfig::HOLD_MEET,$all_images_road);
             return showMsg(0,'删除举办会议图片成功');
         }
         ImageDatas::rollback();                                        //回滚，回复数据库数据

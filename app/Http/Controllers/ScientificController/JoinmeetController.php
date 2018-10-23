@@ -103,8 +103,19 @@ class JoinmeetController  extends Controller
 
     }
     //删除参加会议图片
-    public function deleteJoinmeetImage(){
-
+    public function deleteJoinmeetImage(Request $request){
+        $delete_jo_id = $request->le_id_datas;
+        //先去查询所有删除的图片路径
+        $all_images_road = ImageDatas::selectAllImageRoadDatas($delete_jo_id);
+        ImageDatas::beginTraction();                                  //开启事务处理
+        $delete_images = ImageDatas::deleteImagesDatas($delete_jo_id);//删除数据库图片路径
+        if($delete_images){
+            ImageDatas::commit();
+            deleteAllImgs(uploadsubjectionconfig::LECTURE,$all_images_road);
+            return showMsg(0,'删除讲学图片成功');
+        }
+        ImageDatas::rollback();
+        return showMsg(1,'删除讲学图片失败');
     }
     //查看单个参加会议信息
     public function selectJoinmeet(Request $request){

@@ -36,19 +36,24 @@ class AwardController extends Controller
          if($judge_datas->code == 1){
              return $judge_datas;
          }
-         $award_image = $request->file('award_image');
-         $judge_image = judgeFileImage($award_image);
-         if($judge_image->code == 1){
-             return $judge_datas;
+         if(!$request->is_add_image){                             //判断用户是否添加证书
+             $datas['aw_road'] = '';
+             $add_award = AwardDatabase::addAwardDatas($datas);
+         }else{
+             $award_image = $request->file('award_image');
+             $judge_image = judgeFileImage($award_image);
+             if($judge_image->code == 1){
+                 return $judge_image;
+             }
+             $add_image_road = uploadFiles(uploadsubjectionconfig::AWARD_IMG,$award_image);
+             $datas['aw_road'] = $add_image_road;
+             $add_award = AwardDatabase::addAwardDatas($datas);
          }
-         $add_image_road = uploadFiles(uploadsubjectionconfig::AWARD_IMG,$award_image);
-         $datas['aw_road'] = $add_image_road;
-         $add_award = AwardDatabase::addAwardDatas($datas);
          if($add_award){
-             return showMsg(0,'添加成功');
+             return showMsg(0,'添加获奖信息成功');
          }
          deletefiles(uploadsubjectionconfig::AWARD,$add_image_road);
-         return showMsg(1,'添加失败');
+         return showMsg(1,'添加获奖信息失败');
      }
      //删除获奖信息
      public function deleteAward(Request $request)

@@ -46,12 +46,18 @@ class LectureDatabase  extends ModelDatabase
         return ($response != 1) ? false : true;
     }
     //查看单个讲学信息
-    public static function selectLectureDatas(){
-
+    public static function selectLectureDatas($le_id){
+        $result = DB::table('lecture')->where('le_id',$le_id)->first();
+        $result->le_time = date('Y-m-d',$result->le_time);
+        return $result;
     }
     //查看所有讲学信息
-    public static function selectLectureAllDatas(){
-
+    public static function selectLectureAllDatas($teacher_id){
+        $result = DB::table('lecture')->where('teacher_id',$teacher_id)->get();
+        foreach ($result as $datas){
+            $result->le_time = date('Y-m-d',$datas->le_time);
+        }
+        return $result;
     }
     //查看讲学图注路径
     public static function selectLectureInject($le_id){
