@@ -6,27 +6,27 @@
             </el-form-item>
             <el-form-item label="职称">
                 <el-select v-model="form.du_academic" placeholder="请选择职称">
-                    <el-option label="教授" value="shanghai"></el-option>
-                    <el-option label="副教授" value="shanghai"></el-option>
-                    <el-option label="讲师" value="shanghai"></el-option>
-                    <el-option label="助教" value="shanghai"></el-option>
-                    <el-option label="高级实验师" value="shanghai"></el-option>
-                    <el-option label="实验师" value="beijing"></el-option>
-                    <el-option label="助理实验师" value="beijing"></el-option>
+                    <el-option label="教授" value="1"></el-option>
+                    <el-option label="副教授" value="2"></el-option>
+                    <el-option label="讲师" value="3"></el-option>
+                    <el-option label="助教" value="4"></el-option>
+                    <el-option label="高级实验师" value="5"></el-option>
+                    <el-option label="实验师" value="6"></el-option>
+                    <el-option label="助理实验师" value="7"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="学历">
-                <el-select v-model="form.du_education" placeholder="请选择职称">
-                    <el-option label="大专" value="shanghai"></el-option>
-                    <el-option label="研究生" value="beijing"></el-option>
-                    <el-option label="本科" value="beijing"></el-option>
+                <el-select v-model="form.du_education" placeholder="请选择学历">
+                    <el-option label="大专" value="1"></el-option>
+                    <el-option label="研究生" value="2"></el-option>
+                    <el-option label="本科" value="3"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="学位">
-                <el-select v-model="form.du_degree" placeholder="请选择职称">
-                    <el-option label="硕士" value="shanghai"></el-option>
-                    <el-option label="博士" value="beijing"></el-option>
-                    <el-option label="学士" value="beijing"></el-option>
+                <el-select v-model="form.du_degree" placeholder="请选择学位">
+                    <el-option label="硕士" value="1"></el-option>
+                    <el-option label="博士" value="2"></el-option>
+                    <el-option label="学士" value="3"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="年龄">
@@ -36,9 +36,9 @@
             <el-form-item label="担任学术团体名称">
                 <el-input v-model="form.du_name" placeholder="请输入担任学术团体名称"style="width: 400px;"></el-input>
                 <el-select v-model="form.level" placeholder="担任学术团体级别" style="width: 200px;">
-                    <el-option label="省级" value="shanghai"></el-option>
-                    <el-option label="国家级" value="beijing"></el-option>
-                    <el-option label="国际级" value="beijing"></el-option>
+                    <el-option label="省级" value="1"></el-option>
+                    <el-option label="国家级" value="2"></el-option>
+                    <el-option label="国际级" value="3"></el-option>
                 </el-select>
             </el-form-item>
 
@@ -97,14 +97,11 @@
 <script>
     export default {
         data() {
-//            input:'',
             return {
-                input : '',
-                expertname:'',
-                age:'',
-                groupname:'',
-                work:'',
                 form: {
+                    expertname:'',
+                    level:'',
+
                     du_academic:'',
                     du_education:'',
                     du_degree:'',

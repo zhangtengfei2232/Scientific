@@ -144,7 +144,6 @@ export default new VueRouter({
                 path: '/selfJoinmeet',
                 component: resolve => void(require(['../components/joinmeet/selfJoinmeet.vue'], resolve))
             },
-<<<<<<< HEAD
            // 专家讲学
             {
                 name: 'experteach',
@@ -167,9 +166,6 @@ export default new VueRouter({
               path: '/addutygroup',
               component: resolve => void(require(['../components/assumepost/addutygroup.vue'], resolve))
           }
-=======
-
->>>>>>> e9728ddce1f95a77870cef57d47127969da2d43f
       ]
 
 })
