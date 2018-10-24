@@ -144,7 +144,13 @@ export default new VueRouter({
                 path: '/selfJoinmeet',
                 component: resolve => void(require(['../components/joinmeet/selfJoinmeet.vue'], resolve))
             },
-
+            /*全局总览*/
+            {
+                name: 'Glverview',
+                path: '/Glverview',
+                component: resolve => void(require(['../components/globalOverview/Glverview.vue'], resolve))
+            },
+            
       ]
 
 })
