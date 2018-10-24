@@ -39,7 +39,7 @@ class AwardDatabase extends ModelDatabase
     }
     //查询全部获奖信息
     public static function selectAllAwardDatas($teacher_id){
-        $result =  DB::table('award')->where('teacher_id',$teacher_id)->get();
+        $result =  DB::table('award')->where('teacher_id',$teacher_id)->orderBy('aw_grant_time','desc')->get();
         foreach ($result as $datas){
             $result->aw_grant_time = date('Y-m-d',$datas->aw_grant_time);
         }

@@ -60,7 +60,7 @@ class JoinmeetDatas extends ModelDatabase
     }
     //查看所有会议
     public static function selectAllJoinmeetDatas($teacher_id){
-        $result = DB::table('joinmeet')->where('teacher_id',$teacher_id)->get();
+        $result = DB::table('joinmeet')->where('teacher_id',$teacher_id)->orderBy('jo_time','desc')->get();
         foreach ($result as $datas){
             $result->jo_time = date('Y-m-d',$datas->jo_time);
         }

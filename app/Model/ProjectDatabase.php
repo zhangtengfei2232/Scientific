@@ -9,7 +9,7 @@ class ProjectDatabase extends ModelDatabase
 {
     //添加项目信息
     public static function addProjectDatas($datas){
-        $response = DB::table('project')
+        return  DB::table('project')
             ->insert([
                 'teacher_id'        => $datas->teacher_id,
                 'pro_host'          => $datas->pro_host,
@@ -29,7 +29,6 @@ class ProjectDatabase extends ModelDatabase
                 'project_year'      => $datas->project_year,
                 'pro_remarks'        => $datas->pro_remarks
             ]);
-        return $response;
     }
     //删除项目信息
     public static function delectProjectDatas(){
@@ -43,7 +42,7 @@ class ProjectDatabase extends ModelDatabase
     }
     //查找所有项目信息
     public static function selectAllProjectDatas($teacher_id){
-      $result = DB::table('project')->where('teacher_id',$teacher_id)->get();
+      $result = DB::table('project')->where('teacher_id',$teacher_id)->orderBy('project_year','desc')->get();
       foreach ($result as $datas){
           $result->project_year = date('Y-m-d',$datas->project_year);
       }

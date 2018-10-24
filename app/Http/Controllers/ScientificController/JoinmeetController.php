@@ -102,6 +102,10 @@ class JoinmeetController  extends Controller
     public function deleteJoinmeet(){
 
     }
+    //删除多个参加会议信息
+    public function deleteAllJoinmeet(){
+
+    }
     //删除参加会议图片
     public function deleteJoinmeetImage(Request $request){
         $delete_jo_id = $request->le_id_datas;

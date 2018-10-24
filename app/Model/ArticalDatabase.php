@@ -17,7 +17,7 @@ class ArticalDatabase  extends ModelDatabase
      }
      //查找个人全部论文信息
      public static function selectAllArticalDatas($teacher_id){
-         $result = DB::table('artical')->where('teacher_id',$teacher_id)->get();
+         $result = DB::table('artical')->where('teacher_id',$teacher_id)->orderBy('art_time','desc')->get();
          foreach ($result as  $datas){
              $result->art_time = date('Y-m-d',$datas->art_time);
          }

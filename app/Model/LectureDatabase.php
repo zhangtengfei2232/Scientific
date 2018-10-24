@@ -53,7 +53,7 @@ class LectureDatabase  extends ModelDatabase
     }
     //查看所有讲学信息
     public static function selectLectureAllDatas($teacher_id){
-        $result = DB::table('lecture')->where('teacher_id',$teacher_id)->get();
+        $result = DB::table('lecture')->where('teacher_id',$teacher_id)->orderBy('le_time','desc')->get();
         foreach ($result as $datas){
             $result->le_time = date('Y-m-d',$datas->le_time);
         }

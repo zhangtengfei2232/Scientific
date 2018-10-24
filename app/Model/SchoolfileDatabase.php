@@ -8,14 +8,13 @@ class SchoolfileDatabase extends ModelDatabase
 {
     //添加校发文件信息
     public static function addSchoolfileDatas($datas){
-        $response = DB::table('schoolfile')
+        return  DB::table('schoolfile')
                     ->insert([
-                        'teacher_id'        => $datas->teacher_id,
+                        'shcfile_name'      => $datas->shcfile_name,
                         'schfile_num'       => $datas->schfile_num,
                         'schfile_down_time' => $datas->schfile_down_time,
                         'schfile_road'      => $datas->schfile_road
                     ]);
-        return ($response) ? true : false;
     }
     //删除单个校发文件信息
     public static function deleteSchoolfileDatas($shcoolfile_id){
@@ -23,7 +22,7 @@ class SchoolfileDatabase extends ModelDatabase
         return ($response != 1) ? false : true;
     }
     //删除多个校发文件信息
-    public static function deleteAllSchoolfileDaats($schoolfile_id_datas){
+    public static function deleteAllSchoolfileDatas($schoolfile_id_datas){
         $fail_schoolfile_id = [];
         $validate = true;
         for($i = 0; $i < count($schoolfile_id_datas); $i++){
@@ -36,7 +35,8 @@ class SchoolfileDatabase extends ModelDatabase
         if($validate){
             return showMsg(0,'校发文件全部删除成功');
         }
-        return showMsg(1,'有些校发文件删除失败',$fail_schoolfile_id);
+        $count_id = count($fail_schoolfile_id);
+        return showMsg(1,'有'.$count_id.'个校发文件删除失败',$fail_schoolfile_id);
     }
     //修改校发文件信息
     public static function updateSchoolfileDatas($datas){
@@ -69,11 +69,23 @@ class SchoolfileDatabase extends ModelDatabase
     }
     //查询多个校发文件路径
     public static function selectAllSchoolfileRoad($school_id_datas){
-        $schoolfile_road = [];
+        $schoolfile_road = array();
         for($i = 0; $i < count($schoolfile_road); $i++){
             $result = DB::table('schoolfile')->select('schfile_road')->where('shcfile_id',$school_id_datas[$i])->first();
-            $schoolfile_road[$i] = $result->schfile_road;
+            //用校发文件ID作为键，路径作为值存入
+            $school_id = $school_id_datas[$i];
+            $schoolfile_road[$school_id] = $result->schfile_road;
         }
         return $schoolfile_road;
+    }
+    //查询校发文件名称
+    public static function selectAllSchoolfileName($delete_schoolfile_id){
+        $schoolfile_name = [];
+        for($i = 0; $i < count($delete_schoolfile_id); $i++){
+            $name = DB::table('schoolfile')->select('schfile_name')
+                    ->where('schfile_id',$delete_schoolfile_id[$i])
+                    ->first();
+            $schoolfile_name[$i] = $name->schfile_name;
+        }
     }
 }

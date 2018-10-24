@@ -37,7 +37,7 @@ class PatentDatabase  extends ModelDatabase
     }
     //查看所有专利信息
     public static function selectPatenAllDatas($teacher_id){
-        $result = DB::table('patent')->where('teacher_id',$teacher_id)->get();
+        $result = DB::table('patent')->where('teacher_id',$teacher_id)->orderBy('author_notic_day','desc')->get();
         foreach ($result as $datas){
             $result->author_notic_day = date('Y-m-d',$datas->author_notic_day);
         }

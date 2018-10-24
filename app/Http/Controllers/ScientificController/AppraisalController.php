@@ -9,8 +9,7 @@ use config\uploadsubjectionconfig;
 class AppraisalController extends Controller
 {
     //添加成果鉴定
-    public function addAppraisal(Request $request)
-    {
+    public function addAppraisal(Request $request){
          if(!$request->isMethod('POST')){
              return showMsg(1,'你请求的方式不对');
          }
@@ -62,14 +61,16 @@ class AppraisalController extends Controller
          deletefiles(uploadsubjectionconfig::APPRAISAL,$new_image_road);
          return showMsg(1,'上传图片失败');
     }
-    //删除鉴定成果
-    public function deleteAppraisal(Request $request)
-    {
+    //删除单个鉴定成果信息
+    public function deleteAppraisal(Request $request){
+
+    }
+    //删除多个鉴定成果信息
+    public function deleteAllAppraisal(){
 
     }
     //查看单个成果鉴定信息
-    public function selectAppraisal(Request $request)
-    {
+    public function selectAppraisal(Request $request){
        $result = AppraisalDatabase::selectAppraisalDatas($request->ap_id);
        return showMsg(0,'查询成功',$result);
     }
@@ -79,8 +80,7 @@ class AppraisalController extends Controller
         return showMsg(0,'查询成功',$result);
     }
     //修改成功鉴定
-    public function updateAppraisal(Request $request)
-    {
+    public function updateAppraisal(Request $request){
         if(!$request->isMethod('POST')){
             return showMsg(1,'你请求的方式不对');
         }

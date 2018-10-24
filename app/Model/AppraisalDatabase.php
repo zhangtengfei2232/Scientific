@@ -31,7 +31,7 @@ class AppraisalDatabase extends ModelDatabase
     }
     //查看所有成果鉴定信息
     public static function selectAppraisalAllDatas($teacher_id){
-        $result = DB::table('appraisal')->where('teacher_id',$teacher_id)->get();
+        $result = DB::table('appraisal')->where('teacher_id',$teacher_id)->orderBy('ap_time','desc')->get();
         foreach ($result as $datas){
             $result->ap_time = date('Y-m-d',$datas->ap_time);
         }

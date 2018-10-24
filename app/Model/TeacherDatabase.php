@@ -101,13 +101,26 @@ class TeacherDatabase extends ModelDatabase
      public static function deleteTeacherDatas(){
 
      }
-
+     //查询全部老师信息
+     public static function selectAllTeacherDatas(){
+         $result = DB::table('teacher')->orderBy('appointment_time','asc')->get();
+         foreach ($result as $datas){
+             $result->admin_tenure_time      = date('Y-m-d',$datas->admin_tenure_time);
+             $result->review_time            = date('Y-m-d',$datas->review_time);
+             $result->appointment_time       = date('Y-m-d',$datas->appointment_time);
+             $result->working_hours          = date('Y-m-d',$datas->working_hours);
+             $result->first_graduation_time  = date('Y-m-d',$datas->first_graduation_time);
+             $result->most_graduation_time   = date('Y-m-d',$datas->most_graduation_time);
+             $result->master_time            = date('Y-m-d',$datas->master_time);
+         }
+         return $result;
+     }
     /**查询老师的信息
      * @return string
      */
      public static function selectTeacherDatas($teacher_id){
          $buffer             = DB::table('teacher')->where('teacher_id', $teacher_id)->first();
-         $buffer             = (array)$buffer;                         //把数据转化为数组格式
+//         $buffer             = (array)$buffer;                         //把数据转化为数组格式
          $buffer['status']   = session('status');                 //登录角色判断
          $buffer->borth      = date('Y-m-d',$buffer->borth);
          $buffer->admin_tenure_time      = date('Y-m-d',$buffer->admin_tenure_time);

@@ -331,13 +331,28 @@
             return showMsg(0,'验证通过');
         }
     }
-    //验证上传校发文件
+    //验证上传校发文件字段
     function judgeSchoolfileField($datas){
         if(emptyarray($datas)){
             return showMsg(1,'你输入的信息不完整');
         }
         if(strlen($datas->schfile_num) > 20){
             return showMsg(1,'你输入的文件编号过长');
+        }elseif (strlen($datas->schoolfile_name) > 30){
+            return showMsg(1,'你输入的文件名称过长');
+        }else{
+            return showMsg(0,'验证通过');
+        }
+    }
+    //验证上传教学科研合作协议字段
+    function judgeAgreementField($datas){
+        if(emptyarray($datas)){
+            return showMsg(1,'你输入的信息不完整');
+        }
+        if(strlen($datas->agree_name) > 30){
+            return showMsg(1,'你输入的协议名称过长');
+        }elseif (strlen($datas->agree_cooperate_unit) > 50){
+            return showMsg(1,'你输入的合作单位名称过长');
         }else{
             return showMsg(0,'验证通过');
         }
