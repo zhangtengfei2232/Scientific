@@ -47,7 +47,8 @@ class AwardDatabase extends ModelDatabase
     }
     //查询获奖图片路径
     public static function selectAwardRoadDatas($aw_id){
-        return DB::table('award')->select('aw_road')->where('aw_id',$aw_id)->first();
+        $result =  DB::table('award')->select('aw_road')->where('aw_id',$aw_id)->first();
+        return $result->aw_road;
     }
     //修改获奖信息
     public static function updateAwardDatas($datas){

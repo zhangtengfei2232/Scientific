@@ -47,12 +47,11 @@ class AppraisalDatabase extends ModelDatabase
     public static function selectAppraisalImageRoad($ap_id,$update_image_status){
         if($update_image_status == 1){
             $image_road = DB::table('appraisal')->select('ap_road')->where('ap_id',$ap_id)->first();
-            $image_road = $image_road->ap_road;
+            return $image_road->ap_road;
         }else{
             $image_road = DB::table('appraisal')->select('ap_cover_road')->where('ap_id',$ap_id)->first();
-            $image_road = $image_road->ap_cover_road;
+            return $image_road->ap_cover_road;
         }
-        return $image_road;
     }
     //修改成果鉴定信息
     public static function updateAppraisalDatas($datas){

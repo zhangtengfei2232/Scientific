@@ -62,8 +62,7 @@ class LectureDatabase  extends ModelDatabase
     //查看讲学图注路径
     public static function selectLectureInject($le_id){
         $result = DB::table('lecture')->select('le_img_road')->where('le_id',$le_id)->first();
-        $result = $result->le_img_road;
-        return $result;
+        return  $result->le_img_road;
     }
 
 }

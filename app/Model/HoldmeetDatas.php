@@ -43,8 +43,7 @@ class HoldmeetDatas extends ModelDatabase
     //查看以前会议图注路径
     public static function selectHoldmeetInjectRoad($ho_id){
         $result = DB::table('holdmeet')->select('ho_graph_inject')->where('ho_id',$ho_id)->first();
-        $result = $result->ho_graph_inject;
-        return $result;
+        return  $result->ho_graph_inject;
     }
     //修改会议信息
     public static function updateHoldmeetDatas($datas){

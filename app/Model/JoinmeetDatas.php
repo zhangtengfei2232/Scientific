@@ -69,8 +69,7 @@ class JoinmeetDatas extends ModelDatabase
     //查看参加会议图注路径
     public static function selectJoinmeetInjectRoad($jo_id){
         $result = DB::table('joinmeet')->select('jo_graph_inject')->where('jo_id',$jo_id)->first();
-        $result = $result->jo_graph_inject;
-        return $result;
+        return $result->jo_graph_inject;
     }
 
 }

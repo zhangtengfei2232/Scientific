@@ -331,6 +331,17 @@
             return showMsg(0,'验证通过');
         }
     }
+    //验证上传校发文件
+    function judgeSchoolfileField($datas){
+        if(emptyarray($datas)){
+            return showMsg(1,'你输入的信息不完整');
+        }
+        if(strlen($datas->schfile_num) > 20){
+            return showMsg(1,'你输入的文件编号过长');
+        }else{
+            return showMsg(0,'验证通过');
+        }
+    }
     //上传前先判断文件是否接收成功
     function judgeReceiveFiles($certificate_pdf){
        if($certificate_pdf->getClientOriginalExtension() != 'pdf'){
@@ -361,6 +372,10 @@
             return ;
         }
         Storage::disk($disk)->delete($certificate_road);
+    }
+    //删除多个文件
+    function deleteAllFiles($disk,$files_raod){
+
     }
     //判断上传的文件是否为图片
     function judgeFileImage($certificate_image){

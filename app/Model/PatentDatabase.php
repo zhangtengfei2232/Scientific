@@ -45,7 +45,8 @@ class PatentDatabase  extends ModelDatabase
     }
     //查看专利图片路径
     public static function selectImageRoad($pa_id){
-        return DB::table('patent')->select('pa_road')->where('pa_id',$pa_id)->first();
+        $result = DB::table('patent')->select('pa_road')->where('pa_id',$pa_id)->first();
+        return $result->pa_road;
     }
     //修改专利和图片信息
     public static function updatePatentImage($datas){

@@ -98,8 +98,7 @@ class ProjectDatabase extends ModelDatabase
     }
     //查找以前项合同图片路径
     public static function selectImageRoad($project_id){
-        return DB::table('project')
-            ->select('pro_road')
-            ->where('pro_id',$project_id);
+        $result = DB::table('project')->select('pro_road')->where('pro_id',$project_id)->first();
+        return $result->pro_road;
     }
 }
