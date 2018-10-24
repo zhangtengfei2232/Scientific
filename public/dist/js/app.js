@@ -1,4 +1,4 @@
-webpackJsonp([31],{
+webpackJsonp([32],{
 
 /***/ 189:
 /***/ (function(module, exports, __webpack_require__) {
@@ -919,6 +919,14 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
         path: '/addutygroup',
         component: function component(resolve) {
             return void __webpack_require__.e/* require */(23).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(236)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+        }
+    },
+    /*全局总览*/
+    {
+        name: 'Glverview',
+        path: '/Glverview',
+        component: function component(resolve) {
+            return void __webpack_require__.e/* require */(30).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(237)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }]
 
