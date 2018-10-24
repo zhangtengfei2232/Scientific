@@ -4,68 +4,73 @@
             <div class="navL">
                 <p>数据中心</p>
             </div>
-            <el-row :gutter="20">
-                <el-col :span="3">
-                    <div class="grid-content bg-purple" style="background:rgb(92, 109, 133)">
-                        <span>论文</span>
-                        <p>21</p>
-                    </div>
-                </el-col>
-                <el-col :span="3">
-                    <div class="grid-content bg-purple" style="background:rgb(255, 135, 0)">
-                        <span>项目</span>
-                        <p>21</p>
-                    </div>
-                </el-col>
-                <el-col :span="3">
-                    <div class="grid-content bg-purple" style="background:rgb(0, 172, 255)">
-                        <span>著作</span>
-                        <p>21</p>
-                    </div>
-                </el-col>
-                <el-col :span="3">
-                    <div class="grid-content bg-purple" style="background:rgb(47, 101, 235)">
-                        <span>获奖</span>
-                        <p>21</p>
-                    </div>
-                </el-col>
-                <el-col :span="3">
-                    <div class="grid-content bg-purple" style="background:rgb(0, 142, 106)">
-                        <span>专利</span>
-                        <p>21</p>
-                    </div>
-                </el-col>
-                <el-col :span="3">
-                    <div class="grid-content bg-purple" style="background:rgb(3, 186, 0)">
-                        <span>成果鉴定</span>
-                        <p>21</p>
-                    </div>
-                </el-col>
-                <el-col :span="3">
-                    <div class="grid-content bg-purple" style="background:rgb(234, 75, 140)">
-                        <span>举办会议</span>
-                        <p>21</p>
-                    </div>
-                </el-col>
-                <el-col :span="3">
-                    <div class="grid-content bg-purple" style="background:rgb(255, 69, 48)">
-                        <span>参加会议</span>
-                        <p>21</p>
-                    </div>
-                </el-col>
-                <el-col :span="3">
-                    <div class="grid-content bg-purple" style="background:rgb(255, 189, 20)">
-                        <span>专家讲学</span>
-                        <p>21</p>
-                    </div>
-                </el-col>
-                <el-col :span="3">
-                    <div class="grid-content bg-purple" style="background:rgb(0, 199, 209)">
-                        <span>担任学术团体职务</span>
-                        <p>21</p>
-                    </div>
-                </el-col>
-            </el-row>
+            <div class="list1">
+                <el-row :gutter="20">
+                    <el-col :span="3">
+                        <div class="grid-content bg-purple" style="background:rgb(92, 109, 133);margin-left:20px" >
+                            <span>论文</span>
+                            <p>21</p>
+                        </div>
+                    </el-col>
+                    <el-col :span="3">
+                        <div class="grid-content bg-purple" style="background:rgb(255, 135, 0)">
+                            <span>项目</span>
+                            <p>21</p>
+                        </div>
+                    </el-col>
+                    <el-col :span="3">
+                        <div class="grid-content bg-purple" style="background:rgb(0, 172, 255)">
+                            <span>著作</span>
+                            <p>21</p>
+                        </div>
+                    </el-col>
+                    <el-col :span="3">
+                        <div class="grid-content bg-purple" style="background:rgb(47, 101, 235)">
+                            <span>获奖</span>
+                            <p>21</p>
+                        </div>
+                    </el-col>
+                    <el-col :span="3">
+                        <div class="grid-content bg-purple" style="background:rgb(0, 142, 106)">
+                            <span>专利</span>
+                            <p>21</p>
+                        </div>
+                    </el-col>
+                    <el-col :span="3">
+                        <div class="grid-content bg-purple" style="background:rgb(3, 186, 0)">
+                            <span>成果鉴定</span>
+                            <p>21</p>
+                        </div>
+                    </el-col>
+                    <el-col :span="3">
+                        <div class="grid-content bg-purple" style="background:rgb(234, 75, 140)">
+                            <span>举办会议</span>
+                            <p>21</p>
+                        </div>
+                    </el-col>
+                    <el-col :span="3">
+                        <div class="grid-content bg-purple" style="background:rgb(255, 69, 48);margin-left:20px">
+                            <span>参加会议</span>
+                            <p>21</p>
+                        </div>
+                    </el-col>
+                    <el-col :span="3">
+                        <div class="grid-content bg-purple" style="background:rgb(255, 189, 20)">
+                            <span>专家讲学</span>
+                            <p>21</p>
+                        </div>
+                    </el-col>
+                    <el-col :span="3">
+                        <div class="grid-content bg-purple" style="background:rgb(0, 199, 209)">
+                            <span>担任学术团体职务</span>
+                            <p>21</p>
+                        </div>
+                    </el-col>
+                </el-row>
+            </div>  
+            <div class="list2">
+                    
+            </div>  
         </div>
     </div>
 </template>
@@ -77,11 +82,13 @@
     }
   .el-row {
       margin-bottom: 20px;
-      margin-left: 12% !important;
       margin-right: 0 !important;
       &:last-child {
         margin-bottom: 0;
       }
+  }
+  .list1{
+      margin: 0;
   }
   .el-col {
       border-radius: 4px;
