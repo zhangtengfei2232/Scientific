@@ -5,38 +5,70 @@
                 <img src="/dist/img/hist.png" alt="未加载">
             </div>
             <div class="navRight">
-                <!--<span><img src="/dist/img/sort.png" alt="未加载"></span>-->
                 <span>生命科技学院科研管理系统</span>
                 <div class="loginName">
-                    <!--<img src="/dist/img/my.png" alt="未加载">-->
                     <i class="el-icon-view"></i>
                     <span style="margin-right: 15px;">{{ teacherDate.name }}</span>
-                    <!--<span class="house">-->
                     <span style="margin-left: 10px;">退出系统</span><i class="el-icon-caret-right"></i>
-                    <!--<img src="/dist/img/home.png" alt="未加载">-->
-                    <!--</span>-->
                 </div>
             </div>
         </div>
         <div class="aside">
-            <!--<p class="signIn is-active"><router-link to="/"><img src="/dist/img/wang_light.png" alt=""><span>{{ teacherDate.name }}</span></router-link></p>-->
-            <el-menu
-                    :default-active="this.$router.path"
-                    background-color="rgb(34,45,50)"
-                    text-color="#fff"
-                    active-text-color="#ffd04b"
-                    mode="horizontal"
-                    class="el-menu-vertical-demo"
-                    router>
-                <el-menu-item index="/" class="signIn" style="height: 70px;border-bottom: 1px solid gray">
-                <img src="/dist/img/wang_light.png" alt="未加载">
-                <span>{{ teacherDate.name }}</span>
-                </el-menu-item>
-                <el-menu-item v-for="(item,i) in navList" :key="i" :index="item.name" style="width: 100%;border-bottom: 1px gray solid">
-                    <i :class="item.icon"></i>
-                    <span slot="title">{{ item.navItem }}</span>
-                </el-menu-item>
-            </el-menu>
+            <el-row class="tac">
+                <el-col :span="12">
+                    <el-menu
+                            :default-active="this.$router.path"
+                            background-color="rgb(34,45,50)"
+                            text-color="#fff"
+                            active-text-color="#ffd04b"
+                            default-active="1"
+                            class="el-menu-vertical-demo"
+                            @open="handleOpen"
+                            @close="handleClose"
+                            router>
+                        <el-menu-item index="/" class="signIn" style="height:70px;border-bottom:1px solid gray;font-size:17px;text-align: center">
+                        <img src="/dist/img/wang_light.png" alt="未加载">
+                        <span>{{teacherDate.name}}</span>
+                        </el-menu-item>
+
+                        <el-menu-item v-for="(item,i) in navList" :key="i" :index="item.name">
+                            <i :class="item.icon"></i>
+                            <span slot="title">{{ item.navItem }}</span>
+                        </el-menu-item>
+
+                        <el-menu-item index="/bearstudyjob" style="border-bottom:1px solid gray;">
+                            <i class="el-icon-message"></i>
+                            <span slot="title">担任学术团体职务</span>
+                        </el-menu-item>
+
+                        <el-submenu index="1">
+                            <template slot="title">
+                                <i class="el-icon-menu"></i>
+                                <span>特殊功能</span>
+                            </template>
+                            <el-menu-item-group>
+                                <el-menu-item index="1-1">校发文件</el-menu-item>
+                                <el-menu-item index="1-2">教学科研等合作协议</el-menu-item>
+                            </el-menu-item-group>
+                        </el-submenu>
+
+
+                        <el-submenu index="2">
+                            <template slot="title">
+                                <i class="el-icon-setting"></i>
+                                <span>成果汇总</span>
+                            </template>
+                            <el-menu-item-group>
+                                <el-menu-item index="2-1">选项1</el-menu-item>
+                                <el-menu-item index="2-2">选项2</el-menu-item>
+                                <el-menu-item index="2-3">选项3</el-menu-item>
+                                <el-menu-item index="2-4">选项4</el-menu-item>
+                            </el-menu-item-group>
+                        </el-submenu>
+
+                    </el-menu>
+                </el-col>
+            </el-row>
         </div>
         <router-view></router-view>
     </div>
@@ -47,22 +79,17 @@
             return {
                 teacherDate: {},
                 show: false,
-//                icon:[
-//                    {el-icon-picture},
-//
-//                ],
                 navList:[
 //                    {icon:'el-icon-picture',name:'/',navItem:'ft'},
-                    {icon:'el-icon-bell',name:'/paper',navItem:'论文'},
-                    {icon:'el-icon-tickets',name:'/project',navItem:'项目'},
-                    {icon:'el-icon-edit',name:'/book',navItem:'著作'},
-                    {icon:'el-icon-star-off',name:'/award',navItem:'获奖'},
-                    {icon:'el-icon-setting',name:'/patent',navItem:'专利'},
+                    {icon:'el-icon-bell',name:'/paper',navItem:'学术论文'},
+                    {icon:'el-icon-tickets',name:'/project',navItem:'科研项目'},
+                    {icon:'el-icon-edit',name:'/book',navItem:'学术著作'},
+                    {icon:'el-icon-star-off',name:'/award',navItem:'获奖成果'},
+                    {icon:'el-icon-edit-outline',name:'/patent',navItem:'学术专利'},
                     {icon:'el-icon-view',name:'/appraisal',navItem:'成果鉴定'},
                     {icon:'el-icon-time',name:'/holdmeet',navItem:'举办会议'},
                     {icon:'el-icon-edit-outline',name:'/joinmeet',navItem:'参加会议'},
                     {icon:'el-icon-date',name:'/experteach',navItem:'专家讲学'},
-                    {icon:'el-icon-news',name:'/bearstudyjob',navItem:'担任学术团体职务'},
 
                 ]
             }
@@ -74,20 +101,6 @@
             handleClose () {
 
             },
-//            $(document).ready(function(){
-//            var he=$(window).height();          //获取窗口需要的高度
-//            var el=$(".content").height();      //获取当前右边内容的高度
-//            console.log(he);
-//            alert(he);
-//            if(he>el)                           //如果右边的内容高度并没有超过窗口的高度，也就是说并没有产生滚动条的话
-//            {
-//                $(".aside").height(he);         //填充左边导航条的高度至整个屏幕的高度
-//            }
-//            else{
-//                $(".aside").height(el);         //否则的话把右边的内容高度设置成左边导航条的高度，也就是设为同高
-////            $("#all").height(el);         //这句话是我为了让整个页面缩小比列后不会造成变形，这是后面讨论的第二个问题
-//            }
-//        }),
 
             getTeacherData(){
                 let self = this;
@@ -110,35 +123,26 @@
             handleClose(key, keyPath) {
                 console.log(key, keyPath);
             },
-//            menu() {
-//                var nav = document.getElementsByClassName("aside")[0].getElementsByTagName("li");
-//                for(var i = 0;i <nav.length; i++){
-//                    nav[i].onclick = function () {
-//                        nav[i].style.backgroundColor = "red";
-//                    }
-//                }
-//            }
         },
         mounted() {
             this.getTeacherData();
         }
 
     }
-
-    $(document).ready(function(){
-        var he=$(window).height();          //获取窗口需要的高度
-        var el=$(".content").height();      //获取当前右边内容的高度
-        console.log(el);
-//        alert(he);
-        if(he>el)                           //如果右边的内容高度并没有超过窗口的高度，也就是说并没有产生滚动条的话
-        {
-            $(".aside").height(he);         //填充左边导航条的高度至整个屏幕的高度
-        }
-        else{
-            $(".aside").height(el);         //否则的话把右边的内容高度设置成左边导航条的高度，也就是设为同高
-//            $("#all").height(el);         //这句话是我为了让整个页面缩小比列后不会造成变形，这是后面讨论的第二个问题
-        }
-    });
+    //            $(document).ready(function(){
+    //            var he=$(window).height();          //获取窗口需要的高度
+    //            var el=$(".content").height();      //获取当前右边内容的高度
+    //            console.log(he);
+    //            alert(he);
+    //            if(he>el)                           //如果右边的内容高度并没有超过窗口的高度，也就是说并没有产生滚动条的话
+    //            {
+    //                $(".aside").height(he);         //填充左边导航条的高度至整个屏幕的高度
+    //            }
+    //            else{
+    //                $(".aside").height(el);         //否则的话把右边的内容高度设置成左边导航条的高度，也就是设为同高
+    ////            $("#all").height(el);         //这句话是我为了让整个页面缩小比列后不会造成变形，这是后面讨论的第二个问题
+    //            }
+    //        }),
 
 </script>
 
@@ -156,18 +160,17 @@
     .nav{
         width: 100%;
         height:35px;
-        /*background-color: plum;*/
     }
 
     .navLeft{
-        width: 12%;
+        width: 11%;
         height: 100%;
         float: left;
         text-align: center;
         background-color:rgb(0,125,113) ;
     }
     .navRight{
-        width: 88%;
+        width: 89%;
         height: 100%;
         float: right;
         color: white;
@@ -181,7 +184,6 @@
     }
     .loginName{
         width:17%;
-        /*height: 100%;*/
         float: right;
     }
     .loginName img{
@@ -189,28 +191,23 @@
         vertical-align:middle;
     }
     .aside{
-        width: 12%;
-        height: auto;
-        /*padding-bottom:107%;*/
+        width: 11%;
         color: white;
         float: left;
         background-color:rgb(34,45,50);
     }
+    .aside li{
+        width: 100%;
+    }
     .signIn img{
         width:22%;
         vertical-align:middle;
-        /*margin-top: 10px;*/
     }
     .signIn a{
         color: white;
     }
     .aside li{
-        /*height:55px;*/
-        text-align :center;
-        /*line-height: 60px;*/
-        /*background-color:rgb(34,45,50);*/
-        /*background-color: plum;*/
-        border-bottom: 0.5px solid gray;
+        text-align :left;
     }
     .aside li a{
         list-style: none;
@@ -221,11 +218,16 @@
     .el-col-12 {
         width: 100%;
     }
-    .aside .is-active {
-        background-color:#000 !important;
+   .el-menu-item{
+       /*text-align: left;*/
+   }
+    .el-menu-item-group__title{
+        display: none;
     }
-    /*.router-link-active {*/
-        /*!*text-color:#ffd04b;*!*/
-        /*color:#ffd04b !important;*/
-    /*}*/
+    .el-submenu__icon-arrow {
+        font-size: 16px;
+    }
+    .el-icon-arrow-down:before{
+        font-weight: 800;
+    }
 </style>

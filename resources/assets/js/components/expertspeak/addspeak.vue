@@ -6,8 +6,11 @@
             </el-form-item>
             <el-form-item label="专家级别">
                 <el-select v-model="form.le_expert_level" placeholder="请选择专家级别">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
+                    <el-option label="院士" value="1"></el-option>
+                    <el-option label="博导" value="2"></el-option>
+                    <el-option label="国务院学位委员会委员" value="3"></el-option>
+                    <el-option label="教授" value="4"></el-option>
+                    <el-option label="其他" value="5"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="报告名称">
@@ -60,8 +63,6 @@
         width: 80%;
         display: flex;
         margin-top: 20px;
-        /*margin-left: 130px;*/
-        /*background-color: plum;*/
     }
     /*组件*/
     .el-form{
@@ -74,7 +75,6 @@
     export default {
         data() {
             return {
-                input : '',
                 form: {
                     le_expert_name:'',
                     le_expert_level:'',
