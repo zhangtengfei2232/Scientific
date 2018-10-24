@@ -41,9 +41,9 @@ class AwardDatabase extends ModelDatabase
     public static function selectAllAwardDatas($teacher_id){
         $result =  DB::table('award')->where('teacher_id',$teacher_id)->get();
         foreach ($result as $datas){
-            $datas->aw_grant_time = date('Y-m-d',$datas->aw_grant_time);
+            $result->aw_grant_time = date('Y-m-d',$datas->aw_grant_time);
         }
-        return $datas;
+        return $result;
     }
     //查询获奖图片路径
     public static function selectAwardRoadDatas($aw_id){

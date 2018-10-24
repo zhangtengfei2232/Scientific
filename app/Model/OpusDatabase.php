@@ -44,9 +44,9 @@ class OpusDatabase  extends ModelDatabase
     public static function selectOpusAllDatas($teacher_id){
         $result = DB::table('opus')->wherew('teacher_id',$teacher_id)->get();
         foreach ($result as  $datas){
-            $datas->op_publish_time = date('Y-m-d', $datas->op_publish_time);
+            $result->op_publish_time = date('Y-m-d', $datas->op_publish_time);
         }
-        return $datas;
+        return $result;
     }
     //查找以前的著作封面和版权图片路径
     public static function selectOpusImageRoad($op_id,$update_image_status){

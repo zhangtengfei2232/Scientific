@@ -45,9 +45,9 @@ class ProjectDatabase extends ModelDatabase
     public static function selectAllProjectDatas($teacher_id){
       $result = DB::table('project')->where('teacher_id',$teacher_id)->get();
       foreach ($result as $datas){
-          $datas->project_year = date('Y-m-d',$datas->project_year);
+          $result->project_year = date('Y-m-d',$datas->project_year);
       }
-      return $datas;
+      return $result;
     }
     //修改老师项目和项目合同信息
     public static function updateProjectImage($datas){

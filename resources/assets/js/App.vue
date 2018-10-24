@@ -5,75 +5,65 @@
                 <img src="/dist/img/hist.png" alt="未加载">
             </div>
             <div class="navRight">
-                <!--<span><img src="/dist/img/sort.png" alt="未加载"></span>-->
                 <span>生命科技学院科研管理系统</span>
                 <div class="loginName">
-                    <img src="/dist/img/my.png" alt="未加载">
+                    <i class="el-icon-view"></i>
                     <span style="margin-right: 15px;">{{ teacherDate.name }}</span>
-                    <!--<span class="house">-->
-                    <span style="margin-left: 10px;">退出系统</span>
-                    <!--<img src="/dist/img/home.png" alt="未加载">-->
-                    <!--</span>-->
+                    <span style="margin-left: 10px;">退出系统</span><i class="el-icon-caret-right"></i>
                 </div>
             </div>
         </div>
         <div class="aside">
-            <!--<p class="signIn is-active"><router-link to="/"><img src="/dist/img/wang_light.png" alt=""><span>{{ teacherDate.name }}</span></router-link></p>-->
-            <el-col :span="12">
-                <el-menu
-                        default-active="1"
-                        class="el-menu-vertical-demo"
-                        @open="handleOpen"
-                        @close="handleClose"
-                        background-color="rgb(34,45,50)"
-                        text-color="#fff"
-                        active-text-color="#ffd04b">
-                    <el-menu-item index="1" class="signIn" style="height: 70px;">
-                        <router-link to="/" exact><img src="/dist/img/wang_light.png" alt="未加载">
-                        <span>{{ teacherDate.name }}</span></router-link>
-                    </el-menu-item>
-                    <el-menu-item index="2">
-                       <i class="el-icon-menu"></i>
-                        <span slot="title"><router-link to="/paper">论文</router-link></span>
-                    </el-menu-item>
-                    <el-menu-item index="3">
-                        <i class="el-icon-menu"></i>
-                       <span slot="title"><router-link to="/project">项目</router-link></span>
-                    </el-menu-item>
-                    <el-menu-item index="4">
-                        <i class="el-icon-document"></i>
-                        <span slot="title"><router-link to="/book">著作</router-link></span>
-                    </el-menu-item>
-                    <el-menu-item index="5">
+            <el-row class="tac">
+                <el-col :span="12">
+                    <el-menu
+                            :default-active="this.$router.path"
+                            background-color="rgb(34,45,50)"
+                            text-color="#fff"
+                            active-text-color="#ffd04b"
+                            default-active="1"
+                            class="el-menu-vertical-demo"
+                            @open="handleOpen"
+                            @close="handleClose"
+                            router>
+                        <el-menu-item index="/" class="signIn" style="height:70px;border-bottom:1px solid gray;font-size:17px;text-align: center">
+                        <img src="/dist/img/wang_light.png" alt="未加载">
+                        <span>{{teacherDate.name}}</span>
+                        </el-menu-item>
+
+                        <el-menu-item v-for="(item,i) in navList" :key="i" :index="item.name">
+                            <i :class="item.icon"></i>
+                            <span slot="title">{{ item.navItem }}</span>
+                        </el-menu-item>
+
+                        <el-menu-item index="/bearstudyjob" style="border-bottom:1px solid gray;">
+                            <i class="el-icon-message"></i>
+                            <span slot="title">担任学术团体职务</span>
+                        </el-menu-item>
+
+                        <el-menu-item index="9">
                         <i class="el-icon-setting"></i>
-                        <span slot="title"><router-link to="/award">获奖</router-link></span>
-                    </el-menu-item>
-                    <el-menu-item index="6">
-                        <i class="el-icon-menu"></i>
-                        <span slot="title"><router-link to="/patent">专利</router-link></span>
-                    </el-menu-item>
-                    <el-menu-item index="7">
-                        <i class="el-icon-menu"></i>
-                        <span slot="title"><router-link to="/appraisal">成果鉴定</router-link></span>
-                    </el-menu-item>
-                    <el-menu-item index="8">
-                        <i class="el-icon-document"></i>
-                        <span slot="title"><router-link to="/holdmeet">举办会议</router-link></span>
-                    </el-menu-item>
-                    <el-menu-item index="9">
-                        <i class="el-icon-setting"></i>
-                        <span slot="title"><router-link to="/joinmeet">参加会议</router-link></span>
-                    </el-menu-item>
-                    <el-menu-item index="10">
-                        <i class="el-icon-menu"></i>
-                        <span slot="title">专家讲学</span>
-                    </el-menu-item>
-                    <el-menu-item index="11">
-                        <i class="el-icon-menu"></i>
-                        <span slot="title">>担任学术团体职务</span>
-                    </el-menu-item>
-                </el-menu>
-            </el-col>
+                        <span slot="title">全局总览</span>
+                        </el-menu-item>
+
+
+                        <el-submenu index="1">
+                            <template slot="title">
+                                <i class="el-icon-menu"></i>
+                                <span>成果汇总</span>
+                            </template>
+                            <el-menu-item-group>
+                                <template slot="title">分组一</template>
+                                <el-menu-item index="1-1">选项1</el-menu-item>
+                                <el-menu-item index="1-2">选项2</el-menu-item>
+                                <el-menu-item index="1-3">选项3</el-menu-item>
+                                <el-menu-item index="1-4">选项4</el-menu-item>
+                            </el-menu-item-group>
+                        </el-submenu>
+
+                    </el-menu>
+                </el-col>
+            </el-row>
         </div>
         <router-view></router-view>
     </div>
@@ -84,6 +74,24 @@
             return {
                 teacherDate: {},
                 show: false,
+//                icon:[
+//                    {el-icon-picture},
+//
+//                ],
+                navList:[
+//                    {icon:'el-icon-picture',name:'/',navItem:'ft'},
+                    {icon:'el-icon-bell',name:'/paper',navItem:'学术论文'},
+                    {icon:'el-icon-tickets',name:'/project',navItem:'科研项目'},
+                    {icon:'el-icon-edit',name:'/book',navItem:'学术著作'},
+                    {icon:'el-icon-star-off',name:'/award',navItem:'获奖成果'},
+                    {icon:'el-icon-edit-outline',name:'/patent',navItem:'学术专利'},
+                    {icon:'el-icon-view',name:'/appraisal',navItem:'成果鉴定'},
+                    {icon:'el-icon-time',name:'/holdmeet',navItem:'举办会议'},
+                    {icon:'el-icon-edit-outline',name:'/joinmeet',navItem:'参加会议'},
+                    {icon:'el-icon-date',name:'/experteach',navItem:'专家讲学'},
+//                    {icon:'el-icon-news',name:'/bearstudyjob',navItem:'担任学术团体职务'},
+
+                ]
             }
         },
         methods: {
@@ -129,14 +137,14 @@
             handleClose(key, keyPath) {
                 console.log(key, keyPath);
             },
-            menu() {
-                var nav = document.getElementsByClassName("aside")[0].getElementsByTagName("li");
-                for(var i = 0;i <nav.length; i++){
-                    nav[i].onclick = function () {
-                        nav[i].style.backgroundColor = "red";
-                    }
-                }
-            }
+//            menu() {
+//                var nav = document.getElementsByClassName("aside")[0].getElementsByTagName("li");
+//                for(var i = 0;i <nav.length; i++){
+//                    nav[i].onclick = function () {
+//                        nav[i].style.backgroundColor = "red";
+//                    }
+//                }
+//            }
         },
         mounted() {
             this.getTeacherData();
@@ -179,14 +187,14 @@
     }
 
     .navLeft{
-        width: 12%;
+        width: 11%;
         height: 100%;
         float: left;
         text-align: center;
         background-color:rgb(0,125,113) ;
     }
     .navRight{
-        width: 88%;
+        width: 89%;
         height: 100%;
         float: right;
         color: white;
@@ -208,12 +216,18 @@
         vertical-align:middle;
     }
     .aside{
-        width: 12%;
-        height: auto;
-        /*padding-bottom:107%;*/
+        width: 11%;
+        /*height: auto;*/
+        /*position:absolute;*/
+        /*top:35px;*/
+        /*left:0;*/
+        /*bottom:0;*/
         color: white;
         float: left;
         background-color:rgb(34,45,50);
+    }
+    .aside li{
+        width: 100%;
     }
     .signIn img{
         width:22%;
@@ -225,11 +239,11 @@
     }
     .aside li{
         /*height:55px;*/
-        text-align :center;
+        text-align :left;
         /*line-height: 60px;*/
         /*background-color:rgb(34,45,50);*/
         /*background-color: plum;*/
-        border-bottom: 0.5px solid gray;
+        /*border-bottom: 0.5px solid gray;*/
     }
     .aside li a{
         list-style: none;
@@ -240,11 +254,19 @@
     .el-col-12 {
         width: 100%;
     }
-    /*.el-menu-item.is-active {*/
-        /*background-color:#000 !important;*/
-    /*}*/
-    .router-link-active {
-        /*text-color:#ffd04b;*/
-        color:#ffd04b !important;
+    .aside .is-active {
+        background-color:#000 !important;
+    }
+   .el-menu-item{
+       /*text-align: left;*/
+   }
+    .el-menu-item-group__title{
+        display: none;
+    }
+    .el-submenu__icon-arrow {
+        font-size: 16px;
+    }
+    .el-icon-arrow-down:before{
+        font-weight: 800;
     }
 </style>

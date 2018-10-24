@@ -144,13 +144,34 @@ export default new VueRouter({
                 path: '/selfJoinmeet',
                 component: resolve => void(require(['../components/joinmeet/selfJoinmeet.vue'], resolve))
             },
-            /*全局总览*/
+           // 专家讲学
             {
-                name: 'Glverview',
-                path: '/Glverview',
-                component: resolve => void(require(['../components/globalOverview/Glverview.vue'], resolve))
+                name: 'experteach',
+                path: '/experteach',
+                component: resolve => void(require(['../components/expertspeak/experteach.vue'], resolve))
             },
-            
+            {
+                name: 'addspeak',
+                path: '/addspeak',
+                component: resolve => void(require(['../components/expertspeak/addspeak.vue'], resolve))
+            },
+          // 担任学术团体职务
+            {
+                name: 'bearstudyjob',
+                path: '/bearstudyjob',
+                component: resolve => void(require(['../components/assumepost/bearstudyjob.vue'], resolve))
+            },
+            {
+                name: 'addutygroup',
+                path: '/addutygroup',
+                component: resolve => void(require(['../components/assumepost/addutygroup.vue'], resolve))
+            },
+           /*全局总览*/
+           {
+            name: 'Glverview',
+            path: '/Glverview',
+            component: resolve => void(require(['../components/globalOverview/Glverview.vue'], resolve))
+        },
       ]
 
 })
