@@ -18,7 +18,7 @@
             if (gettype($v) == 'object' || gettype($v) == 'array')
                 $e[$k] = (array)objectToArray($v);
         }
-     return $e;
+        return $e;
     }
     //数组转化为对象
     function arrayToObject($e){
@@ -274,12 +274,62 @@
         }
     }
     //验证参加会议字段
-    function judgeJoinmeetField(){
-
+    function judgeJoinmeetField($datas){
+        if(emptyarray($datas)){
+            return showMsg(1,'你输入的信息不完整');
+        }
+        if(strlen($datas->jo_name) > 50){
+            return showMsg(1,'你输入的会议名称过长');
+        }elseif (strlen($datas->jo_hold_unit) > 50){
+            return showMsg(1,'你输入的会议主办方单位名称过长');
+        }elseif (strlen($datas->jo_take_unit) > 50){
+            return showMsg(1,'你输入的会议承办方单位过长');
+        }elseif (strlen($datas->jo_place) > 50){
+            return showMsg(1,'你输入的会议地点名称过长');
+        }elseif (strlen($datas->jo_art_num) > 9
+                || is_numeric($datas->jo_art_num)){
+            return showMsg(1,'你输入的会议论文提交次数必须为数字且不超过9位');
+        }elseif (strlen($datas->jo_title) > 50){
+            return showMsg(1,'你输入的会议题目名称过长');
+        }
     }
     //验证讲学字段
-    function judgeLectureField(){
-
+    function judgeLectureField($datas){
+        if(emptyarray($datas)){
+            return showMsg(1,'你输入的信息不完整');
+        }
+        if(strlen($datas->le_expert_name) > 15){
+            return showMsg(1,'你输入的专家名字过长');
+        }elseif (strlen($datas->le_report_name) > 30){
+            return showMsg(1,'你输入的报告名称过长');
+        }elseif (strlen($datas->le_invite_unit) > 20){
+            return showMsg(1,'你输入的邀请单位名字过长');
+        }else{
+            return showMsg(0,'验证成功');
+        }
+    }
+    //验证担任团体职务字段
+    function judgeDutiesField($datas){
+        if(emptyarray($datas)){
+            return showMsg(1,'你输入的信息不完整');
+        }
+        if(strlen($datas->teacher_name) > 15){
+            return showMsg(1,'你输入的老师名字过长');
+        }elseif (strlen($datas->du_academic) > 10){
+            return showMsg(1,'你输入的职称名字过长');
+        }elseif (strlen($datas->du_age) > 9
+                 || is_numeric($datas->du_age)){
+            return showMsg(1,'你输入的年龄必须为数字且不超过9位');
+        }elseif (strlen($datas->du_name) > 50){
+            return showMsg(1,'你输入的担任学术团体名称过长');
+        }elseif (strlen($datas->du_duty) > 20){
+            return showMsg(1,'你输入的所任职务名称过长');
+        }elseif (strlen($datas->du_year_num) > 3
+                || is_numeric($datas->du_year_num)){
+            return showMsg(1,'你输入的担任年限必须为数字且不超过3位');
+        }else{
+            return showMsg(0,'验证通过');
+        }
     }
     //上传前先判断文件是否接收成功
     function judgeReceiveFiles($certificate_pdf){
@@ -292,9 +342,16 @@
        return showMsg(0);
     }
     //上传文件
-    function uploadFiles($subjection,$artical_file){
-        $originalName = $artical_file->getClientOriginalName();
-        $artical_file->storeAs($subjection,$originalName);
+    function uploadFiles($subjection,$files){
+        $fileTypes = array('jpg','png','jpeg');
+        $extension = $files->getClientOriginalExtension();
+        $isInFileType = in_array($extension,$fileTypes);
+        if($isInFileType){
+            $originalName = time();
+        }else{
+            $originalName = $files->getClientOriginalName();
+        }
+        $files->storeAs($subjection,$originalName);
         $certificate_road = $subjection.'/'.$originalName;
         return $certificate_road;
     }

@@ -79,7 +79,9 @@ class InformationController extends Controller
         if(!$request->isMethod('POST')){
             return showMsg(1,'你请求的方式不对');
         }
-
+        if(!$request->is_add_teacher){
+            return showMsg(1,'请你先添加老师信息');
+        }
         $status         = trim($request->reset_image_status);                 //老师修改证书的状态
         if($status == 1){
             $subjection     = uploadsubjectionconfig::GRADUCETION_IMG;
@@ -87,10 +89,6 @@ class InformationController extends Controller
         }else{
             $subjection     = uploadsubjectionconfig::EDUCATION_IMG;
             $certificate    = $request->file('education_image');       //接收证书图片
-        }
-        $is_add_teacher = trim($request->is_add_teacher);                     //是否添加老师
-        if(!$is_add_teacher){
-            return showMsg(1,'请你先添加老师信息');
         }
         $response = judgeFileImage($certificate);                             //判断文件是否合法
         if($response->code == 1){

@@ -19,9 +19,9 @@ class ArticalDatabase  extends ModelDatabase
      public static function selectAllArticalDatas($teacher_id){
          $result = DB::table('artical')->where('teacher_id',$teacher_id)->get();
          foreach ($result as  $datas){
-             $datas->art_time = date('Y-m-d',$datas->art_time);
+             $result->art_time = date('Y-m-d',$datas->art_time);
          }
-         return $datas;
+         return $result;
      }
      //添加个人论文信息
      public static function addArticalDatas($datas){
