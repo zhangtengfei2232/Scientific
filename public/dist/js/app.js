@@ -307,7 +307,7 @@ exports = module.exports = __webpack_require__(25)(false);
 
 
 // module
-exports.push([module.i, "\n*,ul,li,a{\n     margin: 0;\n     padding: 0;\n     text-decoration: none;\n     list-style: none;\n}\nbody, html{\n     width: 100%;\n     height: 100%;\n}\n.nav{\n     width: 100%;\n     height:35px;\n     /*background-color: plum;*/\n}\n.navLeft{\n     width: 11%;\n     height: 100%;\n     float: left;\n     text-align: center;\n     background-color:rgb(0,125,113) ;\n}\n.navRight{\n     width: 89%;\n     height: 100%;\n     float: right;\n     color: white;\n     text-align: center;\n     line-height:31px;\n     background-color: rgb(0,150,136);\n}\n.navLeft img{\n     width: 11%;\n     margin-top: 5px;\n}\n.loginName{\n     width:17%;\n     /*height: 100%;*/\n     float: right;\n}\n.loginName img{\n     width:8%;\n     vertical-align:middle;\n}\n.aside{\n     width: 11%;\n     /*height: auto;*/\n     /*position:absolute;*/\n     /*top:35px;*/\n     /*left:0;*/\n     /*bottom:0;*/\n     color: white;\n     float: left;\n     background-color:rgb(34,45,50);\n}\n.aside li{\n     width: 100%;\n}\n.signIn img{\n     width:22%;\n     vertical-align:middle;\n     /*margin-top: 10px;*/\n}\n.signIn a{\n     color: white;\n}\n.aside li{\n     /*height:55px;*/\n     text-align :left;\n     /*line-height: 60px;*/\n     /*background-color:rgb(34,45,50);*/\n     /*background-color: plum;*/\n     /*border-bottom: 0.5px solid gray;*/\n}\n.aside li a{\n     list-style: none;\n     color: white;\n     text-decoration: none;\n}\n /*组件*/\n.el-col-12 {\n     width: 100%;\n}\n.aside .is-active {\n     background-color:#000 !important;\n}\n.el-menu-item{\n    /*text-align: left;*/\n}\n.el-menu-item-group__title{\n     display: none;\n}\n.el-submenu__icon-arrow {\n     font-size: 16px;\n}\n.el-icon-arrow-down:before{\n     font-weight: 800;\n}\n", ""]);
+exports.push([module.i, "\n*,ul,li,a{\n     margin: 0;\n     padding: 0;\n     text-decoration: none;\n     list-style: none;\n}\nbody, html{\n     width: 100%;\n     height: 100%;\n}\n.nav{\n     width: 100%;\n     height:35px;\n}\n.navLeft{\n     width: 11%;\n     height: 100%;\n     float: left;\n     text-align: center;\n     background-color:rgb(0,125,113) ;\n}\n.navRight{\n     width: 89%;\n     height: 100%;\n     float: right;\n     color: white;\n     text-align: center;\n     line-height:31px;\n     background-color: rgb(0,150,136);\n}\n.navLeft img{\n     width: 11%;\n     margin-top: 5px;\n}\n.loginName{\n     width:17%;\n     float: right;\n}\n.loginName img{\n     width:8%;\n     vertical-align:middle;\n}\n.aside{\n     width: 11%;\n     color: white;\n     float: left;\n     background-color:rgb(34,45,50);\n}\n.aside li{\n     width: 100%;\n}\n.signIn img{\n     width:22%;\n     vertical-align:middle;\n}\n.signIn a{\n     color: white;\n}\n.aside li{\n     text-align :left;\n}\n.aside li a{\n     list-style: none;\n     color: white;\n     text-decoration: none;\n}\n /*组件*/\n.el-col-12 {\n     width: 100%;\n}\n.el-menu-item{\n    /*text-align: left;*/\n}\n.el-menu-item-group__title{\n     display: none;\n}\n.el-submenu__icon-arrow {\n     font-size: 16px;\n}\n.el-icon-arrow-down:before{\n     font-weight: 800;\n}\n", ""]);
 
 // exports
 
@@ -438,10 +438,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return {
             teacherDate: {},
             show: false,
-            //                icon:[
-            //                    {el-icon-picture},
-            //
-            //                ],
             navList: [
             //                    {icon:'el-icon-picture',name:'/',navItem:'ft'},
             { icon: 'el-icon-bell', name: '/paper', navItem: '学术论文' }, { icon: 'el-icon-tickets', name: '/project', navItem: '科研项目' }, { icon: 'el-icon-edit', name: '/book', navItem: '学术著作' }, { icon: 'el-icon-star-off', name: '/award', navItem: '获奖成果' }, { icon: 'el-icon-edit-outline', name: '/patent', navItem: '学术专利' }, { icon: 'el-icon-view', name: '/appraisal', navItem: '成果鉴定' }, { icon: 'el-icon-time', name: '/holdmeet', navItem: '举办会议' }, { icon: 'el-icon-edit-outline', name: '/joinmeet', navItem: '参加会议' }, { icon: 'el-icon-date', name: '/experteach', navItem: '专家讲学' }]
@@ -489,20 +485,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }), _methods),
     mounted: function mounted() {
         this.getTeacherData();
-    }
-});
-
-$(document).ready(function () {
-    var he = $(window).height(); //获取窗口需要的高度
-    var el = $(".content").height(); //获取当前右边内容的高度
-    console.log(el);
-    //        alert(he);
-    if (he > el) //如果右边的内容高度并没有超过窗口的高度，也就是说并没有产生滚动条的话
-        {
-            $(".aside").height(he); //填充左边导航条的高度至整个屏幕的高度
-        } else {
-        $(".aside").height(el); //否则的话把右边的内容高度设置成左边导航条的高度，也就是设为同高
-        //            $("#all").height(el);         //这句话是我为了让整个页面缩小比列后不会造成变形，这是后面讨论的第二个问题
     }
 });
 

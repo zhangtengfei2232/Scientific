@@ -79,10 +79,6 @@
             return {
                 teacherDate: {},
                 show: false,
-//                icon:[
-//                    {el-icon-picture},
-//
-//                ],
                 navList:[
 //                    {icon:'el-icon-picture',name:'/',navItem:'ft'},
                     {icon:'el-icon-bell',name:'/paper',navItem:'学术论文'},
@@ -94,7 +90,6 @@
                     {icon:'el-icon-time',name:'/holdmeet',navItem:'举办会议'},
                     {icon:'el-icon-edit-outline',name:'/joinmeet',navItem:'参加会议'},
                     {icon:'el-icon-date',name:'/experteach',navItem:'专家讲学'},
-//                    {icon:'el-icon-news',name:'/bearstudyjob',navItem:'担任学术团体职务'},
 
                 ]
             }
@@ -142,35 +137,12 @@
             handleClose(key, keyPath) {
                 console.log(key, keyPath);
             },
-//            menu() {
-//                var nav = document.getElementsByClassName("aside")[0].getElementsByTagName("li");
-//                for(var i = 0;i <nav.length; i++){
-//                    nav[i].onclick = function () {
-//                        nav[i].style.backgroundColor = "red";
-//                    }
-//                }
-//            }
         },
         mounted() {
             this.getTeacherData();
         }
 
     }
-
-    $(document).ready(function(){
-        var he=$(window).height();          //获取窗口需要的高度
-        var el=$(".content").height();      //获取当前右边内容的高度
-        console.log(el);
-//        alert(he);
-        if(he>el)                           //如果右边的内容高度并没有超过窗口的高度，也就是说并没有产生滚动条的话
-        {
-            $(".aside").height(he);         //填充左边导航条的高度至整个屏幕的高度
-        }
-        else{
-            $(".aside").height(el);         //否则的话把右边的内容高度设置成左边导航条的高度，也就是设为同高
-//            $("#all").height(el);         //这句话是我为了让整个页面缩小比列后不会造成变形，这是后面讨论的第二个问题
-        }
-    });
 
 </script>
 
@@ -188,7 +160,6 @@
     .nav{
         width: 100%;
         height:35px;
-        /*background-color: plum;*/
     }
 
     .navLeft{
@@ -213,7 +184,6 @@
     }
     .loginName{
         width:17%;
-        /*height: 100%;*/
         float: right;
     }
     .loginName img{
@@ -222,11 +192,6 @@
     }
     .aside{
         width: 11%;
-        /*height: auto;*/
-        /*position:absolute;*/
-        /*top:35px;*/
-        /*left:0;*/
-        /*bottom:0;*/
         color: white;
         float: left;
         background-color:rgb(34,45,50);
@@ -237,18 +202,12 @@
     .signIn img{
         width:22%;
         vertical-align:middle;
-        /*margin-top: 10px;*/
     }
     .signIn a{
         color: white;
     }
     .aside li{
-        /*height:55px;*/
         text-align :left;
-        /*line-height: 60px;*/
-        /*background-color:rgb(34,45,50);*/
-        /*background-color: plum;*/
-        /*border-bottom: 0.5px solid gray;*/
     }
     .aside li a{
         list-style: none;
@@ -258,9 +217,6 @@
     /*组件*/
     .el-col-12 {
         width: 100%;
-    }
-    .aside .is-active {
-        background-color:#000 !important;
     }
    .el-menu-item{
        /*text-align: left;*/

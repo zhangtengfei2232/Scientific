@@ -84,8 +84,6 @@
         width: 80%;
         display: flex;
         margin-top: 20px;
-        /*margin-left: 130px;*/
-        /*background-color: plum;*/
     }
     /*组件*/
     .el-form{
@@ -98,30 +96,30 @@
     export default {
         data() {
             return {
-                form: {
-                    expertname:'',
-                    level:'',
 
-                    du_academic:'',
-                    du_education:'',
-                    du_degree:'',
-                    du_age:'',
-                    du_name:'',
-                    du_duty:'',
+                form: {
+                    du_academic: '',
+                    du_education: '',
+                    du_degree: '',
+                    du_age: '',
+                    du_name: '',
+                    du_duty: '',
                     du_year_num: '',
-                    data1:'',
+                    data1: '',
                     date2: '',
                     delivery: false,
                     type: [],
                     desc: '',
-//                    radio: '1'
                 }
             }
         },
-        methods: {
-            onSubmit() {
-                console.log('submit!');
+        methods:
+            {
+                onSubmit()
+                {
+                    console.log('submit!');
+                }
             }
         }
-    }
+
 </script>
