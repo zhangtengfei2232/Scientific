@@ -156,7 +156,7 @@ class JoinmeetController  extends Controller
        return JoinmeetDatas::updateJoinmeetDatas($datas);
     }
     //修改会议图注信息
-    public function updateJoinmeetImage(Request $request){
+    public function updateJoinmeetinject(Request $request){
         if(!$request->isMethod('POST')){
             return showMsg(1,'你请求的方式不对');
         }
