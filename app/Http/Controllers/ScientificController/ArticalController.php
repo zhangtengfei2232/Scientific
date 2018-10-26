@@ -24,7 +24,7 @@ class ArticalController extends Controller
          }
          $judge_sci     = judgeReceiveFiles($artical_sci);                   //验证论文SCI
          if($judge_sci->code == 1){
-             return showMsg(1,'论文SCI索引'.$judge_sci);
+             return showMsg(1,'论文SCI索引报告'.$judge_sci);
          }
          $teacher_id = session('usercount');
          $datas = [
