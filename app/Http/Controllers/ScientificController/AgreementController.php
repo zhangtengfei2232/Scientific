@@ -4,7 +4,7 @@ namespace App\Http\Controllers\ScientificController;
 
 use App\Http\Controllers\Controller;
 use App\Model\AgreementDatabase;
-use config\uploadSubjectionConfig;
+use config\UploadSubjectionConfig;
 use Illuminate\Http\Request;
 
 class AgreementController extends Controller
@@ -28,13 +28,15 @@ class AgreementController extends Controller
         if($judge_datas->code == 1){
             return $judge_datas;
         }
-        $add_agreement_raod  = uploadFiles(uploadSubjectionConfig::AGREEMENT_PDF,$agreement_pdf);
-        $datas['agree_road'] = $add_agreement_raod;
-        $add_agreement = AgreementDatabase::addAgreementDatas($datas);
+        $disk = UploadSubjectionConfig::APPRAISAL;
+        $subjection_appraisal = UploadSubjectionConfig::AGREEMENT_PDF;
+        $add_agreement_raod   = uploadFiles($subjection_appraisal,$agreement_pdf,$disk);
+        $datas['agree_road']  = $add_agreement_raod;
+        $add_agreement        = AgreementDatabase::addAgreementDatas($datas);
         if($add_agreement){
             return showMsg(0,'添加教学科研合作协议成功');
         }
-        deletefiles(uploadSubjectionConfig::AGREEMENT,$add_agreement_raod);
+        deletefiles($disk,$add_agreement_raod);
         return showMsg(1,'添加教学科研合作协议失败');
     }
     //删除单个教学科研合作协议信息

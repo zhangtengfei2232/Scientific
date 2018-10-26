@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\ImageDatas;
 use App\Model\JoinmeetDatas;
-use config\uploadSubjectionConfig;
+use config\UploadSubjectionConfig;
 class JoinmeetController  extends Controller
 {
     //添加参加会议信息
@@ -46,12 +46,15 @@ class JoinmeetController  extends Controller
         if($judge_inject->code == 1){
             return $judge_inject;
         }
+        $disk                = UploadSubjectionConfig::JOIN_MEET;
+        $subjection_joinmeet = UploadSubjectionConfig::JOIN_INJECTION;
         $jo_id = $request->jo_id;
-        $new_inject_road = uploadFiles(uploadSubjectionConfig::JOIN_INJECTION,$judge_inject);
-        $add_inject      = JoinmeetDatas::updateJoinmeetInjectRoad($jo_id,$new_inject_road);
+        $new_inject_road     = uploadFiles($subjection_joinmeet,$judge_inject,$disk);
+        $add_inject          = JoinmeetDatas::updateJoinmeetInjectRoad($jo_id,$new_inject_road);
         if($add_inject){
             return showMsg(0,'添加参加会议图注成功');
         }
+        deletefiles($disk,$new_inject_road);
         return showMsg(1,'添加会议图注失败');
     }
     //添加会议图片
@@ -68,11 +71,12 @@ class JoinmeetController  extends Controller
         if($judge_images->code == 1){
             $validate = false;
         }
+        $disk = UploadSubjectionConfig::JOIN_MEET;
         $success_images = $judge_images['success_images'];
-        $subjection     = uploadSubjectionConfig::JOIN_IMG;
+        $subjection     = UploadSubjectionConfig::JOIN_IMG;
         $ho_id          = $request->ho_id;
-        $all_image_road = uploadAllImgs($subjection,$success_images);
-        $image_status   = uploadSubjectionConfig::JOIN_IMG_STATUS;
+        $all_image_road = uploadAllImgs($subjection,$success_images,$disk);
+        $image_status   = UploadSubjectionConfig::JOIN_IMG_STATUS;
         $add_images     = ImageDatas::addImagesDatas($all_image_road,$ho_id,$image_status);
         if($validate && $add_images->code == 0){
             return showMsg(0,'全部图片添加成功');
@@ -88,7 +92,6 @@ class JoinmeetController  extends Controller
                 //取出添加数据库失败的图片路径
                 $delete_fail_images[$i] = $all_image_road[$index];//添加失败的图片路径数组
             }
-            $disk = uploadSubjectionConfig::JOIN_MEET;
             deleteAllImgs($disk,$delete_fail_images);
             $response['fail_images'] = $fail_images;
         }
@@ -165,11 +168,12 @@ class JoinmeetController  extends Controller
         if($judge_inject->code == 1){
             return $judge_inject;
         }
-        $disk              = uploadSubjectionConfig::JOIN_MEET;
-        $jo_id             = $request->jo_id;
-        $old_inject_road   = JoinmeetDatas::selectJoinmeetInjectRoad($jo_id);
-        $new_inject_road   = uploadFiles(uploadSubjectionConfig::JOIN_INJECTION,$update_inject);
-        $reset_inject_raod = JoinmeetDatas::updateJoinmeetInjectRoad($jo_id,$new_inject_road);
+        $disk                = UploadSubjectionConfig::JOIN_MEET;
+        $subjection_joinmeet = UploadSubjectionConfig::JOIN_INJECTION;
+        $jo_id               = $request->jo_id;
+        $old_inject_road     = JoinmeetDatas::selectJoinmeetInjectRoad($jo_id);
+        $new_inject_road     = UploadFiles($subjection_joinmeet,$update_inject,$disk);
+        $reset_inject_raod   = JoinmeetDatas::updateJoinmeetInjectRoad($jo_id,$new_inject_road);
         if($reset_inject_raod){
             deletefiles($disk,$old_inject_road);
             return showMsg(0,'修改参加会议图注成功');

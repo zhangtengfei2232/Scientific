@@ -4,7 +4,7 @@ namespace App\Http\Controllers\ScientificController;
 
 use App\Http\Controllers\Controller;
 use App\Model\SchoolfileDatabase;
-use config\uploadSubjectionConfig;
+use config\UploadSubjectionConfig;
 use Illuminate\Http\Request;
 class SchoolfileController extends Controller
 {
@@ -27,13 +27,15 @@ class SchoolfileController extends Controller
         if($judge_schoolfile->code == 1){
             return $judge_schoolfile;
         }
-        $add_schoolfile_road = uploadFiles(uploadSubjectionConfig::SCHOOL_FILE_PDF,$schoolfile_pdf);
+        $disk                  = UploadSubjectionConfig::SCHOOL_FILE;
+        $subjection_shoolfile  = UploadSubjectionConfig::SCHOOL_FILE_PDF;
+        $add_schoolfile_road   = uploadFiles($subjection_shoolfile,$schoolfile_pdf,$disk);
         $datas['schfile_road'] = $add_schoolfile_road;
-        $add_schoolfile = SchoolfileDatabase::addSchoolfileDatas($datas);
+        $add_schoolfile        = SchoolfileDatabase::addSchoolfileDatas($datas);
         if($add_schoolfile){
             return showMsg(0,'上传校发文件成功');
         }
-        deletefiles(uploadSubjectionConfig::SCHOOL_FILE,$add_schoolfile_road);
+        deletefiles($disk,$add_schoolfile_road);
         return showMsg(1,'上传校发文件失败');
     }
     //删除单个校发文件
@@ -42,7 +44,7 @@ class SchoolfileController extends Controller
         $schoolfile_road   = SchoolfileDatabase::selectSchoolfileRoad($shcoolfile_id);
         $delete_schoolfile = SchoolfileDatabase::deleteSchoolfileDatas($shcoolfile_id);
         if($delete_schoolfile){
-            deletefiles(uploadSubjectionConfig::SCHOOL_FILE,$schoolfile_road);
+            deletefiles(UploadSubjectionConfig::SCHOOL_FILE,$schoolfile_road);
             return showMsg(0,'删除校发文件成功');
         }
         return showMsg(1,'删除校发文件失败');
@@ -91,9 +93,10 @@ class SchoolfileController extends Controller
             return $judge_schoolfile_pdf;
         }
         $old_schoolfile_road = SchoolfileDatabase::selectSchoolfileRoad($schfile_id);
-        $new_schoolfile_road = uploadFiles(uploadSubjectionConfig::SCHOOL_FILE_PDF,$shcoolfile_pdf);
+        $disk = UploadSubjectionConfig::SCHOOL_FILE;
+        $subjection_shoolfile  = UploadSubjectionConfig::SCHOOL_FILE_PDF;
+        $new_schoolfile_road = uploadFiles($subjection_shoolfile,$shcoolfile_pdf,$disk);
         $datas['schfile_road'] = $new_schoolfile_road;
-        $disk = uploadSubjectionConfig::SCHOOL_FILE;
         $update_schoolfile = SchoolfileDatabase::updateSchoolfileDatas($datas);
         if($update_schoolfile){
             deletefiles($disk,$old_schoolfile_road);

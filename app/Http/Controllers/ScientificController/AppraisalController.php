@@ -5,7 +5,7 @@ namespace App\Http\Controllers\ScientificController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\AppraisalDatabase;
-use config\uploadSubjectionConfig;
+use config\UploadSubjectionConfig;
 class AppraisalController extends Controller
 {
     //添加成果鉴定
@@ -42,23 +42,24 @@ class AppraisalController extends Controller
          }
          $add_image_status = $request->add_image_status;
          if($add_image_status == 1){
-             $subjection       = uploadSubjectionConfig::APPRAISAL_IMG;
+             $subjection       = UploadSubjectionConfig::APPRAISAL_IMG;
              $appraisal_image  = $request->file('ap_image');
          }else{
-             $subjection       = uploadSubjectionConfig::APPRAISAL_COVER_IMG;
+             $subjection       = UploadSubjectionConfig::APPRAISAL_COVER_IMG;
              $appraisal_image  = $request->file('ap_cover_image');
          }
          $judge_image = judgeFileImage($appraisal_image);
          if($judge_image->code == 1){
              return $judge_image;
          }
+         $disk      = UploadSubjectionConfig::APPRAISAL;
          $ap_id     = $request->ap_id;
-         $new_image_road = uploadFiles($subjection,$appraisal_image);
+         $new_image_road = uploadFiles($subjection,$appraisal_image,$disk);
          $add_image = AppraisalDatabase::updateAppraisalImageDatas($new_image_road,$add_image_status,$ap_id);
          if($add_image){
              return showMsg(0,'上传图片成功');
          }
-         deletefiles(uploadSubjectionConfig::APPRAISAL,$new_image_road);
+         deletefiles($disk,$new_image_road);
          return showMsg(1,'上传图片失败');
     }
     //删除单个鉴定成果信息
@@ -111,19 +112,19 @@ class AppraisalController extends Controller
         $update_image_status = $request->update_image_status;
         if($update_image_status == 1){
             $appraisal_image = $request->file('ap_image');
-            $subjection      = uploadSubjectionConfig::APPRAISAL_IMG;
+            $subjection      = UploadSubjectionConfig::APPRAISAL_IMG;
         }else{
             $appraisal_image = $request->file('ap_cover_image');
-            $subjection      = uploadSubjectionConfig::APPRAISAL_COVER_IMG;
+            $subjection      = UploadSubjectionConfig::APPRAISAL_COVER_IMG;
         }
         $judge_image         = judgeFileImage($appraisal_image);
         if($judge_image->code == 1){
             return $judge_image;
         }
         $ap_id          = $request->ap_id;
-        $disk           = uploadSubjectionConfig::APPRAISAL;
+        $disk           = UploadSubjectionConfig::APPRAISAL;
         $old_image_road = AppraisalDatabase::selectAppraisalImageRoad($ap_id,$update_image_status);
-        $new_image_road = uploadFiles($subjection,$appraisal_image);
+        $new_image_road = uploadFiles($subjection,$appraisal_image,$disk);
         $reset_image    = AppraisalDatabase::updateAppraisalImageDatas($new_image_road,$update_image_status,$ap_id);
         if($reset_image){
             deletefiles($disk,$old_image_road);

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\ScientificController;
 use App\Http\Controllers\Controller;
 use App\Model\ProjectDatabase;
 use Illuminate\Http\Request;
-use config\uploadSubjectionConfig;
+use config\UploadSubjectionConfig;
 class ProjectController extends Controller
 {
     //添加项目信息
@@ -40,9 +40,10 @@ class ProjectController extends Controller
         if($judge_project_image->code == 1){
             return $judge_project_image;
         }
-        $disk = uploadSubjectionConfig::PROJECT;
+        $disk = UploadSubjectionConfig::PROJECT;
+        $subjection_project = UploadSubjectionConfig::PROJECT_IMG;
         ProjectDatabase::beginTraction();
-        $project_iamge_road = uploadFiles(uploadSubjectionConfig::PROJECT_IMG,$project_image);
+        $project_iamge_road = uploadFiles($subjection_project,$project_image,$disk);
         $datas['pro_road']  = $project_iamge_road;
         $add_project = ProjectDatabase::addProjectDatas($datas);
         if(!$add_project){
@@ -109,12 +110,13 @@ class ProjectController extends Controller
         if($judge_project_img->code == 1){
             return $judge_project_img;
         }
+        $disk               = UploadSubjectionConfig::PROJECT;
+        $subjection_project = UploadSubjectionConfig::PROJECT_IMG;
         ProjectDatabase::beginTraction();
-        $old_image_road = ProjectDatabase::selectImageRoad($project_id);
-        $new_image_road = uploadFiles(uploadSubjectionConfig::PROJECT_IMG,$project_image);
+        $old_image_road    = ProjectDatabase::selectImageRoad($project_id);
+        $new_image_road    = uploadFiles($subjection_project,$project_image,$disk);
         $datas['pro_road'] = $new_image_road;
-        $reset_project  = ProjectDatabase::updateProjectImage($datas);
-        $disk           = uploadSubjectionConfig::PROJECT;
+        $reset_project     = ProjectDatabase::updateProjectImage($datas);
         if(!$reset_project){
             ProjectDatabase::rollback();
             deletefiles($disk,$new_image_road);

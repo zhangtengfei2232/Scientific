@@ -16,13 +16,13 @@ class ArticalController extends Controller
           if(!$request->isMethod('POST')){
               return showMsg(1,'你请求的方式不对');
           }
-         $artical_file  = $request->file('pdf');                    //接论文文件
-         $artical_sci   = $request->file('sci');                    //接收sci索引报告
-         $judge_artical = judgeReceiveFiles($artical_file);              //验证论文
+         $artical_file  = $request->file('art_pdf');                     //接论文文件
+         $artical_sci   = $request->file('art_sci');                     //接收sci索引报告
+         $judge_artical = judgeReceiveFiles($artical_file);                   //验证论文
          if($judge_artical->code == 1){
              return showMsg(1,'论文'.$judge_artical);
          }
-         $judge_sci     = judgeReceiveFiles($artical_sci);               //验证论文SCI
+         $judge_sci     = judgeReceiveFiles($artical_sci);                   //验证论文SCI
          if($judge_sci->code == 1){
              return showMsg(1,'论文SCI索引'.$judge_sci);
          }

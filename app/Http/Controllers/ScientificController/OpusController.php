@@ -4,7 +4,7 @@ namespace App\Http\Controllers\ScientificController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\OpusDatabase;
-use config\uploadSubjectionConfig;
+use config\UploadSubjectionConfig;
 class OpusController  extends Controller
 {
     //添加著作信息
@@ -47,23 +47,23 @@ class OpusController  extends Controller
         $add_image_status = $request->add_image_status;
         if($add_image_status == 1){
             $opus_image = $request->file('op_cover_image');
-            $subjection = uploadSubjectionConfig::OPUS_COVER_IMG;
+            $subjection = UploadSubjectionConfig::OPUS_COVER_IMG;
         }else{
             $opus_image = $request->file('op_coright_image');
-            $subjection = uploadSubjectionConfig::COPYRIGHT_IMG;
+            $subjection = UploadSubjectionConfig::COPYRIGHT_IMG;
         }
         $judge_opu_iamge  = judgeFileImage($opus_image);
         if($judge_opu_iamge->code == 1){
             return $judge_opu_iamge;
         }
         if($add_image_status == 1){
-            $subjection   = uploadSubjectionConfig::OPUS_COVER_IMG;
+            $subjection   = UploadSubjectionConfig::OPUS_COVER_IMG;
         }elseif ($add_image_status == 2){
-            $subjection   = uploadSubjectionConfig::COPYRIGHT_IMG;
+            $subjection   = UploadSubjectionConfig::COPYRIGHT_IMG;
         }
         $op_id       = $request->op_id;
-        $disk        = uploadSubjectionConfig::OPUS;
-        $new_image_road = uploadFiles($subjection,$opus_image);
+        $disk        = UploadSubjectionConfig::OPUS;
+        $new_image_road = uploadFiles($subjection,$opus_image,$disk);
         $add_image      = OpusDatabase::updateImageDatas($new_image_road,$add_image_status,$op_id);
         if($add_image){
             return showMsg(0,'上传图片成功');
@@ -133,19 +133,19 @@ class OpusController  extends Controller
         $update_image_status = $request->update_image_status;
         if($update_image_status == 1){
             $opus_image = $request->file('op_cover_image');
-            $subjection = uploadSubjectionConfig::OPUS_COVER_IMG;
+            $subjection = UploadSubjectionConfig::OPUS_COVER_IMG;
         }else{
             $opus_image = $request->file('op_coright_image');
-            $subjection = uploadSubjectionConfig::COPYRIGHT_IMG;
+            $subjection = UploadSubjectionConfig::COPYRIGHT_IMG;
         }
         $response       = judgeFileImage($opus_image);
         if($response->code == 1){
             return $response;
         }
-        $disk = uploadSubjectionConfig::OPUS;
+        $disk = UploadSubjectionConfig::OPUS;
         $old_image_road = OpusDatabase::selectOpusImageRoad($op_id,$update_image_status);
         OpusDatabase::beginTraction();
-        $new_image_road = uploadFiles($subjection,$opus_image);
+        $new_image_road = uploadFiles($subjection,$opus_image,$disk);
         $reset_image    = OpusDatabase::updateImageDatas($new_image_road,$update_image_status,$op_id);
         if(!$reset_image){
             OpusDatabase::rollback();

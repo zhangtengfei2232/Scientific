@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\LectureDatabase;
 use App\Model\ImageDatas;
-use config\uploadSubjectionConfig;
+use config\UploadSubjectionConfig;
 class LectureController extends Controller
 {
      //添加专家讲学信息
@@ -42,13 +42,15 @@ class LectureController extends Controller
          if($judge_inject->code == 1){
              return $judge_inject;
          }
+         $disk  = UploadSubjectionConfig::LECTURE;
+         $subjection_lecture = UploadSubjectionConfig::LECTURE_INJECTION;
          $le_id = $request->le_id;
-         $new_inject_road = uploadFiles(uploadSubjectionConfig::LECTURE_INJECTION,$lecture_inject);
+         $new_inject_road = uploadFiles($subjection_lecture,$lecture_inject,$disk);
          $add_inject      = LectureDatabase::updateLectureInjectRoad($le_id,$new_inject_road);
          if($add_inject){
              return showMsg(0,'添加会议图注成功');
          }
-         deletefiles(uploadSubjectionConfig::LECTURE,$new_inject_road);
+         deletefiles($disk,$new_inject_road);
          return showMsg(1,'添加会议图注失败');
 
      }
@@ -66,11 +68,12 @@ class LectureController extends Controller
          if($judge_images->code == 1){
              $validate = false;
          }
+         $disk = UploadSubjectionConfig::LECTURE;
          $success_images  = $judge_images['success_images'];
-         $subjection      = uploadSubjectionConfig::LECTURE_IMG;
+         $subjection      = UploadSubjectionConfig::LECTURE_IMG;
          $le_id           = $request->le_id;
-         $all_images_road = uploadAllImgs($subjection,$success_images);
-         $images_status   = uploadSubjectionConfig::LECTURE_IMG_STATUS;
+         $all_images_road = uploadAllImgs($subjection,$success_images,$disk);
+         $images_status   = UploadSubjectionConfig::LECTURE_IMG_STATUS;
          $add_images      = ImageDatas::addImagesDatas($all_images_road,$le_id,$images_status);
          if($validate && $add_images->code == 1){
              return showMsg(0,'全部图片添加成功');
@@ -86,7 +89,6 @@ class LectureController extends Controller
                  //取出添加数据库失败的图片路径
                  $delete_fail_images[$i] = $all_images_road[$index];//添加失败的图片路径数组
              }
-             $disk = uploadSubjectionConfig::LECTURE;
              deleteAllImgs($disk,$delete_fail_images);
              $response['fail_images'] = $fail_images;
          }
@@ -165,10 +167,11 @@ class LectureController extends Controller
              return $judge_inject;
          }
          $le_id = $request->le_id;
-         $old_inject_road   = LectureDatabase::selectLectureInject($le_id);
-         $disk              = uploadSubjectionConfig::LECTURE;
-         $new_inject_road   = uploadFiles(uploadSubjectionConfig::LECTURE_INJECTION,$update_inject);
-         $reset_inject_road = LectureDatabase::updateLectureInjectRoad($le_id,$new_inject_road);
+         $old_inject_road    = LectureDatabase::selectLectureInject($le_id);
+         $disk               = UploadSubjectionConfig::LECTURE;
+         $subjection_lecture = uploadSubjectionConfig::LECTURE_INJECTION;
+         $new_inject_road    = uploadFiles($subjection_lecture,$update_inject,$disk);
+         $reset_inject_road  = LectureDatabase::updateLectureInjectRoad($le_id,$new_inject_road);
          if($reset_inject_road){
              deletefiles($disk,$old_inject_road);
              return showMsg(0,'修改讲学图注成功');

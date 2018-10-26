@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\ScientificController;
 
 use App\Http\Controllers\Controller;
-use config\uploadSubjectionConfig;
+use config\UploadSubjectionConfig;
 use Illuminate\Http\Request;
 use App\Model\DutiesDatabase;
 class DutiesController extends Controller
@@ -29,6 +29,7 @@ class DutiesController extends Controller
         if($judge_datas->code == 1){
             return $judge_datas;
         }
+        $disk = UploadSubjectionConfig::DUTIES;
         if(!$request->is_add_images){             //判断用户是否添加证书
             $datas['du_road'] = '';
             $add_duties = DutiesDatabase::addDutiesDatas($datas);
@@ -38,14 +39,15 @@ class DutiesController extends Controller
             if($judge_image->code == 1){
                 return $judge_image;
             }
-            $add_image_road   = uploadFiles(uploadSubjectionConfig::DUTIES_IMG,$duties_image);
-            $datas['du_road'] = $add_image_road;
-            $add_duties       = DutiesDatabase::addDutiesDatas($datas);
+            $subjection_duties = UploadSubjectionConfig::DUTIES_IMG;
+            $add_image_road    = uploadFiles($subjection_duties,$duties_image,$disk);
+            $datas['du_road']  = $add_image_road;
+            $add_duties        = DutiesDatabase::addDutiesDatas($datas);
         }
         if($add_duties){
             return showMsg(0,'添加担任职务信息成功');
         }
-        deletefiles(uploadSubjectionConfig::DUTIES,$add_image_road);
+        deletefiles($disk,$add_image_road);
         return showMsg(1,'添加担任职务信息失败');
     }
     //删除单个学术团体职务信息
@@ -97,10 +99,11 @@ class DutiesController extends Controller
         if($judge_image->code == 1){
             return $judge_image;
         }
-        $disk = uploadSubjectionConfig::DUTIES;
+        $disk = UploadSubjectionConfig::DUTIES;
+        $subjection_duties = UploadSubjectionConfig::DUTIES_IMG;
         DutiesDatabase::beginTraction();
         $old_image_road = DutiesDatabase::selectDutiesImageRoad($du_id);
-        $new_image_road = uploadFiles(uploadSubjectionConfig::DUTIES_IMG,$duties_image);
+        $new_image_road = uploadFiles($subjection_duties,$duties_image,$disk);
         $datas['aw_road'] = $new_image_road;
         $reset_duties_  = DutiesDatabase::updateDutiesImage($datas);
         if(!$reset_duties_){

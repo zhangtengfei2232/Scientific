@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Support\Facades\Storage;
     //返回前台的信息，全部转化为JSON数据
     function showMsg($code = 0,$message = '',$datas = ''){
         $response["code"] = $code;
