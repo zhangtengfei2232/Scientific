@@ -40,7 +40,7 @@
             <el-checkbox-group v-model="checkAll" @change="handleCheckedCitiesChange"> 
                 <div class="lists" v-for="(item,index) in ArticleDate" :key="index">
                     <span class="check"><el-checkbox v-model="checked"></el-checkbox></span>
-                    <span class="numbers">{{ item.teacher_id }}</span>
+                    <span class="numbers">{{ item.art_id }}</span>
                     <span class="picture"><img src="/dist/img/text.png" alt="文件加载失败"></span>
                     <span class="infos">
                         <h5 style="width: 78px;">{{ item.title }}</h5>
