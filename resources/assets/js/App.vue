@@ -36,7 +36,7 @@
                             <span slot="title">{{ item.navItem }}</span>
                         </el-menu-item>
 
-                        <el-menu-item index="/bearstudyjob" style="border-bottom:1px solid gray;">
+                        <el-menu-item index="/duties" style="border-bottom:1px solid gray;">
                             <i class="el-icon-message"></i>
                             <span slot="title">担任学术团体职务</span>
                         </el-menu-item>
@@ -47,8 +47,8 @@
                                 <span>特殊功能</span>
                             </template>
                             <el-menu-item-group>
-                                <el-menu-item index="1-1">校发文件</el-menu-item>
-                                <el-menu-item index="1-2">教学科研等合作协议</el-menu-item>
+                                <el-menu-item index="/document">校发文件</el-menu-item>
+                                <el-menu-item index="/agreement">教学科研等合作协议</el-menu-item>
                             </el-menu-item-group>
                         </el-submenu>
 
@@ -58,11 +58,12 @@
                                 <i class="el-icon-setting"></i>
                                 <span>成果汇总</span>
                             </template>
-                            <el-menu-item-group>
-                                <el-menu-item index="2-1">选项1</el-menu-item>
-                                <el-menu-item index="2-2">选项2</el-menu-item>
-                                <el-menu-item index="2-3">选项3</el-menu-item>
-                                <el-menu-item index="2-4">选项4</el-menu-item>
+                            <el-menu-item-group style="background-color: plum !important;">
+                                <el-menu-item index="/allArticle">所有论文</el-menu-item>
+                                <el-menu-item index="2-2">所有项目</el-menu-item>
+                                <el-menu-item index="2-3">所有著作</el-menu-item>
+                                <el-menu-item index="2-4">所有成果</el-menu-item>
+                                <el-menu-item index="2-5">所有专利</el-menu-item>
                             </el-menu-item-group>
                         </el-submenu>
 
@@ -89,7 +90,7 @@
                     {icon:'el-icon-view',name:'/appraisal',navItem:'成果鉴定'},
                     {icon:'el-icon-time',name:'/holdmeet',navItem:'举办会议'},
                     {icon:'el-icon-edit-outline',name:'/joinmeet',navItem:'参加会议'},
-                    {icon:'el-icon-date',name:'/experteach',navItem:'专家讲学'},
+                    {icon:'el-icon-date',name:'/lecture',navItem:'专家讲学'},
 
                 ]
             }
@@ -169,7 +170,27 @@
         text-align: center;
         background-color:rgb(0,125,113) ;
     }
-    .navRight{
+    @media screen and (max-width: 1400px){
+        body{
+            font-size: 12px;
+        }
+        .navLeft{
+            width: 12%;
+        }
+        .navRight{
+            width: 88% !important;
+        }
+        .aside{
+            width: 12% !important;
+        }
+        .el-menu-item{
+            font-size: 12px !important;
+        }
+        .el-submenu .el-menu-item{
+            min-width: 161px !important;
+        }
+    }
+        .navRight{
         width: 89%;
         height: 100%;
         float: right;
@@ -218,8 +239,8 @@
     .el-col-12 {
         width: 100%;
     }
-   .el-menu-item{
-       /*text-align: left;*/
+   .aside .is-active{
+      background-color: black !important;
    }
     .el-menu-item-group__title{
         display: none;
