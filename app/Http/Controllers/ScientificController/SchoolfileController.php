@@ -1,7 +1,6 @@
 <?php
 namespace App\Http\Controllers\ScientificController;
 
-
 use App\Http\Controllers\Controller;
 use App\Model\SchoolfileDatabase;
 use config\UploadSubjectionConfig;
@@ -115,5 +114,4 @@ class SchoolfileController extends Controller
         $result = SchoolfileDatabase::selectAllSchoolfileDatas();
         return showMsg(0,'查询成功',$result);
     }
-
 }

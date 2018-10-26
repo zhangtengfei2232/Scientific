@@ -7,14 +7,12 @@ use Illuminate\Http\Request;
 use config\UploadSubjectionConfig;
 class InformationController extends Controller
 {
-
     /**显示登录后老师的信息页面
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function showIndex(){
         return view('index');
     }
-
     /**添加老师信息
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
@@ -82,24 +80,24 @@ class InformationController extends Controller
         if(!$request->is_add_teacher){
             return showMsg(1,'请你先添加老师信息');
         }
-        $status         = trim($request->reset_image_status);                 //老师修改证书的状态
+        $status         = trim($request->reset_image_status);                  //老师修改证书的状态
         if($status == 1){
             $subjection     = UploadSubjectionConfig::GRADUCETION_IMG;
-            $certificate    = $request->file('graducation_image');       //接收证书图片
+            $certificate    = $request->file('graducation_image');        //接收证书图片
         }else{
             $subjection     = UploadSubjectionConfig::EDUCATION_IMG;
-            $certificate    = $request->file('education_image');       //接收证书图片
+            $certificate    = $request->file('education_image');          //接收证书图片
         }
-        $response = judgeFileImage($certificate);                             //判断文件是否合法
+        $response = judgeFileImage($certificate);                              //判断文件是否合法
         if($response->code == 1){
             return $response;
         }
         $disk       = UploadSubjectionConfig::TEACHER;
         $teacher_id = session('usercount');
         $new_certificate_road = uploadFiles($subjection,$certificate,$disk);
-        $add_certificate = TeacherDatabase::updateCertificate($teacher_id,$new_certificate_road,$status);
+        $add_certificate  = TeacherDatabase::updateCertificate($teacher_id,$new_certificate_road,$status);
         TeacherDatabase::beginTraction();
-        if(! $add_certificate){
+        if(!$add_certificate){
             TeacherDatabase::rollback();
             deletefiles($disk,$new_certificate_road);
             return showMsg(1,'上传图片失败');
@@ -107,7 +105,6 @@ class InformationController extends Controller
         TeacherDatabase::commit();
         return showMsg(0,'证书图片修改成功');
     }
-
     /**删除老师的所有信息
      * @param Request $request
      */
