@@ -71,9 +71,13 @@ class OpusController  extends Controller
         deletefiles($disk,$new_image_road);
         return showMsg(1,'上传图片失败');
     }
-    //删除著作信息
+    //删除单个著作信息
     public function deleteOpus(Request $request)
     {
+
+    }
+    //删除多个著作信息
+    public function deleteAllOpus(){
 
     }
     //查看著作信息

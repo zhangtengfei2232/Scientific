@@ -8,8 +8,7 @@ use config\uploadsubjectionconfig;
 class ProjectController extends Controller
 {
     //添加项目信息
-    public function addProject(Request $request)
-    {
+    public function addProject(Request $request){
         if(!$request->isMethod('POST')){
             return showMsg(1,'你请求的方式不对');
         }
@@ -54,25 +53,27 @@ class ProjectController extends Controller
         ProjectDatabase::commit();
         return showMsg(0,'添加项目成功');
     }
-    //删除项目信息
-    public function deleteProject()
-    {
+    //删除单个项目信息
+    public function deleteProject(){
+
+    }
+    //删除多个项目信息
+    public function deleteAllProject(){
 
     }
     //查看单个项目信息
-    public function selectProject(Request $request)
-    {
+    public function selectProject(Request $request){
        $project_datas = ProjectDatabase::selectProjectDatas($request->project_id);
        return showMsg(0,'查询成功',$project_datas);
     }
+    //查看多个项目信息
     public function selectAllProject(){
        $teacher_id = session('usercount');
        $resulet = ProjectDatabase::selectAllProjectDatas($teacher_id);
        return showMsg(0,'查找成功',$resulet);
     }
     //修改项目信息
-    public function updateProject(Request $request)
-    {
+    public function updateProject(Request $request){
         if(!$request->isMethod('POST')){
             return showMsg(1,'你请求的方式不对');
         }

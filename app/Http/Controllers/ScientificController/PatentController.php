@@ -46,13 +46,15 @@ class PatentController extends Controller
          return showMsg(1,'添加专利信息失败');
      }
      //删除专利信息
-     public function deletePatent()
-     {
+     public function deletePatent(){
+
+     }
+     //删除多个专利信息
+     public function deleteAllPatent(){
 
      }
      //查看单个专利信息
-     public function selectPatent(Request $request)
-     {
+     public function selectPatent(Request $request){
          $result = PatentDatabase::selectPatentDatas($request->pa_id);
          return showMsg(0,'查询成功',$result);
      }
@@ -62,8 +64,7 @@ class PatentController extends Controller
          return showMsg(0,'查询成功',$result);
      }
      //修改专利信息
-     public function updatePatent(Request $request)
-     {
+     public function updatePatent(Request $request){
          if(!$request->isMethod('POST')){
              return showMsg(1,'你请求的方式不对');
          }

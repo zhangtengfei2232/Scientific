@@ -11,8 +11,7 @@ use config\uploadsubjectionconfig;
 class AwardController extends Controller
 {
      //添加获奖信息
-     public function addAward(Request $request)
-     {
+     public function addAward(Request $request){
          if(!$request->isMethod('POST')){
              return showMsg(1,'你请求的方式不对');
          }
@@ -56,13 +55,15 @@ class AwardController extends Controller
          return showMsg(1,'添加获奖信息失败');
      }
      //删除获奖信息
-     public function deleteAward(Request $request)
-     {
+     public function deleteAward(Request $request){
+
+     }
+     //删除多个获奖信息
+     public function deleteAllAward(){
 
      }
      //查看单个获奖信息
-     public function selectAward(Request $request)
-     {
+     public function selectAward(Request $request){
          $result = AwardDatabase::selectAwardDatas($request->aw_id);
          return showMsg(0,'查询成功',$result);
      }
@@ -72,8 +73,7 @@ class AwardController extends Controller
          return showMsg(0,'查询成功',$result);
      }
      //修改获奖信息
-     public function updateAward(Request $request)
-     {
+     public function updateAward(Request $request){
          if(!$request->isMethod('POST')){
              return showMsg(1,'你请求的方式不对');
          }
