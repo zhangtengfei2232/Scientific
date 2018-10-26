@@ -181,19 +181,19 @@
                 percal_cate: '',
                 year: '',
                 art_remarks: "",
-                file1: '',
-                file2: ''
+                art_pdf: '',
+                art_sci: ''
             }
         }
     },
     methods: {
         fileChange(file){
-            this.form.file1 = file.raw;
-            this.checkFileExt(this.form.file1.name);
+            this.form.art_pdf = file.raw;
+            this.checkFileExt(this.form.art_pdf.name);
         },
         fileChanges(file){
-            this.form.file2 = file.raw;
-            this.checkFileExt(this.form.file1.name);
+            this.form.art_sci = file.raw;
+            this.checkFileExt(this.form.art_sci.name);
         },
         onSubmit(form,year2,year3,year4,year5,year1) {
             form.year = year1+","+year2+","+year3+","+year4+","+year5;
@@ -238,12 +238,14 @@
             }
         },
         addArticleData(form) {
-            console.log(form);
             let self = this;
             axios.post("addartical",form).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
-                    
+                    this.$message({
+                        message: '添加成功',
+                        type: 'success'
+                    });
                 } else {
                     self.$notify({
                         type: 'error',
@@ -254,15 +256,16 @@
             });
         },
         checkFileExt(filename){
-            var flag = false; //状态
-            var arr = ["pdf"];
-            //取出上传文件的扩展名
-            var index = filename.lastIndexOf(".");
-            var ext = filename.substr(index+1);
-            //循环比较
             if(filename == '') {
                 this.$message.error('上传文件不能为空');
             }
+            var flag = false; //状态
+            var arr = ["pdf"];
+            //取出上传文件的扩展名
+            console.log(filename);
+            var index = filename.lastIndexOf(".");
+            var ext = filename.substr(index+1);
+            //循环比较
             for(var i=0;i<arr.length;i++){
                 if(ext == arr[i]){
                     flag = true; 
