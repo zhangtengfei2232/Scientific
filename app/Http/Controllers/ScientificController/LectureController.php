@@ -100,6 +100,10 @@ class LectureController extends Controller
      public function deleteLecture(Request $request){
 
      }
+     //删除多个专家讲学信息
+     public function deleteAllLecture(){
+
+     }
      //删除专家讲学图片
      public function deleteLectureImages(Request $request){
          $delete_le_id = $request->le_id_datas;

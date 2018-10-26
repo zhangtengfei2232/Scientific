@@ -112,9 +112,13 @@ class HoldmeetController extends Controller
         ImageDatas::rollback();                                        //回滚，回复数据库数据
         return showMsg(1,'删除举办会议图片失败');
     }
-    //删除举行会议信息
+    //删除单个举行会议信息
     public function deleteHoldmeet(Request $request){
 
+
+    }
+    //删除多个举行会议信息
+    public function deleteAllHoldmeet(){
 
     }
     //查看单个举行会议信息

@@ -76,12 +76,7 @@
     .searchtime{
         width: 45%;
         display: inline-block;
-        margin: 15px 0 0 18%;
-    }
-    .searchtime{
-        width: 45%;
-        display: inline-block;
-        margin: 15px 0 0 18%;
+        margin: 15px 0 0 12%;
     }
     .demonstration{
         font-weight: lighter;

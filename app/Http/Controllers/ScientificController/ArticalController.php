@@ -170,7 +170,7 @@ class ArticalController extends Controller
 
      }
      //同时导出多个论文，取每个论文的第一页，形成一个新的PDF论文
-     public function exportSomeArtical(){
+     public function exportAllArtical(){
 
      }
 }

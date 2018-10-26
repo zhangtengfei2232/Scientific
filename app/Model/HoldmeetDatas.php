@@ -28,7 +28,7 @@ class HoldmeetDatas extends ModelDatabase
     }
     //查看所有会议信息
     public static function selectAllHoldmeetDatas($teacher_id){
-        $result = DB::table('image')->where('teacher_id',$teacher_id)->get();
+        $result = DB::table('image')->where('teacher_id',$teacher_id)->orderBy('ho_time','desc')->get();
         foreach ($result as $datas){
             $result->ho_time = date('Y-m-d',$datas->ho_time);
         }
@@ -43,8 +43,7 @@ class HoldmeetDatas extends ModelDatabase
     //查看以前会议图注路径
     public static function selectHoldmeetInjectRoad($ho_id){
         $result = DB::table('holdmeet')->select('ho_graph_inject')->where('ho_id',$ho_id)->first();
-        $result = $result->ho_graph_inject;
-        return $result;
+        return  $result->ho_graph_inject;
     }
     //修改会议信息
     public static function updateHoldmeetDatas($datas){

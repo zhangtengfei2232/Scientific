@@ -63,8 +63,6 @@
         width: 80%;
         display: flex;
         margin-top: 20px;
-        /*margin-left: 130px;*/
-        /*background-color: plum;*/
     }
     /*组件*/
     .el-form{

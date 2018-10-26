@@ -102,6 +102,10 @@ class JoinmeetController  extends Controller
     public function deleteJoinmeet(){
 
     }
+    //删除多个参加会议信息
+    public function deleteAllJoinmeet(){
+
+    }
     //删除参加会议图片
     public function deleteJoinmeetImage(Request $request){
         $delete_jo_id = $request->le_id_datas;
@@ -152,7 +156,7 @@ class JoinmeetController  extends Controller
        return JoinmeetDatas::updateJoinmeetDatas($datas);
     }
     //修改会议图注信息
-    public function updateJoinmeetImage(Request $request){
+    public function updateJoinmeetinject(Request $request){
         if(!$request->isMethod('POST')){
             return showMsg(1,'你请求的方式不对');
         }

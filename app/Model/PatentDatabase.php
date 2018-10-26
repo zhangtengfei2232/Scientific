@@ -37,7 +37,7 @@ class PatentDatabase  extends ModelDatabase
     }
     //查看所有专利信息
     public static function selectPatenAllDatas($teacher_id){
-        $result = DB::table('patent')->where('teacher_id',$teacher_id)->get();
+        $result = DB::table('patent')->where('teacher_id',$teacher_id)->orderBy('author_notic_day','desc')->get();
         foreach ($result as $datas){
             $result->author_notic_day = date('Y-m-d',$datas->author_notic_day);
         }
@@ -45,7 +45,8 @@ class PatentDatabase  extends ModelDatabase
     }
     //查看专利图片路径
     public static function selectImageRoad($pa_id){
-        return DB::table('patent')->select('pa_road')->where('pa_id',$pa_id)->first();
+        $result = DB::table('patent')->select('pa_road')->where('pa_id',$pa_id)->first();
+        return $result->pa_road;
     }
     //修改专利和图片信息
     public static function updatePatentImage($datas){

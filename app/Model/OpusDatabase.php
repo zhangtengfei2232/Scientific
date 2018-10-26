@@ -42,7 +42,7 @@ class OpusDatabase  extends ModelDatabase
     }
     //查看所有著作信息
     public static function selectOpusAllDatas($teacher_id){
-        $result = DB::table('opus')->wherew('teacher_id',$teacher_id)->get();
+        $result = DB::table('opus')->wherew('teacher_id',$teacher_id)->orderBy('op_publish_time','desc')->get();
         foreach ($result as  $datas){
             $result->op_publish_time = date('Y-m-d', $datas->op_publish_time);
         }

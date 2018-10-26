@@ -1,53 +1,23 @@
 <?php
 return [
     [
-        'tag_name'     => '论文',
-        'jurisdiction' => [1, 2, 3, 4, 5, 6, 7],
+        'tag_name'     => '校发文件',
+        'jurisdiction' => ['smkj001', 'smkj002', 'smkj003', 'smkj005','smkj006', 'smkj007'],
         'icon'         => ''
     ],
     [
-        'tag_name'     => '项目',
-        'jurisdiction' => [1, 2, 3, 4, 5, 6, 7],
-        'icon'         => '',
-    ],
-    [
-        'tag_name'     => '著作',
-        'jurisdiction' => [1, 2, 3, 4, 5, 6, 7],
+        'tag_name'     => '教学科研等合作协议',
+        'jurisdiction' => ['smkj001', 'smkj002', 'smkj003', 'smkj005','smkj006','smkj007'],
         'icon'         => ''
     ],
     [
-        'tag_name'     => '获奖',
-        'jurisdiction' => [1, 2, 3, 4, 5, 6, 7],
+        'tag_name'     => '特殊功能',
+        'jurisdiction' => ['smkj001'],
         'icon'         => ''
     ],
     [
-        'tag_name'     => '专利',
-        'jurisdiction' => [1, 2, 3, 4, 5, 6, 7],
-        'icon'         => ''
-    ],
-    [
-        'tag_name'     => '成果鉴定',
-        'jurisdiction' => [1, 2, 3, 4, 5, 6, 7],
-        'icon'         => ''
-    ],
-    [
-        'tag_name'     => '举行会议',
-        'jurisdiction' => [1, 2, 3, 4, 5, 6, 7],
-        'icon'         => ''
-    ],
-    [
-        'tag_name'     => '参加会议',
-        'jurisdiction' => [1, 2, 3, 4, 5, 6, 7],
-        'icon'         => ''
-    ],
-    [
-        'tag_name'     => '专家讲学',
-        'jurisdiction' => [1, 2, 3, 4, 5, 6, 7],
-        'icon'         => ''
-    ],
-    [
-        'tag_name'     => '担任学术团体职务',
-        'jurisdiction' => [1, 2, 3, 4, 5, 6, 7],
+        'tag_name'     => '成果汇总',
+        'jurisdiction' => ['smkj001'],
         'icon'         => ''
     ],
 ];

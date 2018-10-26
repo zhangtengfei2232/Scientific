@@ -8,7 +8,7 @@ class DutiesDatabase extends ModelDatabase
 {
     //添加学术担任团体职务信息
     public static function addDutiesDatas($datas){
-        $response = DB::table('duties')
+        return  DB::table('duties')
                     ->instert([
                         'teacher_id'   => $datas->teacher_id,
                         'teacher_name' => $datas->teacher_name,
@@ -21,7 +21,6 @@ class DutiesDatabase extends ModelDatabase
                         'du_year_num'  => $datas->du_year_num,
                         'du_remark'    => $datas->du_remark
                     ]);
-        return ($response) ? true : false;
     }
     //删除担任团体职务信息
     public static function deleteDutiesDatas(){
@@ -69,7 +68,7 @@ class DutiesDatabase extends ModelDatabase
     }
     //查看所有担任团体职务信息
     public static function selectAllDutiesDatas($teacher_id){
-        $result = DB::table('duties')->where('teacher_id',$teacher_id)->get();
+        $result = DB::table('duties')->where('teacher_id',$teacher_id)->orderBy('du_age','desc')->get();
         foreach ($result as $datas){
             $result->du_year_num = date('Y-m-d',$datas->du_year_num);
         }

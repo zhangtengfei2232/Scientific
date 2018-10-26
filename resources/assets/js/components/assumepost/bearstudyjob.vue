@@ -14,17 +14,6 @@
                     <div class="block">
                         <span class="demonstration">按老师姓名检索:</span>
                         <el-input v-model="form.teacher_name" placeholder="请输入老师姓名" style="width: 30%;"></el-input>
-                        <!--<el-date-picker-->
-                                <!--v-model="form.data1"-->
-                                <!--type="date"-->
-                                <!--placeholder="选择日期">-->
-                        <!--</el-date-picker>-->
-                        <!--<span>-</span>-->
-                        <!--<el-date-picker-->
-                                <!--v-model="form.data2"-->
-                                <!--type="date"-->
-                                <!--placeholder="选择日期">-->
-                        <!--</el-date-picker>-->
                         <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch">搜索</el-button>
                     </div>
                 </el-form>
@@ -76,12 +65,7 @@
     .searchtime{
         width: 45%;
         display: inline-block;
-        margin: 15px 0 0 18%;
-    }
-    .searchtime{
-        width: 45%;
-        display: inline-block;
-        margin: 15px 0 0 18%;
+        margin: 15px 0 0 12%;
     }
     .demonstration{
         font-weight: lighter;

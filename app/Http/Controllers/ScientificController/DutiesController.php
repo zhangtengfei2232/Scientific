@@ -48,8 +48,12 @@ class DutiesController extends Controller
         deletefiles(uploadsubjectionconfig::DUTIES,$add_image_road);
         return showMsg(1,'添加担任职务信息失败');
     }
-    //删除学术团体职务信息
+    //删除单个学术团体职务信息
     public function deleteDuties(){
+
+    }
+    //删除多个学术团体职务信息
+    public function deleteAllDuties(){
 
     }
     //查看学术团体职务信息
