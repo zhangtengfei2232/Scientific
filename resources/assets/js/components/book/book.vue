@@ -212,7 +212,7 @@
                     type: 'warning'
                 }).then(() => {
                     let self = this;
-                    axios.get("",).then(function (response) {
+                    axios.get("selectallopus").then(function (response) {
                     var data = response.data;
                         if (data.code == 0) {
                              this.$message({
