@@ -40,7 +40,7 @@
             <el-checkbox-group v-model="checkAll" @change="handleCheckedCitiesChange"> 
                 <div class="lists" v-for="(item,index) in ProjectDate" :key="index">
                     <span class="check"><el-checkbox v-model="checked"></el-checkbox></span>
-                    <span class="numbers">{{ item.teacher_id }}</span>
+                    <span class="numbers">{{ item.pro_id }}</span>
                     <span class="picture"><img src="/dist/img/xm.png" alt="文件加载失败"></span>
                     <span class="infos">
                         <h5>{{ item.title }}</h5>
@@ -153,7 +153,7 @@
     .dos a,.tos a{
         color: rgba(61, 112, 206, 0.77)!important;
     }
-    .del a{
+    .del{
         color: rgba(229, 28, 35, 1)!important;
     }
     .clear{
@@ -186,7 +186,7 @@
             },
             getProjectData() {
                 let self = this;
-                axios.get("selectproject").then(function (response) {
+                axios.get("selectallproject").then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
                         self.ProjectDate = data.datas;

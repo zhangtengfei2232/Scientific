@@ -208,9 +208,7 @@ export default new VueRouter({
               path: '/editAgreement',
               component: resolve => void(require(['../components/agreement/editAgreement.vue'], resolve))
           },
-
            /*全局总览*/
-
           {
               name: 'Glverview',
               path: '/Glverview',
