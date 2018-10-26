@@ -49,13 +49,13 @@
                         </div>
                     </el-col>
                     <el-col :span="3">
-                        <div class="grid-content bg-purple" style="background:rgb(255, 69, 48);margin-left:20px">
+                        <div class="grid-content bg-purple" style="background:rgb(255, 69, 48);">
                             <span>参加会议</span>
                             <p>21</p>
                         </div>
                     </el-col>
                     <el-col :span="3">
-                        <div class="grid-content bg-purple" style="background:rgb(255, 189, 20)">
+                        <div class="grid-content bg-purple" style="background:rgb(255, 189, 20);margin-left:20px">
                             <span>专家讲学</span>
                             <p>21</p>
                         </div>
@@ -69,7 +69,10 @@
                 </el-row>
             </div>  
             <div class="list2">
-                    
+                <div class="navL">
+                    <p>师资图</p>
+                </div>
+                <div id="myChart" :style="{width: '300px', height: '300px'}"></div>
             </div>  
         </div>
     </div>
@@ -77,59 +80,97 @@
 
 <style>
     body{
-      background: #f9fafc;  
-      overflow-x: hidden; 
+        background: #f9fafc;  
+        overflow-x: hidden; 
     }
-  .el-row {
-      margin-bottom: 20px;
-      margin-right: 0 !important;
-      &:last-child {
-        margin-bottom: 0;
-      }
-  }
-  .list1{
-      margin: 0;
-  }
-  .el-col {
-      border-radius: 4px;
-  }
-  .bg-purple {
-      margin-top: 20px;
-      color: #fff;
-      font-size: 13px;
-  }
-  .bg-purple-light {
-      background: #e5e9f2;
-  }
-  .grid-content {
-      border-radius: 4px;
-      min-height: 36px;
-  }
-  .row-bg {
-      padding: 10px 0;
-      background-color: #f9fafc;
-  }
-  .bg-purple span{
-      display: inline-block;
-      padding: 10px 20px;
-      width: 100%;
-      border-bottom: 1px solid #fff;
-  }
-  .bg-purple p{
-      padding: 20px 0;
-      width: 100%;
-      text-align: center;
-  }
-  .datas{
-      margin: 20px;
-      background: #fff;
-  }
-  .datas .navL{
-      border-bottom: 1px solid #e5e9f2;
-      padding: 0 20px;
-  }
- .datas .navL p{
-      line-height: 60px;
-      padding: 0 12%;
-  }
+    .datas{
+        width:85%;
+        float: left;
+    }
+    .el-row {
+        margin-bottom: 20px;
+        margin-right: 0 !important;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+    .list1{
+        margin: 0;
+    }
+    .el-col {
+        border-radius: 4px;
+    }
+    .bg-purple {
+        margin-top: 20px;
+        color: #fff;
+        font-size: 13px;
+    }
+    .bg-purple-light {
+        background: #e5e9f2;
+    }
+    .grid-content {
+        border-radius: 4px;
+        min-height: 36px;
+    }
+    .row-bg {
+        padding: 10px 0;
+        background-color: #f9fafc;
+    }
+    .bg-purple span{
+        display: inline-block;
+        padding: 10px 20px;
+        width: 100%;
+        border-bottom: 1px solid #fff;
+    }
+    .bg-purple p{
+        padding: 20px 0;
+        width: 100%;
+        text-align: center;
+    }
+    .datas{
+        margin: 20px;
+        background: #fff;
+    }
+    .datas .navL{
+        border-bottom: 1px solid #e5e9f2;
+        padding: 0 20px;
+    }
+    .datas .navL p{
+        line-height: 60px;
+    }
+    .list2{
+
+    }
 </style>
+
+<script>
+
+export default {
+    name: 'eCharts',
+    data () {
+        return {
+            
+        }
+    },
+    mounted(){
+        this.drawLine();
+    },
+    methods: {
+        drawLine(){
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = this.$echarts.init(document.getElementById('myChart'));
+            // 绘制图表
+            myChart.setOption({
+                series: {
+                    type: 'pie',
+                    data: [
+                        {name: 'A', value: 1212},
+                        {name: 'B', value: 2323},
+                        {name: 'C', value: 1919}
+                    ]
+                }
+            });
+        }
+    }
+}
+</script>

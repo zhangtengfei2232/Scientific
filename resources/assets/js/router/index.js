@@ -168,10 +168,10 @@ export default new VueRouter({
             },
            /*全局总览*/
            {
-            name: 'Glverview',
-            path: '/Glverview',
-            component: resolve => void(require(['../components/globalOverview/Glverview.vue'], resolve))
-        },
+                name: 'Glverview',
+                path: '/Glverview',
+                component: resolve => void(require(['../components/globalOverview/Glverview.vue'], resolve))
+            },
       ]
 
 })

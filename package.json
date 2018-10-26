@@ -21,6 +21,7 @@
     "vue-router": "^3.0.1"
   },
   "dependencies": {
+    "echarts": "^4.2.0-rc.2",
     "element-ui": "^2.4.7",
     "jquery": "^3.3.1",
     "vue-resource": "^1.5.1"

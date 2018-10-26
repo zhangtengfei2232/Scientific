@@ -27,7 +27,9 @@ window.Vue = require('vue');
     import App from './App.vue';
     import router from "./router/index.js"
     import axios from 'axios';
+    import echarts from 'echarts' //引入echarts
     import $ from 'jquery';
+    Vue.prototype.$echarts = echarts //引入组件
     Vue.prototype.$axios = axios;
     Vue.use(ElementUI);
 

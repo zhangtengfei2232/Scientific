@@ -193,6 +193,7 @@
                     var data = response.data;
                     if (data.code == 0) {
                         self.ArticleDate = data.datas;
+                        console.log(data.datas);
                     } else {
                         self.$notify({
                             type: 'error',
