@@ -210,7 +210,7 @@ export default new VueRouter({
           },
 
            /*全局总览*/
-<<<<<<< HEAD
+
           {
               name: 'Glverview',
               path: '/Glverview',
@@ -222,14 +222,6 @@ export default new VueRouter({
               path: '/allArticle',
               component: resolve => void(require(['../components/allArticle/allArticle.vue'], resolve))
           },
-
-=======
-           {
-                name: 'Glverview',
-                path: '/Glverview',
-                component: resolve => void(require(['../components/globalOverview/Glverview.vue'], resolve))
-            },
->>>>>>> 7625a0b39f4e9099784c5e5c5aea02476bb15bd9
       ]
 
 })

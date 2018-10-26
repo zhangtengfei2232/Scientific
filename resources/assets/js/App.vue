@@ -130,20 +130,6 @@
         }
 
     }
-    //            $(document).ready(function(){
-    //            var he=$(window).height();          //获取窗口需要的高度
-    //            var el=$(".content").height();      //获取当前右边内容的高度
-    //            console.log(he);
-    //            alert(he);
-    //            if(he>el)                           //如果右边的内容高度并没有超过窗口的高度，也就是说并没有产生滚动条的话
-    //            {
-    //                $(".aside").height(he);         //填充左边导航条的高度至整个屏幕的高度
-    //            }
-    //            else{
-    //                $(".aside").height(el);         //否则的话把右边的内容高度设置成左边导航条的高度，也就是设为同高
-    ////            $("#all").height(el);         //这句话是我为了让整个页面缩小比列后不会造成变形，这是后面讨论的第二个问题
-    //            }
-    //        }),
 
 </script>
 
