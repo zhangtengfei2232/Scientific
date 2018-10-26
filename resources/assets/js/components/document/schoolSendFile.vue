@@ -2,18 +2,28 @@
     <div>
         <header>
             <span class="paper">
-                担任学术团体职务
+                校发文件
             </span>
             <span class="load">
-                <router-link to="/addutygroup">
+                <router-link to="/addschoolFile">
                     <el-button type="primary"><i class="el-icon-plus el-icon--left">上传</i></el-button>
                 </router-link>
             </span>
             <span class="searchtime">
                 <el-form>
                     <div class="block">
-                        <span class="demonstration">按老师姓名检索:</span>
-                        <el-input v-model="form.teacher_name" placeholder="请输入老师姓名" style="width: 30%;"></el-input>
+                        <span class="demonstration">按合作时间检索:</span>
+                        <el-date-picker
+                                v-model="form.data1"
+                                type="date"
+                                placeholder="选择日期">
+                        </el-date-picker>
+                        <span>-</span>
+                        <el-date-picker
+                                v-model="form.data2"
+                                type="date"
+                                placeholder="选择日期">
+                        </el-date-picker>
                         <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch">搜索</el-button>
                     </div>
                 </el-form>
@@ -22,29 +32,30 @@
         <div class="navbo">
             <span class="checks"><el-checkbox v-model="checked"></el-checkbox></span>
             <span class="number">序号</span>
-            <span class="info">老师姓名</span>
-            <span class="time">担任学术团体名称</span>
+            <span class="info">文件名称</span>
+            <span class="time">文件下发时间</span>
             <span class="do">操作</span>
         </div>
         <div class="content">
-            <div class="lists" v-for="(item,index) in StudygroupDate" :key="index">
+            <div class="lists" v-for="(item,index) in JoinmeetDate" :key="index">
                 <span class="check"><el-checkbox v-model="checked"></el-checkbox></span>
                 <span class="numbers">{{ item.teacher_id }}</span>
-                <span class="picture"><img src="/dist/img/text.png" alt="文件加载失败"></span>
+                <span class="picture"><img src="/dist/img/cjhy.png" alt="文件加载失败"></span>
                 <span class="infos">
                     <h5>{{ item.title }}</h5>
                     <p>作者 <small>特别标注</small></p>
                 </span>
                 <span class="times">2018-09-10</span>
-                <span class="dos" @click="sentStudygroupDate(item.art_id)">编辑</span>
+                <span class="dos" @click="sentJoinmeetSelfData(item.art_id)">编辑</span>
                 <span class="tos"><router-link to="/">导出</router-link></span>
-                <span class="dos" @click="sentStudygroupDate(item.art_id)">查看</span>
+                <span class="dos" @click="sentJoinmeetSelfData(item.art_id)">查看</span>
                 <span class="del"><router-link to="/">删除</router-link></span>
                 <div class="clear"></div>
             </div>
         </div>
     </div>
 </template>
+
 <style scoped>
     header{
         border-bottom: 1px solid #eee;
@@ -53,7 +64,7 @@
         font-size: 18px;
         color: #090909;
         display: inline-block;
-        padding: 23px 48px;
+        padding: 23px 60px;
         border-right: 1px solid #eee;
     }
     .load{
@@ -65,15 +76,16 @@
     .searchtime{
         width: 45%;
         display: inline-block;
-        margin: 15px 0 0 12%;
+        margin: 15px 0 0 9%;
     }
     .demonstration{
         font-weight: lighter;
-    }.navbo{
-         border-bottom: 1px solid #eee;
-         background: rgba(187, 187, 187, 0.1);
-         height: 40px;
-     }
+    }
+    .navbo{
+        border-bottom: 1px solid #eee;
+        background: rgba(187, 187, 187, 0.1);
+        height: 40px;
+    }
     .info,.number,.do,.time{
         display: inline-block;
         padding: 10px;
@@ -146,27 +158,38 @@
         clear: both;
         content: '';
     }
+    @media screen and (max-width: 1400px){
+        .paper{
+            font-size: 16px;
+            padding: 22px 40px;
+        }
+        .load{
+            padding: 22px 40px;
+        }
+        .searchtime{
+        width: 47% ;
+        }
+    }
 </style>
 <script>
     export default {
         data() {
             return {
-                StudygroupDate: [],
+                JoinmeetDate: [],
                 checked: false,
                 form: {
-                    teacher_name:'',
                     data1: '',
                     data2: '',
                 },
             }
         },
         methods: {
-            getStudygroupDate() {
+            getJoinmeetDate() {
                 let self = this;
-                axios.get("selectopus").then(function (response) {
+                axios.get("").then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
-                        self.StudygroupDate = data.datas;
+                        self.JoinmeetDate = data.datas;
                     } else {
                         self.$notify({
                             type: 'error',
@@ -176,7 +199,7 @@
                     }
                 });
             },
-            sentStudygroupDate(art_id) {
+            sentJoinmeetSelfData(art_id) {
                 this.$router.push({
                     path: `/selfInfor/${art_id}`,
                 })
@@ -185,7 +208,7 @@
                 axios.get("",form).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
-                        self.StudygroupDate = data.datas;
+                        self.JoinmeetDate = data.datas;
                     } else {
                         self.$notify({
                             type: 'error',
@@ -198,7 +221,7 @@
 
         },
         mounted() {
-            this.getStudygroupDate();
+            this.getJoinmeetDate();
         }
     }
 </script>

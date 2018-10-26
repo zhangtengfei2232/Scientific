@@ -1,4 +1,4 @@
-webpackJsonp([32],{
+webpackJsonp([33],{
 
 /***/ 189:
 /***/ (function(module, exports, __webpack_require__) {
@@ -307,7 +307,7 @@ exports = module.exports = __webpack_require__(25)(false);
 
 
 // module
-exports.push([module.i, "\n*,ul,li,a{\n     margin: 0;\n     padding: 0;\n     text-decoration: none;\n     list-style: none;\n}\nbody, html{\n     width: 100%;\n     height: 100%;\n}\n.nav{\n     width: 100%;\n     height:35px;\n}\n.navLeft{\n     width: 11%;\n     height: 100%;\n     float: left;\n     text-align: center;\n     background-color:rgb(0,125,113) ;\n}\n.navRight{\n     width: 89%;\n     height: 100%;\n     float: right;\n     color: white;\n     text-align: center;\n     line-height:31px;\n     background-color: rgb(0,150,136);\n}\n.navLeft img{\n     width: 11%;\n     margin-top: 5px;\n}\n.loginName{\n     width:17%;\n     float: right;\n}\n.loginName img{\n     width:8%;\n     vertical-align:middle;\n}\n.aside{\n     width: 11%;\n     color: white;\n     float: left;\n     background-color:rgb(34,45,50);\n}\n.aside li{\n     width: 100%;\n}\n.signIn img{\n     width:22%;\n     vertical-align:middle;\n}\n.signIn a{\n     color: white;\n}\n.aside li{\n     text-align :left;\n}\n.aside li a{\n     list-style: none;\n     color: white;\n     text-decoration: none;\n}\n /*组件*/\n.el-col-12 {\n     width: 100%;\n}\n.el-menu-item{\n    /*text-align: left;*/\n}\n.el-menu-item-group__title{\n     display: none;\n}\n.el-submenu__icon-arrow {\n     font-size: 16px;\n}\n.el-icon-arrow-down:before{\n     font-weight: 800;\n}\n", ""]);
+exports.push([module.i, "\n*,ul,li,a{\n     margin: 0;\n     padding: 0;\n     text-decoration: none;\n     list-style: none;\n}\nbody, html{\n     width: 100%;\n     height: 100%;\n}\n.nav{\n     width: 100%;\n     height:35px;\n}\n.navLeft{\n     width: 11%;\n     height: 100%;\n     float: left;\n     text-align: center;\n     background-color:rgb(0,125,113) ;\n}\n@media screen and (max-width: 1400px){\nbody{\n         font-size: 12px;\n}\n.navLeft{\n         width: 12%;\n}\n.navRight{\n         width: 88% !important;\n}\n.aside{\n         width: 12% !important;\n}\n.el-menu-item{\n         font-size: 12px !important;\n}\n.el-submenu .el-menu-item{\n         min-width: 161px !important;\n}\n}\n.navRight{\n     width: 89%;\n     height: 100%;\n     float: right;\n     color: white;\n     text-align: center;\n     line-height:31px;\n     background-color: rgb(0,150,136);\n}\n.navLeft img{\n     width: 11%;\n     margin-top: 5px;\n}\n.loginName{\n     width:17%;\n     float: right;\n}\n.loginName img{\n     width:8%;\n     vertical-align:middle;\n}\n.aside{\n     width: 11%;\n     color: white;\n     float: left;\n     background-color:rgb(34,45,50);\n}\n.aside li{\n     width: 100%;\n}\n.signIn img{\n     width:22%;\n     vertical-align:middle;\n}\n.signIn a{\n     color: white;\n}\n.aside li{\n     text-align :left;\n}\n.aside li a{\n     list-style: none;\n     color: white;\n     text-decoration: none;\n}\n /*组件*/\n.el-col-12 {\n     width: 100%;\n}\n.aside .is-active{\n   background-color: black !important;\n}\n.el-menu-item-group__title{\n     display: none;\n}\n.el-submenu__icon-arrow {\n     font-size: 16px;\n}\n.el-icon-arrow-down:before{\n     font-weight: 800;\n}\n", ""]);
 
 // exports
 
@@ -432,6 +432,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -440,7 +441,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             show: false,
             navList: [
             //                    {icon:'el-icon-picture',name:'/',navItem:'ft'},
-            { icon: 'el-icon-bell', name: '/paper', navItem: '学术论文' }, { icon: 'el-icon-tickets', name: '/project', navItem: '科研项目' }, { icon: 'el-icon-edit', name: '/book', navItem: '学术著作' }, { icon: 'el-icon-star-off', name: '/award', navItem: '获奖成果' }, { icon: 'el-icon-edit-outline', name: '/patent', navItem: '学术专利' }, { icon: 'el-icon-view', name: '/appraisal', navItem: '成果鉴定' }, { icon: 'el-icon-time', name: '/holdmeet', navItem: '举办会议' }, { icon: 'el-icon-edit-outline', name: '/joinmeet', navItem: '参加会议' }, { icon: 'el-icon-date', name: '/experteach', navItem: '专家讲学' }]
+            { icon: 'el-icon-bell', name: '/paper', navItem: '学术论文' }, { icon: 'el-icon-tickets', name: '/project', navItem: '科研项目' }, { icon: 'el-icon-edit', name: '/book', navItem: '学术著作' }, { icon: 'el-icon-star-off', name: '/award', navItem: '获奖成果' }, { icon: 'el-icon-edit-outline', name: '/patent', navItem: '学术专利' }, { icon: 'el-icon-view', name: '/appraisal', navItem: '成果鉴定' }, { icon: 'el-icon-time', name: '/holdmeet', navItem: '举办会议' }, { icon: 'el-icon-edit-outline', name: '/joinmeet', navItem: '参加会议' }, { icon: 'el-icon-date', name: '/lecture', navItem: '专家讲学' }]
         };
     },
 
@@ -590,7 +591,7 @@ var render = function() {
                         "el-menu-item",
                         {
                           staticStyle: { "border-bottom": "1px solid gray" },
-                          attrs: { index: "/bearstudyjob" }
+                          attrs: { index: "/duties" }
                         },
                         [
                           _c("i", { staticClass: "el-icon-message" }),
@@ -616,13 +617,17 @@ var render = function() {
                           _c(
                             "el-menu-item-group",
                             [
-                              _c("el-menu-item", { attrs: { index: "1-1" } }, [
-                                _vm._v("校发文件")
-                              ]),
+                              _c(
+                                "el-menu-item",
+                                { attrs: { index: "/document" } },
+                                [_vm._v("校发文件")]
+                              ),
                               _vm._v(" "),
-                              _c("el-menu-item", { attrs: { index: "1-2" } }, [
-                                _vm._v("教学科研等合作协议")
-                              ])
+                              _c(
+                                "el-menu-item",
+                                { attrs: { index: "/agreement" } },
+                                [_vm._v("教学科研等合作协议")]
+                              )
                             ],
                             1
                           )
@@ -642,21 +647,32 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "el-menu-item-group",
+                            {
+                              staticStyle: {
+                                "background-color": "plum !important"
+                              }
+                            },
                             [
-                              _c("el-menu-item", { attrs: { index: "2-1" } }, [
-                                _vm._v("选项1")
-                              ]),
+                              _c(
+                                "el-menu-item",
+                                { attrs: { index: "/allArticle" } },
+                                [_vm._v("所有论文")]
+                              ),
                               _vm._v(" "),
                               _c("el-menu-item", { attrs: { index: "2-2" } }, [
-                                _vm._v("选项2")
+                                _vm._v("所有项目")
                               ]),
                               _vm._v(" "),
                               _c("el-menu-item", { attrs: { index: "2-3" } }, [
-                                _vm._v("选项3")
+                                _vm._v("所有著作")
                               ]),
                               _vm._v(" "),
                               _c("el-menu-item", { attrs: { index: "2-4" } }, [
-                                _vm._v("选项4")
+                                _vm._v("所有成果")
+                              ]),
+                              _vm._v(" "),
+                              _c("el-menu-item", { attrs: { index: "2-5" } }, [
+                                _vm._v("所有专利")
                               ])
                             ],
                             1
@@ -722,13 +738,13 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
         name: 'infor',
         path: '/',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(1).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(207)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(2).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(207)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }, {
         name: 'teacher',
         path: '/teacher',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(0).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(208)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(1).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(208)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     },
     /*论文信息*/
@@ -736,19 +752,19 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
         name: 'paper',
         path: '/paper',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(25).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(209)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(31).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(209)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }, {
         name: 'addPaper',
         path: '/addPaper',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(26).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(210)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(68).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(210)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }, {
         name: 'selfInfor',
         path: '/selfInfor/:art_id',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(24).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(211)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(30).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(211)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     },
     /*项目信息*/
@@ -756,19 +772,19 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
         name: 'project',
         path: '/project',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(3).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(212)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(4).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(212)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }, {
         name: 'addProject',
         path: '/addProject',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(4).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(213)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(5).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(213)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }, {
         name: 'selfProject',
         path: '/selfProject/:pro_id',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(2).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(214)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(3).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(214)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     },
     /*著作信息*/
@@ -776,19 +792,19 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
         name: 'book',
         path: '/book',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(17).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(215)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(25).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(215)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }, {
         name: 'addBook',
         path: '/addBook',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(18).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(216)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(26).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(216)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }, {
         name: 'selfBook',
         path: '/selfBook/:op_id',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(16).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(217)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(24).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(217)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     },
     /*获奖信息*/
@@ -796,19 +812,19 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
         name: 'award',
         path: '/award',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(20).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(218)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(28).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(218)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }, {
         name: 'addAward',
         path: '/addAward',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(21).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(219)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(29).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(219)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }, {
         name: 'selfAward',
         path: '/selfAward/:aw_id',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(19).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(220)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(27).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(220)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     },
     /*专利信息*/
@@ -816,19 +832,19 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
         name: 'patent',
         path: '/patent',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(6).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(221)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(7).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(221)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }, {
         name: 'addPatent',
         path: '/addPatent',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(7).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(222)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(8).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(222)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }, {
         name: 'selfPatent',
         path: '/selfPatent',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(5).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(223)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(6).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(223)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     },
     /*成果鉴定信息*/
@@ -836,19 +852,19 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
         name: 'appraisal',
         path: '/appraisal',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(28).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(224)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(70).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(224)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }, {
         name: 'addAppraisal',
         path: '/addAppraisal',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(29).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(225)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(77).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(225)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }, {
         name: 'selfAppraisal',
         path: '/selfAppraisal',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(27).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(226)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(69).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(226)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     },
     /*举办会议信息*/
@@ -856,19 +872,19 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
         name: 'holdmeet',
         path: '/holdmeet',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(12).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(227)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(16).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(227)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }, {
         name: 'addHoldmeet',
         path: '/addHoldmeet',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(13).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(228)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(17).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(228)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }, {
         name: 'selfHoldmeet',
         path: '/selfHoldmeet',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(11).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(229)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(15).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(229)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     },
     /*参加会议信息*/
@@ -876,55 +892,116 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
         name: 'joinmeet',
         path: '/joinmeet',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(9).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(230)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(13).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(230)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }, {
         name: 'addJoinmeet',
         path: '/addJoinmeet',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(10).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(231)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(14).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(231)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }, {
         name: 'selfJoinmeet',
         path: '/selfJoinmeet',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(8).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(232)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(12).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(232)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     },
     // 专家讲学
     {
-        name: 'experteach',
-        path: '/experteach',
+        name: 'lecture',
+        path: '/lecture',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(14).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(233)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(9).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(447)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }, {
-        name: 'addspeak',
-        path: '/addspeak',
+        name: 'addLecture',
+        path: '/addLecture',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(15).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(234)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(11).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(448)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+        }
+    }, {
+        name: 'editLecture',
+        path: '/editLecture',
+        component: function component(resolve) {
+            return void __webpack_require__.e/* require */(10).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(457)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     },
     // 担任学术团体职务
     {
-        name: 'bearstudyjob',
-        path: '/bearstudyjob',
+        name: 'duties',
+        path: '/duties',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(22).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(235)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(19).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(437)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }, {
-        name: 'addutygroup',
-        path: '/addutygroup',
+        name: 'addDuties',
+        path: '/addDuties',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(23).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(236)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(20).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(438)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+        }
+    }, {
+        name: 'editDuties',
+        path: '/editDuties',
+        component: function component(resolve) {
+            return void __webpack_require__.e/* require */(18).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(458)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     },
+    // 校发文件
+    {
+        name: 'document',
+        path: '/document',
+        component: function component(resolve) {
+            return void __webpack_require__.e/* require */(21).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(397)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+        }
+    }, {
+        name: 'addschoolFile',
+        path: '/addschoolFile',
+        component: function component(resolve) {
+            return void __webpack_require__.e/* require */(23).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(398)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+        }
+    }, {
+        name: 'editSchoolFile',
+        path: '/editSchoolFile',
+        component: function component(resolve) {
+            return void __webpack_require__.e/* require */(22).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(459)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+        }
+    },
+    // 教学科研等合作协议
+    {
+        name: 'agreement',
+        path: '/agreement',
+        component: function component(resolve) {
+            return void __webpack_require__.e/* require */(79).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(427)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+        }
+    }, {
+        name: 'addAgreement',
+        path: '/addAgreement',
+        component: function component(resolve) {
+            return void __webpack_require__.e/* require */(80).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(428)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+        }
+    }, {
+        name: 'editAgreement',
+        path: '/editAgreement',
+        component: function component(resolve) {
+            return void __webpack_require__.e/* require */(78).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(460)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+        }
+    },
+
     /*全局总览*/
     {
         name: 'Glverview',
         path: '/Glverview',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(30).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(237)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(0).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(238)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+        }
+    },
+    // 所有老师论文
+    {
+        name: 'allArticle',
+        path: '/allArticle',
+        component: function component(resolve) {
+            return void __webpack_require__.e/* require */(35).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(480)]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }]
 

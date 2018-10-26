@@ -1,6 +1,7 @@
 <template>
-    <div class="content">
-        <el-form ref="form" :model="form" label-width="125px">
+    <div class="information">
+        <div class="add">
+            <el-form ref="form" :model="form" label-width="125px">
             <el-form-item label="姓名">
                 <el-input v-model="form.expertname" placeholder="请输入姓名"></el-input>
             </el-form-item>
@@ -76,27 +77,25 @@
                 <el-button>取消</el-button>
             </el-form-item>
         </el-form>
+        </div>
     </div>
 </template>
 
 <style scoped>
-    .content{
-        width: 80%;
-        display: flex;
-        margin-top: 20px;
+    .information{
+        width: 75%;
+        float: left;
     }
-    /*组件*/
-    .el-form{
-        width:62%;
-        margin-top: 40px;
-        margin-left: 150px;
+    .add{
+        width: 80%;
+        margin: 35px 0 0 35px;
     }
 </style>
 <script>
     export default {
         data() {
             return {
-
+                DutiesData:{},
                 form: {
                     du_academic: '',
                     du_education: '',
@@ -113,13 +112,31 @@
                 }
             }
         },
-        methods:
-            {
-                onSubmit()
-                {
-                    console.log('submit!');
-                }
-            }
+        methods: {
+            getDutiesData() {
+                let self = this;
+                let art_id = self.$route.params.art_id;
+                axios.get("",art_id).then(function (response) {
+                    var data = response.data;
+                    if (data.code == 0) {
+                        self.DutiesData = data.datas;
+                        console.log(data.datas);
+                    } else {
+                        self.$notify({
+                            type: 'error',
+                            message: data.msg,
+                            duration: 2000,
+                        });
+                    }
+                });
+            },
+            onSubmit() {
+                console.log('submit!');
+            },
+        },
+        mounted() {
+            this.getDutiesData();
         }
+    }
 
 </script>
