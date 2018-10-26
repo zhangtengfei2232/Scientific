@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Model\ArticalDatabase;
 use Illuminate\Http\Request;
 use App\Model\AwardDatabase;
-use config\uploadsubjectionconfig;
+use config\UploadSubjectionConfig;
 class AwardController extends Controller
 {
      //添加获奖信息
@@ -32,6 +32,7 @@ class AwardController extends Controller
              'aw_integral'      => trim($request->aw_integral)
          ];
          $judge_datas = judgeAwardField($datas);
+         $disk        = UploadSubjectionConfig::AWARD;
          if($judge_datas->code == 1){
              return $judge_datas;
          }
@@ -44,14 +45,15 @@ class AwardController extends Controller
              if($judge_image->code == 1){
                  return $judge_image;
              }
-             $add_image_road = uploadFiles(uploadsubjectionconfig::AWARD_IMG,$award_image);
+             $subjection_image = UploadSubjectionConfig::AWARD_IMG;
+             $add_image_road   = uploadFiles($subjection_image,$award_image,$disk);
              $datas['aw_road'] = $add_image_road;
              $add_award = AwardDatabase::addAwardDatas($datas);
          }
          if($add_award){
              return showMsg(0,'添加获奖信息成功');
          }
-         deletefiles(uploadsubjectionconfig::AWARD,$add_image_road);
+         deletefiles($disk,$add_image_road);
          return showMsg(1,'添加获奖信息失败');
      }
      //删除获奖信息
@@ -107,10 +109,11 @@ class AwardController extends Controller
          if($judge_image->code == 1){
              return $judge_image;
          }
-         $disk = uploadsubjectionconfig::AWARD;
+         $disk = UploadSubjectionConfig::AWARD;
+         $subjection_award = UploadSubjectionConfig::AWARD_IMG;
          AwardDatabase::beginTraction();
          $old_image_road   = AwardDatabase::selectAwardRoadDatas($aw_id);
-         $new_image_road   = uploadFiles(uploadsubjectionconfig::AWARD_IMG,$award_image);
+         $new_image_road   = uploadFiles($subjection_award,$award_image,$disk);
          $datas['aw_road'] = $new_image_road;
          $reset_award      = AwardDatabase::updateAwardImage($datas);
          if(!$reset_award){

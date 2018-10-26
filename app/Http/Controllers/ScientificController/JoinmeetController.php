@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\ImageDatas;
 use App\Model\JoinmeetDatas;
-use config\uploadsubjectionconfig;
+use config\uploadSubjectionConfig;
 class JoinmeetController  extends Controller
 {
     //添加参加会议信息
@@ -47,7 +47,7 @@ class JoinmeetController  extends Controller
             return $judge_inject;
         }
         $jo_id = $request->jo_id;
-        $new_inject_road = uploadFiles(uploadsubjectionconfig::JOIN_INJECTION,$judge_inject);
+        $new_inject_road = uploadFiles(uploadSubjectionConfig::JOIN_INJECTION,$judge_inject);
         $add_inject      = JoinmeetDatas::updateJoinmeetInjectRoad($jo_id,$new_inject_road);
         if($add_inject){
             return showMsg(0,'添加参加会议图注成功');
@@ -69,10 +69,10 @@ class JoinmeetController  extends Controller
             $validate = false;
         }
         $success_images = $judge_images['success_images'];
-        $subjection     = uploadsubjectionconfig::JOIN_IMG;
+        $subjection     = uploadSubjectionConfig::JOIN_IMG;
         $ho_id          = $request->ho_id;
         $all_image_road = uploadAllImgs($subjection,$success_images);
-        $image_status   = uploadsubjectionconfig::JOIN_IMG_STATUS;
+        $image_status   = uploadSubjectionConfig::JOIN_IMG_STATUS;
         $add_images     = ImageDatas::addImagesDatas($all_image_road,$ho_id,$image_status);
         if($validate && $add_images->code == 0){
             return showMsg(0,'全部图片添加成功');
@@ -88,7 +88,7 @@ class JoinmeetController  extends Controller
                 //取出添加数据库失败的图片路径
                 $delete_fail_images[$i] = $all_image_road[$index];//添加失败的图片路径数组
             }
-            $disk = uploadsubjectionconfig::JOIN_MEET;
+            $disk = uploadSubjectionConfig::JOIN_MEET;
             deleteAllImgs($disk,$delete_fail_images);
             $response['fail_images'] = $fail_images;
         }
@@ -115,7 +115,7 @@ class JoinmeetController  extends Controller
         $delete_images = ImageDatas::deleteImagesDatas($delete_jo_id);//删除数据库图片路径
         if($delete_images){
             ImageDatas::commit();
-            deleteAllImgs(uploadsubjectionconfig::LECTURE,$all_images_road);
+            deleteAllImgs(uploadSubjectionConfig::LECTURE,$all_images_road);
             return showMsg(0,'删除讲学图片成功');
         }
         ImageDatas::rollback();
@@ -165,10 +165,10 @@ class JoinmeetController  extends Controller
         if($judge_inject->code == 1){
             return $judge_inject;
         }
-        $disk              = uploadsubjectionconfig::JOIN_MEET;
+        $disk              = uploadSubjectionConfig::JOIN_MEET;
         $jo_id             = $request->jo_id;
         $old_inject_road   = JoinmeetDatas::selectJoinmeetInjectRoad($jo_id);
-        $new_inject_road   = uploadFiles(uploadsubjectionconfig::JOIN_INJECTION,$update_inject);
+        $new_inject_road   = uploadFiles(uploadSubjectionConfig::JOIN_INJECTION,$update_inject);
         $reset_inject_raod = JoinmeetDatas::updateJoinmeetInjectRoad($jo_id,$new_inject_road);
         if($reset_inject_raod){
             deletefiles($disk,$old_inject_road);

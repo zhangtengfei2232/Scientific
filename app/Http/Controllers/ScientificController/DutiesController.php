@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\ScientificController;
 
 use App\Http\Controllers\Controller;
-use config\uploadsubjectionconfig;
+use config\uploadSubjectionConfig;
 use Illuminate\Http\Request;
 use App\Model\DutiesDatabase;
 class DutiesController extends Controller
@@ -38,14 +38,14 @@ class DutiesController extends Controller
             if($judge_image->code == 1){
                 return $judge_image;
             }
-            $add_image_road   = uploadFiles(uploadsubjectionconfig::DUTIES_IMG,$duties_image);
+            $add_image_road   = uploadFiles(uploadSubjectionConfig::DUTIES_IMG,$duties_image);
             $datas['du_road'] = $add_image_road;
             $add_duties       = DutiesDatabase::addDutiesDatas($datas);
         }
         if($add_duties){
             return showMsg(0,'添加担任职务信息成功');
         }
-        deletefiles(uploadsubjectionconfig::DUTIES,$add_image_road);
+        deletefiles(uploadSubjectionConfig::DUTIES,$add_image_road);
         return showMsg(1,'添加担任职务信息失败');
     }
     //删除单个学术团体职务信息
@@ -97,10 +97,10 @@ class DutiesController extends Controller
         if($judge_image->code == 1){
             return $judge_image;
         }
-        $disk = uploadsubjectionconfig::DUTIES;
+        $disk = uploadSubjectionConfig::DUTIES;
         DutiesDatabase::beginTraction();
         $old_image_road = DutiesDatabase::selectDutiesImageRoad($du_id);
-        $new_image_road = uploadFiles(uploadsubjectionconfig::DUTIES_IMG,$duties_image);
+        $new_image_road = uploadFiles(uploadSubjectionConfig::DUTIES_IMG,$duties_image);
         $datas['aw_road'] = $new_image_road;
         $reset_duties_  = DutiesDatabase::updateDutiesImage($datas);
         if(!$reset_duties_){

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\LectureDatabase;
 use App\Model\ImageDatas;
-use config\uploadsubjectionconfig;
+use config\uploadSubjectionConfig;
 class LectureController extends Controller
 {
      //添加专家讲学信息
@@ -43,12 +43,12 @@ class LectureController extends Controller
              return $judge_inject;
          }
          $le_id = $request->le_id;
-         $new_inject_road = uploadFiles(uploadsubjectionconfig::LECTURE_INJECTION,$lecture_inject);
+         $new_inject_road = uploadFiles(uploadSubjectionConfig::LECTURE_INJECTION,$lecture_inject);
          $add_inject      = LectureDatabase::updateLectureInjectRoad($le_id,$new_inject_road);
          if($add_inject){
              return showMsg(0,'添加会议图注成功');
          }
-         deletefiles(uploadsubjectionconfig::LECTURE,$new_inject_road);
+         deletefiles(uploadSubjectionConfig::LECTURE,$new_inject_road);
          return showMsg(1,'添加会议图注失败');
 
      }
@@ -67,10 +67,10 @@ class LectureController extends Controller
              $validate = false;
          }
          $success_images  = $judge_images['success_images'];
-         $subjection      = uploadsubjectionconfig::LECTURE_IMG;
+         $subjection      = uploadSubjectionConfig::LECTURE_IMG;
          $le_id           = $request->le_id;
          $all_images_road = uploadAllImgs($subjection,$success_images);
-         $images_status   = uploadsubjectionconfig::LECTURE_IMG_STATUS;
+         $images_status   = uploadSubjectionConfig::LECTURE_IMG_STATUS;
          $add_images      = ImageDatas::addImagesDatas($all_images_road,$le_id,$images_status);
          if($validate && $add_images->code == 1){
              return showMsg(0,'全部图片添加成功');
@@ -86,7 +86,7 @@ class LectureController extends Controller
                  //取出添加数据库失败的图片路径
                  $delete_fail_images[$i] = $all_images_road[$index];//添加失败的图片路径数组
              }
-             $disk = uploadsubjectionconfig::LECTURE;
+             $disk = uploadSubjectionConfig::LECTURE;
              deleteAllImgs($disk,$delete_fail_images);
              $response['fail_images'] = $fail_images;
          }
@@ -113,7 +113,7 @@ class LectureController extends Controller
          $delete_images = ImageDatas::deleteImagesDatas($delete_le_id); //删除数据库图片路径
          if($delete_images){
              ImageDatas::commit();
-             deleteAllImgs(uploadsubjectionconfig::HOLD_MEET,$all_images_road);
+             deleteAllImgs(uploadSubjectionConfig::HOLD_MEET,$all_images_road);
              return showMsg(0,'删除举办会议图片成功');
          }
          ImageDatas::rollback();                                        //回滚，回复数据库数据
@@ -123,7 +123,7 @@ class LectureController extends Controller
      public function selectLecture(Request $request){
          $le_id = $request->le_id;
          $lecture_information = LectureDatabase::selectLectureDatas($le_id);
-         $owner_status        = uploadsubjectionconfig::LECTURE_IMG_STATUS;
+         $owner_status        = uploadSubjectionConfig::LECTURE_IMG_STATUS;
          $lecture_images      = ImageDatas::selectAllOwnerImage($le_id,$owner_status);
          $datas['lecture_information'] = $lecture_information;
          $datas['lecture_images']      = $lecture_images;
@@ -166,8 +166,8 @@ class LectureController extends Controller
          }
          $le_id = $request->le_id;
          $old_inject_road   = LectureDatabase::selectLectureInject($le_id);
-         $disk              = uploadsubjectionconfig::LECTURE;
-         $new_inject_road   = uploadFiles(uploadsubjectionconfig::LECTURE_INJECTION,$update_inject);
+         $disk              = uploadSubjectionConfig::LECTURE;
+         $new_inject_road   = uploadFiles(uploadSubjectionConfig::LECTURE_INJECTION,$update_inject);
          $reset_inject_road = LectureDatabase::updateLectureInjectRoad($le_id,$new_inject_road);
          if($reset_inject_road){
              deletefiles($disk,$old_inject_road);

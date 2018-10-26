@@ -4,7 +4,7 @@ namespace App\Http\Controllers\ScientificController;
 
 use App\Http\Controllers\Controller;
 use App\Model\AgreementDatabase;
-use config\uploadsubjectionconfig;
+use config\uploadSubjectionConfig;
 use Illuminate\Http\Request;
 
 class AgreementController extends Controller
@@ -28,13 +28,13 @@ class AgreementController extends Controller
         if($judge_datas->code == 1){
             return $judge_datas;
         }
-        $add_agreement_raod  = uploadFiles(uploadsubjectionconfig::AGREEMENT_PDF,$agreement_pdf);
+        $add_agreement_raod  = uploadFiles(uploadSubjectionConfig::AGREEMENT_PDF,$agreement_pdf);
         $datas['agree_road'] = $add_agreement_raod;
         $add_agreement = AgreementDatabase::addAgreementDatas($datas);
         if($add_agreement){
             return showMsg(0,'添加教学科研合作协议成功');
         }
-        deletefiles(uploadsubjectionconfig::AGREEMENT,$add_agreement_raod);
+        deletefiles(uploadSubjectionConfig::AGREEMENT,$add_agreement_raod);
         return showMsg(1,'添加教学科研合作协议失败');
     }
     //删除单个教学科研合作协议信息
@@ -43,7 +43,7 @@ class AgreementController extends Controller
         $agreement_road   = AgreementDatabase::selectAgreementRoad($agreement_id);
         $delete_agreement = AgreementDatabase::deleteAgreementDatas($agreement_id);
         if($delete_agreement){
-            deletefiles(uploadsubjectionconfig::AGREEMENT,$agreement_road);
+            deletefiles(uploadSubjectionConfig::AGREEMENT,$agreement_road);
             return showMsg(0,'删除教学科研合作协议信息成功');
         }
         return showMsg(1,'删除教学科研合作协议信息失败');
@@ -64,7 +64,7 @@ class AgreementController extends Controller
             }
             $response['fail_agreement'] = $agreement_name;
         }
-        deleteAllFiles(uploadsubjectionconfig::AGREEMENT,$agreement_raod_datas);
+        deleteAllFiles(uploadSubjectionConfig::AGREEMENT,$agreement_raod_datas);
         if($validate){
             return $delete_agreement;
         }
@@ -92,9 +92,9 @@ class AgreementController extends Controller
             return $judge_agreement_pdf;
         }
         $old_agreement_road  = AgreementDatabase::selectAgreementRoad($agree_id);
-        $new_agreement_road  = uploadFiles(uploadsubjectionconfig::AGREEMENT_PDF,$agreement_pdf);
+        $new_agreement_road  = uploadFiles(uploadSubjectionConfig::AGREEMENT_PDF,$agreement_pdf);
         $datas['agree_road'] = $new_agreement_road;
-        $disk = uploadsubjectionconfig::AGREEMENT;
+        $disk = uploadSubjectionConfig::AGREEMENT;
         $update_agreement    = AgreementDatabase::updateAgreementDatas($datas);
         if($update_agreement){
             deletefiles($disk,$old_agreement_road);

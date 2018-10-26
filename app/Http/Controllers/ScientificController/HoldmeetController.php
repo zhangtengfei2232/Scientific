@@ -4,7 +4,7 @@ namespace App\Http\Controllers\ScientificController;
 
 use App\Http\Controllers\Controller;
 use App\Model\HoldmeetDatas;
-use config\uploadsubjectionconfig;
+use config\uploadSubjectionConfig;
 use Illuminate\Http\Request;
 use App\Model\ImageDatas;
 class HoldmeetController extends Controller
@@ -45,12 +45,12 @@ class HoldmeetController extends Controller
             return $judge_inject;
         }
         $ho_id           = $request->ho_id;
-        $new_inject_road = uploadFiles(uploadsubjectionconfig::HOLD_INJECTION,$holdmeet_inject);
+        $new_inject_road = uploadFiles(uploadSubjectionConfig::HOLD_INJECTION,$holdmeet_inject);
         $add_inject      = HoldmeetDatas::updateHoldmeetInjectRoad($ho_id,$new_inject_road);
         if($add_inject){
             return showMsg(0,'添加会议图注成功');
         }
-        deletefiles(uploadsubjectionconfig::HOLD_MEET,$new_inject_road);
+        deletefiles(uploadSubjectionConfig::HOLD_MEET,$new_inject_road);
         return showMsg(1,'添加会议图注失败');
     }
     //添加举行会议图片
@@ -68,10 +68,10 @@ class HoldmeetController extends Controller
             $validate = false;
         }
         $success_image   = $judge_images['success_images'];
-        $subjection      = uploadsubjectionconfig::HOLD_IMG;
+        $subjection      = uploadSubjectionConfig::HOLD_IMG;
         $ho_id           = $request->ho_id;
         $all_images_road = uploadAllImgs($subjection,$success_image);
-        $image_status    = uploadsubjectionconfig::HOLD_IMG_STATUS;
+        $image_status    = uploadSubjectionConfig::HOLD_IMG_STATUS;
         $add_images      = ImageDatas::addImagesDatas($all_images_road,$ho_id,$image_status);
         if($validate && $add_images->code == 0){
             return showMsg(0,'全部图片添加成功');
@@ -87,7 +87,7 @@ class HoldmeetController extends Controller
                 //取出添加数据库失败的图片路径
                 $delete_fail_images[$i] = $all_images_road[$index];//添加失败的图片路径数组
             }
-            $disk = uploadsubjectionconfig::HOLD_MEET;
+            $disk = uploadSubjectionConfig::HOLD_MEET;
             deleteAllImgs($disk,$delete_fail_images);              //删除数据库添加失败的图片
             $response['fail_images'] = $fail_images;
         }
@@ -106,7 +106,7 @@ class HoldmeetController extends Controller
         $delete_images = ImageDatas::deleteImagesDatas($delete_im_id); //删除数据库图片路径
         if($delete_images){
             ImageDatas::commit();
-            deleteAllImgs(uploadsubjectionconfig::HOLD_MEET,$all_images_road);
+            deleteAllImgs(uploadSubjectionConfig::HOLD_MEET,$all_images_road);
             return showMsg(0,'删除举办会议图片成功');
         }
         ImageDatas::rollback();                                        //回滚，回复数据库数据
@@ -125,7 +125,7 @@ class HoldmeetController extends Controller
     public function selectHoldmeet(Request $request){
         $ho_id                = $request->ho_id;
         $holdmeet_information = HoldmeetDatas::selectHoldmetDatas($ho_id);
-        $owner_status         = uploadsubjectionconfig::HOLD_IMG_STATUS;
+        $owner_status         = uploadSubjectionConfig::HOLD_IMG_STATUS;
         $hold_images          = ImageDatas::selectAllOwnerImage($ho_id,$owner_status);
         $datas['holdmeet_information'] = $holdmeet_information;
         $datas['hold_images']          = $hold_images;
@@ -170,8 +170,8 @@ class HoldmeetController extends Controller
         }
         $ho_id             = $request->ho_id;
         $old_inject_road   = HoldmeetDatas::selectHoldmeetInjectRoad($ho_id);
-        $disk              = uploadsubjectionconfig::HOLD_MEET;
-        $new_inject_road   = uploadFiles(uploadsubjectionconfig::HOLD_INJECTION,$update_inject);
+        $disk              = uploadSubjectionConfig::HOLD_MEET;
+        $new_inject_road   = uploadFiles(uploadSubjectionConfig::HOLD_INJECTION,$update_inject);
         $reset_inject_road = HoldmeetDatas::updateHoldmeetInjectRoad($ho_id,$new_inject_road);
         if($reset_inject_road){
             deletefiles($disk,$old_inject_road);

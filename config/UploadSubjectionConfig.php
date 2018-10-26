@@ -1,7 +1,7 @@
 <?php
 namespace config;
 
-class uploadsubjectionconfig
+class uploadSubjectionConfig
 {
     const TEACHER             = 'teacher';               //老师证书文件夹名
     const PATENT              = 'patent';                //老师专利文件夹名

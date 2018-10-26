@@ -4,7 +4,7 @@ namespace App\Http\Controllers\ScientificController;
 use App\Http\Controllers\Controller;
 use App\Model\TeacherDatabase;
 use Illuminate\Http\Request;
-use config\uploadsubjectionconfig;
+use config\uploadSubjectionConfig;
 class InformationController extends Controller
 {
 
@@ -84,10 +84,10 @@ class InformationController extends Controller
         }
         $status         = trim($request->reset_image_status);                 //老师修改证书的状态
         if($status == 1){
-            $subjection     = uploadsubjectionconfig::GRADUCETION_IMG;
+            $subjection     = uploadSubjectionConfig::GRADUCETION_IMG;
             $certificate    = $request->file('graducation_image');       //接收证书图片
         }else{
-            $subjection     = uploadsubjectionconfig::EDUCATION_IMG;
+            $subjection     = uploadSubjectionConfig::EDUCATION_IMG;
             $certificate    = $request->file('education_image');       //接收证书图片
         }
         $response = judgeFileImage($certificate);                             //判断文件是否合法
@@ -100,7 +100,7 @@ class InformationController extends Controller
         TeacherDatabase::beginTraction();
         if(! $add_certificate){
             TeacherDatabase::rollback();
-            deletefiles(uploadsubjectionconfig::TEACHER,$new_certificate_road);
+            deletefiles(uploadSubjectionConfig::TEACHER,$new_certificate_road);
             return showMsg(1,'上传图片失败');
         }
         TeacherDatabase::commit();
@@ -183,10 +183,10 @@ class InformationController extends Controller
         $status      = trim($request->resetimage);                           //老师修改证书的状态
         if($status == 1){
             $certificate = $request->file('graducation_image');         //接收证书图片文件
-            $subjection  = uploadsubjectionconfig::GRADUCETION_IMG;
+            $subjection  = uploadSubjectionConfig::GRADUCETION_IMG;
         }else{
             $certificate = $request->file('education_image');           //接收证书图片文件
-            $subjection  = uploadsubjectionconfig::EDUCATION_IMG;
+            $subjection  = uploadSubjectionConfig::EDUCATION_IMG;
         }
         $response = judgeFileImage($certificate);                            //判断文件是否合法
         if($response->code == 1){
@@ -202,12 +202,12 @@ class InformationController extends Controller
         $reset_certificate = TeacherDatabase::updateCertificate($teacher_id,$new_certificate_road,$status);
         if(! $reset_certificate){
             TeacherDatabase::rollback();
-            deletefiles(uploadsubjectionconfig::TEACHER,$new_certificate_road);
+            deletefiles(uploadSubjectionConfig::TEACHER,$new_certificate_road);
             return showMsg(1,'上传证书图片失败');
         }
         TeacherDatabase::commit();
         //删除以前的证书图片
-        deletefiles(uploadsubjectionconfig::TEACHER,$certificate_road);
+        deletefiles(uploadSubjectionConfig::TEACHER,$certificate_road);
         return showMsg(0,'上传证书图片成功');
     }
 

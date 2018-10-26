@@ -113,7 +113,7 @@ class TeacherDatabase extends ModelDatabase
          $juris_diction = config('Jurisdiction');
          foreach ($juris_diction as $juris){
              if(!in_array($usercount,$juris['jurisdiction'])){
-                 unset($juris);
+                 unset($juris[0]);
              }
          }
          $buffer->borth                  = date('Y-m-d',$buffer->borth);

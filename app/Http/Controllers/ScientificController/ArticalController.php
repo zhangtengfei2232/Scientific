@@ -4,7 +4,7 @@ namespace App\Http\Controllers\ScientificController;
 use App\Http\Controllers\Controller;
 use App\Model\ArticalDatabase;
 use Illuminate\Http\Request;
-use config\uploadsubjectionconfig;
+use config\UploadSubjectionConfig;
 class ArticalController extends Controller
 {
      //添加论文
@@ -49,12 +49,14 @@ class ArticalController extends Controller
          if($respose->code == 1){
              return $respose;
          }
-         $disk               = uploadsubjectionconfig::ARTICAL;
-         $subjection         = uploadsubjectionconfig::ARTICAL_IMG;
+         $disk               = UploadSubjectionConfig::ARTICAL;
+         $subjection         = UploadSubjectionConfig::ARTICAL_IMG;
          $artical_name       = $artical_file->getClientOriginalName();        //获取文件名字
          ArticalDatabase::beginTraction();
-         $artical_road       = uploadFiles(uploadsubjectionconfig::ARTICAL_PDF,$artical_file);
-         $artical_sci_road   = uploadFiles(uploadsubjectionconfig::ARTICAL_SCI,$artical_sci);
+         $subjection_artical = UploadSubjectionConfig::ARTICAL_PDF;
+         $subjection_sci     = UploadSubjectionConfig::ARTICAL_SCI;
+         $artical_road       = uploadFiles($subjection_artical,$artical_file,$disk);
+         $artical_sci_road   = uploadFiles($subjection_sci,$artical_sci,$disk);
          $artical_first_road = pdfToPngUpload($disk,$artical_road,$subjection,$artical_name,1);
          $datas['art_road']       = $artical_road;
          $datas['home_page_road'] = $artical_first_road;
@@ -73,7 +75,7 @@ class ArticalController extends Controller
      //删除论文
      public function deleteArtical(Request $request){
          $artical_id          = $request->artical_id;
-         $disk                = uploadsubjectionconfig::ARTICAL;
+         $disk                = UploadSubjectionConfig::ARTICAL;
          $select_artical_road = ArticalDatabase::selectArticalRoad($artical_id);
          $delete_artical      = ArticalDatabase::deleteArticalDatas($artical_id);
          if(!$delete_artical){
@@ -137,11 +139,11 @@ class ArticalController extends Controller
              return showMsg(1,'论文SCI索引'.$judge_sci);
          }
          $old_artical_road      = ArticalDatabase::selectArticalRoad($artical_id);
-         $disk                  = uploadsubjectionconfig::ARTICAL;
-         $subjection            = uploadsubjectionconfig::ARTICAL_IMG;
+         $disk                  = UploadSubjectionConfig::ARTICAL;
+         $subjection            = UploadSubjectionConfig::ARTICAL_IMG;
          ArticalDatabase::beginTraction();
-         $reset_artical_road      = uploadfiles(uploadsubjectionconfig::ARTICAL_PDF,$artical_file);
-         $reset_sci_road          = uploadFiles(uploadsubjectionconfig::ARTICAL_SCI,$artical_sci);
+         $reset_artical_road      = uploadfiles(uploadSubjectionConfig::ARTICAL_PDF,$artical_file);
+         $reset_sci_road          = uploadFiles(uploadSubjectionConfig::ARTICAL_SCI,$artical_sci);
          $artical_name            = $artical_file->getClientOriginalName();
          $reset_first_page_road   = pdfToPngUpload($disk,$reset_artical_road,$subjection,$artical_name,1);
          $datas['home_page_road'] = $reset_first_page_road;

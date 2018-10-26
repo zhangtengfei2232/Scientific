@@ -4,7 +4,7 @@ namespace App\Http\Controllers\ScientificController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\OpusDatabase;
-use config\uploadsubjectionconfig;
+use config\uploadSubjectionConfig;
 class OpusController  extends Controller
 {
     //添加著作信息
@@ -47,22 +47,22 @@ class OpusController  extends Controller
         $add_image_status = $request->add_image_status;
         if($add_image_status == 1){
             $opus_image = $request->file('op_cover_image');
-            $subjection = uploadsubjectionconfig::OPUS_COVER_IMG;
+            $subjection = uploadSubjectionConfig::OPUS_COVER_IMG;
         }else{
             $opus_image = $request->file('op_coright_image');
-            $subjection = uploadsubjectionconfig::COPYRIGHT_IMG;
+            $subjection = uploadSubjectionConfig::COPYRIGHT_IMG;
         }
         $judge_opu_iamge  = judgeFileImage($opus_image);
         if($judge_opu_iamge->code == 1){
             return $judge_opu_iamge;
         }
         if($add_image_status == 1){
-            $subjection   = uploadsubjectionconfig::OPUS_COVER_IMG;
+            $subjection   = uploadSubjectionConfig::OPUS_COVER_IMG;
         }elseif ($add_image_status == 2){
-            $subjection   = uploadsubjectionconfig::COPYRIGHT_IMG;
+            $subjection   = uploadSubjectionConfig::COPYRIGHT_IMG;
         }
         $op_id       = $request->op_id;
-        $disk        = uploadsubjectionconfig::OPUS;
+        $disk        = uploadSubjectionConfig::OPUS;
         $new_image_road = uploadFiles($subjection,$opus_image);
         $add_image      = OpusDatabase::updateImageDatas($new_image_road,$add_image_status,$op_id);
         if($add_image){
@@ -133,16 +133,16 @@ class OpusController  extends Controller
         $update_image_status = $request->update_image_status;
         if($update_image_status == 1){
             $opus_image = $request->file('op_cover_image');
-            $subjection = uploadsubjectionconfig::OPUS_COVER_IMG;
+            $subjection = uploadSubjectionConfig::OPUS_COVER_IMG;
         }else{
             $opus_image = $request->file('op_coright_image');
-            $subjection = uploadsubjectionconfig::COPYRIGHT_IMG;
+            $subjection = uploadSubjectionConfig::COPYRIGHT_IMG;
         }
         $response       = judgeFileImage($opus_image);
         if($response->code == 1){
             return $response;
         }
-        $disk = uploadsubjectionconfig::OPUS;
+        $disk = uploadSubjectionConfig::OPUS;
         $old_image_road = OpusDatabase::selectOpusImageRoad($op_id,$update_image_status);
         OpusDatabase::beginTraction();
         $new_image_road = uploadFiles($subjection,$opus_image);

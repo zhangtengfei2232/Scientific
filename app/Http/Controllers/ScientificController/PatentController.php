@@ -5,7 +5,7 @@ namespace App\Http\Controllers\ScientificController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\PatentDatabase;
-use config\uploadsubjectionconfig;
+use config\uploadSubjectionConfig;
 class PatentController extends Controller
 {
      //添加专利信息
@@ -36,13 +36,13 @@ class PatentController extends Controller
          if($judge_image->code == 1){
              return $judge_image;
          }
-         $add_image_road   = uploadFiles(uploadsubjectionconfig::PATENT_IMG,$patent_image);
+         $add_image_road   = uploadFiles(uploadSubjectionConfig::PATENT_IMG,$patent_image);
          $datas['pa_road'] = $add_image_road;
          $add_patent       = PatentDatabase::addPatentDatas($datas);
          if($add_patent){
              return showMsg(0,'添加专利信息成功');
          }
-         deletefiles(uploadsubjectionconfig::PATENT,$add_image_road);
+         deletefiles(uploadSubjectionConfig::PATENT,$add_image_road);
          return showMsg(1,'添加专利信息失败');
      }
      //删除专利信息
@@ -95,9 +95,9 @@ class PatentController extends Controller
          if($judge_iamge->code ==1){
              return $judge_iamge;
          }
-         $disk = uploadsubjectionconfig::PATENT;
+         $disk = uploadSubjectionConfig::PATENT;
          $old_image_road = PatentDatabase::selectImageRoad($pa_id);
-         $new_image_road = uploadFiles(uploadsubjectionconfig::PATENT_IMG,$patent_image);
+         $new_image_road = uploadFiles(uploadSubjectionConfig::PATENT_IMG,$patent_image);
          $datas['pa_road'] = $new_image_road;
          $reset_patent = PatentDatabase::updatePatentImage($datas);
          if($reset_patent){
