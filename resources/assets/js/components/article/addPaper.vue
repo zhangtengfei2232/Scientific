@@ -11,6 +11,11 @@
                 <el-form-item label="论文题目">
                     <el-input v-model="form.title"></el-input>
                 </el-form-item>
+                <el-form-item label="发表时间">
+                    <el-col :span="15">
+                    <el-date-picker type="date" placeholder="选择日期" v-model="form.art_time" style="width: 100%;"></el-date-picker>
+                    </el-col>
+                </el-form-item>
                 <el-form-item label="发表刊物名称">
                     <el-input v-model="form.publication_name"></el-input>
                 </el-form-item>
@@ -104,12 +109,29 @@
                 <el-form-item label="学校认定刊物级别">
                     <el-input v-model="form.percal_cate"></el-input>
                 </el-form-item>
+                <el-form-item label="备注">
+                    <el-input type="textarea" v-model="form.art_remarks"></el-input>
+                </el-form-item>
                 <el-form-item label="论文全文PDF上传">
                     <el-upload
                         class="upload-demo"
                         drag
-                        action="#"
-                        multiple>
+                        action=""
+                        multiple
+                        :on-change="fileChange"
+                        :auto-upload="false">
+                        <i class="el-icon-upload"></i>
+                        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                    </el-upload>
+                </el-form-item>
+                 <el-form-item label="SCI索引检索报告">
+                    <el-upload
+                        class="upload-demo"
+                        drag
+                        action=""
+                        multiple
+                        :on-change="fileChanges"
+                        :auto-upload="false">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
@@ -147,6 +169,7 @@
                 author: '',
                 art_all_author: '',
                 title: '',
+                art_time: '',
                 publication_name: '',
                 publication_num : '',
                 num_words: '',
@@ -156,20 +179,33 @@
                 art_sub_category: '',
                 art_integral: '',  
                 percal_cate: '',
-                year: ''
+                year: '',
+                art_remarks: "",
+                file1: '',
+                file2: ''
             }
         }
     },
     methods: {
+        fileChange(file){
+            this.form.file1 = file.raw;
+            this.checkFileExt(this.form.file1.name);
+        },
+        fileChanges(file){
+            this.form.file2 = file.raw;
+            this.checkFileExt(this.form.file1.name);
+        },
         onSubmit(form,year2,year3,year4,year5,year1) {
-            form.year = year1+year2+year3+year4+year5;
+            form.year = year1+","+year2+","+year3+","+year4+","+year5;
             if(form.author == '') {
                 this.$message.error('第一作者不能为空');
             }else if(form.art_all_author == ''){
                 this.$message.error('全部作者不能为空');
             }else if(form.title == '') {
                 this.$message.error('论文题目不能为空');
-            }else if(form.publication_name == '') {
+            }else if(form.art_time == ''){
+                this.$message.error('发表时间不能为空');
+            } else if(form.publication_name == '') {
                 this.$message.error('发表刊物名称不能为空');
             }else if(form.publication_num == '') {
                 this.$message.error('刊号不能为空');
@@ -202,20 +238,41 @@
             }
         },
         addArticleData(form) {
-                let self = this;
-                axios.get("addartical",form).then(function (response) {
-                    var data = response.data;
-                    if (data.code == 0) {
-                        
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.msg,
-                            duration: 2000,
-                        });
-                    }
-                });
+            console.log(form);
+            let self = this;
+            axios.post("addartical",form).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.msg,
+                        duration: 2000,
+                    });
+                }
+            });
         },
+        checkFileExt(filename){
+            var flag = false; //状态
+            var arr = ["pdf"];
+            //取出上传文件的扩展名
+            var index = filename.lastIndexOf(".");
+            var ext = filename.substr(index+1);
+            //循环比较
+            if(filename == '') {
+                this.$message.error('上传文件不能为空');
+            }
+            for(var i=0;i<arr.length;i++){
+                if(ext == arr[i]){
+                    flag = true; 
+                    break;
+                }
+            }
+            if(!flag){
+                this.$message.error('请上传PDF');
+            }
+        }
      }
   }
 </script>
