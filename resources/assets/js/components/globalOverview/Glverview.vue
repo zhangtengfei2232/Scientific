@@ -68,12 +68,24 @@
                     </el-col>
                 </el-row>
             </div>  
-            <div class="list2">
+            <div class="char">
                 <div class="navL">
-                    <p>师资图</p>
+                        <p>图标概况</p>
+                    </div>
+                <div class="list2">      
+                    <span>师资图</span>
+                    <div id="myChart" :style="{width: '300px', height: '300px'}"></div>
+                </div>  
+                <div class="list3">
+                    <span>师资图</span>
+                    <div id="myArticle" :style="{width: '300px', height: '300px'}"></div>
                 </div>
-                <div id="myChart" :style="{width: '300px', height: '300px'}"></div>
-            </div>  
+                <div class="list4">
+                    <span>师资图</span>
+                    <div id="myAward" :style="{width: '300px', height: '300px'}"></div>
+                </div>
+            </div>
+             
         </div>
     </div>
 </template>
@@ -139,7 +151,21 @@
         line-height: 60px;
     }
     .list2{
-
+        width: 40%;
+        float: left;
+        margin: 0 0 0 10%;
+    }
+    .list2 span,.list3 span,.list4{
+        display: inline-block;
+        padding: 10px 25px;
+    }
+    .list3{
+        width: 40%;
+        float: left;
+    }
+    .list4{
+        width: 40%;
+        float: left;
     }
 </style>
 
@@ -157,9 +183,9 @@ export default {
     },
     methods: {
         drawLine(){
-            // 基于准备好的dom，初始化echarts实例
             var myChart = this.$echarts.init(document.getElementById('myChart'));
-            // 绘制图表
+            var myArticle = this.$echarts.init(document.getElementById('myArticle'));
+            var myAward = this.$echarts.init(document.getElementById('myAward'));
             myChart.setOption({
                 series: {
                     type: 'pie',
@@ -170,6 +196,36 @@ export default {
                     ]
                 }
             });
+            myArticle.setOption({
+                series: {
+                    type: 'pie',
+                    data: [
+                        {name: 'A', value: 1212},
+                        {name: 'B', value: 2323},
+                        {name: 'C', value: 1919}
+                    ]
+                }
+            });
+            myAward.option = {
+                legend: {},
+                tooltip: {},
+                dataset: {
+                    source: [
+                        ['product', '2015', '2016', '2017'],
+                        ['Matcha Latte', 43.3, 85.8, 93.7],
+                        ['Milk Tea', 83.1, 73.4, 55.1],
+                        ['Cheese Cocoa', 86.4, 65.2, 82.5],
+                        ['Walnut Brownie', 72.4, 53.9, 39.1]
+                    ]
+                },
+                xAxis: {type: 'category'},
+                yAxis: {},
+                series: [
+                    {type: 'bar'},
+                    {type: 'bar'},
+                    {type: 'bar'}
+                ]
+            };
         }
     }
 }

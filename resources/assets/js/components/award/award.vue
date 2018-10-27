@@ -29,31 +29,54 @@
                 </el-form>
             </span>
         </header>
-        <div class="navbo">
-            <span class="checks"><el-checkbox v-model="checked"></el-checkbox></span>
-            <span class="number">序号</span>   
-            <span class="info">论文信息</span>
-            <span class="time">发表时间</span>
-            <span class="do">操作</span>
-        </div>
-        <div class="content">
-            <el-checkbox-group v-model="checkAll" @change="handleCheckedCitiesChange"> 
-                <div class="lists" v-for="(item,index) in AwardDate" :key="index">
-                    <span class="check"><el-checkbox v-model="checked"></el-checkbox></span>
-                    <span class="numbers">{{ item.teacher_id }}</span>
-                    <span class="picture"><img src="/dist/img/hj.png" alt="文件加载失败"></span>
-                    <span class="infos">
-                        <h5>{{ item.title }}</h5>
-                        <p>作者 <small>特别标注</small></p>
-                    </span>
-                    <span class="times">2018-09-10</span>
-                    <span class="dos" @click="sentAwardSelfData(item.aw_id)">编辑</span>
-                    <span class="tos"><router-link to="/">导出</router-link></span>
-                    <span class="dos" @click="sentAwardSelfData(item.aw_id)">查看</span>
-                    <span class="del" @click="deleteAwardData(item.aw_id)">删除</span>
-                    <div class="clear"></div>
+        <div class="table">
+            <template>
+                <el-table
+                    ref="multipleTable"
+                    :data="AwardDate"
+                    tooltip-effect="dark"
+                    style="width: 100%"
+                    @selection-change="handleSelectionChange">
+                    <el-table-column
+                    type="selection"
+                    width="55">
+                    </el-table-column>
+                    <el-table-column
+                    prop="aw_id"
+                    label="序号"
+                    width="120">
+                    </el-table-column>
+                    <el-table-column
+                    prop="award_name"
+                    label="奖励名称"
+                    width="120">
+                    </el-table-column>
+                    <el-table-column
+                    prop="aw_grant_time"
+                    label="授予时间"
+                    show-overflow-tooltip>
+                    </el-table-column>
+                    <el-table-column
+                        fixed="right"
+                        label="操作"
+                        width="200">
+                        <template slot-scope="scope">
+                            <el-button
+                            @click.native.prevent="deleteRow(scope.$index, AwardDate)"
+                            type="text"
+                            size="small">
+                            <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentAwardSelfData(aw_id)"></el-button>
+                            <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentAwardSelfData(aw_id)"></el-button>
+                            <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteAwardData(aw_id)"></el-button>
+                            </el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+                <div style="margin-top: 20px">
+                    <el-button @click="toggleSelection([AwardDate[1], AwardDate[2]])">切换第二、第三行的选中状态</el-button>
+                    <el-button @click="toggleSelection()">取消选择</el-button>
                 </div>
-            </el-checkbox-group>
+            </template>
         </div>
     </div>
 </template>
@@ -83,83 +106,11 @@
     .demonstration{
         font-weight: lighter;
     }
-    .navbo{
-        border-bottom: 1px solid #eee;
-        background: rgba(187, 187, 187, 0.1);
-        height: 40px;
-    }
-    .info,.number,.do,.time{
-        display: inline-block;
-        padding: 10px;
-        font-size: 14px;
-    }
-    .number{
-        margin: 0 2% 0 3%;
-    }
-    .time{
-        margin: 0 6% 0 45%;
-    }
-    .lists{
-        border-bottom: 1px solid #eee;
-        height: 80px;
-    }
-    .del,.times,.infos,.numbers,.dos,.tos{
-        display: inline-block;
-        padding: 10px;
-        font-size: 14px;
-    }
-    .lists span{
+    .table{
         float: left;
-    }
-    .lists img{
-        width: 35px;
-    }
-    .numbers{
-        margin: 20px 2% 0 3.5%;
-    }
-    .check{
-        margin: 25px 2% 0 3%;
-    }
-    .checks{
-        margin: 0 2% 0 3%;
-    }
-    .picture{
-        margin: 20px 5px 0 1%;
-    }
-    .infos{
-        margin: 10px 2% 0 0;
-    }
-    .infos h5{
-        font-size: 14px;
-        font-weight: lighter;
-    }
-    .infos p{
-        font-size: 13px;
-        font-weight: lighter;
-        margin: 8px 0 0 0;
-    }
-    .infos p small{
-        color: orange;
-        padding: 0 0 0 5px;
-    }
-    .times{
-        margin: 22px 2% 0 39%;
-    }
-    .dos,.tos,.del{
-        font-size: 13px;
-        margin: 23px 0 0 0;
-        color: rgba(61, 112, 206, 0.77)!important;
-    }
-    .dos a,.tos a{
-        color: rgba(61, 112, 206, 0.77)!important;
-    }
-    .del a{
-        color: rgba(229, 28, 35, 1)!important;
-    }
-    .clear{
-        clear: both;
-        content: '';
-    }
+        width: 80%;
+        margin: 20px 0 0 5%;
+    } 
 </style>
 <script>
     export default {
@@ -175,18 +126,24 @@
             }
         },
         methods: {
-            handleCheckAllChange(val) {
-                this.checkedCities = val ? this.AwardDate : [];
-                this.isIndeterminate = false;
+             deleteRow(index, rows) {
+                rows.splice(index, 1);
             },
-             handleCheckedCitiesChange(value) {
-                let checkedCount = value.length;
-                this.checkAll = checkedCount === this.AwardDate.length;
-                this.isIndeterminate = checkedCount > 0 && checkedCount < this.AwardDate.length;
+            toggleSelection(rows) {
+                if (rows) {
+                rows.forEach(row => {
+                    this.$refs.multipleTable.toggleRowSelection(row);
+                });
+                } else {
+                    this.$refs.multipleTable.clearSelection();
+                }
+            },
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
             },
             getAwardDate() {
                 let self = this;
-                axios.get("selectopus").then(function (response) {
+                axios.get("selectallaward").then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
                         self.AwardDate = data.datas;

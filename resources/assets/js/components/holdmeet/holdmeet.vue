@@ -39,7 +39,7 @@
         <div class="content">
             <div class="lists" v-for="(item,index) in HoldmeetlDate" :key="index">
                 <span class="check"><el-checkbox v-model="checked"></el-checkbox></span>
-                <span class="numbers">{{ item.teacher_id }}</span>
+                <span class="numbers">{{ item.ho_id }}</span>
                 <span class="picture"><img src="/dist/img/jbhy.png" alt="文件加载失败"></span>
                 <span class="infos">
                     <h5>{{ item.title }}</h5>
@@ -174,7 +174,7 @@
         methods: {
             getHoldmeetDate() {
                 let self = this;
-                axios.get("").then(function (response) {
+                axios.get("selectallholdmeet").then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
                         self.HoldmeetlDate = data.datas;

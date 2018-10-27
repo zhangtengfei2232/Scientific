@@ -118,7 +118,8 @@
                         drag
                         action=""
                         multiple
-                        :on-change="fileChange"
+                        ref="art_pdf"
+                        :before-upload="fileArtpdf"
                         :auto-upload="false">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -130,7 +131,8 @@
                         drag
                         action=""
                         multiple
-                        :on-change="fileChanges"
+                        ref="art_sci"
+                        :before-upload="fileArtsci"
                         :auto-upload="false">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -165,6 +167,9 @@
             year3: '',
             year4: '',
             year5: '',
+            art_pdf: '',
+            art_sci: '',
+            dataForm: new FormData(),
             form: {
                 author: '',
                 art_all_author: '',
@@ -181,91 +186,104 @@
                 percal_cate: '',
                 year: '',
                 art_remarks: "",
-                art_pdf: '',
-                art_sci: ''
             }
         }
     },
     methods: {
-        fileChange(file){
-            this.form.art_pdf = file.raw;
-            this.checkFileExt(this.form.art_pdf.name);
+        fileArtpdf(file){
+            this.dataForm.append('art_pdf', file);
+            return false;
         },
-        fileChanges(file){
-            this.form.art_sci = file.raw;
-            this.checkFileExt(this.form.art_sci.name);
+        fileArtsci(file){
+            this.dataForm.append('art_sci', file);
+            return false;
         },
         onSubmit(form,year2,year3,year4,year5,year1) {
+            let vue = this;
             form.year = year1+","+year2+","+year3+","+year4+","+year5;
-            if(form.author == '') {
-                this.$message.error('第一作者不能为空');
-            }else if(form.art_all_author == ''){
-                this.$message.error('全部作者不能为空');
-            }else if(form.title == '') {
-                this.$message.error('论文题目不能为空');
-            }else if(form.art_time == ''){
-                this.$message.error('发表时间不能为空');
-            } else if(form.publication_name == '') {
-                this.$message.error('发表刊物名称不能为空');
-            }else if(form.publication_num == '') {
-                this.$message.error('刊号不能为空');
-            }else if(year1 == '') {
-                this.$message.error('年，卷，期不能为空');
-            }else if(year2 == '') {
-                this.$message.error('年，卷，期不能为空');
-            }else if(year3 == '') {
-                this.$message.error('年，卷，期不能为空');
-            }else if(year4 == '') {
-                this.$message.error('年，卷，期不能为空');
-            }else if(year5 == '') {
-                this.$message.error('年，卷，期不能为空');
-            }else if(form.num_words == '') {
-                this.$message.error('字数不能为空');
-            }else if(form.periodical_cate == '') {
-                this.$message.error('期刊级别不能为空');
-            }else if(form.belong_project == '') {
-                this.$message.error('所属项目不能为空');
-            }else if(form.art_cate_research == '') {
-                this.$message.error('研究类别不能为空');
-            }else if(form.art_sub_category == '') {
-                this.$message.error('学科门类不能为空');
-            }else if(form.art_integral == '') {
-                this.$message.error('积分不能为空');
-            }else if(form.percal_cate == '') {
-                this.$message.error('学校认定刊物级别不能为空');
-            }else{
-                this.addArticleData(form);
-            }
-        },
-        addArticleData(form) {
-            let self = this;
-            axios.post("addartical",form).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    this.$message({
-                        message: '添加成功',
-                        type: 'success'
+            // if(form.author == '') {
+            //     this.$message.error('第一作者不能为空');
+            // }else if(form.art_all_author == ''){
+            //     this.$message.error('全部作者不能为空');
+            // }else if(form.title == '') {
+            //     this.$message.error('论文题目不能为空');
+            // }else if(form.art_time == ''){
+            //     this.$message.error('发表时间不能为空');
+            // } else if(form.publication_name == '') {
+            //     this.$message.error('发表刊物名称不能为空');
+            // }else if(form.publication_num == '') {
+            //     this.$message.error('刊号不能为空');
+            // }else if(year1 == '') {
+            //     this.$message.error('年，卷，期不能为空');
+            // }else if(year2 == '') {
+            //     this.$message.error('年，卷，期不能为空');
+            // }else if(year3 == '') {
+            //     this.$message.error('年，卷，期不能为空');
+            // }else if(year4 == '') {
+            //     this.$message.error('年，卷，期不能为空');
+            // }else if(year5 == '') {
+            //     this.$message.error('年，卷，期不能为空');
+            // }else if(form.num_words == '') {
+            //     this.$message.error('字数不能为空');
+            // }else if(form.periodical_cate == '') {
+            //     this.$message.error('期刊级别不能为空');
+            // }else if(form.belong_project == '') {
+            //     this.$message.error('所属项目不能为空');
+            // }else if(form.art_cate_research == '') {
+            //     this.$message.error('研究类别不能为空');
+            // }else if(form.art_sub_category == '') {
+            //     this.$message.error('学科门类不能为空');
+            // }else if(form.art_integral == '') {
+            //     this.$message.error('积分不能为空');
+            // }else if(form.percal_cate == '') {
+            //     this.$message.error('学校认定刊物级别不能为空');
+            // }
+            this.$refs['form'].validate((valid) => {
+                if (valid) {
+                    jQuery.each(vue.form,function(i,val){
+                        vue.dataForm.append(i,val);
                     });
+                    vue.addArticleData(vue.dataForm).then(res => {
+                        var data = response.data;
+                        if (data.code == 0) {
+                            vue.$message({
+                                message: '添加成功',
+                                type: 'success'
+                            });
+                        } else {
+                            vue.$notify({
+                                type: 'error',
+                                message: data.msg,
+                                duration: 2000,
+                            });
+                        }
+                    })
+                    vue.$refs.art_pdf.submit()
+                    vue.$refs.art_sci.submit()
                 } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.msg,
-                        duration: 2000,
-                    });
+                    console.log('error submit!!')
+                    return false    
                 }
+            })
+        },
+        addArticleData(data) {
+            return axios({
+                method: 'post', 
+                url: 'addartical',
+                headers: {'Content-Type': 'multipart/form-data'},
+                timeout: 20000,
+                data: data     
             });
         },
         checkFileExt(filename){
             if(filename == '') {
                 this.$message.error('上传文件不能为空');
             }
-            var flag = false; //状态
+            var flag = false;
             var arr = ["pdf"];
-            //取出上传文件的扩展名
             console.log(filename);
             var index = filename.lastIndexOf(".");
             var ext = filename.substr(index+1);
-            //循环比较
             for(var i=0;i<arr.length;i++){
                 if(ext == arr[i]){
                     flag = true; 
@@ -275,7 +293,7 @@
             if(!flag){
                 this.$message.error('请上传PDF');
             }
-        }
+        },
      }
   }
 </script>
