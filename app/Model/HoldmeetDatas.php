@@ -28,7 +28,7 @@ class HoldmeetDatas extends ModelDatabase
     }
     //查看所有会议信息
     public static function selectAllHoldmeetDatas($teacher_id){
-        $result = DB::table('image')->where('teacher_id',$teacher_id)->orderBy('ho_time','desc')->get();
+        $result = DB::table('holdmeet')->where('teacher_id',$teacher_id)->orderBy('ho_time','desc')->get();
         foreach ($result as $datas){
             $result->ho_time = date('Y-m-d',$datas->ho_time);
         }
@@ -36,7 +36,7 @@ class HoldmeetDatas extends ModelDatabase
     }
     //查看单个会议信息
     public static function selectHoldmetDatas($ho_id){
-        $result = DB::table('image')->where('ho_id',$ho_id)->first();
+        $result = DB::table('holdmeet')->where('ho_id',$ho_id)->first();
         $result->ho_time = date('Y-m-d',$result->ho_time);
         return $result;
     }
