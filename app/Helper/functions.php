@@ -1,6 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Storage;
-    //返回前台的信息，全部转化为JSON数据
+    //后台验证处理返回信息
     function showMsg($code = 0,$message = '',$datas = ''){
         $response["code"] = $code;
         if(!empty($datas)){
@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Storage;
             $response["message"] = $message;
         }
        return response()->json($response);
+    }
+    //返回前台的信息，全部转化为JSON数据
+    function showResponse($response){
+          return json_decode($response->getContent());
     }
     //对象转化为数组
     function objectToArray($e){

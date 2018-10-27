@@ -10,17 +10,17 @@ class AppraisalDatabase extends ModelDatabase
     public static function addAppraisalDatas($datas){
         $response = DB::table('appraisal')
                    ->insertGetId([
-                       'teacher_id'      => $datas->teacher_id,
-                       'ap_first_author' => $datas->ap_first_author,
-                       'ap_all_author'   => $datas->ap_all_author,
-                       'ap_res_name'     => $datas->ap_res_name,
-                       'ap_form'         => $datas->ap_form,
-                       'ap_num'          => $datas->ap_num,
-                       'ap_conclusion'   => $datas->ap_conclusion,
-                       'ap_time'         => $datas->ap_time,
-                       'ap_level'        => $datas->ap_level,
-                       'ap_integral'     => $datas->ap_integral,
-                       'ap_remarks'      => $datas->ap_remarks
+                       'teacher_id'      => $datas['teacher_id'],
+                       'ap_first_author' => $datas['ap_first_author'],
+                       'ap_all_author'   => $datas['ap_all_author'],
+                       'ap_res_name'     => $datas['ap_res_name'],
+                       'ap_form'         => $datas['ap_form'],
+                       'ap_num'          => $datas['ap_num'],
+                       'ap_conclusion'   => $datas['ap_conclusion'],
+                       'ap_time'         => $datas['ap_time'],
+                       'ap_level'        => $datas['ap_level'],
+                       'ap_integral'     => $datas['ap_integral'],
+                       'ap_remarks'      => $datas['ap_remarks']
                    ]);
         return ($response) ? showMsg(0,'添加成果鉴定信息成功',$response)
                : showMsg(1,'添加成果鉴定信息失败');
@@ -57,16 +57,16 @@ class AppraisalDatabase extends ModelDatabase
     public static function updateAppraisalDatas($datas){
         $response = DB::table('appraisal')->where('ap_id',$datas->ap_id)
                   ->update([
-                      'ap_first_author' => $datas->ap_first_author,
-                      'ap_all_author'   => $datas->ap_all_author,
-                      'ap_res_name'     => $datas->ap_res_name,
-                      'ap_form'         => $datas->ap_form,
-                      'ap_num'          => $datas->ap_num,
-                      'ap_conclusion'   => $datas->ap_conclusion,
-                      'ap_time'         => $datas->ap_time,
-                      'ap_level'        => $datas->ap_level,
-                      'ap_integral'     => $datas->ap_integral,
-                      'ap_remarks'      => $datas->ap_remarks,
+                      'ap_first_author' => $datas['ap_first_author'],
+                      'ap_all_author'   => $datas['ap_all_author'],
+                      'ap_res_name'     => $datas['ap_res_name'],
+                      'ap_form'         => $datas['ap_form'],
+                      'ap_num'          => $datas['ap_num'],
+                      'ap_conclusion'   => $datas['ap_conclusion'],
+                      'ap_time'         => $datas['ap_time'],
+                      'ap_level'        => $datas['ap_level'],
+                      'ap_integral'     => $datas['ap_integral'],
+                      'ap_remarks'      => $datas['ap_remarks']
                   ]);
         return ($response != 1) ? showMsg(1,'修改鉴定成果信息失败')
             :showMsg(0,'修改鉴定成果信息成功');

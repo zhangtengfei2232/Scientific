@@ -11,17 +11,17 @@ class ArticalController extends Controller
      public function addArtical(Request $request){
          if(!$request->isMethod('POST')){
               return showMsg(1,'你请求的方式不对');
+
          }
-         dd($request);
-         $artical_file  = $request->file('file');                        //接论文文件
-         $artical_sci   = $request->art_sci;                                  //接收sci索引报告
-         $judge_artical = judgeReceiveFiles($artical_file);                   //验证论文
+         $artical_file  = $request->file('art_pdf');                    //接论文文件
+         $artical_sci   = $request->file('art_sci');                    //接收sci索引报告
+         $judge_artical = showResponse(judgeReceiveFiles($artical_file));    //验证论文
          if($judge_artical->code == 1){
-             return showMsg(1,'论文'.$judge_artical);
+             return showMsg(1,'论文'.$judge_artical->message);
          }
-         $judge_sci = judgeReceiveFiles($artical_sci);                        //验证论文SCI
+         $judge_sci = showResponse(judgeReceiveFiles($artical_sci));        //验证论文SCI
          if($judge_sci->code == 1){
-             return showMsg(1,'论文SCI索引报告'.$judge_sci);
+             return showMsg(1,'论文SCI索引报告'.$judge_sci->message);
          }
          $teacher_id = session('usercount');
          $datas = [
@@ -42,10 +42,11 @@ class ArticalController extends Controller
              'art_remarks'       => trim($request->art_remarks),              //论文备注
              'art_time'          => trim($request->art_time),                 //发表时间
          ];
-         $respose = judgeArticalField($datas);                                //判断论文字段是否合法
-         if($respose->code == 1){
-             return $respose;
-         }
+//         $respose = showResponse(judgeArticalField($datas));
+//         //判断论文字段是否合法
+//         if($respose->code == 1){
+//             return $respose;
+//         }
          $disk               = UploadSubjectionConfig::ARTICAL;
          $subjection         = UploadSubjectionConfig::ARTICAL_IMG;
          $artical_name       = $artical_file->getClientOriginalName();        //获取文件名字
@@ -118,31 +119,33 @@ class ArticalController extends Controller
              'art_remarks'       => trim($request->art_remarks),              //论文备注
              'art_time'          => trim($request->art_time),                 //发表时间
          ];
-         $respose = judgeArticalField($datas);                                //判断论文字段是否合法
+         $respose = showResponse(judgeArticalField($datas));                  //判断论文字段是否合法
          if($respose->code == 1){
              return $respose;
          }
-         if(!$request->is_change_artical){                               //判断老师是否修改论文
-             return ArticalDatabase::updateArticalDatas($datas);         //直接修改数据库论文信息
+         if(!$request->is_change_artical){                                    //判断老师是否修改论文
+             return ArticalDatabase::updateArticalDatas($datas);              //直接修改数据库论文信息
          }
-         $artical_file  = $request->file('pdf');                    //接论文文件
-         $artical_sci   = $request->file('sci');                    //接收sci索引报告
-         $judge_artical = judgeReceiveFiles($artical_file);              //验证论文
+         $artical_file  = $request->file('pdf');                          //接论文文件
+         $artical_sci   = $request->file('sci');
+         $judge_artical = showResponse(judgeReceiveFiles($artical_file));     //验证论文
          if($judge_artical->code == 1){
              return showMsg(1,'论文'.$judge_artical);
          }
-         $judge_sci     = judgeReceiveFiles($artical_sci);               //验证论文SCI
+         $judge_sci     = showResponse(judgeReceiveFiles($artical_sci));      //验证论文SCI
          if($judge_sci->code == 1){
              return showMsg(1,'论文SCI索引'.$judge_sci);
          }
          $old_artical_road      = ArticalDatabase::selectArticalRoad($artical_id);
          $disk                  = UploadSubjectionConfig::ARTICAL;
-         $subjection            = UploadSubjectionConfig::ARTICAL_IMG;
+         $subjection_pdf        = uploadSubjectionConfig::ARTICAL_PDF;
+         $subjection_sci        = uploadSubjectionConfig::ARTICAL_SCI;
+         $subjection_img        = UploadSubjectionConfig::ARTICAL_IMG;
          ArticalDatabase::beginTraction();
-         $reset_artical_road      = uploadfiles(uploadSubjectionConfig::ARTICAL_PDF,$artical_file);
-         $reset_sci_road          = uploadFiles(uploadSubjectionConfig::ARTICAL_SCI,$artical_sci);
+         $reset_artical_road      = uploadfiles($subjection_pdf,$artical_file,$disk);
+         $reset_sci_road          = uploadFiles($subjection_sci,$artical_sci,$disk);
          $artical_name            = $artical_file->getClientOriginalName();
-         $reset_first_page_road   = pdfToPngUpload($disk,$reset_artical_road,$subjection,$artical_name,1);
+         $reset_first_page_road   = pdfToPngUpload($disk,$reset_artical_road,$subjection_img,$artical_name,1);
          $datas['home_page_road'] = $reset_first_page_road;
          $datas['art_road']       = $reset_artical_road;
          $datas['art_sci_road']   = $reset_sci_road;

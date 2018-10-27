@@ -40,7 +40,7 @@
             <el-checkbox-group v-model="checkAll" @change="handleCheckedCitiesChange"> 
                 <div class="lists" v-for="(item,index) in AwardDate" :key="index">
                     <span class="check"><el-checkbox v-model="checked"></el-checkbox></span>
-                    <span class="numbers">{{ item.teacher_id }}</span>
+                    <span class="numbers">{{ item.aw_id }}</span>
                     <span class="picture"><img src="/dist/img/hj.png" alt="文件加载失败"></span>
                     <span class="infos">
                         <h5>{{ item.title }}</h5>
@@ -186,7 +186,7 @@
             },
             getAwardDate() {
                 let self = this;
-                axios.get("selectopus").then(function (response) {
+                axios.get("selectallaward").then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
                         self.AwardDate = data.datas;

@@ -10,9 +10,9 @@ class AgreementDatabase extends ModelDatabase
     public static function addAgreementDatas($datas){
         return  DB::table('agreement')
                     ->insert([
-                        'agree_name'           => $datas->agree_name,
-                        'agree_cooperate_unit' => $datas->agree_cooperate_unit,
-                        'agree_road'           => $datas->agree_road
+                        'agree_name'           => $datas['agree_name'],
+                        'agree_cooperate_unit' => $datas['agree_cooperate_unit'],
+                        'agree_road'           => $datas['agree_road']
                     ]);
     }
     //删除单个教学科研合作协议信息
@@ -39,12 +39,12 @@ class AgreementDatabase extends ModelDatabase
     }
     //修改教学科研合作协议信息
     public static function updateAgreementDatas($datas){
-        $response = DB::table('agreement')->where('agree_id',$datas->agree_id)
+        $response = DB::table('agreement')->where('agree_id',$datas['agree_id'])
                     ->update([
-                        'agree_name' => $datas->agree_name,
-                        'agree_cooperate_unit' => $datas->agree_cooperate_unit,
-                        'agree_time'           => $datas->agree_time,
-                        'agree_road'           => $datas->agree_road
+                        'agree_name'           => $datas['agree_name'],
+                        'agree_cooperate_unit' => $datas['agree_cooperate_unit'],
+                        'agree_time'           => $datas['agree_time'],
+                        'agree_road'           => $datas['agree_road']
                     ]);
         return ($response != 1) ? false :true;
     }

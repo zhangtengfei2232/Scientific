@@ -106,7 +106,7 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     Route::get('deletepatent', 'PatentController@deletePatent');                   //删除单个专利信息
     Route::post('deleteallpatent', 'PatentController@deleteAllPatent');            //删除多个专利信息
     Route::get('selectpatent', 'PatentController@selectPatent');                   //查询单个专利信息
-    Route::post('selectallpatent', 'PatentController@selectAllPatent');            //查询全部专利信息
+    Route::get('selectallpatent', 'PatentController@selectAllPatent');            //查询全部专利信息
     Route::post('updatepatent', 'PatentController@updatePatent');                  //修改专利信息
 
     //老师对项目的操作

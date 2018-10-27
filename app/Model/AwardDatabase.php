@@ -11,20 +11,20 @@ class AwardDatabase extends ModelDatabase
     public static function addAwardDatas($datas){
         return DB::table('award')
                 ->insert([
-                    'teacher_id'      => $datas->teacher_id,
-                    'aw_first_author' => $datas->aw_first_author,
-                    'aw_all_author'   => $datas->aw_all_author,
-                    'prize_win_name'  => $datas->prize_win_name,
-                    'award_name'      => $datas->award_name,
-                    'form_achievement' => $datas->form_achievement,
-                    'aw_level'        => $datas->aw_level,
-                    'aw_grade'        => $datas->aw_grade,
-                    'aw_grant_unit'   => $datas->aw_grant_unit,
-                    'aw_grant_time'   => $datas->aw_grant_time,
-                    'aw_certi_number'  => $datas->aw_certi_number,
-                    'aw_sch_rank'     => $datas->aw_sch_rank,
-                    'aw_integral'     => $datas->aw_integral,
-                    'aw_road'         => $datas->aw_road
+                    'teacher_id'       => $datas['teacher_id'],
+                    'aw_first_author'  => $datas['aw_first_author'],
+                    'aw_all_author'    => $datas['aw_all_author'],
+                    'prize_win_name'   => $datas['prize_win_name'],
+                    'award_name'       => $datas['award_name'],
+                    'form_achievement' => $datas['form_achievement'],
+                    'aw_level'         => $datas['aw_level'],
+                    'aw_grade'         => $datas['aw_grade'],
+                    'aw_grant_unit'    => $datas['aw_grant_unit'],
+                    'aw_grant_time'    => $datas['aw_grant_time'],
+                    'aw_certi_number'  => $datas['aw_certi_number'],
+                    'aw_sch_rank'      => $datas['aw_sch_rank'],
+                    'aw_integral'      => $datas['aw_integral'],
+                    'aw_road'          => $datas['aw_road']
                 ]);
     }
     //删除获奖信息
@@ -54,18 +54,18 @@ class AwardDatabase extends ModelDatabase
     public static function updateAwardDatas($datas){
         $response = DB::table('award')->where('aw_id',$datas->aw_id)
             ->update([
-                'aw_first_author' => $datas->aw_first_author,
-                'aw_all_author'   => $datas->aw_all_author,
-                'prize_win_name'  => $datas->prize_win_name,
-                'award_name'      => $datas->award_name,
-                'form_achievement' => $datas->form_achievement,
-                'aw_level'        => $datas->aw_level,
-                'aw_grade'        => $datas->aw_grade,
-                'aw_grant_unit'   => $datas->aw_grant_unit,
-                'aw_grant_time'   => $datas->aw_grant_time,
-                'aw_certi_number'  => $datas->aw_certi_number,
-                'aw_sch_rank'     => $datas->aw_sch_rank,
-                'aw_integral'     => $datas->aw_integral,
+                'aw_first_author'  => $datas['aw_first_author'],
+                'aw_all_author'    => $datas['aw_all_author'],
+                'prize_win_name'   => $datas['prize_win_name'],
+                'award_name'       => $datas['award_name'],
+                'form_achievement' => $datas['form_achievement'],
+                'aw_level'         => $datas['aw_level'],
+                'aw_grade'         => $datas['aw_grade'],
+                'aw_grant_unit'    => $datas['aw_grant_unit'],
+                'aw_grant_time'    => $datas['aw_grant_time'],
+                'aw_certi_number'  => $datas['aw_certi_number'],
+                'aw_sch_rank'      => $datas['aw_sch_rank'],
+                'aw_integral'      => $datas['aw_integral'],
             ]);
         return ($response != 1) ? showMsg(1,'修改获奖信息失败')
             : showMsg(0,'修改获奖信息成功');
@@ -74,19 +74,19 @@ class AwardDatabase extends ModelDatabase
     public static function updateAwardImage($datas){
       $response = DB::table('award')->where('aw_id',$datas->aw_id)
                   ->update([
-                      'aw_first_author' => $datas->aw_first_author,
-                      'aw_all_author'   => $datas->aw_all_author,
-                      'prize_win_name'  => $datas->prize_win_name,
-                      'award_name'      => $datas->award_name,
-                      'form_achievement' => $datas->form_achievement,
-                      'aw_level'        => $datas->aw_level,
-                      'aw_grade'        => $datas->aw_grade,
-                      'aw_grant_unit'   => $datas->aw_grant_unit,
-                      'aw_grant_time'   => $datas->aw_grant_time,
-                      'aw_certi_number'  => $datas->aw_certi_number,
-                      'aw_sch_rank'     => $datas->aw_sch_rank,
-                      'aw_integral'     => $datas->aw_integral,
-                      'aw_road'         => $datas->aw_road
+                      'aw_first_author'  => $datas['aw_first_author'],
+                      'aw_all_author'    => $datas['aw_all_author'],
+                      'prize_win_name'   => $datas['prize_win_name'],
+                      'award_name'       => $datas['award_name'],
+                      'form_achievement' => $datas['form_achievement'],
+                      'aw_level'         => $datas['aw_level'],
+                      'aw_grade'         => $datas['aw_grade'],
+                      'aw_grant_unit'    => $datas['aw_grant_unit'],
+                      'aw_grant_time'    => $datas['aw_grant_time'],
+                      'aw_certi_number'  => $datas['aw_certi_number'],
+                      'aw_sch_rank'      => $datas['aw_sch_rank'],
+                      'aw_integral'      => $datas['aw_integral'],
+                      'aw_road'          => $datas['aw_road']
                   ]);
         return ($response != 1) ? false : true;
     }

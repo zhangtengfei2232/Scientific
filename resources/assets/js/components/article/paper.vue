@@ -252,7 +252,6 @@
                     }
                 });
             },
-
         },
         mounted() {
             this.getArticleData();
