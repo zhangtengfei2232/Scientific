@@ -66,15 +66,15 @@
                         <p><el-input :value=" teacherDate.borth"></el-input></p>
                         <p><el-input :value=" teacherDate.polit_outlook"></el-input></p>
                         <p><el-input :value=" teacherDate.admin_duties"></el-input></p>
-                        <p><el-input :value=" teacherDate.tenure_time"></el-input></p>
+                        <p><el-input :value=" teacherDate.admin_tenure_time"></el-input></p>
                         <p><el-input :value=" teacherDate.job_level"></el-input></p>
                         <p><el-input :value=" teacherDate.tenure_time"></el-input></p>
                         <p>
                             <!--专业技术职务-->
-                            <el-input :value=" teacherDate.edu_school"></el-input>
+                            <el-input :value=" teacherDate.technical_position"></el-input>
                         </p>
-                        <p><el-input :value="teacherDate.name"></el-input></p>
-                        <p><el-input :value="teacherDate.name"></el-input></p>
+                        <p><el-input :value="teacherDate.review_time"></el-input></p>
+                        <p><el-input :value="teacherDate.appointment_time"></el-input></p>
                         <p>
                             <!--系列-->
                             <el-input :value=" teacherDate.series"></el-input>
@@ -89,24 +89,24 @@
                         <p><el-input :value=" teacherDate.identity_card"></el-input></p>
                         <p></p><br>
                         <!--第一学历-->
-                        <p><el-input :value=" teacherDate.name"></el-input></p>
-                        <p><el-input :value=" teacherDate.edu_school"></el-input></p>
-                        <p><el-input :value=" teacherDate.name"></el-input></p>
-                        <p><el-input :value=" teacherDate.name"></el-input></p>
+                        <p><el-input :value=" teacherDate.first_academic"></el-input></p>
+                        <p><el-input :value=" teacherDate.first_graduate_school"></el-input></p>
+                        <p><el-input :value=" teacherDate.most_study_major"></el-input></p>
+                        <p><el-input :value=" teacherDate.first_graduation_time"></el-input></p>
                         <p></p><br>
                         <!--最高学历-->
-                        <p><el-input :value=" teacherDate.academic_id"></el-input></p>
-                        <p><el-input :value=" teacherDate.edu_school"></el-input></p>
-                        <p><el-input :value=" teacherDate.name"></el-input></p>
-                        <p><el-input :value=" teacherDate.name"></el-input></p>
+                        <p><el-input :value=" teacherDate.most_academic"></el-input></p>
+                        <p><el-input :value=" teacherDate.most_graduate_school"></el-input></p>
+                        <p><el-input :value=" teacherDate.most_study_major"></el-input></p>
+                        <p><el-input :value=" teacherDate.most_graduation_time"></el-input></p>
                         <br>
                         <p><el-input :value=" teacherDate.work_major"></el-input></p>
                         <p><el-input :value=" teacherDate.belong_subject"></el-input></p>
                         <p><el-input :value=" teacherDate.teach_course"></el-input></p><br>
                         <br><br>
                         <!--硕博导-->
-                        <p><el-input :value=" teacherDate.name"></el-input></p>
-                        <p><el-input :value=" teacherDate.name"></el-input>
+                        <p><el-input :value=" teacherDate.master_company"></el-input></p>
+                        <p><el-input :value=" teacherDate.master_time"></el-input>
                         </p><br>
                         <p class="graduationPic">
                             <el-upload
@@ -134,12 +134,8 @@
         data() {
             return {
                 fileList2: [{name: 'food.jpeg', url: '/dist/img/wang_light.png'}],
-//                fileList2: [{name: 'food.jpeg', url: teacherDate.gra_cert_road}],
-                teacherDate: {},
+                teacherDate: [],
                 show: false,
-//                inputJob:'' ,
-//                input: '',
-
                 pickerOptions1: {
                     disabledDate(time) {
                         return time.getTime() > Date.now();
@@ -162,14 +158,10 @@
                 let self = this;
                 axios.get("selectteacher").then(function (response) {
                     var data = response.data;
-                    console.log(data.datas);
+
                     if(data.code == 0){
-                        self.teacherDate = data.datas;
-//                        if (self.teacherDate.teacher_id == 1) {
-//                            show = true;
-//                        }else if(self.teacherDate.teacher_id == 2) {
-//                            show = true;
-//                        }
+                        self.teacherDate = data.datas.information;
+//                        console.log(self.teacherDate);
                     }else{
                         self.$notify({
                             type: 'error',
