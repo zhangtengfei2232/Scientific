@@ -1,6 +1,7 @@
 <template>
     <div>
         <div class="table">
+            {{ $route.params.art_id }}
             <div class="information">
                 <div class="add">
                     <el-form ref="form" :model="form" label-width="200px">

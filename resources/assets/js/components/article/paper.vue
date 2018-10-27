@@ -63,10 +63,11 @@
                         <template slot-scope="scope">
                             <el-button
                             type="text"
+                            @click.native.prevent="deleteRow(scope.$index, ArticleDate)"
                             size="small">
-                                <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentArticleSelfData(art_id)"></el-button>
-                                <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentArticleSelfData(art_id)"></el-button>
-                                <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteArticleData(art_id)"></el-button>
+                                <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentArticleSelfData(ArticleDate.art_id)"></el-button>
+                                <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentArticleSelfData(ArticleDate.art_id)"></el-button>
+                                <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteArticleData(ArticleDate.art_id)"></el-button>
                             </el-button>
                         </template>
                     </el-table-column>
@@ -166,15 +167,15 @@
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
-                }).then(() => {
-                    //this.native.prevent = deleteRow(scope.$index, ArticleDate);
+                }).then(() => { 
                     let self = this;
                     axios.get("deleteartical",art_id).then(function (response) {
                     var data = response.data;
                         if (data.code == 0) {
                              this.$message({
-                                type: 'success',
-                                message: '删除成功!'
+                                showClose: true,
+                                message: '删除成功!',
+                                type: 'success'
                             });
                         } else {
                             self.$notify({
