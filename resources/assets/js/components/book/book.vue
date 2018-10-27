@@ -187,7 +187,7 @@
             },
             getBookData() {
                 let self = this;
-                axios.get("selectopus").then(function (response) {
+                axios.get("selectallopus").then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
                         self.BookDate = data.datas;
@@ -212,7 +212,7 @@
                     type: 'warning'
                 }).then(() => {
                     let self = this;
-                    axios.get("selectallopus").then(function (response) {
+                    axios.get("").then(function (response) {
                     var data = response.data;
                         if (data.code == 0) {
                              this.$message({

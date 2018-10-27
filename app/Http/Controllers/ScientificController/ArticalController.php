@@ -16,6 +16,7 @@ class ArticalController extends Controller
           if(!$request->isMethod('POST')){
               return showMsg(1,'你请求的方式不对');
           }
+          dd($request);
          $artical_file  = $request->file('pdf');                    //接论文文件
          $artical_sci   = $request->file('sci');                    //接收sci索引报告
          $judge_artical = judgeReceiveFiles($artical_file);              //验证论文
@@ -127,7 +128,8 @@ class ArticalController extends Controller
              return ArticalDatabase::updateArticalDatas($datas);         //直接修改数据库论文信息
          }
          $artical_file  = $request->file('pdf');                    //接论文文件
-         $artical_sci   = $request->file('sci');                    //接收sci索引报告
+         $artical_sci   = $request->file('sci');                    //
+         dd($artical_file);
          $judge_artical = judgeReceiveFiles($artical_file);              //验证论文
          if($judge_artical->code == 1){
              return showMsg(1,'论文'.$judge_artical);
