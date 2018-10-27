@@ -19,86 +19,67 @@
                 </el-form>
             </span>
     </header>
-        <!--<div class="navbo">-->
-            <!--<span class="checks"><el-checkbox v-model="checked"></el-checkbox></span>-->
-            <!--<span class="number">序号</span>-->
-            <!--<span class="info">专家姓名</span>-->
-            <!--<span class="time">讲学时间</span>-->
-            <!--<span class="do">操作</span>-->
-        <!--</div>-->
-        <div class="content">
-            <el-table
-                    ref="multipleTable"
-                    :data="ExperspeakDate"
-                    tooltip-effect="dark"
-                    style="width: 80%"
-                    @selection-change="handleCheckedCitiesChange">
-                <el-table-column
-                        type="selection"
-                        header-align="center"
-                        align="center">
-                </el-table-column>
-                <el-table-column
-                        label="专家姓名"
-                        sortable
-                        pror="le_expert_name"
-                        header-align="center"
-                        align="center">
-                    <template slot-scope="scope">{{ scope.row.date }}</template>
-                </el-table-column>
-                <el-table-column
-                        prop="le_time"
-                        label="讲学时间"
-                        header-align="center"
-                        align="center"
-                        sortable>
-                </el-table-column>
-                <el-table-column
-                        fixed="right"
-                        label="操作">
-                    <template slot-scope="scope">
-                        <el-button
-                                @click.native.prevent="deleteRow(scope.$index, tableData4)"
-                                type="text"
-                                size="small">
-                            移除
-                        </el-button>
-                    </template>
-                </el-table-column>
-                <!--<el-table-column-->
-                        <!--label="操作"-->
-                        <!--header-align="center"-->
-                        <!--align="center">-->
-                    <!--<template slot-scope="scope">-->
-                        <!--<el-button size="mini" @click="sentExperspeakDate(item.pro_id)">编辑</el-button>-->
-                        <!--<el-button size="mini" @click="sentExperspeakDate(item.pro_id)">查看</el-button>-->
-                        <!--<el-button size="mini" type="danger" @click="deleteExperspeakDate(item.pro_id)">删除</el-button>-->
-                    <!--</template>-->
-                <!--</el-table-column>-->
-            </el-table>
 
-            <!--<div class="lists" v-for="(item,index) in ExperspeakDate" :key="index">-->
-                <!--<span class="check"><el-checkbox v-model="checked"></el-checkbox></span>-->
-                <!--<span class="numbers">{{ item.le_id }}</span>-->
-                <!--&lt;!&ndash;<span class="picture"><img src="/dist/img/text.png" alt="文件加载失败"></span>&ndash;&gt;-->
-                <!--<span class="infos">-->
-                    <!--<h5>{{ item.le_expert_name }}</h5>-->
-                    <!--&lt;!&ndash;<p>作者 <small>特别标注</small></p>&ndash;&gt;-->
-                <!--</span>-->
-                <!--<span class="times">2018-09-10</span>-->
-                <!--<span class="dos" @click="sentExperspeakDate(item.art_id)">编辑</span>-->
-                <!--<span class="tos"><router-link to="/">导出</router-link></span>-->
-                <!--<span class="dos" @click="sentExperspeakDate(item.art_id)">查看</span>-->
-                <!--<span class="del"><router-link to="/">删除</router-link></span>-->
-                <!--<div class="clear"></div>-->
-            <!--</div>-->
-
+        <div class="table">
+            <template>
+                <el-table
+                        ref="multipleTable"
+                        :data="ExperspeakDate"
+                        tooltip-effect="dark"
+                        style="width: 100%"
+                        @selection-change="handleSelectionChange">
+                    <el-table-column
+                            type="selection"
+                            width="55">
+                    </el-table-column>
+                    <el-table-column
+                            prop="le_id"
+                            label="序号"
+                            sortable
+                            width="120">
+                    </el-table-column>
+                    <el-table-column
+                            prop="le_expert_name"
+                            label="专家姓名"
+                            width="120">
+                    </el-table-column>
+                    <el-table-column
+                            prop="le_time"
+                            label="讲学时间"
+                            sortable>
+                    </el-table-column>
+                    <el-table-column
+                            fixed="right"
+                            label="操作"
+                            width="200">
+                        <template slot-scope="scope">
+                            <el-button
+                                    @click.native.prevent="deleteRow(scope.$index, ExperspeakDate)"
+                                    type="text"
+                                    size="small">
+                                <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentExperspeakDate(le_id)"></el-button>
+                                <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentExperspeakDate(le_id)"></el-button>
+                                <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteExperspeakDate(le_id)"></el-button>
+                            </el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+                <div style="margin-top: 20px">
+                    <el-button @click="toggleSelection([ExperspeakDate[1], ExperspeakDate[2]])">切换第二、第三行的选中状态</el-button>
+                    <el-button @click="toggleSelection()">取消选择</el-button>
+                </div>
+            </template>
         </div>
     </div>
 </template>
 <style scoped>
     header{
         border-bottom: 1px solid #eee;
+    }
+    .table{
+        float: left;
+        width: 80%;
+        margin: 20px 0 0 5%;
     }
     .paper{
         font-size: 18px;
@@ -121,74 +102,15 @@
     .demonstration{
         font-weight: lighter;
     }
-    /*.navbo{*/
-         /*border-bottom: 1px solid #eee;*/
-         /*background: rgba(187, 187, 187, 0.1);*/
-         /*height: 40px;*/
-     /*}*/
-    /*.info,.number,.do,.time{*/
-        /*display: inline-block;*/
-        /*padding: 10px;*/
-        /*font-size: 14px;*/
-    /*}*/
-    /*.number{*/
-        /*margin: 0 2% 0 3%;*/
-    /*}*/
-    /*.time{*/
-        /*margin: 0 6% 0 45%;*/
-    /*}*/
-    /*.lists{*/
-        /*border-bottom: 1px solid #eee;*/
-        /*height: 80px;*/
-    /*}*/
-    /*.del,.times,.infos,.numbers,.dos,.tos{*/
-        /*display: inline-block;*/
-        /*padding: 10px;*/
-        /*font-size: 14px;*/
-    /*}*/
     .lists span{
         float: left;
     }
     .lists img{
         width: 35px;
     }
-    /*.numbers{*/
-        /*margin: 20px 2% 0 3.5%;*/
-    /*}*/
-    /*.check{*/
-        /*margin: 25px 2% 0 3%;*/
-    /*}*/
-    /*.checks{*/
-        /*margin: 0 2% 0 3%;*/
-    /*}*/
     .picture{
         margin: 20px 5px 0 1%;
     }
-    /*.infos{*/
-        /*margin: 19px 2% 0 0;*/
-        /*padding-left: 32px;*/
-    /*}*/
-    /*.infos h5{*/
-        /*font-size: 14px;*/
-        /*font-weight: lighter;*/
-    /*}*/
-    /*.infos p{*/
-        /*font-size: 13px;*/
-        /*font-weight: lighter;*/
-        /*margin: 8px 0 0 0;*/
-    /*}*/
-    /*.infos p small{*/
-        /*color: orange;*/
-        /*padding: 0 0 0 5px;*/
-    /*}*/
-    /*.times{*/
-        /*margin: 22px 2% 0 40%;*/
-    /*}*/
-    /*.dos,.tos,.del{*/
-        /*font-size: 13px;*/
-        /*margin: 23px 0 0 0;*/
-        /*color: rgba(61, 112, 206, 0.77)!important;*/
-    /*}*/
     .dos a,.tos a{
         color: rgba(61, 112, 206, 0.77)!important;
     }
@@ -215,6 +137,18 @@
             }
         },
         methods: {
+            deleteRow(index, rows) {
+                rows.splice(index, 1);
+            },
+            toggleSelection(rows) {
+                if (rows) {
+                    rows.forEach(row => {
+                        this.$refs.multipleTable.toggleRowSelection(row);
+                    });
+                } else {
+                    this.$refs.multipleTable.clearSelection();
+                }
+            },
             handleCheckAllChange(val) {
                 this.checkedCities = val ? this.ExperspeakDate : [];
                 this.isIndeterminate = false;
@@ -223,6 +157,9 @@
                 let checkedCount = value.length;
                 this.checkAll = checkedCount === this.ExperspeakDate.length;
                 this.isIndeterminate = checkedCount > 0 && checkedCount < this.ExperspeakDate.length;
+            },
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
             },
             getExperspeakDate() {
                 let self = this;
@@ -240,19 +177,19 @@
                     }
                 });
             },
-            sentExperspeakDate(art_id) {
+            sentExperspeakDate(le_id) {
                 this.$router.push({
-                    path: `/selfInfor/${art_id}`,
+                    path: `/editLecture/${le_id}`,
                 })
             },
-            deleteExperspeakDate(pro_id) {
+            deleteExperspeakDate(le_id) {
                 this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
                     let self = this;
-                    axios.get("",pro_id).then(function (response) {
+                    axios.get("",le_id).then(function (response) {
                         var data = response.data;
                         if (data.code == 0) {
                             this.$message({

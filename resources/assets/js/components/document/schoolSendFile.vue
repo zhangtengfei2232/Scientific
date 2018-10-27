@@ -29,29 +29,56 @@
                 </el-form>
             </span>
         </header>
-        <div class="navbo">
-            <span class="checks"><el-checkbox v-model="checked"></el-checkbox></span>
-            <span class="number">序号</span>
-            <span class="info">文件名称</span>
-            <span class="time">文件下发时间</span>
-            <span class="do">操作</span>
-        </div>
-        <div class="content">
-            <div class="lists" v-for="(item,index) in shooolFileDate" :key="index">
-                <span class="check"><el-checkbox v-model="checked"></el-checkbox></span>
-                <span class="numbers">{{ item.teacher_id }}</span>
-                <span class="picture"><img src="/dist/img/cjhy.png" alt="文件加载失败"></span>
-                <span class="infos">
-                    <h5>{{ item.title }}</h5>
-                    <p>作者 <small>特别标注</small></p>
-                </span>
-                <span class="times">2018-09-10</span>
-                <span class="dos" @click="sentshooolFileDate(item.art_id)">编辑</span>
-                <span class="tos"><router-link to="/">导出</router-link></span>
-                <span class="dos" @click="sentshooolFileDate(item.art_id)">查看</span>
-                <span class="del"><router-link to="/">删除</router-link></span>
-                <div class="clear"></div>
-            </div>
+        <div class="table">
+            <template>
+                <el-table
+                        ref="multipleTable"
+                        :data="shoolFileDate"
+                        tooltip-effect="dark"
+                        style="width: 100%"
+                        @selection-change="handleSelectionChange">
+                    <el-table-column
+                            type="selection"
+                            width="55">
+                    </el-table-column>
+                    <el-table-column
+                            prop="schfile_id"
+                            label="序号"
+                            sortable
+                            width="120">
+                    </el-table-column>
+                    <el-table-column
+                            prop="schfile_name"
+                            label="文件名称"
+                            width="120">
+                    </el-table-column>
+                    <el-table-column
+                            prop="schfile_down_time"
+                            label="文件下发时间"
+                            sortable
+                            show-overflow-tooltip>
+                    </el-table-column>
+                    <el-table-column
+                            fixed="right"
+                            label="操作"
+                            width="200">
+                        <template slot-scope="scope">
+                            <el-button
+                                    @click.native.prevent="deleteRow(scope.$index, shoolFileDate)"
+                                    type="text"
+                                    size="small">
+                                <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentshoolFileDate(schfile_id)"></el-button>
+                                <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentshoolFileDate(schfile_id)"></el-button>
+                                <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteshooolFileDate(schfile_id)"></el-button>
+                            </el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+                <div style="margin-top: 20px">
+                    <el-button @click="toggleSelection([shoolFileDate[1], shoolFileDate[2]])">切换第二、第三行的选中状态</el-button>
+                    <el-button @click="toggleSelection()">取消选择</el-button>
+                </div>
+            </template>
         </div>
     </div>
 </template>
@@ -59,6 +86,11 @@
 <style scoped>
     header{
         border-bottom: 1px solid #eee;
+    }
+    .table{
+        float: left;
+        width: 80%;
+        margin: 20px 0 0 5%;
     }
     .paper{
         font-size: 18px;
@@ -175,7 +207,7 @@
     export default {
         data() {
             return {
-                shooolFileDate: [],
+                shoolFileDate: [],
                 checked: false,
                 form: {
                     data1: '',
@@ -184,13 +216,57 @@
             }
         },
         methods: {
-            getshooolFileDate() {
+            deleteRow(index, rows) {
+                rows.splice(index, 1);
+            },
+            toggleSelection(rows) {
+                if (rows) {
+                    rows.forEach(row => {
+                        this.$refs.multipleTable.toggleRowSelection(row);
+                    });
+                } else {
+                    this.$refs.multipleTable.clearSelection();
+                }
+            },
+            deleteshoolFileDate(schfile_id) {
+                this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    let self = this;
+                    axios.get("",schfile_id).then(function (response) {
+                        var data = response.data;
+                        if (data.code == 0) {
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                        } else {
+                            self.$notify({
+                                type: 'error',
+                                message: data.msg,
+                                duration: 2000,
+                            });
+                        }
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
+            },
+            getshoolFileDate() {
                 let self = this;
                 axios.get("selectallschoolfile").then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
-                        self.shooolFileDate = data.datas;
-                        constant.log("---------------")
+                        self.shoolFileDate = data.datas;
+//                        constant.log("---------------")
                     } else {
                         self.$notify({
                             type: 'error',
@@ -200,16 +276,16 @@
                     }
                 });
             },
-            sentshooolFileDate(art_id) {
+            sentshoolFileDate(schfile_id) {
                 this.$router.push({
-                    path: `/selfInfor/${art_id}`,
+                    path: `/editSchoolFile/${schfile_id}`,
                 })
             },
             byTimeSearch() {
                 axios.get("",form).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
-                        self.shooolFileDate = data.datas;
+                        self.shoolFileDate = data.datas;
                     } else {
                         self.$notify({
                             type: 'error',
@@ -222,7 +298,7 @@
 
         },
         mounted() {
-            this.getshooolFileDate();
+            this.getshoolFileDate();
         }
     }
 </script>

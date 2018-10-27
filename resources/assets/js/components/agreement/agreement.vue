@@ -29,29 +29,56 @@
                 </el-form>
             </span>
         </header>
-        <div class="navbo">
-            <span class="checks"><el-checkbox v-model="checked"></el-checkbox></span>
-            <span class="number">序号</span>
-            <span class="info">协议名称</span>
-            <span class="time">合作时间</span>
-            <span class="do">操作</span>
-        </div>
-        <div class="content">
-            <div class="lists" v-for="(item,index) in agreementDate" :key="index">
-                <span class="check"><el-checkbox v-model="checked"></el-checkbox></span>
-                <span class="numbers">{{ item.teacher_id }}</span>
-                <span class="picture"><img src="/dist/img/cjhy.png" alt="文件加载失败"></span>
-                <span class="infos">
-                    <h5>{{ item.title }}</h5>
-                    <p>作者 <small>特别标注</small></p>
-                </span>
-                <span class="times">2018-09-10</span>
-                <span class="dos" @click="sentJoinmeetSelfData(item.art_id)">编辑</span>
-                <span class="tos"><router-link to="/">导出</router-link></span>
-                <span class="dos" @click="sentJoinmeetSelfData(item.art_id)">查看</span>
-                <span class="del"><router-link to="/">删除</router-link></span>
-                <div class="clear"></div>
-            </div>
+        <div class="table">
+            <template>
+                <el-table
+                        ref="multipleTable"
+                        :data="agreementDate"
+                        tooltip-effect="dark"
+                        style="width: 100%"
+                        @selection-change="handleSelectionChange">
+                    <el-table-column
+                            type="selection"
+                            width="55">
+                    </el-table-column>
+                    <el-table-column
+                            prop="agree_id"
+                            label="序号"
+                            sortable
+                            width="120">
+                    </el-table-column>
+                    <el-table-column
+                            prop="agree_name"
+                            label="协议名称"
+                            width="120">
+                    </el-table-column>
+                    <el-table-column
+                            prop="agree_time"
+                            label="日期"
+                            sortable
+                            show-overflow-tooltip>
+                    </el-table-column>
+                    <el-table-column
+                            fixed="right"
+                            label="操作"
+                            width="200">
+                        <template slot-scope="scope">
+                            <el-button
+                                    @click.native.prevent="deleteRow(scope.$index, agreementDate)"
+                                    type="text"
+                                    size="small">
+                                <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentProjectSelfData(agree_id)"></el-button>
+                                <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentProjectSelfData(agree_id)"></el-button>
+                                <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteProjectData(agree_id)"></el-button>
+                            </el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+                <div style="margin-top: 20px">
+                    <el-button @click="toggleSelection([agreementDate[1], agreementDate[2]])">切换第二、第三行的选中状态</el-button>
+                    <el-button @click="toggleSelection()">取消选择</el-button>
+                </div>
+            </template>
         </div>
     </div>
 </template>
@@ -59,6 +86,11 @@
 <style scoped>
     header{
         border-bottom: 1px solid #eee;
+    }
+    .table{
+        float: left;
+        width: 80%;
+        margin: 20px 0 0 5%;
     }
     .paper{
         font-size: 18px;
@@ -184,6 +216,50 @@
             }
         },
         methods: {
+            deleteRow(index, rows) {
+                rows.splice(index, 1);
+            },
+            toggleSelection(rows) {
+                if (rows) {
+                    rows.forEach(row => {
+                        this.$refs.multipleTable.toggleRowSelection(row);
+                    });
+                } else {
+                    this.$refs.multipleTable.clearSelection();
+                }
+            },
+            deleteshoolFileDate(agree_id) {
+                this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    let self = this;
+                    axios.get("",agree_id).then(function (response) {
+                        var data = response.data;
+                        if (data.code == 0) {
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                        } else {
+                            self.$notify({
+                                type: 'error',
+                                message: data.msg,
+                                duration: 2000,
+                            });
+                        }
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
+            },
             getagreementDate() {
                 let self = this;
                 axios.get("selectallagreement").then(function (response) {
@@ -199,9 +275,9 @@
                     }
                 });
             },
-            sentJoinmeetSelfData(art_id) {
+            sentJoinmeetSelfData(agree_id) {
                 this.$router.push({
-                    path: `/selfInfor/${art_id}`,
+                    path: `/editAgreement/${agree_id}`,
                 })
             },
             byTimeSearch() {

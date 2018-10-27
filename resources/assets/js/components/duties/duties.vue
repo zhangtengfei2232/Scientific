@@ -19,35 +19,66 @@
                 </el-form>
             </span>
         </header>
-        <div class="navbo">
-            <span class="checks"><el-checkbox v-model="checked"></el-checkbox></span>
-            <span class="number">序号</span>
-            <span class="info">老师姓名</span>
-            <span class="time">担任学术团体名称</span>
-            <span class="do">操作</span>
-        </div>
-        <div class="content">
-            <div class="lists" v-for="(item,index) in StudygroupDate" :key="index">
-                <span class="check"><el-checkbox v-model="checked"></el-checkbox></span>
-                <span class="numbers">{{ item.du_id }}</span>
-                <!--<span class="picture"><img src="/dist/img/profile.png" alt="文件加载失败"></span>-->
-                <span class="infos">
-                    <!--<h5>{{ item.title }}</h5>-->
-                    <p>{{ item.teacher_name }}</p>
-                </span>
-                <span class="times">{{ item.du_name }}</span>
-                <span class="dos" @click="sentStudygroupDate(item.art_id)">编辑</span>
-                <span class="tos"><router-link to="/">导出</router-link></span>
-                <span class="dos" @click="sentStudygroupDate(item.art_id)">查看</span>
-                <span class="del"><router-link to="/">删除</router-link></span>
-                <div class="clear"></div>
-            </div>
+        <div class="table">
+            <template>
+                <el-table
+                        ref="multipleTable"
+                        :data="StudygroupDate"
+                        tooltip-effect="dark"
+                        style="width: 100%"
+                        @selection-change="handleSelectionChange">
+                    <el-table-column
+                            type="selection"
+                            width="55">
+                    </el-table-column>
+                    <el-table-column
+                            prop="du_id"
+                            label="序号"
+                            sortable
+                            width="120">
+                    </el-table-column>
+                    <el-table-column
+                            prop="le_expert_name"
+                            label="老师姓名"
+                            width="120">
+                    </el-table-column>
+                    <el-table-column
+                            prop="du_name"
+                            label="担任学术团体名称"
+                            show-overflow-tooltip>
+                    </el-table-column>
+                    <el-table-column
+                            fixed="right"
+                            label="操作"
+                            width="200">
+                        <template slot-scope="scope">
+                            <el-button
+                                    @click.native.prevent="deleteRow(scope.$index, StudygroupDate)"
+                                    type="text"
+                                    size="small">
+                                <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentStudygroupDate(du_id)"></el-button>
+                                <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentStudygroupDate(du_id)"></el-button>
+                                <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteStudygroupDate(du_id)"></el-button>
+                            </el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+                <div style="margin-top: 20px">
+                    <el-button @click="toggleSelection([StudygroupDate[1], StudygroupDate[2]])">切换第二、第三行的选中状态</el-button>
+                    <el-button @click="toggleSelection()">取消选择</el-button>
+                </div>
+            </template>
         </div>
     </div>
 </template>
 <style scoped>
     header{
         border-bottom: 1px solid #eee;
+    }
+    .table{
+        float: left;
+        width: 80%;
+        margin: 20px 0 0 5%;
     }
     .paper{
         font-size: 18px;
@@ -166,6 +197,21 @@
             }
         },
         methods: {
+            deleteRow(index, rows) {
+                rows.splice(index, 1);
+            },
+            toggleSelection(rows) {
+                if (rows) {
+                    rows.forEach(row => {
+                        this.$refs.multipleTable.toggleRowSelection(row);
+                    });
+                } else {
+                    this.$refs.multipleTable.clearSelection();
+                }
+            },
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
+            },
             getStudygroupDate() {
                 let self = this;
                 axios.get("selectallduties").then(function (response) {
@@ -183,10 +229,39 @@
                     }
                 });
             },
-            sentStudygroupDate(art_id) {
+            sentStudygroupDate(du_id) {
                 this.$router.push({
-                    path: `/selfInfor/${art_id}`,
+                    path: `/editDuties/${du_id}`,
                 })
+            },
+            deleteStudygroupDate(du_id) {
+                this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    let self = this;
+                    axios.get("",du_id).then(function (response) {
+                        var data = response.data;
+                        if (data.code == 0) {
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                        } else {
+                            self.$notify({
+                                type: 'error',
+                                message: data.msg,
+                                duration: 2000,
+                            });
+                        }
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
             },
             byTimeSearch() {
                 axios.get("",form).then(function (response) {
