@@ -165,6 +165,7 @@ class ArticalController extends Controller
      }
      //根据时间查询论文
      public function dateSelectArtical(Request $request){
+         $before_date = $request->before_date;
 
      }
      //导出单个论文

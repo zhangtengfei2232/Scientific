@@ -12,7 +12,7 @@ class PatentController extends Controller
      public function addPatent(Request $request)
      {
          if(!$request->isMethod('POST')){
-             return showMsg(1,'你请求的方式不对');
+             return responseTojson(1,'你请求的方式不对');
          }
          $datas = [
              'teacher_id'       => session('usercount'),
@@ -42,10 +42,10 @@ class PatentController extends Controller
          $datas['pa_road']  = $add_image_road;
          $add_patent        = PatentDatabase::addPatentDatas($datas);
          if($add_patent){
-             return showMsg(0,'添加专利信息成功');
+             return responseTojson(0,'添加专利信息成功');
          }
          deletefiles($disk,$add_image_road);
-         return showMsg(1,'添加专利信息失败');
+         return responseTojson(1,'添加专利信息失败');
      }
      //删除专利信息
      public function deletePatent(){
@@ -58,17 +58,17 @@ class PatentController extends Controller
      //查看单个专利信息
      public function selectPatent(Request $request){
          $result = PatentDatabase::selectPatentDatas($request->pa_id);
-         return showMsg(0,'查询成功',$result);
+         return responseTojson(0,'查询成功','',$result);
      }
      //查看所有专利信息
      public function selectAllPatent(){
          $result = PatentDatabase::selectPatenAllDatas(session('usercount'));
-         return showMsg(0,'查询成功',$result);
+         return responseTojson(0,'查询成功','',$result);
      }
      //修改专利信息
      public function updatePatent(Request $request){
          if(!$request->isMethod('POST')){
-             return showMsg(1,'你请求的方式不对');
+             return responseTojson(1,'你请求的方式不对');
          }
          $pa_id  = $request->pa_id;
          $datas  = [
@@ -105,9 +105,9 @@ class PatentController extends Controller
          $reset_patent      = PatentDatabase::updatePatentImage($datas);
          if($reset_patent){
              deletefiles($disk,$old_image_road);
-             return showMsg(0,'修改专利信息成功');
+             return responseTojson(0,'修改专利信息成功');
          }
          deletefiles($disk,$new_image_road);
-         return showMsg(1,'修改信息失败');
+         return responseTojson(1,'修改信息失败');
      }
 }

@@ -12,7 +12,7 @@ class JoinmeetController  extends Controller
     //添加参加会议信息
     public function addJoinmeet(Request $request){
         if(!$request->isMethod('POST')){
-            return showMsg(1,'你请求的方式不对');
+            return responseTojson(1,'你请求的方式不对');
         }
         $datas = [
             'teacher_id'   => session('usercount'),
@@ -36,10 +36,10 @@ class JoinmeetController  extends Controller
     //添加参加会议图注信息
     public function addJoinmeetInject(Request $request){
         if(!$request->isMethod('POST')){
-            return showMsg(1,'你请求的方式不对');
+            return responseTojson(1,'你请求的方式不对');
         }
         if(!$request->is_add_joinmeet){
-            return showMsg(1,'请你添加参加会议信息');
+            return responseTojson(1,'请你添加参加会议信息');
         }
         $joinmeet_inject = $request->file('joinmeet_inject');
         $judge_inject    = judgeFileImage($joinmeet_inject);
@@ -52,10 +52,10 @@ class JoinmeetController  extends Controller
         $new_inject_road     = uploadFiles($subjection_joinmeet,$judge_inject,$disk);
         $add_inject          = JoinmeetDatas::updateJoinmeetInjectRoad($jo_id,$new_inject_road);
         if($add_inject){
-            return showMsg(0,'添加参加会议图注成功');
+            return responseTojson(0,'添加参加会议图注成功');
         }
         deletefiles($disk,$new_inject_road);
-        return showMsg(1,'添加会议图注失败');
+        return responseTojson(1,'添加会议图注失败');
     }
     //添加会议图片
     public function addJoinmeetImage(Request $request){
@@ -64,7 +64,7 @@ class JoinmeetController  extends Controller
             return showMsg(1,'你请求的方式不对');
         }
         if(!$request->is_add_joinmeet){
-            return showMsg(1,'请你先添加参加会议信息');
+            return responseTojson(1,'请你先添加参加会议信息');
         }
         $join_images = $request->file('joinmeet_images');
         $judge_images = judgeAllFileImage($join_images);
@@ -79,7 +79,7 @@ class JoinmeetController  extends Controller
         $image_status   = UploadSubjectionConfig::JOIN_IMG_STATUS;
         $add_images     = ImageDatas::addImagesDatas($all_image_road,$ho_id,$image_status);
         if($validate && $add_images->code == 0){
-            return showMsg(0,'全部图片添加成功');
+            return responseTojson(0,'全部图片添加成功');
         }
         if($add_images->code == 1){
             $delete_fail_images = [];
@@ -99,7 +99,7 @@ class JoinmeetController  extends Controller
             //有的图片验证也没通过，错误信息也返回
             $response['error_images'] = $judge_images['error_images'];
         }
-        return showMsg(1,'部分图片添加失败',$response);
+        return responseTojson(1,'部分图片添加失败',$response);
     }
     //删除参加会议信息
     public function deleteJoinmeet(){
@@ -119,25 +119,25 @@ class JoinmeetController  extends Controller
         if($delete_images){
             ImageDatas::commit();
             deleteAllImgs(uploadSubjectionConfig::LECTURE,$all_images_road);
-            return showMsg(0,'删除讲学图片成功');
+            return responseTojson(0,'删除讲学图片成功');
         }
         ImageDatas::rollback();
-        return showMsg(1,'删除讲学图片失败');
+        return responseTojson(1,'删除讲学图片失败');
     }
     //查看单个参加会议信息
     public function selectJoinmeet(Request $request){
         $result = JoinmeetDatas::selectJoinmeetDatas($request->jo_id);
-        return showMsg(0,'查询成功',$result);
+        return responseTojson(0,'查询成功','',$result);
     }
     //查看所有参加会议信息
     public function selectAllJoinmeet(){
         $result = JoinmeetDatas::selectAllJoinmeetDatas(session('usercount'));
-        return showMsg(0,'查询成功',$result);
+        return responseTojson(0,'查询成功','',$result);
     }
     //修改参加会议信息
     public function updateJoinmeet(Request $request){
        if(!$request->isMethod('POST')){
-           return showMsg(1,'请求的方式不对');
+           return responseTojson(1,'请求的方式不对');
        }
        $datas = [
            'jo_id'        => trim($request->jo_id),
@@ -161,7 +161,7 @@ class JoinmeetController  extends Controller
     //修改会议图注信息
     public function updateJoinmeetinject(Request $request){
         if(!$request->isMethod('POST')){
-            return showMsg(1,'你请求的方式不对');
+            return responseTojson(1,'你请求的方式不对');
         }
         $update_inject = $request->file('joinmeet_inject');
         $judge_inject  = judgeFileImage($update_inject);
@@ -176,9 +176,9 @@ class JoinmeetController  extends Controller
         $reset_inject_raod   = JoinmeetDatas::updateJoinmeetInjectRoad($jo_id,$new_inject_road);
         if($reset_inject_raod){
             deletefiles($disk,$old_inject_road);
-            return showMsg(0,'修改参加会议图注成功');
+            return responseTojson(0,'修改参加会议图注成功');
         }
         deletefiles($disk,$new_inject_road);
-        return showMsg(1,'修改参加会议图注失败');
+        return responseTojson(1,'修改参加会议图注失败');
     }
 }

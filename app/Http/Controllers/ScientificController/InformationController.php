@@ -19,7 +19,7 @@ class InformationController extends Controller
      */
     public function addTeacher(Request $request){
         if(!$request->isMethod('POST')){
-            return showMsg(1,'你请求的方式不对');
+            return responseTojson(1,'你请求的方式不对');
         }
         $teacher_id = trim($request->teacher_id);
         $datas  = [
@@ -75,10 +75,10 @@ class InformationController extends Controller
     //添加老师证书信息
     public function addCertificate(Request $request){
         if(!$request->isMethod('POST')){
-            return showMsg(1,'你请求的方式不对');
+            return responseTojson(1,'你请求的方式不对');
         }
         if(!$request->is_add_teacher){
-            return showMsg(1,'请你先添加老师信息');
+            return responseTojson(1,'请你先添加老师信息');
         }
         $status         = trim($request->reset_image_status);                  //老师修改证书的状态
         if($status == 1){
@@ -100,10 +100,10 @@ class InformationController extends Controller
         if(!$add_certificate){
             TeacherDatabase::rollback();
             deletefiles($disk,$new_certificate_road);
-            return showMsg(1,'上传图片失败');
+            return responseTojson(1,'上传图片失败');
         }
         TeacherDatabase::commit();
-        return showMsg(0,'证书图片修改成功');
+        return responseTojson(0,'证书图片修改成功');
     }
     /**删除老师的所有信息
      * @param Request $request
@@ -116,12 +116,13 @@ class InformationController extends Controller
      */
     public function selectTeacher(){
         $teacher_id = session('usercount');
-        return $result = TeacherDatabase::selectTeacherDatas($teacher_id);
+        $result = TeacherDatabase::selectTeacherDatas($teacher_id);
+        return responseTojson(0,'查询成功','',$result);
     }
     //修改老师信息
     public function updateTeacher(Request $request){
         if(!$request->isMethod('POST')) {
-            return showMsg(1, '你请求的方式不对');
+            return responseTojson(1, '你请求的方式不对');
         }
         $datas  = [
             'teacher_department'    => trim($request->teacher_department),   //老师所属部门
@@ -176,7 +177,7 @@ class InformationController extends Controller
     //修改证书图片
     public function updateCertificate(Request $request){
         if(!$request->isMethod('PSOT')){
-            return showMsg(1,'你请求的方式不对');
+            return responseTojson(1,'你请求的方式不对');
         }
         $status      = trim($request->resetimage);                           //老师修改证书的状态
         if($status == 1){
@@ -202,12 +203,12 @@ class InformationController extends Controller
         if(! $reset_certificate){
             TeacherDatabase::rollback();
             deletefiles($disk,$new_certificate_road);
-            return showMsg(1,'上传证书图片失败');
+            return responseTojson(1,'上传证书图片失败');
         }
         TeacherDatabase::commit();
         //删除以前的证书图片
         deletefiles($disk,$certificate_road);
-        return showMsg(0,'上传证书图片成功');
+        return responseTojson(0,'上传证书图片成功');
     }
 
 }

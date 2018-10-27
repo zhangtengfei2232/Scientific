@@ -55,11 +55,19 @@ class ProjectController extends Controller
         return responseTojson(0,'添加项目成功');
     }
     //删除单个项目信息
-    public function deleteProject(){
-
+    public function deleteProject(Request $request){
+        $pro_oid  = $request->pro_id;
+        $old_image_road = ProjectDatabase::selectImageRoad($pro_oid);
+        $response = ProjectDatabase::delectProjectDatas($pro_oid);
+        if($response){
+            deletefiles(UploadSubjectionConfig::PROJECT,$old_image_road);
+            return responseTojson(0,'删除项目成功');
+        }
+        return responseTojson(1,'删除项目失败');
     }
     //删除多个项目信息
-    public function deleteAllProject(){
+    public function deleteAllProject(Request $request){
+
 
     }
     //查看单个项目信息
@@ -78,7 +86,7 @@ class ProjectController extends Controller
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
-        $update_image_status = $request->update_image_status;
+        $update_image_status   = $request->update_image_status;
         $project_id            = trim($request->project_id);
         $datas = [
             'pro_id'            => $project_id,

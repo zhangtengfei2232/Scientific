@@ -12,7 +12,7 @@ class AgreementController extends Controller
     //添加教学科研合作协议信息
     public function addAgreement(Request $request){
         if(!$request->isMethod('POST')){
-            return showMsg(1,'你请求的方式不对');
+            return responseTojson(1,'你请求的方式不对');
         }
         $agreement_pdf = $request->file('agreement_pdf');
         $judge_agreement = judgeReceiveFiles($agreement_pdf);
@@ -34,10 +34,10 @@ class AgreementController extends Controller
         $datas['agree_road']  = $add_agreement_raod;
         $add_agreement        = AgreementDatabase::addAgreementDatas($datas);
         if($add_agreement){
-            return showMsg(0,'添加教学科研合作协议成功');
+            return responseTojson(0,'添加教学科研合作协议成功');
         }
         deletefiles($disk,$add_agreement_raod);
-        return showMsg(1,'添加教学科研合作协议失败');
+        return responseTojson(1,'添加教学科研合作协议失败');
     }
     //删除单个教学科研合作协议信息
     public function deleteAgreement(Request $request){
@@ -46,9 +46,9 @@ class AgreementController extends Controller
         $delete_agreement = AgreementDatabase::deleteAgreementDatas($agreement_id);
         if($delete_agreement){
             deletefiles(uploadSubjectionConfig::AGREEMENT,$agreement_road);
-            return showMsg(0,'删除教学科研合作协议信息成功');
+            return responseTojson(0,'删除教学科研合作协议信息成功');
         }
-        return showMsg(1,'删除教学科研合作协议信息失败');
+        return responseTojson(1,'删除教学科研合作协议信息失败');
     }
     //删除多个教学科研合作协议信息
     public function deleteAllAgreement(Request $request){
@@ -70,12 +70,12 @@ class AgreementController extends Controller
         if($validate){
             return $delete_agreement;
         }
-        return showMsg(1,$delete_agreement->message,$agreement_name);
+        return responseTojson(1,$delete_agreement->message,$agreement_name);
     }
     //修改教学科研合作协议信息
     public function updateAgreement(Request $request){
         if(!$request->isMethod('POST')){
-            return showMsg(1,'你请求的方式不对');
+            return responseTojson(1,'你请求的方式不对');
         }
         $agree_id = trim($request->agree_id);
         $datas = [
@@ -100,20 +100,20 @@ class AgreementController extends Controller
         $update_agreement    = AgreementDatabase::updateAgreementDatas($datas);
         if($update_agreement){
             deletefiles($disk,$old_agreement_road);
-            return showMsg(0,'修改教学合作协议成功');
+            return responseTojson(0,'修改教学合作协议成功');
         }
         deletefiles($disk,$new_agreement_road);
-        return showMsg(1,'修改教学合作协议失败');
+        return responseTojson(1,'修改教学合作协议失败');
     }
     //查看单个教学科研合作协议信息
     public function selectAgreement(Request $request){
         $result = AgreementDatabase::selectAgreementDatas($request->agreement_id) ;
-        return showMsg(0,'查询成功',$result);
+        return responseTojson(0,'查询成功','',$result);
     }
     //查看全部教学科研合作协议信息
     public function selectAllAgreement(){
         $result = AgreementDatabase::selectAllAgreementDatas();
-        return showMsg(0,'查询成功',$result);
+        return responseTojson(0,'查询成功','',$result);
     }
 
 

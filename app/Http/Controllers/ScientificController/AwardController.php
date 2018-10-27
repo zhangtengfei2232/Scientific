@@ -13,7 +13,7 @@ class AwardController extends Controller
      //添加获奖信息
      public function addAward(Request $request){
          if(!$request->isMethod('POST')){
-             return showMsg(1,'你请求的方式不对');
+             return responseTojson(1,'你请求的方式不对');
          }
          $datas = [
              'teacher_id'       => session('usercount'),
@@ -51,10 +51,10 @@ class AwardController extends Controller
              $add_award = AwardDatabase::addAwardDatas($datas);
          }
          if($add_award){
-             return showMsg(0,'添加获奖信息成功');
+             return responseTojson(0,'添加获奖信息成功');
          }
          deletefiles($disk,$add_image_road);
-         return showMsg(1,'添加获奖信息失败');
+         return responseTojson(1,'添加获奖信息失败');
      }
      //删除获奖信息
      public function deleteAward(Request $request){
@@ -67,17 +67,17 @@ class AwardController extends Controller
      //查看单个获奖信息
      public function selectAward(Request $request){
          $result = AwardDatabase::selectAwardDatas($request->aw_id);
-         return showMsg(0,'查询成功',$result);
+         return responseTojson(0,'查询成功','',$result);
      }
      //查看所有获奖信息
      public function selectAllAward(){
          $result = AwardDatabase::selectAllAwardDatas(session('usercount'));
-         return showMsg(0,'查询成功',$result);
+         return responseTojson(0,'查询成功','',$result);
      }
      //修改获奖信息
      public function updateAward(Request $request){
          if(!$request->isMethod('POST')){
-             return showMsg(1,'你请求的方式不对');
+             return responseTojson(1,'你请求的方式不对');
          }
          $aw_id = trim($request->aw_id);
          $datas = [
@@ -119,10 +119,10 @@ class AwardController extends Controller
          if(!$reset_award){
              ArticalDatabase::rollback();
              deletefiles($disk,$new_image_road);
-             return showMsg(1,'修改获奖信息失败');
+             return responseTojson(1,'修改获奖信息失败');
          }
          ArticalDatabase::commit();
          deletefiles($disk,$old_image_road);
-         return showMsg(0,'修改获奖信息成功');
+         return responseTojson(0,'修改获奖信息成功');
      }
 }

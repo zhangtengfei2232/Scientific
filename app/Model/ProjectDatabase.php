@@ -31,8 +31,9 @@ class ProjectDatabase extends ModelDatabase
             ]);
     }
     //删除项目信息
-    public static function delectProjectDatas(){
-
+    public static function delectProjectDatas($pro_id){
+        $response = DB::table('project')->where('pro_id',$pro_id)->delete();
+        return ($response != 1) ? false : true;
     }
     //查找单个项目信息
     public static function selectProjectDatas($project_id){

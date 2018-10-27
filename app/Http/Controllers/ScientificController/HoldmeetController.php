@@ -12,7 +12,7 @@ class HoldmeetController extends Controller
     //添加举行会议信息
     public function addHoldmeet(Request $request){
         if(!$request->isMethod('POST')){
-            return showMsg(1,'你请求的方式不对');
+            return responseTojson(1,'你请求的方式不对');
         }
         $datas = [
             'teacher_id'      => session('usercount'),
@@ -34,10 +34,10 @@ class HoldmeetController extends Controller
     //添加会议图注
     public function addHoldmeetInjection(Request $request){
         if(!$request->isMethod('POST')){
-            return showMsg(1,'你请求的方式不对');
+            return responseTojson(1,'你请求的方式不对');
         }
         if(!$request->is_add_holdmeet){
-            return showMsg(1,'请你先添加会议信息');
+            return responseTojson(1,'请你先添加会议信息');
         }
         $holdmeet_inject = $request->file('holdmeet_inject');
         $judge_inject   = judgeFileImage($holdmeet_inject);
@@ -50,19 +50,19 @@ class HoldmeetController extends Controller
         $new_inject_road     = uploadFiles($subjection_holdmeet,$holdmeet_inject,$disk);
         $add_inject          = HoldmeetDatas::updateHoldmeetInjectRoad($ho_id,$new_inject_road);
         if($add_inject){
-            return showMsg(0,'添加会议图注成功');
+            return responseTojson(0,'添加会议图注成功');
         }
         deletefiles($disk,$new_inject_road);
-        return showMsg(1,'添加会议图注失败');
+        return responseTojson(1,'添加会议图注失败');
     }
     //添加举行会议图片
     public function addHoldmeetImages(Request $request){
         $validate = true;
         if(!$request->isMethod('POST')){
-            return showMsg(1,'你请求的方式不对');
+            return responseTojson(1,'你请求的方式不对');
         }
         if(!$request->is_add_holdmeet){
-            return showMsg(1,'请你先添加会议信息');
+            return responseTojson(1,'请你先添加会议信息');
         }
         $holdmeet_images = $request->file('hold_images');    //接收数组形式的图片文件
         $judge_images    = judgeAllFileImage($holdmeet_images);
@@ -77,7 +77,7 @@ class HoldmeetController extends Controller
         $image_status    = UploadSubjectionConfig::HOLD_IMG_STATUS;
         $add_images      = ImageDatas::addImagesDatas($all_images_road,$ho_id,$image_status);
         if($validate && $add_images->code == 0){
-            return showMsg(0,'全部图片添加成功');
+            return responseTojson(0,'全部图片添加成功');
         }
         if($add_images->code == 1){
             $delete_fail_images = [];
@@ -97,7 +97,7 @@ class HoldmeetController extends Controller
             //有的图片验证也没通过，错误信息也返回
             $response['error_images'] = $judge_images['error_images'];
         }
-        return showMsg(1,'部分图片添加失败',$response);
+        return responseTojson(1,'部分图片添加失败',$response);
     }
     //删除举行会议的图片
     public function deleteHoldImages(Request $request){
@@ -109,10 +109,10 @@ class HoldmeetController extends Controller
         if($delete_images){
             ImageDatas::commit();
             deleteAllImgs(uploadSubjectionConfig::HOLD_MEET,$all_images_road);
-            return showMsg(0,'删除举办会议图片成功');
+            return responseTojson(0,'删除举办会议图片成功');
         }
         ImageDatas::rollback();                                        //回滚，回复数据库数据
-        return showMsg(1,'删除举办会议图片失败');
+        return responseTojson(1,'删除举办会议图片失败');
     }
     //删除单个举行会议信息
     public function deleteHoldmeet(Request $request){
@@ -131,17 +131,17 @@ class HoldmeetController extends Controller
         $hold_images          = ImageDatas::selectAllOwnerImage($ho_id,$owner_status);
         $datas['holdmeet_information'] = $holdmeet_information;
         $datas['hold_images']          = $hold_images;
-        return showMsg(0,'查询成功',$datas);
+        return responseTojson(0,'查询成功','',$datas);
     }
     //查看所有会议信息
     public function selectAllHoldmeet(){
         $result = HoldmeetDatas::selectAllHoldmeetDatas(session('usercount'));
-        return showMsg(0,'查询成功',$result);
+        return responseTojson(0,'查询成功','',$result);
     }
     //修改举行会议信息
     public function updateHoldmeet(Request $request){
         if(!$request->isMethod('POST')){
-            return showMsg(1,'你请求的方式不对');
+            return responseTojson(1,'你请求的方式不对');
         }
         $datas = [
             'ho_id'           => trim($request->ho_id),
@@ -163,7 +163,7 @@ class HoldmeetController extends Controller
     //修改会议图注
     public function updateHoldmeetInject(Request $request){
         if(!$request->isMethod('POST')){
-            return showMsg(1,'你请求的方式不对');
+            return responseTojson(1,'你请求的方式不对');
         }
         $update_inject = $request->file('holdmeet_inject');
         $judge_inject  = judgeFileImage($update_inject);
@@ -177,9 +177,9 @@ class HoldmeetController extends Controller
         $reset_inject_road = HoldmeetDatas::updateHoldmeetInjectRoad($ho_id,$new_inject_road);
         if($reset_inject_road){
             deletefiles($disk,$old_inject_road);
-            return showMsg(0,'修改会议图注成功');
+            return responseTojson(0,'修改会议图注成功');
         }
         deletefiles($disk,$new_inject_road);
-        return showMsg(1,'修改会议图注失败');
+        return responseTojson(1,'修改会议图注失败');
     }
 }

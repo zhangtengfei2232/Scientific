@@ -11,7 +11,7 @@ class AppraisalController extends Controller
     //添加成果鉴定
     public function addAppraisal(Request $request){
          if(!$request->isMethod('POST')){
-             return showMsg(1,'你请求的方式不对');
+             return responseTojson(1,'你请求的方式不对');
          }
          $datas = [
              'teacher_id'      => session('usercount'),
@@ -35,10 +35,10 @@ class AppraisalController extends Controller
     //添加成功鉴定证书和封面图片
     public function addAppraisalImage(Request $request){
          if(!$request->isMethod('POST')){
-             return showMsg(1,'你请求的方式不对');
+             return responseTojson(1,'你请求的方式不对');
          }
          if(!$request->is_add_appraisal){
-            return showMsg(1,'请你先添加成功鉴定信息');
+            return responseTojson(1,'请你先添加成功鉴定信息');
          }
          $add_image_status = $request->add_image_status;
          if($add_image_status == 1){
@@ -57,10 +57,10 @@ class AppraisalController extends Controller
          $new_image_road = uploadFiles($subjection,$appraisal_image,$disk);
          $add_image = AppraisalDatabase::updateAppraisalImageDatas($new_image_road,$add_image_status,$ap_id);
          if($add_image){
-             return showMsg(0,'上传图片成功');
+             return responseTojson(0,'上传图片成功');
          }
          deletefiles($disk,$new_image_road);
-         return showMsg(1,'上传图片失败');
+         return responseTojson(1,'上传图片失败');
     }
     //删除单个鉴定成果信息
     public function deleteAppraisal(Request $request){
@@ -73,17 +73,17 @@ class AppraisalController extends Controller
     //查看单个成果鉴定信息
     public function selectAppraisal(Request $request){
        $result = AppraisalDatabase::selectAppraisalDatas($request->ap_id);
-       return showMsg(0,'查询成功',$result);
+       return responseTojson(0,'查询成功','',$result);
     }
     //查看所有成果鉴定信息
     public function selectAllAppraisal(){
         $result = AppraisalDatabase::selectAppraisalAllDatas(session('usercount'));
-        return showMsg(0,'查询成功',$result);
+        return responseTojson(0,'查询成功','',$result);
     }
     //修改成功鉴定
     public function updateAppraisal(Request $request){
         if(!$request->isMethod('POST')){
-            return showMsg(1,'你请求的方式不对');
+            return responseTojson(1,'你请求的方式不对');
         }
          $datas = [
              'ap_id'           => trim($request->ap_id),
@@ -107,7 +107,7 @@ class AppraisalController extends Controller
     //修改成果鉴定证书和封面图片
     public function updateAppraisalImage(Request $request){
         if(!$request->isMethod('POST')){
-            return showMsg(1,'你请求的方式不对');
+            return responseTojson(1,'你请求的方式不对');
         }
         $update_image_status = $request->update_image_status;
         if($update_image_status == 1){
@@ -128,10 +128,10 @@ class AppraisalController extends Controller
         $reset_image    = AppraisalDatabase::updateAppraisalImageDatas($new_image_road,$update_image_status,$ap_id);
         if($reset_image){
             deletefiles($disk,$old_image_road);
-            return showMsg(0,'修改鉴定成果图片成功');
+            return responseTojson(0,'修改鉴定成果图片成功');
         }
         deletefiles($disk,$new_image_road);
-        return showMsg(1,'修改鉴定成果图片失败');
+        return responseTojson(1,'修改鉴定成果图片失败');
     }
 
 }

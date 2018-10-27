@@ -11,7 +11,7 @@ class DutiesController extends Controller
     //添加学术团体职务信息
     public function addDuties(Request $request){
         if(!$request->isMethod('POST')){
-            return showMsg(1,'你请求的方式不对');
+            return responseTojson(1,'你请求的方式不对');
         }
         $datas = [
             'teacher_id'   => session('usercount'),
@@ -45,10 +45,10 @@ class DutiesController extends Controller
             $add_duties        = DutiesDatabase::addDutiesDatas($datas);
         }
         if($add_duties){
-            return showMsg(0,'添加担任职务信息成功');
+            return responseTojson(0,'添加担任职务信息成功');
         }
         deletefiles($disk,$add_image_road);
-        return showMsg(1,'添加担任职务信息失败');
+        return responseTojson(1,'添加担任职务信息失败');
     }
     //删除单个学术团体职务信息
     public function deleteDuties(){
@@ -61,17 +61,17 @@ class DutiesController extends Controller
     //查看学术团体职务信息
     public function selectDuties(Request $request){
         $result = DutiesDatabase::selectDutiesDatas($request->du_id);
-        return showMsg(0,'查询成功',$result);
+        return responseTojson(0,'查询成功','',$result);
     }
     //查看所有学术团体职务信息
     public function selectAllDuties(){
         $result = DutiesDatabase::selectAllDutiesDatas(session('usercount'));
-        return showMsg(0,'查询成功',$result);
+        return responseTojson(0,'查询成功','',$result);
     }
     //修改学术团体职务信息
     public function updateDuties(Request $request){
         if(!$request->isMethod('POST')){
-            return showMsg(1,'你请求的方式不对');
+            return responseTojson(1,'你请求的方式不对');
         }
         $du_id = $request->du_id;
         $datas = [
@@ -109,10 +109,10 @@ class DutiesController extends Controller
         if(!$reset_duties_){
             DutiesDatabase::rollback();
             deletefiles($disk,$new_image_road);
-            return showMsg(1,'修改信息失败');
+            return responseTojson(1,'修改信息失败');
         }
         DutiesDatabase::commit();
         deletefiles($disk,$old_image_road);
-        return showMsg(0,'修改信息成功');
+        return responseTojson(0,'修改信息成功');
     }
 }

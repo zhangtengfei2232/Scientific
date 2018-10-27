@@ -12,20 +12,20 @@ class TeacherDatabase extends ModelDatabase
      */
      public static function selectLogin($usercount,$userpassword){
          if(strlen($usercount) == 0){
-             return showMsg(1,'账号不能为空');
+             return responseTojson(1,'账号不能为空');
          }else if(strlen($usercount ) > 10){
-             return showMsg(1,"账号不存在");
+             return responseTojson(1,"账号不存在");
          }else if(strlen($userpassword) == 0){
-             return showMsg(1,"密码不能为空");
+             return responseTojson(1,"密码不能为空");
          }else if(strlen($userpassword) > 30){
-             return showMsg(1,'密码错误');
+             return responseTojson(1,'密码错误');
          }
          $result = DB::table('teacher')
                    ->where('teacher_id', $usercount)
                    ->where('password', $userpassword)
                    ->count();
          if($result != 1){
-             return showMsg(1,"账号或密码输入错误");
+             return responseTojson(1,"账号或密码输入错误");
          }
         return self::saveAccount($usercount);
      }
@@ -81,8 +81,8 @@ class TeacherDatabase extends ModelDatabase
                          'master_time'           => strtotime($datas->master_time),
                          'create_time'           => time()
                      ]);
-        return ($response) ? showMsg(0,'添加老师信息成功')
-               : showMsg(1,'添加老师信息失败');
+        return ($response) ? responseTojson(0,'添加老师信息成功')
+               : responseTojson(1,'添加老师信息失败');
      }
      //删除老师的信息
      public static function deleteTeacherDatas(){
@@ -102,7 +102,6 @@ class TeacherDatabase extends ModelDatabase
          }
          return $result;
      }
-
     /**查询老师的信息
      * @param $teacher_id
      * @return \Illuminate\Http\JsonResponse
@@ -126,7 +125,7 @@ class TeacherDatabase extends ModelDatabase
          $buffer->master_time            = date('Y-m-d',$buffer->master_time);
          $message['juris_diction']       = $juris_diction;
          $message['information']         = $buffer;
-         return showMsg(0,'查询成功',$message);
+         return responseTojson(0,'查询成功','',$message);
      }
     /**查找老师证书图片路径
      * @param $teacher_id
@@ -199,8 +198,8 @@ class TeacherDatabase extends ModelDatabase
                           'master_time'           => strtotime($datas->master_time),
                           'update_time'           => time()
                       ]);
-         return ($retUpdate != 1) ? showMsg(1,'修改信息失败')
-                : showMsg(0,'修改信息成功');
+         return ($retUpdate != 1) ? responseTojson(1,'修改信息失败')
+                : responseTojson(0,'修改信息成功');
      }
     //修改老师证书图片路径
     /**
@@ -227,7 +226,7 @@ class TeacherDatabase extends ModelDatabase
      public static function saveAccount($usercount){
          Session::put('usercount', $usercount);     //把用户的信息存入session
          Session::save();
-         return showMsg(0,"登录成功");
+         return responseTojson(0,"登录成功");
      }
     /**把session里的用户信息清空
      *

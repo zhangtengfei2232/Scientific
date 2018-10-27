@@ -12,7 +12,7 @@ class LectureController extends Controller
      //添加专家讲学信息
      public function addLecture(Request $request){
          if(!$request->isMethod('POST')){
-             return showMsg(1,'你请求的方式不对');
+             return responseTojson(1,'你请求的方式不对');
          }
          $datas = [
              'teacher_id'       => session('usercount'),
@@ -32,10 +32,10 @@ class LectureController extends Controller
      //添加专家讲学图注
      public function addLectureInject(Request $request){
          if(!$request->isMethod('POST')){
-             return showMsg(1,'你请求的方式不对');
+             return responseTojson(1,'你请求的方式不对');
          }
          if(!$request->is_add_lecture){
-             return showMsg(1,'请你先添加讲学信息');
+             return responseTojson(1,'请你先添加讲学信息');
          }
          $lecture_inject = $request->file('lecture_inject');
          $judge_inject   = judgeFileImage($lecture_inject);
@@ -48,20 +48,20 @@ class LectureController extends Controller
          $new_inject_road = uploadFiles($subjection_lecture,$lecture_inject,$disk);
          $add_inject      = LectureDatabase::updateLectureInjectRoad($le_id,$new_inject_road);
          if($add_inject){
-             return showMsg(0,'添加会议图注成功');
+             return responseTojson(0,'添加会议图注成功');
          }
          deletefiles($disk,$new_inject_road);
-         return showMsg(1,'添加会议图注失败');
+         return responseTojson(1,'添加会议图注失败');
 
      }
      //添加专家讲学图片
      public function addLectureImages(Request $request){
          $validate = true;
          if(!$request->isMethod('POST')){
-             return showMsg(1,'你请求的方式不对');
+             return responseTojson(1,'你请求的方式不对');
          }
          if(!$request->is_add_lecture){
-             return showMsg(1,'请你先添加讲学信息');
+             return responseTojson(1,'请你先添加讲学信息');
          }
          $hold_images = $request->file('hold_images');
          $judge_images = judgeAllFileImage($hold_images);
@@ -76,7 +76,7 @@ class LectureController extends Controller
          $images_status   = UploadSubjectionConfig::LECTURE_IMG_STATUS;
          $add_images      = ImageDatas::addImagesDatas($all_images_road,$le_id,$images_status);
          if($validate && $add_images->code == 1){
-             return showMsg(0,'全部图片添加成功');
+             return responseTojson(0,'全部图片添加成功');
          }
          if($add_images->code == 1){
              $delete_fail_images = [];
@@ -96,7 +96,7 @@ class LectureController extends Controller
              //有的图片验证也没通过，错误信息也返回
              $response['error_images'] = $judge_images['error_images'];
          }
-         return showMsg(1,'部分图片添加失败',$response);
+         return responseTojson(1,'部分图片添加失败',$response);
      }
      //删除专家讲学信息
      public function deleteLecture(Request $request){
@@ -116,10 +116,10 @@ class LectureController extends Controller
          if($delete_images){
              ImageDatas::commit();
              deleteAllImgs(uploadSubjectionConfig::HOLD_MEET,$all_images_road);
-             return showMsg(0,'删除举办会议图片成功');
+             return responseTojson(0,'删除举办会议图片成功');
          }
          ImageDatas::rollback();                                        //回滚，回复数据库数据
-         return showMsg(1,'删除举办会议图片失败');
+         return responseTojson(1,'删除举办会议图片失败');
      }
      //查看单个专家讲学信息
      public function selectLecture(Request $request){
@@ -129,17 +129,17 @@ class LectureController extends Controller
          $lecture_images      = ImageDatas::selectAllOwnerImage($le_id,$owner_status);
          $datas['lecture_information'] = $lecture_information;
          $datas['lecture_images']      = $lecture_images;
-         return showMsg(0,'查询成功',$datas);
+         return responseTojson(0,'查询成功','',$datas);
      }
      //查看所有专家讲学信息
      public function selectAllLecture(){
          $result = LectureDatabase::selectLectureAllDatas(session('usercount'));
-         return showMsg(0,'查询成功',$result);
+         return responseTojson(0,'查询成功','',$result);
      }
      //修改专家讲学信息
      public function updateLecture(Request $request){
          if(!$request->isMethod('POST')){
-             return showMsg(1,'你请求的方式不对');
+             return responseTojson(1,'你请求的方式不对');
          }
          $datas = [
              'le_id'            => trim($request->le_id),
@@ -159,7 +159,7 @@ class LectureController extends Controller
      //修改会议图注信息
      public function updateLectureInject(Request $request){
          if(!$request->isMethod('POST')){
-             return showMsg(1,'你请求的方式不对');
+             return responseTojson(1,'你请求的方式不对');
          }
          $update_inject = $request->file('lecture_inject');
          $judge_inject  = judgeFileImage($update_inject);
@@ -174,9 +174,9 @@ class LectureController extends Controller
          $reset_inject_road  = LectureDatabase::updateLectureInjectRoad($le_id,$new_inject_road);
          if($reset_inject_road){
              deletefiles($disk,$old_inject_road);
-             return showMsg(0,'修改讲学图注成功');
+             return responseTojson(0,'修改讲学图注成功');
          }
          deletefiles($disk,$new_inject_road);
-         return showMsg(1,'修改会议图注失败');
+         return responseTojson(1,'修改会议图注失败');
      }
 }

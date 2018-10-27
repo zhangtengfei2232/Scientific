@@ -10,7 +10,7 @@ class SchoolfileController extends Controller
     //添加校发文件
     public function addSchoolfile(Request $request){
         if(!$request->isMethod('POST')){
-            return showMsg(1,'你请求的方式不对');
+            return responseTojson(1,'你请求的方式不对');
         }
         $datas = [
             'schoolfile_name'   => trim($request->schoolfile_name),
@@ -32,10 +32,10 @@ class SchoolfileController extends Controller
         $datas['schfile_road'] = $add_schoolfile_road;
         $add_schoolfile        = SchoolfileDatabase::addSchoolfileDatas($datas);
         if($add_schoolfile){
-            return showMsg(0,'上传校发文件成功');
+            return responseTojson(0,'上传校发文件成功');
         }
         deletefiles($disk,$add_schoolfile_road);
-        return showMsg(1,'上传校发文件失败');
+        return responseTojson(1,'上传校发文件失败');
     }
     //删除单个校发文件
     public function deleteSchoolfile(Request $request){
@@ -44,9 +44,9 @@ class SchoolfileController extends Controller
         $delete_schoolfile = SchoolfileDatabase::deleteSchoolfileDatas($shcoolfile_id);
         if($delete_schoolfile){
             deletefiles(UploadSubjectionConfig::SCHOOL_FILE,$schoolfile_road);
-            return showMsg(0,'删除校发文件成功');
+            return responseTojson(0,'删除校发文件成功');
         }
-        return showMsg(1,'删除校发文件失败');
+        return responseTojson(1,'删除校发文件失败');
     }
     //删除多个校发文件
     public function deleteAllSchoolfile(Request $request){
@@ -68,12 +68,12 @@ class SchoolfileController extends Controller
         if($validate){
             return $delete_schoolfile;
         }
-        return showMsg(1,$delete_schoolfile->message,$response);
+        return responseTojson(1,$delete_schoolfile->message,$response);
     }
     //修改校发文件
     public function updateSchoolfile(Request $request){
         if(!$request->isMethod('POST')){
-            return showMsg(1,'你请求的方式不对');
+            return responseTojson(1,'你请求的方式不对');
         }
         $schfile_id = trim($request->schfile_id);
         $datas = [
@@ -99,19 +99,19 @@ class SchoolfileController extends Controller
         $update_schoolfile = SchoolfileDatabase::updateSchoolfileDatas($datas);
         if($update_schoolfile){
             deletefiles($disk,$old_schoolfile_road);
-            return showMsg(0,'修改校发文件成功');
+            return responseTojson(0,'修改校发文件成功');
         }
         deletefiles($disk,$new_schoolfile_road);
-        return showMsg(1,'修改校发文件失败');
+        return responseTojson(1,'修改校发文件失败');
     }
     //查看单个校发文件
     public function selectSchoolfile(Request $request){
         $result = SchoolfileDatabase::selectSchoolfileDatas($request->schoolfile_id);
-        return showMsg(0,'查询成功',$result);
+        return responseTojson(0,'查询成功','',$result);
     }
     //查看所有校发文件
     public function selectAllSchoolfile(){
         $result = SchoolfileDatabase::selectAllSchoolfileDatas();
-        return showMsg(0,'查询成功',$result);
+        return responseTojson(0,'查询成功','',$result);
     }
 }
