@@ -37,7 +37,7 @@
             <span class="do">操作</span>
         </div>
         <div class="content">
-            <div class="lists" v-for="(item,index) in JoinmeetDate" :key="index">
+            <div class="lists" v-for="(item,index) in agreementDate" :key="index">
                 <span class="check"><el-checkbox v-model="checked"></el-checkbox></span>
                 <span class="numbers">{{ item.teacher_id }}</span>
                 <span class="picture"><img src="/dist/img/cjhy.png" alt="文件加载失败"></span>
@@ -175,7 +175,7 @@
     export default {
         data() {
             return {
-                JoinmeetDate: [],
+                agreementDate: [],
                 checked: false,
                 form: {
                     data1: '',
@@ -184,12 +184,12 @@
             }
         },
         methods: {
-            getJoinmeetDate() {
+            getagreementDate() {
                 let self = this;
-                axios.get("").then(function (response) {
+                axios.get("selectallagreement").then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
-                        self.JoinmeetDate = data.datas;
+                        self.agreementDate = data.datas;
                     } else {
                         self.$notify({
                             type: 'error',
@@ -208,7 +208,7 @@
                 axios.get("",form).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
-                        self.JoinmeetDate = data.datas;
+                        self.agreementDate = data.datas;
                     } else {
                         self.$notify({
                             type: 'error',
@@ -221,7 +221,7 @@
 
         },
         mounted() {
-            this.getJoinmeetDate();
+            this.getagreementDate();
         }
     }
 </script>

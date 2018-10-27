@@ -78,7 +78,9 @@
     export default {
         data() {
             return {
-                teacherDate: {},
+                teacherDate:[] ,
+//
+
                 show: false,
                 navList:[
 //                    {icon:'el-icon-picture',name:'/',navItem:'ft'},
@@ -108,7 +110,7 @@
                 axios.get("selectteacher").then(function (response) {
                     var data = response.data;
                     if(data.code == 0){
-                        self.teacherDate = data.datas;
+                        self.teacherDate = data.datas.information;
                     }else{
                         self.$notify({
                             type: 'error',

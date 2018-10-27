@@ -29,13 +29,13 @@
         <div class="content">
             <div class="lists" v-for="(item,index) in StudygroupDate" :key="index">
                 <span class="check"><el-checkbox v-model="checked"></el-checkbox></span>
-                <span class="numbers">{{ item.teacher_id }}</span>
-                <span class="picture"><img src="/dist/img/text.png" alt="文件加载失败"></span>
+                <span class="numbers">{{ item.du_id }}</span>
+                <!--<span class="picture"><img src="/dist/img/profile.png" alt="文件加载失败"></span>-->
                 <span class="infos">
-                    <h5>{{ item.title }}</h5>
-                    <p>作者 <small>特别标注</small></p>
+                    <!--<h5>{{ item.title }}</h5>-->
+                    <p>{{ item.teacher_name }}</p>
                 </span>
-                <span class="times">2018-09-10</span>
+                <span class="times">{{ item.du_name }}</span>
                 <span class="dos" @click="sentStudygroupDate(item.art_id)">编辑</span>
                 <span class="tos"><router-link to="/">导出</router-link></span>
                 <span class="dos" @click="sentStudygroupDate(item.art_id)">查看</span>
@@ -168,10 +168,12 @@
         methods: {
             getStudygroupDate() {
                 let self = this;
-                axios.get("selectopus").then(function (response) {
+                axios.get("selectallduties").then(function (response) {
                     var data = response.data;
+//                    console.log(data.datas);
                     if (data.code == 0) {
                         self.StudygroupDate = data.datas;
+//                        console.log(data.datas);
                     } else {
                         self.$notify({
                             type: 'error',

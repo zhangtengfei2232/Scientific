@@ -37,7 +37,7 @@
             <span class="do">操作</span>
         </div>
         <div class="content">
-            <div class="lists" v-for="(item,index) in JoinmeetDate" :key="index">
+            <div class="lists" v-for="(item,index) in shooolFileDate" :key="index">
                 <span class="check"><el-checkbox v-model="checked"></el-checkbox></span>
                 <span class="numbers">{{ item.teacher_id }}</span>
                 <span class="picture"><img src="/dist/img/cjhy.png" alt="文件加载失败"></span>
@@ -46,9 +46,9 @@
                     <p>作者 <small>特别标注</small></p>
                 </span>
                 <span class="times">2018-09-10</span>
-                <span class="dos" @click="sentJoinmeetSelfData(item.art_id)">编辑</span>
+                <span class="dos" @click="sentshooolFileDate(item.art_id)">编辑</span>
                 <span class="tos"><router-link to="/">导出</router-link></span>
-                <span class="dos" @click="sentJoinmeetSelfData(item.art_id)">查看</span>
+                <span class="dos" @click="sentshooolFileDate(item.art_id)">查看</span>
                 <span class="del"><router-link to="/">删除</router-link></span>
                 <div class="clear"></div>
             </div>
@@ -175,7 +175,7 @@
     export default {
         data() {
             return {
-                JoinmeetDate: [],
+                shooolFileDate: [],
                 checked: false,
                 form: {
                     data1: '',
@@ -184,12 +184,13 @@
             }
         },
         methods: {
-            getJoinmeetDate() {
+            getshooolFileDate() {
                 let self = this;
-                axios.get("").then(function (response) {
+                axios.get("selectallschoolfile").then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
-                        self.JoinmeetDate = data.datas;
+                        self.shooolFileDate = data.datas;
+                        constant.log("---------------")
                     } else {
                         self.$notify({
                             type: 'error',
@@ -199,7 +200,7 @@
                     }
                 });
             },
-            sentJoinmeetSelfData(art_id) {
+            sentshooolFileDate(art_id) {
                 this.$router.push({
                     path: `/selfInfor/${art_id}`,
                 })
@@ -208,7 +209,7 @@
                 axios.get("",form).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
-                        self.JoinmeetDate = data.datas;
+                        self.shooolFileDate = data.datas;
                     } else {
                         self.$notify({
                             type: 'error',
@@ -221,7 +222,7 @@
 
         },
         mounted() {
-            this.getJoinmeetDate();
+            this.getshooolFileDate();
         }
     }
 </script>
