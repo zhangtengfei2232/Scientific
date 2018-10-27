@@ -93,7 +93,7 @@ export default new VueRouter({
             },
             {
                 name: 'selfPatent',
-                path: '/selfPatent',
+                path: '/selfPatent/:pa_id',
                 component: resolve => void(require(['../components/patent/selfPatent.vue'], resolve))
             },
             /*成果鉴定信息*/
@@ -109,7 +109,7 @@ export default new VueRouter({
             },
             {
                 name: 'selfAppraisal',
-                path: '/selfAppraisal',
+                path: '/selfAppraisal/:ap_id',
                 component: resolve => void(require(['../components/appraisal/selfAppraisal.vue'], resolve))
             },
             /*举办会议信息*/
@@ -125,7 +125,7 @@ export default new VueRouter({
             },
             {
                 name: 'selfHoldmeet',
-                path: '/selfHoldmeet',
+                path: '/selfHoldmeet/:ho_id',
                 component: resolve => void(require(['../components/holdmeet/selfHoldmeet.vue'], resolve))
             },
             /*参加会议信息*/
@@ -141,7 +141,7 @@ export default new VueRouter({
             },
             {
                 name: 'selfJoinmeet',
-                path: '/selfJoinmeet',
+                path: '/selfJoinmeet/:jo_id',
                 component: resolve => void(require(['../components/joinmeet/selfJoinmeet.vue'], resolve))
             },
            // 专家讲学
@@ -152,15 +152,15 @@ export default new VueRouter({
             },
             {
                 name: 'addLecture',
-                path: '/addLecture',
+                path: '/addLecture/',
                 component: resolve => void(require(['../components/lecture/addLecture.vue'], resolve))
             },
             {
                 name: 'editLecture',
-                path: '/editLecture',
+                path: '/editLecture/:le_id',
                 component: resolve => void(require(['../components/lecture/editLecture.vue'], resolve))
             },
-          // 担任学术团体职务
+            // 担任学术团体职务
             {
                 name: 'duties',
                 path: '/duties',
@@ -173,53 +173,53 @@ export default new VueRouter({
             },
             {
                 name: 'editDuties',
-                path: '/editDuties',
+                path: '/editDuties/:du_id',
                 component: resolve => void(require(['../components/duties/editDuties.vue'], resolve))
             },
-          // 校发文件
-          {
-              name: 'document',
-              path: '/document',
-              component: resolve => void(require(['../components/document/schoolSendFile.vue'], resolve))
-          },
-          {
-              name: 'addschoolFile',
-              path: '/addschoolFile',
-              component: resolve => void(require(['../components/document/addschoolFile.vue'], resolve))
-          },
-          {
-              name: 'editSchoolFile',
-              path: '/editSchoolFile',
-              component: resolve => void(require(['../components/document/editSchoolFile.vue'], resolve))
-          },
-          // 教学科研等合作协议
-          {
-              name: 'agreement',
-              path: '/agreement',
-              component: resolve => void(require(['../components/agreement/agreement.vue'], resolve))
-          },
-          {
-              name: 'addAgreement',
-              path: '/addAgreement',
-              component: resolve => void(require(['../components/agreement/addAgreement.vue'], resolve))
-          },
-          {
-              name: 'editAgreement',
-              path: '/editAgreement',
-              component: resolve => void(require(['../components/agreement/editAgreement.vue'], resolve))
-          },
-           /*全局总览*/
-          {
-              name: 'Glverview',
-              path: '/Glverview',
-              component: resolve => void(require(['../components/globalOverview/Glverview.vue'], resolve))
-          },
-          // 所有老师论文
-          {
-              name: 'allArticle',
-              path: '/allArticle',
-              component: resolve => void(require(['../components/allArticle/allArticle.vue'], resolve))
-          },
+            // 校发文件
+            {
+                name: 'document',
+                path: '/document',
+                component: resolve => void(require(['../components/document/schoolSendFile.vue'], resolve))
+            },
+            {
+                name: 'addschoolFile',
+                path: '/addschoolFile',
+                component: resolve => void(require(['../components/document/addschoolFile.vue'], resolve))
+            },
+            {
+                name: 'editSchoolFile',
+                path: '/editSchoolFile/:schfile_id',
+                component: resolve => void(require(['../components/document/editSchoolFile.vue'], resolve))
+            },
+            // 教学科研等合作协议
+            {
+                name: 'agreement',
+                path: '/agreement',
+                component: resolve => void(require(['../components/agreement/agreement.vue'], resolve))
+            },
+            {
+                name: 'addAgreement',
+                path: '/addAgreement',
+                component: resolve => void(require(['../components/agreement/addAgreement.vue'], resolve))
+            },
+            {
+                name: 'editAgreement',
+                path: '/editAgreement/:agree_id',
+                component: resolve => void(require(['../components/agreement/editAgreement.vue'], resolve))
+            },
+            /*全局总览*/
+            {
+                name: 'Glverview',
+                path: '/Glverview',
+                component: resolve => void(require(['../components/globalOverview/Glverview.vue'], resolve))
+            },
+            // 所有老师论文
+            {
+                name: 'allArticle',
+                path: '/allArticle',
+                component: resolve => void(require(['../components/allArticle/allArticle.vue'], resolve))
+            },
       ]
 
 })

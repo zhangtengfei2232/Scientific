@@ -126,7 +126,7 @@
             }
         },
         methods: {
-             deleteRow(index, rows) {
+            deleteRow(index, rows) {
                 rows.splice(index, 1);
             },
             toggleSelection(rows) {

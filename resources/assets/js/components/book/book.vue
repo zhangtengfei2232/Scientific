@@ -107,6 +107,11 @@
     .demonstration{
         font-weight: lighter;
     }
+    .table{
+        float: left;
+        width: 80%;
+        margin: 20px 0 0 5%;
+    }
 </style>
 
 <script>
