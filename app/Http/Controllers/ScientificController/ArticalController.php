@@ -10,18 +10,18 @@ class ArticalController extends Controller
      //添加论文
      public function addArtical(Request $request){
          if(!$request->isMethod('POST')){
-              return showMsg(1,'你请求的方式不对');
+              return responseTojson(1,'你请求的方式不对',1);
 
          }
          $artical_file  = $request->file('art_pdf');                    //接论文文件
          $artical_sci   = $request->file('art_sci');                    //接收sci索引报告
-         $judge_artical = showResponse(judgeReceiveFiles($artical_file));    //验证论文
-         if($judge_artical->code == 1){
-             return showMsg(1,'论文'.$judge_artical->message);
+         $judge_artical = judgeReceiveFiles($artical_file);                  //验证论文
+         if($judge_artical['code'] == 1){
+             return responseTojson(1,'论文'.$judge_artical['message']);
          }
-         $judge_sci = showResponse(judgeReceiveFiles($artical_sci));        //验证论文SCI
-         if($judge_sci->code == 1){
-             return showMsg(1,'论文SCI索引报告'.$judge_sci->message);
+         $judge_sci = judgeReceiveFiles($artical_sci);                       //验证论文SCI
+         if($judge_sci['code'] == 1){
+             return responseTojson(1,'论文SCI索引报告'.$judge_sci['message']);
          }
          $teacher_id = session('usercount');
          $datas = [
@@ -62,13 +62,13 @@ class ArticalController extends Controller
          $add_artical = ArticalDatabase::addArticalDatas($datas);
          if($add_artical){
              ArticalDatabase::commit();
-             return showMsg(0,'添加论文成功');
+             return responseTojson(0,'添加论文成功');
          }
          ArticalDatabase::rollback();
          deletefiles($disk,$artical_road);
          deletefiles($disk,$artical_sci_road);
          deletefiles($disk,$artical_first_road);
-         return showMsg(1,'添加论文失败');
+         return responseTojson(1,'添加论文失败');
      }
      //删除论文
      public function deleteArtical(Request $request){
@@ -77,28 +77,28 @@ class ArticalController extends Controller
          $select_artical_road = ArticalDatabase::selectArticalRoad($artical_id);
          $delete_artical      = ArticalDatabase::deleteArticalDatas($artical_id);
          if(!$delete_artical){
-             return showMsg(0,'删除文章失败');
+             return responseTojson(0,'删除文章失败');
          }
          deletefiles($disk,$select_artical_road->art_road);
          deletefiles($disk,$select_artical_road->home_page_road);
          deletefiles($disk,$select_artical_road->art_sci_road);
-         return showMsg(0,'删除文章成功');
+         return responseTojson(0,'删除文章成功');
      }
      //查找个人一篇论文信息
      public function selectArtical(Request $request){
          $result =  ArticalDatabase::selectArticalDatas($request->art_id);
-         return showMsg(0,'查询成功',$result);
+         return responseTojson(0,'查询成功','',$result);
      }
      //查找个人全部论文信息
      public function selectAllAttical(){
          $teacher_id = session('usercount');
          $result     = ArticalDatabase::selectAllArticalDatas($teacher_id);
-         return showMsg(0,'查询成功',$result);
+         return responseTojson(0,'查询成功','',$result);
      }
      //修改论文
      public function updateArtical(Request $request){
          if(!$request->isMethod('POST')) {
-             return showMsg(1,'你请求的方式不对');
+             return responseTojson(1,'你请求的方式不对');
          }
          $artical_id        = trim($request->artical_id);
          $datas = [
@@ -119,8 +119,8 @@ class ArticalController extends Controller
              'art_remarks'       => trim($request->art_remarks),              //论文备注
              'art_time'          => trim($request->art_time),                 //发表时间
          ];
-         $respose = showResponse(judgeArticalField($datas));                  //判断论文字段是否合法
-         if($respose->code == 1){
+         $respose = judgeArticalField($datas);                  //判断论文字段是否合法
+         if($respose['code'] == 1){
              return $respose;
          }
          if(!$request->is_change_artical){                                    //判断老师是否修改论文
@@ -128,13 +128,13 @@ class ArticalController extends Controller
          }
          $artical_file  = $request->file('pdf');                          //接论文文件
          $artical_sci   = $request->file('sci');
-         $judge_artical = showResponse(judgeReceiveFiles($artical_file));     //验证论文
-         if($judge_artical->code == 1){
-             return showMsg(1,'论文'.$judge_artical);
+         $judge_artical = judgeReceiveFiles($artical_file);     //验证论文
+         if($judge_artical['code'] == 1){
+             return responseTojson(1,'论文'.$judge_artical);
          }
-         $judge_sci     = showResponse(judgeReceiveFiles($artical_sci));      //验证论文SCI
-         if($judge_sci->code == 1){
-             return showMsg(1,'论文SCI索引'.$judge_sci);
+         $judge_sci     = judgeReceiveFiles($artical_sci);      //验证论文SCI
+         if($judge_sci['code'] == 1){
+             return responseTojson(1,'论文SCI索引'.$judge_sci);
          }
          $old_artical_road      = ArticalDatabase::selectArticalRoad($artical_id);
          $disk                  = UploadSubjectionConfig::ARTICAL;
@@ -155,13 +155,13 @@ class ArticalController extends Controller
              deletefiles($disk,$reset_artical_road);
              deletefiles($disk,$reset_sci_road);
              deletefiles($disk,$reset_first_page_road);
-             return showMsg(1,'修改文章失败');
+             return responseTojson(1,'修改文章失败');
          }
          ArticalDatabase::commit();
          deletefiles($disk,$old_artical_road->art_road);            //删除原来的首页
          deletefiles($disk,$old_artical_road->home_page_road);      //删除原来的论文
          deletefiles($disk,$old_artical_road->art_sci_road);        //删除原来的论文SCI
-         return showMsg(0,'修改论文信息成功');
+         return responseTojson(0,'修改论文信息成功');
      }
      //根据时间查询论文
      public function dateSelectArtical(Request $request){

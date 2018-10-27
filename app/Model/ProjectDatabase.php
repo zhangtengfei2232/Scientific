@@ -11,23 +11,23 @@ class ProjectDatabase extends ModelDatabase
     public static function addProjectDatas($datas){
         return  DB::table('project')
             ->insert([
-                'teacher_id'        => $datas->teacher_id,
-                'pro_host'          => $datas->pro_host,
-                'pro_all_author'    => $datas->pro_all_author,
-                'entry_name'        => $datas->entry_name,
-                'project_category'  => $datas->project_category,
-                'approval_unit'     => $datas->approval_unit,
-                'approval_funds'    => $datas->approval_funds,
-                'account_outlay'    => $datas->account_outlay,
-                'pro_cate_research' => $datas->pro_cate_research,
-                'pro_sub_category'  => $datas->pro_sub_category,
-                'form_cooperate'    => $datas->form_cooperate,
-                'social_eco_goal'   => $datas->social_eco_goal,
-                'na_eco_industry'   => $datas->na_eco_industry,
-                'pro_integral'      => $datas->pro_integral,
-                'pro_road'          => $datas->pro_road,
-                'project_year'      => $datas->project_year,
-                'pro_remarks'        => $datas->pro_remarks
+                'teacher_id'        => $datas['teacher_id'],
+                'pro_host'          => $datas['pro_host'],
+                'pro_all_author'    => $datas['pro_all_author'],
+                'entry_name'        => $datas['entry_name'],
+                'project_category'  => $datas['project_category'],
+                'approval_unit'     => $datas['approval_unit'],
+                'approval_funds'    => $datas['approval_funds'],
+                'account_outlay'    => $datas['account_outlay'],
+                'pro_cate_research' => $datas['pro_cate_research'],
+                'pro_sub_category'  => $datas['pro_sub_category'],
+                'form_cooperate'    => $datas['form_cooperate'],
+                'social_eco_goal'   => $datas['social_eco_goal'],
+                'na_eco_industry'   => $datas['na_eco_industry'],
+                'pro_integral'      => $datas['pro_integral'],
+                'pro_road'          => $datas['pro_road'],
+                'project_year'      => $datas['project_year'],
+                'pro_remarks'       => $datas['pro_remarks']
             ]);
     }
     //删除项目信息
@@ -52,22 +52,22 @@ class ProjectDatabase extends ModelDatabase
     public static function updateProjectImage($datas){
         $response = DB::table('project')->where('pro_id',$datas->pro_id)
                   ->update([
-                      'pro_host'          => $datas->pro_host,
-                      'pro_all_author'    => $datas->pro_all_author,
-                      'entry_name'        => $datas->entry_name,
-                      'project_category'  => $datas->project_category,
-                      'approval_unit'     => $datas->approval_unit,
-                      'approval_funds'    => $datas->approval_funds,
-                      'account_outlay'    => $datas->account_outlay,
-                      'pro_cate_research' => $datas->pro_cate_research,
-                      'pro_sub_category'  => $datas->pro_sub_category,
-                      'form_cooperate'    => $datas->form_cooperate,
-                      'social_eco_goal'   => $datas->social_eco_goal,
-                      'na_eco_industry'   => $datas->na_eco_industry,
-                      'pro_integral'      => $datas->pro_integral,
-                      'pro_road'          => $datas->pro_road,
-                      'project_year'      => $datas->project_year,
-                      'pro_remarks'        => $datas->pro_remarks
+                      'pro_host'          => $datas['pro_host'],
+                      'pro_all_author'    => $datas['pro_all_author'],
+                      'entry_name'        => $datas['entry_name'],
+                      'project_category'  => $datas['project_category'],
+                      'approval_unit'     => $datas['approval_unit'],
+                      'approval_funds'    => $datas['approval_funds'],
+                      'account_outlay'    => $datas['account_outlay'],
+                      'pro_cate_research' => $datas['pro_cate_research'],
+                      'pro_sub_category'  => $datas['pro_sub_category'],
+                      'form_cooperate'    => $datas['form_cooperate'],
+                      'social_eco_goal'   => $datas['social_eco_goal'],
+                      'na_eco_industry'   => $datas['na_eco_industry'],
+                      'pro_integral'      => $datas['pro_integral'],
+                      'pro_road'          => $datas['pro_road'],
+                      'project_year'      => $datas['project_year'],
+                      'pro_remarks'       => $datas['pro_remarks']
                   ]);
         return ($response != 1) ? false : true;
 
@@ -76,24 +76,23 @@ class ProjectDatabase extends ModelDatabase
     public static function updateProjectDatas($datas){
         $response = DB::table('project')->where('pro_id',$datas->pro_id)
             ->update([
-                'pro_host'          => $datas->pro_host,
-                'pro_all_author'    => $datas->pro_all_author,
-                'entry_name'        => $datas->entry_name,
-                'project_category'  => $datas->project_category,
-                'approval_unit'     => $datas->approval_unit,
-                'approval_funds'    => $datas->approval_funds,
-                'account_outlay'    => $datas->account_outlay,
-                'pro_cate_research' => $datas->pro_cate_research,
-                'pro_sub_category'  => $datas->pro_sub_category,
-                'form_cooperate'    => $datas->form_cooperate,
-                'social_eco_goal'   => $datas->social_eco_goal,
-                'na_eco_industry'   => $datas->na_eco_industry,
-                'pro_integral'      => $datas->pro_integral,
-                'project_year'      => $datas->project_year,
-                'pro_remarks'        => $datas->pro_remarks
+                'pro_host'          => $datas['pro_host'],
+                'pro_all_author'    => $datas['pro_all_author'],
+                'entry_name'        => $datas['entry_name'],
+                'project_category'  => $datas['project_category'],
+                'approval_unit'     => $datas['approval_unit'],
+                'approval_funds'    => $datas['approval_funds'],
+                'account_outlay'    => $datas['account_outlay'],
+                'pro_cate_research' => $datas['pro_cate_research'],
+                'pro_sub_category'  => $datas['pro_sub_category'],
+                'form_cooperate'    => $datas['form_cooperate'],
+                'social_eco_goal'   => $datas['social_eco_goal'],
+                'na_eco_industry'   => $datas['na_eco_industry'],
+                'pro_integral'      => $datas['pro_integral'],
+                'project_year'      => $datas['project_year'],
+                'pro_remarks'       => $datas['pro_remarks']
             ]);
         return ($response != 1) ? false : true;
-
     }
     //查找以前项合同图片路径
     public static function selectImageRoad($project_id){

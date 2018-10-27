@@ -10,7 +10,7 @@ class ProjectController extends Controller
     //添加项目信息
     public function addProject(Request $request){
         if(!$request->isMethod('POST')){
-            return showMsg(1,'你请求的方式不对');
+            return responseTojson(1,'你请求的方式不对');
         }
         $teacher_id = session('usercount');
         $datas = [
@@ -32,12 +32,12 @@ class ProjectController extends Controller
             'pro_remarks'       => trim($request->pro_remarks)
         ];
         $judge_project_datas = judgeProjectField($datas);
-        if($judge_project_datas->code == 1){
+        if($judge_project_datas['code'] == 1){
             return $judge_project_datas;
         }
         $project_image = $request->file('project_image');
         $judge_project_image = judgeFileImage($project_image);
-        if($judge_project_image->code == 1){
+        if($judge_project_image['code'] == 1){
             return $judge_project_image;
         }
         $disk = UploadSubjectionConfig::PROJECT;
@@ -49,10 +49,10 @@ class ProjectController extends Controller
         if(!$add_project){
             ProjectDatabase::rollback();
             deletefiles($disk,$project_iamge_road);
-            return showMsg(1,'添加项目失败');
+            return responseTojson(1,'添加项目失败');
         }
         ProjectDatabase::commit();
-        return showMsg(0,'添加项目成功');
+        return responseTojson(0,'添加项目成功');
     }
     //删除单个项目信息
     public function deleteProject(){
@@ -65,20 +65,20 @@ class ProjectController extends Controller
     //查看单个项目信息
     public function selectProject(Request $request){
        $project_datas = ProjectDatabase::selectProjectDatas($request->project_id);
-       return showMsg(0,'查询成功',$project_datas);
+       return responseTojson(0,'查询成功','',$project_datas);
     }
     //查看多个项目信息
     public function selectAllProject(){
        $teacher_id = session('usercount');
        $resulet = ProjectDatabase::selectAllProjectDatas($teacher_id);
-       return showMsg(0,'查找成功',$resulet);
+       return responseTojson(0,'查找成功','',$resulet);
     }
     //修改项目信息
     public function updateProject(Request $request){
         if(!$request->isMethod('POST')){
-            return showMsg(1,'你请求的方式不对');
+            return responseTojson(1,'你请求的方式不对');
         }
-        $update_project_status = $request->update_project_status;
+        $update_image_status = $request->update_image_status;
         $project_id            = trim($request->project_id);
         $datas = [
             'pro_id'            => $project_id,
@@ -99,15 +99,15 @@ class ProjectController extends Controller
             'pro_remarks'       => trim($request->pro_remarks)
         ];
         $judge_project_datas = judgeProjectField($datas);
-        if($judge_project_datas->code == 1){
+        if($judge_project_datas['code'] == 1){
            return $judge_project_datas;
         }
-        if(!$update_project_status){
+        if(!$update_image_status){
            return ProjectDatabase::updateProjectDatas($datas);
         }
         $project_image = $request->file('project_image');
         $judge_project_img = judgeFileImage($project_image);
-        if($judge_project_img->code == 1){
+        if($judge_project_img['code '] == 1){
             return $judge_project_img;
         }
         $disk               = UploadSubjectionConfig::PROJECT;
@@ -120,9 +120,9 @@ class ProjectController extends Controller
         if(!$reset_project){
             ProjectDatabase::rollback();
             deletefiles($disk,$new_image_road);
-            return showMsg(1,'修改项目失败');
+            return responseTojson(1,'修改项目失败');
         }
         deletefiles($disk,$old_image_road);
-        return showMsg(0,'修改项目成功');
+        return responseTojson(0,'修改项目成功');
     }
 }

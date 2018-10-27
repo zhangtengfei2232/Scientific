@@ -1,18 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Storage;
-    //后台验证处理返回信息
-    function showMsg($code = 0,$message = '',$datas = ''){
-        $response["code"] = $code;
-        if(!empty($datas)){
-            $response["datas"] = $datas;
-        }
-        if(!empty($message)){
-            $response["message"] = $message;
-        }
-        return $response;
-    }
    //后台验证处理返回信息
-    function responseTojson($code = 0,$message = '',$datas = ''){
+    function responseTojson($code = 0,$message = '',$status = '',$datas = ''){
         $response["code"] = $code;
         if(!empty($datas)){
             $response["datas"] = $datas;
@@ -20,8 +9,9 @@ use Illuminate\Support\Facades\Storage;
         if(!empty($message)){
             $response["message"] = $message;
         }
+        if(!empty($status))   return $response;
         return response()->json($response);
-    }
+}
     //对象转化为数组
     function objectToArray($e){
         $e = (array)$e;
