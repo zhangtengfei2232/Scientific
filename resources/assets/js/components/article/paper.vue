@@ -62,12 +62,11 @@
                         width="200">
                         <template slot-scope="scope">
                             <el-button
-                            @click.native.prevent="deleteRow(scope.$index, ArticleDate)"
                             type="text"
                             size="small">
-                            <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentArticleSelfData(art_id)"></el-button>
-                            <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentArticleSelfData(art_id)"></el-button>
-                            <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteArticleData(art_id)"></el-button>
+                                <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentArticleSelfData(art_id)"></el-button>
+                                <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentArticleSelfData(art_id)"></el-button>
+                                <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteArticleData(art_id)"></el-button>
                             </el-button>
                         </template>
                     </el-table-column>
@@ -168,6 +167,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
+                    //this.native.prevent = deleteRow(scope.$index, ArticleDate);
                     let self = this;
                     axios.get("deleteartical",art_id).then(function (response) {
                     var data = response.data;

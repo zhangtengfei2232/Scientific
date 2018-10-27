@@ -78,32 +78,6 @@
                 </div>
             </template>
         </div>
-
-
-        <!-- <div class="navbo">
-            <span class="checks"><el-checkbox v-model="checked"></el-checkbox></span>
-            <span class="number">序号</span>   
-            <span class="info">成果鉴定信息</span>
-            <span class="time">发表时间</span>
-            <span class="do">操作</span>
-        </div>
-        <div class="content">
-            <div class="lists" v-for="(item,index) in AppraisalDate" :key="index">
-                <span class="check"><el-checkbox v-model="checked"></el-checkbox></span>
-                <span class="numbers">{{ item.ap_id }}</span>
-                <span class="picture"><img src="/dist/img/cgjd.png" alt="文件加载失败"></span>
-                <span class="infos">
-                    <h5>{{ item.title }}</h5>
-                    <p>作者 <small>特别标注</small></p>
-                </span>
-                <span class="times">2018-09-10</span>
-                <span class="dos" @click="sentAppraisalSelfData(item.art_id)">编辑</span>
-                <span class="tos"><router-link to="/">导出</router-link></span>
-                <span class="dos" @click="sentAppraisalSelfData(item.art_id)">查看</span>
-                <span class="del"><router-link to="/">删除</router-link></span>
-                <div class="clear"></div>
-            </div>
-        </div> -->
     </div>
 </template>
 
@@ -181,9 +155,9 @@
                     }
                 });
             },
-            sentAppraisalSelfData(art_id) {
+            sentAppraisalSelfData(ap_id) {
                 this.$router.push({
-                path: `/selfInfor/${art_id}`,
+                path: `/selfInfor/${ap_id}`,
                 })
             },
             byTimeSearch() {
