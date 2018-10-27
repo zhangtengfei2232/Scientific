@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="all">
         <header>
             <span class="paper">
                 论文
@@ -29,33 +29,54 @@
                 </el-form>
             </span>
         </header>
-        <div class="navbo">
-            <span class="checks"><el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox></span>
-            <span class="number">序号</span>   
-            <span class="info">论文信息</span>
-            <span class="time">发表时间</span>
-            <span class="do">操作</span>
-        </div> 
-        <div class="content">
-            <el-checkbox-group v-model="checkAll" @change="handleCheckedCitiesChange"> 
-                <div class="lists" v-for="(item,index) in ArticleDate" :key="index">
-                    <span class="check"><el-checkbox v-model="checked"></el-checkbox></span>
-                    <span class="numbers">{{ item.art_id }}</span>
-                    <span class="picture"><img src="/dist/img/text.png" alt="文件加载失败"></span>
-                    <span class="infos">
-                        <h5 style="width: 78px;">{{ item.title }}</h5>
-                        <p  style="width: 78px;">{{item.author}} <small>{{item.art_sub_category}}</small></p>
-                    </span>
-                    <span class="times">2018-09-10</span>
-                    <span class="dos" @click="sentArticleSelfData(item.art_id)">编辑</span>
-                    <span class="tos"><router-link to="/">导出</router-link></span>
-                    <span class="dos" @click="sentArticleSelfData(item.art_id)">查看</span>
-                    <span class="del"><el-button type="text" @click="deleteArticleData(item.art_id)" 
-                        style="color: rgba(229, 28, 35, 1)!important;padding: 0px 5px;font-size: 13px;">删除</el-button>
-                    </span>
-                    <div class="clear"></div>
+        <div class="table">
+            <template>
+                <el-table
+                    ref="multipleTable"
+                    :data="ArticleDate"
+                    tooltip-effect="dark"
+                    style="width: 100%"
+                    @selection-change="handleSelectionChange">
+                    <el-table-column
+                    type="selection"
+                    width="55">
+                    </el-table-column>
+                    <el-table-column
+                    prop="art_id"
+                    label="序号"
+                    width="120">
+                    </el-table-column>
+                    <el-table-column
+                    prop="title"
+                    label="论文名称"
+                    width="120">
+                    </el-table-column>
+                    <el-table-column
+                    prop="art_time"
+                    label="发表日期"
+                    show-overflow-tooltip>
+                    </el-table-column>
+                    <el-table-column
+                        fixed="right"
+                        label="操作"
+                        width="200">
+                        <template slot-scope="scope">
+                            <el-button
+                            @click.native.prevent="deleteRow(scope.$index, ArticleDate)"
+                            type="text"
+                            size="small">
+                            <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentArticleSelfData(art_id)"></el-button>
+                            <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentArticleSelfData(art_id)"></el-button>
+                            <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteArticleData(art_id)"></el-button>
+                            </el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+                <div style="margin-top: 20px">
+                    <el-button @click="toggleSelection([ArticleDate[1], ArticleDate[2]])">切换第二、第三行的选中状态</el-button>
+                    <el-button @click="toggleSelection()">取消选择</el-button>
                 </div>
-            </el-checkbox-group>
+            </template>
         </div>
     </div>
 </template>
@@ -64,6 +85,11 @@
     header{
         border-bottom: 1px solid #eee;
     }
+    .table{
+        float: left;
+        width: 80%;
+        margin: 20px 0 0 5%;
+    } 
     .paper{
         font-size: 18px;
         color: #090909;
@@ -85,83 +111,6 @@
     .demonstration{
         font-weight: lighter;
     }
-    .navbo{
-        border-bottom: 1px solid #eee;
-        background: rgba(187, 187, 187, 0.1);
-        height: 40px;
-    }
-    .info,.number,.do,.time{
-        display: inline-block;
-        padding: 10px;
-        font-size: 14px;
-    }
-    .number{
-        margin: 0px 3.5% 0 0%;
-    }
-    .time{
-        margin:0 7% 0 44%;
-    }
-    .lists{
-        border-bottom: 1px solid #eee;
-        height: 80px;
-    }
-    .del,.times,.infos,.numbers,.dos,.tos{
-        display: inline-block;
-        padding: 10px;
-        font-size: 14px;
-    }
-    .lists span{
-        float: left;
-    }
-    .lists img{
-        width: 35px;
-    }
-    .numbers{
-        margin: 20px 2% 0 3.5%;
-    }
-    .check{
-        margin: 25px 2% 0 3%;
-    }
-    .checks{
-        margin: 0 2% 0 3%;
-    }
-    .picture{
-        margin: 20px 5px 0 1%;
-    }
-    .infos{
-        margin: 10px 2% 0 0;
-    }
-    .infos h5{
-        font-size: 14px;
-        font-weight: lighter;
-    }
-    .infos p{
-        font-size: 13px;
-        font-weight: lighter;
-        margin: 8px 0 0 0;
-    }
-    .infos p small{
-        color: orange;
-        padding: 0 0 0 5px;
-    }
-    .times{
-        margin: 22px 2% 0 39%;
-    }
-    .dos,.tos,.del{
-        font-size: 13px;
-        margin: 23px 0 0 0;
-        color: rgba(61, 112, 206, 0.77)!important;
-    }
-    .dos a,.tos a{
-        color: rgba(61, 112, 206, 0.77)!important;
-    }
-    .del a{
-        color: rgba(229, 28, 35, 1)!important;
-    }
-    .clear{
-        clear: both;
-        content: '';
-    }
 </style>
 <script>
     export default {
@@ -178,14 +127,20 @@
             }
         },
         methods: {
-            handleCheckAllChange(val) {
-                this.checkedCities = val ? this.ArticleDate : [];
-                this.isIndeterminate = false;
+            deleteRow(index, rows) {
+                rows.splice(index, 1);
             },
-             handleCheckedCitiesChange(value) {
-                let checkedCount = value.length;
-                this.checkAll = checkedCount === this.ArticleDate.length;
-                this.isIndeterminate = checkedCount > 0 && checkedCount < this.ArticleDate.length;
+            toggleSelection(rows) {
+                if (rows) {
+                rows.forEach(row => {
+                    this.$refs.multipleTable.toggleRowSelection(row);
+                });
+                } else {
+                    this.$refs.multipleTable.clearSelection();
+                }
+            },
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
             },
             getArticleData() {
                 let self = this;
@@ -193,7 +148,6 @@
                     var data = response.data;
                     if (data.code == 0) {
                         self.ArticleDate = data.datas;
-                        console.log(data.datas);
                     } else {
                         self.$notify({
                             type: 'error',

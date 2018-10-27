@@ -279,13 +279,11 @@
             if(filename == '') {
                 this.$message.error('上传文件不能为空');
             }
-            var flag = false; //状态
+            var flag = false;
             var arr = ["pdf"];
-            //取出上传文件的扩展名
             console.log(filename);
             var index = filename.lastIndexOf(".");
             var ext = filename.substr(index+1);
-            //循环比较
             for(var i=0;i<arr.length;i++){
                 if(ext == arr[i]){
                     flag = true; 
