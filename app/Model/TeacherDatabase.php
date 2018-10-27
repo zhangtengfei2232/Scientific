@@ -125,7 +125,7 @@ class TeacherDatabase extends ModelDatabase
          $buffer->master_time            = date('Y-m-d',$buffer->master_time);
          $message['juris_diction']       = $juris_diction;
          $message['information']         = $buffer;
-         return responseTojson(0,'查询成功','',$message);
+         return $message;
      }
     /**查找老师证书图片路径
      * @param $teacher_id
