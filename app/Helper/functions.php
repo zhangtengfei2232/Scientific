@@ -9,11 +9,18 @@ use Illuminate\Support\Facades\Storage;
         if(!empty($message)){
             $response["message"] = $message;
         }
-       return response()->json($response);
+        return $response;
     }
-    //返回前台的信息，全部转化为JSON数据
-    function showResponse($response){
-          return json_decode($response->getContent());
+   //后台验证处理返回信息
+    function responseTojson($code = 0,$message = '',$datas = ''){
+        $response["code"] = $code;
+        if(!empty($datas)){
+            $response["datas"] = $datas;
+        }
+        if(!empty($message)){
+            $response["message"] = $message;
+        }
+        return response()->json($response);
     }
     //对象转化为数组
     function objectToArray($e){
