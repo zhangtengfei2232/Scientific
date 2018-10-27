@@ -8,21 +8,18 @@ use config\UploadSubjectionConfig;
 class ArticalController extends Controller
 {
      //添加论文
-    /**
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
      public function addArtical(Request $request){
-          if(!$request->isMethod('POST')){
+         if(!$request->isMethod('POST')){
               return showMsg(1,'你请求的方式不对');
-          }
-         $artical_file  = $request->art_pdf;                                   //接论文文件
-         $artical_sci   = $request->art_sci;                                   //接收sci索引报告
-         $judge_artical = judgeReceiveFiles($artical_file);                    //验证论文
+         }
+         dd($request);
+         $artical_file  = $request->file('file');                        //接论文文件
+         $artical_sci   = $request->art_sci;                                  //接收sci索引报告
+         $judge_artical = judgeReceiveFiles($artical_file);                   //验证论文
          if($judge_artical->code == 1){
              return showMsg(1,'论文'.$judge_artical);
          }
-         $judge_sci     = judgeReceiveFiles($artical_sci);                     //验证论文SCI
+         $judge_sci = judgeReceiveFiles($artical_sci);                        //验证论文SCI
          if($judge_sci->code == 1){
              return showMsg(1,'论文SCI索引报告'.$judge_sci);
          }

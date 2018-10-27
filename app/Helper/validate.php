@@ -329,24 +329,24 @@
     }
     //上传前先判断文件是否接收成功
     function judgeReceiveFiles($certificate_pdf){
-        if($certificate_pdf->getClientOriginalExtension() != 'pdf'){
-            return showMsg(1,'请你上传PDF文件');
-        }
         if(!$certificate_pdf->isValid()){
             return showMsg(1,'上传失败,请重新上传');
+        }
+        if($certificate_pdf->getClientOriginalExtension() != 'pdf'){
+            return showMsg(1,'请你上传PDF文件');
         }
         return showMsg(0);
     }
     //判断上传的文件是否为图片
     function judgeFileImage($certificate_image){
+        if(!$certificate_image->isValid()){
+            return showMsg(1,'上传失败,请重新上传');
+        }
         $fileTypes = array('jpg','png','jpeg');
         $extension = $certificate_image->getClientOriginalExtension();
         $isInFileType = in_array($extension,$fileTypes);
         if(!$isInFileType){
             return showMsg(1,'你上传的图片不合法');
-        }
-        if(!$certificate_image->isValid()){
-            return showMsg(1,'上传失败,请重新上传');
         }
         return showMsg(0);
     }

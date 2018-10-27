@@ -13,7 +13,7 @@
                 </el-form-item>
                 <el-form-item label="发表时间">
                     <el-col :span="15">
-                    <el-date-picker type="date" placeholder="选择日期" v-model="form.art_time" style="width: 100%;"></el-date-picker>
+                        <el-date-picker type="date" placeholder="选择日期" v-model="form.art_time" style="width: 100%;"></el-date-picker>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="发表刊物名称">
@@ -23,7 +23,7 @@
                     <el-input v-model="form.publication_num"></el-input>
                 </el-form-item>
                 <el-form-item label="年，卷，期">
-                     <el-col :span="1" style="width:50px;margin:0 10px 0 0">
+                    <el-col :span="1" style="width:50px;margin:0 10px 0 0">
                         <el-date-picker v-model="year1" type="year" placeholder="选择年份" style="width: 90px;"></el-date-picker>
                     </el-col>
                     <el-col :span="1" style="width:50px;margin: 0px -36px 0px 6%;">
@@ -114,24 +114,24 @@
                 </el-form-item>
                 <el-form-item label="论文全文PDF上传">
                     <el-upload
-                        class="upload-demo"
-                        drag
-                        action=""
-                        multiple
-                        :on-change="fileChange"
-                        :auto-upload="false">
+                            class="upload-demo"
+                            drag
+                            action=""
+                            multiple
+                            :on-change="fileChange"
+                            :auto-upload="false">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
                 </el-form-item>
-                 <el-form-item label="SCI索引检索报告">
+                <el-form-item label="SCI索引检索报告">
                     <el-upload
-                        class="upload-demo"
-                        drag
-                        action=""
-                        multiple
-                        :on-change="fileChanges"
-                        :auto-upload="false">
+                            class="upload-demo"
+                            drag
+                            action=""
+                            multiple
+                            :on-change="fileChanges"
+                            :auto-upload="false">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
@@ -157,125 +157,126 @@
 </style>
 
 <script>
-  export default {
-    data() {
-      return {
-            year1: '',
-            year2: '',
-            year3: '',
-            year4: '',
-            year5: '',
-            form: {
-                author: '',
-                art_all_author: '',
-                title: '',
-                art_time: '',
-                publication_name: '',
-                publication_num : '',
-                num_words: '',
-                periodical_cate: '',
-                belong_project: '',
-                art_cate_research: '',
-                art_sub_category: '',
-                art_integral: '',  
-                percal_cate: '',
-                year: '',
-                art_remarks: "",
-                art_pdf: '',
-                art_sci: ''
-            }
-        }
-    },
-    methods: {
-        fileChange(file){
-            this.form.art_pdf = file.raw;
-            this.checkFileExt(this.form.art_pdf.name);
-        },
-        fileChanges(file){
-            this.form.art_sci = file.raw;
-            this.checkFileExt(this.form.art_sci.name);
-        },
-        onSubmit(form,year2,year3,year4,year5,year1) {
-            form.year = year1+","+year2+","+year3+","+year4+","+year5;
-            if(form.author == '') {
-                this.$message.error('第一作者不能为空');
-            }else if(form.art_all_author == ''){
-                this.$message.error('全部作者不能为空');
-            }else if(form.title == '') {
-                this.$message.error('论文题目不能为空');
-            }else if(form.art_time == ''){
-                this.$message.error('发表时间不能为空');
-            } else if(form.publication_name == '') {
-                this.$message.error('发表刊物名称不能为空');
-            }else if(form.publication_num == '') {
-                this.$message.error('刊号不能为空');
-            }else if(year1 == '') {
-                this.$message.error('年，卷，期不能为空');
-            }else if(year2 == '') {
-                this.$message.error('年，卷，期不能为空');
-            }else if(year3 == '') {
-                this.$message.error('年，卷，期不能为空');
-            }else if(year4 == '') {
-                this.$message.error('年，卷，期不能为空');
-            }else if(year5 == '') {
-                this.$message.error('年，卷，期不能为空');
-            }else if(form.num_words == '') {
-                this.$message.error('字数不能为空');
-            }else if(form.periodical_cate == '') {
-                this.$message.error('期刊级别不能为空');
-            }else if(form.belong_project == '') {
-                this.$message.error('所属项目不能为空');
-            }else if(form.art_cate_research == '') {
-                this.$message.error('研究类别不能为空');
-            }else if(form.art_sub_category == '') {
-                this.$message.error('学科门类不能为空');
-            }else if(form.art_integral == '') {
-                this.$message.error('积分不能为空');
-            }else if(form.percal_cate == '') {
-                this.$message.error('学校认定刊物级别不能为空');
-            }else{
-                this.addArticleData(form);
-            }
-        },
-        addArticleData(form) {
-            let self = this;
-            axios.post("addartical",form).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    this.$message({
-                        message: '添加成功',
-                        type: 'success'
-                    });
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.msg,
-                        duration: 2000,
-                    });
-                }
-            });
-        },
-        checkFileExt(filename){
-            if(filename == '') {
-                this.$message.error('上传文件不能为空');
-            }
-            var flag = false; //状态
-            var arr = ["pdf"];
-            //取出上传文件的扩展名
-            console.log(filename);
-            var index = filename.lastIndexOf(".");
-            var ext = filename.substr(index+1);
-            //循环比较
-            for(var i=0;i<arr.length;i++){
-                if(ext == arr[i]){
-                    flag = true; 
-                    break;
+    export default {
+        data() {
+            return {
+                year1: '',
+                year2: '',
+                year3: '',
+                year4: '',
+                year5: '',
+                form: {
+                    author: '',
+                    art_all_author: '',
+                    title: '',
+                    art_time: '',
+                    publication_name: '',
+                    publication_num : '',
+                    num_words: '',
+                    periodical_cate: '',
+                    belong_project: '',
+                    art_cate_research: '',
+                    art_sub_category: '',
+                    art_integral: '',
+                    percal_cate: '',
+                    year: '',
+                    art_remarks: "",
+                    art_pdf: '',
+                    art_sci: ''
                 }
             }
-            if(!flag){
-                this.$message.error('请上传PDF');
+        },
+        methods: {
+            fileChange(file){
+                this.form.art_pdf = file.raw;
+                this.checkFileExt(this.form.art_pdf.name);
+            },
+            fileChanges(file){
+                this.form.art_sci = file.raw;
+                this.checkFileExt(this.form.art_sci.name);
+            },
+            onSubmit(form,year2,year3,year4,year5,year1) {
+                form.year = year1+","+year2+","+year3+","+year4+","+year5;
+                if(form.author == '') {
+                    this.$message.error('第一作者不能为空');
+                }else if(form.art_all_author == ''){
+                    this.$message.error('全部作者不能为空');
+                }else if(form.title == '') {
+                    this.$message.error('论文题目不能为空');
+                }else if(form.art_time == ''){
+                    this.$message.error('发表时间不能为空');
+                } else if(form.publication_name == '') {
+                    this.$message.error('发表刊物名称不能为空');
+                }else if(form.publication_num == '') {
+                    this.$message.error('刊号不能为空');
+                }else if(year1 == '') {
+                    this.$message.error('年，卷，期不能为空');
+                }else if(year2 == '') {
+                    this.$message.error('年，卷，期不能为空');
+                }else if(year3 == '') {
+                    this.$message.error('年，卷，期不能为空');
+                }else if(year4 == '') {
+                    this.$message.error('年，卷，期不能为空');
+                }else if(year5 == '') {
+                    this.$message.error('年，卷，期不能为空');
+                }else if(form.num_words == '') {
+                    this.$message.error('字数不能为空');
+                }else if(form.periodical_cate == '') {
+                    this.$message.error('期刊级别不能为空');
+                }else if(form.belong_project == '') {
+                    this.$message.error('所属项目不能为空');
+                }else if(form.art_cate_research == '') {
+                    this.$message.error('研究类别不能为空');
+                }else if(form.art_sub_category == '') {
+                    this.$message.error('学科门类不能为空');
+                }else if(form.art_integral == '') {
+                    this.$message.error('积分不能为空');
+                }else if(form.percal_cate == '') {
+                    this.$message.error('学校认定刊物级别不能为空');
+                }else{
+                    this.addArticleData(form);
+                }
+            },
+            addArticleData(form) {
+                let self = this;
+                console.log(form);
+                axios.post("addartical",form).then(function (response) {
+                    var data = response.data;
+                    if (data.code == 0) {
+                        this.$message({
+                            message: '添加成功',
+                            type: 'success'
+                        });
+                    } else {
+                        self.$notify({
+                            type: 'error',
+                            message: data.msg,
+                            duration: 2000,
+                        });
+                    }
+                });
+            },
+            checkFileExt(filename){
+                if(filename == '') {
+                    this.$message.error('上传文件不能为空');
+                }
+                var flag = false; //状态
+                var arr = ["pdf"];
+                //取出上传文件的扩展名
+                console.log(filename);
+                var index = filename.lastIndexOf(".");
+                var ext = filename.substr(index+1);
+                //循环比较
+                for(var i=0;i<arr.length;i++){
+                    if(ext == arr[i]){
+                        flag = true;
+                        break;
+                    }
+                }
+                if(!flag){
+                    this.$message.error('请上传PDF');
+                }
             }
         }
-     }
-  }
+    }
 </script>
