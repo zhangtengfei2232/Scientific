@@ -62,7 +62,6 @@
                         width="200">
                         <template slot-scope="scope">
                             <el-button
-                            
                             type="text"
                             size="small">
                             <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentProjectSelfData(ProjectDate[scope.$index].pro_id)"></el-button>
@@ -73,7 +72,7 @@
                     </el-table-column>
                 </el-table>
                 <div style="margin-top: 20px">
-                    <el-button @click="toggleSelection([ProjectDate[1], ProjectDate[2]])">切换第二、第三行的选中状态</el-button>
+                    <el-button @click="toggleSelection([ProjectDate[1], ProjectDate[2],ProjectDate[3]])">选中前三条</el-button>
                     <el-button @click="toggleSelection()">取消选择</el-button>
                     <el-button @click="BatchDelete()">删除</el-button>
                 </div>
@@ -143,19 +142,24 @@
             handleSelectionChange(val) {
                 this.multipleSelection = val;
             },
-            BatchDelete (){
+            BatchDelete(){
 		    	var self = this;
-		    	let selectId = [];//存放删除的数据
-		    	for (var i = 0; i < self.multipleSelection.length; i++) {
-		    		self.selectId.push(self.multipleSelection[i].pro_id);
-		    		//删除数组——删除选择的行
-		    		selectId.splice(0,self.multipleSelection.length);
-		    	};
-		    	this.deleteProjectDatas(selectId);
+                var pro_id_datas = [];//存放删除的数据
+                console.log(self.multipleSelection);
+                if(self.multipleSelection == undefined){
+                    this.$message({
+                        message: '警告哦，这是一条警告消息',
+                        type: 'warning'
+                    });
+                }else{
+                    for (var i = 0; i < self.multipleSelection.length; i++) {
+                        pro_id_datas.push(self.multipleSelection[i].pro_id);
+                        //删除数组——删除选择的行
+                        //pro_id_datas.splice(0,self.multipleSelection.length);
+                    };
+                    this.deleteProjectDatas(pro_id_datas);
+                }
 		    },
-	      	toshow2(msg) {
-	        	this.msg = msg;
-	      	},
             getProjectData() {
                 let self = this;
                 axios.get("selectallproject").then(function (response) {
@@ -171,14 +175,15 @@
                     }
                 });
             },
-            deleteProjectDatas(id) {
+            deleteProjectDatas(pro_id_datas) {
+                console.log(pro_id_datas);
                 this.$confirm('此操作批量删除文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
                     let self = this;
-                    axios.get("deleteproject",id).then(function (response) {
+                    axios.get("deleteproject?pro_id_datas="+pro_id_datas).then(function (response) {
                     var data = response.data;
                         if (data.code == 0) {
                              this.$message({

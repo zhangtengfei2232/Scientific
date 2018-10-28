@@ -56,6 +56,7 @@ class ProjectController extends Controller
     }
     //删除单个项目信息
     public function deleteProject(Request $request){
+        dd($request->pro_id_datas);
         $pro_oid  = $request->pro_id;
         $old_image_road = ProjectDatabase::selectImageRoad($pro_oid);
         $response = ProjectDatabase::delectProjectDatas($pro_oid);
@@ -67,6 +68,7 @@ class ProjectController extends Controller
     }
     //删除多个项目信息
     public function deleteAllProject(Request $request){
+        dd($request->pro_id_datas);
 
 
     }

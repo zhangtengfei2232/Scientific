@@ -138,7 +138,7 @@
             let self = this;
             let pro_id = self.$route.params.pro_id;
             console.log(pro_id);
-            axios.get("selectproject",pro_id).then(function (response) {
+            axios.get("selectproject?pro_id="+pro_id).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.ProjectSelfData = data.datas;
