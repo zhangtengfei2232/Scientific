@@ -33,23 +33,21 @@ class AwardController extends Controller
          ];
          $judge_datas = judgeAwardField($datas);
          $disk        = UploadSubjectionConfig::AWARD;
-         if($judge_datas->code == 1){
+         if($judge_datas['code'] == 1){
              return $judge_datas;
          }
-         if(!$request->is_add_image){                             //判断用户是否添加证书
-             $datas['aw_road'] = '';
-             $add_award = AwardDatabase::addAwardDatas($datas);
-         }else{
-             $award_image = $request->file('award_image');
+         $datas['aw_road'] = '';
+         if($request->hasFile('aw_file')){
+             $award_image = $request->file('aw_file');
              $judge_image = judgeFileImage($award_image);
-             if($judge_image->code == 1){
+             if($judge_image['code'] == 1){
                  return $judge_image;
              }
              $subjection_image = UploadSubjectionConfig::AWARD_IMG;
              $add_image_road   = uploadFiles($subjection_image,$award_image,$disk);
              $datas['aw_road'] = $add_image_road;
-             $add_award = AwardDatabase::addAwardDatas($datas);
          }
+         $add_award = AwardDatabase::addAwardDatas($datas);
          if($add_award){
              return responseTojson(0,'添加获奖信息成功');
          }
@@ -58,11 +56,11 @@ class AwardController extends Controller
      }
      //删除获奖信息
      public function deleteAward(Request $request){
-
-     }
-     //删除多个获奖信息
-     public function deleteAllAward(){
-
+         $aw_id_datas = $request->aw_id_datas;
+         $old_image_rod = AwardDatabase::selectAwardRoadDatas($aw_id_datas);
+         $delete_award  = AwardDatabase::deleteAwardDatas($aw_id_datas);
+         deleteAllFiles(UploadSubjectionConfig::AWARD,$old_image_rod);
+         responseTojson(0,'删除成功');
      }
      //查看单个获奖信息
      public function selectAward(Request $request){
@@ -79,7 +77,7 @@ class AwardController extends Controller
          if(!$request->isMethod('POST')){
              return responseTojson(1,'你请求的方式不对');
          }
-         $aw_id = trim($request->aw_id);
+         $aw_id[0]              = trim($request->aw_id);
          $datas = [
              'aw_id'            => $aw_id,
              'aw_first_author'  => trim($request->aw_first_author),
@@ -100,13 +98,12 @@ class AwardController extends Controller
          if($judge_datas->code == 1){
              return $judge_datas;
          }
-         $is_reset_image = $request->is_reset_image;                    //判断老师是否上传证书图片
-         if(!$is_reset_image){
+         if(!$request->hasFile('aw_file')){
             return AwardDatabase::updateAwardDatas($datas);
          }
-         $award_image = $request->file('award_image');
+         $award_image = $request->file('aw_file');
          $judge_image = judgeFileImage($award_image);
-         if($judge_image->code == 1){
+         if($judge_image['code'] == 1){
              return $judge_image;
          }
          $disk = UploadSubjectionConfig::AWARD;
@@ -115,14 +112,14 @@ class AwardController extends Controller
          $old_image_road   = AwardDatabase::selectAwardRoadDatas($aw_id);
          $new_image_road   = uploadFiles($subjection_award,$award_image,$disk);
          $datas['aw_road'] = $new_image_road;
-         $reset_award      = AwardDatabase::updateAwardImage($datas);
+         $reset_award      = AwardDatabase::updateAwardDatas($datas);
          if(!$reset_award){
              ArticalDatabase::rollback();
              deletefiles($disk,$new_image_road);
              return responseTojson(1,'修改获奖信息失败');
          }
          ArticalDatabase::commit();
-         deletefiles($disk,$old_image_road);
+         deleteAllFiles($disk,$old_image_road);
          return responseTojson(0,'修改获奖信息成功');
      }
 }

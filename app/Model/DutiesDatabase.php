@@ -70,7 +70,7 @@ class DutiesDatabase extends ModelDatabase
     public static function selectAllDutiesDatas($teacher_id){
         $result = DB::table('duties')->where('teacher_id',$teacher_id)->orderBy('du_age','desc')->get();
         foreach ($result as $datas){
-            $result->du_year_num = date('Y-m-d',$datas->du_year_num);
+            $datas->du_year_num = date('Y-m-d',$datas->du_year_num);
         }
         return $result;
     }

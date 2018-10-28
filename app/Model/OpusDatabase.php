@@ -31,20 +31,22 @@ class OpusDatabase  extends ModelDatabase
               : showMsg(1,'添加著作信息失败');
     }
     //删除著作信息
-    public static function deleteOpusDatas(){
-
+    public static function deleteOpusDatas($op_id_datas){
+        for($i = 0; $i < count($op_id_datas); $i++){
+            DB::table('opus')->where('op_id',$op_id_datas[$i])->delete();
+        }
     }
     //查看单个著作信息
     public static function selectOpusDatas($op_id){
         $result =  DB::table('opus')->where('op_id',$op_id)->first();
-        $result['op_publish_time'] = date('Y-m-d',$result['op_publish_time']);
+        $result->op_publish_time = date('Y-m-d',$result->op_publish_time);
         return $result;
     }
     //查看所有著作信息
     public static function selectOpusAllDatas($teacher_id){
         $result = DB::table('opus')->where('teacher_id',$teacher_id)->orderBy('op_publish_time','desc')->get();
         foreach ($result as  $datas){
-            $result->op_publish_time = date('Y-m-d', $datas->op_publish_time);
+            $datas->op_publish_time = date('Y-m-d',$datas->op_publish_time);
         }
         return $result;
     }
@@ -57,6 +59,19 @@ class OpusDatabase  extends ModelDatabase
             $image = DB::table('opus')->select('op_coright_road')->where('op_id',$op_id)->get();
             return $image->op_coright_road;
         }
+    }
+    //查询以前的著作图片路径
+    public static function selectOpusImageDatas($op_id_datas){
+        $op_cover_raod_datas = [];
+        $op_coright_road_datas = [];
+        for($i = 0; $i < count($op_id_datas); $i++){
+            $road = DB::table('opus')->select('op_cover_road','op_coright_road')
+                    ->where('op_id',$op_id_datas[$i])
+                    ->first();
+            $op_cover_raod_datas[$i]   = $road['op_cover_road'];
+            $op_coright_road_datas[$i] = $road['op_coright_road'];
+        }
+        return array_merge($op_cover_raod_datas,$op_coright_road_datas);//版权和著作封面图片路径合并
     }
     //修改著作信息
     public static function updateOpusDatas($datas){
