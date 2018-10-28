@@ -79,6 +79,7 @@
                         class="upload-demo"
                         drag
                         action="#"
+                        :file-list="fileList"
                         multiple>
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -114,6 +115,7 @@
     data() {
       return {
             ProjectSelfData: {},
+            filelist: [{url:''}],
             form: {
                 pro_host: '',
                 pro_all_author: '',
@@ -142,8 +144,9 @@
                 var data = response.data;
                 if (data.code == 0) {
                     self.ProjectSelfData = data.datas;
-                    console.log(data.datas);
-                } else {
+                    self.form = data.datas;
+                    self.filelist.url=data.datas.pro_road;
+                }else {
                     self.$notify({
                         type: 'error',
                         message: data.msg,

@@ -66,16 +66,17 @@
                             @click.native.prevent="deleteRow(scope.$index, BookDate)"
                             type="text"
                             size="small">
-                            <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentBookSelfData(op_id)"></el-button>
-                            <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentBookSelfData(op_id)"></el-button>
-                            <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteBookData(op_id)"></el-button>
+                            <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentBookSelfData(BookDate[scope.$index].op_id)"></el-button>
+                            <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentBookSelfData(BookDate[scope.$index].op_id)"></el-button>
+                            <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteBookData(BookDate[scope.$index].op_id)"></el-button>
                             </el-button>
                         </template>
                     </el-table-column>
                 </el-table>
                 <div style="margin-top: 20px">
-                    <el-button @click="toggleSelection([BookDate[1], BookDate[2]])">切换第二、第三行的选中状态</el-button>
+                    <el-button @click="toggleSelection([BookDate[1], BookDate[2], BookDate[3]])">切换第二、第三行的选中状态</el-button>
                     <el-button @click="toggleSelection()">取消选择</el-button>
+                    <el-button @click="BatchDelete()">删除</el-button>
                 </div>
             </template>
         </div>
@@ -118,6 +119,7 @@
     export default {
         data() {
             return {
+                id:[],
                 BookDate: [],
                 checked: false,
                 checkAll: false,
@@ -163,14 +165,68 @@
                 path: `/selfBook/${op_id}`,
                 })
             },
-            deleteBookData(op_id) {
+            BatchDelete(){
+		    	var self = this;
+                var pro_id_datas = [];//存放删除的数据
+                console.log(self.multipleSelection);
+                if(self.multipleSelection == undefined){
+                    this.$message({
+                        message: '警告哦，这是一条警告消息',
+                        type: 'warning'
+                    });
+                }else{
+                    for (var i = 0; i < self.multipleSelection.length; i++) {
+                        pro_id_datas.push(self.multipleSelection[i].pro_id);
+                    };
+                    this.deleteBookDatas(pro_id_datas);
+                }
+		    },
+             deleteBookDatas(pro_id_datas) {
                 this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
                     let self = this;
-                    axios.get("").then(function (response) {
+                    axios.get("deleteopus",{
+                        params:{
+                            ap_id_datas:pro_id_datas
+                        }
+                    }).then(function (response) {
+                    var data = response.data;
+                        if (data.code == 0) {
+                             this.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                        } else {
+                            self.$notify({
+                                type: 'error',
+                                message: data.msg,
+                                duration: 2000,
+                            });
+                        }
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });          
+                });
+            },
+            deleteBookData(op_id) {
+                let id = op_id;
+                this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    let self = this;
+                    axios.get("deleteopus",{
+                        params:{
+                            pro_id_datas:id
+                        }
+                    }).then(function (response) {
                     var data = response.data;
                         if (data.code == 0) {
                              this.$message({

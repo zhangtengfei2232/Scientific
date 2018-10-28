@@ -65,16 +65,17 @@
                             @click.native.prevent="deleteRow(scope.$index, AwardDate)"
                             type="text"
                             size="small">
-                            <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentAwardSelfData(aw_id)"></el-button>
-                            <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentAwardSelfData(aw_id)"></el-button>
-                            <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteAwardData(aw_id)"></el-button>
+                            <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentAwardSelfData(AwardDate[scope.$index].aw_id)"></el-button>
+                            <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentAwardSelfData(AwardDate[scope.$index].aw_id)"></el-button>
+                            <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteAwardData(AwardDate[scope.$index].aw_id)"></el-button>
                             </el-button>
                         </template>
                     </el-table-column>
                 </el-table>
                 <div style="margin-top: 20px">
-                    <el-button @click="toggleSelection([AwardDate[1], AwardDate[2]])">切换第二、第三行的选中状态</el-button>
+                    <el-button @click="toggleSelection([AwardDate[1], AwardDate[2],AwardDate[3]])">切换第二、第三行的选中状态</el-button>
                     <el-button @click="toggleSelection()">取消选择</el-button>
+                    <el-button @click="BatchDelete()">删除</el-button>
                 </div>
             </template>
         </div>
@@ -116,6 +117,7 @@
     export default {
         data() {
             return {
+                id:[],
                 AwardDate: [],
                 checkAll: false,
                 checked: false,
@@ -137,6 +139,55 @@
                 } else {
                     this.$refs.multipleTable.clearSelection();
                 }
+            },
+            BatchDelete(){
+		    	var self = this;
+                var pro_id_datas = [];//存放删除的数据
+                console.log(self.multipleSelection);
+                if(self.multipleSelection == undefined){
+                    this.$message({
+                        message: '警告哦，这是一条警告消息',
+                        type: 'warning'
+                    });
+                }else{
+                    for (var i = 0; i < self.multipleSelection.length; i++) {
+                        pro_id_datas.push(self.multipleSelection[i].pro_id);
+                    };
+                    this.deleteAwardDatas(pro_id_datas);
+                }
+            },
+            deleteAwardDatas(pro_id_datas) {
+                this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    let self = this;
+                    axios.get("deleteAllAward",{
+                        params:{
+                            aw_id_datas:pro_id_datas
+                        }
+                    }).then(function (response) {
+                    var data = response.data;
+                        if (data.code == 0) {
+                             this.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                        } else {
+                            self.$notify({
+                                type: 'error',
+                                message: data.msg,
+                                duration: 2000,
+                            });
+                        }
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });          
+                });
             },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
@@ -162,13 +213,18 @@
                 })
             },
             deleteAwardData(aw_id) {
+                let id = aw_id;
                 this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
                     let self = this;
-                    axios.get("",aw_id).then(function (response) {
+                    axios.get("deleteAllAward",{
+                         params:{
+                            aw_id_datas:id
+                        }
+                    }).then(function (response) {
                     var data = response.data;
                         if (data.code == 0) {
                              this.$message({
@@ -204,7 +260,6 @@
                     }
                 });
             },
-
         },
         mounted() {
             this.getAwardDate();

@@ -38,6 +38,8 @@
                         class="upload-demo"
                         drag
                         action="#"
+                        ref="ho_file"
+                        :before-upload="fileProfil"
                         multiple>
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -48,6 +50,8 @@
                         class="upload-demo"
                         drag
                         action="#"
+                        ref="ho_files"
+                        :before-upload="fileProfils"
                         multiple>
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -78,6 +82,9 @@
   export default {
     data() {
       return {
+            dataForm: new FormData(),
+            ho_file: '',
+            ho_files: '',
             form: {
                 ho_name: '',
                 ho_art_status: '',
@@ -90,6 +97,14 @@
         }
     },
     methods: {
+        fileProfil(file){
+            this.dataForm.append('ho_file', file);
+            return false;
+        },
+        fileProfils(file){
+            this.dataForm.append('ho_files', file);
+            return false;
+        },
        onSubmit(form) {
             let vue = this;
             if(form.ho_name == '') {
@@ -112,7 +127,7 @@
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);
                         });
-                        vue.addPatentData(vue.dataForm).then(res => {
+                        vue.addHoldmeetData(vue.dataForm).then(res => {
                             var data = response.data;
                             if (data.code == 0) {
                                 vue.$message({
@@ -133,6 +148,15 @@
                         return false
                     }
                 })
+        },
+        addHoldmeetData(data) {
+            return axios({
+                method: 'post',
+                url: 'addholdmeet',
+                headers: {'Content-Type': 'multipart/form-data'},
+                timeout: 20000,
+                data: data
+            });
         },
     }
   }

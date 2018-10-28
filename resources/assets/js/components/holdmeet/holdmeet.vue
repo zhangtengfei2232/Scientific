@@ -65,9 +65,9 @@
                             @click.native.prevent="deleteRow(scope.$index, HoldmeetlDate)"
                             type="text"
                             size="small">
-                            <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentHoldmeetSelfData(art_id)"></el-button>
-                            <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentHoldmeetSelfData(art_id)"></el-button>
-                            <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteHoldmeetData(art_id)"></el-button>
+                            <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentHoldmeetSelfData(HoldmeetlDate[scope.$index].ho_id)"></el-button>
+                            <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentHoldmeetSelfData(HoldmeetlDate[scope.$index].ho_id)"></el-button>
+                            <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteHoldmeetData(HoldmeetlDate[scope.$index].ho_id)"></el-button>
                             </el-button>
                         </template>
                     </el-table-column>
@@ -75,6 +75,7 @@
                 <div style="margin-top: 20px">
                     <el-button @click="toggleSelection([HoldmeetlDate[1], HoldmeetlDate[2]])">切换第二、第三行的选中状态</el-button>
                     <el-button @click="toggleSelection()">取消选择</el-button>
+                    <el-button @click="BatchDelete()">删除</el-button>
                 </div>
             </template>
         </div>
@@ -116,6 +117,7 @@
     export default {
         data() {
             return {
+                id:[],
                 HoldmeetlDate: [],
                 checked: false,
                 form: {
@@ -155,11 +157,28 @@
                     }
                 });
             },
-            sentHoldmeetSelfData(art_id) {
+            BatchDelete(){
+		    	var self = this;
+                var pro_id_datas = [];//存放删除的数据
+                console.log(self.multipleSelection);
+                if(self.multipleSelection == undefined){
+                    this.$message({
+                        message: '警告哦，这是一条警告消息',
+                        type: 'warning'
+                    });
+                }else{
+                    for (var i = 0; i < self.multipleSelection.length; i++) {
+                        pro_id_datas.push(self.multipleSelection[i].pro_id);
+                    };
+                    this.deleteHoldmeetDatas(pro_id_datas);
+                }
+		    },
+            sentHoldmeetSelfData(ho_id) {
                 this.$router.push({
-                path: `/selfInfor/${art_id}`,
+                path: `/selfHoldmeet/${ho_id}`,
                 })
             },
+            
             byTimeSearch() {
                 axios.get("",form).then(function (response) {
                     var data = response.data;
@@ -174,14 +193,52 @@
                     }
                 });
             },
-            deleteHoldmeetData(art_id) {
+            deleteHoldmeetDatas(pro_id_datas) {
+                this.$confirm('此操作批量删除文件, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    let self = this;
+                    axios.get("deleteholdmeet",{
+                        params:{
+                            ho_id_datas:pro_id_datas
+                        }
+                    }).then(function (response) {
+                    var data = response.data;
+                        if (data.code == 0) {
+                             self.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                        } else {
+                            self.$notify({
+                                type: 'error',
+                                message: data.msg,
+                                duration: 2000,
+                            });
+                        }
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });          
+                });
+            },
+            deleteHoldmeetData(ho_id) {
+                let id = ho_id;
                 this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
                     let self = this;
-                    axios.get("deleteholdmeet",art_id).then(function (response) {
+                    axios.get("deleteholdmeet",{
+                        params:{
+                            ho_id_datas:id
+                        }
+                    }).then(function (response) {
                     var data = response.data;
                         if (data.code == 0) {
                              this.$message({

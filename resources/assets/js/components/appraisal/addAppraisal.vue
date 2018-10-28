@@ -100,17 +100,6 @@
                 ap_level: '',
                 ap_integral: '',
                 ap_remarks: '',
-
-
-                // art_integral: '',  
-                // name: '',
-                // region: '',
-                // date1: '',
-                // date2: '',
-                // delivery: false,
-                type: [],
-                // resource: '',
-                // desc: ''
             }
         }
     },
@@ -147,7 +136,7 @@
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);
                         });
-                        vue.addPatentData(vue.dataForm).then(res => {
+                        vue.addAppraisalData(vue.dataForm).then(res => {
                             var data = response.data;
                             if (data.code == 0) {
                                 vue.$message({
@@ -169,10 +158,10 @@
                     }
                 })
         },
-        addPatentData(data) {
+        addAppraisalData(data) {
             return axios({
                 method: 'post',
-                url: 'addpatent',
+                url: 'updateappraisal',
                 headers: {'Content-Type': 'multipart/form-data'},
                 timeout: 20000,
                 data: data
