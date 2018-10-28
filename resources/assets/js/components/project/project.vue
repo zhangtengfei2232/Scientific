@@ -154,8 +154,6 @@
                 }else{
                     for (var i = 0; i < self.multipleSelection.length; i++) {
                         pro_id_datas.push(self.multipleSelection[i].pro_id);
-                        //删除数组——删除选择的行
-                        //pro_id_datas.splice(0,self.multipleSelection.length);
                     };
                     this.deleteProjectDatas(pro_id_datas);
                 }
@@ -176,14 +174,17 @@
                 });
             },
             deleteProjectDatas(pro_id_datas) {
-                console.log(pro_id_datas);
                 this.$confirm('此操作批量删除文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
                     let self = this;
-                    axios.get("deleteproject?pro_id_datas="+pro_id_datas).then(function (response) {
+                    axios.get("deleteproject",{
+                        params:{
+                            pro_id_datas:pro_id_datas
+                        }
+                    }).then(function (response) {
                     var data = response.data;
                         if (data.code == 0) {
                              self.$message({
@@ -207,14 +208,17 @@
             },
             deleteProjectData(pro_id) {
                 let id = pro_id;
-                console.log(id);
                 this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
                     let self = this;
-                    axios.get("deleteproject",id).then(function (response) {
+                    axios.get("deleteproject",{
+                        params:{
+                            pro_id_datas:id
+                        }
+                    }).then(function (response) {
                     var data = response.data;
                         if (data.code == 0) {
                              this.$message({
@@ -252,7 +256,6 @@
                 });
             },
             sentProjectSelfData(pro_id) {
-                console.log(pro_id);
                 this.$router.push({
                     path: `/selfProject/${pro_id}`,
                 })

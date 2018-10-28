@@ -38,6 +38,8 @@
                         class="upload-demo"
                         drag
                         action="#"
+                        ref="ho_file"
+                        :before-upload="fileProfil"
                         multiple>
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -48,6 +50,8 @@
                         class="upload-demo"
                         drag
                         action="#"
+                        ref="ho_files"
+                        :before-upload="fileProfils"
                         multiple>
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -78,6 +82,11 @@ export default {
     data() {
         return {
             HoldmeetSelfData: {},
+            dataForm: new FormData(),
+            ho_file: '',
+            ho_files: '',
+            fileList:'',
+            fileLists:'',
             form: {
                 ho_name: '',
                 ho_art_status: '',
@@ -89,27 +98,85 @@ export default {
             },
         }
     },
-
     methods: {
         getHoldmeetSelfData() {
-                let self = this;
-                let art_id = self.$route.params.art_id;
-                axios.get("",art_id).then(function (response) {
-                    var data = response.data;
-                    if (data.code == 0) {
-                        self.HoldmeetSelfData = data.datas;
-                        console.log(data.datas);
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.msg,
-                            duration: 2000,         
-                        });
-                    }
-                });
+            let self = this;
+            let ho_id = self.$route.params.ho_id;
+            axios.get("selectholdmeet?ho_id="+ho_id).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.HoldmeetSelfData = data.datas;
+                    self.form = data.datas;
+                    console.log(data.datas);
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.msg,
+                        duration: 2000,         
+                    });
+                }
+            });
         },
-        onSubmit() {
-            console.log('submit!');
+        fileProfil(file){
+            this.dataForm.append('ho_file', file);
+            return false;
+        },
+        fileProfils(file){
+            this.dataForm.append('ho_files', file);
+            return false;
+        },
+       onSubmit(form) {
+            let vue = this;
+            if(form.ho_name == '') {
+                this.$message.error('会议名称不能为空');
+            }else if(form.ho_art_status == ''){
+                this.$message.error('有无论文集不能为空');
+            }else if(form.people_num == '') {
+                this.$message.error('参加人数不能为空');
+            }else if(form.ho_unit == '') {
+                this.$message.error('主办单位不能为空');
+            }else if(form.undertake_unit == '') {
+                this.$message.error('承办单位不能为空');
+            }else if(form.ho_level == '') {
+                this.$message.error('会议级别不能为空');
+            }else if(form.ho_time == '') {
+                this.$message.error('会议时间不能为空');
+            }
+            this.$refs['form'].validate((valid) => {
+                    if (valid) {
+                        jQuery.each(vue.form,function(i,val){
+                            vue.dataForm.append(i,val);
+                        });
+                        vue.addPatentData(vue.dataForm).then(res => {
+                            var data = response.data;
+                            if (data.code == 0) {
+                                vue.$message({
+                                    message: '添加成功',
+                                    type: 'success'
+                                });
+                            } else {
+                                vue.$notify({
+                                    type: 'error',
+                                    message: data.msg,
+                                    duration: 2000,
+                                });
+                            }
+                        })
+                        vue.$refs.pat_pic.submit()
+                    } else {
+                        console.log('error submit!!')
+                        return false
+                    }
+                })
+        },
+        addHoldmeetData(data) {
+            return axios({
+                method: 'post',
+                url: 'updateholdmeet',
+                headers: {'Content-Type': 'multipart/form-data'},
+                timeout: 20000,
+                data: data
+            });
         },
     },
     mounted() {
