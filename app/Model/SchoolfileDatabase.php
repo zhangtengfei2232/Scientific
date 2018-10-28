@@ -10,10 +10,10 @@ class SchoolfileDatabase extends ModelDatabase
     public static function addSchoolfileDatas($datas){
         return  DB::table('schoolfile')
                     ->insert([
-                        'shcfile_name'      => $datas->shcfile_name,
-                        'schfile_num'       => $datas->schfile_num,
-                        'schfile_down_time' => $datas->schfile_down_time,
-                        'schfile_road'      => $datas->schfile_road
+                        'shcfile_name'      => $datas['shcfile_name'],
+                        'schfile_num'       => $datas['schfile_num'],
+                        'schfile_down_time' => $datas['schfile_down_time'],
+                        'schfile_road'      => $datas['schfile_road']
                     ]);
     }
     //删除单个校发文件信息
@@ -42,9 +42,10 @@ class SchoolfileDatabase extends ModelDatabase
     public static function updateSchoolfileDatas($datas){
         $response = DB::table('schoolfile')->where('schfile_id',$datas->schfile_id)
                     ->update([
-                        'schfile_num'       => $datas->schfile_num,
-                        'schfile_down_time' => $datas->schfile_down_time,
-                        'schfile_road'      => $datas->schfile_road
+                        'shcfile_name'      => $datas['shcfile_name'],
+                        'schfile_num'       => $datas['schfile_num'],
+                        'schfile_down_time' => $datas['schfile_down_time'],
+                        'schfile_road'      => $datas['schfile_road']
                     ]);
         return ($response != 1) ? false : true;
     }

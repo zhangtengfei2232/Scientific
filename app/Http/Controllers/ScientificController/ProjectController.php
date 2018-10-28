@@ -31,23 +31,24 @@ class ProjectController extends Controller
             'pro_integral'      => trim($request->pro_integral),
             'project_year'      => strtotime(trim($request->project_year)),
         ];
-        $judge_project_datas = judgeProjectField($datas);                               //验证字段
+        $judge_project_datas = judgeProjectField($datas);                  //验证字段
         if($judge_project_datas['code'] == 1){
             return $judge_project_datas;
         }
-        $datas['pro_road'] = '';
-        if($request->hasFile('pro_file')){
-            $project_image = $request->file('pro_file');
-            $judge_project_image = judgeFileImage($project_image);
-            if($judge_project_image['code'] == 1){                                      //验证图片
-                return $judge_project_datas;
-            }
-            $disk = UploadSubjectionConfig::PROJECT;
-            $subjection_project = UploadSubjectionConfig::PROJECT_IMG;
-            $project_iamge_road = uploadFiles($subjection_project,$project_image,$disk);//上传图片
-            $datas['pro_road']  = $project_iamge_road;
-        }
         $datas['pro_remarks'] = trim($request->pro_remarks);
+        if(!$request->hasFile('pro_file')){                            //判断用户是否添加证书
+            $datas['pro_road'] = '';
+            return ProjectDatabase::addProjectDatas($datas);
+        }
+        $project_image = $request->file('pro_file');
+        $judge_project_image = judgeFileImage($project_image);
+        if($judge_project_image['code'] == 1){                             //验证图片
+            return $judge_project_datas;
+        }
+        $disk = UploadSubjectionConfig::PROJECT;
+        $subjection_project = UploadSubjectionConfig::PROJECT_IMG;
+        $project_iamge_road = uploadFiles($subjection_project,$project_image,$disk);//上传图片
+        $datas['pro_road']  = $project_iamge_road;
         $add_project = ProjectDatabase::addProjectDatas($datas);
         if(!$add_project){
             deletefiles($disk,$project_iamge_road);
@@ -95,13 +96,13 @@ class ProjectController extends Controller
             'social_eco_goal'   => trim($request->social_eco_goal),
             'na_eco_industry'   => trim($request->na_eco_industry),
             'pro_integral'      => trim($request->pro_integral),
-            'project_year'      => strtotime(trim($request->project_year)),
-            'pro_remarks'       => trim($request->pro_remarks)
+            'project_year'      => strtotime(trim($request->project_year))
         ];
         $judge_project_datas = judgeProjectField($datas);
         if($judge_project_datas['code'] == 1){
             return $judge_project_datas;
         }
+        $datas['pro_remarks'] = trim($request->pro_remarks);
         if(!$request->hasFile('pro_file')){
            return  ProjectDatabase::updateProjectDatas($datas);
         }
@@ -119,7 +120,7 @@ class ProjectController extends Controller
         $reset_project     = ProjectDatabase::updateProjectDatas($datas);
         if($reset_project){
             ProjectDatabase::commit();
-            deleteAllFiles($disk,$old_image_road);
+            deletefiles($disk,$old_image_road[0]);
             return responseTojson(0,'修改项目成功');
         }
         ProjectDatabase::rollback();

@@ -9,21 +9,27 @@ class PatentDatabase  extends ModelDatabase
 {
     //添加专利信息
     public static function addPatentDatas($datas){
-        return DB::table('patent')
-               ->insert([
-                   'teacher_id'       => $datas['teacher_id'],
-                   'first_inventor'   => $datas['first_inventor'],
-                   'pa_all_author'    => $datas['pa_all_author'],
-                   'pa_type'          => $datas['pa_type'],
-                   'pa_name'          => $datas['pa_name'],
-                   'pa_imple_situ'    => $datas['pa_imple_situ'],
-                   'author_num'       => $datas['author_num'],
-                   'author_cert_num'  => $datas['author_cert_num'],
-                   'author_notic_day' => $datas['author_notic_day'],
-                   'pa_integral'      => $datas['pa_integral'],
-                   'pa_remarks'       => $datas['pa_remarks'],
-                   'pa_road'          => $datas['pa_road']
-               ]);
+        $pa_raod = $datas['pa_road'];
+        $add_patent =  DB::table('patent')
+                       ->insert([
+                           'teacher_id'       => $datas['teacher_id'],
+                           'first_inventor'   => $datas['first_inventor'],
+                           'pa_all_author'    => $datas['pa_all_author'],
+                           'pa_type'          => $datas['pa_type'],
+                           'pa_name'          => $datas['pa_name'],
+                           'pa_imple_situ'    => $datas['pa_imple_situ'],
+                           'author_num'       => $datas['author_num'],
+                           'author_cert_num'  => $datas['author_cert_num'],
+                           'author_notic_day' => $datas['author_notic_day'],
+                           'pa_integral'      => $datas['pa_integral'],
+                           'pa_remarks'       => $datas['pa_remarks'],
+                           'pa_road'          => $pa_raod
+                       ]);
+        if(empty($pa_raod)){
+            return ($add_patent) ? responseTojson(0,'添加成功')
+                   : responseTojson(1,'添加失败');
+        }
+        return $add_patent;
     }
     //删除专利信息
     public static function deletePatentDatas($pa_id_datas){
@@ -56,7 +62,8 @@ class PatentDatabase  extends ModelDatabase
     }
     //修改专利信息
     public static function updatePatentDatas($datas){
-        $response = DB::table('patent')->where('pa_id',$datas['pa_id'])
+        $pa_id = $datas['pa_id'];
+        $response = DB::table('patent')->where('pa_id',$pa_id)
                   ->update([
                       'first_inventor'   => $datas['first_inventor'],
                       'pa_all_author'    => $datas['pa_all_author'],
@@ -69,8 +76,8 @@ class PatentDatabase  extends ModelDatabase
                       'pa_integral'      => $datas['pa_integral'],
                       'pa_remarks'       => $datas['pa_remarks'],
                   ]);
-        if(array_key_exists($datas['pa_road'])){
-            $reset_image = DB::table('patent')->where('pa_id',$datas['pa_id'])->update(['pa_road' => $datas->pa_road]);
+        if(array_key_exists('pa_road',$datas)){
+            $reset_image = DB::table('patent')->where('pa_id',$pa_id)->update(['pa_road' => $datas['pa_road']]);
             return ($response != 1 || $reset_image != 1) ? false : true;
         }
         return ($response != 1) ? responseTojson(1,'修改失败')

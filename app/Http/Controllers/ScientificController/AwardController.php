@@ -32,21 +32,22 @@ class AwardController extends Controller
              'aw_integral'      => trim($request->aw_integral)
          ];
          $judge_datas = judgeAwardField($datas);
-         $disk        = UploadSubjectionConfig::AWARD;
          if($judge_datas['code'] == 1){
              return $judge_datas;
          }
-         $datas['aw_road'] = '';
-         if($request->hasFile('aw_file')){
-             $award_image = $request->file('aw_file');
-             $judge_image = judgeFileImage($award_image);
-             if($judge_image['code'] == 1){
-                 return $judge_image;
-             }
-             $subjection_image = UploadSubjectionConfig::AWARD_IMG;
-             $add_image_road   = uploadFiles($subjection_image,$award_image,$disk);
-             $datas['aw_road'] = $add_image_road;
+         if(!$request->hasFile('aw_file')){
+             $datas['aw_road'] = '';
+             return AwardDatabase::addAwardDatas($datas);
          }
+         $disk        = UploadSubjectionConfig::AWARD;
+         $award_image = $request->file('aw_file');
+         $judge_image = judgeFileImage($award_image);
+         if($judge_image['code'] == 1){
+             return $judge_image;
+         }
+         $subjection_image = UploadSubjectionConfig::AWARD_IMG;
+         $add_image_road   = uploadFiles($subjection_image,$award_image,$disk);
+         $datas['aw_road'] = $add_image_road;
          $add_award = AwardDatabase::addAwardDatas($datas);
          if($add_award){
              return responseTojson(0,'添加获奖信息成功');

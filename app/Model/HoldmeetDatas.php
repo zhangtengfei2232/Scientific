@@ -10,14 +10,14 @@ class HoldmeetDatas extends ModelDatabase
     public static function addHoldmeetDatas($datas){
         $response = DB::table('holdmeet')
                     ->insertGetId([
-                        'teacher_id'     => $datas->teacher_id,
-                        'ho_name'        => $datas->ho_name,
-                        'ho_art_status'  => $datas->ho_art_status,
-                        'people_num'     => $datas->people_num,
-                        'ho_unit'        => $datas->ho_unit,
-                        'undertake_unit' => $datas->undertake_unit,
-                        'ho_level'       => $datas->ho_level,
-                        'ho_time'        => $datas->ho_time
+                        'teacher_id'     => $datas['teacher_id'],
+                        'ho_name'        => $datas['ho_name'],
+                        'ho_art_status'  => $datas['ho_art_status'],
+                        'people_num'     => $datas['people_num'],
+                        'ho_unit'        => $datas['ho_unit'],
+                        'undertake_unit' => $datas['undertake_unit'],
+                        'ho_level'       => $datas['ho_level'],
+                        'ho_time'        => $datas['ho_time']
                     ]);
         return ($response) ? responseTojson(0,'添加会议信息成功',$response)
                : responseTojson(1,'添加信息失败');
@@ -59,13 +59,13 @@ class HoldmeetDatas extends ModelDatabase
     public static function updateHoldmeetDatas($datas){
         $response = DB::table('holdmeet')->where('ho_id',$datas->ho_id)
                     ->update([
-                        'ho_name'        => $datas->ho_name,
-                        'ho_art_status'  => $datas->ho_art_status,
-                        'people_num'     => $datas->people_num,
-                        'ho_unit'        => $datas->ho_unit,
-                        'undertake_unit' => $datas->undertake_unit,
-                        'ho_level'       => $datas->ho_level,
-                        'ho_time'        => $datas->ho_time
+                        'ho_name'        => $datas['ho_name'],
+                        'ho_art_status'  => $datas['ho_art_status'],
+                        'people_num'     => $datas['people_num'],
+                        'ho_unit'        => $datas['ho_unit'],
+                        'undertake_unit' => $datas['undertake_unit'],
+                        'ho_level'       => $datas['ho_level'],
+                        'ho_time'        => $datas['ho_time']
                     ]);
         return ($response != 1) ? showMsg(1,'修改举行会议信息失败')
                : responseTojson(0,'修改举行会议成功');

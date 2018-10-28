@@ -9,7 +9,8 @@ class AwardDatabase extends ModelDatabase
 {
     //添加获奖信息
     public static function addAwardDatas($datas){
-        return DB::table('award')
+        $aw_road = $datas['aw_road'];
+        $add_award =  DB::table('award')
                 ->insert([
                     'teacher_id'       => $datas['teacher_id'],
                     'aw_first_author'  => $datas['aw_first_author'],
@@ -24,8 +25,13 @@ class AwardDatabase extends ModelDatabase
                     'aw_certi_number'  => $datas['aw_certi_number'],
                     'aw_sch_rank'      => $datas['aw_sch_rank'],
                     'aw_integral'      => $datas['aw_integral'],
-                    'aw_road'          => $datas['aw_road']
+                    'aw_road'          => $aw_road
                 ]);
+        if(empty($aw_road)){
+            return ($add_award) ? responseTojson(0,'添加成功')
+                : responseTojson(1,'添加失败');
+        }
+        return $add_award;
     }
     //删除多个获奖信息
     public static function deleteAwardDatas($aw_id_datas){
@@ -57,7 +63,8 @@ class AwardDatabase extends ModelDatabase
     }
     //修改获奖信息
     public static function updateAwardDatas($datas){
-        $response = DB::table('award')->where('aw_id',$datas->aw_id)
+        $aw_id = $datas['aw_id'];
+        $response = DB::table('award')->where('aw_id',$aw_id)
             ->update([
                 'aw_first_author'  => $datas['aw_first_author'],
                 'aw_all_author'    => $datas['aw_all_author'],
@@ -73,7 +80,7 @@ class AwardDatabase extends ModelDatabase
                 'aw_integral'      => $datas['aw_integral'],
             ]);
         if(array_key_exists('aw_road',$datas)){
-            $reset_image = DB::table('award')->where('aw_id',$datas->aw_id)
+            $reset_image = DB::table('award')->where('aw_id',$aw_id)
                            ->update(['aw_road' => $datas['aw_road']]);
             return ($response != 1 || $reset_image != 1) ? false :true;
         }

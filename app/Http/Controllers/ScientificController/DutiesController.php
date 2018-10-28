@@ -22,41 +22,40 @@ class DutiesController extends Controller
             'du_age'       => trim($request->du_age),
             'du_name'      => trim($request->du_name),
             'du_duty'      => trim($request->du_duty),
-            'du_year_num'  => trim($request->du_year_num),
-            'du_remark'    => trim($request->du_remark)
+            'du_year_num'  => trim($request->du_year_num)
         ];
         $judge_datas = judgeDutiesField($datas);
-        if($judge_datas->code == 1){
+        if($judge_datas['code'] == 1){
             return $judge_datas;
         }
-        $disk = UploadSubjectionConfig::DUTIES;
-        if(!$request->is_add_images){             //判断用户是否添加证书
+        if(!$request->hasFile('du_file')){                     //判断用户是否添加证书
             $datas['du_road'] = '';
-            $add_duties = DutiesDatabase::addDutiesDatas($datas);
-        }else{
-            $duties_image = $request->file('duties_image');
-            $judge_image  = judgeFileImage($duties_image);
-            if($judge_image->code == 1){
-                return $judge_image;
-            }
-            $subjection_duties = UploadSubjectionConfig::DUTIES_IMG;
-            $add_image_road    = uploadFiles($subjection_duties,$duties_image,$disk);
-            $datas['du_road']  = $add_image_road;
-            $add_duties        = DutiesDatabase::addDutiesDatas($datas);
+            return DutiesDatabase::addDutiesDatas($datas);
         }
+        $datas['du_remark'] = trim($request->du_remark);
+        $duties_image = $request->file('du_file');
+        $judge_image  = judgeFileImage($duties_image);
+        if($judge_image['code'] == 1){
+            return $judge_image;
+        }
+        $disk = UploadSubjectionConfig::DUTIES;
+        $subjection_duties = UploadSubjectionConfig::DUTIES_IMG;
+        $add_image_road    = uploadFiles($subjection_duties,$duties_image,$disk);
+        $datas['du_road']  = $add_image_road;
+        $add_duties = DutiesDatabase::addDutiesDatas($datas);
         if($add_duties){
             return responseTojson(0,'添加担任职务信息成功');
         }
         deletefiles($disk,$add_image_road);
         return responseTojson(1,'添加担任职务信息失败');
     }
-    //删除单个学术团体职务信息
-    public function deleteDuties(){
-
-    }
-    //删除多个学术团体职务信息
-    public function deleteAllDuties(){
-
+    //删除学术团体职务信息
+    public function deleteDuties(Request $request){
+        $du_id_datas    = $request->du_id_datas;
+        $old_image_road = DutiesDatabase::selectImageRoadDatas($du_id_datas);
+        $delete_duties  = DutiesDatabase::deleteDutiesDatas($du_id_datas);
+        deleteAllFiles(UploadSubjectionConfig::DUTIES,$old_image_road);
+        responseTojson(0,'删除成功');
     }
     //查看学术团体职务信息
     public function selectDuties(Request $request){
@@ -73,7 +72,7 @@ class DutiesController extends Controller
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
-        $du_id = $request->du_id;
+        $du_id[0]          = $request->du_id;
         $datas = [
             'du_id'        => $du_id,
             'teacher_name' => trim($request->teacher_name),
@@ -83,36 +82,35 @@ class DutiesController extends Controller
             'du_age'       => trim($request->du_age),
             'du_name'      => trim($request->du_name),
             'du_duty'      => trim($request->du_duty),
-            'du_year_num'  => trim($request->du_year_num),
-            'du_remark'    => trim($request->du_remark)
+            'du_year_num'  => trim($request->du_year_num)
         ];
         $judge_datas = judgeDutiesField($datas);
-        if($judge_datas->code == 1){
+        if($judge_datas['code'] == 1){
             return $judge_datas;
         }
-        $is_reset_image = $request->is_reset_image;     //判断老师是否上传证书图片
-        if(!$is_reset_image){
+        $datas['du_remark'] = trim($request->du_remark);
+        if(!$request->hasFile('du_file')){//判断老师是否上传证书图片
             return DutiesDatabase::updateDutiesDatas($datas);
         }
-        $duties_image = $request->file('duties_image');
+        $duties_image = $request->file('du_file');
         $judge_image  = judgeFileImage($duties_image);
-        if($judge_image->code == 1){
+        if($judge_image['code'] == 1){
             return $judge_image;
         }
         $disk = UploadSubjectionConfig::DUTIES;
         $subjection_duties = UploadSubjectionConfig::DUTIES_IMG;
         DutiesDatabase::beginTraction();
-        $old_image_road = DutiesDatabase::selectDutiesImageRoad($du_id);
+        $old_image_road = DutiesDatabase::selectImageRoadDatas($du_id);
         $new_image_road = uploadFiles($subjection_duties,$duties_image,$disk);
         $datas['aw_road'] = $new_image_road;
-        $reset_duties_  = DutiesDatabase::updateDutiesImage($datas);
-        if(!$reset_duties_){
-            DutiesDatabase::rollback();
-            deletefiles($disk,$new_image_road);
-            return responseTojson(1,'修改信息失败');
+        $reset_duties  = DutiesDatabase::updateDutiesDatas($datas);
+        if($reset_duties){
+            DutiesDatabase::commit();
+            deletefiles($disk,$old_image_road[0]);
+            return responseTojson(0,'修改信息成功');
         }
-        DutiesDatabase::commit();
-        deletefiles($disk,$old_image_road);
-        return responseTojson(0,'修改信息成功');
+        DutiesDatabase::rollback();
+        deletefiles($disk,$new_image_road);
+        return responseTojson(1,'修改信息失败');
     }
 }

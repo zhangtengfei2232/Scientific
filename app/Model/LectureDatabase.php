@@ -10,13 +10,13 @@ class LectureDatabase  extends ModelDatabase
     public static function addLectureDatas($datas){
         $response = DB::table('lecture')
                     ->insert([
-                        'teacher_id'       => $datas->teacher_id,
-                        'le_expert_name'   => $datas->le_expert_name,
-                        'le_expert_level'  => $datas->le_expert_level,
-                        'le_report_name'   => $datas->le_report_name,
-                        'le_invite_status' => $datas->le_invite_status,
-                        'le_invite_unit'   => $datas->le_invite_unit,
-                        'le_time'          => $datas->le_time
+                        'teacher_id'       => $datas['teacher_id'],
+                        'le_expert_name'   => $datas['le_expert_name'],
+                        'le_expert_level'  => $datas['le_expert_level'],
+                        'le_report_name'   => $datas['le_report_name'],
+                        'le_invite_status' => $datas['le_invite_status'],
+                        'le_invite_unit'   => $datas['le_invite_unit'],
+                        'le_time'          => $datas['le_time']
                     ]);
         return ($response) ? showMsg(0,'添加讲学信息成功')
                : showMsg(1,'添加讲学失败');
@@ -29,12 +29,12 @@ class LectureDatabase  extends ModelDatabase
     public static function updateLectureDatas($datas){
         $response = DB::table('lecture')->where('le_id',$datas->le_id)
                     ->update([
-                        'le_expert_name'   => $datas->le_expert_name,
-                        'le_expert_level'  => $datas->le_expert_level,
-                        'le_report_name'   => $datas->le_report_name,
-                        'le_invite_status' => $datas->le_invite_status,
-                        'le_invite_unit'   => $datas->le_invite_unit,
-                        'le_time'          => $datas->le_time
+                        'le_expert_name'   => $datas['le_expert_name'],
+                        'le_expert_level'  => $datas['le_expert_level'],
+                        'le_report_name'   => $datas['le_report_name'],
+                        'le_invite_status' => $datas['le_invite_status'],
+                        'le_invite_unit'   => $datas['le_invite_unit'],
+                        'le_time'          => $datas['le_time']
                     ]);
         return ($response != 1) ? showMsg(1,'修改讲学信息失败')
                :showMsg(0,'修改讲学信息成功');

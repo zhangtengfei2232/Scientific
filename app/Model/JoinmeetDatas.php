@@ -9,17 +9,17 @@ class JoinmeetDatas extends ModelDatabase
     public static function addJoinmeetDatas($datas){
         $response = DB::tabel('joinmeet')
                     ->insert([
-                        'teacher_id'   => $datas->teacher_id,
-                        'join_people'  => $datas->join_people,
-                        'jo_name'      => $datas->jo_name,
-                        'jo_hold_unit' => $datas->jo_hold_unit,
-                        'jo_take_unit' => $datas->jo_take_unit,
-                        'jo_level'     => $datas->jo_level,
-                        'jo_time'      => $datas->jo_time,
-                        'jo_place'     => $datas->jo_place,
-                        'jo_art_num'   => $datas->jo_art_num,
-                        'jo_is_invite' => $datas->jo_is_invite,
-                        'jo_title'     => $datas->jo_title
+                        'teacher_id'   => $datas['teacher_id'],
+                        'join_people'  => $datas['join_people'],
+                        'jo_name'      => $datas['jo_name'],
+                        'jo_hold_unit' => $datas['jo_hold_unit'],
+                        'jo_take_unit' => $datas['jo_take_unit'],
+                        'jo_level'     => $datas['jo_level'],
+                        'jo_time'      => $datas['jo_time'],
+                        'jo_place'     => $datas['jo_place'],
+                        'jo_art_num'   => $datas['jo_art_num'],
+                        'jo_is_invite' => $datas['jo_is_invite'],
+                        'jo_title'     => $datas['jo_title']
                     ]);
         return ($response) ? showMsg(0,'添加参加会议信息成功') : showMsg(1,'添加参加会议失败');
     }
@@ -31,16 +31,16 @@ class JoinmeetDatas extends ModelDatabase
     public static function updateJoinmeetDatas($datas){
         $response = DB::table('joinmeet')->where('jo_id',$datas->jo_id)
                     ->update([
-                        'join_people'  => $datas->join_people,
-                        'jo_name'      => $datas->jo_name,
-                        'jo_hold_unit' => $datas->jo_hold_unit,
-                        'jo_take_unit' => $datas->jo_take_unit,
-                        'jo_level'     => $datas->jo_level,
-                        'jo_time'      => $datas->jo_time,
-                        'jo_place'     => $datas->jo_place,
-                        'jo_art_num'   => $datas->jo_art_num,
-                        'jo_is_invite' => $datas->jo_is_invite,
-                        'jo_title'     => $datas->jo_title
+                        'join_people'  => $datas['join_people'],
+                        'jo_name'      => $datas['jo_name'],
+                        'jo_hold_unit' => $datas['jo_hold_unit'],
+                        'jo_take_unit' => $datas['jo_take_unit'],
+                        'jo_level'     => $datas['jo_level'],
+                        'jo_time'      => $datas['jo_time'],
+                        'jo_place'     => $datas['jo_place'],
+                        'jo_art_num'   => $datas['jo_art_num'],
+                        'jo_is_invite' => $datas['jo_is_invite'],
+                        'jo_title'     => $datas['jo_title']
                     ]);
         return ($response != 1) ? showMsg(1,'修改参加会议信息失败')
                : showMsg(0,'修改参加会议信息成功');

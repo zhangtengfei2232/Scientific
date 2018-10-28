@@ -11,21 +11,21 @@ class OpusDatabase  extends ModelDatabase
     public static function addOpusDatas($datas){
        $response =  DB::table('opus')
                 ->insertGetId([
-                    'teacher_id'       => $datas->teacher_id,
-                    'op_first_author'  => $datas->op_first_author,
-                    'op_all_author'    => $datas->op_all_author,
-                    'op_name'          => $datas->op_name,
-                    'op_form_write'    => $datas->op_form_write,
-                    'op_publish'       => $datas->op_publish,
-                    'op_publish_time'  => $datas->op_publish_time,
-                    'op_number'        => $datas->op_number,
-                    'op_total_words'   => $datas->op_total_words,
-                    'op_self_words'    => $datas->op_self_words,
-                    'op_cate_work'     => $datas->op_cate_work,
-                    'op_integral'      => $datas->op_integral,
-                    'op_cate_research' => $datas->op_cate_research,
-                    'op_sub_category'  => $datas->op_sub_category,
-                    'op_remarks'       => $datas->op_remarks
+                    'teacher_id'       => $datas['teacher_id'],
+                    'op_first_author'  => $datas['op_first_author'],
+                    'op_all_author'    => $datas['op_all_author'],
+                    'op_name'          => $datas['op_name'],
+                    'op_form_write'    => $datas['op_form_write'],
+                    'op_publish'       => $datas['op_publish'],
+                    'op_publish_time'  => $datas['op_publish_time'],
+                    'op_number'        => $datas['op_number'],
+                    'op_total_words'   => $datas['op_total_words'],
+                    'op_self_words'    => $datas['op_self_words'],
+                    'op_cate_work'     => $datas['op_cate_work'],
+                    'op_integral'      => $datas['op_integral'],
+                    'op_cate_research' => $datas['op_cate_research'],
+                    'op_sub_category'  => $datas['op_sub_category'],
+                    'op_remarks'       => $datas['op_remarks']
                 ]);
        return ($response) ? showMsg(0,'添加著作信息成功',$response)
               : showMsg(1,'添加著作信息失败');
@@ -77,20 +77,20 @@ class OpusDatabase  extends ModelDatabase
     public static function updateOpusDatas($datas){
         $respone = DB::table('opus')->where('op_id',$datas->op_id)
                    ->update([
-                       'op_first_author'  => $datas->op_first_author,
-                       'op_all_author'    => $datas->op_all_author,
-                       'op_name'          => $datas->op_name,
-                       'op_form_write'    => $datas->op_form_write,
-                       'op_publish'       => $datas->op_publish,
-                       'op_publish_time'  => $datas->op_publish_time,
-                       'op_number'        => $datas->op_number,
-                       'op_total_words'   => $datas->op_total_words,
-                       'op_self_words'    => $datas->op_self_words,
-                       'op_cate_work'     => $datas->op_cate_work,
-                       'op_integral'      => $datas->op_integral,
-                       'op_cate_research' => $datas->op_cate_research,
-                       'op_sub_category'  => $datas->op_sub_category,
-                       'op_remarks'       => $datas->op_remarks
+                       'op_first_author'  => $datas['op_first_author'],
+                       'op_all_author'    => $datas['op_all_author'],
+                       'op_name'          => $datas['op_name'],
+                       'op_form_write'    => $datas['op_form_write'],
+                       'op_publish'       => $datas['op_publish'],
+                       'op_publish_time'  => $datas['op_publish_time'],
+                       'op_number'        => $datas['op_number'],
+                       'op_total_words'   => $datas['op_total_words'],
+                       'op_self_words'    => $datas['op_self_words'],
+                       'op_cate_work'     => $datas['op_cate_work'],
+                       'op_integral'      => $datas['op_integral'],
+                       'op_cate_research' => $datas['op_cate_research'],
+                       'op_sub_category'  => $datas['op_sub_category'],
+                       'op_remarks'       => $datas['op_remarks']
                    ]);
         return ($respone !=1) ? showMsg(1,'修改著作信息失败')
                : showMsg(0,'修改著作信息成功');
