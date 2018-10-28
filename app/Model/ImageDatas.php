@@ -38,8 +38,10 @@ class ImageDatas extends ModelDatabase
         public static function selectAllImageRoadDatas($ho_id_datas){
             $delete_images_road = [];
             for($i =0; $i < count($ho_id_datas); $i++){
-                $image_road = DB::table('image')->select('meet_img_road')->where('im_id',$ho_id_datas[$i])->first();
-                $delete_images_road[$i] = $image_road->meet_img_road;
+                $image_road = DB::table('image')->select('meet_img_road')->where('im_id',$ho_id_datas[$i])->get();
+                foreach ($image_road as $road){
+                    array_push($delete_images_road,$road->meet_img_road);//把要删除的图片放入数组
+                }
             }
             return $delete_images_road;
         }

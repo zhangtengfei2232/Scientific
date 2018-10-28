@@ -76,7 +76,7 @@ class ProjectController extends Controller
         return responseTojson(0,'查询成功','',$project_datas);
     }
     //查看多个项目信息
-    public function selectAllProjectDatas(){
+    public function selectAllProject(){
         $teacher_id = session('usercount');
         $resulet = ProjectDatabase::selectAllProjectDatas($teacher_id);
         return responseTojson(0,'查找成功','',$resulet);

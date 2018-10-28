@@ -19,12 +19,14 @@ class HoldmeetDatas extends ModelDatabase
                         'ho_level'       => $datas->ho_level,
                         'ho_time'        => $datas->ho_time
                     ]);
-        return ($response) ? showMsg(0,'添加会议信息成功',$response)
-               : showMsg(1,'添加信息失败');
+        return ($response) ? responseTojson(0,'添加会议信息成功',$response)
+               : responseTojson(1,'添加信息失败');
     }
     //删除会议信息
-    public static function deleteHoldmeetDatas(){
-
+    public static function deleteHoldmeetDatas($ho_id_datas){
+        for($i = 0; $i < count($ho_id_datas); $i++){
+            DB::table('holdmeet')->where('ho_id',$ho_id_datas[$i])->delete();
+        }
     }
     //查看所有会议信息
     public static function selectAllHoldmeetDatas($teacher_id){
@@ -45,6 +47,14 @@ class HoldmeetDatas extends ModelDatabase
         $result = DB::table('holdmeet')->select('ho_graph_inject')->where('ho_id',$ho_id)->first();
         return  $result->ho_graph_inject;
     }
+    //查看多个会议图注路径
+    public static function selectHoldmeetAllInjectRoad($ho_id_datas){
+        $ho_image_road = [];
+        for($i = 0; $i < count($ho_id_datas); $i++){
+            $road = DB::table('holdmeet')->select('ho_graph_inject')->where('ho_id',$ho_id_datas[$i])->first();
+            $ho_image_road[$i] = $road['ho_graph_inject'];
+         }
+    }
     //修改会议信息
     public static function updateHoldmeetDatas($datas){
         $response = DB::table('holdmeet')->where('ho_id',$datas->ho_id)
@@ -58,7 +68,7 @@ class HoldmeetDatas extends ModelDatabase
                         'ho_time'        => $datas->ho_time
                     ]);
         return ($response != 1) ? showMsg(1,'修改举行会议信息失败')
-               : showMsg(0,'修改举行会议成功');
+               : responseTojson(0,'修改举行会议成功');
     }
     //修改会议图注信息
     public static function updateHoldmeetInjectRoad($ho_id,$new_image_road){

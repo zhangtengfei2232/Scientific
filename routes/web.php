@@ -120,7 +120,7 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     //老师对教学科研合作协议的操作
     Route::post('addagreement','AgreementController@addAgreement');                //添加教学科研合作协议信息
     Route::get('deleteagreement','AgreementController@deleteAgreement');           //删除教学科研合作协议信息
-//    Route::get('deleteallagreement','AgreementController@deleteAllAgreement');     //删除多个教学科研合作协议信息
+//    Route::get('deleteallagreement','AgreementController@deleteAllAgreement');   //删除多个教学科研合作协议信息
     Route::post('updateagreement','AgreementController@updateAgreement');          //修改教学科研合作协议信息
     Route::get('selectagreement','AgreementController@selectAgreement');           //查询单个教学科研合作协议信息
     Route::get('selectallagreement','AgreementController@selectAllAgreement');     //查询全部教学科研合作协议信息
