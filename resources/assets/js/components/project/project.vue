@@ -132,9 +132,9 @@
             },
             toggleSelection(rows) {
                 if (rows) {
-                rows.forEach(row => {
-                    this.$refs.multipleTable.toggleRowSelection(row);
-                });
+                    rows.forEach(row => {
+                        this.$refs.multipleTable.toggleRowSelection(row);
+                    });
                 } else {
                     this.$refs.multipleTable.clearSelection();
                 }
@@ -186,7 +186,7 @@
                     axios.get("deleteproject?pro_id_datas="+pro_id_datas).then(function (response) {
                     var data = response.data;
                         if (data.code == 0) {
-                             this.$message({
+                             self.$message({
                                 type: 'success',
                                 message: '删除成功!'
                             });

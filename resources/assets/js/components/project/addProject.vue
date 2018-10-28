@@ -78,7 +78,7 @@
                     <el-upload
                         class="upload-demo"
                             drag
-                            action=""
+                            action="#"
                             multiple
                             ref="pro_file"
                             :before-upload="fileProfil"
@@ -175,13 +175,14 @@
                     this.$message.error('项目年份不能为空');
                 }
                 this.$refs['form'].validate((valid) => {
+                    var d = form.project_year; 
+                    form.project_year = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                     let vue = this;
                     if (valid) {
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);
                         });
                         vue.addProjectData(vue.dataForm).then(res => {
-                            var data = response.data;
                             if (data.code == 0) {
                                 vue.$message({
                                     message: '添加成功',
