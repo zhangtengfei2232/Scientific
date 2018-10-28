@@ -239,6 +239,8 @@
                     this.$message.error('学校认定刊物级别不能为空');
                 }
                 this.$refs['form'].validate((valid) => {
+                    var d = form.art_time; 
+                    form.art_time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                     if (valid) {
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);
@@ -281,7 +283,6 @@
                 }
                 var flag = false;
                 var arr = ["pdf"];
-                console.log(filename);
                 var index = filename.lastIndexOf(".");
                 var ext = filename.substr(index+1);
                 for(var i=0;i<arr.length;i++){

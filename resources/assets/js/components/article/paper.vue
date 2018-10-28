@@ -63,7 +63,7 @@
                         <template slot-scope="scope">
                             <el-button
                             type="text"
-                            @click.native.prevent="deleteRow(scope.$index, ArticleDate)"
+                            
                             size="small">
                                 <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentArticleSelfData(ArticleDate[scope.$index].art_id)"></el-button>
                                 <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentArticleSelfData(ArticleDate[scope.$index].art_id)"></el-button>
@@ -190,15 +190,14 @@
                 }).then(() => { 
                 console.log(art_id_datas);
                     let self = this;
-                    axios.get("deleteartical?art_id_datas"+art_id_datas).then(function (response) {
+                    axios.get("deleteartical?art_id_datas="+art_id_datas).then(function (response) {
                     var data = response.data;
                         if (data.code == 0) {
-                            //  this.$message({
-                            //     showClose: true,
-                            //     message: '删除成功!',
-                            //     type: 'success'
-                            // });
-                            alert(删除成功);
+                             self.$message({
+                                showClose: true,
+                                message: '删除成功!',
+                                type: 'success'
+                            });
                         } else {
                             self.$notify({
                                 type: 'error',
@@ -222,7 +221,7 @@
                     type: 'warning'
                 }).then(() => { 
                     let self = this;
-                    axios.get("deleteartical",id).then(function (response) {
+                    axios.get("deleteartical?art_id="+id).then(function (response) {
                     var data = response.data;
                         if (data.code == 0) {
                              this.$message({
