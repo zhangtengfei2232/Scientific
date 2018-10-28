@@ -28,19 +28,22 @@ class PatentController extends Controller
              'pa_remarks'       => trim($request->pa_remarks)
          ];
          $judge_datas = judgePatenField($datas);
-         if($judge_datas->code == 1){
+         if($judge_datas['code'] == 1){
              return $judge_datas;
          }
-         $patent_image = $request->file('patent_image');
-         $judge_image  = judgeFileImage($patent_image);
-         if($judge_image->code == 1){
-             return $judge_image;
+         $datas['pa_road'] = '';
+         if($request->hasFile('pa_file')){
+             $patent_image = $request->file('pa_file');
+             $judge_image  = judgeFileImage($patent_image);
+             if($judge_image['code'] == 1){
+                 return $judge_image;
+             }
+             $disk              = UploadSubjectionConfig::PATENT;
+             $subjection_patent = UploadSubjectionConfig::PATENT_IMG;
+             $add_image_road    = uploadFiles($subjection_patent,$patent_image,$disk);
+             $datas['pa_road']  = $add_image_road;
          }
-         $disk              = UploadSubjectionConfig::PATENT;
-         $subjection_patent = UploadSubjectionConfig::PATENT_IMG;
-         $add_image_road    = uploadFiles($subjection_patent,$patent_image,$disk);
-         $datas['pa_road']  = $add_image_road;
-         $add_patent        = PatentDatabase::addPatentDatas($datas);
+         $add_patent            = PatentDatabase::addPatentDatas($datas);
          if($add_patent){
              return responseTojson(0,'添加专利信息成功');
          }
@@ -48,12 +51,11 @@ class PatentController extends Controller
          return responseTojson(1,'添加专利信息失败');
      }
      //删除专利信息
-     public function deletePatent(){
-
-     }
-     //删除多个专利信息
-     public function deleteAllPatent(){
-
+     public function deletePatent(Request $request){
+         $pa_id_datas = $request->pa_id_datas;
+         $old_image_road = PatentDatabase::selectImageRoadDatas($pa_id_datas);
+         $delete_patent  = PatentDatabase::deletePatentDatas($pa_id_datas);
+         deleteAllFiles(UploadSubjectionConfig::PATENT,$old_image_road);
      }
      //查看单个专利信息
      public function selectPatent(Request $request){
@@ -70,7 +72,7 @@ class PatentController extends Controller
          if(!$request->isMethod('POST')){
              return responseTojson(1,'你请求的方式不对');
          }
-         $pa_id  = $request->pa_id;
+         $pa_id[0]             = $request->pa_id;
          $datas  = [
             'pa_id'            => $pa_id,
             'first_inventor'   => trim($request->first_inventor),
@@ -85,28 +87,31 @@ class PatentController extends Controller
             'pa_remarks'       => trim($request->pa_remarks)
          ];
          $judge_datas = judgePatenField($datas);
-         if($judge_datas->code == 1){
+         if($judge_datas['code']== 1){
              return $judge_datas;
          }
          $is_reset_image = $request->is_reset_image;
          if(!$is_reset_image){
              return PatentDatabase::updatePatentDatas($datas);
          }
-         $patent_image = $request->file('patent_image');
+         $patent_image = $request->file('pa_file');
          $judge_iamge  = judgeFileImage($patent_image);
-         if($judge_iamge->code ==1){
+         if($judge_iamge['code'] ==1){
              return $judge_iamge;
          }
          $disk              = UploadSubjectionConfig::PATENT;
          $subjection_patent = UploadSubjectionConfig::PATENT_IMG;
-         $old_image_road    = PatentDatabase::selectImageRoad($pa_id);
+         $old_image_road    = PatentDatabase::selectImageRoadDatas($pa_id);
          $new_image_road    = uploadFiles($subjection_patent,$patent_image,$disk);
          $datas['pa_road']  = $new_image_road;
-         $reset_patent      = PatentDatabase::updatePatentImage($datas);
+         PatentDatabase::beginTraction();
+         $reset_patent      = PatentDatabase::updatePatentDatas($datas);
          if($reset_patent){
-             deletefiles($disk,$old_image_road);
+             PatentDatabase::commit();
+             deleteAllFiles($disk,$old_image_road);
              return responseTojson(0,'修改专利信息成功');
          }
+         PatentDatabase::rollback();
          deletefiles($disk,$new_image_road);
          return responseTojson(1,'修改信息失败');
      }

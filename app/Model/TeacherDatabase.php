@@ -92,13 +92,13 @@ class TeacherDatabase extends ModelDatabase
      public static function selectAllTeacherDatas(){
          $result = DB::table('teacher')->orderBy('appointment_time','asc')->get();
          foreach ($result as $datas){
-             $result->admin_tenure_time      = date('Y-m-d',$datas->admin_tenure_time);
-             $result->review_time            = date('Y-m-d',$datas->review_time);
-             $result->appointment_time       = date('Y-m-d',$datas->appointment_time);
-             $result->working_hours          = date('Y-m-d',$datas->working_hours);
-             $result->first_graduation_time  = date('Y-m-d',$datas->first_graduation_time);
-             $result->most_graduation_time   = date('Y-m-d',$datas->most_graduation_time);
-             $result->master_time            = date('Y-m-d',$datas->master_time);
+             $datas->admin_tenure_time      = date('Y-m-d',$datas->admin_tenure_time);
+             $datas->review_time            = date('Y-m-d',$datas->review_time);
+             $datas->appointment_time       = date('Y-m-d',$datas->appointment_time);
+             $datas->working_hours          = date('Y-m-d',$datas->working_hours);
+             $datas->first_graduation_time  = date('Y-m-d',$datas->first_graduation_time);
+             $datas->most_graduation_time   = date('Y-m-d',$datas->most_graduation_time);
+             $datas->master_time            = date('Y-m-d',$datas->master_time);
          }
          return $result;
      }

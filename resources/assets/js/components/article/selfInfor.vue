@@ -1,7 +1,6 @@
 <template>
     <div>
         <div class="table">
-            {{ $route.params.art_id }}
             <div class="information">
                 <div class="add">
                     <el-form ref="form" :model="form" label-width="200px">
@@ -118,7 +117,8 @@
                                 drag
                                 action=""
                                 multiple
-                                :on-change="fileChange"
+                                ref="art_pdf"
+                                :before-upload="fileArtpdf"
                                 :auto-upload="false">
                                 <i class="el-icon-upload"></i>
                                 <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -130,7 +130,8 @@
                                 drag
                                 action=""
                                 multiple
-                                :on-change="fileChanges"
+                                ref="art_sci"
+                                :before-upload="fileArtsci"
                                 :auto-upload="false">
                                 <i class="el-icon-upload"></i>
                                 <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -164,49 +165,49 @@ export default {
     data() {
         return {
             ArticleSelfData: {},
+            dataForm: new FormData(),
             year1: '',
             year2: '',
             year3: '',
             year4: '',
             year5: '',
+            art_pdf: '',
+            art_sci: '',
             form: {
-                author: '1',
-                art_all_author: '1',
-                title: '2',
-                publication_name: '3',
-                publication_num : '4',
-                num_words: '456',
+                author: '',
+                art_all_author: '',
+                title: '',
+                publication_name: '',
+                publication_num : '',
+                num_words: '',
                 periodical_cate: '',
-                belong_project: 'xgxy',
+                belong_project: '',
                 art_cate_research: '',
                 art_sub_category: '',
                 art_integral: '',
                 year: '',
                 percal_cate: '',
                 art_time: '',
-                art_pdf: '',
-                art_sci: ''
             },
         }
     },
 
     methods: {
-        fileChange(file){
-            this.form.art_pdf = file.raw;
-            this.checkFileExt(this.form.art_pdf.name);
+        fileArtpdf(file){
+            this.dataForm.append('art_pdf', file);
+            return false;
         },
-        fileChanges(file){
-            this.form.art_sci = file.raw;
-            this.checkFileExt(this.form.art_sci.name);
+        fileArtsci(file){
+            this.dataForm.append('art_sci', file);
+            return false;
         },
         getArticleSelfData() {
             let self = this;
             let art_id = self.$route.params.art_id;
-            axios.get("selectartical",art_id).then(function (response) {
+            axios.get("selectartical?art_id="+art_id).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.ArticleSelfData = data.datas;
-                    console.log(data.datas);
                 } else {
                     self.$notify({
                         type: 'error',
@@ -252,24 +253,44 @@ export default {
                 this.$message.error('积分不能为空');
             }else if(form.name == '') {
                 this.$message.error('学校认定刊物级别不能为空');
-            }else{
-                this.changeArticleData(form);
             }
+            this.$refs['form'].validate((valid) => {
+                let vue = this;
+                if (valid) {
+                    jQuery.each(vue.form,function(i,val){
+                        vue.dataForm.append(i,val);
+                    });
+                    vue.updateArtical(vue.dataForm).then(res => {
+                        var data = response.data;
+                        if (data.code == 0) {
+                            vue.$message({
+                                message: '添加成功',
+                                type: 'success'
+                            });
+                        } else {
+                            vue.$notify({
+                                type: 'error',
+                                message: data.msg,
+                                duration: 2000,
+                            });
+                        }
+                    })
+                    vue.$refs.art_pdf.submit()
+                    vue.$refs.art_sci.submit()
+                } else {
+                    console.log('error submit!!')
+                    return false
+                }
+            })
         },
-        changeArticleData(form) {
-                let self = this;
-                axios.get("updateartical",form).then(function (response) {
-                    var data = response.data;
-                    if (data.code == 0) {
-                        
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.msg,
-                            duration: 2000,
-                        });
-                    }
-                });
+        updateArtical(data) {
+            return axios({
+                method: 'post',
+                url: 'updateartical',
+                headers: {'Content-Type': 'multipart/form-data'},
+                timeout: 20000,
+                data: data
+            });
         },
         checkFileExt(filename){
             if(filename == '') {

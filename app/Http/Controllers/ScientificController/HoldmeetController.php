@@ -66,7 +66,7 @@ class HoldmeetController extends Controller
         }
         $holdmeet_images = $request->file('hold_images');    //接收数组形式的图片文件
         $judge_images    = judgeAllFileImage($holdmeet_images);
-        if($judge_images->code == 1){
+        if($judge_images['code'] == 1){
             $validate = false;
         }
         $disk = UploadSubjectionConfig::HOLD_MEET;
@@ -76,7 +76,7 @@ class HoldmeetController extends Controller
         $all_images_road = uploadAllImgs($subjection,$success_image,$disk);
         $image_status    = UploadSubjectionConfig::HOLD_IMG_STATUS;
         $add_images      = ImageDatas::addImagesDatas($all_images_road,$ho_id,$image_status);
-        if($validate && $add_images->code == 0){
+        if($validate && $add_images['code'] == 0){
             return responseTojson(0,'全部图片添加成功');
         }
         if($add_images->code == 1){
@@ -90,7 +90,7 @@ class HoldmeetController extends Controller
                 //取出添加数据库失败的图片路径
                 $delete_fail_images[$i] = $all_images_road[$index];//添加失败的图片路径数组
             }
-            deleteAllImgs($disk,$delete_fail_images);              //删除数据库添加失败的图片
+            deleteAllFiles($disk,$delete_fail_images);              //删除数据库添加失败的图片
             $response['fail_images'] = $fail_images;
         }
         if(!$validate){
@@ -108,21 +108,25 @@ class HoldmeetController extends Controller
         $delete_images = ImageDatas::deleteImagesDatas($delete_im_id); //删除数据库图片路径
         if($delete_images){
             ImageDatas::commit();
-            deleteAllImgs(uploadSubjectionConfig::HOLD_MEET,$all_images_road);
+            deleteAllFiles(uploadSubjectionConfig::HOLD_MEET,$all_images_road);
             return responseTojson(0,'删除举办会议图片成功');
         }
         ImageDatas::rollback();                                        //回滚，回复数据库数据
         return responseTojson(1,'删除举办会议图片失败');
     }
-    //删除单个举行会议信息
+    //删除举行会议信息
     public function deleteHoldmeet(Request $request){
-
-
+        $ho_id_datas     = $request->ho_id_datas;
+        $old_inject_road = HoldmeetDatas::selectHoldmeetAllInjectRoad($ho_id_datas);
+        $old_image_road  = ImageDatas::selectAllImageRoadDatas($ho_id_datas);
+        $delete_holdmeet = HoldmeetDatas::deleteHoldmeetDatas($ho_id_datas);
+        $image_road      = array_merge($old_inject_road,$old_image_road);//会议图片和图注合并
+        deleteAllFiles(UploadSubjectionConfig::HOLD_IMG,$image_road);
     }
-    //删除多个举行会议信息
-    public function deleteAllHoldmeet(){
-
-    }
+//    //删除多个举行会议信息
+//    public function deleteAllHoldmeet(){
+//
+//    }
     //查看单个举行会议信息
     public function selectHoldmeet(Request $request){
         $ho_id                = $request->ho_id;

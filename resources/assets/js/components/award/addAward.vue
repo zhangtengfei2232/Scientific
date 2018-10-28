@@ -65,9 +65,12 @@
                 <el-form-item label="证书图片">
                     <el-upload
                         class="upload-demo"
-                        drag
-                        action="#"
-                        multiple>
+                            drag
+                            action=""
+                            multiple
+                            ref="aw_pic"
+                            :before-upload="filePic"
+                            :auto-upload="false">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
@@ -96,9 +99,11 @@
   export default {
     data() {
       return {
+            aw_pic:'',
+            dataForm: new FormData(),
             form: {
                 aw_first_author: '',
-                aw_first_author: '',
+                aw_all_author: '',
                 prize_win_name: '',
                 award_name: '',
                 form_achievement : '',
@@ -113,48 +118,71 @@
         }
     },
     methods: {
-        onSubmit(form) {
-                if(form.author == '') {
-                    this.$message.error('第一获奖人不能为空');
-                }else if(form.art_all_author == ''){
-                    this.$message.error('全部获奖人不能为空');
-                }else if(form.title == '') {
-                    this.$message.error('获奖成果名称不能为空');
-                }else if(form.publication_name == '') {
-                    this.$message.error('奖励名称不能为空');
-                }else if(form.publication_num == '') {
-                    this.$message.error('成果形式不能为空');
-                }else if(year1 == '') {
-                    this.$message.error('等级不能为空');
-                }else if(year2 == '') {
-                    this.$message.error('奖励级别不能为空');
-                }else if(year3 == '') {
-                    this.$message.error('授奖单位不能为空');
-                }else if(year4 == '') {
-                    this.$message.error('授奖时间不能为空');
-                }else if(year5 == '') {
-                    this.$message.error('证书编号不能为空');
-                }else if(form.num_words == '') {
-                    this.$message.error('我校名次不能为空');
-                }else if(form.periodical_cate == '') {
-                    this.$message.error('积分不能为空');
-                }else{
-                    this.addAwardData(form);
-                }
+        filePic(file) {
+            this.dataForm.append('aw_pic', file);
+            return false;
         },
-        addAwardData(form) {
-            let self = this;
-            axios.get("addartical",form).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.msg,
-                        duration: 2000,
-                    });
-                }
+        onSubmit(form) {
+            let vue = this;
+            if(form.aw_first_author == '') {
+                this.$message.error('第一获奖人不能为空');
+            }else if(form.aw_all_author == ''){
+                this.$message.error('全部获奖人不能为空');
+            }else if(form.prize_win_name == '') {
+                this.$message.error('获奖成果名称不能为空');
+            }else if(form.award_name == '') {
+                this.$message.error('奖励名称不能为空');
+            }else if(form.form_achievement == '') {
+                this.$message.error('成果形式不能为空');
+            }else if(aw_grade == '') {
+                this.$message.error('等级不能为空');
+            }else if(aw_level == '') {
+                this.$message.error('奖励级别不能为空');
+            }else if(aw_grant_unit == '') {
+                this.$message.error('授奖单位不能为空');
+            }else if(aw_grant_time == '') {
+                this.$message.error('授奖时间不能为空');
+            }else if(aw_certi_number == '') {
+                this.$message.error('证书编号不能为空');
+            }else if(form.aw_sch_rank == '') {
+                this.$message.error('我校名次不能为空');
+            }else if(form.aw_integral == '') {
+                this.$message.error('积分不能为空');
+            }
+            this.$refs['form'].validate((valid) => {
+                    if (valid) {
+                        jQuery.each(vue.form,function(i,val){
+                            vue.dataForm.append(i,val);
+                        });
+                        vue.addAwardData(vue.dataForm).then(res => {
+                            var data = response.data;
+                            if (data.code == 0) {
+                                vue.$message({
+                                    message: '添加成功',
+                                    type: 'success'
+                                });
+                            } else {
+                                vue.$notify({
+                                    type: 'error',
+                                    message: data.msg,
+                                    duration: 2000,
+                                });
+                            }
+                        })
+                        vue.$refs.aw_pic.submit()
+                    } else {
+                        console.log('error submit!!')
+                        return false
+                    }
+                })
+        },
+        addAwardData(data) {
+            return axios({
+                method: 'post',
+                url: 'addaward',
+                headers: {'Content-Type': 'multipart/form-data'},
+                timeout: 20000,
+                data: data
             });
         },
     }

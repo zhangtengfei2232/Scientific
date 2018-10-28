@@ -63,18 +63,19 @@
                         <template slot-scope="scope">
                             <el-button
                             type="text"
-                            @click.native.prevent="deleteRow(scope.$index, ArticleDate)"
+                            
                             size="small">
-                                <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentArticleSelfData(ArticleDate.art_id)"></el-button>
-                                <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentArticleSelfData(ArticleDate.art_id)"></el-button>
-                                <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteArticleData(ArticleDate.art_id)"></el-button>
+                                <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentArticleSelfData(ArticleDate[scope.$index].art_id)"></el-button>
+                                <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentArticleSelfData(ArticleDate[scope.$index].art_id)"></el-button>
+                                <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteArticleData(ArticleDate[scope.$index].art_id)"></el-button>
                             </el-button>
                         </template>
                     </el-table-column>
                 </el-table>
                 <div style="margin-top: 20px">
-                    <el-button @click="toggleSelection([ArticleDate[1], ArticleDate[2]])">切换第二、第三行的选中状态</el-button>
+                    <el-button @click="toggleSelection([ArticleDate[1], ArticleDate[2],ArticleDate[3]])">选中前三条</el-button>
                     <el-button @click="toggleSelection()">取消选择</el-button>
+                    <el-button @click="BatchDelete()">删除</el-button>
                 </div>
             </template>
         </div>
@@ -116,6 +117,7 @@
     export default {
         data() {
             return {
+                id: [],
                 ArticleDate: [],
                 checked: false,
                 checkAll: false,
@@ -158,18 +160,68 @@
                 });
             },
             sentArticleSelfData(art_id) {
+                console.log(art_id);
                 this.$router.push({
                     path: `/selfInfor/${art_id}`,
                 })
             },
+            BatchDelete(){
+		    	var self = this;
+                var art_id_datas = [];//存放删除的数据
+                if(self.multipleSelection == undefined){
+                    this.$message({
+                        message: '请选择要删除论文',
+                        type: 'warning'
+                    });
+                }else{
+                    for (var i = 0; i < self.multipleSelection.length; i++) {
+                        art_id_datas.push(self.multipleSelection[i].art_id);
+                        //删除数组——删除选择的行
+                        //pro_id_datas.splice(0,self.multipleSelection.length);
+                    };
+                    this.deleteArticleDatas(art_id_datas);
+                }
+            },
+             deleteArticleDatas(art_id_datas) {
+                this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => { 
+                console.log(art_id_datas);
+                    let self = this;
+                    axios.get("deleteartical?art_id_datas="+art_id_datas).then(function (response) {
+                    var data = response.data;
+                        if (data.code == 0) {
+                             self.$message({
+                                showClose: true,
+                                message: '删除成功!',
+                                type: 'success'
+                            });
+                        } else {
+                            self.$notify({
+                                type: 'error',
+                                message: data.msg,
+                                duration: 2000,
+                            });
+                        }
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });          
+                });
+            },
             deleteArticleData(art_id) {
+                this.id = art_id;
                 this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => { 
                     let self = this;
-                    axios.get("deleteartical",art_id).then(function (response) {
+                    axios.get("deleteartical?art_id="+id).then(function (response) {
                     var data = response.data;
                         if (data.code == 0) {
                              this.$message({

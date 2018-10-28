@@ -77,9 +77,12 @@
                 <el-form-item label="项目合同书封面图片">
                     <el-upload
                         class="upload-demo"
-                        drag
-                        action="#"
-                        multiple>
+                            drag
+                            action="#"
+                            multiple
+                            ref="pro_file"
+                            :before-upload="fileProfil"
+                            :auto-upload="false">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
@@ -113,7 +116,8 @@
   export default {
     data() {
       return {
-            input : '',
+            dataForm: new FormData(),
+            pro_file: '',
             form: {
                 pro_host: '',
                 pro_all_author: '',
@@ -134,54 +138,78 @@
         }
     },
     methods: {
-      onSubmit(form) {
-          if(form.pro_host == '') {
-                this.$message.error('主持人不能为空');
-            }else if(form.pro_all_author == ''){
-                this.$message.error('所有参加人不能为空');
-            }else if(form.title == '') {
-                this.$message.error('项目名称不能为空');
-            }else if(form.publication_name == '') {
-                this.$message.error('项目类别不能为空');
-            }else if(form.publication_num == '') {
-                this.$message.error('批准单位不能为空');
-            }else if(year1 == '') {
-                this.$message.error('批准经费不能为空');
-            }else if(year2 == '') {
-                this.$message.error('当年到账经费不能为空');
-            }else if(year3 == '') {
-                this.$message.error('研究类别不能为空');
-            }else if(year4 == '') {
-                this.$message.error('学科门类不能为空');
-            }else if(year5 == '') {
-                this.$message.error('合作形式不能为空');
-            }else if(form.num_words == '') {
-                this.$message.error('社会经济目标不能为空');
-            }else if(form.periodical_cate == '') {
-                this.$message.error('服务的国民经济行业不能为空');
-            }else if(form.belong_project == '') {
-                this.$message.error('积分不能为空');
-            }else if(form.art_cate_research == '') {
-                this.$message.error('备注不能为空');
-            }else if(form.art_sub_category == '') {
-                this.$message.error('项目年份不能为空');
-            }else{
-                this.addProjectData(form);
-            }
+        fileProfil(file){
+            this.dataForm.append('pro_file', file);
+            return false;
         },
-        addProjectData(form) {
-            let self = this;
-            axios.get("",form).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.msg,
-                        duration: 2000,
-                    });
+        onSubmit(form) {
+            if(form.pro_host == '') {
+                    this.$message.error('主持人不能为空');
+                }else if(form.pro_all_author == ''){
+                    this.$message.error('所有参加人不能为空');
+                }else if(form.entry_name == '') {
+                    this.$message.error('项目名称不能为空');
+                }else if(form.project_category == '') {
+                    this.$message.error('项目类别不能为空');
+                }else if(form.approval_unit == '') {
+                    this.$message.error('批准单位不能为空');
+                }else if(form.approval_funds == '') {
+                    this.$message.error('批准经费不能为空');
+                }else if(form.account_outlay == '') {
+                    this.$message.error('当年到账经费不能为空');
+                }else if(form.pro_cate_research == '') {
+                    this.$message.error('研究类别不能为空');
+                }else if(form.pro_sub_category == '') {
+                    this.$message.error('学科门类不能为空');
+                }else if(form.form_cooperate == '') {
+                    this.$message.error('合作形式不能为空');
+                }else if(form.social_eco_goal == '') {
+                    this.$message.error('社会经济目标不能为空');
+                }else if(form.na_eco_industry == '') {
+                    this.$message.error('服务的国民经济行业不能为空');
+                }else if(form.pro_integral == '') {
+                    this.$message.error('积分不能为空');
+                }else if(form.pro_remarks == '') {
+                    this.$message.error('备注不能为空');
+                }else if(form.project_year == '') {
+                    this.$message.error('项目年份不能为空');
                 }
+                this.$refs['form'].validate((valid) => {
+                    var d = form.project_year; 
+                    form.project_year = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+                    let vue = this;
+                    if (valid) {
+                        jQuery.each(vue.form,function(i,val){
+                            vue.dataForm.append(i,val);
+                        });
+                        vue.addProjectData(vue.dataForm).then(res => {
+                            if (data.code == 0) {
+                                vue.$message({
+                                    message: '添加成功',
+                                    type: 'success'
+                                });
+                            } else {
+                                vue.$notify({
+                                    type: 'error',
+                                    message: data.msg,
+                                    duration: 2000,
+                                });
+                            }
+                        })
+                        vue.$refs.pro_file.submit();
+                    } else {
+                        console.log('error submit!!')
+                        return false
+                    }
+                })
+        },
+        addProjectData(data) {
+            return axios({
+                method: 'post',
+                url: 'addproject',
+                headers: {'Content-Type': 'multipart/form-data'},
+                timeout: 20000,
+                data: data
             });
         },
     }
