@@ -13,6 +13,7 @@ class ProjectController extends Controller
             return responseTojson(1,'你请求的方式不对');
         }
         $teacher_id = session('usercount');
+        dd($request->project_year);
         $datas = [
             'teacher_id'        => $teacher_id,
             'pro_host'          => trim($request->pro_host),
@@ -31,6 +32,7 @@ class ProjectController extends Controller
             'project_year'      => strtotime(trim($request->project_year)),
             'pro_remarks'       => trim($request->pro_remarks)
         ];
+        dd($datas['project_year']);
         $judge_project_datas = judgeProjectField($datas);                          //验证字段
         if($judge_project_datas['code'] == 1){
             return responseTojson(1,$judge_project_datas['message']);
@@ -61,6 +63,19 @@ class ProjectController extends Controller
         $response = ProjectDatabase::deleteAllProjectDatas($pro_id_datas);
         deleteAllFiles(UploadSubjectionConfig::PROJECT,$old_image_road);
         return responseTojson(0,'删除项目成功');
+        dd($request->pro_id_datas);
+        $pro_oid  = $request->pro_id;
+        $old_image_road = ProjectDatabase::selectImageRoad($pro_oid);
+        $response = ProjectDatabase::delectProjectDatas($pro_oid);
+        if($response){
+            deletefiles(UploadSubjectionConfig::PROJECT,$old_image_road);
+            return responseTojson(0,'删除项目成功');
+        }
+        return responseTojson(1,'删除项目失败');
+    }
+    //删除多个项目信息
+    public function deleteAllProject(Request $request){
+
     }
 //    //删除多个项目信息
 //    public function deleteAllProjectDatas(Request $request){
