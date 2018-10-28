@@ -90,9 +90,50 @@
         }
     },
     methods: {
-      onSubmit() {
-        console.log('submit!');
-      }
+       onSubmit(form) {
+            let vue = this;
+            if(form.ho_name == '') {
+                this.$message.error('会议名称不能为空');
+            }else if(form.ho_art_status == ''){
+                this.$message.error('有无论文集不能为空');
+            }else if(form.people_num == '') {
+                this.$message.error('参加人数不能为空');
+            }else if(form.ho_unit == '') {
+                this.$message.error('主办单位不能为空');
+            }else if(form.undertake_unit == '') {
+                this.$message.error('承办单位不能为空');
+            }else if(form.ho_level == '') {
+                this.$message.error('会议级别不能为空');
+            }else if(form.ho_time == '') {
+                this.$message.error('会议时间不能为空');
+            }
+            this.$refs['form'].validate((valid) => {
+                    if (valid) {
+                        jQuery.each(vue.form,function(i,val){
+                            vue.dataForm.append(i,val);
+                        });
+                        vue.addPatentData(vue.dataForm).then(res => {
+                            var data = response.data;
+                            if (data.code == 0) {
+                                vue.$message({
+                                    message: '添加成功',
+                                    type: 'success'
+                                });
+                            } else {
+                                vue.$notify({
+                                    type: 'error',
+                                    message: data.msg,
+                                    duration: 2000,
+                                });
+                            }
+                        })
+                        vue.$refs.pat_pic.submit()
+                    } else {
+                        console.log('error submit!!')
+                        return false
+                    }
+                })
+        },
     }
   }
 </script>

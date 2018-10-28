@@ -65,8 +65,8 @@
                             type="text"
                             @click.native.prevent="deleteRow(scope.$index, ArticleDate)"
                             size="small">
-                                <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentArticleSelfData(ArticleDate.art_id)"></el-button>
-                                <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentArticleSelfData(ArticleDate.art_id)"></el-button>
+                                <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentArticleSelfData(ArticleDate[scope.$index].art_id)"></el-button>
+                                <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentArticleSelfData(ArticleDate[scope.$index].art_id)"></el-button>
                                 <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteArticleData(ArticleDate.art_id)"></el-button>
                             </el-button>
                         </template>
@@ -158,6 +158,7 @@
                 });
             },
             sentArticleSelfData(art_id) {
+                console.log(art_id);
                 this.$router.push({
                     path: `/selfInfor/${art_id}`,
                 })

@@ -2,9 +2,6 @@
     <div class="contents">
         <div class="add">
             <el-form ref="form" :model="form" label-width="200px">
-                <el-form-item label="专利权人">
-                    <el-input v-model="form.teacher_id"></el-input>
-                </el-form-item>
                 <el-form-item label="第一发明人">
                     <el-input v-model="form.first_inventor"></el-input>
                 </el-form-item>
@@ -48,8 +45,11 @@
                     <el-upload
                         class="upload-demo"
                         drag
-                        action="#"
-                        multiple>
+                        action=""
+                        multiple
+                        ref="pat_pic"
+                        :before-upload="filePatpic"
+                        :auto-upload="false">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
@@ -79,8 +79,9 @@
   export default {
     data() {
       return {
+            pat_pic: '',
+            dataForm: new FormData(),
             form: {
-                teacher_id: '',
                 first_inventor: '',
                 pa_all_author: '',
                 pa_type: '',
@@ -95,9 +96,69 @@
         }
     },
     methods: {
-      onSubmit() {
-        console.log('submit!');
-      }
+        filePatpic(file) {
+            this.dataForm.append('pat_pic', file);
+            return false;
+        },
+        onSubmit(form) {
+            let vue = this;
+            if(form.first_inventor == '') {
+                this.$message.error('第一发明人不能为空');
+            }else if(form.pa_all_author == ''){
+                this.$message.error('全部发明人不能为空');
+            }else if(form.pa_type == '') {
+                this.$message.error('专利类型不能为空');
+            }else if(form.pa_name == '') {
+                this.$message.error('专利名称不能为空');
+            }else if(form.pa_imple_situ == '') {
+                this.$message.error('实施情况不能为空');
+            }else if(form.author_num == '') {
+                this.$message.error('授权编号或申请号不能为空');
+            }else if(form.author_cert_num == '') {
+                this.$message.error('授权证书编号不能为空');
+            }else if(form.author_notic_day == '') {
+                this.$message.error('授权公告日或受理日期不能为空');
+            }else if(form.pa_integral == '') {
+                this.$message.error('积分不能为空');
+            }else if(form.pa_remarks == '') {
+                this.$message.error('备注不能为空');
+            }
+            this.$refs['form'].validate((valid) => {
+                    if (valid) {
+                        jQuery.each(vue.form,function(i,val){
+                            vue.dataForm.append(i,val);
+                        });
+                        vue.addPatentData(vue.dataForm).then(res => {
+                            var data = response.data;
+                            if (data.code == 0) {
+                                vue.$message({
+                                    message: '添加成功',
+                                    type: 'success'
+                                });
+                            } else {
+                                vue.$notify({
+                                    type: 'error',
+                                    message: data.msg,
+                                    duration: 2000,
+                                });
+                            }
+                        })
+                        vue.$refs.pat_pic.submit()
+                    } else {
+                        console.log('error submit!!')
+                        return false
+                    }
+                })
+        },
+        addPatentData(data) {
+            return axios({
+                method: 'post',
+                url: 'addpatent',
+                headers: {'Content-Type': 'multipart/form-data'},
+                timeout: 20000,
+                data: data
+            });
+        },
     }
   }
 </script>
