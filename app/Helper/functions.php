@@ -35,11 +35,11 @@ use Illuminate\Support\Facades\Storage;
 
     //上传文件
     function uploadFiles($subjection,$files,$disk){
-        $fileTypes = array('jpg','png','jpeg');
+        $fileTypes = array('jpg','png','jpeg','JPG','PNG','JPEG');
         $extension = $files->getClientOriginalExtension();
         $isInFileType = in_array($extension,$fileTypes);
         if($isInFileType){
-            $originalName = time();
+            $originalName = time().'.'.$extension;
         }else{
             $originalName = $files->getClientOriginalName();
         }

@@ -55,7 +55,7 @@ class ImageDatas extends ModelDatabase
                       ->orderBy('create_time','desc')
                       ->get();
             foreach ($result as $datas){
-                $result->create_time = date('Y-m-d',$datas->create_time);
+                $datas->create_time = date('Y-m-d',$datas->create_time);
             }
             return $result;
         }

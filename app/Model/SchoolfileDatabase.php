@@ -58,7 +58,7 @@ class SchoolfileDatabase extends ModelDatabase
     public static function selectAllSchoolfileDatas(){
         $result = DB::table('schoolfile')->orderBy('schfile_down_time','desc')->get();
         foreach ($result as $datas){
-            $result->schfile_down_time = date('Y-m-d',$datas->schfile_down_time);
+            $datas->schfile_down_time = date('Y-m-d',$datas->schfile_down_time);
         }
         return $result;
     }

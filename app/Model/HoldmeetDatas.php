@@ -32,7 +32,7 @@ class HoldmeetDatas extends ModelDatabase
     public static function selectAllHoldmeetDatas($teacher_id){
         $result = DB::table('holdmeet')->where('teacher_id',$teacher_id)->orderBy('ho_time','desc')->get();
         foreach ($result as $datas){
-            $result->ho_time = date('Y-m-d',$datas->ho_time);
+            $datas->ho_time = date('Y-m-d',$datas->ho_time);
         }
         return $result;
     }

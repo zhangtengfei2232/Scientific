@@ -106,7 +106,6 @@
     }
     //验证项目字段
     function judgeProjectField($datas){
-        dd($datas['project_year']);
         if(emptyarray($datas)){
             return responseTojson(1,'你填写的的项目信息不全',1);
         }
@@ -343,7 +342,7 @@
         if(!$certificate_image->isValid()){
             return responseTojson(1,'上传失败,请重新上传',1);
         }
-        $fileTypes = array('jpg','png','jpeg');
+        $fileTypes = array('jpg','png','jpeg','JPG','PNG','JPEG');
         $extension = $certificate_image->getClientOriginalExtension();
         $isInFileType = in_array($extension,$fileTypes);
         if(!$isInFileType){

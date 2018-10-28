@@ -40,7 +40,7 @@ class AppraisalDatabase extends ModelDatabase
     public static function selectAppraisalAllDatas($teacher_id){
         $result = DB::table('appraisal')->where('teacher_id',$teacher_id)->orderBy('ap_time','desc')->get();
         foreach ($result as $datas){
-            $result->ap_time = date('Y-m-d',$datas->ap_time);
+            $datas->ap_time = date('Y-m-d',$datas->ap_time);
         }
         return $result;
     }

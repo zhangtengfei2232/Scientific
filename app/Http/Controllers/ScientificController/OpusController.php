@@ -31,7 +31,7 @@ class OpusController  extends Controller
             'op_remarks'       => trim($request->op_remarks)
         ];
         $judge_datas = judgeOpusField($datas);
-        if($judge_datas->code == 1){
+        if($judge_datas['code'] == 1){
             return $judge_datas;
         }
         return OpusDatabase::addOpusDatas($datas);
@@ -53,7 +53,7 @@ class OpusController  extends Controller
             $subjection = UploadSubjectionConfig::COPYRIGHT_IMG;
         }
         $judge_opu_iamge  = judgeFileImage($opus_image);
-        if($judge_opu_iamge->code == 1){
+        if($judge_opu_iamge['code'] == 1){
             return $judge_opu_iamge;
         }
         if($add_image_status == 1){
@@ -78,6 +78,7 @@ class OpusController  extends Controller
         $old_images_road = OpusDatabase::selectOpusImageDatas($op_id_datas);
         $delete_opus     = OpusDatabase::deleteOpusDatas($op_id_datas);
         deleteAllFiles(UploadSubjectionConfig::OPUS,$old_images_road);
+        return responseTojson(0,'删除成功');
     }
 //    //删除多个著作信息
 //    public function deleteAllOpus(){
@@ -122,7 +123,7 @@ class OpusController  extends Controller
             'op_remarks'       => trim($request->op_remarks)
         ];
         $judge_datas = judgeOpusField($datas);
-        if($judge_datas->code == 1){
+        if($judge_datas['code'] == 1){
             return $judge_datas;
         }
         return  OpusDatabase::updateOpusDatas($datas);
@@ -142,7 +143,7 @@ class OpusController  extends Controller
             $subjection = UploadSubjectionConfig::COPYRIGHT_IMG;
         }
         $response       = judgeFileImage($opus_image);
-        if($response->code == 1){
+        if($response['code'] == 1){
             return $response;
         }
         $disk = UploadSubjectionConfig::OPUS;

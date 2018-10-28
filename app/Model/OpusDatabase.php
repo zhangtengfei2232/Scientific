@@ -39,14 +39,14 @@ class OpusDatabase  extends ModelDatabase
     //查看单个著作信息
     public static function selectOpusDatas($op_id){
         $result =  DB::table('opus')->where('op_id',$op_id)->first();
-        $result['op_publish_time'] = date('Y-m-d',$result['op_publish_time']);
+        $result->op_publish_time = date('Y-m-d',$result->op_publish_time);
         return $result;
     }
     //查看所有著作信息
     public static function selectOpusAllDatas($teacher_id){
         $result = DB::table('opus')->where('teacher_id',$teacher_id)->orderBy('op_publish_time','desc')->get();
         foreach ($result as  $datas){
-            $result->op_publish_time = date('Y-m-d', $datas->op_publish_time);
+            $datas->op_publish_time = date('Y-m-d',$datas->op_publish_time);
         }
         return $result;
     }
