@@ -183,7 +183,11 @@
                     type: 'warning'
                 }).then(() => {
                     let self = this;
-                    axios.get("deleteproject?pro_id_datas="+pro_id_datas).then(function (response) {
+                    axios.get("deleteproject",{
+                        params:{
+                            pro_id_datas:pro_id_datas
+                        }
+                    }).then(function (response) {
                     var data = response.data;
                         if (data.code == 0) {
                              self.$message({
@@ -214,7 +218,11 @@
                     type: 'warning'
                 }).then(() => {
                     let self = this;
-                    axios.get("deleteproject",id).then(function (response) {
+                    axios.get("deleteproject",{
+                        params:{
+                            pro_id_datas:id
+                        }
+                    }).then(function (response) {
                     var data = response.data;
                         if (data.code == 0) {
                              this.$message({
