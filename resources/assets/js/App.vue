@@ -79,8 +79,6 @@
         data() {
             return {
                 teacherDate:[] ,
-//
-
                 show: false,
                 navList:[
 //                    {icon:'el-icon-picture',name:'/',navItem:'ft'},
