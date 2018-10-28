@@ -22,12 +22,19 @@ class AppraisalDatabase extends ModelDatabase
                        'ap_integral'     => $datas['ap_integral'],
                        'ap_remarks'      => $datas['ap_remarks']
                    ]);
-        return ($response) ? showMsg(0,'添加成果鉴定信息成功',$response)
-               : showMsg(1,'添加成果鉴定信息失败');
+        return ($response) ? responseTojson(0,'添加成果鉴定信息成功',$response)
+               : responseTojson(1,'添加成果鉴定信息失败');
     }
-    //删除成功鉴定信息
-    public static function deleteAppraisalDatas(){
-
+//    //删除成果鉴定信息
+//    public static function deleteAppraisalDatas($appraisal_id){
+//        $response = DB::table('appraisal')->where('ap_id',$appraisal_id)->delete();
+//        return ($response != 1) ? false : true;
+//    }
+    //删除多个成果成功
+    public static function deleteAllAppraisalDatas($appraisal_id_datas){
+        for($i = 0; $i < count($appraisal_id_datas); $i++){
+            DB::table('appraisal')->where('ap_id',$appraisal_id_datas[$i])->delete();
+        }
     }
     //查看所有成果鉴定信息
     public static function selectAppraisalAllDatas($teacher_id){
@@ -53,6 +60,17 @@ class AppraisalDatabase extends ModelDatabase
             return $image_road->ap_cover_road;
         }
     }
+    //查看多个图片路径
+    public static function selectAllAppraisalImageRoad($appraisal_id_datas){
+          $images_road_datas = [];
+          for($i = 0; $i < count($appraisal_id_datas); $i++){
+              $road = DB::table('appraisal')->select('ap_road','ap_cover_road')
+                      ->where('ap_id',$appraisal_id_datas[$i])
+                      ->first();
+              array_push($images_road_datas,$road['ap_road']);
+              array_push($images_road_datas,$road['ap_cover_road']);
+          }
+    }
     //修改成果鉴定信息
     public static function updateAppraisalDatas($datas){
         $response = DB::table('appraisal')->where('ap_id',$datas->ap_id)
@@ -68,8 +86,8 @@ class AppraisalDatabase extends ModelDatabase
                       'ap_integral'     => $datas['ap_integral'],
                       'ap_remarks'      => $datas['ap_remarks']
                   ]);
-        return ($response != 1) ? showMsg(1,'修改鉴定成果信息失败')
-            :showMsg(0,'修改鉴定成果信息成功');
+        return ($response != 1) ? responseTojson(1,'修改鉴定成果信息失败')
+            :responseTojson(0,'修改鉴定成果信息成功');
     }
     //修改成功鉴定证书和封面图片
     public static function updateAppraisalImageDatas($new_image_road,$update_image_status,$ap_id){

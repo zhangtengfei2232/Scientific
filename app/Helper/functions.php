@@ -56,7 +56,9 @@ use Illuminate\Support\Facades\Storage;
     }
     //删除多个文件
     function deleteAllFiles($disk,$files_raod){
-
+        for($i = 0; $i < count($files_raod); $i++){
+            deletefiles($disk,$files_raod[$i]);
+        }
     }
     //上传多个图片
     function uploadAllImgs($subjection,$files,$disk){
@@ -67,12 +69,12 @@ use Illuminate\Support\Facades\Storage;
         }
         return $image_road;
     }
-    //删除多个图片
-    function deleteAllImgs($disk,$files_road){
-        for($i = 0; $i < count($files_road); $i++){
-            deletefiles($disk,$files_road[$i]);
-        }
-    }
+//    //删除多个图片
+//    function deleteAllImgs($disk,$files_road){
+//        for($i = 0; $i < count($files_road); $i++){
+//            deletefiles($disk,$files_road[$i]);
+//        }
+//    }
     //生成PDF第一页缩略图
     function pdfToPngUpload($disk,$artical_road,$subjection,$artical_name,$page){
         $pdf  = $disk.'/'.$artical_road;

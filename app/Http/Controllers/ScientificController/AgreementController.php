@@ -16,8 +16,8 @@ class AgreementController extends Controller
         }
         $agreement_pdf = $request->file('agreement_pdf');
         $judge_agreement = judgeReceiveFiles($agreement_pdf);
-        if($judge_agreement->code == 1){
-            return $judge_agreement;
+        if($judge_agreement['code'] == 1){
+            return responseTojson(1,$judge_agreement['message']);
         }
         $datas = [
             'agree_name'           => trim($request->agree_name),
@@ -25,8 +25,8 @@ class AgreementController extends Controller
             'agree_time'           => strtotime(trim($request->agree_time)),
         ];
         $judge_datas = judgeAgreementField($datas);
-        if($judge_datas->code == 1){
-            return $judge_datas;
+        if($judge_datas['code'] == 1){
+            return responseTojson(1,$judge_datas['message']);
         }
         $disk = UploadSubjectionConfig::APPRAISAL;
         $subjection_appraisal = UploadSubjectionConfig::AGREEMENT_PDF;
@@ -39,19 +39,8 @@ class AgreementController extends Controller
         deletefiles($disk,$add_agreement_raod);
         return responseTojson(1,'添加教学科研合作协议失败');
     }
-    //删除单个教学科研合作协议信息
+    //删除教学科研合作协议信息
     public function deleteAgreement(Request $request){
-        $agreement_id     = $request->agreement_id;
-        $agreement_road   = AgreementDatabase::selectAgreementRoad($agreement_id);
-        $delete_agreement = AgreementDatabase::deleteAgreementDatas($agreement_id);
-        if($delete_agreement){
-            deletefiles(uploadSubjectionConfig::AGREEMENT,$agreement_road);
-            return responseTojson(0,'删除教学科研合作协议信息成功');
-        }
-        return responseTojson(1,'删除教学科研合作协议信息失败');
-    }
-    //删除多个教学科研合作协议信息
-    public function deleteAllAgreement(Request $request){
         $validate = true;
         $agreement_id_datas   = $request->agreement_id_datas;
         $agreement_raod_datas = AgreementDatabase::selectAllAgreementRoad($agreement_id_datas);
@@ -72,6 +61,28 @@ class AgreementController extends Controller
         }
         return responseTojson(1,$delete_agreement->message,$agreement_name);
     }
+//    //删除多个教学科研合作协议信息
+//    public function deleteAllAgreement(Request $request){
+//        $validate = true;
+//        $agreement_id_datas   = $request->agreement_id_datas;
+//        $agreement_raod_datas = AgreementDatabase::selectAllAgreementRoad($agreement_id_datas);
+//        $delete_agreement     = AgreementDatabase::deleteAllAgreementDatas($agreement_id_datas);
+//        if($delete_agreement->code == 1){
+//            $validate = false;
+//            //有些教学科研合作协议删除失败，去查文件的原来名称
+//            $agreement_name = AgreementDatabase::selectAgreementName($delete_agreement);
+//            //根据文件'ID'键，去除掉删除失败的教学科研合作协议路径
+//            for($i = 0; $i < count($delete_agreement); $i++){
+//                array_slice($agreement_raod_datas,$delete_agreement[$i],1);
+//            }
+//            $response['fail_agreement'] = $agreement_name;
+//        }
+//        deleteAllFiles(uploadSubjectionConfig::AGREEMENT,$agreement_raod_datas);
+//        if($validate){
+//            return $delete_agreement;
+//        }
+//        return responseTojson(1,$delete_agreement->message,$agreement_name);
+//    }
     //修改教学科研合作协议信息
     public function updateAgreement(Request $request){
         if(!$request->isMethod('POST')){

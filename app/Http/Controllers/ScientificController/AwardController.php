@@ -58,11 +58,21 @@ class AwardController extends Controller
      }
      //删除获奖信息
      public function deleteAward(Request $request){
-
+         $aw_id = [];
+         array_push($aw_id,$request->aw_id);
+         $old_image_rod = AwardDatabase::selectAwardRoadDatas($aw_id);
+         $delete_award  = AwardDatabase::deleteAwardDatas($aw_id);
+         if($delete_award){
+             deletefiles(UploadSubjectionConfig::AWARD,$old_image_rod);
+             responseTojson(0,'删除成功');
+         }
+         return responseTojson(1,'删除失败');
      }
      //删除多个获奖信息
-     public function deleteAllAward(){
-
+     public function deleteAllAward(Request $request){
+         $aw_id_datas = $request->aw_id_datas;
+         $old_images_roads = AwardDatabase::selectAllAwardRoadDatas($aw_id_datas);
+         $delete_all_award = AwardDatabase::deleteAllAwardDatas($aw_id_datas);
      }
      //查看单个获奖信息
      public function selectAward(Request $request){

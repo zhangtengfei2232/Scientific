@@ -30,10 +30,16 @@ class ProjectDatabase extends ModelDatabase
                 'pro_remarks'       => $datas['pro_remarks']
             ]);
     }
-    //删除项目信息
-    public static function delectProjectDatas($pro_id){
-        $response = DB::table('project')->where('pro_id',$pro_id)->delete();
-        return ($response != 1) ? false : true;
+//    //删除项目信息
+//    public static function delectProjectDatas($pro_id){
+//        $response = DB::table('project')->where('pro_id',$pro_id)->delete();
+//        return ($response != 1) ? false : true;
+//    }
+    //删除多个项目信息
+    public static function deleteAllProjectDatas($pro_id_datas){
+        for($i = 0; $i < count($pro_id_datas); $i++){
+            DB::table('project')->where('pro_id',$pro_id_datas[$i])->delete();
+        }
     }
     //查找单个项目信息
     public static function selectProjectDatas($project_id){
@@ -94,6 +100,14 @@ class ProjectDatabase extends ModelDatabase
                 'pro_remarks'       => $datas['pro_remarks']
             ]);
         return ($response != 1) ? false : true;
+    }
+    //查找以前多个项目合同路径
+    public static function selectAllImagesRoad($project_id_datas){
+        $images_road_datas = [];
+        for($i = 0; $i < count($project_id_datas); $i++){
+            $road = DB::table('project')->select('pro_road')->where('pro_id',$project_id_datas[$i])->first();
+            $images_road_datas[$i] = $road->pro_road;
+        }
     }
     //查找以前项合同图片路径
     public static function selectImageRoad($project_id){

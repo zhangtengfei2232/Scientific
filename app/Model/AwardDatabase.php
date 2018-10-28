@@ -28,8 +28,15 @@ class AwardDatabase extends ModelDatabase
                 ]);
     }
     //删除获奖信息
-    public static function deleteAwardDatas(){
-
+    public static function deleteAwardDatas($aw_id){
+        $response = DB::table('award')->where('aw_id',$aw_id)->delete();
+        return ($response != 1) ? false : true;
+    }
+    //删除多个获奖信息
+    public static function deleteAllAwardDatas($aw_id_datas){
+        for($i = 0; $i < count($aw_id_datas); $i++){
+            DB::table('award')->where('award')->where('award',$aw_id_datas[$i])->delete();
+        }
     }
     //查询获奖信息
     public static function selectAwardDatas($aw_id){
@@ -49,6 +56,14 @@ class AwardDatabase extends ModelDatabase
     public static function selectAwardRoadDatas($aw_id){
         $result =  DB::table('award')->select('aw_road')->where('aw_id',$aw_id)->first();
         return $result->aw_road;
+    }
+    //查询多个获奖图片路径
+    public static function selectAllAwardRoadDatas($aw_id_datas){
+        $aw_road_datas = [];
+        for($i = 0; $i < count($aw_id_datas); $i++){
+            $road = DB::table('award')->select('aw_road')->where('aw_id',$aw_id_datas[$i])->first();
+            $aw_road_datas[$i] = $road['aw_road'];
+        }
     }
     //修改获奖信息
     public static function updateAwardDatas($datas){

@@ -32,10 +32,10 @@ class AgreementDatabase extends ModelDatabase
             }
         }
         if($validate){
-            return showMsg(0,'教学科研合作协议删除成功');
+            return responseTojson(0,'教学科研合作协议删除成功');
         }
         $count_id = count($fail_agreement_id);
-        return showMsg(1,'有'.$count_id.'个教学科研合作协议删除失败',$fail_agreement_id);
+        return responseTojson(1,'有'.$count_id.'个教学科研合作协议删除失败',$fail_agreement_id);
     }
     //修改教学科研合作协议信息
     public static function updateAgreementDatas($datas){
@@ -73,11 +73,11 @@ class AgreementDatabase extends ModelDatabase
         }
         return $agreement_road;
     }
-    //查询单个教学科研合作协议路径
-    public static function selectAgreementRoad($agree_id){
-        $result = DB::table('agreement')->select('agree_road')->where('agree_id',$agree_id)->first();
-        return $result->agree_road;
-    }
+//    //查询单个教学科研合作协议路径
+//    public static function selectAgreementRoad($agree_id){
+//        $result = DB::table('agreement')->select('agree_road')->where('agree_id',$agree_id)->first();
+//        return $result->agree_road;
+//    }
     //查询教学科研合作协议名称
     public static function selectAgreementName($delete_agreement){
         $agreement_name = [];

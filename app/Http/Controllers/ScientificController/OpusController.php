@@ -74,12 +74,15 @@ class OpusController  extends Controller
     //删除单个著作信息
     public function deleteOpus(Request $request)
     {
-
+        $op_id_datas = $request->op_id_datas;
+        $old_images_road = OpusDatabase::selectOpusImageDatas($op_id_datas);
+        $delete_opus     = OpusDatabase::deleteOpusDatas($op_id_datas);
+        deleteAllFiles(UploadSubjectionConfig::OPUS,$old_images_road);
     }
-    //删除多个著作信息
-    public function deleteAllOpus(){
-
-    }
+//    //删除多个著作信息
+//    public function deleteAllOpus(){
+//
+//    }
     //查看著作信息
     public function selectOpus(Request $request)
     {
