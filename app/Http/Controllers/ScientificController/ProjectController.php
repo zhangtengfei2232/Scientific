@@ -80,6 +80,7 @@ class ProjectController extends Controller
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
+        dd($request);
         $project_id[0]          = trim($request->project_id);
         $datas = [
             'pro_id'            => $project_id,

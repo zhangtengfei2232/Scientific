@@ -70,7 +70,7 @@ class OpusController  extends Controller
     public function deleteOpus(Request $request)
     {
         $op_id_datas = $request->op_id_datas;
-        $old_images_road = OpusDatabase::selectOpusImageDatas($op_id_datas);
+        $old_images_road = OpusDatabase::selectOpusAllImageDatas($op_id_datas);
         $delete_opus     = OpusDatabase::deleteOpusDatas($op_id_datas);
         deleteAllFiles(UploadSubjectionConfig::OPUS,$old_images_road);
         return responseTojson(0,'删除成功');

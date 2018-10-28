@@ -49,7 +49,7 @@ class AppraisalController extends Controller
              $appraisal_image  = $request->file('ap_cover_image');
          }
          $judge_image = judgeFileImage($appraisal_image);
-         if($judge_image->code == 1){
+         if($judge_image['code'] == 1){
              return $judge_image;
          }
          $disk      = UploadSubjectionConfig::APPRAISAL;
@@ -70,14 +70,6 @@ class AppraisalController extends Controller
         deleteAllFiles(UploadSubjectionConfig::APPRAISAL,$old_image_road);
         return responseTojson(0,'删除成功');
     }
-//    //删除多个鉴定成果信息
-//    public function deleteAllAppraisal(Request $request){
-//       $appraisal_id_datas = $request->appraisal_id_datas;
-//       $old_images_road    = AppraisalDatabase::selectAllAppraisalImageRoad($appraisal_id_datas);
-//       $delete_appraisal   = AppraisalDatabase::deleteAllAppraisalDatas($appraisal_id_datas);
-//       deleteAllFiles(UploadSubjectionConfig::APPRAISAL,$old_images_road);
-//       return responseTojson(0,'全部删除成功');
-//    }
     //查看单个成果鉴定信息
     public function selectAppraisal(Request $request){
        $result = AppraisalDatabase::selectAppraisalDatas($request->ap_id);
@@ -107,7 +99,7 @@ class AppraisalController extends Controller
              'ap_remarks'      => trim($request->ap_remarks)
          ];
         $judge_datas = judgeAppraisalField($datas);
-        if($judge_datas->code == 1){
+        if($judge_datas['code'] == 1){
             return $judge_datas;
         }
         return  AppraisalDatabase::updateAppraisalDatas($datas);
@@ -126,7 +118,7 @@ class AppraisalController extends Controller
             $subjection      = UploadSubjectionConfig::APPRAISAL_COVER_IMG;
         }
         $judge_image         = judgeFileImage($appraisal_image);
-        if($judge_image->code == 1){
+        if($judge_image['code'] == 1){
             return $judge_image;
         }
         $ap_id          = $request->ap_id;

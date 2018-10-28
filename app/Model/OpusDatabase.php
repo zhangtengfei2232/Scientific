@@ -27,8 +27,8 @@ class OpusDatabase  extends ModelDatabase
                     'op_sub_category'  => $datas['op_sub_category'],
                     'op_remarks'       => $datas['op_remarks']
                 ]);
-       return ($response) ? showMsg(0,'添加著作信息成功',$response)
-              : showMsg(1,'添加著作信息失败');
+       return ($response) ? responseTojson(0,'添加著作信息成功',$response)
+              : responseTojson(1,'添加著作信息失败');
     }
     //删除著作信息
     public static function deleteOpusDatas($op_id_datas){
@@ -61,7 +61,7 @@ class OpusDatabase  extends ModelDatabase
         }
     }
     //查询以前的著作图片路径
-    public static function selectOpusImageDatas($op_id_datas){
+    public static function selectOpusAllImageDatas($op_id_datas){
         $op_cover_raod_datas = [];
         $op_coright_road_datas = [];
         for($i = 0; $i < count($op_id_datas); $i++){
@@ -75,7 +75,7 @@ class OpusDatabase  extends ModelDatabase
     }
     //修改著作信息
     public static function updateOpusDatas($datas){
-        $respone = DB::table('opus')->where('op_id',$datas->op_id)
+        $respone = DB::table('opus')->where('op_id',$datas['op_id'])
                    ->update([
                        'op_first_author'  => $datas['op_first_author'],
                        'op_all_author'    => $datas['op_all_author'],
@@ -92,8 +92,8 @@ class OpusDatabase  extends ModelDatabase
                        'op_sub_category'  => $datas['op_sub_category'],
                        'op_remarks'       => $datas['op_remarks']
                    ]);
-        return ($respone !=1) ? showMsg(1,'修改著作信息失败')
-               : showMsg(0,'修改著作信息成功');
+        return ($respone != 1) ? responseTojson(1,'修改著作信息失败')
+               : responseTojson(0,'修改著作信息成功');
     }
     //修改著作图片信息
     public static function updateImageDatas($new_image_road,$status,$op_id){
