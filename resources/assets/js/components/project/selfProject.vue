@@ -136,11 +136,13 @@
     methods: {
         getProjectSelfData() {
             let self = this;
-            let art_id = self.$route.params.art_id;
-            axios.get("",art_id).then(function (response) {
+            let pro_id = self.$route.params.pro_id;
+            console.log(pro_id);
+            axios.get("selectproject",pro_id).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.ProjectSelfData = data.datas;
+                    console.log(data.datas);
                 } else {
                     self.$notify({
                         type: 'error',
@@ -181,28 +183,46 @@
                 this.$message.error('备注不能为空');
             }else if(form.art_sub_category == '') {
                 this.$message.error('项目年份不能为空');
-            }else{
-                this.changeProjectData(form);
-            }
+            }this.$refs['form'].validate((valid) => {
+                    let vue = this;
+                    if (valid) {
+                        jQuery.each(vue.form,function(i,val){
+                            vue.dataForm.append(i,val);
+                        });
+                        vue.addProjectData(vue.dataForm).then(res => {
+                            var data = response.data;
+                            if (data.code == 0) {
+                                vue.$message({
+                                    message: '添加成功',
+                                    type: 'success'
+                                });
+                            } else {
+                                vue.$notify({
+                                    type: 'error',
+                                    message: data.msg,
+                                    duration: 2000,
+                                });
+                            }
+                        })
+                        vue.$refs.pro_file.submit();
+                    } else {
+                        console.log('error submit!!')
+                        return false
+                    }
+                })
         },
-        changeProjectData(form) {
-            let self = this;
-            axios.get("",form).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.msg,
-                        duration: 2000,
-                    });
-                }
+        addProjectData(data) {
+            return axios({
+                method: 'post',
+                url: 'addproject',
+                headers: {'Content-Type': 'multipart/form-data'},
+                timeout: 20000,
+                data: data
             });
         },
     },
     mounted() {
-        this.ProjectSelfData();
+        this.getProjectSelfData();
     }
   }
 </script>
