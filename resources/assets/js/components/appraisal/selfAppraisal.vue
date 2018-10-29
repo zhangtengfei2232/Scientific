@@ -91,6 +91,7 @@ export default {
     data() {
         return {
             AppraisalSelfData: {},
+            dataForm: new FormData(),
             filelist: [{url:''}],
             filelists: [{url:''}],
             form: {

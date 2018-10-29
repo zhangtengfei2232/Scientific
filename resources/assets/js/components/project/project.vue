@@ -72,7 +72,7 @@
                     </el-table-column>
                 </el-table>
                 <div style="margin-top: 20px">
-                    <el-button @click="toggleSelection([ProjectDate[1], ProjectDate[2],ProjectDate[3]])">选中前三条</el-button>
+                    <el-button @click="toggleSelection([ProjectDate[0], ProjectDate[1],ProjectDate[2]])">选中前三条</el-button>
                     <el-button @click="toggleSelection()">取消选择</el-button>
                     <el-button @click="BatchDelete()">删除</el-button>
                 </div>
@@ -207,7 +207,7 @@
                 });
             },
             deleteProjectData(pro_id) {
-                let id = pro_id;
+                this.id.push(pro_id);
                 this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -216,12 +216,12 @@
                     let self = this;
                     axios.get("deleteproject",{
                         params:{
-                            pro_id_datas:id
+                            pro_id_datas:this.id
                         }
                     }).then(function (response) {
                     var data = response.data;
                         if (data.code == 0) {
-                             this.$message({
+                             self.$message({
                                 type: 'success',
                                 message: '删除成功!'
                             });

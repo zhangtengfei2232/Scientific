@@ -63,7 +63,7 @@
                         width="200">
                         <template slot-scope="scope">
                             <el-button
-                            @click.native.prevent="deleteRow(scope.$index, BookDate)"
+                            
                             type="text"
                             size="small">
                             <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentBookSelfData(BookDate[scope.$index].op_id)"></el-button>
@@ -168,15 +168,14 @@
             BatchDelete(){
 		    	var self = this;
                 var pro_id_datas = [];//存放删除的数据
-                console.log(self.multipleSelection);
                 if(self.multipleSelection == undefined){
-                    this.$message({
+                    self.$message({
                         message: '警告哦，这是一条警告消息',
                         type: 'warning'
                     });
                 }else{
                     for (var i = 0; i < self.multipleSelection.length; i++) {
-                        pro_id_datas.push(self.multipleSelection[i].pro_id);
+                        pro_id_datas.push(self.multipleSelection[i].op_id);
                     };
                     this.deleteBookDatas(pro_id_datas);
                 }
@@ -190,12 +189,12 @@
                     let self = this;
                     axios.get("deleteopus",{
                         params:{
-                            ap_id_datas:pro_id_datas
+                            op_id_datas:pro_id_datas
                         }
                     }).then(function (response) {
                     var data = response.data;
                         if (data.code == 0) {
-                             this.$message({
+                             self.$message({
                                 type: 'success',
                                 message: '删除成功!'
                             });
@@ -215,7 +214,8 @@
                 });
             },
             deleteBookData(op_id) {
-                let id = op_id;
+                this.id.push(op_id);
+                console.log(this.id);
                 this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -224,12 +224,12 @@
                     let self = this;
                     axios.get("deleteopus",{
                         params:{
-                            pro_id_datas:id
+                            op_id_datas:self.id
                         }
                     }).then(function (response) {
                     var data = response.data;
                         if (data.code == 0) {
-                             this.$message({
+                             self.$message({
                                 type: 'success',
                                 message: '删除成功!'
                             });

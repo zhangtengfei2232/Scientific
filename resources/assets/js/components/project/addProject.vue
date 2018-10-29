@@ -145,34 +145,49 @@
         onSubmit(form) {
             if(form.pro_host == '') {
                     this.$message.error('主持人不能为空');
+                    return
                 }else if(form.pro_all_author == ''){
                     this.$message.error('所有参加人不能为空');
+                    return
                 }else if(form.entry_name == '') {
                     this.$message.error('项目名称不能为空');
+                    return
                 }else if(form.project_category == '') {
                     this.$message.error('项目类别不能为空');
+                    return
                 }else if(form.approval_unit == '') {
                     this.$message.error('批准单位不能为空');
+                    return
                 }else if(form.approval_funds == '') {
                     this.$message.error('批准经费不能为空');
+                    return
                 }else if(form.account_outlay == '') {
                     this.$message.error('当年到账经费不能为空');
+                    return
                 }else if(form.pro_cate_research == '') {
                     this.$message.error('研究类别不能为空');
+                    return
                 }else if(form.pro_sub_category == '') {
                     this.$message.error('学科门类不能为空');
+                    return
                 }else if(form.form_cooperate == '') {
                     this.$message.error('合作形式不能为空');
+                    return
                 }else if(form.social_eco_goal == '') {
                     this.$message.error('社会经济目标不能为空');
+                    return
                 }else if(form.na_eco_industry == '') {
                     this.$message.error('服务的国民经济行业不能为空');
+                    return
                 }else if(form.pro_integral == '') {
                     this.$message.error('积分不能为空');
+                    return
                 }else if(form.pro_remarks == '') {
                     this.$message.error('备注不能为空');
+                    return
                 }else if(form.project_year == '') {
                     this.$message.error('项目年份不能为空');
+                    return
                 }
                 this.$refs['form'].validate((valid) => {
                     var d = form.project_year; 
@@ -183,6 +198,7 @@
                             vue.dataForm.append(i,val);
                         });
                         vue.addProjectData(vue.dataForm).then(res => {
+                            var data = res.data;
                             if (data.code == 0) {
                                 vue.$message({
                                     message: '添加成功',

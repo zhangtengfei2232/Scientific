@@ -62,7 +62,7 @@
                         width="200">
                         <template slot-scope="scope">
                             <el-button
-                            @click.native.prevent="deleteRow(scope.$index, AwardDate)"
+                            
                             type="text"
                             size="small">
                             <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentAwardSelfData(AwardDate[scope.$index].aw_id)"></el-button>
@@ -142,8 +142,7 @@
             },
             BatchDelete(){
 		    	var self = this;
-                var pro_id_datas = [];//存放删除的数据
-                console.log(self.multipleSelection);
+                var aw_id_datas = [];//存放删除的数据
                 if(self.multipleSelection == undefined){
                     this.$message({
                         message: '警告哦，这是一条警告消息',
@@ -151,12 +150,12 @@
                     });
                 }else{
                     for (var i = 0; i < self.multipleSelection.length; i++) {
-                        pro_id_datas.push(self.multipleSelection[i].pro_id);
+                        aw_id_datas.push(self.multipleSelection[i].aw_id);
                     };
-                    this.deleteAwardDatas(pro_id_datas);
+                    self.deleteAwardDatas(aw_id_datas);
                 }
             },
-            deleteAwardDatas(pro_id_datas) {
+            deleteAwardDatas(aw_id_datas) {
                 this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -165,7 +164,7 @@
                     let self = this;
                     axios.get("deleteAllAward",{
                         params:{
-                            aw_id_datas:pro_id_datas
+                            aw_id_datas:aw_id_datas
                         }
                     }).then(function (response) {
                     var data = response.data;
@@ -213,7 +212,7 @@
                 })
             },
             deleteAwardData(aw_id) {
-                let id = aw_id;
+                this.id.push(aw_id);
                 this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -222,12 +221,12 @@
                     let self = this;
                     axios.get("deleteAllAward",{
                          params:{
-                            aw_id_datas:id
+                            aw_id_datas:self.id
                         }
                     }).then(function (response) {
                     var data = response.data;
                         if (data.code == 0) {
-                             this.$message({
+                             self.$message({
                                 type: 'success',
                                 message: '删除成功!'
                             });

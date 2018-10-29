@@ -246,7 +246,7 @@
                             vue.dataForm.append(i,val);
                         });
                         vue.addArticleData(vue.dataForm).then(res => {
-                            var data = response.data;
+                            var data = res.data;
                             if (data.code == 0) {
                                 vue.$message({
                                     message: '添加成功',
