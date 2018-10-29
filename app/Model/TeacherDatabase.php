@@ -29,7 +29,6 @@ class TeacherDatabase extends ModelDatabase
          }
         return self::saveAccount($usercount);
      }
-
     /**添加老师的信息
      * @param $datas
      * @return \Illuminate\Http\JsonResponse
@@ -47,21 +46,21 @@ class TeacherDatabase extends ModelDatabase
                          'number'                => $datas['number'],
                          'sex'                   => $datas['sex'],
                          'nation'                => $datas['nation'],
-                         'borth'                 => strtotime($datas['borth']),
+                         'borth'                 => $datas['borth'],
                          'polit_outlook'         => $datas['polit_outlook'],
                          'native_place'          => $datas['native_place'],
                          'admin_duties'          => $datas['admin_duties'],
-                         'admin_tenure_time'     => strtotime($datas['admin_tenure_time']),
+                         'admin_tenure_time'     => $datas['admin_tenure_time'],
                          'job_level'             => $datas['job_level'],
                          'technical_position'    => $datas['technical_position'],
                          'academic_title'        => $datas['academic_title'],
-                         'review_time'           => strtotime($datas['review_time']),
-                         'appointment_time'      => strtotime($datas['appointment_time']),
+                         'review_time'           => $datas['review_time'],
+                         'appointment_time'      => $datas['appointment_time'],
                          'series'                => $datas['series'],
                          'post_category'         => $datas['post_category'],
                          'company'               => $datas['company'],
                          'te_re_department'      => $datas['te_re_department'],
-                         'working_hours'         => strtotime($datas['working_hours']),
+                         'working_hours'         => $datas['working_hours'],
                          'origin_work_unit'      => $datas['origin_work_unit'],
                          'certificate_num'       => $datas['certificate_num'],
                          'identity_card'         => $datas['identity_card'],
@@ -69,16 +68,16 @@ class TeacherDatabase extends ModelDatabase
                          'first_academic'        => $datas['first_academic'],
                          'first_graduate_school' => $datas['first_graduate_school'],
                          'first_study_major'     => $datas['first_study_major'],
-                         'first_graduation_time' => strtotime($datas['first_graduation_time']),
+                         'first_graduation_time' => $datas['first_graduation_time'],
                          'most_academic'         => $datas['most_academic'],
                          'most_graduate_school'  => $datas['most_graduate_school'],
                          'most_study_major'      => $datas['most_study_major'],
-                         'most_graduation_time'  => strtotime($datas['most_graduation_time']),
+                         'most_graduation_time'  => $datas['most_graduation_time'],
                          'work_major'            => $datas['work_major'],
                          'belong_subject'        => $datas['belong_subject'],
                          'teach_course'          => $datas['teach_course'],
                          'master_company'        => $datas['master_company'],
-                         'master_time'           => strtotime($datas['master_time']),
+                         'master_time'           => $datas['master_time'],
                          'create_time'           => time()
                      ]);
         return ($response) ? responseTojson(0,'添加老师信息成功')
@@ -149,8 +148,9 @@ class TeacherDatabase extends ModelDatabase
      }
      //修改老师的信息
     /**
+     * @param $teacher_id
      * @param $datas
-     * @return bool
+     * @return \Illuminate\Http\JsonResponse
      */
      public static function updateTeacherDatas($teacher_id,$datas){
          $retUpdate = DB::table('teacher')
@@ -164,21 +164,21 @@ class TeacherDatabase extends ModelDatabase
                           'number'                => $datas['number'],
                           'sex'                   => $datas['sex'],
                           'nation'                => $datas['nation'],
-                          'borth'                 => strtotime($datas['borth']),
+                          'borth'                 => $datas['borth'],
                           'polit_outlook'         => $datas['polit_outlook'],
                           'native_place'          => $datas['native_place'],
                           'admin_duties'          => $datas['admin_duties'],
-                          'admin_tenure_time'     => strtotime($datas['admin_tenure_time']),
+                          'admin_tenure_time'     => $datas['admin_tenure_time'],
                           'job_level'             => $datas['job_level'],
                           'technical_position'    => $datas['technical_position'],
                           'academic_title'        => $datas['academic_title'],
-                          'review_time'           => strtotime($datas['review_time']),
-                          'appointment_time'      => strtotime($datas['appointment_time']),
+                          'review_time'           => $datas['review_time'],
+                          'appointment_time'      => $datas['appointment_time'],
                           'series'                => $datas['series'],
                           'post_category'         => $datas['post_category'],
                           'company'               => $datas['company'],
                           'te_re_department'      => $datas['te_re_department'],
-                          'working_hours'         => strtotime($datas['working_hours']),
+                          'working_hours'         => $datas['working_hours'],
                           'origin_work_unit'      => $datas['origin_work_unit'],
                           'certificate_num'       => $datas['certificate_num'],
                           'identity_card'         => $datas['identity_card'],
@@ -186,16 +186,16 @@ class TeacherDatabase extends ModelDatabase
                           'first_academic'        => $datas['first_academic'],
                           'first_graduate_school' => $datas['first_graduate_school'],
                           'first_study_major'     => $datas['first_study_major'],
-                          'first_graduation_time' => strtotime($datas['first_graduation_time']),
+                          'first_graduation_time' => $datas['first_graduation_time'],
                           'most_academic'         => $datas['most_academic'],
                           'most_graduate_school'  => $datas['most_graduate_school'],
                           'most_study_major'      => $datas['most_study_major'],
-                          'most_graduation_time'  => strtotime($datas['most_graduation_time']),
+                          'most_graduation_time'  => $datas['most_graduation_time'],
                           'work_major'            => $datas['work_major'],
                           'belong_subject'        => $datas['belong_subject'],
                           'teach_course'          => $datas['teach_course'],
                           'master_company'        => $datas['master_company'],
-                          'master_time'           => strtotime($datas['master_time']),
+                          'master_time'           => $datas['master_time'],
                           'update_time'           => time()
                       ]);
          return ($retUpdate != 1) ? responseTojson(1,'修改信息失败')

@@ -31,9 +31,7 @@ class DutiesDatabase extends ModelDatabase
     }
     //删除担任团体职务信息
     public static function deleteDutiesDatas($du_id_datas){
-        for($i = 0; $i < count($du_id_datas); $i++){
-            DB::table('duties')->where('du_id',$du_id_datas[$i])->delete();
-        }
+        DB::table('duties')->whereIn('du_id',$du_id_datas)->delete();
     }
     //修改担任团体职务信息
     public static function updateDutiesDatas($datas){

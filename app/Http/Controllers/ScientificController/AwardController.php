@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\ScientificController;
 
-
 use App\Http\Controllers\Controller;
 use App\Model\ArticalDatabase;
 use Illuminate\Http\Request;
@@ -39,12 +38,12 @@ class AwardController extends Controller
              $datas['aw_road'] = '';
              return AwardDatabase::addAwardDatas($datas);
          }
-         $disk        = UploadSubjectionConfig::AWARD;
          $award_image = $request->file('aw_file');
          $judge_image = judgeFileImage($award_image);
          if($judge_image['code'] == 1){
              return $judge_image;
          }
+         $disk             = UploadSubjectionConfig::AWARD;
          $subjection_image = UploadSubjectionConfig::AWARD_IMG;
          $add_image_road   = uploadFiles($subjection_image,$award_image,$disk);
          $datas['aw_road'] = $add_image_road;
@@ -78,7 +77,7 @@ class AwardController extends Controller
          if(!$request->isMethod('POST')){
              return responseTojson(1,'你请求的方式不对');
          }
-         $aw_id[0]              = trim($request->aw_id);
+         $aw_id[0] = trim($request->aw_id);
          $datas = [
              'aw_id'            => $aw_id[0],
              'aw_first_author'  => trim($request->aw_first_author),
