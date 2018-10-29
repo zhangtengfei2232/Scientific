@@ -161,9 +161,8 @@
                 return
             }
             this.$refs['form'].validate((valid) => {
-                    var d = form.aw_grant_time; 
-                    
-                    //form.aw_grant_time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+                    var d = form.aw_grant_time;     
+                    form.aw_grant_time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                     if (valid) {
                         let vue = this;
                         jQuery.each(vue.form,function(i,val){

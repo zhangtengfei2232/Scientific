@@ -82,22 +82,11 @@
                 </el-form-item>
                 <el-form-item label="著作封面">
                     <el-upload
-                        class="upload-demo"
-                        action="#"
-                        :on-preview="handlePreview"
-                        :on-remove="handleRemove"
-                        list-type="picture">
-                    <el-button size="small" type="primary">点击上传</el-button>
-                    <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-                    </el-upload>
-                </el-form-item>
-                <!-- <el-form-item label="著作封面">
-                    <el-upload
                         drag
-                        action=""
-                        multiple
+                        action="#"
                         ref="bo_file"
-                        :before-upload="fileProfil"
+                        :limit=1
+                        :http-request="fileProfil"
                         :auto-upload="false">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -106,15 +95,15 @@
                 <el-form-item label="版权页图片">
                     <el-upload
                         drag
-                        action=""
-                        multiple
+                        action="#"
                         ref="bo_files"
-                        :before-upload="fileProfils"
+                        :limit=1
+                        :before-upload="fileProfil"
                         :auto-upload="false">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
-                </el-form-item> -->
+                </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="onSubmit(form)">立即创建</el-button>
                     <el-button>取消</el-button>
@@ -143,6 +132,8 @@
             bo_file: "", 
             bo_files: "", 
             dataForm: new FormData(),
+            dataFile: new FormData(),
+            Bcode:false,
             form: {
                 op_first_author: '',
                 op_all_author: '',
@@ -162,30 +153,44 @@
         }
     },
     methods: {
-        handleRemove(file, fileList) {
-            console.log(file, fileList);
-        },
-        handlePreview(file) {
+        fileProfil(file){
             console.log(file);
+            if(Bcode == true){
+                this.dataFile.append('bo_files', file);
+                this.sendfile(files);
+                this.$refs.bo_file.submit();
+            }else{
+                this.$message.error('请先添加数据信息');
+                return false
+            }  
         },
-        // fileProfil(file){
-        //     if(file !== ''){
-        //         this.dataForm.append('bo_file', file);
-        //         return false;
-        //     }else{
-        //         return
-        //     }   
-        // },
-        // fileProfils(files){
-        //     if(file !== ''){
-        //         this.dataForm.append('bo_files', files);
-        //         return false;
-        //     }else{
-        //         return
-        //     }
-        // },
-        sendfile() {
-
+        fileProfils(files){
+            console.log(file);
+            if(Bcode == true){
+                this.dataFile.append('bo_files', files);
+                this.sendfile(files);
+                this.$refs.bo_files.submit();
+            }else{
+                this.$message.error('请先添加数据信息');
+                return false
+            }
+        },
+        sendfile(file) {
+            this.addBookFile(vue.dataFile).then(res => {
+                var data = res.data;
+                if (data.code == 0) {
+                    vue.$message({
+                        message: '添加成功',
+                        type: 'success'
+                    });
+                } else {
+                    vue.$notify({
+                        type: 'error',
+                        message: '添加失败',
+                        duration: 2000,
+                    });
+                }
+            })  
         },
         onSubmit(form) {
             if(form.op_first_author == '') {
@@ -232,6 +237,8 @@
                 return
             }
             this.$refs['form'].validate((valid) => {
+                var d = form.op_publish_time;     
+                form.op_publish_time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                 let vue = this;
                 if (valid) {
                     jQuery.each(vue.form,function(i,val){
@@ -240,7 +247,7 @@
                     vue.addBookData(vue.dataForm).then(res => {
                         var data = res.data;
                         if (data.code == 0) {
-                            vue.sendfile(); 
+                            this.Bcode=true;
                             vue.$message({
                                 message: '添加成功',
                                 type: 'success'
@@ -253,8 +260,6 @@
                             });
                         }
                     })
-                    // vue.$refs.bo_file.submit();
-                    // vue.$refs.bo_files.submit();
                 } else {
                     console.log('error submit!!')
                     return false

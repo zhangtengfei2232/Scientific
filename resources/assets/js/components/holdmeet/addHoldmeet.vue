@@ -123,6 +123,8 @@
                 this.$message.error('会议时间不能为空');
             }
             this.$refs['form'].validate((valid) => {
+                var d = form.ho_time;     
+                form.ho_time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                     if (valid) {
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);

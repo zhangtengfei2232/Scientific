@@ -236,6 +236,8 @@ export default {
                 return
             }
             this.$refs['form'].validate((valid) => {
+                var d = form.op_publish_time;     
+                form.op_publish_time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                 let vue = this;
                 if (valid) {
                     jQuery.each(vue.form,function(i,val){
