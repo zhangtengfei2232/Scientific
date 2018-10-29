@@ -24,6 +24,7 @@ class DutiesController extends Controller
             'du_duty'      => trim($request->du_duty),
             'du_year_num'  => trim($request->du_year_num)
         ];
+        dd($datas);
         $judge_datas = judgeDutiesField($datas);
         if($judge_datas['code'] == 1){
             return $judge_datas;
@@ -84,6 +85,7 @@ class DutiesController extends Controller
             'du_duty'      => trim($request->du_duty),
             'du_year_num'  => trim($request->du_year_num)
         ];
+        dd($datas);
         $judge_datas = judgeDutiesField($datas);
         if($judge_datas['code'] == 1){
             return $judge_datas;

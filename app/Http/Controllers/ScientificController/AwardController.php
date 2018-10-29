@@ -21,7 +21,6 @@ class AwardController extends Controller
              'prize_win_name'   => trim($request->prize_win_name),
              'award_name'       => trim($request->award_name),
              'form_achievement' => trim($request->form_achievement),
-             'aw_category'      => trim($request->aw_category),
              'aw_level'         => trim($request->aw_level),
              'aw_grade'         => trim($request->aw_grade),
              'aw_grant_unit'    => trim($request->aw_grant_unit),
@@ -34,11 +33,11 @@ class AwardController extends Controller
          if($judge_datas['code'] == 1){
              return $judge_datas;
          }
-         if(!$request->hasFile('aw_file')){
+         if(!$request->hasFile('aw_pic')){
              $datas['aw_road'] = '';
              return AwardDatabase::addAwardDatas($datas);
          }
-         $award_image = $request->file('aw_file');
+         $award_image = $request->file('aw_pic');
          $judge_image = judgeFileImage($award_image);
          if($judge_image['code'] == 1){
              return $judge_image;
@@ -94,6 +93,7 @@ class AwardController extends Controller
              'aw_sch_rank'      => trim($request->aw_sch_rank),
              'aw_integral'      => trim($request->aw_integral)
          ];
+         dd($datas);
          $judge_datas = judgeAwardField($datas);
          if($judge_datas->code == 1){
              return $judge_datas;
