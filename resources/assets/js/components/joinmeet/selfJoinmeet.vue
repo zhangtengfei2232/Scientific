@@ -46,7 +46,7 @@
                     <el-upload
                         class="upload-demo"
                         drag
-                        ref="ho_file"
+                        ref="jo_file"
                         :before-upload="fileProfil"
                         action="#"
                         multiple>
@@ -58,7 +58,7 @@
                     <el-upload
                         class="upload-demo"
                         drag
-                        ref="ho_files"
+                        ref="jo_files"
                         :before-upload="fileProfils"
                         action="#"
                         multiple>
@@ -67,7 +67,7 @@
                     </el-upload>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="onSubmit">立即创建</el-button>
+                    <el-button type="primary" @click="onSubmit(form)">立即创建</el-button>
                     <el-button>取消</el-button>
                 </el-form-item>
             </el-form>
@@ -91,8 +91,10 @@ export default {
     data() {
         return {
             dataForm: new FormData(),
-            ho_file: '',
-            ho_files: '',
+            dataFile: new FormData(),
+            Bcode:false,
+            jo_file: '',
+            jo_files: '',
             JoinmeetSelfData: {},
             form: {
                  join_people: '',
@@ -112,8 +114,8 @@ export default {
     methods: {
         getJoinmeetSelfData() {
                 let self = this;
-                let art_id = self.$route.params.art_id;
-                axios.get("",art_id).then(function (response) {
+                let jo_id = self.$route.params.jo_id;
+                axios.get("selectjoinmeet?jo_id="+jo_id).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
                         self.JoinmeetSelfData = data.datas;
@@ -139,24 +141,34 @@ export default {
             let vue = this;
             if(form.join_people == '') {
                 this.$message.error('参加人员不能为空');
+                return
             }else if(form.jo_name == ''){
                 this.$message.error('会议名称不能为空');
+                return
             }else if(form.jo_hold_unit == '') {
                 this.$message.error('主办单位不能为空');
+                return
             }else if(form.jo_take_unit == '') {
                 this.$message.error('承办单位不能为空');
+                return
             }else if(form.jo_level == '') {
                 this.$message.error('会议等级不能为空');
+                return
             }else if(form.jo_time == '') {
                 this.$message.error('会议时间不能为空');
+                return
             }else if(form.jo_plac == '') {
                 this.$message.error('会议地点不能为空');
+                return
              }else if(form.jo_art_num == '') {
-                this.$message.error('论文提交数量不能为空');   
+                this.$message.error('论文提交数量不能为空');
+                return   
             }else if(form.jo_is_invit == '') {
                 this.$message.error('是否被邀请不能为空');
+                return
             }else if(form.jo_title == '') {
                 this.$message.error('会议题目不能为空');
+                return
             }
             this.$refs['form'].validate((valid) => {
                 var d = form.jo_time;     
@@ -168,6 +180,7 @@ export default {
                         vue.addJoinmeetData(vue.dataForm).then(res => {
                             var data = response.data;
                             if (data.code == 0) {
+                                this.Bcode = true;
                                 vue.$message({
                                     message: '添加成功',
                                     type: 'success'

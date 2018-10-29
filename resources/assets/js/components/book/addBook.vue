@@ -86,8 +86,8 @@
                         action="#"
                         ref="bo_file"
                         :limit=1
-                        :http-request="fileProfil"
-                        :auto-upload="false">
+                        :before-upload="fileProfil"
+                        :auto-upload="true">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
@@ -123,8 +123,6 @@
         margin: 35px 0 0 35px;
     }
 </style>
-
-
 <script>
   export default {
     data() {
@@ -154,10 +152,9 @@
     },
     methods: {
         fileProfil(file){
-            console.log(file);
-            if(Bcode == true){
-                this.dataFile.append('bo_files', file);
-                this.sendfile(files);
+            if(this.Bcode == true){
+                this.dataFile.append('bo_file', file);
+                this.sendfile(files,1);
                 this.$refs.bo_file.submit();
             }else{
                 this.$message.error('请先添加数据信息');
@@ -165,24 +162,23 @@
             }  
         },
         fileProfils(files){
-            console.log(file);
-            if(Bcode == true){
+            if(this.Bcode == true){
                 this.dataFile.append('bo_files', files);
-                this.sendfile(files);
+                this.sendfile(files,2);
                 this.$refs.bo_files.submit();
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
             }
         },
-        sendfile(file) {
-            this.addBookFile(vue.dataFile).then(res => {
+        sendfile(file,m) {
+            this.addBookFile(vue.dataFile,m).then(res => {
                 var data = res.data;
                 if (data.code == 0) {
                     vue.$message({
                         message: '添加成功',
                         type: 'success'
-                    });
+                    });A
                 } else {
                     vue.$notify({
                         type: 'error',
@@ -191,6 +187,15 @@
                     });
                 }
             })  
+        },
+        addBookFile(data,m){
+             return axios({
+                method: 'post',
+                url: 'addopusimage',
+                headers: {'Content-Type': 'multipart/form-data'},
+                timeout: 20000,
+                data: data
+            });
         },
         onSubmit(form) {
             if(form.op_first_author == '') {

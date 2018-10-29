@@ -62,7 +62,6 @@
                         width="200">
                         <template slot-scope="scope">
                             <el-button
-                            
                             type="text"
                             size="small">
                             <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentAwardSelfData(AwardDate[scope.$index].aw_id)"></el-button>
@@ -193,7 +192,7 @@
             },
             getAwardDate() {
                 let self = this;
-                axios.get("selectallaward").then(function (response) {
+                axios.get("selectaward").then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
                         self.AwardDate = data.datas;
@@ -219,7 +218,7 @@
                     type: 'warning'
                 }).then(() => {
                     let self = this;
-                    axios.get("deleteAllAward",{
+                    axios.get("deleteAward",{
                          params:{
                             aw_id_datas:self.id
                         }

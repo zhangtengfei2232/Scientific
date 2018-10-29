@@ -44,30 +44,32 @@
                 </el-form-item>
                 <el-form-item label="会议图注">
                     <el-upload
-                        class="upload-demo"
                         drag
-                        ref="ho_file"
-                        :before-upload="fileProfil"
                         action="#"
-                        multiple>
+                        ref="jo_file"
+                        :limit=1
+                        :before-upload="fileProfil"
+                        :auto-upload="true">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
                 </el-form-item>
                 <el-form-item label="餐会图注">
                     <el-upload
-                        class="upload-demo"
                         drag
-                        ref="ho_files"
-                        :before-upload="fileProfils"
                         action="#"
+                        ref="jo_files"
+                        :before-upload="fileProfils"
+                        :auto-upload="true"
                         multiple>
-                        <i class="el-icon-upload"></i>
-                        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                        <i class="el-icon-upload"
+                        multiple
+                        show-file-list='true'></i>
+                        <div class="el-upload__text"><em>若多选请一次性上传</em></div>
                     </el-upload>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="onSubmit">立即创建</el-button>
+                    <el-button type="primary" @click="onSubmit(form)">立即创建</el-button>
                     <el-button>取消</el-button>
                 </el-form-item>
             </el-form>
@@ -94,6 +96,9 @@
             dataForm: new FormData(),
             ho_file: '',
             ho_files: '',
+            dataFile: new FormData(),
+            Bcode:false,
+            multiple:true,
             form: {
                 join_people: '',
                 jo_name: '',
@@ -110,35 +115,77 @@
     },
     methods: {
         fileProfil(file){
-            this.dataForm.append('ho_file', file);
+            this.dataForm.append('jo_file', file);
             return false;
         },
-        fileProfils(file){
-            this.dataForm.append('ho_files', file);
-            return false;
+        fileProfils(files){
+            if(this.Bcode == true){
+                this.dataFile.append('jo_files', files);
+                this.sendfile(files,2);
+                this.$refs.jo_files.submit();
+            }else{
+                this.$message.error('请先添加数据信息');
+                return false
+            }
+        },
+        sendfile(file,m) {
+            this.addBookFile(vue.dataFile,m).then(res => {
+                var data = res.data;
+                if (data.code == 0) {
+                    vue.$message({
+                        message: '添加成功',
+                        type: 'success'
+                    });
+                } else {
+                    vue.$notify({
+                        type: 'error',
+                        message: '添加失败',
+                        duration: 2000,
+                    });
+                }
+            })  
+        },
+        addBookFile(data,m){
+             return axios({
+                method: 'post',
+                url: 'addjoinmeetimage',
+                headers: {'Content-Type': 'multipart/form-data'},
+                timeout: 20000,
+                data: data
+            });
         },
        onSubmit(form) {
             let vue = this;
             if(form.join_people == '') {
                 this.$message.error('参加人员不能为空');
+                return
             }else if(form.jo_name == ''){
                 this.$message.error('会议名称不能为空');
+                return
             }else if(form.jo_hold_unit == '') {
                 this.$message.error('主办单位不能为空');
+                return
             }else if(form.jo_take_unit == '') {
                 this.$message.error('承办单位不能为空');
+                return
             }else if(form.jo_level == '') {
                 this.$message.error('会议等级不能为空');
+                return
             }else if(form.jo_time == '') {
                 this.$message.error('会议时间不能为空');
+                return
             }else if(form.jo_plac == '') {
                 this.$message.error('会议地点不能为空');
+                return
              }else if(form.jo_art_num == '') {
-                this.$message.error('论文提交数量不能为空');   
+                this.$message.error('论文提交数量不能为空'); 
+                return  
             }else if(form.jo_is_invit == '') {
                 this.$message.error('是否被邀请不能为空');
+                return
             }else if(form.jo_title == '') {
                 this.$message.error('会议题目不能为空');
+                return
             }
             this.$refs['form'].validate((valid) => {
                 var d = form.jo_time;     
@@ -148,8 +195,9 @@
                             vue.dataForm.append(i,val);
                         });
                         vue.addJoinmeetData(vue.dataForm).then(res => {
-                            var data = response.data;
+                            var data = res.data;
                             if (data.code == 0) {
+                                this.Bcode = true;
                                 vue.$message({
                                     message: '添加成功',
                                     type: 'success'
@@ -162,7 +210,7 @@
                                 });
                             }
                         })
-                        vue.$refs.pat_pic.submit()
+                        vue.$refs.jo_file.submit()
                     } else {
                         console.log('error submit!!')
                         return false

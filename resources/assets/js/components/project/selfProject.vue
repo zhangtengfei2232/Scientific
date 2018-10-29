@@ -220,9 +220,10 @@
                             var data = res.data;
                             if (data.code == 0) {
                                 vue.$message({
-                                    message: '添加成功',
+                                    message: '修改成功',
                                     type: 'success'
                                 });
+                                
                             } else {
                                 vue.$notify({
                                     type: 'error',
@@ -241,7 +242,7 @@
         addProjectData(data) {
             return axios({
                 method: 'post',
-                url: 'addproject',
+                url: 'updateproject',
                 headers: {'Content-Type': 'multipart/form-data'},
                 timeout: 20000,
                 data: data

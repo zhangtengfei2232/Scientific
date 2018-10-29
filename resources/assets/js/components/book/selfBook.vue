@@ -82,26 +82,24 @@
                 </el-form-item>
                 <el-form-item label="著作封面">
                     <el-upload
-                        class="upload-demo"
                         drag
                         action="#"
                         ref="bo_file"
+                        :limit=1
                         :before-upload="fileProfil"
-                        :file-list="filelist"
-                        multiple>
+                        :auto-upload="true">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
                 </el-form-item>
                 <el-form-item label="版权页图片">
                     <el-upload
-                        class="upload-demo"
                         drag
                         action="#"
                         ref="bo_files"
-                        :before-upload="fileProfils"
-                        :file-list="filelists"
-                        multiple>
+                        :limit=1
+                        :before-upload="fileProfil"
+                        :auto-upload="false">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
@@ -136,6 +134,8 @@ export default {
             filelist: [{url:''}],
             filelists: [{url:''}],
             dataForm: new FormData(),
+            dataFile: new FormData(),
+            Bcode:false,
             form: {
                 op_first_author: '',
                 op_all_author: '',
@@ -154,7 +154,6 @@ export default {
             },
         }
     },
-
     methods: {
         getBookSelfData() {
                 let self = this;
@@ -176,20 +175,50 @@ export default {
                 });
         },
         fileProfil(file){
-            if(file == ''){
-                return
-            }else{       
-                this.dataForm.append('bo_file', file);
-                return false;
-            }
+            if(this.Bcode == true){
+                this.dataFile.append('bo_files', file);
+                this.sendfile(files,1);
+                this.$refs.bo_file.submit();
+            }else{
+                this.$message.error('请先添加数据信息');
+                return false
+            }  
         },
         fileProfils(files){
-            if(files == ''){
-                return
-            }else{       
-                this.dataForm.append('bo_files', files);
-                return false;
+            if(this.Bcode == true){
+                this.dataFile.append('bo_files', files);
+                this.sendfile(files,2);
+                this.$refs.bo_files.submit();
+            }else{
+                this.$message.error('请先添加数据信息');
+                return false
             }
+        },
+        sendfile(file,m) {
+            this.addBookFile(vue.dataFile,m).then(res => {
+                var data = res.data;
+                if (data.code == 0) {
+                    vue.$message({
+                        message: '添加成功',
+                        type: 'success'
+                    });A
+                } else {
+                    vue.$notify({
+                        type: 'error',
+                        message: '添加失败',
+                        duration: 2000,
+                    });
+                }
+            })  
+        },
+        addBookFile(data,m){
+             return axios({
+                method: 'post',
+                url: 'updateopusimage',
+                headers: {'Content-Type': 'multipart/form-data'},
+                timeout: 20000,
+                data: data
+            });
         },
         onSubmit(form) {
             if(form.op_first_author == '') {
@@ -246,6 +275,7 @@ export default {
                     vue.addBookData(vue.dataForm).then(res => {
                         var data = res.data;
                         if (data.code == 0) {
+                            this.Bcode=true;
                             vue.$message({
                                 message: '修改成功',
                                 type: 'success'
