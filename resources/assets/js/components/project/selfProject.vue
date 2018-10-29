@@ -79,7 +79,9 @@
                         class="upload-demo"
                         drag
                         action="#"
-                        :file-list="fileList"
+                        ref="pro_file"
+                        :before-upload="fileProfil"
+                        :file-list="filelist"
                         multiple>
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -116,6 +118,8 @@
       return {
             ProjectSelfData: {},
             filelist: [{url:''}],
+            pro_file:'',
+            dataForm: new FormData(),
             form: {
                 pro_host: '',
                 pro_all_author: '',
@@ -136,16 +140,20 @@
         }
     },
     methods: {
+        fileProfil(file){
+            this.dataForm.append('pro_file', file);
+            return false;
+        },
         getProjectSelfData() {
             let self = this;
             let pro_id = self.$route.params.pro_id;
-            console.log(pro_id);
             axios.get("selectproject?pro_id="+pro_id).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.ProjectSelfData = data.datas;
                     self.form = data.datas;
-                    self.filelist.url=data.datas.pro_road;
+                    self.filelist.url='../../storage/app/data/project/'+data.datas.pro_road
+                    console.log(self.filelist.url);
                 }else {
                     self.$notify({
                         type: 'error',
@@ -158,42 +166,58 @@
        onSubmit(form) {
           if(form.pro_host == '') {
                 this.$message.error('主持人不能为空');
+                return
             }else if(form.pro_all_author == ''){
                 this.$message.error('所有参加人不能为空');
-            }else if(form.title == '') {
+                return
+            }else if(form.entry_name == '') {
                 this.$message.error('项目名称不能为空');
-            }else if(form.publication_name == '') {
+                return
+            }else if(form.project_category == '') {
                 this.$message.error('项目类别不能为空');
-            }else if(form.publication_num == '') {
+                return
+            }else if(form.approval_unit == '') {
                 this.$message.error('批准单位不能为空');
-            }else if(year1 == '') {
+                return
+            }else if(form.approval_funds == '') {
                 this.$message.error('批准经费不能为空');
-            }else if(year2 == '') {
+                return
+            }else if(form.account_outlay == '') {
                 this.$message.error('当年到账经费不能为空');
-            }else if(year3 == '') {
+                return
+            }else if(form.pro_cate_research == '') {
                 this.$message.error('研究类别不能为空');
-            }else if(year4 == '') {
+                return
+            }else if(form.pro_sub_category == '') {
                 this.$message.error('学科门类不能为空');
-            }else if(year5 == '') {
+                return
+            }else if(form.form_cooperate == '') {
                 this.$message.error('合作形式不能为空');
-            }else if(form.num_words == '') {
+                return
+            }else if(form.social_eco_goal == '') {
                 this.$message.error('社会经济目标不能为空');
-            }else if(form.periodical_cate == '') {
+                return
+            }else if(form.na_eco_industry == '') {
                 this.$message.error('服务的国民经济行业不能为空');
-            }else if(form.belong_project == '') {
+                return
+            }else if(form.pro_integral == '') {
                 this.$message.error('积分不能为空');
-            }else if(form.art_cate_research == '') {
+                return
+            }else if(form.pro_remarks == '') {
                 this.$message.error('备注不能为空');
-            }else if(form.art_sub_category == '') {
+                return
+            }else if(form.project_year == '') {
                 this.$message.error('项目年份不能为空');
+                return
             }this.$refs['form'].validate((valid) => {
                     let vue = this;
                     if (valid) {
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);
                         });
+                        console.log(vue.dataForm);
                         vue.addProjectData(vue.dataForm).then(res => {
-                            var data = response.data;
+                            var data = res.data;
                             if (data.code == 0) {
                                 vue.$message({
                                     message: '添加成功',

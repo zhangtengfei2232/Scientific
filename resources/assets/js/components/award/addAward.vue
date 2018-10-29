@@ -76,7 +76,7 @@
                     </el-upload>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="onSubmit">立即创建</el-button>
+                    <el-button type="primary" @click="onSubmit(form)">立即创建</el-button>
                     <el-button><router-link to="/award">取消</router-link></el-button>
                 </el-form-item>
             </el-form>
@@ -123,48 +123,63 @@
             return false;
         },
         onSubmit(form) {
-            let vue = this;
             if(form.aw_first_author == '') {
                 this.$message.error('第一获奖人不能为空');
+                return
             }else if(form.aw_all_author == ''){
                 this.$message.error('全部获奖人不能为空');
+                return
             }else if(form.prize_win_name == '') {
                 this.$message.error('获奖成果名称不能为空');
+                return
             }else if(form.award_name == '') {
                 this.$message.error('奖励名称不能为空');
+                return
             }else if(form.form_achievement == '') {
                 this.$message.error('成果形式不能为空');
-            }else if(aw_grade == '') {
+                return
+            }else if(form.aw_grade == '') {
                 this.$message.error('等级不能为空');
-            }else if(aw_level == '') {
+                return
+            }else if(form.aw_level == '') {
                 this.$message.error('奖励级别不能为空');
-            }else if(aw_grant_unit == '') {
+                return
+            }else if(form.aw_grant_unit == '') {
                 this.$message.error('授奖单位不能为空');
-            }else if(aw_grant_time == '') {
+                return
+            }else if(form.aw_grant_time == '') {
                 this.$message.error('授奖时间不能为空');
-            }else if(aw_certi_number == '') {
+                return
+            }else if(form.aw_certi_number == '') {
                 this.$message.error('证书编号不能为空');
+                return
             }else if(form.aw_sch_rank == '') {
                 this.$message.error('我校名次不能为空');
+                return
             }else if(form.aw_integral == '') {
                 this.$message.error('积分不能为空');
+                return
             }
             this.$refs['form'].validate((valid) => {
+                    var d = form.aw_grant_time; 
+                    
+                    //form.aw_grant_time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                     if (valid) {
+                        let vue = this;
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);
                         });
                         vue.addAwardData(vue.dataForm).then(res => {
-                            var data = response.data;
+                            var data = res.data;
                             if (data.code == 0) {
                                 vue.$message({
                                     message: '添加成功',
                                     type: 'success'
                                 });
-                            } else {
+                            }else {
                                 vue.$notify({
                                     type: 'error',
-                                    message: data.msg,
+                                    message: '添加失败',
                                     duration: 2000,
                                 });
                             }

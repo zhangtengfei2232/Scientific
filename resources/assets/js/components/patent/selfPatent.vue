@@ -58,7 +58,7 @@
                     </el-upload>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="onSubmit">立即创建</el-button>
+                    <el-button type="primary" @click="onSubmit(form)">立即创建</el-button>
                     <el-button>取消</el-button>
                 </el-form-item>
             </el-form>
@@ -83,7 +83,8 @@ export default {
         return {
             pat_pic:'',
             PatetSelfData: {},
-            fileList:[{url}],
+            fileList:[{url:""}],
+            dataForm: new FormData(),
             form: {
                 teacher_id: '',
                 first_inventor: '',
@@ -127,24 +128,34 @@ export default {
             let vue = this;
             if(form.first_inventor == '') {
                 this.$message.error('第一发明人不能为空');
+                return
             }else if(form.pa_all_author == ''){
                 this.$message.error('全部发明人不能为空');
+                return
             }else if(form.pa_type == '') {
                 this.$message.error('专利类型不能为空');
+                return
             }else if(form.pa_name == '') {
                 this.$message.error('专利名称不能为空');
+                return
             }else if(form.pa_imple_situ == '') {
                 this.$message.error('实施情况不能为空');
+                return
             }else if(form.author_num == '') {
                 this.$message.error('授权编号或申请号不能为空');
+                return
             }else if(form.author_cert_num == '') {
                 this.$message.error('授权证书编号不能为空');
+                return
             }else if(form.author_notic_day == '') {
                 this.$message.error('授权公告日或受理日期不能为空');
+                return
             }else if(form.pa_integral == '') {
                 this.$message.error('积分不能为空');
+                return
             }else if(form.pa_remarks == '') {
                 this.$message.error('备注不能为空');
+                return
             }
             this.$refs['form'].validate((valid) => {
                     if (valid) {
@@ -152,16 +163,16 @@ export default {
                             vue.dataForm.append(i,val);
                         });
                         vue.addPatentData(vue.dataForm).then(res => {
-                            var data = response.data;
+                            var data = res.data;
                             if (data.code == 0) {
                                 vue.$message({
                                     message: '添加成功',
                                     type: 'success'
                                 });
-                            } else {
+                            }else {
                                 vue.$notify({
                                     type: 'error',
-                                    message: data.msg,
+                                    message: '修改失败',
                                     duration: 2000,
                                 });
                             }

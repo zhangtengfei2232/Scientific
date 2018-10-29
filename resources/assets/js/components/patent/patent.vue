@@ -159,8 +159,7 @@
             },
             BatchDelete(){
 		    	var self = this;
-                var pro_id_datas = [];//存放删除的数据
-                console.log(self.multipleSelection);
+                var pa_id_datas = [];//存放删除的数据
                 if(self.multipleSelection == undefined){
                     this.$message({
                         message: '警告哦，这是一条警告消息',
@@ -168,12 +167,12 @@
                     });
                 }else{
                     for (var i = 0; i < self.multipleSelection.length; i++) {
-                        pro_id_datas.push(self.multipleSelection[i].pro_id);
+                        pa_id_datas.push(self.multipleSelection[i].pa_id);
                     };
-                    this.deletePatentDatas(pro_id_datas);
+                    self.deletePatentDatas(pa_id_datas);
                 }
             },
-            deletePatentDatas(pro_id_datas) {
+            deletePatentDatas(pa_id_datas) {
                 this.$confirm('此操作批量删除文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -182,7 +181,7 @@
                     let self = this;
                     axios.get("deletepatent",{
                         params:{
-                            pro_id_datas:pro_id_datas
+                            pa_id_datas:pa_id_datas
                         }
                     }).then(function (response) {
                     var data = response.data;
@@ -191,10 +190,10 @@
                                 type: 'success',
                                 message: '删除成功!'
                             });
-                        } else {
+                        }else {
                             self.$notify({
                                 type: 'error',
-                                message: data.msg,
+                                message: '删除失败!',
                                 duration: 2000,
                             });
                         }
@@ -207,7 +206,8 @@
                 });
             },
             deletePatentData(pa_id) {
-                let id = pa_id;
+                this.id.push(pa_id);
+                console.log(this.id);
                 this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -216,7 +216,7 @@
                     let self = this;
                     axios.get("deletepatent",{
                         params:{
-                            pro_id_datas:id
+                            pa_id_datas:self.id
                         }
                     }).then(function (response) {
                     var data = response.data;
@@ -228,7 +228,7 @@
                         } else {
                             self.$notify({
                                 type: 'error',
-                                message: data.msg,
+                                message: '删除失败!',
                                 duration: 2000,
                             });
                         }
