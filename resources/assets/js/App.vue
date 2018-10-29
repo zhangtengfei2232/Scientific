@@ -79,8 +79,6 @@
         data() {
             return {
                 teacherDate:[] ,
-//
-
                 show: false,
                 navList:[
 //                    {icon:'el-icon-picture',name:'/',navItem:'ft'},
@@ -175,7 +173,7 @@
             font-size: 12px !important;
         }
         .el-submenu .el-menu-item{
-            min-width: 161px !important;
+            min-width: 160px !important;
         }
     }
         .navRight{
