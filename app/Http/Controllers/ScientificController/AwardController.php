@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\ScientificController;
 
-
 use App\Http\Controllers\Controller;
 use App\Model\ArticalDatabase;
 use Illuminate\Http\Request;
@@ -22,7 +21,6 @@ class AwardController extends Controller
              'prize_win_name'   => trim($request->prize_win_name),
              'award_name'       => trim($request->award_name),
              'form_achievement' => trim($request->form_achievement),
-             'aw_category'      => trim($request->aw_category),
              'aw_level'         => trim($request->aw_level),
              'aw_grade'         => trim($request->aw_grade),
              'aw_grant_unit'    => trim($request->aw_grant_unit),
@@ -35,16 +33,16 @@ class AwardController extends Controller
          if($judge_datas['code'] == 1){
              return $judge_datas;
          }
-         if(!$request->hasFile('aw_file')){
+         if(!$request->hasFile('aw_pic')){
              $datas['aw_road'] = '';
              return AwardDatabase::addAwardDatas($datas);
          }
-         $disk        = UploadSubjectionConfig::AWARD;
-         $award_image = $request->file('aw_file');
+         $award_image = $request->file('aw_pic');
          $judge_image = judgeFileImage($award_image);
          if($judge_image['code'] == 1){
              return $judge_image;
          }
+         $disk             = UploadSubjectionConfig::AWARD;
          $subjection_image = UploadSubjectionConfig::AWARD_IMG;
          $add_image_road   = uploadFiles($subjection_image,$award_image,$disk);
          $datas['aw_road'] = $add_image_road;
@@ -78,7 +76,7 @@ class AwardController extends Controller
          if(!$request->isMethod('POST')){
              return responseTojson(1,'你请求的方式不对');
          }
-         $aw_id[0]              = trim($request->aw_id);
+         $aw_id[0] = trim($request->aw_id);
          $datas = [
              'aw_id'            => $aw_id[0],
              'aw_first_author'  => trim($request->aw_first_author),
@@ -95,6 +93,7 @@ class AwardController extends Controller
              'aw_sch_rank'      => trim($request->aw_sch_rank),
              'aw_integral'      => trim($request->aw_integral)
          ];
+         dd($datas);
          $judge_datas = judgeAwardField($datas);
          if($judge_datas->code == 1){
              return $judge_datas;

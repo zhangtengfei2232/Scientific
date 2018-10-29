@@ -35,9 +35,7 @@ class AwardDatabase extends ModelDatabase
     }
     //删除多个获奖信息
     public static function deleteAwardDatas($aw_id_datas){
-        for($i = 0; $i < count($aw_id_datas); $i++){
-            DB::table('award')->where('award')->where('award',$aw_id_datas[$i])->delete();
-        }
+        DB::table('award')->whereIn('award',$aw_id_datas)->delete();
     }
     //查询获奖信息
     public static function selectAwardDatas($aw_id){
