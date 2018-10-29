@@ -27,13 +27,13 @@ class OpusController  extends Controller
             'op_cate_work'     => trim($request->op_cate_works),
             'op_integral'      => trim($request->op_integral),
             'op_cate_research' => trim($request->op_cate_research),
-            'op_sub_category'  => trim($request->op_sub_category),
-            'op_remarks'       => trim($request->op_remarks)
+            'op_sub_category'  => trim($request->op_sub_category)
         ];
         $judge_datas = judgeOpusField($datas);
         if($judge_datas['code'] == 1){
             return $judge_datas;
         }
+        $datas['op_remarks'] = trim($request->op_remarks);
         return OpusDatabase::addOpusDatas($datas);
     }
     //添加著作封面和版权图片
@@ -56,11 +56,6 @@ class OpusController  extends Controller
         if($judge_opu_iamge['code'] == 1){
             return $judge_opu_iamge;
         }
-        if($add_image_status == 1){
-            $subjection   = UploadSubjectionConfig::OPUS_COVER_IMG;
-        }elseif ($add_image_status == 2){
-            $subjection   = UploadSubjectionConfig::COPYRIGHT_IMG;
-        }
         $op_id       = $request->op_id;
         $disk        = UploadSubjectionConfig::OPUS;
         $new_image_road = uploadFiles($subjection,$opus_image,$disk);
@@ -71,19 +66,15 @@ class OpusController  extends Controller
         deletefiles($disk,$new_image_road);
         return responseTojson(1,'上传图片失败');
     }
-    //删除单个著作信息
+    //删除著作信息
     public function deleteOpus(Request $request)
     {
         $op_id_datas = $request->op_id_datas;
-        $old_images_road = OpusDatabase::selectOpusImageDatas($op_id_datas);
+        $old_images_road = OpusDatabase::selectOpusAllImageDatas($op_id_datas);
         $delete_opus     = OpusDatabase::deleteOpusDatas($op_id_datas);
         deleteAllFiles(UploadSubjectionConfig::OPUS,$old_images_road);
         return responseTojson(0,'删除成功');
     }
-//    //删除多个著作信息
-//    public function deleteAllOpus(){
-//
-//    }
     //查看著作信息
     public function selectOpus(Request $request)
     {
@@ -104,7 +95,7 @@ class OpusController  extends Controller
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
-        $op_id            = trim($request->op_id);
+        $op_id                 = trim($request->op_id);
         $datas = [
             'op_id'            => $op_id,
             'op_first_author'  => trim($request->op_first_author),
@@ -119,13 +110,13 @@ class OpusController  extends Controller
             'op_cate_work'     => trim($request->op_cate_works),
             'op_integral'      => trim($request->op_integral),
             'op_cate_research' => trim($request->op_cate_research),
-            'op_sub_category'  => trim($request->op_sub_category),
-            'op_remarks'       => trim($request->op_remarks)
+            'op_sub_category'  => trim($request->op_sub_category)
         ];
         $judge_datas = judgeOpusField($datas);
         if($judge_datas['code'] == 1){
             return $judge_datas;
         }
+        $datas['op_remarks'] = trim($request->op_remarks);
         return  OpusDatabase::updateOpusDatas($datas);
     }
     //修改著作图片信息

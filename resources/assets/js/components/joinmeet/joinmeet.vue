@@ -65,16 +65,17 @@
                             @click.native.prevent="deleteRow(scope.$index, JoinmeetDate)"
                             type="text"
                             size="small">
-                            <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentJoinmeetSelfData(jo_id)"></el-button>
-                            <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentJoinmeetSelfData(jo_id)"></el-button>
-                            <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteArticleData(jo_id)"></el-button>
+                            <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentJoinmeetSelfData(JoinmeetDate[scope.$index].jo_id)"></el-button>
+                            <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentJoinmeetSelfData(JoinmeetDate[scope.$index].jo_id)"></el-button>
+                            <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteJoinmeetData(JoinmeetDate[scope.$index].jo_id)"></el-button>
                             </el-button>
                         </template>
                     </el-table-column>
                 </el-table>
                 <div style="margin-top: 20px">
-                    <el-button @click="toggleSelection([JoinmeetDate[1], JoinmeetDate[2]])">切换第二、第三行的选中状态</el-button>
+                    <el-button @click="toggleSelection([JoinmeetDate[0],JoinmeetDate[1], JoinmeetDate[2]])">选中前三条</el-button>
                     <el-button @click="toggleSelection()">取消选择</el-button>
+                    <el-button @click="BatchDelete()">删除</el-button>
                 </div>
             </template>
         </div>
@@ -116,6 +117,7 @@
     export default {
         data() {
             return {
+                id:[],
                 JoinmeetDate: [],
                 checked: false,
                 form: {
@@ -155,14 +157,68 @@
                     }
                 });
             },
-            deleteArticleData(art_id) {
+            BatchDelete(){
+		    	var self = this;
+                var pro_id_datas = [];//存放删除的数据
+                console.log(self.multipleSelection);
+                if(self.multipleSelection == undefined){
+                    this.$message({
+                        message: '警告哦，这是一条警告消息',
+                        type: 'warning'
+                    });
+                }else{
+                    for (var i = 0; i < self.multipleSelection.length; i++) {
+                        pro_id_datas.push(self.multipleSelection[i].pro_id);
+                    };
+                    this.deleteJoinmeetDatas(pro_id_datas);
+                }
+		    },
+            deleteJoinmeetDatas(pro_id_datas) {
+                this.$confirm('此操作批量删除文件, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    let self = this;
+                    axios.get("deletejoinmeet",{
+                        params:{
+                            jo_id_datas:pro_id_datas
+                        }
+                    }).then(function (response) {
+                    var data = response.data;
+                        if (data.code == 0) {
+                             self.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                        } else {
+                            self.$notify({
+                                type: 'error',
+                                message: data.msg,
+                                duration: 2000,
+                            });
+                        }
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });          
+                });
+            },
+            deleteJoinmeetData(pro_id) {
+                let id = pro_id;
                 this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
                     let self = this;
-                    axios.get("deletejoinmeet",art_id).then(function (response) {
+                    axios.get("deletejoinmeet",{
+                        params:{
+                            jo_id_datas:id
+                        }
+                    }).then(function (response) {
                     var data = response.data;
                         if (data.code == 0) {
                              this.$message({
@@ -184,9 +240,9 @@
                     });          
                 });
             },
-            sentJoinmeetSelfData(art_id) {
+            sentJoinmeetSelfData(jo_id) {
                 this.$router.push({
-                path: `/selfInfor/${art_id}`,
+                path: `/selfJoinmeet/${jo_id}`,
                 })
             },
             byTimeSearch() {

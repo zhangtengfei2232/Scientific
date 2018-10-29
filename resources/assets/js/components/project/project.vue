@@ -72,7 +72,7 @@
                     </el-table-column>
                 </el-table>
                 <div style="margin-top: 20px">
-                    <el-button @click="toggleSelection([ProjectDate[1], ProjectDate[2],ProjectDate[3]])">选中前三条</el-button>
+                    <el-button @click="toggleSelection([ProjectDate[0], ProjectDate[1],ProjectDate[2]])">选中前三条</el-button>
                     <el-button @click="toggleSelection()">取消选择</el-button>
                     <el-button @click="BatchDelete()">删除</el-button>
                 </div>
@@ -154,8 +154,6 @@
                 }else{
                     for (var i = 0; i < self.multipleSelection.length; i++) {
                         pro_id_datas.push(self.multipleSelection[i].pro_id);
-                        //删除数组——删除选择的行
-                        //pro_id_datas.splice(0,self.multipleSelection.length);
                     };
                     this.deleteProjectDatas(pro_id_datas);
                 }
@@ -176,7 +174,6 @@
                 });
             },
             deleteProjectDatas(pro_id_datas) {
-                console.log(pro_id_datas);
                 this.$confirm('此操作批量删除文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -210,8 +207,7 @@
                 });
             },
             deleteProjectData(pro_id) {
-                let id = pro_id;
-                console.log(id);
+                this.id.push(pro_id);
                 this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -220,12 +216,12 @@
                     let self = this;
                     axios.get("deleteproject",{
                         params:{
-                            pro_id_datas:id
+                            pro_id_datas:this.id
                         }
                     }).then(function (response) {
                     var data = response.data;
                         if (data.code == 0) {
-                             this.$message({
+                             self.$message({
                                 type: 'success',
                                 message: '删除成功!'
                             });
@@ -260,7 +256,6 @@
                 });
             },
             sentProjectSelfData(pro_id) {
-                console.log(pro_id);
                 this.$router.push({
                     path: `/selfProject/${pro_id}`,
                 })

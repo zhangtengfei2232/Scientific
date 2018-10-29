@@ -80,7 +80,18 @@
                 <el-form-item label="备注">
                     <el-input type="textarea" v-model="form.op_remarks"></el-input>
                 </el-form-item>
-                <el-form-item label="著作封面及版权页图片">
+                <el-form-item label="著作封面">
+                    <el-upload
+                        class="upload-demo"
+                        action="#"
+                        :on-preview="handlePreview"
+                        :on-remove="handleRemove"
+                        list-type="picture">
+                    <el-button size="small" type="primary">点击上传</el-button>
+                    <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+                    </el-upload>
+                </el-form-item>
+                <!-- <el-form-item label="著作封面">
                     <el-upload
                         drag
                         action=""
@@ -92,8 +103,20 @@
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
                 </el-form-item>
+                <el-form-item label="版权页图片">
+                    <el-upload
+                        drag
+                        action=""
+                        multiple
+                        ref="bo_files"
+                        :before-upload="fileProfils"
+                        :auto-upload="false">
+                        <i class="el-icon-upload"></i>
+                        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                    </el-upload>
+                </el-form-item> -->
                 <el-form-item>
-                    <el-button type="primary" @click="onSubmit">立即创建</el-button>
+                    <el-button type="primary" @click="onSubmit(form)">立即创建</el-button>
                     <el-button>取消</el-button>
                 </el-form-item>
             </el-form>
@@ -118,6 +141,7 @@
     data() {
       return {
             bo_file: "", 
+            bo_files: "", 
             dataForm: new FormData(),
             form: {
                 op_first_author: '',
@@ -138,39 +162,74 @@
         }
     },
     methods: {
-        fileProfil(file){
-            this.dataForm.append('bo_file', file);
-            return false;
+        handleRemove(file, fileList) {
+            console.log(file, fileList);
+        },
+        handlePreview(file) {
+            console.log(file);
+        },
+        // fileProfil(file){
+        //     if(file !== ''){
+        //         this.dataForm.append('bo_file', file);
+        //         return false;
+        //     }else{
+        //         return
+        //     }   
+        // },
+        // fileProfils(files){
+        //     if(file !== ''){
+        //         this.dataForm.append('bo_files', files);
+        //         return false;
+        //     }else{
+        //         return
+        //     }
+        // },
+        sendfile() {
+
         },
         onSubmit(form) {
             if(form.op_first_author == '') {
                 this.$message.error('第一作者（或主编）不能为空');
+                return
             }else if(form.op_all_author == ''){
                 this.$message.error('全部作者不能为空');
+                return
             }else if(form.op_name == '') {
                 this.$message.error('著作名称不能为空');
+                return
             }else if(form.op_form_write == '') {
                 this.$message.error('编著形式不能为空');
+                return
             }else if(form.op_publish == '') {
                 this.$message.error('出版社不能为空');
+                return
             }else if(form.op_publish_time == '') {
                 this.$message.error('出版时间不能为空');
+                return
             }else if(form.op_number == '') {
                 this.$message.error('书号不能为空');
+                return
             }else if(form.op_total_words == '') {
                 this.$message.error('总字数（千字）不能为空');
+                return
             }else if(form.op_self_words == '') {
                 this.$message.error('本人字数（千字）不能为空');
+                return
             }else if(form.op_cate_work == '') {
                 this.$message.error('著作类别不能为空');
+                return
             }else if(form.op_integral == '') {
                 this.$message.error('积分不能为空');
+                return
             }else if(form.op_cate_research == '') {
                 this.$message.error('研究类别不能为空');
+                return
             }else if(form.op_sub_category == '') {
                 this.$message.error('学科门类不能为空');
+                return
             }else if(form.op_remarks == '') {
                 this.$message.error('备注不能为空');
+                return
             }
             this.$refs['form'].validate((valid) => {
                 let vue = this;
@@ -179,8 +238,9 @@
                         vue.dataForm.append(i,val);
                     });
                     vue.addBookData(vue.dataForm).then(res => {
-                        var data = response.data;
+                        var data = res.data;
                         if (data.code == 0) {
+                            vue.sendfile(); 
                             vue.$message({
                                 message: '添加成功',
                                 type: 'success'
@@ -188,12 +248,13 @@
                         } else {
                             vue.$notify({
                                 type: 'error',
-                                message: data.msg,
+                                message: '添加失败',
                                 duration: 2000,
                             });
                         }
                     })
-                    vue.$refs.pro_file.submit();
+                    // vue.$refs.bo_file.submit();
+                    // vue.$refs.bo_files.submit();
                 } else {
                     console.log('error submit!!')
                     return false

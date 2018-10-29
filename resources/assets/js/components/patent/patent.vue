@@ -65,9 +65,9 @@
                             @click.native.prevent="deleteRow(scope.$index, PatentDate)"
                             type="text"
                             size="small">
-                            <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentPatentSelfData(pa_id)"></el-button>
-                            <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentPatentSelfData(pa_id)"></el-button>
-                            <el-button type="danger" icon="el-icon-delete" size="mini" @click="deletePatentData(pa_id)"></el-button>
+                            <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentPatentSelfData(PatentDate[scope.$index].pa_id)"></el-button>
+                            <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentPatentSelfData(PatentDate[scope.$index].pa_id)"></el-button>
+                            <el-button type="danger" icon="el-icon-delete" size="mini" @click="deletePatentData(PatentDate[scope.$index].pa_id)"></el-button>
                             </el-button>
                         </template>
                     </el-table-column>
@@ -75,6 +75,7 @@
                 <div style="margin-top: 20px">
                     <el-button @click="toggleSelection([PatentDate[1], PatentDate[2]])">切换第二、第三行的选中状态</el-button>
                     <el-button @click="toggleSelection()">取消选择</el-button>
+                    <el-button @click="BatchDelete()">删除</el-button>
                 </div>
             </template>
         </div>
@@ -116,6 +117,7 @@
     export default {
         data() {
             return {
+                id:[],
                 PatentDate: [],
                 checked: false,
                 form: {
@@ -155,29 +157,43 @@
                     }
                 });
             },
-            sentPatentSelfData(pa_id) {
-                this.$router.push({
-                path: `/selfInfor/${art_id}`,
-                })
+            BatchDelete(){
+		    	var self = this;
+                var pa_id_datas = [];//存放删除的数据
+                if(self.multipleSelection == undefined){
+                    this.$message({
+                        message: '警告哦，这是一条警告消息',
+                        type: 'warning'
+                    });
+                }else{
+                    for (var i = 0; i < self.multipleSelection.length; i++) {
+                        pa_id_datas.push(self.multipleSelection[i].pa_id);
+                    };
+                    self.deletePatentDatas(pa_id_datas);
+                }
             },
-            deletePatentData(op_id) {
-                this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+            deletePatentDatas(pa_id_datas) {
+                this.$confirm('此操作批量删除文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
                     let self = this;
-                    axios.get("").then(function (response) {
+                    axios.get("deletepatent",{
+                        params:{
+                            pa_id_datas:pa_id_datas
+                        }
+                    }).then(function (response) {
                     var data = response.data;
                         if (data.code == 0) {
-                             this.$message({
+                             self.$message({
                                 type: 'success',
                                 message: '删除成功!'
                             });
-                        } else {
+                        }else {
                             self.$notify({
                                 type: 'error',
-                                message: data.msg,
+                                message: '删除失败!',
                                 duration: 2000,
                             });
                         }
@@ -188,6 +204,46 @@
                         message: '已取消删除'
                     });          
                 });
+            },
+            deletePatentData(pa_id) {
+                this.id.push(pa_id);
+                console.log(this.id);
+                this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    let self = this;
+                    axios.get("deletepatent",{
+                        params:{
+                            pa_id_datas:self.id
+                        }
+                    }).then(function (response) {
+                    var data = response.data;
+                        if (data.code == 0) {
+                             this.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                        } else {
+                            self.$notify({
+                                type: 'error',
+                                message: '删除失败!',
+                                duration: 2000,
+                            });
+                        }
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });          
+                });
+            },
+            sentPatentSelfData(pa_id) {
+                this.$router.push({
+                path: `/selfPatent/${pa_id}`,
+                })
             },
             byTimeSearch() {
                 axios.get("",form).then(function (response) {

@@ -80,18 +80,34 @@
                 <el-form-item label="备注">
                     <el-input type="textarea" v-model="form.op_remarks"></el-input>
                 </el-form-item>
-                <el-form-item label="著作封面及版权页图片">
+                <el-form-item label="著作封面">
                     <el-upload
                         class="upload-demo"
                         drag
                         action="#"
+                        ref="bo_file"
+                        :before-upload="fileProfil"
+                        :file-list="filelist"
+                        multiple>
+                        <i class="el-icon-upload"></i>
+                        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                    </el-upload>
+                </el-form-item>
+                <el-form-item label="版权页图片">
+                    <el-upload
+                        class="upload-demo"
+                        drag
+                        action="#"
+                        ref="bo_files"
+                        :before-upload="fileProfils"
+                        :file-list="filelists"
                         multiple>
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="onSubmit">立即创建</el-button>
+                    <el-button type="primary" @click="onSubmit(form)">立即创建</el-button>
                     <el-button>取消</el-button>
                 </el-form-item>
             </el-form>
@@ -115,6 +131,11 @@ export default {
     data() {
         return {
             BookSelfData: {},
+            bo_files: '',
+            bo_file: '',
+            filelist: [{url:''}],
+            filelists: [{url:''}],
+            dataForm: new FormData(),
             form: {
                 op_first_author: '',
                 op_all_author: '',
@@ -137,12 +158,14 @@ export default {
     methods: {
         getBookSelfData() {
                 let self = this;
-                let art_id = self.$route.params.art_id;
-                axios.get("",art_id).then(function (response) {
+                let op_id = self.$route.params.op_id;
+                axios.get("selectopus?op_id="+op_id).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
                         self.BookSelfData = data.datas;
-                        console.log(data.datas);
+                        self.form = data.datas;
+                        self.filelist.url=data.datas.op_cover_road;
+                        self.filelist.url=data.datas.op_coright_road;
                     } else {
                         self.$notify({
                             type: 'error',
@@ -152,8 +175,107 @@ export default {
                     }
                 });
         },
-        onSubmit() {
-            console.log('submit!');
+        fileProfil(file){
+            if(file == ''){
+                return
+            }else{       
+                this.dataForm.append('bo_file', file);
+                return false;
+            }
+        },
+        fileProfils(files){
+            if(files == ''){
+                return
+            }else{       
+                this.dataForm.append('bo_files', files);
+                return false;
+            }
+        },
+        onSubmit(form) {
+            if(form.op_first_author == '') {
+                this.$message.error('第一作者（或主编）不能为空');
+                return
+            }else if(form.op_all_author == ''){
+                this.$message.error('全部作者不能为空');
+                return
+            }else if(form.op_name == '') {
+                this.$message.error('著作名称不能为空');
+                return
+            }else if(form.op_form_write == '') {
+                this.$message.error('编著形式不能为空');
+                return
+            }else if(form.op_publish == '') {
+                this.$message.error('出版社不能为空');
+                return
+            }else if(form.op_publish_time == '') {
+                this.$message.error('出版时间不能为空');
+                return
+            }else if(form.op_number == '') {
+                this.$message.error('书号不能为空');
+                return
+            }else if(form.op_total_words == '') {
+                this.$message.error('总字数（千字）不能为空');
+                return
+            }else if(form.op_self_words == '') {
+                this.$message.error('本人字数（千字）不能为空');
+                return
+            }else if(form.op_cate_work == '') {
+                this.$message.error('著作类别不能为空');
+                return
+            }else if(form.op_integral == '') {
+                this.$message.error('积分不能为空');
+                return
+            }else if(form.op_cate_research == '') {
+                this.$message.error('研究类别不能为空');
+                return
+            }else if(form.op_sub_category == '') {
+                this.$message.error('学科门类不能为空');
+                return
+            }else if(form.op_remarks == '') {
+                this.$message.error('备注不能为空');
+                return
+            }
+            this.$refs['form'].validate((valid) => {
+                let vue = this;
+                if (valid) {
+                    jQuery.each(vue.form,function(i,val){
+                        vue.dataForm.append(i,val);
+                    });
+                    vue.addBookData(vue.dataForm).then(res => {
+                        var data = res.data;
+                        if (data.code == 0) {
+                            vue.$message({
+                                message: '修改成功',
+                                type: 'success'
+                            });
+                        } else {
+                            vue.$notify({
+                                type: 'error',
+                                message: '修改失败',
+                                duration: 2000,
+                            });
+                        }
+                    })
+                    if(vue.$refs.pro_file !== ''){
+                        vue.$refs.pro_file.submit();
+                    }
+                    if(vue.$refs.pro_files !== ''){
+                       vue.$refs.pro_files.submit();
+                    }
+                } else {
+                    console.log('error submit!!')
+                    return false
+                }
+            })
+        },
+        addBookData(data) {
+            return axios({
+                method: 'post',
+                url: 'updatepatent',
+                headers: {'Content-Type': 'multipart/form-data'},
+                timeout: 20000,
+                data: data
+            });
         },
     },
     mounted() {

@@ -46,6 +46,8 @@
                     <el-upload
                         class="upload-demo"
                         drag
+                        ref="ho_file"
+                        :before-upload="fileProfil"
                         action="#"
                         multiple>
                         <i class="el-icon-upload"></i>
@@ -56,6 +58,8 @@
                     <el-upload
                         class="upload-demo"
                         drag
+                        ref="ho_files"
+                        :before-upload="fileProfils"
                         action="#"
                         multiple>
                         <i class="el-icon-upload"></i>
@@ -87,6 +91,9 @@
   export default {
     data() {
       return {
+            dataForm: new FormData(),
+            ho_file: '',
+            ho_files: '',
             form: {
                 join_people: '',
                 jo_name: '',
@@ -102,6 +109,14 @@
         }
     },
     methods: {
+        fileProfil(file){
+            this.dataForm.append('ho_file', file);
+            return false;
+        },
+        fileProfils(file){
+            this.dataForm.append('ho_files', file);
+            return false;
+        },
        onSubmit(form) {
             let vue = this;
             if(form.join_people == '') {
@@ -130,7 +145,7 @@
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);
                         });
-                        vue.addPatentData(vue.dataForm).then(res => {
+                        vue.addJoinmeetData(vue.dataForm).then(res => {
                             var data = response.data;
                             if (data.code == 0) {
                                 vue.$message({
@@ -151,6 +166,15 @@
                         return false
                     }
                 })
+        },
+        addJoinmeetData(data) {
+            return axios({
+                method: 'post',
+                url: 'addjoinmeet',
+                headers: {'Content-Type': 'multipart/form-data'},
+                timeout: 20000,
+                data: data
+            });
         },
     }
   }
