@@ -78,8 +78,9 @@ class AwardController extends Controller
          if(!$request->isMethod('POST')){
              return responseTojson(1,'你请求的方式不对');
          }
+         $aw_id[0]              = trim($request->aw_id);
          $datas = [
-             'aw_id'            => trim($request->aw_id),
+             'aw_id'            => $aw_id[0],
              'aw_first_author'  => trim($request->aw_first_author),
              'aw_all_author'    => trim($request->aw_all_author),
              'prize_win_name'   => trim($request->prize_win_name),
@@ -106,7 +107,6 @@ class AwardController extends Controller
          if($judge_image['code'] == 1){
              return $judge_image;
          }
-         $aw_id[0]              = trim($request->aw_id);
          $disk = UploadSubjectionConfig::AWARD;
          $subjection_award = UploadSubjectionConfig::AWARD_IMG;
          AwardDatabase::beginTraction();

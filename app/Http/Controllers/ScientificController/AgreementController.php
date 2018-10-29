@@ -45,7 +45,7 @@ class AgreementController extends Controller
         $agreement_id_datas   = $request->agreement_id_datas;
         $agreement_raod_datas = AgreementDatabase::selectAllAgreementRoad($agreement_id_datas);
         $delete_agreement     = AgreementDatabase::deleteAllAgreementDatas($agreement_id_datas);
-        if($delete_agreement->code == 1){
+        if($delete_agreement['code']== 1){
             $validate = false;
             //有些教学科研合作协议删除失败，去查文件的原来名称
             $agreement_name = AgreementDatabase::selectAgreementName($delete_agreement);
@@ -61,28 +61,6 @@ class AgreementController extends Controller
         }
         return responseTojson(1,$delete_agreement->message,$agreement_name);
     }
-//    //删除多个教学科研合作协议信息
-//    public function deleteAllAgreement(Request $request){
-//        $validate = true;
-//        $agreement_id_datas   = $request->agreement_id_datas;
-//        $agreement_raod_datas = AgreementDatabase::selectAllAgreementRoad($agreement_id_datas);
-//        $delete_agreement     = AgreementDatabase::deleteAllAgreementDatas($agreement_id_datas);
-//        if($delete_agreement->code == 1){
-//            $validate = false;
-//            //有些教学科研合作协议删除失败，去查文件的原来名称
-//            $agreement_name = AgreementDatabase::selectAgreementName($delete_agreement);
-//            //根据文件'ID'键，去除掉删除失败的教学科研合作协议路径
-//            for($i = 0; $i < count($delete_agreement); $i++){
-//                array_slice($agreement_raod_datas,$delete_agreement[$i],1);
-//            }
-//            $response['fail_agreement'] = $agreement_name;
-//        }
-//        deleteAllFiles(uploadSubjectionConfig::AGREEMENT,$agreement_raod_datas);
-//        if($validate){
-//            return $delete_agreement;
-//        }
-//        return responseTojson(1,$delete_agreement->message,$agreement_name);
-//    }
     //修改教学科研合作协议信息
     public function updateAgreement(Request $request){
         if(!$request->isMethod('POST')){
@@ -96,12 +74,12 @@ class AgreementController extends Controller
             'agree_time'           => strtotime(trim($request->agree_time))
         ];
         $judge_datas = judgeAgreementField($datas);
-        if($judge_datas->code == 1){
+        if($judge_datas['code'] == 1){
             return $judge_datas;
         }
         $agreement_pdf       = $request->file('agreement_pdf');
         $judge_agreement_pdf = judgeReceiveFiles($agreement_pdf);
-        if($judge_agreement_pdf->code == 1){
+        if($judge_agreement_pdf['code'] == 1){
             return $judge_agreement_pdf;
         }
         $old_agreement_road  = AgreementDatabase::selectAgreementRoad($agree_id);

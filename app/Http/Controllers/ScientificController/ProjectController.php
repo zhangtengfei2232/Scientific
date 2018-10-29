@@ -81,8 +81,9 @@ class ProjectController extends Controller
             return responseTojson(1,'你请求的方式不对');
         }
         dd($request);
+        $project_id[0] = trim($request->project_id);
         $datas = [
-            'pro_id'            => trim($request->project_id),
+            'pro_id'            => $project_id[0],
             'pro_host'          => trim($request->pro_host),
             'pro_all_author'    => trim($request->pro_all_author),
             'entry_name'        => trim($request->entry_name),
@@ -111,7 +112,6 @@ class ProjectController extends Controller
         if($judge_project_img['code'] == 1){
             return $judge_project_img;
         }
-        $project_id[0]      = trim($request->project_id);
         $disk               = UploadSubjectionConfig::PROJECT;
         $subjection_project = UploadSubjectionConfig::PROJECT_IMG;
         $old_image_road     = ProjectDatabase::selectImagesRoadDatas($project_id);

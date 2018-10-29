@@ -40,7 +40,7 @@ class SchoolfileDatabase extends ModelDatabase
     }
     //修改校发文件信息
     public static function updateSchoolfileDatas($datas){
-        $response = DB::table('schoolfile')->where('schfile_id',$datas->schfile_id)
+        $response = DB::table('schoolfile')->where('schfile_id',$datas['schfile_id'])
                     ->update([
                         'shcfile_name'      => $datas['shcfile_name'],
                         'schfile_num'       => $datas['schfile_num'],

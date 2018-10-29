@@ -45,7 +45,7 @@ class JoinmeetController  extends Controller
         $new_inject_road     = uploadFiles($subjection_joinmeet,$judge_inject,$disk);
         $datas['joinmeet_inject'] = $new_inject_road;
         $add_joinmeet = JoinmeetDatas::addJoinmeetDatas($datas);
-        if($add_joinmeet['code'] == 0){
+        if($add_joinmeet){
             return responseTojson(0,'添加参加会议成功','',$add_joinmeet['datas']);
         }
         deletefiles($disk,$new_inject_road);
@@ -53,15 +53,23 @@ class JoinmeetController  extends Controller
     }
     //删除参加会议信息
     public function deleteJoinmeet(Request $request){
-
+        $jo_id_datas     = $request->jo_id_datas;
+        $old_inject_road = JoinmeetDatas::selectJoinmeetInjectRoad($jo_id_datas);
+        $status          = UploadSubjectionConfig::JOIN_IMG_STATUS;
+        $old_image_road  = ImageDatas::selectAllOwnerImage($jo_id_datas,$status);
+        $delete_joinmeet = JoinmeetDatas::deleteJoinmeetDatas($jo_id_datas);
+        $image_road      = array_merge($old_inject_road,$old_image_road);//参加会议图片和图注合并
+        deleteAllFiles(UploadSubjectionConfig::JOIN_MEET,$image_road);
+        responseTojson(0,'参加会议删除成功');
     }
     //修改参加会议信息
     public function updateJoinmeet(Request $request){
         if(!$request->isMethod('POST')){
             return responseTojson(1,'请求的方式不对');
         }
+        $jo_id[0]          = trim($request->jo_id);
         $datas = [
-            'jo_id'        => trim($request->jo_id),
+            'jo_id'        => $jo_id[0],
             'join_people'  => trim($request->join_people),
             'jo_name'      => trim($request->join_name),
             'jo_hold_unit' => trim($request->jo_hold_unit),
@@ -85,7 +93,6 @@ class JoinmeetController  extends Controller
         if($judge_inject['code'] == 1){
             return $judge_inject;
         }
-        $jo_id[0]            = $request->jo_id;
         $disk                = UploadSubjectionConfig::JOIN_MEET;
         $subjection_joinmeet = UploadSubjectionConfig::JOIN_INJECTION;
         $old_inject_road     = JoinmeetDatas::selectJoinmeetInjectRoad($jo_id);
@@ -93,7 +100,7 @@ class JoinmeetController  extends Controller
         $datas['jo_graph_inject'] = $new_inject_road;
         $reset_joinmeet =  JoinmeetDatas::updateJoinmeetDatas($datas);
         if($reset_joinmeet){
-            deletefiles($disk,$old_inject_road);
+            deletefiles($disk,$old_inject_road[0]);
             return responseTojson(0,'修改参加会议信息成功');
         }
         deletefiles($disk,$new_inject_road);
@@ -101,8 +108,13 @@ class JoinmeetController  extends Controller
     }
     //查看单个参加会议信息
     public function selectJoinmeet(Request $request){
-        $result = JoinmeetDatas::selectJoinmeetDatas($request->jo_id);
-        return responseTojson(0,'查询成功','',$result);
+        $jo_id[0]       = $request->jo_id;
+        $information    = JoinmeetDatas::selectJoinmeetDatas($jo_id[0]);
+        $owner_status   = UploadSubjectionConfig::JOIN_IMG_STATUS;
+        $joinmeet_image = ImageDatas::selectAllOwnerImage($jo_id,$owner_status);
+        $datas['information'] = $information;
+        $datas['image'] = $joinmeet_image;
+        return responseTojson(0,'查询成功','',$datas);
     }
     //查看所有参加会议信息
     public function selectAllJoinmeet(){
@@ -144,7 +156,7 @@ class JoinmeetController  extends Controller
                 //取出添加数据库失败的图片路径
                 $delete_fail_images[$i] = $all_image_road[$index];//添加失败的图片路径数组
             }
-            deleteAllImgs($disk,$delete_fail_images);
+            deleteAllFiles($disk,$delete_fail_images);
             $response['fail_images'] = $fail_images;
         }
         if(!$validate){

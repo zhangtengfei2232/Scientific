@@ -25,8 +25,7 @@ class HoldmeetDatas extends ModelDatabase
              return ($response) ? responseTojson(0,'添加会议信息成功',$response)
                   : responseTojson(1,'添加信息失败');
          }
-         return ($response) ? responseTojson(0,'',1,$response)
-               : responseTojson(1,'',1);
+         return $response;
     }
     //删除会议信息
     public static function deleteHoldmeetDatas($ho_id_datas){

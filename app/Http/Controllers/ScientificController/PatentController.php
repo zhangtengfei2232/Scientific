@@ -73,8 +73,9 @@ class PatentController extends Controller
          if(!$request->isMethod('POST')){
              return responseTojson(1,'你请求的方式不对');
          }
+         $pa_id[0] = trim($request->pa_id);
          $datas  = [
-            'pa_id'            => trim($request->pa_id),
+            'pa_id'            => $pa_id[0],
             'first_inventor'   => trim($request->first_inventor),
             'pa_all_author'    => trim($request->pa_all_author),
             'pa_type'          => trim($request->pa_type),
@@ -99,7 +100,6 @@ class PatentController extends Controller
          if($judge_iamge['code'] ==1){
              return $judge_iamge;
          }
-         $pa_id[0]          = $request->pa_id;
          $disk              = UploadSubjectionConfig::PATENT;
          $subjection_patent = UploadSubjectionConfig::PATENT_IMG;
          $old_image_road    = PatentDatabase::selectImageRoadDatas($pa_id);
