@@ -133,13 +133,13 @@
                 return
             }
             this.$refs['form'].validate((valid) => {
-                console.log(form);
+                var d = form.author_notic_day;     
+                form.author_notic_day = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                 let vue = this;
                     if (valid) {
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);
                         });
-                        console.log(vue.dataForm);
                         vue.addPatentData(vue.dataForm).then(res => {
                             var data = res.data;
                             if (data.code == 0) {
