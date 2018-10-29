@@ -7,21 +7,28 @@ class JoinmeetDatas extends ModelDatabase
 {
     //添加参加会议信息
     public static function addJoinmeetDatas($datas){
+        $jo_graph_inject = $datas['jo_graph_inject'];
         $response = DB::tabel('joinmeet')
                     ->insert([
-                        'teacher_id'   => $datas['teacher_id'],
-                        'join_people'  => $datas['join_people'],
-                        'jo_name'      => $datas['jo_name'],
-                        'jo_hold_unit' => $datas['jo_hold_unit'],
-                        'jo_take_unit' => $datas['jo_take_unit'],
-                        'jo_level'     => $datas['jo_level'],
-                        'jo_time'      => $datas['jo_time'],
-                        'jo_place'     => $datas['jo_place'],
-                        'jo_art_num'   => $datas['jo_art_num'],
-                        'jo_is_invite' => $datas['jo_is_invite'],
-                        'jo_title'     => $datas['jo_title']
+                        'teacher_id'      => $datas['teacher_id'],
+                        'join_people'     => $datas['join_people'],
+                        'jo_name'         => $datas['jo_name'],
+                        'jo_hold_unit'    => $datas['jo_hold_unit'],
+                        'jo_take_unit'    => $datas['jo_take_unit'],
+                        'jo_level'        => $datas['jo_level'],
+                        'jo_time'         => $datas['jo_time'],
+                        'jo_place'        => $datas['jo_place'],
+                        'jo_art_num'      => $datas['jo_art_num'],
+                        'jo_is_invite'    => $datas['jo_is_invite'],
+                        'jo_title'        => $datas['jo_title'],
+                        'jo_graph_inject' => $jo_graph_inject
                     ]);
-        return ($response) ? showMsg(0,'添加参加会议信息成功') : showMsg(1,'添加参加会议失败');
+        if(empty($jo_graph_inject)){
+            return ($response) ? responseTojson(0,'添加参加会议信息成功')
+                   : responseTojson(1,'添加参加会议信息失败');
+        }
+        return ($response) ? responseTojson(0,'',1,$response)
+               : responseTojson(1,'',1);
     }
     //删除参加会议信息
     public static function deleteJoinmeetDatas(){

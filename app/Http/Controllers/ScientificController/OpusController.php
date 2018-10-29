@@ -95,7 +95,7 @@ class OpusController  extends Controller
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
-        $op_id            = trim($request->op_id);
+        $op_id                 = trim($request->op_id);
         $datas = [
             'op_id'            => $op_id,
             'op_first_author'  => trim($request->op_first_author),

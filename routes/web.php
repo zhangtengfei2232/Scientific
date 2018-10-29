@@ -58,18 +58,18 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     //老师对举行会议的操作
     Route::post('addholdmeet', 'HoldmeetController@addHoldmeet');                  //添加举行会议信息
     Route::post('addholdmeetimages', 'HoldmeetController@addHoldmeetImages');      //添加举行会议图片
-    Route::post('addholdmeetinjection', 'HoldmeetController@addHoldmeetInjection');//举行会议图注
+//    Route::post('addholdmeetinjection', 'HoldmeetController@addHoldmeetInjection');//举行会议图注
     Route::get('deleteholdmeet', 'HoldmeetController@deleteHoldmeet');             //删除举行会议会议
     Route::get('deleteholdimages', 'HoldmeetController@deleteHoldImages');         //删除举行会议图片
 //    Route::get('deleteallholdmeet', 'HoldmeetController@deleteAllHoldmeet');       //删除举行会议会议
     Route::get('selectholdmeet', 'HoldmeetController@selectHoldmeet');             //查询单个举行会议信息
     Route::get('selectallholdmeet', 'HoldmeetController@selectAllHoldmeet');       //查询全部举行会议信息
     Route::post('updateholdmeet', 'HoldmeetController@updateHoldmeet');            //修改举行会议信息
-    Route::post('updateholdmeetinject', 'HoldmeetController@updateHoldmeetInject');//修改举行会议信息图注
+//    Route::post('updateholdmeetinject', 'HoldmeetController@updateHoldmeetInject');//修改举行会议信息图注
 
     //老师对参加会议的操作
     Route::post('addjoinmeet', 'JoinmeetController@addJoinmeet');                  //添加参加会议
-    Route::get('addjoinmeetinject', 'JoinmeetController@addJoinmeetInject');       //添加参加会议图注
+//    Route::get('addjoinmeetinject', 'JoinmeetController@addJoinmeetInject');       //添加参加会议图注
     Route::get('addjoinmeetimage', 'JoinmeetController@addJoinmeetImage');         //添加参加会议图片
     Route::get('deletejoinmeet', 'JoinmeetController@addJoinmeetImage');           //删除参加会议信息
     Route::get('deletejoinmeetimage', 'JoinmeetController@deleteJoinmeetImage');   //删除参加会议图片
@@ -77,11 +77,11 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     Route::get('selectjoinmeet', 'JoinmeetController@selectJoinmeet');             //查询单个参加会议信息
     Route::get('selectalljoinmeet', 'JoinmeetController@selectAllJoinmeet');       //查询全部参加会议信息
     Route::post('updatejoinmeet', 'JoinmeetController@updateJoinmeet');            //修改参加会议信息
-    Route::post('updatejoinmeetinject', 'JoinmeetController@updateJoinmeetInject');//修改参加会议图注
+//    Route::post('updatejoinmeetinject', 'JoinmeetController@updateJoinmeetInject');//修改参加会议图注
 
     //老师对专家讲学的操作
     Route::post('addLecture', 'LectureController@addLecture');                     //添加专家讲学信息
-    Route::post('addlectureinject', 'LectureController@addLectureInject');         //添加专家讲学图注
+//    Route::post('addlectureinject', 'LectureController@addLectureInject');         //添加专家讲学图注
     Route::post('addLectureImages', 'LectureController@addLectureImages');         //添加专家讲学图片
     Route::get('deletelecture', 'LectureController@deleteLecture');                //删除专家讲学信息
 //    Route::get('deletealllecture', 'LectureController@deleteAllLecture');          //删除多个专家讲学信息
@@ -89,7 +89,7 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     Route::get('selectlecture', 'LectureController@selectLecture');                //查询单个专家讲学信息
     Route::get('selectalllecture', 'LectureController@selectAllLecture');          //查询多个专家讲学信息
     Route::post('updatelecture', 'LectureController@updateLecture');               //修改专家讲学信息
-    Route::post('updatelectureinject', 'LectureController@updateLectureInject');   //修改专家讲学图注
+//    Route::post('updatelectureinject', 'LectureController@updateLectureInject');   //修改专家讲学图注
 
     //老师对著作的操作
     Route::post('addopus', 'OpusController@addOpus');                              //添加著作

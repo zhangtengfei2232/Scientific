@@ -28,7 +28,7 @@ class AppraisalController extends Controller
          ];
          $judge_datas = judgeAppraisalField($datas);
          if($judge_datas['code'] == 1){
-             return responseTojson(1,$judge_datas['message']);
+             return $judge_datas;
          }
          return  AppraisalDatabase::addAppraisalDatas($datas);
     }
@@ -95,13 +95,13 @@ class AppraisalController extends Controller
              'ap_conclusion'   => trim($request->ap_conclusion),
              'ap_time'         => strtotime(trim($request->ap_time)),
              'ap_level'        => trim($request->ap_level),
-             'ap_integral'     => trim($request->ap_integral),
-             'ap_remarks'      => trim($request->ap_remarks)
+             'ap_integral'     => trim($request->ap_integral)
          ];
         $judge_datas = judgeAppraisalField($datas);
         if($judge_datas['code'] == 1){
             return $judge_datas;
         }
+        $datas['ap_remarks'] = trim($request->ap_remarks);
         return  AppraisalDatabase::updateAppraisalDatas($datas);
     }
     //修改成果鉴定证书和封面图片

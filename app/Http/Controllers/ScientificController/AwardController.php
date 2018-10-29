@@ -78,9 +78,8 @@ class AwardController extends Controller
          if(!$request->isMethod('POST')){
              return responseTojson(1,'你请求的方式不对');
          }
-         $aw_id[0]              = trim($request->aw_id);
          $datas = [
-             'aw_id'            => $aw_id,
+             'aw_id'            => trim($request->aw_id),
              'aw_first_author'  => trim($request->aw_first_author),
              'aw_all_author'    => trim($request->aw_all_author),
              'prize_win_name'   => trim($request->prize_win_name),
@@ -107,6 +106,7 @@ class AwardController extends Controller
          if($judge_image['code'] == 1){
              return $judge_image;
          }
+         $aw_id[0]              = trim($request->aw_id);
          $disk = UploadSubjectionConfig::AWARD;
          $subjection_award = UploadSubjectionConfig::AWARD_IMG;
          AwardDatabase::beginTraction();
@@ -114,13 +114,13 @@ class AwardController extends Controller
          $new_image_road   = uploadFiles($subjection_award,$award_image,$disk);
          $datas['aw_road'] = $new_image_road;
          $reset_award      = AwardDatabase::updateAwardDatas($datas);
-         if(!$reset_award){
-             ArticalDatabase::rollback();
-             deletefiles($disk,$new_image_road);
-             return responseTojson(1,'修改获奖信息失败');
+         if($reset_award){
+             ArticalDatabase::commit();
+             deleteAllFiles($disk,$old_image_road[0]);
+             return responseTojson(0,'修改获奖信息成功');
          }
-         ArticalDatabase::commit();
-         deleteAllFiles($disk,$old_image_road);
-         return responseTojson(0,'修改获奖信息成功');
+         ArticalDatabase::rollback();
+         deletefiles($disk,$new_image_road);
+         return responseTojson(1,'修改获奖信息失败');
      }
 }

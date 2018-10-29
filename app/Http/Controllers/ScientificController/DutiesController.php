@@ -72,9 +72,8 @@ class DutiesController extends Controller
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
-        $du_id[0]          = $request->du_id;
         $datas = [
-            'du_id'        => $du_id,
+            'du_id'        => trim($request->du_id),
             'teacher_name' => trim($request->teacher_name),
             'du_academic'  => trim($request->du_academic),
             'du_education' => trim($request->du_education),
@@ -97,6 +96,7 @@ class DutiesController extends Controller
         if($judge_image['code'] == 1){
             return $judge_image;
         }
+        $du_id[0]          = $request->du_id;
         $disk = UploadSubjectionConfig::DUTIES;
         $subjection_duties = UploadSubjectionConfig::DUTIES_IMG;
         DutiesDatabase::beginTraction();

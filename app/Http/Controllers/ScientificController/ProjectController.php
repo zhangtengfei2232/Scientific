@@ -50,11 +50,11 @@ class ProjectController extends Controller
         $project_iamge_road = uploadFiles($subjection_project,$project_image,$disk);//上传图片
         $datas['pro_road']  = $project_iamge_road;
         $add_project = ProjectDatabase::addProjectDatas($datas);
-        if(!$add_project){
-            deletefiles($disk,$project_iamge_road);
-            return responseTojson(1,'添加项目失败');
+        if($add_project){
+            return responseTojson(0,'添加项目成功');
         }
-        return responseTojson(0,'添加项目成功');
+        deletefiles($disk,$project_iamge_road);
+        return responseTojson(1,'添加项目失败');
     }
     //删除项目信息
     public function deleteProject(Request $request){
@@ -81,9 +81,8 @@ class ProjectController extends Controller
             return responseTojson(1,'你请求的方式不对');
         }
         dd($request);
-        $project_id[0]          = trim($request->project_id);
         $datas = [
-            'pro_id'            => $project_id,
+            'pro_id'            => trim($request->project_id),
             'pro_host'          => trim($request->pro_host),
             'pro_all_author'    => trim($request->pro_all_author),
             'entry_name'        => trim($request->entry_name),
@@ -112,13 +111,14 @@ class ProjectController extends Controller
         if($judge_project_img['code'] == 1){
             return $judge_project_img;
         }
+        $project_id[0]      = trim($request->project_id);
         $disk               = UploadSubjectionConfig::PROJECT;
         $subjection_project = UploadSubjectionConfig::PROJECT_IMG;
-        $old_image_road    = ProjectDatabase::selectImagesRoadDatas($project_id);
-        $new_image_road    = uploadFiles($subjection_project,$project_image,$disk);
-        $datas['pro_road'] = $new_image_road;
+        $old_image_road     = ProjectDatabase::selectImagesRoadDatas($project_id);
+        $new_image_road     = uploadFiles($subjection_project,$project_image,$disk);
+        $datas['pro_road']  = $new_image_road;
         ProjectDatabase::beginTraction();
-        $reset_project     = ProjectDatabase::updateProjectDatas($datas);
+        $reset_project      = ProjectDatabase::updateProjectDatas($datas);
         if($reset_project){
             ProjectDatabase::commit();
             deletefiles($disk,$old_image_road[0]);
