@@ -8,19 +8,24 @@ class HoldmeetDatas extends ModelDatabase
 {
     //添加会议信息
     public static function addHoldmeetDatas($datas){
+        $ho_graph_inject = $datas['ho_graph_inject'];
         $response = DB::table('holdmeet')
                     ->insertGetId([
-                        'teacher_id'     => $datas->teacher_id,
-                        'ho_name'        => $datas->ho_name,
-                        'ho_art_status'  => $datas->ho_art_status,
-                        'people_num'     => $datas->people_num,
-                        'ho_unit'        => $datas->ho_unit,
-                        'undertake_unit' => $datas->undertake_unit,
-                        'ho_level'       => $datas->ho_level,
-                        'ho_time'        => $datas->ho_time
+                        'teacher_id'      => $datas['teacher_id'],
+                        'ho_name'         => $datas['ho_name'],
+                        'ho_art_status'   => $datas['ho_art_status'],
+                        'people_num'      => $datas['people_num'],
+                        'ho_unit'         => $datas['ho_unit'],
+                        'undertake_unit'  => $datas['undertake_unit'],
+                        'ho_level'        => $datas['ho_level'],
+                        'ho_time'         => $datas['ho_time'],
+                        'ho_graph_inject' => $ho_graph_inject
                     ]);
-        return ($response) ? responseTojson(0,'添加会议信息成功',$response)
-               : responseTojson(1,'添加信息失败');
+         if(empty($ho_graph_inject)){
+             return ($response) ? responseTojson(0,'添加会议信息成功',$response)
+                  : responseTojson(1,'添加信息失败');
+         }
+         return $response;
     }
     //删除会议信息
     public static function deleteHoldmeetDatas($ho_id_datas){
@@ -42,13 +47,8 @@ class HoldmeetDatas extends ModelDatabase
         $result->ho_time = date('Y-m-d',$result->ho_time);
         return $result;
     }
-    //查看以前会议图注路径
-    public static function selectHoldmeetInjectRoad($ho_id){
-        $result = DB::table('holdmeet')->select('ho_graph_inject')->where('ho_id',$ho_id)->first();
-        return  $result->ho_graph_inject;
-    }
     //查看多个会议图注路径
-    public static function selectHoldmeetAllInjectRoad($ho_id_datas){
+    public static function selectHoldmeetInjectRoad($ho_id_datas){
         $ho_image_road = [];
         for($i = 0; $i < count($ho_id_datas); $i++){
             $road = DB::table('holdmeet')->select('ho_graph_inject')->where('ho_id',$ho_id_datas[$i])->first();
@@ -57,24 +57,23 @@ class HoldmeetDatas extends ModelDatabase
     }
     //修改会议信息
     public static function updateHoldmeetDatas($datas){
-        $response = DB::table('holdmeet')->where('ho_id',$datas->ho_id)
+        $ho_id = $datas['ho_id'];
+        $response = DB::table('holdmeet')->where('ho_id',$ho_id)
                     ->update([
-                        'ho_name'        => $datas->ho_name,
-                        'ho_art_status'  => $datas->ho_art_status,
-                        'people_num'     => $datas->people_num,
-                        'ho_unit'        => $datas->ho_unit,
-                        'undertake_unit' => $datas->undertake_unit,
-                        'ho_level'       => $datas->ho_level,
-                        'ho_time'        => $datas->ho_time
+                        'ho_name'        => $datas['ho_name'],
+                        'ho_art_status'  => $datas['ho_art_status'],
+                        'people_num'     => $datas['people_num'],
+                        'ho_unit'        => $datas['ho_unit'],
+                        'undertake_unit' => $datas['undertake_unit'],
+                        'ho_level'       => $datas['ho_level'],
+                        'ho_time'        => $datas['ho_time']
                     ]);
+        if(array_key_exists('ho_graph_inject',$datas)){
+            $reset_image = DB::tbale('holdmeet')->where('ho_id',$ho_id)
+                           ->update(['ho_graph_inject' => $datas['ho_graph_inject']]);
+            return ($response !=1 || $reset_image != 1) ? false :true;
+        }
         return ($response != 1) ? showMsg(1,'修改举行会议信息失败')
                : responseTojson(0,'修改举行会议成功');
     }
-    //修改会议图注信息
-    public static function updateHoldmeetInjectRoad($ho_id,$new_image_road){
-        $response = DB::table('holdmeet')->where('ho_id',$ho_id)
-                    ->update(['ho_graph_inject' => $new_image_road]);
-        return ($response != 1) ? false : true;
-    }
-
 }

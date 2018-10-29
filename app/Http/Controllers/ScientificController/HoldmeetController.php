@@ -26,34 +26,93 @@ class HoldmeetController extends Controller
             'ho_graph_inject' => trim($request->ho_graph_inject)
         ];
         $judge_datas = judgeHoldmeetField($datas);
-        if($judge_datas->code == 1){
+        if($judge_datas['code'] == 1){
             return $judge_datas;
         }
-        return HoldmeetDatas::addHoldmeetDatas($datas);
-    }
-    //添加会议图注
-    public function addHoldmeetInjection(Request $request){
-        if(!$request->isMethod('POST')){
-            return responseTojson(1,'你请求的方式不对');
-        }
-        if(!$request->is_add_holdmeet){
-            return responseTojson(1,'请你先添加会议信息');
+        if(!$request->hasFile('ho_file')){
+            $datas['ho_graph_inject'] = '';
+            return HoldmeetDatas::addHoldmeetDatas($datas);
         }
         $holdmeet_inject = $request->file('holdmeet_inject');
         $judge_inject   = judgeFileImage($holdmeet_inject);
-        if($judge_inject->code == 1){
+        if($judge_inject['code'] == 1){
             return $judge_inject;
         }
         $disk                = UploadSubjectionConfig::HOLD_MEET;
         $subjection_holdmeet = UploadSubjectionConfig::HOLD_INJECTION;
-        $ho_id               = $request->ho_id;
         $new_inject_road     = uploadFiles($subjection_holdmeet,$holdmeet_inject,$disk);
-        $add_inject          = HoldmeetDatas::updateHoldmeetInjectRoad($ho_id,$new_inject_road);
-        if($add_inject){
-            return responseTojson(0,'添加会议图注成功');
+        $add_holdmeet = HoldmeetDatas::addHoldmeetDatas($datas);
+        if($add_holdmeet){
+            return responseTojson(0,'添加会议信息成功','',$add_holdmeet['datas']);
         }
         deletefiles($disk,$new_inject_road);
-        return responseTojson(1,'添加会议图注失败');
+        return responseTojson(1,'添加会议信息失败');
+    }
+    //删除举行会议信息
+    public function deleteHoldmeet(Request $request){
+        $ho_id_datas     = $request->ho_id_datas;
+        $old_inject_road = HoldmeetDatas::selectHoldmeetInjectRoad($ho_id_datas);
+        $owner_status          = UploadSubjectionConfig::HOLD_IMG_STATUS;
+        $old_image_road  = ImageDatas::selectAllOwnerImage($ho_id_datas,$owner_status);
+        $delete_holdmeet = HoldmeetDatas::deleteHoldmeetDatas($ho_id_datas);
+        $image_road      = array_merge($old_inject_road,$old_image_road);//举行会议图片和图注合并
+        deleteAllFiles(UploadSubjectionConfig::HOLD_IMG,$image_road);
+        responseTojson(0,'举行会议删除成功');
+    }
+    //查看单个举行会议信息
+    public function selectHoldmeet(Request $request){
+        $ho_id[0]             = $request->ho_id;
+        $information          = HoldmeetDatas::selectHoldmetDatas($ho_id[0]);
+        $owner_status         = uploadSubjectionConfig::HOLD_IMG_STATUS;
+        $hold_images          = ImageDatas::selectAllOwnerImage($ho_id,$owner_status);
+        $datas['information'] = $information;
+        $datas['hold_images'] = $hold_images;
+        return responseTojson(0,'查询成功','',$datas);
+    }
+    //查看所有会议信息
+    public function selectAllHoldmeet(){
+        $result = HoldmeetDatas::selectAllHoldmeetDatas(session('usercount'));
+        return responseTojson(0,'查询成功','',$result);
+    }
+    //修改举行会议信息
+    public function updateHoldmeet(Request $request){
+        if(!$request->isMethod('POST')){
+            return responseTojson(1,'你请求的方式不对');
+        }
+        $ho_id[0]          = trim($request->ho_id);
+        $datas = [
+            'ho_id'           => $ho_id[0],
+            'ho_name'         => trim($request->ho_name),
+            'ho_art_status'   => trim($request->ho_art_status),
+            'people_num'      => trim($request->people_num),
+            'ho_unit'         => trim($request->ho_unit),
+            'undertake_unit'  => trim($request->undertake_unit),
+            'ho_level'        => trim($request->ho_level),
+            'ho_time'         => strtotime(trim($request->ho_time))
+        ];
+        $judge_datas = judgeHoldmeetField($datas);
+        if($judge_datas['code'] == 1){
+            return $judge_datas;
+        }
+        if(!$request->hasFile('holdmeet_inject')){
+            return HoldmeetDatas::updateHoldmeetDatas($datas);
+        }
+        $update_inject = $request->file('holdmeet_inject');
+        $judge_inject  = judgeFileImage($update_inject);
+        if($judge_inject['code'] == 1){
+            return $judge_inject;
+        }
+        $disk              = uploadSubjectionConfig::HOLD_MEET;
+        $old_inject_road   = HoldmeetDatas::selectHoldmeetInjectRoad($ho_id);
+        $new_inject_road   = uploadFiles(uploadSubjectionConfig::HOLD_INJECTION,$update_inject,$disk);
+        $datas['ho_graph_inject'] = $new_inject_road;
+        $reset_holdmeet    = HoldmeetDatas::updateHoldmeetDatas($datas);
+        if($reset_holdmeet){
+            deletefiles($disk,$old_inject_road[0]);
+            responseTojson(0,'修改会议信息成功');
+        }
+        deletefiles($disk,$new_inject_road);
+        return responseTojson(1,'修改会议信息失败');
     }
     //添加举行会议图片
     public function addHoldmeetImages(Request $request){
@@ -113,77 +172,5 @@ class HoldmeetController extends Controller
         }
         ImageDatas::rollback();                                        //回滚，回复数据库数据
         return responseTojson(1,'删除举办会议图片失败');
-    }
-    //删除举行会议信息
-    public function deleteHoldmeet(Request $request){
-        $ho_id_datas     = $request->ho_id_datas;
-        $old_inject_road = HoldmeetDatas::selectHoldmeetAllInjectRoad($ho_id_datas);
-        $old_image_road  = ImageDatas::selectAllImageRoadDatas($ho_id_datas);
-        $delete_holdmeet = HoldmeetDatas::deleteHoldmeetDatas($ho_id_datas);
-        $image_road      = array_merge($old_inject_road,$old_image_road);//会议图片和图注合并
-        deleteAllFiles(UploadSubjectionConfig::HOLD_IMG,$image_road);
-    }
-//    //删除多个举行会议信息
-//    public function deleteAllHoldmeet(){
-//
-//    }
-    //查看单个举行会议信息
-    public function selectHoldmeet(Request $request){
-        $ho_id                = $request->ho_id;
-        $holdmeet_information = HoldmeetDatas::selectHoldmetDatas($ho_id);
-        $owner_status         = uploadSubjectionConfig::HOLD_IMG_STATUS;
-        $hold_images          = ImageDatas::selectAllOwnerImage($ho_id,$owner_status);
-        $datas['holdmeet_information'] = $holdmeet_information;
-        $datas['hold_images']          = $hold_images;
-        return responseTojson(0,'查询成功','',$datas);
-    }
-    //查看所有会议信息
-    public function selectAllHoldmeet(){
-        $result = HoldmeetDatas::selectAllHoldmeetDatas(session('usercount'));
-        return responseTojson(0,'查询成功','',$result);
-    }
-    //修改举行会议信息
-    public function updateHoldmeet(Request $request){
-        if(!$request->isMethod('POST')){
-            return responseTojson(1,'你请求的方式不对');
-        }
-        $datas = [
-            'ho_id'           => trim($request->ho_id),
-            'ho_name'         => trim($request->ho_name),
-            'ho_art_status'   => trim($request->ho_art_status),
-            'people_num'      => trim($request->people_num),
-            'ho_unit'         => trim($request->ho_unit),
-            'undertake_unit'  => trim($request->undertake_unit),
-            'ho_level'        => trim($request->ho_level),
-            'ho_time'         => strtotime(trim($request->ho_time)),
-            'ho_graph_inject' => trim($request->ho_graph_inject)
-        ];
-        $judge_datas = judgeHoldmeetField($datas);
-        if($judge_datas->code == 1){
-            return $judge_datas;
-        }
-        return HoldmeetDatas::updateHoldmeetDatas($datas);
-    }
-    //修改会议图注
-    public function updateHoldmeetInject(Request $request){
-        if(!$request->isMethod('POST')){
-            return responseTojson(1,'你请求的方式不对');
-        }
-        $update_inject = $request->file('holdmeet_inject');
-        $judge_inject  = judgeFileImage($update_inject);
-        if($judge_inject->code == 1){
-            return $judge_inject;
-        }
-        $ho_id             = $request->ho_id;
-        $old_inject_road   = HoldmeetDatas::selectHoldmeetInjectRoad($ho_id);
-        $disk              = uploadSubjectionConfig::HOLD_MEET;
-        $new_inject_road   = uploadFiles(uploadSubjectionConfig::HOLD_INJECTION,$update_inject);
-        $reset_inject_road = HoldmeetDatas::updateHoldmeetInjectRoad($ho_id,$new_inject_road);
-        if($reset_inject_road){
-            deletefiles($disk,$old_inject_road);
-            return responseTojson(0,'修改会议图注成功');
-        }
-        deletefiles($disk,$new_inject_road);
-        return responseTojson(1,'修改会议图注失败');
     }
 }

@@ -66,7 +66,7 @@ class InformationController extends Controller
             'master_time '          => trim($request->master_time)           //老师硕博导授予时间
         ];
         $judge_datas = judgeTeacherField($datas);
-        if($judge_datas->code == 1){                                         //没有字段通过验证
+        if($judge_datas['code'] == 1){                                        //没有字段通过验证
             return $judge_datas;
         }
         $add_teacher = TeacherDatabase::addTeacherDatas($datas);
@@ -89,7 +89,7 @@ class InformationController extends Controller
             $certificate    = $request->file('education_image');          //接收证书图片
         }
         $response = judgeFileImage($certificate);                              //判断文件是否合法
-        if($response->code == 1){
+        if($response['code'] == 1){
             return $response;
         }
         $disk       = UploadSubjectionConfig::TEACHER;
@@ -167,7 +167,7 @@ class InformationController extends Controller
             'master_time '          => trim($request->master_time)           //老师硕博导授予时间
         ];
         $judge_datas = judgeTeacherField($datas);
-        if($judge_datas->code == 1){                                         //没有字段通过验证
+        if($judge_datas['code'] == 1){                                         //没有字段通过验证
             return $judge_datas;
         }
         $teacher_id = session('usercount');
@@ -188,7 +188,7 @@ class InformationController extends Controller
             $subjection  = UploadSubjectionConfig::EDUCATION_IMG;
         }
         $response = judgeFileImage($certificate);                            //判断文件是否合法
-        if($response->code == 1){
+        if($response['code'] == 1){
            return $response;
         }
         $disk             = UploadSubjectionConfig::TEACHER;

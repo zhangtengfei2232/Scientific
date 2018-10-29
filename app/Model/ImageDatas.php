@@ -45,18 +45,22 @@ class ImageDatas extends ModelDatabase
             }
             return $delete_images_road;
         }
-        //查某个会议或者讲学的全部图片
-        public static function selectAllOwnerImage($owner_id,$image_status){
-            $result = DB::table('image')
-                      ->where([
-                          ['owner_id','=',$owner_id],
-                          ['image_status','=',$image_status],
-                      ])
-                      ->orderBy('create_time','desc')
-                      ->get();
-            foreach ($result as $datas){
-                $datas->create_time = date('Y-m-d',$datas->create_time);
+        //查会议或者讲学的全部图片
+        //者删除会议和讲学时，需要先查出图片路径
+        public static function selectAllOwnerImage($owner_id_datas,$image_status){
+            $image_road_datas = [];
+            for($i = 0; $i < count($owner_id_datas); $i++){
+                $result = DB::table('image')->select('image_road')
+                    ->where([
+                        ['owner_id','=',$owner_id_datas[$i]],
+                        ['image_status','=',$image_status],
+                    ])
+                    ->orderBy('create_time','desc')
+                    ->get();
+                foreach ($result as $road){
+                    array_push($image_road_datas,$road->image_road);//所有图片放到一个数组
+                }
             }
-            return $result;
+            return $image_road_datas;
         }
 }

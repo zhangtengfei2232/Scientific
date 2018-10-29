@@ -11,24 +11,24 @@ class OpusDatabase  extends ModelDatabase
     public static function addOpusDatas($datas){
        $response =  DB::table('opus')
                 ->insertGetId([
-                    'teacher_id'       => $datas->teacher_id,
-                    'op_first_author'  => $datas->op_first_author,
-                    'op_all_author'    => $datas->op_all_author,
-                    'op_name'          => $datas->op_name,
-                    'op_form_write'    => $datas->op_form_write,
-                    'op_publish'       => $datas->op_publish,
-                    'op_publish_time'  => $datas->op_publish_time,
-                    'op_number'        => $datas->op_number,
-                    'op_total_words'   => $datas->op_total_words,
-                    'op_self_words'    => $datas->op_self_words,
-                    'op_cate_work'     => $datas->op_cate_work,
-                    'op_integral'      => $datas->op_integral,
-                    'op_cate_research' => $datas->op_cate_research,
-                    'op_sub_category'  => $datas->op_sub_category,
-                    'op_remarks'       => $datas->op_remarks
+                    'teacher_id'       => $datas['teacher_id'],
+                    'op_first_author'  => $datas['op_first_author'],
+                    'op_all_author'    => $datas['op_all_author'],
+                    'op_name'          => $datas['op_name'],
+                    'op_form_write'    => $datas['op_form_write'],
+                    'op_publish'       => $datas['op_publish'],
+                    'op_publish_time'  => $datas['op_publish_time'],
+                    'op_number'        => $datas['op_number'],
+                    'op_total_words'   => $datas['op_total_words'],
+                    'op_self_words'    => $datas['op_self_words'],
+                    'op_cate_work'     => $datas['op_cate_work'],
+                    'op_integral'      => $datas['op_integral'],
+                    'op_cate_research' => $datas['op_cate_research'],
+                    'op_sub_category'  => $datas['op_sub_category'],
+                    'op_remarks'       => $datas['op_remarks']
                 ]);
-       return ($response) ? showMsg(0,'添加著作信息成功',$response)
-              : showMsg(1,'添加著作信息失败');
+       return ($response) ? responseTojson(0,'添加著作信息成功',$response)
+              : responseTojson(1,'添加著作信息失败');
     }
     //删除著作信息
     public static function deleteOpusDatas($op_id_datas){
@@ -61,7 +61,7 @@ class OpusDatabase  extends ModelDatabase
         }
     }
     //查询以前的著作图片路径
-    public static function selectOpusImageDatas($op_id_datas){
+    public static function selectOpusAllImageDatas($op_id_datas){
         $op_cover_raod_datas = [];
         $op_coright_road_datas = [];
         for($i = 0; $i < count($op_id_datas); $i++){
@@ -75,25 +75,25 @@ class OpusDatabase  extends ModelDatabase
     }
     //修改著作信息
     public static function updateOpusDatas($datas){
-        $respone = DB::table('opus')->where('op_id',$datas->op_id)
+        $respone = DB::table('opus')->where('op_id',$datas['op_id'])
                    ->update([
-                       'op_first_author'  => $datas->op_first_author,
-                       'op_all_author'    => $datas->op_all_author,
-                       'op_name'          => $datas->op_name,
-                       'op_form_write'    => $datas->op_form_write,
-                       'op_publish'       => $datas->op_publish,
-                       'op_publish_time'  => $datas->op_publish_time,
-                       'op_number'        => $datas->op_number,
-                       'op_total_words'   => $datas->op_total_words,
-                       'op_self_words'    => $datas->op_self_words,
-                       'op_cate_work'     => $datas->op_cate_work,
-                       'op_integral'      => $datas->op_integral,
-                       'op_cate_research' => $datas->op_cate_research,
-                       'op_sub_category'  => $datas->op_sub_category,
-                       'op_remarks'       => $datas->op_remarks
+                       'op_first_author'  => $datas['op_first_author'],
+                       'op_all_author'    => $datas['op_all_author'],
+                       'op_name'          => $datas['op_name'],
+                       'op_form_write'    => $datas['op_form_write'],
+                       'op_publish'       => $datas['op_publish'],
+                       'op_publish_time'  => $datas['op_publish_time'],
+                       'op_number'        => $datas['op_number'],
+                       'op_total_words'   => $datas['op_total_words'],
+                       'op_self_words'    => $datas['op_self_words'],
+                       'op_cate_work'     => $datas['op_cate_work'],
+                       'op_integral'      => $datas['op_integral'],
+                       'op_cate_research' => $datas['op_cate_research'],
+                       'op_sub_category'  => $datas['op_sub_category'],
+                       'op_remarks'       => $datas['op_remarks']
                    ]);
-        return ($respone !=1) ? showMsg(1,'修改著作信息失败')
-               : showMsg(0,'修改著作信息成功');
+        return ($respone != 1) ? responseTojson(1,'修改著作信息失败')
+               : responseTojson(0,'修改著作信息成功');
     }
     //修改著作图片信息
     public static function updateImageDatas($new_image_road,$status,$op_id){

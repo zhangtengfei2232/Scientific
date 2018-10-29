@@ -32,21 +32,22 @@ class AwardController extends Controller
              'aw_integral'      => trim($request->aw_integral)
          ];
          $judge_datas = judgeAwardField($datas);
-         $disk        = UploadSubjectionConfig::AWARD;
          if($judge_datas['code'] == 1){
              return $judge_datas;
          }
-         $datas['aw_road'] = '';
-         if($request->hasFile('aw_file')){
-             $award_image = $request->file('aw_file');
-             $judge_image = judgeFileImage($award_image);
-             if($judge_image['code'] == 1){
-                 return $judge_image;
-             }
-             $subjection_image = UploadSubjectionConfig::AWARD_IMG;
-             $add_image_road   = uploadFiles($subjection_image,$award_image,$disk);
-             $datas['aw_road'] = $add_image_road;
+         if(!$request->hasFile('aw_file')){
+             $datas['aw_road'] = '';
+             return AwardDatabase::addAwardDatas($datas);
          }
+         $disk        = UploadSubjectionConfig::AWARD;
+         $award_image = $request->file('aw_file');
+         $judge_image = judgeFileImage($award_image);
+         if($judge_image['code'] == 1){
+             return $judge_image;
+         }
+         $subjection_image = UploadSubjectionConfig::AWARD_IMG;
+         $add_image_road   = uploadFiles($subjection_image,$award_image,$disk);
+         $datas['aw_road'] = $add_image_road;
          $add_award = AwardDatabase::addAwardDatas($datas);
          if($add_award){
              return responseTojson(0,'添加获奖信息成功');
@@ -79,7 +80,7 @@ class AwardController extends Controller
          }
          $aw_id[0]              = trim($request->aw_id);
          $datas = [
-             'aw_id'            => $aw_id,
+             'aw_id'            => $aw_id[0],
              'aw_first_author'  => trim($request->aw_first_author),
              'aw_all_author'    => trim($request->aw_all_author),
              'prize_win_name'   => trim($request->prize_win_name),
@@ -113,13 +114,13 @@ class AwardController extends Controller
          $new_image_road   = uploadFiles($subjection_award,$award_image,$disk);
          $datas['aw_road'] = $new_image_road;
          $reset_award      = AwardDatabase::updateAwardDatas($datas);
-         if(!$reset_award){
-             ArticalDatabase::rollback();
-             deletefiles($disk,$new_image_road);
-             return responseTojson(1,'修改获奖信息失败');
+         if($reset_award){
+             ArticalDatabase::commit();
+             deleteAllFiles($disk,$old_image_road[0]);
+             return responseTojson(0,'修改获奖信息成功');
          }
-         ArticalDatabase::commit();
-         deleteAllFiles($disk,$old_image_road);
-         return responseTojson(0,'修改获奖信息成功');
+         ArticalDatabase::rollback();
+         deletefiles($disk,$new_image_road);
+         return responseTojson(1,'修改获奖信息失败');
      }
 }

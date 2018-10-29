@@ -30,7 +30,7 @@ class AppraisalDatabase extends ModelDatabase
 //        $response = DB::table('appraisal')->where('ap_id',$appraisal_id)->delete();
 //        return ($response != 1) ? false : true;
 //    }
-    //删除多个成果成功
+    //删除成果鉴定
     public static function deleteAllAppraisalDatas($appraisal_id_datas){
         for($i = 0; $i < count($appraisal_id_datas); $i++){
             DB::table('appraisal')->where('ap_id',$appraisal_id_datas[$i])->delete();
