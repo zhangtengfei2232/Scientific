@@ -25,7 +25,14 @@
                 </el-form-item>
                 <el-form-item label="出版时间">
                     <el-col :span="15">
-                    <el-date-picker type="date" placeholder="选择日期" v-model="form.op_publish_time" style="width: 100%;"></el-date-picker>
+                        <el-date-picker
+                            type="date"
+                            placeholder="选择日期" 
+                            v-model="form.op_publish_time"
+                            format="yyyy 年 MM 月 dd 日"
+                            value-format="timestamp"
+                            style="width: 100%;">
+                        </el-date-picker>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="书号">
@@ -178,7 +185,7 @@
                     vue.$message({
                         message: '添加成功',
                         type: 'success'
-                    });A
+                    });
                 } else {
                     vue.$notify({
                         type: 'error',

@@ -147,6 +147,7 @@
                                     message: '添加成功',
                                     type: 'success'
                                 });
+                                this.$router.push({path: '/patent'});
                             }else {
                                 vue.$notify({
                                     type: 'error',

@@ -267,6 +267,7 @@
                                     message: '添加成功',
                                     type: 'success'
                                 });
+                                this.$router.push({path: '/paper'});
                             } else {
                                 vue.$notify({
                                     type: 'error',

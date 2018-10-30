@@ -43,6 +43,7 @@
                     </el-table-column>
                     <el-table-column
                     prop="ho_id"
+                    sortable
                     label="序号"
                     width="120">
                     </el-table-column>
@@ -119,6 +120,7 @@
             return {
                 id:[],
                 HoldmeetlDate: [],
+                sortable:true,
                 checked: false,
                 form: {
                     data1: '',

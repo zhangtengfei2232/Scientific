@@ -43,6 +43,7 @@
                     </el-table-column>
                     <el-table-column
                     prop="pro_id"
+                    sortable
                     label="序号"
                     width="120">
                     </el-table-column>
@@ -117,6 +118,7 @@
         data() {
             return {
                 id: [],
+                sortable:true,
                 ProjectDate: [],
                 checked: false,
                 checkAll: '',
@@ -145,7 +147,6 @@
             BatchDelete(){
 		    	var self = this;
                 var pro_id_datas = [];//存放删除的数据
-                console.log(self.multipleSelection);
                 if(self.multipleSelection == undefined){
                     this.$message({
                         message: '警告哦，这是一条警告消息',

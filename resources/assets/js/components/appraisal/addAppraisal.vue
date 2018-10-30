@@ -22,7 +22,14 @@
                 </el-form-item>
                  <el-form-item label="鉴定时间">
                     <el-col :span="15">
-                    <el-date-picker type="date" placeholder="选择日期" v-model="form.ap_time" style="width: 100%;"></el-date-picker>
+                        <el-date-picker
+                            type="date"
+                            placeholder="选择日期" 
+                            v-model="form.ap_time"
+                            format="yyyy 年 MM 月 dd 日"
+                            value-format="timestamp"
+                            style="width: 100%;">
+                        </el-date-picker>
                     </el-col>
                 </el-form-item>
                  <el-form-item label="鉴定级别">
@@ -62,7 +69,7 @@
                     </el-upload>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="onSubmit">立即创建</el-button>
+                    <el-button type="primary" @click="onSubmit(form)">立即创建</el-button>
                     <el-button>取消</el-button>
                 </el-form-item>
             </el-form>
@@ -86,7 +93,8 @@
   export default {
     data() {
       return {
-            pat_pic : '',
+            pat_pic: '',
+            pat_pics: '',
             dataForm: new FormData(),
             dataFile: new FormData(),
             Bcode:false,
@@ -117,9 +125,10 @@
         },
         filePatpics(files){
             if(this.Bcode == true){
-                this.dataFile.append('pat_pic', files);
+                this.dataFile.append('pat_pics', files);
                 this.sendfile(files,2);
                 this.$refs.pat_pics.submit();
+                this.$router.push({path: '/appraisal'});
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
@@ -132,7 +141,7 @@
                     vue.$message({
                         message: '添加成功',
                         type: 'success'
-                    });A
+                    });
                 } else {
                     vue.$notify({
                         type: 'error',
@@ -184,15 +193,14 @@
                 this.$message.error('备注不能为空');
                 return
             }
+            console.log(form);
             this.$refs['form'].validate((valid) => {
-                 var d = form.ap_time;     
-                form.ap_time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                     if (valid) {
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);
                         });
                         vue.addAppraisalData(vue.dataForm).then(res => {
-                            var data = response.data;
+                            var data = res.data;
                             if (data.code == 0) {
                                 this.Bcode = true;
                                 vue.$message({
@@ -202,7 +210,7 @@
                             } else {
                                 vue.$notify({
                                     type: 'error',
-                                    message: data.msg,
+                                    message: '添加失败',
                                     duration: 2000,
                                 });
                             }

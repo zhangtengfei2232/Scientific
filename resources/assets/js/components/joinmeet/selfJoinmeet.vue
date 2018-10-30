@@ -24,7 +24,14 @@
                 </el-form-item>
                  <el-form-item label="会议时间">
                     <el-col :span="15">
-                    <el-date-picker type="date" placeholder="选择日期" v-model="form.jo_time" style="width: 100%;"></el-date-picker>
+                    <el-date-picker
+                            type="date"
+                            placeholder="选择日期" 
+                            v-model="form.jo_time" 
+                            format="yyyy 年 MM 月 dd 日"
+                            value-format="timestamp"
+                            style="width: 100%;">
+                        </el-date-picker>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="会议地点">
@@ -95,6 +102,7 @@ export default {
             Bcode:false,
             jo_file: '',
             jo_files: '',
+            multiple: true,
             JoinmeetSelfData: {},
             form: {
                  join_people: '',
@@ -130,12 +138,44 @@ export default {
                 });
         },
         fileProfil(file){
-            this.dataForm.append('ho_file', file);
+            this.dataForm.append('jo_file', file);
             return false;
         },
-        fileProfils(file){
-            this.dataForm.append('ho_files', file);
-            return false;
+        fileProfils(files){
+            if(this.Bcode == true){
+                this.dataFile.append('jo_files', files);
+                this.sendfile(files);
+                this.$refs.jo_files.submit();
+            }else{
+                this.$message.error('请先添加数据信息');
+                return false
+            }
+        },
+        sendfile(file) {
+            this.addBookFile(vue.dataFile).then(res => {
+                var data = res.data;
+                if (data.code == 0) {
+                    vue.$message({
+                        message: '添加成功',
+                        type: 'success'
+                    });
+                } else {
+                    vue.$notify({
+                        type: 'error',
+                        message: '添加失败',
+                        duration: 2000,
+                    });
+                }
+            })  
+        },
+        addBookFile(data){
+             return axios({
+                method: 'post',
+                url: 'addjoinmeetimage',
+                headers: {'Content-Type': 'multipart/form-data'},
+                timeout: 20000,
+                data: data
+            });
         },
        onSubmit(form) {
             let vue = this;
@@ -171,14 +211,12 @@ export default {
                 return
             }
             this.$refs['form'].validate((valid) => {
-                var d = form.jo_time;     
-                form.jo_time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                     if (valid) {
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);
                         });
                         vue.addJoinmeetData(vue.dataForm).then(res => {
-                            var data = response.data;
+                            var data = res.data;
                             if (data.code == 0) {
                                 this.Bcode = true;
                                 vue.$message({
@@ -193,7 +231,7 @@ export default {
                                 });
                             }
                         })
-                        vue.$refs.pat_pic.submit()
+                        vue.$refs.jo_file.submit()
                     } else {
                         console.log('error submit!!')
                         return false

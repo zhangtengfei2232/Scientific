@@ -43,6 +43,7 @@
                     </el-table-column>
                     <el-table-column
                     prop="pa_id"
+                    sortable
                     label="序号"
                     width="120">
                     </el-table-column>
@@ -118,6 +119,7 @@
         data() {
             return {
                 id:[],
+                sortable:true,
                 PatentDate: [],
                 checked: false,
                 form: {
