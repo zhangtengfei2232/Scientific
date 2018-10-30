@@ -114,7 +114,7 @@
                     </el-upload>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="onSubmit(form)">立即创建</el-button>
+                    <el-button type="primary" @click="onSubmit(form)">保存修改</el-button>
                     <el-button>取消</el-button>
                 </el-form-item>
             </el-form>
