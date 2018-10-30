@@ -30,7 +30,14 @@
                 </el-form-item>
                 <el-form-item label="会议时间">
                     <el-col :span="15">
-                    <el-date-picker type="date" placeholder="选择日期" v-model="form.ho_time" style="width: 100%;"></el-date-picker>
+                        <el-date-picker
+                            type="date"
+                            placeholder="选择日期" 
+                            v-model="form.ho_time"
+                            format="yyyy 年 MM 月 dd 日"
+                            value-format="timestamp"
+                            style="width: 100%;">
+                        </el-date-picker>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="会议图注">
@@ -104,15 +111,15 @@
         fileProfils(files){
             if(this.Bcode == true){
                 this.dataFile.append('ho_files', files);
-                this.sendfile(files,2);
+                this.sendfile(files);
                 this.$refs.ho_files.submit();
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
             }
         },
-        sendfile(file,m) {
-            this.addBookFile(vue.dataFile,m).then(res => {
+        sendfile(file) {
+            this.addBookFile(vue.dataFile).then(res => {
                 var data = res.data;
                 if (data.code == 0) {
                     vue.$message({
@@ -128,10 +135,10 @@
                 }
             })  
         },
-        addBookFile(data,m){
+        addBookFile(data){
              return axios({
                 method: 'post',
-                url: '',
+                url: 'addholdmeetimages',
                 headers: {'Content-Type': 'multipart/form-data'},
                 timeout: 20000,
                 data: data
@@ -162,8 +169,6 @@
                 return
             }
             this.$refs['form'].validate((valid) => {
-                var d = form.ho_time;     
-                form.ho_time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                     if (valid) {
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);

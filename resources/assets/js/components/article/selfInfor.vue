@@ -139,7 +139,6 @@
                         </el-form-item>
                         <el-form-item>
                             <el-button type="primary" @click="onSubmit(form,year2,year3,year4,year5,year1)">保存修改</el-button>
-                            <el-button><router-link to="/paper">取消</router-link></el-button>
                         </el-form-item>
                     </el-form>
                 </div>
@@ -185,7 +184,7 @@ export default {
                 art_cate_research: '',
                 art_sub_category: '',
                 art_integral: '',
-                year: '',
+                period: '',
                 percal_cate: '',
                 art_time: '',
             },
@@ -208,6 +207,9 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.ArticleSelfData = data.datas;
+                    let time = data.datas.period;
+                    checkYearExt(time);
+                    self.form = data.datas;
                 } else {
                     self.$notify({
                         type: 'error',
@@ -218,7 +220,7 @@ export default {
             });
         },
         onSubmit(form,year2,year3,year4,year5,year1) {
-            form.year = year1+","+year2+","+year3+","+year4+","+year5;
+            form.period = year1+","+year2+","+year3+","+year4+","+year5;
             if(form.author == '') {
                 this.$message.error('第一作者不能为空');
                 return
@@ -286,6 +288,7 @@ export default {
                                 message: '添加成功',
                                 type: 'success'
                             });
+                            this.$router.push({path: '/paper'});
                         } else {
                             vue.$notify({
                                 type: 'error',
@@ -331,7 +334,15 @@ export default {
             if(!flag){
                 this.$message.error('请上传PDF');
             }
-        }
+        },
+        checkYearExt(time){
+            let a = time.split(',');
+            this.year1 = a[0];
+            this.year2 = a[1];
+            this.year3 = a[2];
+            this.year4 = a[3];
+            this.year5 = a[4];   
+        },
     },
     mounted() {
         this.getArticleSelfData();

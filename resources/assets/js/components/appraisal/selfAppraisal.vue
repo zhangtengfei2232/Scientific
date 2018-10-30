@@ -22,7 +22,14 @@
                 </el-form-item>
                  <el-form-item label="鉴定时间">
                     <el-col :span="15">
-                    <el-date-picker type="date" placeholder="选择日期" v-model="form.ap_time" style="width: 100%;"></el-date-picker>
+                        <el-date-picker
+                            type="date"
+                            placeholder="选择日期" 
+                            v-model="form.ap_time"
+                            format="yyyy 年 MM 月 dd 日"
+                            value-format="timestamp"
+                            style="width: 100%;">
+                        </el-date-picker>
                     </el-col>
                 </el-form-item>
                  <el-form-item label="鉴定级别">
@@ -45,7 +52,7 @@
                         drag
                         ref="pat_pics"
                         :before-upload="filePatpics"
-                        :file-list="fileLists"
+                        :file-list="filelists"
                         action="#"
                         multiple>
                         <i class="el-icon-upload"></i>
@@ -56,9 +63,9 @@
                     <el-upload
                         class="upload-demo"
                         drag
-                        action=""
+                        action="#"
                         multiple
-                        :file-list="fileList"
+                        :file-list="filelist"
                         ref="pat_pic"
                         :before-upload="filePatpic"
                         :auto-upload="false">
@@ -146,6 +153,7 @@ export default {
                 this.dataFile.append('pat_pic', files);
                 this.sendfile(files,2);
                 this.$refs.pat_pics.submit();
+                this.$router.push({path: '/appraisal'});
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
@@ -210,9 +218,7 @@ export default {
                 this.$message.error('备注不能为空');
                 return
             }
-            this.$refs['form'].validate((valid) => {
-                var d = form.ap_time;     
-                form.ap_time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+            this.$refs['form'].validate((valid) => { 
                     if (valid) {
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);

@@ -44,6 +44,7 @@
                     <el-table-column
                     prop="aw_id"
                     label="序号"
+                    sortable
                     width="120">
                     </el-table-column>
                     <el-table-column
@@ -117,6 +118,7 @@
         data() {
             return {
                 id:[],
+                sortable:true,
                 AwardDate: [],
                 checkAll: false,
                 checked: false,

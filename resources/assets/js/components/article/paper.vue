@@ -43,6 +43,7 @@
                     </el-table-column>
                     <el-table-column
                     prop="art_id"
+                    sortable
                     label="序号"
                     width="120">
                     </el-table-column>
@@ -63,7 +64,6 @@
                         <template slot-scope="scope">
                             <el-button
                             type="text"
-                            
                             size="small">
                                 <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentArticleSelfData(ArticleDate[scope.$index].art_id)"></el-button>
                                 <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentArticleSelfData(ArticleDate[scope.$index].art_id)"></el-button>
@@ -73,7 +73,7 @@
                     </el-table-column>
                 </el-table>
                 <div style="margin-top: 20px">
-                    <el-button @click="toggleSelection([ArticleDate[1], ArticleDate[2],ArticleDate[3]])">选中前三条</el-button>
+                    <el-button @click="toggleSelection([ArticleDate[0], ArticleDate[1],ArticleDate[2]])">选中前三条</el-button>
                     <el-button @click="toggleSelection()">取消选择</el-button>
                     <el-button @click="BatchDelete()">删除</el-button>
                 </div>
@@ -118,6 +118,7 @@
         data() {
             return {
                 id: [],
+                sortable:true,
                 ArticleDate: [],
                 checked: false,
                 checkAll: false,

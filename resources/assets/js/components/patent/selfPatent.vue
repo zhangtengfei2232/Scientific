@@ -171,6 +171,7 @@ export default {
                                     message: '修改成功',
                                     type: 'success'
                                 });
+                                this.$router.push({path: '/patent'});
                             }else {
                                 vue.$notify({
                                     type: 'error',

@@ -25,7 +25,14 @@
                 </el-form-item>
                 <el-form-item label="出版时间">
                     <el-col :span="15">
-                    <el-date-picker type="date" placeholder="选择日期" v-model="form.op_publish_time" style="width: 100%;"></el-date-picker>
+                        <el-date-picker
+                            type="date"
+                            placeholder="选择日期" 
+                            v-model="form.op_publish_time"
+                            format="yyyy 年 MM 月 dd 日"
+                            value-format="timestamp"
+                            style="width: 100%;">
+                        </el-date-picker>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="书号">
@@ -156,23 +163,23 @@ export default {
     },
     methods: {
         getBookSelfData() {
-                let self = this;
-                let op_id = self.$route.params.op_id;
-                axios.get("selectopus?op_id="+op_id).then(function (response) {
-                    var data = response.data;
-                    if (data.code == 0) {
-                        self.BookSelfData = data.datas;
-                        self.form = data.datas;
-                        self.filelist.url=data.datas.op_cover_road;
-                        self.filelist.url=data.datas.op_coright_road;
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.msg,
-                            duration: 2000,         
-                        });
-                    }
-                });
+            let self = this;
+            let op_id = self.$route.params.op_id;
+            axios.get("selectopus?op_id="+op_id).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.BookSelfData = data.datas;
+                    self.form = data.datas;
+                    self.filelist.url=data.datas.op_cover_road;
+                    self.filelist.url=data.datas.op_coright_road;
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.msg,
+                        duration: 2000,         
+                    });
+                }
+            });
         },
         fileProfil(file){
             if(this.Bcode == true){
@@ -265,8 +272,6 @@ export default {
                 return
             }
             this.$refs['form'].validate((valid) => {
-                var d = form.op_publish_time;     
-                form.op_publish_time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                 let vue = this;
                 if (valid) {
                     jQuery.each(vue.form,function(i,val){
