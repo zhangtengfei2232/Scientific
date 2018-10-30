@@ -74,7 +74,7 @@
                     </el-upload>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="onSubmit">立即创建</el-button>
+                    <el-button type="primary" @click="onSubmit(form)">立即修改</el-button>
                     <el-button>取消</el-button>
                 </el-form-item>
             </el-form>
@@ -127,8 +127,8 @@ export default {
                     if (data.code == 0) {
                         self.AppraisalSelfData = data.datas;
                         self.form = data.datas;
-                        self.filelist.url=data.datas.pro_road;
-                        self.filelists.url=data.datas.ap_cover_road
+                        self.filelist.url = 'showimage?disk=appraisal&subjection=' + data.datas.pro_road;
+                        self.filelists.url = 'showimage?disk=appraisal&subjection=' + data.datas.ap_cover_road; 
                     } else {
                         self.$notify({
                             type: 'error',

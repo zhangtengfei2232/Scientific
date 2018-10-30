@@ -32,7 +32,14 @@
                 </el-form-item>
                 <el-form-item label="授权公告日或受理日期">
                     <el-col :span="15">
-                    <el-date-picker type="date" placeholder="选择日期" v-model="form.author_notic_day" style="width: 100%;"></el-date-picker>
+                        <el-date-picker 
+                            type="date" 
+                            placeholder="选择日期" 
+                            v-model="form.author_notic_day" 
+                            format="yyyy 年 MM 月 dd 日"
+                            value-format="timestamp"
+                            style="width: 100%;">
+                        </el-date-picker>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="积分">
@@ -133,8 +140,6 @@
                 return
             }
             this.$refs['form'].validate((valid) => {
-                var d = form.author_notic_day;     
-                form.author_notic_day = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                 let vue = this;
                     if (valid) {
                         jQuery.each(vue.form,function(i,val){

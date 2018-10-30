@@ -103,7 +103,7 @@
     .searchtime{
          width: 45%;
          display: inline-block;
-         margin: 15px 0 0 9%;
+         margin: 15px 0 0 7%;
     }
     .demonstration{
         font-weight: lighter;
@@ -242,8 +242,9 @@
                 });
             },
             sentJoinmeetSelfData(jo_id) {
+                console.log(jo_id);
                 this.$router.push({
-                path: `/selfJoinmeet/${jo_id}`,
+                    path: `/selfJoinmeet/${jo_id}`,
                 })
             },
             byTimeSearch() {

@@ -94,6 +94,7 @@
                         ref="bo_file"
                         :limit=1
                         :before-upload="fileProfil"
+                        :file-list="filelist"
                         :auto-upload="true">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -105,6 +106,7 @@
                         action="#"
                         ref="bo_files"
                         :limit=1
+                        :file-list="filelists"
                         :before-upload="fileProfil"
                         :auto-upload="false">
                         <i class="el-icon-upload"></i>
@@ -112,7 +114,7 @@
                     </el-upload>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="onSubmit(form)">立即创建</el-button>
+                    <el-button type="primary" @click="onSubmit(form)">保存修改</el-button>
                     <el-button>取消</el-button>
                 </el-form-item>
             </el-form>
@@ -170,8 +172,8 @@ export default {
                 if (data.code == 0) {
                     self.BookSelfData = data.datas;
                     self.form = data.datas;
-                    self.filelist.url=data.datas.op_cover_road;
-                    self.filelist.url=data.datas.op_coright_road;
+                    self.filelist.url = 'showimage?disk=apus&subjection=' + data.datas.op_cover_road; 
+                    self.filelists.url = 'showimage?disk=apus&subjection=' + data.datas.op_coright_road;
                 } else {
                     self.$notify({
                         type: 'error',
@@ -206,13 +208,13 @@ export default {
                 var data = res.data;
                 if (data.code == 0) {
                     vue.$message({
-                        message: '添加成功',
+                        message: '修改成功',
                         type: 'success'
                     });A
                 } else {
                     vue.$notify({
                         type: 'error',
-                        message: '添加失败',
+                        message: '修改失败',
                         duration: 2000,
                     });
                 }

@@ -107,7 +107,7 @@
     .searchtimes{
          width: 45%;
          display: inline-block;
-         margin: 15px 0 0 18%;
+         margin: 15px 0 0 7%;
     }
     .demonstration{
         font-weight: lighter;
@@ -149,7 +149,7 @@
                 var pro_id_datas = [];//存放删除的数据
                 if(self.multipleSelection == undefined){
                     this.$message({
-                        message: '警告哦，这是一条警告消息',
+                        message: '请选择要删除的数据',
                         type: 'warning'
                     });
                 }else{

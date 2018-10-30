@@ -83,7 +83,7 @@
                     </el-upload>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="onSubmit(form)">立即创建</el-button>
+                    <el-button type="primary" @click="onSubmit(form)">保存修改</el-button>
                     <el-button><router-link to="/award">取消</router-link></el-button>
                 </el-form-item>
             </el-form>
@@ -135,7 +135,7 @@ export default {
                     if (data.code == 0) {
                         self.AwardSelfData = data.datas;
                         self.form = data.datas;
-                        self.filelist.url=data.datas.aw_road;
+                        self.filelist.url = 'showimage?disk=award&subjection=' + data.datas.aw_road; 
                     } else {
                         self.$notify({
                             type: 'error',
@@ -197,14 +197,14 @@ export default {
                             var data = res.data;
                             if (data.code == 0) {
                                 vue.$message({
-                                    message: '添加成功',
+                                    message: '修改成功',
                                     type: 'success'
                                 });
                                 this.$router.push({path: '/award'});
                             } else {
                                 vue.$notify({
                                     type: 'error',
-                                    message: data.msg,
+                                    message: '修改失败',
                                     duration: 2000,
                                 });
                             }
