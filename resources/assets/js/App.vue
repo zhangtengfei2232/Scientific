@@ -48,6 +48,7 @@
                             </template>
                             <el-menu-item-group>
                                 <el-menu-item index="/document">校发文件</el-menu-item>
+                                <el-menu-item index="/addteacher">添加老师</el-menu-item>
                                 <el-menu-item index="/agreement">教学科研等合作协议</el-menu-item>
                             </el-menu-item-group>
                         </el-submenu>

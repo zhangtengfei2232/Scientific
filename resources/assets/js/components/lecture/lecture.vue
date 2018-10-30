@@ -14,7 +14,7 @@
                     <div class="block">
                         <span class="demonstration">按专家姓名检索:</span>
                          <el-input v-model="form.le_expert_name" placeholder="请输入专家姓名" style="width:30%;"></el-input>
-                        <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch">搜索</el-button>
+                        <el-button type="primary" style="margin-left:10px" v-on:click="byNameSearch(form)">搜索</el-button>
                     </div>
                 </el-form>
             </span>
@@ -54,19 +54,19 @@
                             width="200">
                         <template slot-scope="scope">
                             <el-button
-                                    @click.native.prevent="deleteRow(scope.$index, ExperspeakDate)"
                                     type="text"
                                     size="small">
-                                <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentExperspeakDate(le_id)"></el-button>
-                                <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentExperspeakDate(le_id)"></el-button>
-                                <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteExperspeakDate(le_id)"></el-button>
+                                <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentExperspeakDate(ExperspeakDate[scope.$index].le_id)"></el-button>
+                                <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentExperspeakDate(ExperspeakDate[scope.$index].le_id)"></el-button>
+                                <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteExperspeakDate(ExperspeakDate[scope.$index].le_id)"></el-button>
                             </el-button>
                         </template>
                     </el-table-column>
                 </el-table>
                 <div style="margin-top: 20px">
-                    <el-button @click="toggleSelection([ExperspeakDate[1], ExperspeakDate[2]])">切换第二、第三行的选中状态</el-button>
+                    <el-button @click="toggleSelection([ExperspeakDate[1], ExperspeakDate[2],ExperspeakDate[3]])">选中前三条</el-button>
                     <el-button @click="toggleSelection()">取消选择</el-button>
+                    <el-button @click="BatchDelete()">删除</el-button>
                 </div>
             </template>
         </div>
@@ -126,6 +126,7 @@
     export default {
         data() {
             return {
+                id: [],
                 ExperspeakDate: [],
                 checked: false,
                 form: {
@@ -149,17 +150,26 @@
                     this.$refs.multipleTable.clearSelection();
                 }
             },
-            handleCheckAllChange(val) {
-                this.checkedCities = val ? this.ExperspeakDate : [];
-                this.isIndeterminate = false;
-            },
-            handleCheckedCitiesChange(value) {
-                let checkedCount = value.length;
-                this.checkAll = checkedCount === this.ExperspeakDate.length;
-                this.isIndeterminate = checkedCount > 0 && checkedCount < this.ExperspeakDate.length;
-            },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
+            },
+            BatchDelete(){
+                var self = this;
+                var le_id_datas = [];//存放删除的数据
+                console.log(self.multipleSelection);
+                if(self.multipleSelection == undefined){
+                    this.$message({
+                        message: '请选择要删除论文',
+                        type: 'warning'
+                    });
+                }else{
+                    for (var i = 0; i < self.multipleSelection.length; i++) {
+                        le_id_datas.push(self.multipleSelection[i].le_id);
+                        //删除数组——删除选择的行
+                        //pro_id_datas.splice(0,self.multipleSelection.length);
+                    };
+                    this.deleteExperspeakDate(le_id_datas);
+                }
             },
             getExperspeakDate() {
                 let self = this;
@@ -167,7 +177,6 @@
                     var data = response.data;
                     if (data.code == 0) {
                         self.ExperspeakDate = data.datas;
-                        console.log(data.datas);
                     } else {
                         self.$notify({
                             type: 'error',
@@ -177,22 +186,21 @@
                     }
                 });
             },
-            sentExperspeakDate(le_id) {
-                this.$router.push({
-                    path: `/editLecture/${le_id}`,
-                })
-            },
-            deleteExperspeakDate(le_id) {
-                this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+            deleteExperspeakDate(le_id_datas) {
+                this.$confirm('此操作批量删除文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
                     let self = this;
-                    axios.get("",le_id).then(function (response) {
+                    axios.get("deletelecture",{
+                        params:{
+                            le_id_datas:le_id_datas
+                        }
+                    }).then(function (response) {
                         var data = response.data;
                         if (data.code == 0) {
-                            this.$message({
+                            self.$message({
                                 type: 'success',
                                 message: '删除成功!'
                             });
@@ -211,7 +219,52 @@
                     });
                 });
             },
-            byTimeSearch() {
+            deleteExperspeakDate(le_id) {
+                this.id.push(le_id);
+                this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    let self = this;
+                    axios.get("deleteartical",{
+                        params:{
+                            le_id_datas:this.id
+                        }
+                    }).then(function (response) {
+                    var data = response.data;
+                    if (data.code == 0) {
+                        this.$message({
+                            type: 'success',
+                            message: '删除成功!'
+                        });
+                    } else {
+                        self.$notify({
+                            type: 'error',
+                            message: data.msg,
+                            duration: 2000,
+                        });
+                    }
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },
+
+//            handleCheckAllChange(val) {
+//                this.checkedCities = val ? this.ExperspeakDate : [];
+//                this.isIndeterminate = false;
+//            },
+//            handleCheckedCitiesChange(value) {
+//                let checkedCount = value.length;
+//                this.checkAll = checkedCount === this.ExperspeakDate.length;
+//                this.isIndeterminate = checkedCount > 0 && checkedCount < this.ExperspeakDate.length;
+//            },
+            byNameSearch(form) {
+                let self = this;
                 axios.get("",form).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
@@ -225,8 +278,13 @@
                     }
                 });
             },
-
+            sentExperspeakDate(le_id) {
+                this.$router.push({
+                    path: `/editLecture/${le_id}`,
+                })
+            },
         },
+
         mounted() {
             this.getExperspeakDate();
         }

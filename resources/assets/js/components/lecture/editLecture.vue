@@ -35,6 +35,8 @@
                 <el-upload
                         class="upload-demo"
                         drag
+                        ref="tuzu_file"
+                        :before-upload="fileTuzufil"
                         action="#"
                         multiple>
                     <i class="el-icon-upload"></i>
@@ -46,14 +48,17 @@
                         class="upload-demo"
                         drag
                         action="#"
+                        ref="pic_file"
+                        :before-upload="filePicfil"
+                        :file-list="filelist"
                         multiple>
                     <i class="el-icon-upload"></i>
                     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                 </el-upload>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="onSubmit">立即创建</el-button>
-                <el-button>取消</el-button>
+                <el-button type="primary" @click="onSubmit(form)">立即创建</el-button>
+                <el-button><router-link to="/lecture">取消</router-link></el-button>
             </el-form-item>
         </el-form>
         </div>
@@ -74,7 +79,11 @@
     export default {
         data() {
             return {
+                pic_file:'',
+                tuzu_file:'',
+//                lec_file:'',
                 EditLectureData: {},
+                filelist: [{url:''}],
                 form: {
                     le_expert_name:'',
                     le_expert_level:'',
@@ -88,14 +97,26 @@
             }
         },
         methods: {
+            filePicfil(file){
+                this.dataForm.append('pic_file', file);
+                return false;
+            },
+            fileTuzufil(file){
+                this.dataForm.append('tuzu_file', file);
+                return false;
+            },
             getEditLectureData() {
                 let self = this;
-                let art_id = self.$route.params.art_id;
-                axios.get("",art_id).then(function (response) {
+                let le_id = self.$route.params.le_id;
+                console.log(self.$route.params.le_id,'----###--------------');
+                axios.get("selectlecture?le_id="+le_id).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
                         self.EditLectureData = data.datas;
-                        console.log(data.datas);
+                        self.form = data.datas;
+                        console.log(data.datas,'-------++++---------');
+                        self.filelist.url='../../storage/app/data/lecture/'+data.datas.le_img_road
+                        console.log(self.filelist.url);
                     } else {
                         self.$notify({
                             type: 'error',
@@ -105,8 +126,63 @@
                     }
                 });
             },
-            onSubmit() {
-                console.log('submit!');
+            onSubmit(form) {
+                if(form.le_expert_name == '') {
+                    this.$message.error('专家姓名不能为空');
+                    return
+                }else if(form.le_expert_level == ''){
+                    this.$message.error('专家级别不能为空');
+                    return
+                }else if(form.le_report_name == '') {
+                    this.$message.error('报告名称不能为空');
+                    return
+                }else if(form.le_invite_status == '') {
+                    this.$message.error('邀请状态不能为空');
+                    return
+                }else if(form.le_invite_unit == '') {
+                    this.$message.error('邀请单位不能为空');
+                    return
+                }else if(form.le_time == '') {
+                    this.$message.error('讲学时间不能为空');
+                    return
+                }this.$refs['form'].validate((valid) => {
+                    let vue = this;
+                    if (valid) {
+                        jQuery.each(vue.form,function(i,val){
+                            vue.dataForm.append(i,val);
+                        });
+                        console.log(vue.dataForm);
+                        vue.addLectureData(vue.dataForm).then(res => {
+                            var data = res.data;
+                            if (data.code == 0) {
+                                vue.$message({
+                                    message: '添加成功',
+                                    type: 'success'
+                                });
+                            } else {
+                                vue.$notify({
+                                    type: 'error',
+                                    message: data.msg,
+                                    duration: 2000,
+                                });
+                            }
+                        })
+                        vue.$refs.tuzu_file.submit();
+                        vue.$refs.pic_file.submit();
+                    } else {
+                        console.log('error submit!!')
+                        return false
+                    }
+                })
+            },
+            addLectureData(data) {
+                return axios({
+                    method: 'post',
+                    url: 'addLecture',
+                    headers: {'Content-Type': 'multipart/form-data'},
+                    timeout: 20000,
+                    data: data
+                });
             },
         },
         mounted() {
