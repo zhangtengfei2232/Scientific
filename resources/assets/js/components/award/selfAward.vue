@@ -197,14 +197,14 @@ export default {
                             var data = res.data;
                             if (data.code == 0) {
                                 vue.$message({
-                                    message: '添加成功',
+                                    message: '修改成功',
                                     type: 'success'
                                 });
                                 this.$router.push({path: '/award'});
                             } else {
                                 vue.$notify({
                                     type: 'error',
-                                    message: data.msg,
+                                    message: '修改失败',
                                     duration: 2000,
                                 });
                             }

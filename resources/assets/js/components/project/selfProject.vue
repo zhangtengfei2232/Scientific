@@ -231,7 +231,7 @@
                             } else {
                                 vue.$notify({
                                     type: 'error',
-                                    message: data.msg,
+                                    message: '修改失败',
                                     duration: 2000,
                                 });
                             }

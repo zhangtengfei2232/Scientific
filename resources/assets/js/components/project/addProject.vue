@@ -196,9 +196,8 @@
                     this.$message.error('项目年份不能为空');
                     return
                 }
+                
                 this.$refs['form'].validate((valid) => {
-                    var d = form.project_year; 
-                    form.project_year = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                     let vue = this;
                     if (valid) {
                         jQuery.each(vue.form,function(i,val){
@@ -215,7 +214,7 @@
                             } else {
                                 vue.$notify({
                                     type: 'error',
-                                    message: data.msg,
+                                    message: '添加失败',
                                     duration: 2000,
                                 });
                             }

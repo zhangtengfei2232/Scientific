@@ -26,7 +26,13 @@
                         </el-form-item>
                         <el-form-item label="年，卷，期">
                             <el-col :span="1" style="width:50px;margin:0 10px 0 0">
-                               <el-date-picker v-model="year1" type="year" placeholder="选择年份" style="width: 100px;"></el-date-picker>
+                               <el-date-picker 
+                               v-model="year1" 
+                               type="year" 
+                               placeholder="选择年份" 
+                               style="width: 100px;"
+                               format="yyyy 年 MM 月 dd 日"
+                               value-format="timestamp"></el-date-picker>
                             </el-col>
                             <el-col :span="1" style="width:50px;margin: 0px -36px 0px 6%;">
                                 ，
@@ -274,8 +280,6 @@ export default {
                 return
             }
             this.$refs['form'].validate((valid) => {
-                var d = form.art_time;     
-                form.art_time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                 let vue = this;
                 if (valid) {
                     jQuery.each(vue.form,function(i,val){
