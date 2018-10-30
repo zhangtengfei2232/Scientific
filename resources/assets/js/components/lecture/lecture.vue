@@ -64,7 +64,7 @@
                     </el-table-column>
                 </el-table>
                 <div style="margin-top: 20px">
-                    <el-button @click="toggleSelection([ExperspeakDate[1], ExperspeakDate[2],ExperspeakDate[3]])">选中前三条</el-button>
+                    <el-button @click="toggleSelection([ExperspeakDate[0], ExperspeakDate[1],ExperspeakDate[2]])">选中前三条</el-button>
                     <el-button @click="toggleSelection()">取消选择</el-button>
                     <el-button @click="BatchDelete()">删除</el-button>
                 </div>
@@ -102,15 +102,15 @@
     .demonstration{
         font-weight: lighter;
     }
-    .lists span{
-        float: left;
-    }
-    .lists img{
-        width: 35px;
-    }
-    .picture{
-        margin: 20px 5px 0 1%;
-    }
+    /*.lists span{*/
+        /*float: left;*/
+    /*}*/
+    /*.lists img{*/
+        /*width: 35px;*/
+    /*}*/
+    /*.picture{*/
+        /*margin: 20px 5px 0 1%;*/
+    /*}*/
     .dos a,.tos a{
         color: rgba(61, 112, 206, 0.77)!important;
     }
@@ -158,7 +158,7 @@
                 var le_id_datas = [];//存放删除的数据
                 console.log(self.multipleSelection);
                 if(self.multipleSelection == undefined){
-                    this.$message({
+                    self.$message({
                         message: '请选择要删除论文',
                         type: 'warning'
                     });
@@ -198,9 +198,9 @@
                             le_id_datas:le_id_datas
                         }
                     }).then(function (response) {
-                        var data = response.data;
+                    var data = response.data;
                         if (data.code == 0) {
-                            self.$message({
+                             self.$message({
                                 type: 'success',
                                 message: '删除成功!'
                             });
@@ -227,24 +227,24 @@
                     type: 'warning'
                 }).then(() => {
                     let self = this;
-                    axios.get("deleteartical",{
+                    axios.get("deletelecture",{
                         params:{
                             le_id_datas:this.id
                         }
                     }).then(function (response) {
                     var data = response.data;
-                    if (data.code == 0) {
-                        this.$message({
-                            type: 'success',
-                            message: '删除成功!'
-                        });
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.msg,
-                            duration: 2000,
-                        });
-                    }
+                        if (data.code == 0) {
+                            self.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                        } else {
+                            self.$notify({
+                                type: 'error',
+                                message: data.msg,
+                                duration: 2000,
+                            });
+                        }
                     });
                 }).catch(() => {
                     this.$message({

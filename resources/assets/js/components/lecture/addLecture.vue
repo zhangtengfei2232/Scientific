@@ -1,5 +1,5 @@
 <template>
-    <div class="content">
+    <div class="contents">
         <div class="add">
             <el-form ref="form" :model="form" label-width="90px">
             <el-form-item label="专家姓名">
@@ -43,18 +43,18 @@
                     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                 </el-upload>
             </el-form-item>
-            <el-form-item label="图片">
-                <el-upload
-                        class="upload-demo"
-                        drag
-                        action="#"
-                        ref="pic_file"
-                        :before-upload="filePicfil"
-                        multiple>
-                    <i class="el-icon-upload"></i>
-                    <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                </el-upload>
-            </el-form-item>
+            <!--<el-form-item label="图片">-->
+                <!--<el-upload-->
+                        <!--class="upload-demo"-->
+                        <!--drag-->
+                        <!--action="#"-->
+                        <!--ref="pic_file"-->
+                        <!--:before-upload="filePicfil"-->
+                        <!--multiple>-->
+                    <!--<i class="el-icon-upload"></i>-->
+                    <!--<div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>-->
+                <!--</el-upload>-->
+            <!--</el-form-item>-->
             <el-form-item>
                 <el-button type="primary" @click="onSubmit(form)">立即创建</el-button>
                 <el-button>取消</el-button>
@@ -65,10 +65,13 @@
 </template>
 
 <style scoped>
-    .content{
-        width: 80%;
-        display: flex;
-        margin-top: 20px;
+    .contents{
+        width: 75%;
+        float: left;
+    }
+    .add{
+        width: 73%;
+        margin: 35px 0 0 35px;
     }
     /*组件*/
     .el-form{

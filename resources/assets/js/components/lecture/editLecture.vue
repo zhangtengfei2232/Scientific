@@ -43,19 +43,19 @@
                     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                 </el-upload>
             </el-form-item>
-            <el-form-item label="图片">
-                <el-upload
-                        class="upload-demo"
-                        drag
-                        action="#"
-                        ref="pic_file"
-                        :before-upload="filePicfil"
-                        :file-list="filelist"
-                        multiple>
-                    <i class="el-icon-upload"></i>
-                    <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                </el-upload>
-            </el-form-item>
+            <!--<el-form-item label="图片">-->
+                <!--<el-upload-->
+                        <!--class="upload-demo"-->
+                        <!--drag-->
+                        <!--action="#"-->
+                        <!--ref="pic_file"-->
+                        <!--:before-upload="filePicfil"-->
+                        <!--:file-list="filelist"-->
+                        <!--multiple>-->
+                    <!--<i class="el-icon-upload"></i>-->
+                    <!--<div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>-->
+                <!--</el-upload>-->
+            <!--</el-form-item>-->
             <el-form-item>
                 <el-button type="primary" @click="onSubmit(form)">立即创建</el-button>
                 <el-button><router-link to="/lecture">取消</router-link></el-button>
@@ -73,6 +73,12 @@
     .add{
         width: 80%;
         margin: 35px 0 0 35px;
+    }
+    /*组件*/
+    .el-form{
+        width:62%;
+        margin-top: 40px;
+        margin-left: 150px;
     }
 </style>
 <script>
@@ -108,15 +114,14 @@
             getEditLectureData() {
                 let self = this;
                 let le_id = self.$route.params.le_id;
-                console.log(self.$route.params.le_id,'----###--------------');
                 axios.get("selectlecture?le_id="+le_id).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
                         self.EditLectureData = data.datas;
-                        self.form = data.datas;
-                        console.log(data.datas,'-------++++---------');
+                        self.form = data.datas.lecture_information;
+//                        console.log(data.datas,"+++++++++++++");
                         self.filelist.url='../../storage/app/data/lecture/'+data.datas.le_img_road
-                        console.log(self.filelist.url);
+
                     } else {
                         self.$notify({
                             type: 'error',
@@ -159,6 +164,7 @@
                                     message: '添加成功',
                                     type: 'success'
                                 });
+
                             } else {
                                 vue.$notify({
                                     type: 'error',
@@ -178,7 +184,7 @@
             addLectureData(data) {
                 return axios({
                     method: 'post',
-                    url: 'addLecture',
+                    url: 'updatelecture',
                     headers: {'Content-Type': 'multipart/form-data'},
                     timeout: 20000,
                     data: data
