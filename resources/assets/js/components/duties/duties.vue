@@ -14,7 +14,7 @@
                     <div class="block">
                         <span class="demonstration">按老师姓名检索:</span>
                         <el-input v-model="form.teacher_name" placeholder="请输入老师姓名" style="width: 30%;"></el-input>
-                        <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch">搜索</el-button>
+                        <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch(form)">搜索</el-button>
                     </div>
                 </el-form>
             </span>
@@ -38,7 +38,7 @@
                             width="120">
                     </el-table-column>
                     <el-table-column
-                            prop="le_expert_name"
+                            prop="teacher_name"
                             label="老师姓名"
                             width="120">
                     </el-table-column>
@@ -53,19 +53,19 @@
                             width="200">
                         <template slot-scope="scope">
                             <el-button
-                                    @click.native.prevent="deleteRow(scope.$index, StudygroupDate)"
                                     type="text"
                                     size="small">
-                                <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentStudygroupDate(du_id)"></el-button>
-                                <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentStudygroupDate(du_id)"></el-button>
-                                <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteStudygroupDate(du_id)"></el-button>
+                                <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentStudygroupDate(StudygroupDate[scope.$index].du_id)"></el-button>
+                                <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentStudygroupDate(StudygroupDate[scope.$index].du_id)"></el-button>
+                                <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteStudygroupDate(StudygroupDate[scope.$index].du_id)"></el-button>
                             </el-button>
                         </template>
                     </el-table-column>
                 </el-table>
                 <div style="margin-top: 20px">
-                    <el-button @click="toggleSelection([StudygroupDate[1], StudygroupDate[2]])">切换第二、第三行的选中状态</el-button>
+                    <el-button @click="toggleSelection([StudygroupDate[0], StudygroupDate[1],StudygroupDate[3]])">选中前三条</el-button>
                     <el-button @click="toggleSelection()">取消选择</el-button>
+                    <el-button @click="BatchDelete()">删除</el-button>
                 </div>
             </template>
         </div>
@@ -131,21 +131,21 @@
     .lists img{
         width: 35px;
     }
-    .numbers{
-        margin: 20px 2% 0 3.5%;
-    }
-    .check{
-        margin: 25px 2% 0 3%;
-    }
-    .checks{
-        margin: 0 2% 0 3%;
-    }
-    .picture{
-        margin: 20px 5px 0 1%;
-    }
-    .infos{
-        margin: 10px 2% 0 0;
-    }
+    /*.numbers{*/
+        /*margin: 20px 2% 0 3.5%;*/
+    /*}*/
+    /*.check{*/
+        /*margin: 25px 2% 0 3%;*/
+    /*}*/
+    /*.checks{*/
+        /*margin: 0 2% 0 3%;*/
+    /*}*/
+    /*.picture{*/
+        /*margin: 20px 5px 0 1%;*/
+    /*}*/
+    /*.infos{*/
+        /*margin: 10px 2% 0 0;*/
+    /*}*/
     .infos h5{
         font-size: 14px;
         font-weight: lighter;
@@ -187,6 +187,8 @@
     export default {
         data() {
             return {
+                id: [],
+                dataForm: new FormData(),
                 StudygroupDate: [],
                 checked: false,
                 form: {
@@ -212,6 +214,22 @@
             handleSelectionChange(val) {
                 this.multipleSelection = val;
             },
+            BatchDelete(){
+                var self = this;
+                var du_id_datas = [];//存放删除的数据
+                if(self.multipleSelection == undefined){
+                    self.$message({
+                        message: '警告哦，这是一条警告消息',
+                        type: 'warning'
+                    });
+                }else{
+                    for (var i = 0; i < self.multipleSelection.length; i++) {
+                        du_id_datas.push(self.multipleSelection[i].du_id);
+                    };
+                    this.deleteDutiesDatas(du_id_datas);
+                }
+            },
+
             getStudygroupDate() {
                 let self = this;
                 axios.get("selectallduties").then(function (response) {
@@ -229,20 +247,51 @@
                     }
                 });
             },
-            sentStudygroupDate(du_id) {
-                this.$router.push({
-                    path: `/editDuties/${du_id}`,
-                })
+            deleteDutiesDatas(du_id_datas) {
+                this.$confirm('此操作批量删除文件, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    let self = this;
+                    axios.get("deleteduties",{
+                        params:{
+                            du_id_datas:du_id_datas
+                        }
+                    }).then(function (response) {
+                        var data = response.data;
+                        if (data.code == 0) {
+                            self.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                        } else {
+                            self.$notify({
+                                type: 'error',
+                                message: data.message,
+                                duration: 2000,
+                            });
+                        }
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
             },
+
             deleteStudygroupDate(du_id) {
+                this.id = du_id;
                 this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
                     let self = this;
-                    axios.get("",du_id).then(function (response) {
+                    axios.get("deleteduties?du_id="+id).then(function (response) {
                         var data = response.data;
+                        console.log(data,"删除————————————");
                         if (data.code == 0) {
                             this.$message({
                                 type: 'success',
@@ -263,7 +312,12 @@
                     });
                 });
             },
-            byTimeSearch() {
+            sentStudygroupDate(du_id) {
+                this.$router.push({
+                    path: `/editDuties/${du_id}`,
+                })
+            },
+            byTimeSearch(form) {
                 axios.get("",form).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {

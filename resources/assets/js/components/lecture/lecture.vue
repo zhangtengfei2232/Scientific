@@ -127,6 +127,7 @@
         data() {
             return {
                 id: [],
+                dataForm: new FormData(),
                 ExperspeakDate: [],
                 checked: false,
                 form: {
@@ -156,7 +157,6 @@
             BatchDelete(){
                 var self = this;
                 var le_id_datas = [];//存放删除的数据
-                console.log(self.multipleSelection);
                 if(self.multipleSelection == undefined){
                     self.$message({
                         message: '请选择要删除论文',
@@ -168,7 +168,7 @@
                         //删除数组——删除选择的行
                         //pro_id_datas.splice(0,self.multipleSelection.length);
                     };
-                    this.deleteExperspeakDate(le_id_datas);
+                    this.deleteExperspeakDates(le_id_datas);
                 }
             },
             getExperspeakDate() {
@@ -186,7 +186,8 @@
                     }
                 });
             },
-            deleteExperspeakDate(le_id_datas) {
+            deleteExperspeakDates(le_id_datas) {
+                console.log(le_id_datas,'下面删除AAAAAAA');
                 this.$confirm('此操作批量删除文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -207,7 +208,7 @@
                         } else {
                             self.$notify({
                                 type: 'error',
-                                message: data.msg,
+                                message: data.message,
                                 duration: 2000,
                             });
                         }
@@ -220,7 +221,10 @@
                 });
             },
             deleteExperspeakDate(le_id) {
+                console.log(le_id,'图标删除AAAAAAA');
+
                 this.id.push(le_id);
+
                 this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',

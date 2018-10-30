@@ -109,6 +109,7 @@
                 return false;
             },
             onSubmit(form) {
+                console.log(form,'添加aaaaa');
                 if(form.le_expert_name == '') {
                     this.$message.error('专家姓名不能为空');
                     return
@@ -145,16 +146,16 @@
                             } else {
                                 vue.$notify({
                                     type: 'error',
-                                    message: data.msg,
+                                    message: data.message,
                                     duration: 2000,
                                 });
                             }
                         })
-                        vue.$refs.pic_file.submit();
-                        vue.$refs.tuzu_file.submit();
+//                        vue.$refs.pic_file.submit();
+                        vue.$refs.zu_file.submit();
 
                     } else {
-                        console.log('error submit!!')
+                        console.log('error submit!!');
                         return false
                     }
                 })
