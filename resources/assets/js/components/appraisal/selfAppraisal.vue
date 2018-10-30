@@ -127,8 +127,8 @@ export default {
                     if (data.code == 0) {
                         self.AppraisalSelfData = data.datas;
                         self.form = data.datas;
-                        self.filelist.url=data.datas.pro_road;
-                        self.filelists.url=data.datas.ap_cover_road
+                        self.filelist.url = 'showimage?disk=appraisal&subjection=' + data.datas.pro_road;
+                        self.filelists.url = 'showimage?disk=appraisal&subjection=' + data.datas.ap_cover_road; 
                     } else {
                         self.$notify({
                             type: 'error',

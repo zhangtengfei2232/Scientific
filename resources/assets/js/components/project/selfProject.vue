@@ -77,12 +77,13 @@
                 <el-form-item label="项目合同书封面图片">
                     <el-upload
                         class="upload-demo"
-                        drag
-                        action="#"
-                        ref="pro_file"
-                        :before-upload="fileProfil"
-                        :file-list="filelist"
-                        multiple>
+                            :auto-upload="false"
+                            drag
+                            action="#"
+                            ref="pro_file"
+                            :before-upload="fileProfil"
+                            :file-list="filelists"
+                            multiple>
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
@@ -124,7 +125,7 @@
     data() {
       return {
             ProjectSelfData: {},
-            filelist: [{url:''}],
+            filelists: [{url:''}],
             pro_file:'',
             dataForm: new FormData(),
             form: {
@@ -159,6 +160,9 @@
                 if (data.code == 0) {
                     self.ProjectSelfData = data.datas;
                     self.form = data.datas;
+                    let road = 'showimage?disk=project&subjection=' + data.datas.pro_road;
+                    self.filelists.url = road;         
+                    console.log(self.filelists.url);
                 }else {
                     self.$notify({
                         type: 'error',
@@ -228,7 +232,7 @@
                                     type: 'success'
                                 });
                                 this.$router.push({path: '/project'});
-                            } else {
+                            } else { 
                                 vue.$notify({
                                     type: 'error',
                                     message: '修改失败',

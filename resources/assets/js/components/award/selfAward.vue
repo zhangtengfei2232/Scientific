@@ -135,7 +135,7 @@ export default {
                     if (data.code == 0) {
                         self.AwardSelfData = data.datas;
                         self.form = data.datas;
-                        self.filelist.url=data.datas.aw_road;
+                        self.filelist.url = 'showimage?disk=award&subjection=' + data.datas.aw_road; 
                     } else {
                         self.$notify({
                             type: 'error',

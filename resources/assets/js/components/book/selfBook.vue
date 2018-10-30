@@ -94,6 +94,7 @@
                         ref="bo_file"
                         :limit=1
                         :before-upload="fileProfil"
+                        :file-list="filelist"
                         :auto-upload="true">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -105,6 +106,7 @@
                         action="#"
                         ref="bo_files"
                         :limit=1
+                        :file-list="filelists"
                         :before-upload="fileProfil"
                         :auto-upload="false">
                         <i class="el-icon-upload"></i>
@@ -170,8 +172,8 @@ export default {
                 if (data.code == 0) {
                     self.BookSelfData = data.datas;
                     self.form = data.datas;
-                    self.filelist.url=data.datas.op_cover_road;
-                    self.filelist.url=data.datas.op_coright_road;
+                    self.filelist.url = 'showimage?disk=apus&subjection=' + data.datas.op_cover_road; 
+                    self.filelists.url = 'showimage?disk=apus&subjection=' + data.datas.op_coright_road;
                 } else {
                     self.$notify({
                         type: 'error',
