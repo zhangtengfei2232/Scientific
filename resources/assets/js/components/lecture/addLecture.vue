@@ -1,5 +1,5 @@
 <template>
-    <div class="content">
+    <div class="contents">
         <div class="add">
             <el-form ref="form" :model="form" label-width="90px">
             <el-form-item label="专家姓名">
@@ -36,23 +36,27 @@
                         class="upload-demo"
                         drag
                         action="#"
+                        ref="zu_file"
+                        :before-upload="fileZufil"
                         multiple>
                     <i class="el-icon-upload"></i>
                     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                 </el-upload>
             </el-form-item>
-            <el-form-item label="图片">
-                <el-upload
-                        class="upload-demo"
-                        drag
-                        action="#"
-                        multiple>
-                    <i class="el-icon-upload"></i>
-                    <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                </el-upload>
-            </el-form-item>
+            <!--<el-form-item label="图片">-->
+                <!--<el-upload-->
+                        <!--class="upload-demo"-->
+                        <!--drag-->
+                        <!--action="#"-->
+                        <!--ref="pic_file"-->
+                        <!--:before-upload="filePicfil"-->
+                        <!--multiple>-->
+                    <!--<i class="el-icon-upload"></i>-->
+                    <!--<div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>-->
+                <!--</el-upload>-->
+            <!--</el-form-item>-->
             <el-form-item>
-                <el-button type="primary" @click="onSubmit">立即创建</el-button>
+                <el-button type="primary" @click="onSubmit(form)">立即创建</el-button>
                 <el-button>取消</el-button>
             </el-form-item>
         </el-form>
@@ -61,10 +65,13 @@
 </template>
 
 <style scoped>
-    .content{
-        width: 80%;
-        display: flex;
-        margin-top: 20px;
+    .contents{
+        width: 75%;
+        float: left;
+    }
+    .add{
+        width: 73%;
+        margin: 35px 0 0 35px;
     }
     /*组件*/
     .el-form{
@@ -77,6 +84,9 @@
     export default {
         data() {
             return {
+                dataForm: new FormData(),
+                zu_file: '',
+                pic_file: '',
                 form: {
                     le_expert_name:'',
                     le_expert_level:'',
@@ -90,9 +100,75 @@
             }
         },
         methods: {
-            onSubmit() {
-                console.log('submit!');
-            }
+            fileZufil(file){
+                this.dataForm.append('zu_file', file);
+                return false;
+            },
+            filePicfil(file){
+                this.dataForm.append('pic_file', file);
+                return false;
+            },
+            onSubmit(form) {
+                console.log(form,'添加aaaaa');
+                if(form.le_expert_name == '') {
+                    this.$message.error('专家姓名不能为空');
+                    return
+                }else if(form.le_expert_level == ''){
+                    this.$message.error('专家级别不能为空');
+                    return
+                }else if(form.le_report_name == '') {
+                    this.$message.error('报告名称不能为空');
+                    return
+                }else if(form.le_invite_status == '') {
+                    this.$message.error('邀请状态不能为空');
+                    return
+                }else if(form.le_invite_unit == '') {
+                    this.$message.error('邀请单位不能为空');
+                    return
+                }else if(form.le_time == '') {
+                    this.$message.error('讲学时间不能为空');
+                    return
+                }this.$refs['form'].validate((valid) => {
+                    var d = form.le_time;
+                    form.le_time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+                    let vue = this;
+                    if (valid) {
+                        jQuery.each(vue.form,function(i,val){
+                            vue.dataForm.append(i,val);
+                        });
+                        vue.addLectureData(vue.dataForm).then(res => {
+                            var data = res.data;
+                            if (data.code == 0) {
+                                vue.$message({
+                                    message: '添加成功',
+                                    type: 'success'
+                                });
+                            } else {
+                                vue.$notify({
+                                    type: 'error',
+                                    message: data.message,
+                                    duration: 2000,
+                                });
+                            }
+                        })
+//                        vue.$refs.pic_file.submit();
+                        vue.$refs.zu_file.submit();
+
+                    } else {
+                        console.log('error submit!!');
+                        return false
+                    }
+                })
+            },
+            addLectureData(data) {
+                return axios({
+                    method: 'post',
+                    url: 'addLecture',
+                    headers: {'Content-Type': 'multipart/form-data'},
+                    timeout: 20000,
+                    data: data
+                });
+            },
         }
     }
 </script>
