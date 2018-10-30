@@ -26,6 +26,7 @@ class PatentController extends Controller
              'author_notic_day' => trim($request->author_notic_day),
              'pa_integral'      => trim($request->pa_integral)
          ];
+         dd($datas);
          $judge_datas = judgePatenField($datas);
          if($judge_datas['code'] == 1){
              return $judge_datas;
@@ -75,6 +76,7 @@ class PatentController extends Controller
              return responseTojson(1,'你请求的方式不对');
          }
          $pa_id[0] = trim($request->pa_id);
+         $pa_road  = trim($request->pa_road);
          $datas  = [
             'pa_id'            => $pa_id[0],
             'first_inventor'   => trim($request->first_inventor),
@@ -86,16 +88,19 @@ class PatentController extends Controller
             'author_cert_num'  => trim($request->author_cert_num),
             'author_notic_day' => trim($request->author_notic_day),
             'pa_integral'      => trim($request->pa_integral),
-            'pa_remarks'       => trim($request->pa_remarks)
+            '$pa_road'         => $pa_road
          ];
+         dd($datas);
          $judge_datas = judgePatenField($datas);
          if($judge_datas['code']== 1){
              return $judge_datas;
          }
-         $is_reset_image = $request->is_reset_image;
-         if(!$is_reset_image){
-             return PatentDatabase::updatePatentDatas($datas);
+         $reset_image_status = false;
+         $datas['pa_remarks'] = trim($request->pa_remarks);
+         if(!$request->hasFile('pa_file')){
+             return PatentDatabase::updatePatentDatas($datas,$reset_image_status);
          }
+         $reset_image_status = true;
          $patent_image = $request->file('pa_file');
          $judge_iamge  = judgeFileImage($patent_image);
          if($judge_iamge['code'] ==1){
@@ -103,14 +108,13 @@ class PatentController extends Controller
          }
          $disk              = UploadSubjectionConfig::PATENT;
          $subjection_patent = UploadSubjectionConfig::PATENT_IMG;
-         $old_image_road    = PatentDatabase::selectImageRoadDatas($pa_id);
          $new_image_road    = uploadFiles($subjection_patent,$patent_image,$disk);
          $datas['pa_road']  = $new_image_road;
          PatentDatabase::beginTraction();
-         $reset_patent      = PatentDatabase::updatePatentDatas($datas);
+         $reset_patent      = PatentDatabase::updatePatentDatas($datas,$reset_image_status);
          if($reset_patent){
              PatentDatabase::commit();
-             deleteAllFiles($disk,$old_image_road[0]);
+             deleteAllFiles($disk,$pa_road);
              return responseTojson(0,'修改专利信息成功');
          }
          PatentDatabase::rollback();

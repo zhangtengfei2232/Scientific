@@ -9,7 +9,7 @@
     //判断老师字段是否合法
     function judgeTeacherField($datas){
         if(emptyarray($datas)){
-            return responseTojson(1,'你填写的个人信息不全','',1);
+            return responseTojson(1,'你填写的个人信息不全',1);
         }
         $isMob="/^1[3-5,8]{1}[0-9]{9}$/";
         $isTel="/^([0-9]{3,4}-)?[0-9]{7,8}$/";

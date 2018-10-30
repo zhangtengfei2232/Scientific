@@ -166,6 +166,7 @@ class InformationController extends Controller
             'master_company'        => trim($request->master_company),       //老师硕博导授予单位
             'master_time '          => trim($request->master_time)           //老师硕博导授予时间
         ];
+        dd($request);
         $judge_datas = judgeTeacherField($datas);
         if($judge_datas['code'] == 1){                                         //没有字段通过验证
             return $judge_datas;

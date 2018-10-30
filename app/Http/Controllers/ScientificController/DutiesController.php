@@ -74,6 +74,7 @@ class DutiesController extends Controller
             return responseTojson(1,'你请求的方式不对');
         }
         $du_id[0]          = trim($request->du_id);
+        $du_road           = trim($request->du_road);
         $datas = [
             'du_id'        => $du_id[0],
             'teacher_name' => trim($request->teacher_name),
@@ -83,17 +84,20 @@ class DutiesController extends Controller
             'du_age'       => trim($request->du_age),
             'du_name'      => trim($request->du_name),
             'du_duty'      => trim($request->du_duty),
-            'du_year_num'  => trim($request->du_year_num)
+            'du_year_num'  => trim($request->du_year_num),
+            'du_road'      => $du_road
         ];
         dd($datas);
         $judge_datas = judgeDutiesField($datas);
         if($judge_datas['code'] == 1){
             return $judge_datas;
         }
+        $reset_image_status = false;
         $datas['du_remark'] = trim($request->du_remark);
         if(!$request->hasFile('du_file')){//判断老师是否上传证书图片
-            return DutiesDatabase::updateDutiesDatas($datas);
+            return DutiesDatabase::updateDutiesDatas($datas,$reset_image_status);
         }
+        $reset_image_status = true;
         $duties_image = $request->file('du_file');
         $judge_image  = judgeFileImage($duties_image);
         if($judge_image['code'] == 1){
@@ -102,13 +106,12 @@ class DutiesController extends Controller
         $disk = UploadSubjectionConfig::DUTIES;
         $subjection_duties = UploadSubjectionConfig::DUTIES_IMG;
         DutiesDatabase::beginTraction();
-        $old_image_road = DutiesDatabase::selectImageRoadDatas($du_id);
         $new_image_road = uploadFiles($subjection_duties,$duties_image,$disk);
-        $datas['aw_road'] = $new_image_road;
-        $reset_duties  = DutiesDatabase::updateDutiesDatas($datas);
+        $datas['du_road'] = $new_image_road;
+        $reset_duties  = DutiesDatabase::updateDutiesDatas($datas,$reset_image_status);
         if($reset_duties){
             DutiesDatabase::commit();
-            deletefiles($disk,$old_image_road[0]);
+            deletefiles($disk,$du_road);
             return responseTojson(0,'修改信息成功');
         }
         DutiesDatabase::rollback();

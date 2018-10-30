@@ -58,29 +58,28 @@ class AwardDatabase extends ModelDatabase
         }
     }
     //修改获奖信息
-    public static function updateAwardDatas($datas){
-        $aw_id = $datas['aw_id'];
+    public static function updateAwardDatas($datas,$reset_image_status){
+        $aw_id    = $datas['aw_id'];
         $response = DB::table('award')->where('aw_id',$aw_id)
-            ->update([
-                'aw_first_author'  => $datas['aw_first_author'],
-                'aw_all_author'    => $datas['aw_all_author'],
-                'prize_win_name'   => $datas['prize_win_name'],
-                'award_name'       => $datas['award_name'],
-                'form_achievement' => $datas['form_achievement'],
-                'aw_level'         => $datas['aw_level'],
-                'aw_grade'         => $datas['aw_grade'],
-                'aw_grant_unit'    => $datas['aw_grant_unit'],
-                'aw_grant_time'    => $datas['aw_grant_time'],
-                'aw_certi_number'  => $datas['aw_certi_number'],
-                'aw_sch_rank'      => $datas['aw_sch_rank'],
-                'aw_integral'      => $datas['aw_integral'],
-            ]);
-        if(array_key_exists('aw_road',$datas)){
-            $reset_image = DB::table('award')->where('aw_id',$aw_id)
-                           ->update(['aw_road' => $datas['aw_road']]);
-            return ($response != 1 || $reset_image != 1) ? false :true;
+                    ->update([
+                    'aw_first_author'  => $datas['aw_first_author'],
+                    'aw_all_author'    => $datas['aw_all_author'],
+                    'prize_win_name'   => $datas['prize_win_name'],
+                    'award_name'       => $datas['award_name'],
+                    'form_achievement' => $datas['form_achievement'],
+                    'aw_level'         => $datas['aw_level'],
+                    'aw_grade'         => $datas['aw_grade'],
+                    'aw_grant_unit'    => $datas['aw_grant_unit'],
+                    'aw_grant_time'    => $datas['aw_grant_time'],
+                    'aw_certi_number'  => $datas['aw_certi_number'],
+                    'aw_sch_rank'      => $datas['aw_sch_rank'],
+                    'aw_integral'      => $datas['aw_integral'],
+                    'aw_road'          => $datas['aw_road']
+                    ]);
+        if($reset_image_status){
+            return ($response != 1) ? false :true;
         }
         return ($response != 1) ? responseTojson(1,'修改获奖信息失败')
-            : responseTojson(0,'修改获奖信息成功');
+               : responseTojson(0,'修改获奖信息成功');
     }
 }
