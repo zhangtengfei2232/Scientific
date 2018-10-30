@@ -121,35 +121,77 @@ export default {
             this.dataForm.append('ho_file', file);
             return false;
         },
-        fileProfils(file){
-            this.dataForm.append('ho_files', file);
-            return false;
+        fileProfils(files){
+            if(this.Bcode == true){
+                this.dataFile.append('ho_files', files);
+                this.sendfile(files,2);
+                this.$refs.ho_files.submit();
+            }else{
+                this.$message.error('请先添加数据信息');
+                return false
+            }
+        },
+        sendfile(file,m) {
+            this.addBookFile(vue.dataFile,m).then(res => {
+                var data = res.data;
+                if (data.code == 0) {
+                    vue.$message({
+                        message: '添加成功',
+                        type: 'success'
+                    });A
+                } else {
+                    vue.$notify({
+                        type: 'error',
+                        message: '添加失败',
+                        duration: 2000,
+                    });
+                }
+            })  
+        },
+        addBookFile(data,m){
+             return axios({
+                method: 'post',
+                url: '',
+                headers: {'Content-Type': 'multipart/form-data'},
+                timeout: 20000,
+                data: data
+            });
         },
        onSubmit(form) {
             let vue = this;
             if(form.ho_name == '') {
                 this.$message.error('会议名称不能为空');
+                return
             }else if(form.ho_art_status == ''){
                 this.$message.error('有无论文集不能为空');
+                return
             }else if(form.people_num == '') {
                 this.$message.error('参加人数不能为空');
+                return
             }else if(form.ho_unit == '') {
                 this.$message.error('主办单位不能为空');
+                return
             }else if(form.undertake_unit == '') {
                 this.$message.error('承办单位不能为空');
+                return
             }else if(form.ho_level == '') {
                 this.$message.error('会议级别不能为空');
+                return
             }else if(form.ho_time == '') {
                 this.$message.error('会议时间不能为空');
+                return
             }
             this.$refs['form'].validate((valid) => {
+                var d = form.ho_time;     
+                form.ho_time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                     if (valid) {
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);
                         });
                         vue.addPatentData(vue.dataForm).then(res => {
-                            var data = response.data;
+                            var data = res.data;
                             if (data.code == 0) {
+                                this.Bcode = true;
                                 vue.$message({
                                     message: '添加成功',
                                     type: 'success'

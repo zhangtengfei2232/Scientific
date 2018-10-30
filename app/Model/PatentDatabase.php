@@ -33,9 +33,7 @@ class PatentDatabase  extends ModelDatabase
     }
     //删除专利信息
     public static function deletePatentDatas($pa_id_datas){
-        for($i = 0; $i < count($pa_id_datas); $i++){
-            DB::table('patent')->where('pa_id',$pa_id_datas[$i])->delete();
-        }
+        DB::table('patent')->whereIn('pa_id',$pa_id_datas)->delete();
     }
     //查看专利信息
     public static function selectPatentDatas($pa_id){

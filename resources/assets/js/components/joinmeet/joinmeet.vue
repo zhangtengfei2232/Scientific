@@ -160,7 +160,6 @@
             BatchDelete(){
 		    	var self = this;
                 var pro_id_datas = [];//存放删除的数据
-                console.log(self.multipleSelection);
                 if(self.multipleSelection == undefined){
                     this.$message({
                         message: '警告哦，这是一条警告消息',
@@ -206,8 +205,8 @@
                     });          
                 });
             },
-            deleteJoinmeetData(pro_id) {
-                let id = pro_id;
+            deleteJoinmeetData(jo_id) {
+                this.id.push(jo_id);
                 this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -216,7 +215,7 @@
                     let self = this;
                     axios.get("deletejoinmeet",{
                         params:{
-                            jo_id_datas:id
+                            jo_id_datas:this.id
                         }
                     }).then(function (response) {
                     var data = response.data;

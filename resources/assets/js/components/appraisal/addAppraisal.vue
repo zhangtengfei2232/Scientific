@@ -41,22 +41,21 @@
                 </el-form-item>
                 <el-form-item label="成果封面">
                     <el-upload
-                        class="upload-demo"
                         drag
+                        ref="pat_pic"
+                        :before-upload="filePatpic"
                         action="#"
-                        multiple>
+                        :auto-upload="false">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
                 </el-form-item>
                 <el-form-item label="成果鉴定证书图片">
                     <el-upload
-                        class="upload-demo"
                         drag
-                        action=""
-                        multiple
-                        ref="pat_pic"
-                        :before-upload="filePatpic"
+                        action="#"
+                        ref="pat_pics"
+                        :before-upload="filePatpics"
                         :auto-upload="false">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -89,6 +88,8 @@
       return {
             pat_pic : '',
             dataForm: new FormData(),
+            dataFile: new FormData(),
+            Bcode:false,
             form: {
                 ap_first_author: '',
                 ap_all_author: '',
@@ -104,34 +105,88 @@
         }
     },
     methods: {
-        filePatpic(file) {
-            this.dataForm.append('pat_pic', file);
-            return false;
+        filePatpic(file){
+            if(this.Bcode == true){
+                this.dataFile.append('pat_pic', file);
+                this.sendfile(files,1);
+                this.$refs.pat_pic.submit();
+            }else{
+                this.$message.error('请先添加数据信息');
+                return false
+            }  
+        },
+        filePatpics(files){
+            if(this.Bcode == true){
+                this.dataFile.append('pat_pic', files);
+                this.sendfile(files,2);
+                this.$refs.pat_pics.submit();
+            }else{
+                this.$message.error('请先添加数据信息');
+                return false
+            }
+        },
+        sendfile(file,m) {
+            this.addBookFile(vue.dataFile,m).then(res => {
+                var data = res.data;
+                if (data.code == 0) {
+                    vue.$message({
+                        message: '添加成功',
+                        type: 'success'
+                    });A
+                } else {
+                    vue.$notify({
+                        type: 'error',
+                        message: '添加失败',
+                        duration: 2000,
+                    });
+                }
+            })  
+        },
+        addBookFile(data,m){
+             return axios({
+                method: 'post',
+                url: '',
+                headers: {'Content-Type': 'multipart/form-data'},
+                timeout: 20000,
+                data: data
+            });
         },
         onSubmit(form) {
             let vue = this;
             if(form.ap_first_author == '') {
                 this.$message.error('第一发明人不能为空');
+                return
             }else if(form.ap_all_author == ''){
                 this.$message.error('全部发明人不能为空');
+                return
             }else if(form.ap_res_name == '') {
                 this.$message.error('鉴定成果名称不能为空');
+                return
             }else if(form.ap_form == '') {
                 this.$message.error('鉴定形式不能为空');
+                return
             }else if(form.pa_imple_situ == '') {
                 this.$message.error('鉴定编号不能为空');
+                return
             }else if(form.ap_conclusion == '') {
                 this.$message.error('鉴定结论不能为空');
+                return
             }else if(form.ap_time == '') {
                 this.$message.error('鉴定时间不能为空');
+                return
             }else if(form.ap_level == '') {
                 this.$message.error('鉴定级别不能为空');
+                return
             }else if(form.ap_integral == '') {
                 this.$message.error('积分不能为空');
+                return
             }else if(form.ap_remarks == '') {
                 this.$message.error('备注不能为空');
+                return
             }
             this.$refs['form'].validate((valid) => {
+                 var d = form.ap_time;     
+                form.ap_time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                     if (valid) {
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);
@@ -139,6 +194,7 @@
                         vue.addAppraisalData(vue.dataForm).then(res => {
                             var data = response.data;
                             if (data.code == 0) {
+                                this.Bcode = true;
                                 vue.$message({
                                     message: '添加成功',
                                     type: 'success'

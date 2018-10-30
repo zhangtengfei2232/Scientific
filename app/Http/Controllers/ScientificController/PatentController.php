@@ -31,11 +31,11 @@ class PatentController extends Controller
              return $judge_datas;
          }
          $datas['pa_remarks'] = trim($request->pa_remarks);
-         if(!$request->hasFile('pa_file')){                    //判断是否添加图片
+         if(!$request->hasFile('pat_pic')){                    //判断是否添加图片
              $datas['pa_road'] = '';
              return PatentDatabase::addPatentDatas($datas);
          }
-         $patent_image = $request->file('pa_file');
+         $patent_image = $request->file('pat_pic');
          $judge_image  = judgeFileImage($patent_image);
          if($judge_image['code'] == 1){
              return $judge_image;
@@ -57,6 +57,7 @@ class PatentController extends Controller
          $old_image_road = PatentDatabase::selectImageRoadDatas($pa_id_datas);
          $delete_patent  = PatentDatabase::deletePatentDatas($pa_id_datas);
          deleteAllFiles(UploadSubjectionConfig::PATENT,$old_image_road);
+         return responseTojson(0,'删除成功');
      }
      //查看单个专利信息
      public function selectPatent(Request $request){

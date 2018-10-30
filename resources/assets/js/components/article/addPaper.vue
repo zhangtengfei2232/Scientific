@@ -203,40 +203,55 @@
                 form.year = year1+","+year2+","+year3+","+year4+","+year5;
                 if(form.author == '') {
                     this.$message.error('第一作者不能为空');
+                    return
                 }else if(form.art_all_author == ''){
                     this.$message.error('全部作者不能为空');
+                    return
                 }else if(form.title == '') {
                     this.$message.error('论文题目不能为空');
-                }else if(form.art_time == ''){
-                    this.$message.error('发表时间不能为空');
-                } else if(form.publication_name == '') {
+                    return
+                }else if(form.publication_name == '') {
                     this.$message.error('发表刊物名称不能为空');
+                    return
                 }else if(form.publication_num == '') {
                     this.$message.error('刊号不能为空');
+                    return
                 }else if(year1 == '') {
                     this.$message.error('年，卷，期不能为空');
+                    return
                 }else if(year2 == '') {
                     this.$message.error('年，卷，期不能为空');
+                    return
                 }else if(year3 == '') {
                     this.$message.error('年，卷，期不能为空');
+                    return
                 }else if(year4 == '') {
                     this.$message.error('年，卷，期不能为空');
+                    return
                 }else if(year5 == '') {
                     this.$message.error('年，卷，期不能为空');
+                    return
                 }else if(form.num_words == '') {
                     this.$message.error('字数不能为空');
+                    return
                 }else if(form.periodical_cate == '') {
                     this.$message.error('期刊级别不能为空');
+                    return
                 }else if(form.belong_project == '') {
                     this.$message.error('所属项目不能为空');
+                    return
                 }else if(form.art_cate_research == '') {
                     this.$message.error('研究类别不能为空');
+                    return
                 }else if(form.art_sub_category == '') {
                     this.$message.error('学科门类不能为空');
+                    return
                 }else if(form.art_integral == '') {
                     this.$message.error('积分不能为空');
-                }else if(form.percal_cate == '') {
+                    return
+                }else if(form.name == '') {
                     this.$message.error('学校认定刊物级别不能为空');
+                    return
                 }
                 this.$refs['form'].validate((valid) => {
                     var d = form.art_time; 

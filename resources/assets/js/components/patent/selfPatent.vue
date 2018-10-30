@@ -158,6 +158,8 @@ export default {
                 return
             }
             this.$refs['form'].validate((valid) => {
+                 var d = form.author_notic_day;     
+                form.author_notic_day = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                     if (valid) {
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);
@@ -166,7 +168,7 @@ export default {
                             var data = res.data;
                             if (data.code == 0) {
                                 vue.$message({
-                                    message: '添加成功',
+                                    message: '修改成功',
                                     type: 'success'
                                 });
                             }else {
