@@ -39,9 +39,7 @@ class AwardDatabase extends ModelDatabase
     }
     //查询获奖信息
     public static function selectAwardDatas($aw_id){
-        $result =  DB::table('award')->where('aw_id',$aw_id)->first();
-        $result->aw_grant_time = date('Y-m-d',$result->aw_grant_time);
-        return $result;
+        return DB::table('award')->where('aw_id',$aw_id)->first();
     }
     //查询全部获奖信息
     public static function selectAllAwardDatas($teacher_id){

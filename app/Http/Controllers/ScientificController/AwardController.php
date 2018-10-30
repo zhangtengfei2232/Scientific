@@ -24,7 +24,7 @@ class AwardController extends Controller
              'aw_level'         => trim($request->aw_level),
              'aw_grade'         => trim($request->aw_grade),
              'aw_grant_unit'    => trim($request->aw_grant_unit),
-             'aw_grant_time'    => strtotime(trim($request->aw_grant_time)),
+             'aw_grant_time'    => trim($request->aw_grant_time),
              'aw_certi_number'  => trim($request->aw_certi_number),
              'aw_sch_rank'      => trim($request->aw_sch_rank),
              'aw_integral'      => trim($request->aw_integral)
@@ -88,7 +88,7 @@ class AwardController extends Controller
              'aw_level'         => trim($request->aw_level),
              'aw_grade'         => trim($request->aw_grade),
              'aw_grant_unit'    => trim($request->aw_grant_unit),
-             'aw_grant_time'    => strtotime(trim($request->aw_grant_time)),
+             'aw_grant_time'    => trim($request->aw_grant_time),
              'aw_certi_number'  => trim($request->aw_certi_number),
              'aw_sch_rank'      => trim($request->aw_sch_rank),
              'aw_integral'      => trim($request->aw_integral)

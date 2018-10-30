@@ -114,14 +114,6 @@ class TeacherDatabase extends ModelDatabase
                  unset($juris[0]);
              }
          }
-         $buffer->borth                  = date('Y-m-d',$buffer->borth);
-         $buffer->admin_tenure_time      = date('Y-m-d',$buffer->admin_tenure_time);
-         $buffer->review_time            = date('Y-m-d',$buffer->review_time);
-         $buffer->appointment_time       = date('Y-m-d',$buffer->appointment_time);
-         $buffer->working_hours          = date('Y-m-d',$buffer->working_hours);
-         $buffer->first_graduation_time  = date('Y-m-d',$buffer->first_graduation_time);
-         $buffer->most_graduation_time   = date('Y-m-d',$buffer->most_graduation_time);
-         $buffer->master_time            = date('Y-m-d',$buffer->master_time);
          $message['juris_diction']       = $juris_diction;
          $message['information']         = $buffer;
          return $message;

@@ -21,7 +21,7 @@ class AppraisalController extends Controller
              'ap_form'         => trim($request->ap_form),
              'ap_num'          => trim($request->ap_num),
              'ap_conclusion'   => trim($request->ap_conclusion),
-             'ap_time'         => strtotime(trim($request->ap_time)),
+             'ap_time'         => trim($request->ap_time),
              'ap_level'        => trim($request->ap_level),
              'ap_integral'     => trim($request->ap_integral),
              'ap_remarks'      => trim($request->ap_remarks)
@@ -93,7 +93,7 @@ class AppraisalController extends Controller
              'ap_form'         => trim($request->ap_form),
              'ap_num'          => trim($request->ap_num),
              'ap_conclusion'   => trim($request->ap_conclusion),
-             'ap_time'         => strtotime(trim($request->ap_time)),
+             'ap_time'         => trim($request->ap_time),
              'ap_level'        => trim($request->ap_level),
              'ap_integral'     => trim($request->ap_integral)
          ];

@@ -10,10 +10,7 @@ class ArticalDatabase  extends ModelDatabase
      * @return mixed
      */
      public  static function selectArticalDatas($art_id){
-
-        $result =  DB::table('artical')->where('art_id',$art_id)->get();
-        $result->art_time = date('Y-m-d',$result->art_time);
-        return $result;
+         return DB::table('artical')->where('art_id',$art_id)->first();
      }
      //查找个人全部论文信息
      public static function selectAllArticalDatas($teacher_id){
@@ -49,8 +46,8 @@ class ArticalDatabase  extends ModelDatabase
                 ]);
      }
      //删除论文
-    public static function deleteArticalDatas($artical_id){
-         $response = DB::table('artical')->where('art_id',$artical_id)->delete();
+    public static function deleteArticalDatas($artical_id_datas){
+         $response = DB::table('artical')->whereIn('art_id',$artical_id_datas)->delete();
          return ($response != 1) ? false :true;
     }
      //修改论文信息和论文照片信息

@@ -51,9 +51,7 @@ class SchoolfileDatabase extends ModelDatabase
     }
     //查看单个校发文件信息
     public static function selectSchoolfileDatas($schoolfile_id){
-        $result = DB::table('schoolfile')->where('schfile_id',$schoolfile_id)->first();
-        $result->schfile_down_time = date('Y-m-d',$result->schfile_down_time);
-        return $result;
+        return DB::table('schoolfile')->where('schfile_id',$schoolfile_id)->first();
     }
     //查看所有校发文件信息
     public static function selectAllSchoolfileDatas(){

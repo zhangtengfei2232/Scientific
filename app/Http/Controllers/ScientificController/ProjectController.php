@@ -29,7 +29,7 @@ class ProjectController extends Controller
             'social_eco_goal'   => trim($request->social_eco_goal),
             'na_eco_industry'   => trim($request->na_eco_industry),
             'pro_integral'      => trim($request->pro_integral),
-            'project_year'      => strtotime(trim($request->project_year)),
+            'project_year'      => trim($request->project_year),
         ];
         $judge_project_datas = judgeProjectField($datas);                  //验证字段
         if($judge_project_datas['code'] == 1){
@@ -97,7 +97,7 @@ class ProjectController extends Controller
             'social_eco_goal'   => trim($request->social_eco_goal),
             'na_eco_industry'   => trim($request->na_eco_industry),
             'pro_integral'      => trim($request->pro_integral),
-            'project_year'      => strtotime(trim($request->project_year))
+            'project_year'      => trim($request->project_year)
         ];
         $judge_project_datas = judgeProjectField($datas);
         if($judge_project_datas['code'] == 1){

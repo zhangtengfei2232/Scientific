@@ -22,7 +22,7 @@ class HoldmeetController extends Controller
             'ho_unit'         => trim($request->ho_unit),
             'undertake_unit'  => trim($request->undertake_unit),
             'ho_level'        => trim($request->ho_level),
-            'ho_time'         => strtotime(trim($request->ho_time)),
+            'ho_time'         => trim($request->ho_time),
             'ho_graph_inject' => trim($request->ho_graph_inject)
         ];
         $judge_datas = judgeHoldmeetField($datas);
@@ -88,7 +88,7 @@ class HoldmeetController extends Controller
             'ho_unit'         => trim($request->ho_unit),
             'undertake_unit'  => trim($request->undertake_unit),
             'ho_level'        => trim($request->ho_level),
-            'ho_time'         => strtotime(trim($request->ho_time))
+            'ho_time'         => trim($request->ho_time)
         ];
         $judge_datas = judgeHoldmeetField($datas);
         if($judge_datas['code'] == 1){

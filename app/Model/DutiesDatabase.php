@@ -57,9 +57,7 @@ class DutiesDatabase extends ModelDatabase
     }
     //查看单个担任团体职务信息
     public static function selectDutiesDatas($du_id){
-        $result = DB::table('duties')->where('du_id',$du_id)->first();
-        $result->du_year_num = date('Y-m-d',$result->du_year_num);
-        return $result;
+        return DB::table('duties')->where('du_id',$du_id)->first();
     }
     //查看所有担任团体职务信息
     public static function selectAllDutiesDatas($teacher_id){

@@ -42,9 +42,7 @@ class ProjectDatabase extends ModelDatabase
     }
     //查找单个项目信息
     public static function selectProjectDatas($project_id){
-      $result = DB::table('project')->where('pro_id',$project_id)->first();
-      $result->project_year = date('Y-m-d',$result->project_year);
-      return $result;
+      return DB::table('project')->where('pro_id',$project_id)->first();
     }
     //查找所有项目信息
     public static function selectAllProjectDatas($teacher_id){

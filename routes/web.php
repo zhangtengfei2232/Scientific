@@ -10,7 +10,11 @@ Route::group(['namespace' => 'Login'], function (){
 });
 
 Route::group(['namespace' => 'ScientificController','middleware'=>['validate']], function (){
+    Route::get('showfile','AccessFileController@showFile');                        //请求资源
     Route::get('indexpage', 'InformationController@showIndex');
+
+
+
     //老师对信息的操作
     Route::post('addteacher', 'InformationController@addTeacher');                //添加老师信息
     Route::get('deleteteacher', 'InformationController@deleteTeacher');           //删除老师信息
@@ -25,7 +29,7 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     Route::get('deleteartical', 'ArticalController@deleteArtical');                //删除论文
     Route::get('selectartical', 'ArticalController@selectArtical');                //查询单个论文
     Route::get('selectallattical', 'ArticalController@selectAllAttical');          //查询全部论文
-    Route::get('dateSelectArtical', 'ArticalController@dateSelectArtical');        //根据时间查找
+    Route::get('dateSelectartical', 'ArticalController@dateSelectArtical');        //根据时间查找
     Route::get('dateselectartical', 'ArticalController@dateSelectArtical');        //根据日期查找论文
     Route::post('updateartical', 'ArticalController@updateArtical');               //修改论文
     Route::get('exportartical', 'ArticalController@exportArtical');                //导出一篇论文
@@ -45,7 +49,7 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     //老师对获奖的操作
     Route::post('addaward', 'AwardController@addAward');                           //添加获奖信息
     Route::get('deleteaward', 'AwardController@deleteAward');                      //删除单个获奖信息
-    Route::get('selectAward', 'AwardController@selectAward');                      //查询单个获奖信息
+    Route::get('selectaward', 'AwardController@selectAward');                      //查询单个获奖信息
     Route::get('selectallaward', 'AwardController@selectAllAward');                //查询全部获奖信息
     Route::post('updateAward', 'AwardController@updateAward');                     //修改获奖信息
 

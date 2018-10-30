@@ -23,7 +23,7 @@ class PatentController extends Controller
              'pa_imple_situ'    => trim($request->pa_imple_situ),
              'author_num'       => trim($request->author_num),
              'author_cert_num'  => trim($request->author_cert_num),
-             'author_notic_day' => strtotime(trim($request->author_notic_day)),
+             'author_notic_day' => trim($request->author_notic_day),
              'pa_integral'      => trim($request->pa_integral)
          ];
          $judge_datas = judgePatenField($datas);
@@ -84,7 +84,7 @@ class PatentController extends Controller
             'pa_imple_situ'    => trim($request->pa_imple_situ),
             'author_num'       => trim($request->author_num),
             'author_cert_num'  => trim($request->author_cert_num),
-            'author_notic_day' => strtotime(trim($request->author_notic_day)),
+            'author_notic_day' => trim($request->author_notic_day),
             'pa_integral'      => trim($request->pa_integral),
             'pa_remarks'       => trim($request->pa_remarks)
          ];
