@@ -58,6 +58,7 @@
                         drag
                         action="#"
                         ref="ho_files"
+                        :file-list="filelists"
                         :before-upload="fileProfils"
                         multiple>
                         <i class="el-icon-upload"></i>
@@ -92,8 +93,7 @@ export default {
             dataForm: new FormData(),
             ho_file: '',
             ho_files: '',
-            fileList:'',
-            fileLists:'',
+            filelists:[{url:''}],
             form: {
                 ho_name: '',
                 ho_art_status: '',
@@ -112,9 +112,9 @@ export default {
             axios.get("selectholdmeet?ho_id="+ho_id).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
-                    self.HoldmeetSelfData = data.datas;
-                    self.form = data.datas;
-                    console.log(data.datas);
+                    self.HoldmeetSelfData = data.datas.information;
+                    self.form = data.datas.information;
+                    self.filelists.url = 'showimage?disk=holdmeet&subjection=' + data.datas.information.ho_graph_inject;
                 } else {
                     self.$notify({
                         type: 'error',

@@ -61,11 +61,38 @@
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
                 </el-form-item>
+                <!-- <template>
+                    <el-table
+                        :data="filelists"
+                        style="width: 100%"
+                        max-height="250">
+                        <el-table-column
+                            fixed
+                            prop="url"
+                            label="餐会图注"
+                            width="500">
+                        </el-table-column>
+                        <el-table-column
+                            fixed="right"
+                            label="操作"
+                            width="120">
+                        <template slot-scope="scope">
+                            <el-button
+                                @click.native.prevent="deleteRow(scope.$index, filelists)"
+                                type="text"
+                                size="small">
+                                移除
+                            </el-button>
+                        </template>
+                        </el-table-column>
+                    </el-table>
+                </template> -->
                 <el-form-item label="餐会图注">
                     <el-upload
                         class="upload-demo"
                         drag
                         ref="jo_files"
+                        :file-list="filelists"
                         :before-upload="fileProfils"
                         action="#"
                         multiple>
@@ -104,6 +131,7 @@ export default {
             jo_files: '',
             multiple: true,
             JoinmeetSelfData: {},
+            filelists:[],
             form: {
                  join_people: '',
                 jo_name: '',
@@ -127,7 +155,8 @@ export default {
                     var data = response.data;
                     if (data.code == 0) {
                         self.JoinmeetSelfData = data.datas;
-                        console.log(data.datas);
+                        self.form = data.datas.information;
+                        // self.filelists = 'showimage?disk=joinmeet&subjection=' + data.datas.jo_graph_inject;
                     } else {
                         self.$notify({
                             type: 'error',

@@ -242,8 +242,9 @@
                 });
             },
             sentJoinmeetSelfData(jo_id) {
+                console.log(jo_id);
                 this.$router.push({
-                path: `/selfJoinmeet/${jo_id}`,
+                    path: `/selfJoinmeet/${jo_id}`,
                 })
             },
             byTimeSearch() {
