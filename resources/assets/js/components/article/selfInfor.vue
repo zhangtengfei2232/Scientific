@@ -26,7 +26,13 @@
                         </el-form-item>
                         <el-form-item label="年，卷，期">
                             <el-col :span="1" style="width:50px;margin:0 10px 0 0">
-                               <el-date-picker v-model="year1" type="year" placeholder="选择年份" style="width: 100px;"></el-date-picker>
+                               <el-date-picker 
+                               v-model="year1" 
+                               type="year" 
+                               placeholder="选择年份" 
+                               style="width: 100px;"
+                               format="yyyy 年 MM 月 dd 日"
+                               value-format="timestamp"></el-date-picker>
                             </el-col>
                             <el-col :span="1" style="width:50px;margin: 0px -36px 0px 6%;">
                                 ，
@@ -139,7 +145,6 @@
                         </el-form-item>
                         <el-form-item>
                             <el-button type="primary" @click="onSubmit(form,year2,year3,year4,year5,year1)">保存修改</el-button>
-                            <el-button><router-link to="/paper">取消</router-link></el-button>
                         </el-form-item>
                     </el-form>
                 </div>
@@ -185,7 +190,7 @@ export default {
                 art_cate_research: '',
                 art_sub_category: '',
                 art_integral: '',
-                year: '',
+                period: '',
                 percal_cate: '',
                 art_time: '',
             },
@@ -208,6 +213,9 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.ArticleSelfData = data.datas;
+                    let time = data.datas.period;
+                    checkYearExt(time);
+                    self.form = data.datas;
                 } else {
                     self.$notify({
                         type: 'error',
@@ -218,41 +226,58 @@ export default {
             });
         },
         onSubmit(form,year2,year3,year4,year5,year1) {
-            form.year = year1+","+year2+","+year3+","+year4+","+year5;
+            form.period = year1+","+year2+","+year3+","+year4+","+year5;
             if(form.author == '') {
                 this.$message.error('第一作者不能为空');
+                return
             }else if(form.art_all_author == ''){
                 this.$message.error('全部作者不能为空');
+                return
             }else if(form.title == '') {
                 this.$message.error('论文题目不能为空');
+                return
             }else if(form.publication_name == '') {
                 this.$message.error('发表刊物名称不能为空');
+                return
             }else if(form.publication_num == '') {
                 this.$message.error('刊号不能为空');
+                return
             }else if(year1 == '') {
                 this.$message.error('年，卷，期不能为空');
+                return
             }else if(year2 == '') {
                 this.$message.error('年，卷，期不能为空');
+                return
             }else if(year3 == '') {
                 this.$message.error('年，卷，期不能为空');
+                return
             }else if(year4 == '') {
                 this.$message.error('年，卷，期不能为空');
+                return
             }else if(year5 == '') {
                 this.$message.error('年，卷，期不能为空');
+                return
             }else if(form.num_words == '') {
                 this.$message.error('字数不能为空');
+                return
             }else if(form.periodical_cate == '') {
                 this.$message.error('期刊级别不能为空');
+                return
             }else if(form.belong_project == '') {
                 this.$message.error('所属项目不能为空');
+                return
             }else if(form.art_cate_research == '') {
                 this.$message.error('研究类别不能为空');
+                return
             }else if(form.art_sub_category == '') {
                 this.$message.error('学科门类不能为空');
+                return
             }else if(form.art_integral == '') {
                 this.$message.error('积分不能为空');
+                return
             }else if(form.name == '') {
                 this.$message.error('学校认定刊物级别不能为空');
+                return
             }
             this.$refs['form'].validate((valid) => {
                 let vue = this;
@@ -261,12 +286,13 @@ export default {
                         vue.dataForm.append(i,val);
                     });
                     vue.updateArtical(vue.dataForm).then(res => {
-                        var data = response.data;
+                        var data = res.data;
                         if (data.code == 0) {
                             vue.$message({
                                 message: '添加成功',
                                 type: 'success'
                             });
+                            this.$router.push({path: '/paper'});
                         } else {
                             vue.$notify({
                                 type: 'error',
@@ -312,7 +338,15 @@ export default {
             if(!flag){
                 this.$message.error('请上传PDF');
             }
-        }
+        },
+        checkYearExt(time){
+            let a = time.split(',');
+            this.year1 = a[0];
+            this.year2 = a[1];
+            this.year3 = a[2];
+            this.year4 = a[3];
+            this.year5 = a[4];   
+        },
     },
     mounted() {
         this.getArticleSelfData();

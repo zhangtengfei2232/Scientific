@@ -44,6 +44,7 @@
                     <el-table-column
                     prop="aw_id"
                     label="序号"
+                    sortable
                     width="120">
                     </el-table-column>
                     <el-table-column
@@ -62,7 +63,6 @@
                         width="200">
                         <template slot-scope="scope">
                             <el-button
-                            
                             type="text"
                             size="small">
                             <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentAwardSelfData(AwardDate[scope.$index].aw_id)"></el-button>
@@ -102,7 +102,7 @@
     .searchtime{
          width: 45%;
          display: inline-block;
-         margin: 15px 0 0 18%;
+         margin: 15px 0 0 7%;
     }
     .demonstration{
         font-weight: lighter;
@@ -118,6 +118,7 @@
         data() {
             return {
                 id:[],
+                sortable:true,
                 AwardDate: [],
                 checkAll: false,
                 checked: false,
@@ -193,7 +194,7 @@
             },
             getAwardDate() {
                 let self = this;
-                axios.get("selectallaward").then(function (response) {
+                axios.get("selectaward").then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
                         self.AwardDate = data.datas;
@@ -219,7 +220,7 @@
                     type: 'warning'
                 }).then(() => {
                     let self = this;
-                    axios.get("deleteAllAward",{
+                    axios.get("deleteAward",{
                          params:{
                             aw_id_datas:self.id
                         }

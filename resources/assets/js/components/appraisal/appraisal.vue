@@ -43,6 +43,7 @@
                     </el-table-column>
                     <el-table-column
                     prop="ap_id"
+                    sortable
                     label="序号"
                     width="120">
                     </el-table-column>
@@ -102,7 +103,7 @@
     .searchtime{
          width: 45%;
          display: inline-block;
-         margin: 15px 0 0 9%;
+         margin: 15px 0 0 7%;
     }
     .demonstration{
         font-weight: lighter;
@@ -118,6 +119,7 @@
         data() {
             return {
                 id:[],
+                sortable:true,
                 AppraisalDate: [],
                 checked: false,
                 form: {

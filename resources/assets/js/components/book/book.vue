@@ -45,6 +45,7 @@
                     <el-table-column
                     prop="op_id"
                     label="序号"
+                    sortable
                     width="120">
                     </el-table-column>
                     <el-table-column
@@ -103,7 +104,7 @@
     .searchtime{
          width: 45%;
          display: inline-block;
-         margin: 15px 0 0 18%;
+         margin: 15px 0 0 7%;
     }
     .demonstration{
         font-weight: lighter;
@@ -123,6 +124,7 @@
                 BookDate: [],
                 checked: false,
                 checkAll: false,
+                sortable:true,
                 form: {
                     data1: '',
                     data2: '',

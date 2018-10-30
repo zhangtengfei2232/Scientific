@@ -25,7 +25,14 @@
                 </el-form-item>
                 <el-form-item label="出版时间">
                     <el-col :span="15">
-                    <el-date-picker type="date" placeholder="选择日期" v-model="form.op_publish_time" style="width: 100%;"></el-date-picker>
+                        <el-date-picker
+                            type="date"
+                            placeholder="选择日期" 
+                            v-model="form.op_publish_time"
+                            format="yyyy 年 MM 月 dd 日"
+                            value-format="timestamp"
+                            style="width: 100%;">
+                        </el-date-picker>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="书号">
@@ -82,26 +89,24 @@
                 </el-form-item>
                 <el-form-item label="著作封面">
                     <el-upload
-                        class="upload-demo"
                         drag
                         action="#"
                         ref="bo_file"
+                        :limit=1
                         :before-upload="fileProfil"
-                        :file-list="filelist"
-                        multiple>
+                        :auto-upload="true">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
                 </el-form-item>
                 <el-form-item label="版权页图片">
                     <el-upload
-                        class="upload-demo"
                         drag
                         action="#"
                         ref="bo_files"
-                        :before-upload="fileProfils"
-                        :file-list="filelists"
-                        multiple>
+                        :limit=1
+                        :before-upload="fileProfil"
+                        :auto-upload="false">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
@@ -136,6 +141,8 @@ export default {
             filelist: [{url:''}],
             filelists: [{url:''}],
             dataForm: new FormData(),
+            dataFile: new FormData(),
+            Bcode:false,
             form: {
                 op_first_author: '',
                 op_all_author: '',
@@ -154,42 +161,71 @@ export default {
             },
         }
     },
-
     methods: {
         getBookSelfData() {
-                let self = this;
-                let op_id = self.$route.params.op_id;
-                axios.get("selectopus?op_id="+op_id).then(function (response) {
-                    var data = response.data;
-                    if (data.code == 0) {
-                        self.BookSelfData = data.datas;
-                        self.form = data.datas;
-                        self.filelist.url=data.datas.op_cover_road;
-                        self.filelist.url=data.datas.op_coright_road;
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.msg,
-                            duration: 2000,         
-                        });
-                    }
-                });
+            let self = this;
+            let op_id = self.$route.params.op_id;
+            axios.get("selectopus?op_id="+op_id).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.BookSelfData = data.datas;
+                    self.form = data.datas;
+                    self.filelist.url=data.datas.op_cover_road;
+                    self.filelist.url=data.datas.op_coright_road;
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.msg,
+                        duration: 2000,         
+                    });
+                }
+            });
         },
         fileProfil(file){
-            if(file == ''){
-                return
-            }else{       
-                this.dataForm.append('bo_file', file);
-                return false;
-            }
+            if(this.Bcode == true){
+                this.dataFile.append('bo_files', file);
+                this.sendfile(files,1);
+                this.$refs.bo_file.submit();
+            }else{
+                this.$message.error('请先添加数据信息');
+                return false
+            }  
         },
         fileProfils(files){
-            if(files == ''){
-                return
-            }else{       
-                this.dataForm.append('bo_files', files);
-                return false;
+            if(this.Bcode == true){
+                this.dataFile.append('bo_files', files);
+                this.sendfile(files,2);
+                this.$refs.bo_files.submit();
+            }else{
+                this.$message.error('请先添加数据信息');
+                return false
             }
+        },
+        sendfile(file,m) {
+            this.addBookFile(vue.dataFile,m).then(res => {
+                var data = res.data;
+                if (data.code == 0) {
+                    vue.$message({
+                        message: '修改成功',
+                        type: 'success'
+                    });A
+                } else {
+                    vue.$notify({
+                        type: 'error',
+                        message: '修改失败',
+                        duration: 2000,
+                    });
+                }
+            })  
+        },
+        addBookFile(data,m){
+             return axios({
+                method: 'post',
+                url: 'updateopusimage',
+                headers: {'Content-Type': 'multipart/form-data'},
+                timeout: 20000,
+                data: data
+            });
         },
         onSubmit(form) {
             if(form.op_first_author == '') {
@@ -236,8 +272,6 @@ export default {
                 return
             }
             this.$refs['form'].validate((valid) => {
-                var d = form.op_publish_time;     
-                form.op_publish_time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                 let vue = this;
                 if (valid) {
                     jQuery.each(vue.form,function(i,val){
@@ -246,6 +280,7 @@ export default {
                     vue.addBookData(vue.dataForm).then(res => {
                         var data = res.data;
                         if (data.code == 0) {
+                            this.Bcode=true;
                             vue.$message({
                                 message: '修改成功',
                                 type: 'success'

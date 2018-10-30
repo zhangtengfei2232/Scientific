@@ -89,7 +89,14 @@
                 </el-form-item>
                  <el-form-item label="项目年份">
                     <el-col :span="15">
-                    <el-date-picker type="date" placeholder="选择日期" v-model="form.project_year" style="width: 100%;"></el-date-picker>
+                        <el-date-picker
+                            type="date"
+                            placeholder="选择日期" 
+                            v-model="form.project_year"
+                            format="yyyy 年 MM 月 dd 日"
+                            value-format="timestamp"
+                            style="width: 100%;">
+                        </el-date-picker>
                     </el-col>
                 </el-form-item>
                 <el-form-item>
@@ -189,9 +196,8 @@
                     this.$message.error('项目年份不能为空');
                     return
                 }
+                
                 this.$refs['form'].validate((valid) => {
-                    var d = form.project_year; 
-                    form.project_year = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                     let vue = this;
                     if (valid) {
                         jQuery.each(vue.form,function(i,val){
@@ -204,10 +210,11 @@
                                     message: '添加成功',
                                     type: 'success'
                                 });
+                                this.$router.push({path: '/project'});
                             } else {
                                 vue.$notify({
                                     type: 'error',
-                                    message: data.msg,
+                                    message: '添加失败',
                                     duration: 2000,
                                 });
                             }

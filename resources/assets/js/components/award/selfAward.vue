@@ -50,7 +50,14 @@
                 </el-form-item>
                 <el-form-item label="授奖时间">
                     <el-col :span="15">
-                        <el-date-picker type="date" placeholder="选择日期" v-model="form.aw_grant_time" style="width: 100%;"></el-date-picker>
+                        <el-date-picker
+                            type="date"
+                            placeholder="选择日期" 
+                            v-model="form.aw_grant_time" 
+                            format="yyyy 年 MM 月 dd 日"
+                            value-format="timestamp"
+                            style="width: 100%;">
+                        </el-date-picker>
                     </el-col>
                 </el-form-item>  
                 <el-form-item label="证书编号">
@@ -181,25 +188,23 @@ export default {
                 return
             }
             this.$refs['form'].validate((valid) => {
-                    var d = form.aw_grant_time;     
-                    form.aw_grant_time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                     let vue = this;
                     if (valid) {
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);
                         });
-                        console.log(vue.dataForm);
                         vue.addAwardData(vue.dataForm).then(res => {
                             var data = res.data;
                             if (data.code == 0) {
                                 vue.$message({
-                                    message: '添加成功',
+                                    message: '修改成功',
                                     type: 'success'
                                 });
+                                this.$router.push({path: '/award'});
                             } else {
                                 vue.$notify({
                                     type: 'error',
-                                    message: data.msg,
+                                    message: '修改失败',
                                     duration: 2000,
                                 });
                             }

@@ -22,7 +22,14 @@
                 </el-form-item>
                  <el-form-item label="鉴定时间">
                     <el-col :span="15">
-                    <el-date-picker type="date" placeholder="选择日期" v-model="form.ap_time" style="width: 100%;"></el-date-picker>
+                        <el-date-picker
+                            type="date"
+                            placeholder="选择日期" 
+                            v-model="form.ap_time"
+                            format="yyyy 年 MM 月 dd 日"
+                            value-format="timestamp"
+                            style="width: 100%;">
+                        </el-date-picker>
                     </el-col>
                 </el-form-item>
                  <el-form-item label="鉴定级别">
@@ -45,7 +52,7 @@
                         drag
                         ref="pat_pics"
                         :before-upload="filePatpics"
-                        :file-list="fileLists"
+                        :file-list="filelists"
                         action="#"
                         multiple>
                         <i class="el-icon-upload"></i>
@@ -56,9 +63,9 @@
                     <el-upload
                         class="upload-demo"
                         drag
-                        action=""
+                        action="#"
                         multiple
-                        :file-list="fileList"
+                        :file-list="filelist"
                         ref="pat_pic"
                         :before-upload="filePatpic"
                         :auto-upload="false">
@@ -67,7 +74,7 @@
                     </el-upload>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="onSubmit">立即创建</el-button>
+                    <el-button type="primary" @click="onSubmit(form)">立即创建</el-button>
                     <el-button>取消</el-button>
                 </el-form-item>
             </el-form>
@@ -92,6 +99,8 @@ export default {
         return {
             AppraisalSelfData: {},
             dataForm: new FormData(),
+            dataFile: new FormData(),
+            Bcode:false,
             filelist: [{url:''}],
             filelists: [{url:''}],
             form: {
@@ -118,7 +127,6 @@ export default {
                     if (data.code == 0) {
                         self.AppraisalSelfData = data.datas;
                         self.form = data.datas;
-                        console.log(data.datas);
                         self.filelist.url=data.datas.pro_road;
                         self.filelists.url=data.datas.ap_cover_road
                     } else {
@@ -130,40 +138,87 @@ export default {
                     }
                 });
         },
-        filePatpics(file){
-            this.dataForm.append('pat_pics', file);
-            return false;
+        filePatpic(file){
+            if(this.Bcode == true){
+                this.dataFile.append('pat_pic', file);
+                this.sendfile(files,1);
+                this.$refs.pat_pic.submit();
+            }else{
+                this.$message.error('请先添加数据信息');
+                return false
+            }  
         },
-        filePatpic(file) {
-            this.dataForm.append('pat_pic', file);
-            return false;
+        filePatpics(files){
+            if(this.Bcode == true){
+                this.dataFile.append('pat_pic', files);
+                this.sendfile(files,2);
+                this.$refs.pat_pics.submit();
+                this.$router.push({path: '/appraisal'});
+            }else{
+                this.$message.error('请先添加数据信息');
+                return false
+            }
+        },
+        sendfile(file,m) {
+            this.addBookFile(vue.dataFile,m).then(res => {
+                var data = res.data;
+                if (data.code == 0) {
+                    vue.$message({
+                        message: '添加成功',
+                        type: 'success'
+                    });A
+                } else {
+                    vue.$notify({
+                        type: 'error',
+                        message: '添加失败',
+                        duration: 2000,
+                    });
+                }
+            })  
+        },
+        addBookFile(data,m){
+             return axios({
+                method: 'post',
+                url: '',
+                headers: {'Content-Type': 'multipart/form-data'},
+                timeout: 20000,
+                data: data
+            });
         },
         onSubmit(form) {
             let vue = this;
             if(form.ap_first_author == '') {
                 this.$message.error('第一发明人不能为空');
+                return
             }else if(form.ap_all_author == ''){
                 this.$message.error('全部发明人不能为空');
+                return
             }else if(form.ap_res_name == '') {
                 this.$message.error('鉴定成果名称不能为空');
+                return
             }else if(form.ap_form == '') {
                 this.$message.error('鉴定形式不能为空');
+                return
             }else if(form.pa_imple_situ == '') {
                 this.$message.error('鉴定编号不能为空');
+                return
             }else if(form.ap_conclusion == '') {
                 this.$message.error('鉴定结论不能为空');
+                return
             }else if(form.ap_time == '') {
                 this.$message.error('鉴定时间不能为空');
+                return
             }else if(form.ap_level == '') {
                 this.$message.error('鉴定级别不能为空');
+                return
             }else if(form.ap_integral == '') {
                 this.$message.error('积分不能为空');
+                return
             }else if(form.ap_remarks == '') {
                 this.$message.error('备注不能为空');
+                return
             }
-            this.$refs['form'].validate((valid) => {
-                var d = form.ap_time;     
-                form.ap_time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+            this.$refs['form'].validate((valid) => { 
                     if (valid) {
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);
@@ -171,6 +226,7 @@ export default {
                         vue.addAppraisalData(vue.dataForm).then(res => {
                             var data = response.data;
                             if (data.code == 0) {
+                                this.Bcode = true;
                                 vue.$message({
                                     message: '添加成功',
                                     type: 'success'
@@ -183,7 +239,6 @@ export default {
                                 });
                             }
                         })
-                        vue.$refs.pat_pic.submit()
                     } else {
                         console.log('error submit!!')
                         return false

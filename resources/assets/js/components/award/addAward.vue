@@ -50,7 +50,14 @@
                 </el-form-item>
                 <el-form-item label="授奖时间">
                     <el-col :span="15">
-                        <el-date-picker type="date" placeholder="选择日期" v-model="form.aw_grant_time" style="width: 100%;"></el-date-picker>
+                        <el-date-picker
+                            type="date"
+                            placeholder="选择日期" 
+                            v-model="form.aw_grant_time" 
+                            format="yyyy 年 MM 月 dd 日"
+                            value-format="timestamp"
+                            style="width: 100%;">
+                        </el-date-picker>
                     </el-col>
                 </el-form-item>  
                 <el-form-item label="证书编号">
@@ -161,34 +168,33 @@
                 return
             }
             this.$refs['form'].validate((valid) => {
-                    var d = form.aw_grant_time;     
-                    form.aw_grant_time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
-                    if (valid) {
-                        let vue = this;
-                        jQuery.each(vue.form,function(i,val){
-                            vue.dataForm.append(i,val);
-                        });
-                        vue.addAwardData(vue.dataForm).then(res => {
-                            var data = res.data;
-                            if (data.code == 0) {
-                                vue.$message({
-                                    message: '添加成功',
-                                    type: 'success'
-                                });
-                            }else {
-                                vue.$notify({
-                                    type: 'error',
-                                    message: '添加失败',
-                                    duration: 2000,
-                                });
-                            }
-                        })
-                        vue.$refs.aw_pic.submit()
-                    } else {
-                        console.log('error submit!!')
-                        return false
-                    }
-                })
+                if (valid) {
+                    let vue = this;
+                    jQuery.each(vue.form,function(i,val){
+                        vue.dataForm.append(i,val);
+                    });
+                    vue.addAwardData(vue.dataForm).then(res => {
+                        var data = res.data;
+                        if (data.code == 0) {
+                            vue.$message({
+                                message: '添加成功',
+                                type: 'success'
+                            });
+                            this.$router.push({path: '/award'});
+                        }else {
+                            vue.$notify({
+                                type: 'error',
+                                message: '添加失败',
+                                duration: 2000,
+                            });
+                        }
+                    })
+                    vue.$refs.aw_pic.submit()
+                } else {
+                    console.log('error submit!!')
+                    return false
+                }
+            })
         },
         addAwardData(data) {
             return axios({
