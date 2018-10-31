@@ -53,12 +53,16 @@
                 <el-date-picker
                         v-model="year1"
                         type="date"
+                        format="yyyy 年 MM 月 dd 日"
+                        value-format="timestamp"
                         placeholder="选择日期">
                 </el-date-picker>
                 <span>-</span>
                 <el-date-picker
                         v-model="year2"
                         type="date"
+                        format="yyyy 年 MM 月 dd 日"
+                        value-format="timestamp"
                         placeholder="选择日期">
                 </el-date-picker>
             </el-form-item>
@@ -69,10 +73,11 @@
                 <el-upload
                         class="upload-demo"
                         drag
-                        action="#"
+                        action=""
+                        multiple
                         ref="pic_file"
                         :before-upload="fileProfil"
-                        multiple>
+                        :auto-upload="false">
                     <i class="el-icon-upload"></i>
                     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                 </el-upload>
@@ -133,8 +138,35 @@
                     this.dataForm.append('pic_file', file);
                     return false;
                 },
+//                sendfile(file) {
+//                    this.addBookFile(vue.dataFile).then(res => {
+//                        var data = res.data;
+//                        if (data.code == 0) {
+//                            vue.$message({
+//                                message: '添加成功',
+//                                type: 'success'
+//                            });A
+//                        } else {
+//                            vue.$notify({
+//                                type: 'error',
+//                                message: '添加失败',
+//                                duration: 2000,
+//                            });
+//                        }
+//                    })
+//                },
+//                addBookFile(data){
+//                    return axios({
+//                        method: 'post',
+//                        url: 'addholdmeetimages',
+//                        headers: {'Content-Type': 'multipart/form-data'},
+//                        timeout: 20000,
+//                        data: data
+//                    });
+//                },
                 onSubmit(form,year1,year2) {
-                    let vue = this;
+
+//                    let vue = this;
                     form.year = year1+","+year2;
                     if(form.teacher_name == '') {
                         this.$message.error('老师姓名不能为空');
@@ -157,14 +189,18 @@
                     }else if(form.du_duty == '') {
                         this.$message.error('老师所任职务不能为空');
                         return
-                    }this.$refs['form'].validate((valid) => {
+                    }
+                    this.$refs['form'].validate((valid) => {
 //                        var d = form.project_year;
 //                        form.project_year = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                         let vue = this;
+
                         if (valid) {
+//                            console.log(form,'添加ooo');
                             jQuery.each(vue.form,function(i,val){
                                 vue.dataForm.append(i,val);
                             });
+//                            console.log(vue.dataForm,'添加ott');
                             vue.addDutiesData(vue.dataForm).then(res => {
                                 var data = res.data;
                                 if (data.code == 0) {
@@ -172,7 +208,7 @@
                                         message: '添加成功',
                                         type: 'success'
                                     });
-                                    this.$router.push({path: '/duties'});
+//                                    this.$router.push({path: '/duties'});
                                 } else {
                                     vue.$notify({
                                         type: 'error',

@@ -19,8 +19,8 @@
             </el-form-item>
             <el-form-item label="邀请/未邀请">
                 <el-radio-group v-model="form.le_invite_status">
-                    <el-radio label="邀请"></el-radio>
-                    <el-radio label="未邀请"></el-radio>
+                    <el-radio label="1">邀请</el-radio>
+                    <el-radio label="2">未邀请</el-radio>
                 </el-radio-group>
             </el-form-item>
             <el-form-item label="邀请单位">
@@ -28,33 +28,41 @@
             </el-form-item>
             <el-form-item label="讲学时间">
                 <el-col :span="15">
-                    <el-date-picker type="date" placeholder="选择日期" v-model="form.le_time"></el-date-picker>
+                    <el-date-picker
+                            type="date"
+                            placeholder="选择日期"
+                            v-model="form.le_time"
+                            format="yyyy 年 MM 月 dd 日"
+                            value-format="timestamp">
+                    </el-date-picker>
                 </el-col>
             </el-form-item>
+                <el-form-item label="图片">
+                    <el-upload
+                            class="upload-demo"
+                            drag
+                            action="#"
+                            ref="pic_file"
+                            :before-upload="filePicfil"
+                            multiple>
+                        <i class="el-icon-upload"></i>
+                        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                    </el-upload>
+                </el-form-item>
             <el-form-item label="图注">
                 <el-upload
                         class="upload-demo"
                         drag
-                        action="#"
+                        action=""
+                        multiple
                         ref="zu_file"
                         :before-upload="fileZufil"
-                        multiple>
+                        :auto-upload="false">
                     <i class="el-icon-upload"></i>
                     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                 </el-upload>
             </el-form-item>
-            <!--<el-form-item label="图片">-->
-                <!--<el-upload-->
-                        <!--class="upload-demo"-->
-                        <!--drag-->
-                        <!--action="#"-->
-                        <!--ref="pic_file"-->
-                        <!--:before-upload="filePicfil"-->
-                        <!--multiple>-->
-                    <!--<i class="el-icon-upload"></i>-->
-                    <!--<div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>-->
-                <!--</el-upload>-->
-            <!--</el-form-item>-->
+
             <el-form-item>
                 <el-button type="primary" @click="onSubmit(form)">立即创建</el-button>
                 <el-button>取消</el-button>
@@ -85,6 +93,8 @@
         data() {
             return {
                 dataForm: new FormData(),
+                dataFile: new FormData(),
+                Bcode:false,
                 zu_file: '',
                 pic_file: '',
                 form: {
@@ -100,16 +110,48 @@
             }
         },
         methods: {
-            fileZufil(file){
-                this.dataForm.append('zu_file', file);
-                return false;
-            },
             filePicfil(file){
                 this.dataForm.append('pic_file', file);
                 return false;
             },
+            fileZufil(file){
+                if(this.Bcode == true){
+                    this.dataForm.append('zu_file', file);
+                    this.sendfile(files);
+                    this.$refs.zu_file.submit();
+                }else{
+                    this.$message.error('请先添加数据信息');
+                    return false
+                }
+            },
+            sendfile(file) {
+                this.addBookFile(vue.dataFile).then(res => {
+                    var data = res.data;
+                    if (data.code == 0) {
+                        this.Bcode = true;
+                        vue.$message({
+                            message: '修改成功',
+                            type: 'success'
+                        });
+                    } else {
+                        vue.$notify({
+                            type: 'error',
+                            message: '修改失败',
+                            duration: 2000,
+                        });
+                    }
+                })
+            },
+            addBookFile(data){
+                return axios({
+                    method: 'post',
+                    url: 'addLectureImages',
+                    headers: {'Content-Type': 'multipart/form-data'},
+                    timeout: 20000,
+                    data: data
+                });
+            },
             onSubmit(form) {
-                console.log(form,'添加aaaaa');
                 if(form.le_expert_name == '') {
                     this.$message.error('专家姓名不能为空');
                     return
@@ -128,14 +170,17 @@
                 }else if(form.le_time == '') {
                     this.$message.error('讲学时间不能为空');
                     return
-                }this.$refs['form'].validate((valid) => {
+                }
+                this.$refs['form'].validate((valid) => {
                     var d = form.le_time;
+
                     form.le_time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                     let vue = this;
                     if (valid) {
-                        jQuery.each(vue.form,function(i,val){
+                        jQuery.each(form,function(i,val){
                             vue.dataForm.append(i,val);
                         });
+                        console.log(vue.dataForm,'添加ooo');
                         vue.addLectureData(vue.dataForm).then(res => {
                             var data = res.data;
                             if (data.code == 0) {
