@@ -50,11 +50,15 @@
                 <el-date-picker
                         v-model="year1"
                         type="date"
+                        format="yyyy 年 MM 月 dd 日"
+                        value-format="timestamp"
                         placeholder="选择日期">
                 </el-date-picker>
                 <span>-</span>
                 <el-date-picker
                         v-model="year2"
+                        format="yyyy 年 MM 月 dd 日"
+                        value-format="timestamp"
                         type="date"
                         placeholder="选择日期">
                 </el-date-picker>
@@ -68,6 +72,7 @@
                         drag
                         action=""
                         multiple
+                        :file-list="filelist"
                         ref="pic_file"
                         :before-upload="fileProfil"
                         :auto-upload="false">
@@ -107,6 +112,9 @@
                 DutiesData:{},
                 pic_file:'',
                 dataForm: new FormData(),
+                dataFile: new FormData(),
+                Bcode:false,
+                multiple: true,
                 filelist: [{url:''}],
                 year1: '',
                 year2: '',
@@ -142,7 +150,8 @@
                         self.form = data.datas;
 //                        console.log(self.form,'form@@@@@@@@!!');
                         self.checkYearExt('4,3');
-                        self.filelist.url = 'showimage?disk=article&subjection=' + data.datas.du_road;
+                        self.filelist.url = 'showimage?disk=duties&subjection=' + data.datas.du_road;
+//                        console.log(self.filelist.url,'添加1@@@@@@@@!!');
                     } else {
                         self.$notify({
                             type: 'error',
@@ -182,7 +191,6 @@
                     if (valid) {
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);
-//                            console.log(vue.form,'添加1@@@@@@@@!!');
                         });
                         vue.addDutiesData(vue.dataForm).then(res => {
                             var data = res.data;

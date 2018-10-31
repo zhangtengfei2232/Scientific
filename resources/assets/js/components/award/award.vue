@@ -194,7 +194,7 @@
             },
             getAwardDate() {
                 let self = this;
-                axios.get("selectaward").then(function (response) {
+                axios.get("selectallaward").then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
                         self.AwardDate = data.datas;

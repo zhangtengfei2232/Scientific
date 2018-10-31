@@ -63,7 +63,7 @@
                     </el-table-column>
                 </el-table>
                 <div style="margin-top: 20px">
-                    <el-button @click="toggleSelection([StudygroupDate[0], StudygroupDate[1],StudygroupDate[3]])">选中前三条</el-button>
+                    <el-button @click="toggleSelection([StudygroupDate[0], StudygroupDate[1],StudygroupDate[2]])">选中前三条</el-button>
                     <el-button @click="toggleSelection()">取消选择</el-button>
                     <el-button @click="BatchDelete()">删除</el-button>
                 </div>
@@ -190,6 +190,7 @@
                 id: [],
                 dataForm: new FormData(),
                 StudygroupDate: [],
+                sortable:true,
                 checked: false,
                 form: {
                     teacher_name:'',
@@ -283,7 +284,6 @@
             },
 
             deleteStudygroupDate(du_id) {
-                console.log(du_id,"删除啊————————————");
                 this.id.push(du_id);
 //                this.id = du_id;
                 this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
@@ -297,21 +297,21 @@
                             du_id_datas:this.id
                         }
 
-                        }).then(function (response) {
-                        var data = response.data;
+                    }).then(function (response) {
+                    var data = response.data;
                         if (data.code == 0) {
                             this.$message({
                                 type: 'success',
                                 message: '删除成功!'
                             });
-                        } else {
+                        }else{
                             self.$notify({
                                 type: 'error',
                                 message: data.msg,
                                 duration: 2000,
-                            });
+                                });
                         }
-                    });
+                     });
                 }).catch(() => {
                     this.$message({
                         type: 'info',
@@ -324,7 +324,7 @@
                     path: `/editDuties/${du_id}`,
                 })
             },
-            byTimeSearch(form) {
+            byTimeSearch() {
                 axios.get("",form).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {

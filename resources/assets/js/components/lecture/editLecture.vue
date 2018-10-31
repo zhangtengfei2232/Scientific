@@ -19,21 +19,40 @@
             </el-form-item>
             <el-form-item label="邀请/未邀请">
                 <el-radio-group v-model="form.le_invite_status">
-                    <el-radio label="邀请"></el-radio>
-                    <el-radio label="未邀请"></el-radio>
+                    <el-radio :label="1">邀请</el-radio>
+                    <el-radio :label="2">未邀请</el-radio>
                 </el-radio-group>
             </el-form-item>
             <el-form-item label="邀请单位">
-                <el-input v-model="form.le_invite_unit" placeholder="请输入邀请单位"></el-input>
+                <el-input v-model="form.le_invite_unit" placeholder="请输入邀请单位">
+                </el-input>
             </el-form-item>
             <el-form-item label="讲学时间">
                 <el-col :span="15">
-                    <el-date-picker type="date" placeholder="选择日期" v-model="form.le_time"></el-date-picker>
+                    <el-date-picker
+                            type="date"
+                            placeholder="选择日期"
+                            v-model="form.le_time"
+                            format="yyyy 年 MM 月 dd 日"
+                            value-format="timestamp">
+                    </el-date-picker>
                 </el-col>
             </el-form-item>
+                <el-form-item label="图片">
+                    <el-upload
+                            class="upload-demo"
+                            drag
+                            action="#"
+                            ref="pic_file"
+                            :before-upload="filePicfil"
+                            :file-list="filelist"
+                            multiple>
+                        <i class="el-icon-upload"></i>
+                        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                    </el-upload>
+                </el-form-item>
             <el-form-item label="图注">
                 <el-upload
-
                         class="upload-demo"
                         drag
                         action=""
@@ -45,21 +64,9 @@
                     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                 </el-upload>
             </el-form-item>
-            <!--<el-form-item label="图片">-->
-                <!--<el-upload-->
-                        <!--class="upload-demo"-->
-                        <!--drag-->
-                        <!--action="#"-->
-                        <!--ref="pic_file"-->
-                        <!--:before-upload="filePicfil"-->
-                        <!--:file-list="filelist"-->
-                        <!--multiple>-->
-                    <!--<i class="el-icon-upload"></i>-->
-                    <!--<div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>-->
-                <!--</el-upload>-->
-            <!--</el-form-item>-->
+
             <el-form-item>
-                <el-button type="primary" @click="onSubmit(form)">立即创建</el-button>
+                <el-button type="primary" @click="onSubmit(form)">保存修改</el-button>
                 <el-button><router-link to="/lecture">取消</router-link></el-button>
             </el-form-item>
         </el-form>
@@ -89,8 +96,9 @@
             return {
                 pic_file:'',
                 zu_file:'',
-//                lec_file:''
+                Bcode:false,
                 dataForm: new FormData(),
+                dataFile: new FormData(),
                 EditLectureData: {},
                 filelist: [{url:''}],
                 form: {
@@ -111,8 +119,40 @@
                 return false;
             },
             fileZufil(file){
-                this.dataForm.append('zu_file', file);
-                return false;
+                if(this.Bcode == true){
+                    this.dataForm.append('zu_file', file);
+                    this.sendfile(files);
+                    this.$refs.zu_file.submit();
+                }else{
+                    this.$message.error('请先添加数据信息');
+                    return false
+                }
+            },
+            sendfile(file) {
+                this.addBookFile(vue.dataFile).then(res => {
+                    var data = res.data;
+                    if (data.code == 0) {
+                        vue.$message({
+                            message: '修改成功',
+                            type: 'success'
+                        });
+                    } else {
+                        vue.$notify({
+                            type: 'error',
+                            message: '修改失败',
+                            duration: 2000,
+                        });
+                    }
+                })
+            },
+            addBookFile(data){
+                return axios({
+                    method: 'post',
+                    url: 'addLectureImages',
+                    headers: {'Content-Type': 'multipart/form-data'},
+                    timeout: 20000,
+                    data: data
+                });
             },
             getEditLectureData() {
                 let self = this;
@@ -164,6 +204,7 @@
                         vue.addLectureData(vue.dataForm).then(res => {
                             var data = res.data;
                             if (data.code == 0) {
+                                this.Bcode = true;
                                 vue.$message({
                                     message: '添加成功',
                                     type: 'success'

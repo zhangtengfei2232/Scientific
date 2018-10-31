@@ -144,6 +144,7 @@
                 pro_integral: '',
                 pro_remarks: '',
                 project_year: '',
+                pro_road:''
             }
         }
     },
@@ -161,8 +162,7 @@
                     self.ProjectSelfData = data.datas;
                     self.form = data.datas;
                     let road = 'showimage?disk=project&subjection=' + data.datas.pro_road;
-                    self.filelists.url = road;         
-                    console.log(self.filelists.url);
+                    self.filelists.url = road;
                 }else {
                     self.$notify({
                         type: 'error',
