@@ -235,7 +235,6 @@
                 let self = this;
                 axios.get("selectallduties").then(function (response) {
                     var data = response.data;
-//                    console.log(data.datas);
                     if (data.code == 0) {
                         self.StudygroupDate = data.datas;
 //                        console.log(data.datas);

@@ -165,8 +165,7 @@
 //                    });
 //                },
                 onSubmit(form,year1,year2) {
-
-//                    let vue = this;
+                    let vue = this;
                     form.year = year1+","+year2;
                     if(form.teacher_name == '') {
                         this.$message.error('老师姓名不能为空');
@@ -193,8 +192,7 @@
                     this.$refs['form'].validate((valid) => {
 //                        var d = form.project_year;
 //                        form.project_year = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
-                        let vue = this;
-
+//                        let vue = this;
                         if (valid) {
 //                            console.log(form,'添加ooo');
                             jQuery.each(vue.form,function(i,val){

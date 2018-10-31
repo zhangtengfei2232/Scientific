@@ -162,9 +162,7 @@
                     if (data.code == 0) {
                         self.EditLectureData = data.datas;
                         self.form = data.datas.lecture_information;
-//                        console.log(data.datas,"+++++++++++++");
                         self.filelist.url='../../storage/app/data/lecture/'+data.datas.le_img_road
-
                     } else {
                         self.$notify({
                             type: 'error',

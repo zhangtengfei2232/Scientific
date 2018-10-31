@@ -19,8 +19,8 @@
             </el-form-item>
             <el-form-item label="邀请/未邀请">
                 <el-radio-group v-model="form.le_invite_status">
-                    <el-radio label="1">邀请</el-radio>
-                    <el-radio label="2">未邀请</el-radio>
+                    <el-radio :label="1">邀请</el-radio>
+                    <el-radio :label="2">未邀请</el-radio>
                 </el-radio-group>
             </el-form-item>
             <el-form-item label="邀请单位">
