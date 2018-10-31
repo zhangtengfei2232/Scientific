@@ -49,7 +49,7 @@
                 <el-form-item label="报告题目">
                     <el-input v-model="form.jo_title"></el-input>
                 </el-form-item>
-                <el-form-item label="会议图注">
+                <el-form-item label="会议图片">
                     <el-upload
                         drag
                         action="#"
@@ -61,7 +61,7 @@
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
                 </el-form-item>
-                <el-form-item label="餐会图注">
+                <el-form-item label="会议图注">
                     <el-upload
                         drag
                         action="#"

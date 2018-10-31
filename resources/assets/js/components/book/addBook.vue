@@ -87,33 +87,41 @@
                 <el-form-item label="备注">
                     <el-input type="textarea" v-model="form.op_remarks"></el-input>
                 </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="onSubmit(form)">立即创建</el-button>
+                    <el-button>取消</el-button>
+                </el-form-item>
                 <el-form-item label="著作封面">
                     <el-upload
-                        drag
-                        action="#"
+                        class="upload-demo"
                         ref="bo_file"
-                        :limit=1
+                        action="#"
                         :before-upload="fileProfil"
-                        :auto-upload="true">
-                        <i class="el-icon-upload"></i>
-                        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                        :on-preview="handlePreview"
+                        :on-remove="handleRemove"
+                        :auto-upload="false"
+                        :limit="1"
+                        list-type="picture">
+                        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传</el-button>
+                        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
                     </el-upload>
                 </el-form-item>
                 <el-form-item label="版权页图片">
                     <el-upload
-                        drag
-                        action="#"
+                        class="upload-demo"
                         ref="bo_files"
-                        :limit=1
-                        :before-upload="fileProfil"
-                        :auto-upload="false">
-                        <i class="el-icon-upload"></i>
-                        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                        action="#"
+                        :before-upload="fileProfils"
+                        :on-preview="handlePreview"
+                        :on-remove="handleRemove"
+                        :auto-upload="false"
+                        :limit="1"
+                        list-type="picture">
+                        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUploads">上传</el-button>
+                        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
                     </el-upload>
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="primary" @click="onSubmit(form)">立即创建</el-button>
-                    <el-button>取消</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -158,11 +166,22 @@
         }
     },
     methods: {
+        submitUpload() {
+            this.$refs.bo_file.submit();
+        },
+        submitUploads() {
+            this.$refs.bo_files.submit();
+        },
+        handleRemove(file, fileList) {
+            console.log(file, fileList);
+        },
+        handlePreview(file) {
+            console.log(file);
+        },
         fileProfil(file){
             if(this.Bcode == true){
                 this.dataFile.append('bo_file', file);
                 this.sendfile(files,1);
-                this.$refs.bo_file.submit();
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
@@ -172,7 +191,6 @@
             if(this.Bcode == true){
                 this.dataFile.append('bo_files', files);
                 this.sendfile(files,2);
-                this.$refs.bo_files.submit();
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
@@ -249,8 +267,6 @@
                 return
             }
             this.$refs['form'].validate((valid) => {
-                var d = form.op_publish_time;     
-                form.op_publish_time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                 let vue = this;
                 if (valid) {
                     jQuery.each(vue.form,function(i,val){

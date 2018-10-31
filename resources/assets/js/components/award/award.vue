@@ -163,7 +163,7 @@
                     type: 'warning'
                 }).then(() => {
                     let self = this;
-                    axios.get("deleteAllAward",{
+                    axios.get("deleteaward",{
                         params:{
                             aw_id_datas:aw_id_datas
                         }
@@ -209,7 +209,7 @@
             },
             sentAwardSelfData(aw_id) {
                 this.$router.push({
-                path: `/selfAward/${aw_id}`,
+                path: `/selfaward/${aw_id}`,
                 })
             },
             deleteAwardData(aw_id) {
@@ -220,7 +220,7 @@
                     type: 'warning'
                 }).then(() => {
                     let self = this;
-                    axios.get("deleteAward",{
+                    axios.get("deleteaward",{
                          params:{
                             aw_id_datas:self.id
                         }
