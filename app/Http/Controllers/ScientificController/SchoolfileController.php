@@ -2,8 +2,10 @@
 namespace App\Http\Controllers\ScientificController;
 
 use App\Http\Controllers\Controller;
+use App\Model\ModelDatabase;
 use App\Model\SchoolfileDatabase;
 use config\UploadSubjectionConfig;
+use config\SearchMessageConfig;
 use Illuminate\Http\Request;
 class SchoolfileController extends Controller
 {
@@ -17,6 +19,7 @@ class SchoolfileController extends Controller
             'cooperate_unit'    => trim($request->cooperate_unit),
             'schfile_down_time' => trim($request->scfile_down_time),
         ];
+        dd($datas);
         $judge_datas = judgeSchoolfileField($datas);
         if($judge_datas['code'] == 1){
             return $judge_datas;
@@ -95,12 +98,20 @@ class SchoolfileController extends Controller
     }
     //查看单个校发文件
     public function selectSchoolfile(Request $request){
-        $result = SchoolfileDatabase::selectSchoolfileDatas($request->schoolfile_id);
+        $result = SchoolfileDatabase::selectSchoolfileDatas($request->schfile_id);
         return responseTojson(0,'查询成功','',$result);
     }
     //查看所有校发文件
     public function selectAllSchoolfile(){
         $result = SchoolfileDatabase::selectAllSchoolfileDatas();
         return responseTojson(0,'查询成功','',$result);
+    }
+    //根据时间查看项目信息
+    public function timeSelectSchoolfile(Request $request){
+        $start_time = $request->start_time;
+        $end_time   = $request->end_tiem;
+        $table_name = SearchMessageConfig::SCHOOL_FILE_TABLE;
+        $time_field = SearchMessageConfig::SCHFILE_DOWN_TIME;
+        return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field);
     }
 }

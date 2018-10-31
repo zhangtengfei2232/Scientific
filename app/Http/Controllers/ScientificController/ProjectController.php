@@ -5,7 +5,8 @@ use App\Http\Controllers\Controller;
 use App\Model\ProjectDatabase;
 use Illuminate\Http\Request;
 use config\UploadSubjectionConfig;
-use Illuminate\Support\Facades\Storage;
+use config\SearchMessageConfig;
+use App\Model\ModelDatabase;
 class ProjectController extends Controller
 {
     //添加项目信息
@@ -74,6 +75,14 @@ class ProjectController extends Controller
         $teacher_id = session('usercount');
         $resulet = ProjectDatabase::selectAllProjectDatas($teacher_id);
         return responseTojson(0,'查找成功','',$resulet);
+    }
+    //根据时间查看项目信息
+    public function timeSelectProject(Request $request){
+        $start_time = $request->start_time;
+        $end_time   = $request->end_tiem;
+        $table_name = SearchMessageConfig::PROJECT_TABLE;
+        $time_field = SearchMessageConfig::PROJECT_YEAR;
+        return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field);
     }
     //修改项目信息
     public function updateProject(Request $request){

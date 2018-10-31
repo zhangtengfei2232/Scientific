@@ -25,11 +25,6 @@ class AppraisalDatabase extends ModelDatabase
         return ($response) ? responseTojson(0,'添加成果鉴定信息成功',$response)
                : responseTojson(1,'添加成果鉴定信息失败');
     }
-//    //删除成果鉴定信息
-//    public static function deleteAppraisalDatas($appraisal_id){
-//        $response = DB::table('appraisal')->where('ap_id',$appraisal_id)->delete();
-//        return ($response != 1) ? false : true;
-//    }
     //删除成果鉴定
     public static function deleteAllAppraisalDatas($appraisal_id_datas){
             DB::table('appraisal')->whereIn('ap_id',$appraisal_id_datas)->delete();

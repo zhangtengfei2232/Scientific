@@ -4,9 +4,11 @@ namespace App\Http\Controllers\ScientificController;
 
 use App\Http\Controllers\Controller;
 use App\Model\ArticalDatabase;
+use App\Model\ModelDatabase;
 use Illuminate\Http\Request;
 use App\Model\AwardDatabase;
 use config\UploadSubjectionConfig;
+use config\SearchMessageConfig;
 class AwardController extends Controller
 {
      //添加获奖信息
@@ -69,8 +71,17 @@ class AwardController extends Controller
      //查看所有获奖信息
      public function selectAllAward(){
          $result = AwardDatabase::selectAllAwardDatas(session('usercount'));
+         dd(5);
          return responseTojson(0,'查询成功','',$result);
      }
+    //根据时间区间搜索获奖信息
+    public function timeSelectAward(Request $request){
+        $start_time = $request->start_time;
+        $end_time   = $request->end_tiem;
+        $table_name = SearchMessageConfig::AWARD_TABLE;
+        $time_field = SearchMessageConfig::AW_GRANT_TIME;
+        return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field);
+    }
      //修改获奖信息
      public function updateAward(Request $request){
          if(!$request->isMethod('POST')){
@@ -117,7 +128,7 @@ class AwardController extends Controller
          $reset_award      = AwardDatabase::updateAwardDatas($datas,$reset_image_status);
          if($reset_award){
              ArticalDatabase::commit();
-             deleteAllFiles($disk,$aw_road);
+             deletefiles($disk,$aw_road);
              return responseTojson(0,'修改获奖信息成功');
          }
          ArticalDatabase::rollback();

@@ -2,9 +2,11 @@
 namespace App\Http\Controllers\ScientificController;
 
 use App\Http\Controllers\Controller;
+use App\Model\ModelDatabase;
 use Illuminate\Http\Request;
 use App\Model\OpusDatabase;
 use config\UploadSubjectionConfig;
+use config\SearchMessageConfig;
 class OpusController  extends Controller
 {
     //添加著作信息
@@ -24,11 +26,12 @@ class OpusController  extends Controller
             'op_number'        => trim($request->op_number),
             'op_total_words'   => trim($request->op_total_words),
             'op_self_words'    => trim($request->op_self_words),
-            'op_cate_work'     => trim($request->op_cate_works),
+            'op_cate_work'     => trim($request->op_cate_work),
             'op_integral'      => trim($request->op_integral),
             'op_cate_research' => trim($request->op_cate_research),
             'op_sub_category'  => trim($request->op_sub_category)
         ];
+        dd($datas);
         $judge_datas = judgeOpusField($datas);
         if($judge_datas['code'] == 1){
             return $judge_datas;
@@ -89,6 +92,14 @@ class OpusController  extends Controller
         $all_opus   = OpusDatabase::selectOpusAllDatas($teacher_id);
         return responseTojson(0,'查询成功','',$all_opus);
     }
+    //根据时间区间搜索成果鉴定
+    public function timeSelectOpus(Request $request){
+        $start_time = $request->start_time;
+        $end_time   = $request->end_tiem;
+        $table_name = SearchMessageConfig::OPUS_TABLE;
+        $time_field = SearchMessageConfig::OP_PUBLISH_TIME;
+        return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field);
+    }
     //修改著作信息
     public function updateOpus(Request $request)
     {
@@ -107,11 +118,12 @@ class OpusController  extends Controller
             'op_number'        => trim($request->op_number),
             'op_total_words'   => trim($request->op_total_words),
             'op_self_words'    => trim($request->op_self_words),
-            'op_cate_work'     => trim($request->op_cate_works),
+            'op_cate_work'     => trim($request->op_cate_work),
             'op_integral'      => trim($request->op_integral),
             'op_cate_research' => trim($request->op_cate_research),
             'op_sub_category'  => trim($request->op_sub_category)
         ];
+        dd($datas);
         $judge_datas = judgeOpusField($datas);
         if($judge_datas['code'] == 1){
             return $judge_datas;
