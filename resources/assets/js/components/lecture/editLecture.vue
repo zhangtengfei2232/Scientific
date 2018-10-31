@@ -33,12 +33,14 @@
             </el-form-item>
             <el-form-item label="图注">
                 <el-upload
+
                         class="upload-demo"
                         drag
+                        action=""
+                        multiple
                         ref="zu_file"
-                        :before-upload="fileTuzufil"
-                        action="#"
-                        multiple>
+                        :before-upload="fileZufil"
+                        :auto-upload="false">
                     <i class="el-icon-upload"></i>
                     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                 </el-upload>
@@ -108,7 +110,7 @@
                 this.dataForm.append('pic_file', file);
                 return false;
             },
-            fileTuzufil(file){
+            fileZufil(file){
                 this.dataForm.append('zu_file', file);
                 return false;
             },

@@ -69,10 +69,11 @@
                 <el-upload
                         class="upload-demo"
                         drag
-                        action="#"
+                        action=""
+                        multiple
                         ref="pic_file"
                         :before-upload="fileProfil"
-                        multiple>
+                        :auto-upload="false">
                     <i class="el-icon-upload"></i>
                     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                 </el-upload>
@@ -134,37 +135,42 @@
                     return false;
                 },
                 onSubmit(form,year1,year2) {
+
                     let vue = this;
                     form.year = year1+","+year2;
-                    if(form.teacher_name == '') {
-                        this.$message.error('老师姓名不能为空');
-                        return
-                    }else if(form.du_academic == ''){
-                        this.$message.error('老师职称不能为空');
-                        return
-                    }else if(form.du_education == '') {
-                        this.$message.error('老师学历不能为空');
-                        return
-                    }else if(form.du_degree == '') {
-                        this.$message.error('老师学位不能为空');
-                        return
-                    }else if(form.du_age == '') {
-                        this.$message.error('老师年龄不能为空');
-                        return
-                    }else if(form.du_name == '') {
-                        this.$message.error('担任学术团体名称不能为空');
-                        return
-                    }else if(form.du_duty == '') {
-                        this.$message.error('老师所任职务不能为空');
-                        return
-                    }this.$refs['form'].validate((valid) => {
+//                    if(form.teacher_name == '') {
+//                        this.$message.error('老师姓名不能为空');
+//                        return
+//                    }else if(form.du_academic == ''){
+//                        this.$message.error('老师职称不能为空');
+//                        return
+//                    }else if(form.du_education == '') {
+//                        this.$message.error('老师学历不能为空');
+//                        return
+//                    }else if(form.du_degree == '') {
+//                        this.$message.error('老师学位不能为空');
+//                        return
+//                    }else if(form.du_age == '') {
+//                        this.$message.error('老师年龄不能为空');
+//                        return
+//                    }else if(form.du_name == '') {
+//                        this.$message.error('担任学术团体名称不能为空');
+//                        return
+//                    }else if(form.du_duty == '') {
+//                        this.$message.error('老师所任职务不能为空');
+//                        return
+//                    }
+                    this.$refs['form'].validate((valid) => {
 //                        var d = form.project_year;
 //                        form.project_year = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                         let vue = this;
+
                         if (valid) {
+                            console.log(form,'添加ooo');
                             jQuery.each(vue.form,function(i,val){
                                 vue.dataForm.append(i,val);
                             });
+//                            console.log(vue.dataForm,'添加ott');
                             vue.addDutiesData(vue.dataForm).then(res => {
                                 var data = res.data;
                                 if (data.code == 0) {

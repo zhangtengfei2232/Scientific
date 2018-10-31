@@ -35,10 +35,11 @@
                 <el-upload
                         class="upload-demo"
                         drag
-                        action="#"
+                        action=""
+                        multiple
                         ref="zu_file"
                         :before-upload="fileZufil"
-                        multiple>
+                        :auto-upload="false">
                     <i class="el-icon-upload"></i>
                     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                 </el-upload>
@@ -109,33 +110,35 @@
                 return false;
             },
             onSubmit(form) {
-                console.log(form,'添加aaaaa');
-                if(form.le_expert_name == '') {
-                    this.$message.error('专家姓名不能为空');
-                    return
-                }else if(form.le_expert_level == ''){
-                    this.$message.error('专家级别不能为空');
-                    return
-                }else if(form.le_report_name == '') {
-                    this.$message.error('报告名称不能为空');
-                    return
-                }else if(form.le_invite_status == '') {
-                    this.$message.error('邀请状态不能为空');
-                    return
-                }else if(form.le_invite_unit == '') {
-                    this.$message.error('邀请单位不能为空');
-                    return
-                }else if(form.le_time == '') {
-                    this.$message.error('讲学时间不能为空');
-                    return
-                }this.$refs['form'].validate((valid) => {
+//                if(form.le_expert_name == '') {
+//                    this.$message.error('专家姓名不能为空');
+//                    return
+//                }else if(form.le_expert_level == ''){
+//                    this.$message.error('专家级别不能为空');
+//                    return
+//                }else if(form.le_report_name == '') {
+//                    this.$message.error('报告名称不能为空');
+//                    return
+//                }else if(form.le_invite_status == '') {
+//                    this.$message.error('邀请状态不能为空');
+//                    return
+//                }else if(form.le_invite_unit == '') {
+//                    this.$message.error('邀请单位不能为空');
+//                    return
+//                }else if(form.le_time == '') {
+//                    this.$message.error('讲学时间不能为空');
+//                    return
+//                }
+                this.$refs['form'].validate((valid) => {
                     var d = form.le_time;
+
                     form.le_time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                     let vue = this;
                     if (valid) {
-                        jQuery.each(vue.form,function(i,val){
+                        jQuery.each(form,function(i,val){
                             vue.dataForm.append(i,val);
                         });
+                        console.log(vue.dataForm,'添加ooo');
                         vue.addLectureData(vue.dataForm).then(res => {
                             var data = res.data;
                             if (data.code == 0) {

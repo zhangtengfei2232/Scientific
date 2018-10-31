@@ -66,11 +66,11 @@
                 <el-upload
                         class="upload-demo"
                         drag
+                        action=""
+                        multiple
                         ref="pic_file"
                         :before-upload="fileProfil"
-                        :file-list="filelist"
-                        action="#"
-                        multiple>
+                        :auto-upload="false">
                     <i class="el-icon-upload"></i>
                     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                 </el-upload>
@@ -138,9 +138,11 @@
                     var data = response.data;
                     if (data.code == 0) {
                         self.DutiesData = data.datas;
-                        self.form = data.datas;
                         let time = data.datas.du_year_num;
-                        self.checkYearExt(time);
+                        self.form = data.datas;
+//                        console.log(self.form,'form@@@@@@@@!!');
+                        self.checkYearExt('4,3');
+                        self.filelist.url = 'showimage?disk=article&subjection=' + data.datas.du_road;
                     } else {
                         self.$notify({
                             type: 'error',
@@ -180,10 +182,11 @@
                     if (valid) {
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);
+//                            console.log(vue.form,'添加1@@@@@@@@!!');
                         });
                         vue.addDutiesData(vue.dataForm).then(res => {
                             var data = res.data;
-                            console.log(data,'@@@@@@@@!!');
+//                            console.log(data,'添加1@@@@@@@@!!');
                             if (data.code == 0) {
                                 vue.$message({
                                     message: '添加成功',
@@ -236,9 +239,13 @@
                 }
             },
             checkYearExt(time){
+//                console.log(time,'@@@@@@@@!!');
+
                 let a = time.split(',');
                 this.year1 = a[0];
                 this.year2 = a[1];
+                console.log(this.year1);
+                console.log(this.year2);
             },
         },
         mounted() {
