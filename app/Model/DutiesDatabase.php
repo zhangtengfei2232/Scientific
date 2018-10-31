@@ -61,11 +61,7 @@ class DutiesDatabase extends ModelDatabase
     }
     //查看所有担任团体职务信息
     public static function selectAllDutiesDatas($teacher_id){
-        $result = DB::table('duties')->where('teacher_id',$teacher_id)->orderBy('du_age','desc')->get();
-        foreach ($result as $datas){
-            $datas->du_year_num = date('Y-m-d',$datas->du_year_num);
-        }
-        return $result;
+        return DB::table('duties')->where('teacher_id',$teacher_id)->orderBy('du_age','desc')->get();
     }
     //查看担任团体职务证书路径
     public static function selectImageRoadDatas($du_id_datas){

@@ -73,10 +73,9 @@ class DutiesController extends Controller
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
-        $du_id[0]          = trim($request->du_id);
         $du_road           = trim($request->du_road);
         $datas = [
-            'du_id'        => $du_id[0],
+            'du_id'        => trim($request->du_id),
             'teacher_name' => trim($request->teacher_name),
             'du_academic'  => trim($request->du_academic),
             'du_education' => trim($request->du_education),
@@ -84,8 +83,7 @@ class DutiesController extends Controller
             'du_age'       => trim($request->du_age),
             'du_name'      => trim($request->du_name),
             'du_duty'      => trim($request->du_duty),
-            'du_year_num'  => trim($request->du_year_num),
-            'du_road'      => $du_road
+            'du_year_num'  => trim($request->du_year_num)
         ];
         dd($datas);
         $judge_datas = judgeDutiesField($datas);
@@ -93,6 +91,7 @@ class DutiesController extends Controller
             return $judge_datas;
         }
         $reset_image_status = false;
+        $datas['du_road']   = $du_road;
         $datas['du_remark'] = trim($request->du_remark);
         if(!$request->hasFile('du_file')){//判断老师是否上传证书图片
             return DutiesDatabase::updateDutiesDatas($datas,$reset_image_status);
@@ -111,7 +110,9 @@ class DutiesController extends Controller
         $reset_duties  = DutiesDatabase::updateDutiesDatas($datas,$reset_image_status);
         if($reset_duties){
             DutiesDatabase::commit();
-            deletefiles($disk,$du_road);
+            if(!empty($du_road)){
+                deletefiles($disk,$du_road);
+            }
             return responseTojson(0,'修改信息成功');
         }
         DutiesDatabase::rollback();

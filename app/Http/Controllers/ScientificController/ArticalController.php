@@ -3,8 +3,10 @@ namespace App\Http\Controllers\ScientificController;
 
 use App\Http\Controllers\Controller;
 use App\Model\ArticalDatabase;
+use App\Model\ModelDatabase;
 use Illuminate\Http\Request;
 use config\UploadSubjectionConfig;
+use config\SearchMessageConfig;
 class ArticalController extends Controller
 {
      //添加论文
@@ -95,6 +97,14 @@ class ArticalController extends Controller
          $result     = ArticalDatabase::selectAllArticalDatas($teacher_id);
          return responseTojson(0,'查询成功','',$result);
      }
+    //根据时间区间搜索文章信息
+    public function timeSelectArtical(Request $request){
+        $start_time = $request->start_time;
+        $end_time   = $request->end_tiem;
+        $table_name = SearchMessageConfig::ARTICAL_TABLE;
+        $time_field = SearchMessageConfig::ART_TIME;
+        return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field);
+    }
      //修改论文
      public function updateArtical(Request $request){
          if(!$request->isMethod('POST')) {

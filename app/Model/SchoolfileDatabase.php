@@ -10,16 +10,11 @@ class SchoolfileDatabase extends ModelDatabase
     public static function addSchoolfileDatas($datas){
         return  DB::table('schoolfile')
                     ->insert([
-                        'shcfile_name'      => $datas['shcfile_name'],
+                        'schfile_name'      => $datas['schfile_name'],
                         'schfile_num'       => $datas['schfile_num'],
                         'schfile_down_time' => $datas['schfile_down_time'],
                         'schfile_road'      => $datas['schfile_road']
                     ]);
-    }
-    //删除单个校发文件信息
-    public static function deleteSchoolfileDatas($shcoolfile_id){
-        $response = DB::table('schoolfile')->where('schfile_id',$shcoolfile_id)->delete();
-        return ($response != 1) ? false : true;
     }
     //删除多个校发文件信息
     public static function deleteAllSchoolfileDatas($schoolfile_id_datas){
@@ -33,21 +28,25 @@ class SchoolfileDatabase extends ModelDatabase
             }
         }
         if($validate){
-            return showMsg(0,'校发文件全部删除成功');
+            return responseTojson(0,'校发文件全部删除成功');
         }
         $count_id = count($fail_schoolfile_id);
-        return showMsg(1,'有'.$count_id.'个校发文件删除失败',$fail_schoolfile_id);
+        return responseTojson(1,'有'.$count_id.'个校发文件删除失败',$fail_schoolfile_id);
     }
     //修改校发文件信息
-    public static function updateSchoolfileDatas($datas){
+    public static function updateSchoolfileDatas($datas,$reset_file_status){
         $response = DB::table('schoolfile')->where('schfile_id',$datas['schfile_id'])
                     ->update([
-                        'shcfile_name'      => $datas['shcfile_name'],
+                        'schfile_name'      => $datas['schfile_name'],
                         'schfile_num'       => $datas['schfile_num'],
                         'schfile_down_time' => $datas['schfile_down_time'],
                         'schfile_road'      => $datas['schfile_road']
                     ]);
-        return ($response != 1) ? false : true;
+        if($reset_file_status){
+            return ($response != 1) ? false : true;
+        }
+        return ($response != 1) ? responseTojson(1,'修改校发文件信息失败')
+               : responseTojson(0,'修改校发文件信息成功');
     }
     //查看单个校发文件信息
     public static function selectSchoolfileDatas($schoolfile_id){
@@ -60,11 +59,6 @@ class SchoolfileDatabase extends ModelDatabase
             $datas->schfile_down_time = date('Y-m-d',$datas->schfile_down_time);
         }
         return $result;
-    }
-    //查询单个校发文件的路径
-    public static function selectSchoolfileRoad($schfile_id){
-        $result = DB::table('schoolfile')->select('schfile_road')->where('schfile_id',$schfile_id)->first();
-        return  $result->schfile_road;
     }
     //查询多个校发文件路径
     public static function selectAllSchoolfileRoad($school_id_datas){

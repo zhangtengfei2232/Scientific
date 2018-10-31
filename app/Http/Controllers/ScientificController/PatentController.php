@@ -1,11 +1,12 @@
 <?php
 namespace App\Http\Controllers\ScientificController;
 
-
 use App\Http\Controllers\Controller;
+use App\Model\ModelDatabase;
 use Illuminate\Http\Request;
 use App\Model\PatentDatabase;
 use config\UploadSubjectionConfig;
+use config\SearchMessageConfig;
 class PatentController extends Controller
 {
      //添加专利信息
@@ -26,7 +27,6 @@ class PatentController extends Controller
              'author_notic_day' => trim($request->author_notic_day),
              'pa_integral'      => trim($request->pa_integral)
          ];
-         dd($datas);
          $judge_datas = judgePatenField($datas);
          if($judge_datas['code'] == 1){
              return $judge_datas;
@@ -70,15 +70,22 @@ class PatentController extends Controller
          $result = PatentDatabase::selectPatenAllDatas(session('usercount'));
          return responseTojson(0,'查询成功','',$result);
      }
+    //根据时间区间搜索成果鉴定
+    public function timeSelectPatent(Request $request){
+        $start_time = $request->start_time;
+        $end_time   = $request->end_tiem;
+        $table_name = SearchMessageConfig::PATENT_TABLE;
+        $time_field = SearchMessageConfig::AUTHOR_NOTIC_DAY;
+        return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field);
+    }
      //修改专利信息
      public function updatePatent(Request $request){
          if(!$request->isMethod('POST')){
              return responseTojson(1,'你请求的方式不对');
          }
-         $pa_id[0] = trim($request->pa_id);
          $pa_road  = trim($request->pa_road);
          $datas  = [
-            'pa_id'            => $pa_id[0],
+            'pa_id'            => trim($request->pa_id),
             'first_inventor'   => trim($request->first_inventor),
             'pa_all_author'    => trim($request->pa_all_author),
             'pa_type'          => trim($request->pa_type),
@@ -87,21 +94,20 @@ class PatentController extends Controller
             'author_num'       => trim($request->author_num),
             'author_cert_num'  => trim($request->author_cert_num),
             'author_notic_day' => trim($request->author_notic_day),
-            'pa_integral'      => trim($request->pa_integral),
-            '$pa_road'         => $pa_road
+            'pa_integral'      => trim($request->pa_integral)
          ];
-         dd($datas);
          $judge_datas = judgePatenField($datas);
          if($judge_datas['code']== 1){
              return $judge_datas;
          }
          $reset_image_status = false;
+         $datas['pa_road']   = $pa_road;
          $datas['pa_remarks'] = trim($request->pa_remarks);
-         if(!$request->hasFile('pa_file')){
+         if(!$request->hasFile('pat_pic')){
              return PatentDatabase::updatePatentDatas($datas,$reset_image_status);
          }
          $reset_image_status = true;
-         $patent_image = $request->file('pa_file');
+         $patent_image = $request->file('pat_pic');
          $judge_iamge  = judgeFileImage($patent_image);
          if($judge_iamge['code'] ==1){
              return $judge_iamge;
@@ -114,7 +120,9 @@ class PatentController extends Controller
          $reset_patent      = PatentDatabase::updatePatentDatas($datas,$reset_image_status);
          if($reset_patent){
              PatentDatabase::commit();
-             deleteAllFiles($disk,$pa_road);
+             if(!empty($pa_road)){
+                 deletefiles($disk,$pa_road);
+             }
              return responseTojson(0,'修改专利信息成功');
          }
          PatentDatabase::rollback();
