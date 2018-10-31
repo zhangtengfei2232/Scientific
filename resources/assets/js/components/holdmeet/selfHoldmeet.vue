@@ -46,12 +46,18 @@
                         drag
                         action="#"
                         ref="ho_file"
+                        :file-list="filelist"
                         :before-upload="fileProfil"
                         multiple>
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
                 </el-form-item>
+                <thead>
+                    <!-- <li v-for="(id,filelists) in items" v-bind:key="filelists">
+                        <img src="{{ items.url }}" alt="无法加载">
+                    </li> -->
+                </thead>
                 <el-form-item label="餐会图注">
                     <el-upload
                         class="upload-demo"
@@ -89,11 +95,13 @@
 export default {
     data() {
         return {
+            filelist:[{url:''}],
             HoldmeetSelfData: {},
             dataForm: new FormData(),
+            dataFile: new FormData(),
             ho_file: '',
             ho_files: '',
-            filelists:[{url:''}],
+            filelists:[],
             form: {
                 ho_name: '',
                 ho_art_status: '',
@@ -114,7 +122,9 @@ export default {
                 if (data.code == 0) {
                     self.HoldmeetSelfData = data.datas.information;
                     self.form = data.datas.information;
-                    self.filelists.url = 'showimage?disk=holdmeet&subjection=' + data.datas.information.ho_graph_inject;
+                    self.filelist.url = 'showimage?disk=holdmeet&subjection=' + data.datas.information.ho_graph_inject;
+                    // let image = data.datas.information.ho_image;
+                    // self.filelists = 'showimage?disk=holdmeet&subjection=' + image;
                 } else {
                     self.$notify({
                         type: 'error',
@@ -193,23 +203,23 @@ export default {
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);
                         });
-                        vue.addPatentData(vue.dataForm).then(res => {
+                        vue.addHoldmeetData(vue.dataForm).then(res => {
                             var data = res.data;
                             if (data.code == 0) {
                                 this.Bcode = true;
                                 vue.$message({
-                                    message: '添加成功',
+                                    message: '修改成功',
                                     type: 'success'
                                 });
                             } else {
                                 vue.$notify({
                                     type: 'error',
-                                    message: data.msg,
+                                    message: '修改失败',
                                     duration: 2000,
                                 });
                             }
                         })
-                        vue.$refs.pat_pic.submit()
+                        vue.$refs.ho_file.submit()
                     } else {
                         console.log('error submit!!')
                         return false
