@@ -87,35 +87,43 @@
                 <el-form-item label="备注">
                     <el-input type="textarea" v-model="form.op_remarks"></el-input>
                 </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="onSubmit(form)">保存修改</el-button>
+                    <el-button>取消</el-button>
+                </el-form-item>
                 <el-form-item label="著作封面">
                     <el-upload
-                        drag
-                        action="#"
+                        class="upload-demo"
                         ref="bo_file"
-                        :limit=1
+                        action="#"
                         :before-upload="fileProfil"
+                        :on-preview="handlePreview"
+                        :on-remove="handleRemove"
                         :file-list="filelist"
-                        :auto-upload="true">
-                        <i class="el-icon-upload"></i>
-                        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                        :auto-upload="false"
+                        :limit="1"
+                        list-type="picture">
+                        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传</el-button>
+                        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
                     </el-upload>
                 </el-form-item>
                 <el-form-item label="版权页图片">
                     <el-upload
-                        drag
-                        action="#"
+                        class="upload-demo"
                         ref="bo_files"
-                        :limit=1
+                        action="#"
+                        :before-upload="fileProfils"
+                        :on-preview="handlePreview"
+                        :on-remove="handleRemove"
                         :file-list="filelists"
-                        :before-upload="fileProfil"
-                        :auto-upload="false">
-                        <i class="el-icon-upload"></i>
-                        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                        :auto-upload="false"
+                        :limit="1"
+                        list-type="picture">
+                        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUploads">上传</el-button>
+                        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
                     </el-upload>
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="primary" @click="onSubmit(form)">保存修改</el-button>
-                    <el-button>取消</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -140,11 +148,10 @@ export default {
             BookSelfData: {},
             bo_files: '',
             bo_file: '',
-            filelist: [{url:''}],
-            filelists: [{url:''}],
+            filelist: [{name:'',url:''}],
+            filelists: [{name:'',url:''}],
             dataForm: new FormData(),
             dataFile: new FormData(),
-            Bcode:false,
             form: {
                 op_first_author: '',
                 op_all_author: '',
@@ -183,34 +190,46 @@ export default {
                 }
             });
         },
+        submitUpload() {
+            this.$refs.bo_file.submit();
+        },
+        submitUploads() {
+            this.$refs.bo_files.submit();
+        },
+        handleRemove(file, fileList) {
+            console.log(file, fileList);
+        },
+        handlePreview(file) {
+            console.log(file);
+        },
         fileProfil(file){
-            if(this.Bcode == true){
+            if(file !== ''){
                 this.dataFile.append('bo_files', file);
-                this.sendfile(files,1);
-                this.$refs.bo_file.submit();
+                this.sendfile(file,1);
             }else{
-                this.$message.error('请先添加数据信息');
+                this.$message.error('请先添加文件');
                 return false
             }  
         },
         fileProfils(files){
-            if(this.Bcode == true){
+            if(files !== ''){
                 this.dataFile.append('bo_files', files);
                 this.sendfile(files,2);
                 this.$refs.bo_files.submit();
             }else{
-                this.$message.error('请先添加数据信息');
+                this.$message.error('请先添加文件');
                 return false
             }
         },
         sendfile(file,m) {
+            let vue = this;
             this.addBookFile(vue.dataFile,m).then(res => {
-                var data = res.data;
+                var data = res.data;   
                 if (data.code == 0) {
                     vue.$message({
                         message: '修改成功',
                         type: 'success'
-                    });A
+                    });
                 } else {
                     vue.$notify({
                         type: 'error',
@@ -273,6 +292,7 @@ export default {
                 this.$message.error('备注不能为空');
                 return
             }
+            console.log(form);
             this.$refs['form'].validate((valid) => {
                 let vue = this;
                 if (valid) {
@@ -282,7 +302,6 @@ export default {
                     vue.addBookData(vue.dataForm).then(res => {
                         var data = res.data;
                         if (data.code == 0) {
-                            this.Bcode=true;
                             vue.$message({
                                 message: '修改成功',
                                 type: 'success'
@@ -295,12 +314,6 @@ export default {
                             });
                         }
                     })
-                    if(vue.$refs.pro_file !== ''){
-                        vue.$refs.pro_file.submit();
-                    }
-                    if(vue.$refs.pro_files !== ''){
-                       vue.$refs.pro_files.submit();
-                    }
                 } else {
                     console.log('error submit!!')
                     return false
@@ -310,7 +323,7 @@ export default {
         addBookData(data) {
             return axios({
                 method: 'post',
-                url: 'updatepatent',
+                url: 'updateopus',
                 headers: {'Content-Type': 'multipart/form-data'},
                 timeout: 20000,
                 data: data

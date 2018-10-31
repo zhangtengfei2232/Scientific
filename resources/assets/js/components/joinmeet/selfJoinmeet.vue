@@ -49,7 +49,7 @@
                 <el-form-item label="报告题目">
                     <el-input v-model="form.jo_title"></el-input>
                 </el-form-item>
-                <el-form-item label="会议图注">
+                <el-form-item label="会议图片">
                     <el-upload
                         class="upload-demo"
                         drag
@@ -61,33 +61,7 @@
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
                 </el-form-item>
-                <!-- <template>
-                    <el-table
-                        :data="filelists"
-                        style="width: 100%"
-                        max-height="250">
-                        <el-table-column
-                            fixed
-                            prop="url"
-                            label="餐会图注"
-                            width="500">
-                        </el-table-column>
-                        <el-table-column
-                            fixed="right"
-                            label="操作"
-                            width="120">
-                        <template slot-scope="scope">
-                            <el-button
-                                @click.native.prevent="deleteRow(scope.$index, filelists)"
-                                type="text"
-                                size="small">
-                                移除
-                            </el-button>
-                        </template>
-                        </el-table-column>
-                    </el-table>
-                </template> -->
-                <el-form-item label="餐会图注">
+                <el-form-item label="会议图注">
                     <el-upload
                         class="upload-demo"
                         drag

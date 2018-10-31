@@ -48,29 +48,35 @@
                 </el-form-item>
                 <el-form-item label="成果封面">
                     <el-upload
-                        drag
+                        class="upload-demo"
                         ref="pat_pic"
-                        :before-upload="filePatpic"
                         action="#"
-                        :auto-upload="false">
-                        <i class="el-icon-upload"></i>
-                        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                        :before-upload="filePatpic"
+                        :on-preview="handlePreview"
+                        :on-remove="handleRemove"
+                        :auto-upload="false"
+                        :limit="1"
+                        list-type="picture">
+                        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传</el-button>
+                        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
                     </el-upload>
                 </el-form-item>
                 <el-form-item label="成果鉴定证书图片">
                     <el-upload
-                        drag
-                        action="#"
+                        class="upload-demo"
                         ref="pat_pics"
-                        :before-upload="filePatpics"
-                        :auto-upload="false">
-                        <i class="el-icon-upload"></i>
-                        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                        action="#"
+                        :before-upload="fileProfils"
+                        :on-preview="handlePreview"
+                        :on-remove="handleRemove"
+                        :auto-upload="false"
+                        :limit="1"
+                        list-type="picture">
+                        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUploads">上传</el-button>
+                        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
                     </el-upload>
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="primary" @click="onSubmit(form)">立即创建</el-button>
-                    <el-button>取消</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -87,7 +93,6 @@
         margin: 35px 0 0 35px;
     }
 </style>
-
 
 <script>
   export default {
@@ -113,11 +118,22 @@
         }
     },
     methods: {
+        submitUpload() {
+            this.$refs.pat_pic.submit();
+        },
+        submitUploads() {
+            this.$refs.pat_pics.submit();
+        },
+        handleRemove(file, fileList) {
+            console.log(file, fileList);
+        },
+        handlePreview(file) {
+            console.log(file);
+        },
         filePatpic(file){
             if(this.Bcode == true){
                 this.dataFile.append('pat_pic', file);
                 this.sendfile(files,1);
-                this.$refs.pat_pic.submit();
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
@@ -127,8 +143,6 @@
             if(this.Bcode == true){
                 this.dataFile.append('pat_pics', files);
                 this.sendfile(files,2);
-                this.$refs.pat_pics.submit();
-                this.$router.push({path: '/appraisal'});
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
@@ -195,37 +209,37 @@
             }
             console.log(form);
             this.$refs['form'].validate((valid) => {
-                    if (valid) {
-                        jQuery.each(vue.form,function(i,val){
-                            vue.dataForm.append(i,val);
-                        });
-                        vue.addAppraisalData(vue.dataForm).then(res => {
-                            var data = res.data;
-                            if (data.code == 0) {
-                                this.Bcode = true;
-                                vue.$message({
-                                    message: '添加成功',
-                                    type: 'success'
-                                });
-                            } else {
-                                vue.$notify({
-                                    type: 'error',
-                                    message: '添加失败',
-                                    duration: 2000,
-                                });
-                            }
-                        })
-                        vue.$refs.pat_pic.submit()
-                    } else {
-                        console.log('error submit!!')
-                        return false
-                    }
-                })
+                if (valid) {
+                    jQuery.each(vue.form,function(i,val){
+                        vue.dataForm.append(i,val);
+                    });
+                    vue.addAppraisalData(vue.dataForm).then(res => {
+                        var data = res.data;
+                        if (data.code == 0) {
+                            this.Bcode = true;
+                            vue.$message({
+                                message: '添加成功',
+                                type: 'success'
+                            });
+                        } else {
+                            vue.$notify({
+                                type: 'error',
+                                message: '添加失败',
+                                duration: 2000,
+                            });
+                        }
+                    })
+                    vue.$refs.pat_pic.submit()
+                } else {
+                    console.log('error submit!!')
+                    return false
+                }
+            })
         },
         addAppraisalData(data) {
             return axios({
                 method: 'post',
-                url: 'updateappraisal',
+                url: 'addappraisal',
                 headers: {'Content-Type': 'multipart/form-data'},
                 timeout: 20000,
                 data: data

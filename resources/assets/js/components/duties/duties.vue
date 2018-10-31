@@ -63,7 +63,7 @@
                     </el-table-column>
                 </el-table>
                 <div style="margin-top: 20px">
-                    <el-button @click="toggleSelection([StudygroupDate[0], StudygroupDate[1],StudygroupDate[3]])">选中前三条</el-button>
+                    <el-button @click="toggleSelection([StudygroupDate[0], StudygroupDate[1],StudygroupDate[2]])">选中前三条</el-button>
                     <el-button @click="toggleSelection()">取消选择</el-button>
                     <el-button @click="BatchDelete()">删除</el-button>
                 </div>
@@ -190,6 +190,7 @@
                 id: [],
                 dataForm: new FormData(),
                 StudygroupDate: [],
+                sortable:true,
                 checked: false,
                 form: {
                     teacher_name:'',
@@ -219,7 +220,7 @@
                 var du_id_datas = [];//存放删除的数据
                 if(self.multipleSelection == undefined){
                     self.$message({
-                        message: '警告哦，这是一条警告消息',
+                        message: '请选择要删除论文',
                         type: 'warning'
                     });
                 }else{
@@ -234,20 +235,20 @@
                 let self = this;
                 axios.get("selectallduties").then(function (response) {
                     var data = response.data;
-//                    console.log(data.datas);
                     if (data.code == 0) {
                         self.StudygroupDate = data.datas;
 //                        console.log(data.datas);
                     } else {
                         self.$notify({
                             type: 'error',
-                            message: data.msg,
+                            message: data.message,
                             duration: 2000,
                         });
                     }
                 });
             },
             deleteDutiesDatas(du_id_datas) {
+                console.log(du_id_datas,'批量删除啊@@@@@@@@!!');
                 this.$confirm('此操作批量删除文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -282,29 +283,34 @@
             },
 
             deleteStudygroupDate(du_id) {
-                this.id = du_id;
+                this.id.push(du_id);
+//                this.id = du_id;
                 this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
                     let self = this;
-                    axios.get("deleteduties?du_id="+id).then(function (response) {
-                        var data = response.data;
-                        console.log(data,"删除————————————");
+                    axios.get("deleteduties",{
+                        params:{
+                            du_id_datas:this.id
+                        }
+
+                    }).then(function (response) {
+                    var data = response.data;
                         if (data.code == 0) {
                             this.$message({
                                 type: 'success',
                                 message: '删除成功!'
                             });
-                        } else {
+                        }else{
                             self.$notify({
                                 type: 'error',
                                 message: data.msg,
                                 duration: 2000,
-                            });
+                                });
                         }
-                    });
+                     });
                 }).catch(() => {
                     this.$message({
                         type: 'info',
@@ -317,7 +323,7 @@
                     path: `/editDuties/${du_id}`,
                 })
             },
-            byTimeSearch(form) {
+            byTimeSearch() {
                 axios.get("",form).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {

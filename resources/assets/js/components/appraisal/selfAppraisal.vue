@@ -46,36 +46,43 @@
                 <el-form-item label="备注">
                     <el-input type="textarea" v-model="form.ap_remarks"></el-input>
                 </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="onSubmit(form)">立即修改</el-button>
+                    <el-button>取消</el-button>
+                </el-form-item>
                 <el-form-item label="成果封面">
                     <el-upload
                         class="upload-demo"
-                        drag
-                        ref="pat_pics"
-                        :before-upload="filePatpics"
-                        :file-list="filelists"
+                        ref="pat_pic"
                         action="#"
-                        multiple>
-                        <i class="el-icon-upload"></i>
-                        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                        :before-upload="filePatpic"
+                        :on-preview="handlePreview"
+                        :on-remove="handleRemove"
+                        :file-list="filelist"
+                        :auto-upload="false"
+                        :limit="1"
+                        list-type="picture">
+                        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传</el-button>
+                        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
                     </el-upload>
                 </el-form-item>
                 <el-form-item label="成果鉴定证书图片">
                     <el-upload
                         class="upload-demo"
-                        drag
+                        ref="pat_pics"
                         action="#"
-                        multiple
-                        :file-list="filelist"
-                        ref="pat_pic"
-                        :before-upload="filePatpic"
-                        :auto-upload="false">
-                        <i class="el-icon-upload"></i>
-                        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                        :before-upload="fileProfils"
+                        :on-preview="handlePreview"
+                        :on-remove="handleRemove"
+                        :file-list="filePatpics"
+                        :auto-upload="false"
+                        :limit="1"
+                        list-type="picture">
+                        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUploads">上传</el-button>
+                        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
                     </el-upload>
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="primary" @click="onSubmit(form)">立即修改</el-button>
-                    <el-button>取消</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -100,7 +107,6 @@ export default {
             AppraisalSelfData: {},
             dataForm: new FormData(),
             dataFile: new FormData(),
-            Bcode:false,
             filelist: [{url:''}],
             filelists: [{url:''}],
             form: {
@@ -120,42 +126,53 @@ export default {
 
     methods: {
         getAppraisalSelfData() {
-                let self = this;
-                let ap_id = self.$route.params.ap_id;
-                axios.get("selectappraisal?ap_id="+ap_id).then(function (response) {
-                    var data = response.data;
-                    if (data.code == 0) {
-                        self.AppraisalSelfData = data.datas;
-                        self.form = data.datas;
-                        self.filelist.url = 'showimage?disk=appraisal&subjection=' + data.datas.pro_road;
-                        self.filelists.url = 'showimage?disk=appraisal&subjection=' + data.datas.ap_cover_road; 
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.msg,
-                            duration: 2000,         
-                        });
-                    }
-                });
+            let self = this;
+            let ap_id = self.$route.params.ap_id;
+            axios.get("selectappraisal?ap_id="+ap_id).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.AppraisalSelfData = data.datas;
+                    self.form = data.datas;
+                    self.filelist.url = 'showimage?disk=appraisal&subjection=' + data.datas.pro_road;
+                    self.filelists.url = 'showimage?disk=appraisal&subjection=' + data.datas.ap_cover_road; 
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.msg,
+                        duration: 2000,         
+                    });
+                }
+            });
+        },
+        submitUpload() {
+            this.$refs.pat_pic.submit();
+        },
+        submitUploads() {
+            this.$refs.pat_pics.submit();
+        },
+        handleRemove(file, fileList) {
+            console.log(file, fileList);
+        },
+        handlePreview(file) {
+            console.log(file);
         },
         filePatpic(file){
-            if(this.Bcode == true){
+            if(file == ''){
                 this.dataFile.append('pat_pic', file);
                 this.sendfile(files,1);
-                this.$refs.pat_pic.submit();
+                
             }else{
-                this.$message.error('请先添加数据信息');
+                this.$message.error('请先添加文件');
                 return false
             }  
         },
         filePatpics(files){
-            if(this.Bcode == true){
+            if(files == ''){
                 this.dataFile.append('pat_pic', files);
                 this.sendfile(files,2);
-                this.$refs.pat_pics.submit();
-                this.$router.push({path: '/appraisal'});
+                
             }else{
-                this.$message.error('请先添加数据信息');
+                this.$message.error('请先添加文件');
                 return false
             }
         },
@@ -164,13 +181,13 @@ export default {
                 var data = res.data;
                 if (data.code == 0) {
                     vue.$message({
-                        message: '添加成功',
+                        message: '修改成功',
                         type: 'success'
                     });A
                 } else {
                     vue.$notify({
                         type: 'error',
-                        message: '添加失败',
+                        message: '修改失败',
                         duration: 2000,
                     });
                 }
@@ -228,13 +245,13 @@ export default {
                             if (data.code == 0) {
                                 this.Bcode = true;
                                 vue.$message({
-                                    message: '添加成功',
+                                    message: '修改成功',
                                     type: 'success'
                                 });
                             } else {
                                 vue.$notify({
                                     type: 'error',
-                                    message: data.msg,
+                                    message: data.message,
                                     duration: 2000,
                                 });
                             }

@@ -36,11 +36,11 @@
 
             <el-form-item label="担任学术团体名称">
                 <el-input v-model="form.du_name" placeholder="请输入担任学术团体名称"style="width: 370px;"></el-input>
-                <el-select v-model="form.level" placeholder="担任学术团体级别" style="width: 200px;">
-                    <el-option label="省级" value="1"></el-option>
-                    <el-option label="国家级" value="2"></el-option>
-                    <el-option label="国际级" value="3"></el-option>
-                </el-select>
+                <!--<el-select v-model="form.level" placeholder="担任学术团体级别" style="width: 200px;">-->
+                    <!--<el-option label="省级" value="1"></el-option>-->
+                    <!--<el-option label="国家级" value="2"></el-option>-->
+                    <!--<el-option label="国际级" value="3"></el-option>-->
+                <!--</el-select>-->
             </el-form-item>
 
             <el-form-item label="所任职务">
@@ -50,11 +50,15 @@
                 <el-date-picker
                         v-model="year1"
                         type="date"
+                        format="yyyy 年 MM 月 dd 日"
+                        value-format="timestamp"
                         placeholder="选择日期">
                 </el-date-picker>
                 <span>-</span>
                 <el-date-picker
                         v-model="year2"
+                        format="yyyy 年 MM 月 dd 日"
+                        value-format="timestamp"
                         type="date"
                         placeholder="选择日期">
                 </el-date-picker>
@@ -66,11 +70,12 @@
                 <el-upload
                         class="upload-demo"
                         drag
+                        action=""
+                        multiple
+                        :file-list="filelist"
                         ref="pic_file"
                         :before-upload="fileProfil"
-                        :file-list="filelist"
-                        action="#"
-                        multiple>
+                        :auto-upload="false">
                     <i class="el-icon-upload"></i>
                     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                 </el-upload>
@@ -107,6 +112,9 @@
                 DutiesData:{},
                 pic_file:'',
                 dataForm: new FormData(),
+                dataFile: new FormData(),
+                Bcode:false,
+                multiple: true,
                 filelist: [{url:''}],
                 year1: '',
                 year2: '',
@@ -138,9 +146,12 @@
                     var data = response.data;
                     if (data.code == 0) {
                         self.DutiesData = data.datas;
-                        self.form = data.datas;
                         let time = data.datas.du_year_num;
-                        self.checkYearExt(time);
+                        self.form = data.datas;
+//                        console.log(self.form,'form@@@@@@@@!!');
+                        self.checkYearExt('4,3');
+                        self.filelist.url = 'showimage?disk=duties&subjection=' + data.datas.du_road;
+//                        console.log(self.filelist.url,'添加1@@@@@@@@!!');
                     } else {
                         self.$notify({
                             type: 'error',
@@ -173,9 +184,6 @@
                 }else if(form.du_duty == '') {
                     this.$message.error('老师所任职务不能为空');
                     return
-                }else if(form.du_year_num == '') {
-                    this.$message.error('老师担任年限不能为空');
-                    return
                 }this.$refs['form'].validate((valid) => {
 //                    var d = form.project_year;
 //                    form.project_year = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
@@ -186,6 +194,7 @@
                         });
                         vue.addDutiesData(vue.dataForm).then(res => {
                             var data = res.data;
+//                            console.log(data,'添加1@@@@@@@@!!');
                             if (data.code == 0) {
                                 vue.$message({
                                     message: '添加成功',
@@ -238,9 +247,13 @@
                 }
             },
             checkYearExt(time){
+//                console.log(time,'@@@@@@@@!!');
+
                 let a = time.split(',');
                 this.year1 = a[0];
                 this.year2 = a[1];
+                console.log(this.year1);
+                console.log(this.year2);
             },
         },
         mounted() {

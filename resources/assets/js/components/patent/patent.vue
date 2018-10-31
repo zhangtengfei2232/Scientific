@@ -63,7 +63,6 @@
                         width="200">
                         <template slot-scope="scope">
                             <el-button
-                            @click.native.prevent="deleteRow(scope.$index, PatentDate)"
                             type="text"
                             size="small">
                             <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentPatentSelfData(PatentDate[scope.$index].pa_id)"></el-button>

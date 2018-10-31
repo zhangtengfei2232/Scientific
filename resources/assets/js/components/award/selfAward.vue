@@ -130,7 +130,7 @@ export default {
         getAwardSelfData() {
                 let self = this;
                 let aw_id = self.$route.params.aw_id;
-                axios.get("selectAward?aw_id="+aw_id).then(function (response) {
+                axios.get("selectaward?aw_id="+aw_id).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
                         self.AwardSelfData = data.datas;
@@ -139,7 +139,7 @@ export default {
                     } else {
                         self.$notify({
                             type: 'error',
-                            message: data.msg,
+                            message: data.message,
                             duration: 2000,         
                         });
                     }

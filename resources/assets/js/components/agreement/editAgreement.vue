@@ -10,21 +10,31 @@
                 </el-form-item>
                 <el-form-item label="协议时间">
                     <el-col :span="15">
-                        <el-date-picker type="date" placeholder="选择日期" v-model="form.create_time" style="width: 100%;"></el-date-picker>
+                        <el-date-picker 
+                        type="date"
+                        placeholder="选择日期" 
+                        v-model="form.create_time" 
+                        style="width: 100%;"
+                        format="yyyy 年 MM 月 dd 日"
+                        value-format="timestamp"></el-date-picker>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="协议附件pdf">
                     <el-upload
                             class="upload-demo"
+                            :auto-upload="false"
                             drag
                             action="#"
+                            ref="pro_file"
+                            :before-upload="fileProfil"
+                            :file-list="filelists"
                             multiple>
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="onSubmit">立即创建</el-button>
+                    <el-button type="primary" @click="onSubmit(form)">立即创建</el-button>
                     <el-button>取消</el-button>
                 </el-form-item>
             </el-form>
@@ -49,24 +59,26 @@
         data() {
             return {
                 AgreementeDitData: {},
+                filelists: [{url:''}],
+                pro_file:'',
+                dataForm: new FormData(),
                 form: {
-                    ag_name: '',
-
-                    cooperate_unit: '',
-                    create_time: '',
-
+                    agree_name: '',
+                    agree_cooperate_unit: '',
+                    agree_time: '',
                 }
             }
         },
         methods: {
             getAgreementeDitData() {
                 let self = this;
-                let art_id = self.$route.params.art_id;
-                axios.get("",art_id).then(function (response) {
+                let agree_id = self.$route.params.agree_id;
+                axios.get("selectagreement?agree_id=" + agree_id).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
                         self.AgreementeDitData = data.datas;
-                        console.log(data.datas);
+                        self.form = data.datas;
+                        self.filelists.url = 'showimage?disk=agreement&subjection=' + data.datas.agree_road;
                     } else {
                         self.$notify({
                             type: 'error',
@@ -76,8 +88,57 @@
                     }
                 });
             },
-            onSubmit() {
-                console.log('submit!');
+            fileProfil(file){
+                this.dataForm.append('pro_file', file);
+                return false;
+            },
+            onSubmit(form) {
+                if(form.agree_name == '') {
+                    this.$message.error('协议名称不能为空');
+                    return
+                }else if(form.agree_cooperate_unit == ''){
+                    this.$message.error('合作单位不能为空');
+                    return
+                }else if(form.agree_time == '') {
+                    this.$message.error('协议时间不能为空');
+                    return
+                }this.$refs['form'].validate((valid) => {
+                        let vue = this;
+                        if (valid) {
+                            jQuery.each(vue.form,function(i,val){
+                                vue.dataForm.append(i,val);
+                            });
+                            vue.addAgreementData(vue.dataForm).then(res => {
+                                var data = res.data;
+                                if (data.code == 0) {
+                                    vue.$message({
+                                        message: '修改成功',
+                                        type: 'success'
+                                    });
+                                    this.$router.push({path: '/agreement'});
+                                } else { 
+                                    vue.$notify({
+                                        type: 'error',
+                                        message: '修改失败',
+                                        duration: 2000,
+                                    });
+                                }
+                            })
+                            vue.$refs.pro_file.submit();
+                        } else {
+                            console.log('error submit!!')
+                            return false
+                        }
+                    })
+            },
+            addAgreementData(data) {
+                return axios({
+                    method: 'post',
+                    url: 'updateagreement',
+                    headers: {'Content-Type': 'multipart/form-data'},
+                    timeout: 20000,
+                    data: data
+                });
             },
         },
         mounted() {
