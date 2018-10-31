@@ -12,23 +12,23 @@ class ProjectDatabase extends ModelDatabase
         $pro_road = $datas['pro_road'];
         $add_project =  DB::table('project')
                         ->insert([
-                            'teacher_id'        => $datas['teacher_id'],
-                            'pro_host'          => $datas['pro_host'],
-                            'pro_all_author'    => $datas['pro_all_author'],
-                            'entry_name'        => $datas['entry_name'],
-                            'project_category'  => $datas['project_category'],
-                            'approval_unit'     => $datas['approval_unit'],
-                            'approval_funds'    => $datas['approval_funds'],
-                            'account_outlay'    => $datas['account_outlay'],
-                            'pro_cate_research' => $datas['pro_cate_research'],
-                            'pro_sub_category'  => $datas['pro_sub_category'],
-                            'form_cooperate'    => $datas['form_cooperate'],
-                            'social_eco_goal'   => $datas['social_eco_goal'],
-                            'na_eco_industry'   => $datas['na_eco_industry'],
-                            'pro_integral'      => $datas['pro_integral'],
-                            'pro_road'          => $pro_road,
-                            'project_year'      => $datas['project_year'],
-                            'pro_remarks'       => $datas['pro_remarks']
+                        'teacher_id'        => $datas['teacher_id'],
+                        'pro_host'          => $datas['pro_host'],
+                        'pro_all_author'    => $datas['pro_all_author'],
+                        'entry_name'        => $datas['entry_name'],
+                        'project_category'  => $datas['project_category'],
+                        'approval_unit'     => $datas['approval_unit'],
+                        'approval_funds'    => $datas['approval_funds'],
+                        'account_outlay'    => $datas['account_outlay'],
+                        'pro_cate_research' => $datas['pro_cate_research'],
+                        'pro_sub_category'  => $datas['pro_sub_category'],
+                        'form_cooperate'    => $datas['form_cooperate'],
+                        'social_eco_goal'   => $datas['social_eco_goal'],
+                        'na_eco_industry'   => $datas['na_eco_industry'],
+                        'pro_integral'      => $datas['pro_integral'],
+                        'pro_road'          => $pro_road,
+                        'project_year'      => $datas['project_year'],
+                        'pro_remarks'       => $datas['pro_remarks']
                         ]);
        if(empty($pro_road)){
            return ($add_project) ? responseTojson(0,'添加成功')
@@ -42,9 +42,7 @@ class ProjectDatabase extends ModelDatabase
     }
     //查找单个项目信息
     public static function selectProjectDatas($project_id){
-      $result = DB::table('project')->where('pro_id',$project_id)->first();
-      $result->project_year = date('Y-m-d',$result->project_year);
-      return $result;
+      return DB::table('project')->where('pro_id',$project_id)->first();
     }
     //查找所有项目信息
     public static function selectAllProjectDatas($teacher_id){
@@ -55,10 +53,10 @@ class ProjectDatabase extends ModelDatabase
       return $result;
     }
     //修改老师项目和项目合同信息
-    public static function updateProjectDatas($datas){
+    public static function updateProjectDatas($datas,$reset_image_status){
         $pro_id = $datas['pro_id'];
         $resetinfor = DB::table('project')->where('pro_id',$pro_id)
-                  ->update([
+                      ->update([
                       'pro_host'          => $datas['pro_host'],
                       'pro_all_author'    => $datas['pro_all_author'],
                       'entry_name'        => $datas['entry_name'],
@@ -73,13 +71,13 @@ class ProjectDatabase extends ModelDatabase
                       'na_eco_industry'   => $datas['na_eco_industry'],
                       'pro_integral'      => $datas['pro_integral'],
                       'project_year'      => $datas['project_year'],
-                      'pro_remarks'       => $datas['pro_remarks']
-                  ]);
-        if(array_key_exists('pro_road',$datas)){
-            $reset_image = DB::table('project')->where('pro_id',$pro_id)->update(['pro_road' => $datas['pro_road']]);
-            return ($resetinfor != 1 || $reset_image != 1) ? false : true;
+                      'pro_remarks'       => $datas['pro_remarks'],
+                      'pro_road'          => $datas['pro_road']
+                      ]);
+        if($reset_image_status){
+            return ($resetinfor != 1) ? false : true;
         }
-        return ($resetinfor != 1) ? responseTojson(1,'修改失败') : responseTojson(0,'修改成功') ;
+        return ($resetinfor != 1) ? responseTojson(1,'修改失败') : responseTojson(0,'修改成功');
     }
     //查找以前多个项目合同路径
     public static function selectImagesRoadDatas($project_id_datas){

@@ -61,9 +61,7 @@ class JoinmeetDatas extends ModelDatabase
     }
     //查看参加会议信息
     public static function selectJoinmeetDatas($jo_id){
-        $result = DB::table('joinmeet')->where('jo_id',$jo_id)->first();
-        $result->jo_time = date('Y-m-d',$result->jo_time);
-        return $result;
+        return DB::table('joinmeet')->where('jo_id',$jo_id)->first();
     }
     //查看所有会议
     public static function selectAllJoinmeetDatas($teacher_id){

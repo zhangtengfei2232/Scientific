@@ -32,9 +32,7 @@ class AppraisalDatabase extends ModelDatabase
 //    }
     //删除成果鉴定
     public static function deleteAllAppraisalDatas($appraisal_id_datas){
-        for($i = 0; $i < count($appraisal_id_datas); $i++){
-            DB::table('appraisal')->where('ap_id',$appraisal_id_datas[$i])->delete();
-        }
+            DB::table('appraisal')->whereIn('ap_id',$appraisal_id_datas)->delete();
     }
     //查看所有成果鉴定信息
     public static function selectAppraisalAllDatas($teacher_id){
@@ -46,9 +44,7 @@ class AppraisalDatabase extends ModelDatabase
     }
     //查看单个成果鉴定信息
     public static function selectAppraisalDatas($ap_id){
-       $result =  DB::table('appraisal')->where('ap_id',$ap_id)->first();
-       $result->ap_time = date('Y-m-d',$result->ap_time);
-       return $result;
+       return DB::table('appraisal')->where('ap_id',$ap_id)->first();
     }
     //查看原来图片路径
     public static function selectAppraisalImageRoad($ap_id,$update_image_status){

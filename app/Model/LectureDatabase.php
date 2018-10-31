@@ -52,9 +52,7 @@ class LectureDatabase  extends ModelDatabase
     }
     //查看单个讲学信息
     public static function selectLectureDatas($le_id){
-        $result = DB::table('lecture')->where('le_id',$le_id)->first();
-        $result->le_time = date('Y-m-d',$result->le_time);
-        return $result;
+        return DB::table('lecture')->where('le_id',$le_id)->first();
     }
     //查看所有讲学信息
     public static function selectLectureAllDatas($teacher_id){

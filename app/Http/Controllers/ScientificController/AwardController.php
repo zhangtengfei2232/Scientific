@@ -24,7 +24,7 @@ class AwardController extends Controller
              'aw_level'         => trim($request->aw_level),
              'aw_grade'         => trim($request->aw_grade),
              'aw_grant_unit'    => trim($request->aw_grant_unit),
-             'aw_grant_time'    => strtotime(trim($request->aw_grant_time)),
+             'aw_grant_time'    => trim($request->aw_grant_time),
              'aw_certi_number'  => trim($request->aw_certi_number),
              'aw_sch_rank'      => trim($request->aw_sch_rank),
              'aw_integral'      => trim($request->aw_integral)
@@ -77,6 +77,7 @@ class AwardController extends Controller
              return responseTojson(1,'你请求的方式不对');
          }
          $aw_id[0] = trim($request->aw_id);
+         $aw_road  = trim($request->aw_road);
          $datas = [
              'aw_id'            => $aw_id[0],
              'aw_first_author'  => trim($request->aw_first_author),
@@ -88,19 +89,21 @@ class AwardController extends Controller
              'aw_level'         => trim($request->aw_level),
              'aw_grade'         => trim($request->aw_grade),
              'aw_grant_unit'    => trim($request->aw_grant_unit),
-             'aw_grant_time'    => strtotime(trim($request->aw_grant_time)),
+             'aw_grant_time'    => trim($request->aw_grant_time),
              'aw_certi_number'  => trim($request->aw_certi_number),
              'aw_sch_rank'      => trim($request->aw_sch_rank),
-             'aw_integral'      => trim($request->aw_integral)
+             'aw_integral'      => trim($request->aw_integral),
+             'aw_road'          => $aw_road
          ];
-         dd($datas);
          $judge_datas = judgeAwardField($datas);
-         if($judge_datas->code == 1){
+         if($judge_datas['code'] == 1){
              return $judge_datas;
          }
+         $reset_image_status = false;
          if(!$request->hasFile('aw_file')){
-            return AwardDatabase::updateAwardDatas($datas);
+            return AwardDatabase::updateAwardDatas($datas,$reset_image_status);
          }
+         $reset_image_status = true;
          $award_image = $request->file('aw_file');
          $judge_image = judgeFileImage($award_image);
          if($judge_image['code'] == 1){
@@ -109,13 +112,12 @@ class AwardController extends Controller
          $disk = UploadSubjectionConfig::AWARD;
          $subjection_award = UploadSubjectionConfig::AWARD_IMG;
          AwardDatabase::beginTraction();
-         $old_image_road   = AwardDatabase::selectAwardRoadDatas($aw_id);
          $new_image_road   = uploadFiles($subjection_award,$award_image,$disk);
          $datas['aw_road'] = $new_image_road;
-         $reset_award      = AwardDatabase::updateAwardDatas($datas);
+         $reset_award      = AwardDatabase::updateAwardDatas($datas,$reset_image_status);
          if($reset_award){
              ArticalDatabase::commit();
-             deleteAllFiles($disk,$old_image_road[0]);
+             deleteAllFiles($disk,$aw_road);
              return responseTojson(0,'修改获奖信息成功');
          }
          ArticalDatabase::rollback();

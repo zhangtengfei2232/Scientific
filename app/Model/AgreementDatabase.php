@@ -50,9 +50,7 @@ class AgreementDatabase extends ModelDatabase
     }
     //查询单个教学科研合作协议信息
     public static function selectAgreementDatas($agreement_id){
-       $result = DB::table('agreement')->where('agree_id',$agreement_id)->first();
-       $result->agree_time = date('Y-m-d',$result->agree_time);
-       return $result;
+       return DB::table('agreement')->where('agree_id',$agreement_id)->first();
     }
     //查询所有教学科研合作协议信息
     public static function selectAllAgreementDatas(){

@@ -15,7 +15,7 @@ class SchoolfileController extends Controller
         $datas = [
             'schoolfile_name'   => trim($request->schoolfile_name),
             'cooperate_unit'    => trim($request->cooperate_unit),
-            'schfile_down_time' => trim(data('Y-m-d',$request->scfile_down_time)),
+            'schfile_down_time' => trim($request->scfile_down_time),
         ];
         $judge_datas = judgeSchoolfileField($datas);
         if($judge_datas['code'] == 1){
@@ -69,7 +69,7 @@ class SchoolfileController extends Controller
             'schfile_id'        => $schfile_id,
             'schoolfile_name'   => trim($request->schoolfile_name),
             'schfile_num'       => trim($request->schfile_num),
-            'schfile_down_time' => strtotime(trim($request->schfile_down_time))
+            'schfile_down_time' => trim($request->schfile_down_time)
         ];
         $judge_datas = judgeSchoolfileField($datas);
         if($judge_datas['code ']== 1){

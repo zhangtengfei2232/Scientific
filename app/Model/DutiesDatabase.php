@@ -9,20 +9,20 @@ class DutiesDatabase extends ModelDatabase
     //添加学术担任团体职务信息
     public static function addDutiesDatas($datas){
         $du_road = $datas['du_road'];
-        $add_duties =  DB::table('duties')
-                       ->instert([
-                            'teacher_id'   => $datas->teacher_id,
-                            'teacher_name' => $datas->teacher_name,
-                            'du_academic'  => $datas->du_academic,
-                            'du_education' => $datas->du_education,
-                            'du_degree'    => $datas->du_degree,
-                            'du_age'       => $datas->du_age,
-                            'du_name'      => $datas->du_name,
-                            'du_duty'      => $datas->du_duty,
-                            'du_year_num'  => $datas->du_year_num,
-                            'du_remark'    => $datas->du_remark,
-                            'du_road'      => $du_road
-                       ]);
+        $add_duties = DB::table('duties')
+                      ->instert([
+                       'teacher_id'   => $datas['teacher_id'],
+                       'teacher_name' => $datas['teacher_name'],
+                       'du_academic'  => $datas['du_academic'],
+                       'du_education' => $datas['du_education'],
+                       'du_degree'    => $datas['du_degree'],
+                       'du_age'       => $datas['du_age'],
+                       'du_name'      => $datas['du_name'],
+                       'du_duty'      => $datas['du_duty'],
+                       'du_year_num'  => $datas['du_year_num'],
+                       'du_remark'    => $datas['du_remark'],
+                       'du_road'      => $datas['road']
+                      ]);
         if(empty($du_road)){
             return ($add_duties) ? responseTojson(0,'添加成功')
                    : responseTojson(1,'添加失败');
@@ -34,32 +34,30 @@ class DutiesDatabase extends ModelDatabase
         DB::table('duties')->whereIn('du_id',$du_id_datas)->delete();
     }
     //修改担任团体职务信息
-    public static function updateDutiesDatas($datas){
+    public static function updateDutiesDatas($datas,$reset_image_status){
         $du_id = $datas['du_id'];
         $response = DB::table('duties')->where('du_id',$du_id)
-            ->update([
-                'teacher_name' => $datas->teacher_name,
-                'du_academic'  => $datas->du_academic,
-                'du_education' => $datas->du_education,
-                'du_degree'    => $datas->du_degree,
-                'du_age'       => $datas->du_age,
-                'du_name'      => $datas->du_name,
-                'du_duty'      => $datas->du_duty,
-                'du_year_num'  => $datas->du_year_num,
-                'du_remark'    => $datas->du_remark
-            ]);
-        if(array_key_exists('du_road',$datas)){
-            $reset_image = DB::table('duties')->where('du_id',$du_id)->update(['du_road' => $datas['du_road']]);
-            return ($response !=1 || $reset_image != 1) ? responseTojson(1,'修改失败')
-                   : responseTojson(0,'修改成功');
+                    ->update([
+                    'teacher_name' => $datas['teacher_name'],
+                    'du_academic'  => $datas['du_academic'],
+                    'du_education' => $datas['du_education'],
+                    'du_degree'    => $datas['du_degree'],
+                    'du_age'       => $datas['du_age'],
+                    'du_name'      => $datas['du_name'],
+                    'du_duty'      => $datas['du_duty'],
+                    'du_year_num'  => $datas['du_year_num'],
+                    'du_remark'    => $datas['du_remark'],
+                    'du_road'      => $datas['road']
+                    ]);
+        if($reset_image_status){
+            return ($response != 1) ? false : true;
         }
-        return ($response != 1) ? false : true;
+        return ($response !=1) ? responseTojson(1,'修改失败')
+            : responseTojson(0,'修改成功');
     }
     //查看单个担任团体职务信息
     public static function selectDutiesDatas($du_id){
-        $result = DB::table('duties')->where('du_id',$du_id)->first();
-        $result->du_year_num = date('Y-m-d',$result->du_year_num);
-        return $result;
+        return DB::table('duties')->where('du_id',$du_id)->first();
     }
     //查看所有担任团体职务信息
     public static function selectAllDutiesDatas($teacher_id){

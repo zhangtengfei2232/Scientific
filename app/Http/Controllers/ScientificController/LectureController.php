@@ -21,7 +21,7 @@ class LectureController extends Controller
              'le_report_name'   => trim($request->le_report_name),
              'le_invite_status' => trim($request->le_invite_status),
              'le_invite_unit'   => trim($request->le_invite_unite),
-             'le_time'          => strtotime(trim($request->le_time))
+             'le_time'          => trim($request->le_time)
          ];
          $judge_datas = judgeLectureField($datas);
          if($judge_datas['code'] == 1){
@@ -84,7 +84,7 @@ class LectureController extends Controller
              'le_report_name'   => trim($request->le_report_name),
              'le_invite_status' => trim($request->le_invite_status),
              'le_invite_unit'   => trim($request->le_invite_unite),
-             'le_time'          => strtotime(trim($request->le_time))
+             'le_time'          => trim($request->le_time)
          ];
          $judge_datas = judgeLectureField($datas);
          if($judge_datas['code'] == 1){

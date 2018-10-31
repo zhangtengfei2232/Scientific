@@ -38,9 +38,7 @@ class OpusDatabase  extends ModelDatabase
     }
     //查看单个著作信息
     public static function selectOpusDatas($op_id){
-        $result =  DB::table('opus')->where('op_id',$op_id)->first();
-        $result->op_publish_time = date('Y-m-d',$result->op_publish_time);
-        return $result;
+        return DB::table('opus')->where('op_id',$op_id)->first();
     }
     //查看所有著作信息
     public static function selectOpusAllDatas($teacher_id){

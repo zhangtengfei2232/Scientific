@@ -43,9 +43,7 @@ class HoldmeetDatas extends ModelDatabase
     }
     //查看单个会议信息
     public static function selectHoldmetDatas($ho_id){
-        $result = DB::table('holdmeet')->where('ho_id',$ho_id)->first();
-        $result->ho_time = date('Y-m-d',$result->ho_time);
-        return $result;
+        return DB::table('holdmeet')->where('ho_id',$ho_id)->first();
     }
     //查看多个会议图注路径
     public static function selectHoldmeetInjectRoad($ho_id_datas){

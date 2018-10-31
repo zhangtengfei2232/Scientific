@@ -12,18 +12,18 @@ class PatentDatabase  extends ModelDatabase
         $pa_raod = $datas['pa_road'];
         $add_patent =  DB::table('patent')
                        ->insert([
-                           'teacher_id'       => $datas['teacher_id'],
-                           'first_inventor'   => $datas['first_inventor'],
-                           'pa_all_author'    => $datas['pa_all_author'],
-                           'pa_type'          => $datas['pa_type'],
-                           'pa_name'          => $datas['pa_name'],
-                           'pa_imple_situ'    => $datas['pa_imple_situ'],
-                           'author_num'       => $datas['author_num'],
-                           'author_cert_num'  => $datas['author_cert_num'],
-                           'author_notic_day' => $datas['author_notic_day'],
-                           'pa_integral'      => $datas['pa_integral'],
-                           'pa_remarks'       => $datas['pa_remarks'],
-                           'pa_road'          => $pa_raod
+                       'teacher_id'       => $datas['teacher_id'],
+                       'first_inventor'   => $datas['first_inventor'],
+                       'pa_all_author'    => $datas['pa_all_author'],
+                       'pa_type'          => $datas['pa_type'],
+                       'pa_name'          => $datas['pa_name'],
+                       'pa_imple_situ'    => $datas['pa_imple_situ'],
+                       'author_num'       => $datas['author_num'],
+                       'author_cert_num'  => $datas['author_cert_num'],
+                       'author_notic_day' => $datas['author_notic_day'],
+                       'pa_integral'      => $datas['pa_integral'],
+                       'pa_remarks'       => $datas['pa_remarks'],
+                       'pa_road'          => $pa_raod
                        ]);
         if(empty($pa_raod)){
             return ($add_patent) ? responseTojson(0,'添加成功')
@@ -37,9 +37,7 @@ class PatentDatabase  extends ModelDatabase
     }
     //查看专利信息
     public static function selectPatentDatas($pa_id){
-        $result =  DB::table('patent')->where('pa_id',$pa_id)->first();
-        $result->author_notic_day = date('Y-m-d',$result->author_notic_day);
-        return $result;
+        return DB::table('patent')->where('pa_id',$pa_id)->first();
     }
     //查看所有专利信息
     public static function selectPatenAllDatas($teacher_id){
@@ -59,24 +57,23 @@ class PatentDatabase  extends ModelDatabase
         return $pa_image_road;
     }
     //修改专利信息
-    public static function updatePatentDatas($datas){
+    public static function updatePatentDatas($datas,$reset_image_status){
         $pa_id = $datas['pa_id'];
         $response = DB::table('patent')->where('pa_id',$pa_id)
                   ->update([
-                      'first_inventor'   => $datas['first_inventor'],
-                      'pa_all_author'    => $datas['pa_all_author'],
-                      'pa_type'          => $datas['pa_type'],
-                      'pa_name'          => $datas['pa_name'],
-                      'pa_imple_situ'    => $datas['pa_imple_situ'],
-                      'author_num'       => $datas['author_num'],
-                      'author_cert_num'  => $datas['author_cert_num'],
-                      'author_notic_day' => $datas['author_notic_day'],
-                      'pa_integral'      => $datas['pa_integral'],
-                      'pa_remarks'       => $datas['pa_remarks'],
+                  'first_inventor'   => $datas['first_inventor'],
+                  'pa_all_author'    => $datas['pa_all_author'],
+                  'pa_type'          => $datas['pa_type'],
+                  'pa_name'          => $datas['pa_name'],
+                  'pa_imple_situ'    => $datas['pa_imple_situ'],
+                  'author_num'       => $datas['author_num'],
+                  'author_cert_num'  => $datas['author_cert_num'],
+                  'author_notic_day' => $datas['author_notic_day'],
+                  'pa_integral'      => $datas['pa_integral'],
+                  'pa_remarks'       => $datas['pa_remarks'],
                   ]);
-        if(array_key_exists('pa_road',$datas)){
-            $reset_image = DB::table('patent')->where('pa_id',$pa_id)->update(['pa_road' => $datas['pa_road']]);
-            return ($response != 1 || $reset_image != 1) ? false : true;
+        if($reset_image_status){
+            return ($response != 1) ? false : true;
         }
         return ($response != 1) ? responseTojson(1,'修改失败')
                : responseTojson(0,'修改成功');

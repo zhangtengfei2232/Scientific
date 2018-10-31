@@ -1,12 +1,10 @@
 <?php
 namespace App\Http\Controllers\ScientificController;
 
-
 use App\Http\Controllers\Controller;
 use App\Model\AgreementDatabase;
 use config\UploadSubjectionConfig;
 use Illuminate\Http\Request;
-
 class AgreementController extends Controller
 {
     //添加教学科研合作协议信息
@@ -22,7 +20,7 @@ class AgreementController extends Controller
         $datas = [
             'agree_name'           => trim($request->agree_name),
             'agree_cooperate_unit' => trim($request->agree_cooperate_unit),
-            'agree_time'           => strtotime(trim($request->agree_time)),
+            'agree_time'           => trim($request->agree_time),
         ];
         $judge_datas = judgeAgreementField($datas);
         if($judge_datas['code'] == 1){
@@ -71,7 +69,7 @@ class AgreementController extends Controller
             'agree_id'             => $agree_id,
             'agree_name'           => trim($request->agree_name),
             'agree_cooperate_unit' => trim($request->agree_cooperate_unit),
-            'agree_time'           => strtotime(trim($request->agree_time))
+            'agree_time'           => trim($request->agree_time)
         ];
         $judge_datas = judgeAgreementField($datas);
         if($judge_datas['code'] == 1){
@@ -104,6 +102,4 @@ class AgreementController extends Controller
         $result = AgreementDatabase::selectAllAgreementDatas();
         return responseTojson(0,'查询成功','',$result);
     }
-
-
 }
