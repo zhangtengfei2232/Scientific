@@ -41,7 +41,7 @@ use Illuminate\Support\Facades\Storage;
         if($isInFileType){
             $originalName = time().'.'.$extension;
         }else{
-            $originalName = $files->getClientOriginalName();
+            $originalName = time().'-'.$files->getClientOriginalName();
         }
         $files->storeAs($subjection,$originalName,$disk);
         $certificate_road = $subjection.'/'.$originalName;

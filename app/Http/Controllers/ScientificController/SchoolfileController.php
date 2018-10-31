@@ -15,16 +15,18 @@ class SchoolfileController extends Controller
             return responseTojson(1,'你请求的方式不对');
         }
         $datas = [
-            'schoolfile_name'   => trim($request->schoolfile_name),
-            'cooperate_unit'    => trim($request->cooperate_unit),
-            'schfile_down_time' => trim($request->scfile_down_time),
+            'schfile_name'      => trim($request->schfile_name),
+            'schfile_num'       => trim($request->schfile_num),
+            'schfile_down_time' => trim($request->schfile_down_time),
         ];
-        dd($datas);
         $judge_datas = judgeSchoolfileField($datas);
         if($judge_datas['code'] == 1){
             return $judge_datas;
         }
-        $schoolfile_pdf   = $request->file('schoolfile_pdf');//验证接收的文件
+        if(!$request->hasFile('sch_file')){
+            return responseTojson(1,'必须要上传PDF格式的校发文件');
+        }
+        $schoolfile_pdf   = $request->file('sch_file');//验证接收的文件
         $judge_schoolfile = judgeReceiveFiles($schoolfile_pdf);
         if($judge_schoolfile['code'] == 1){
             return $judge_schoolfile;
@@ -67,30 +69,35 @@ class SchoolfileController extends Controller
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
-        $schfile_id = trim($request->schfile_id);
+        $schfile_road = trim($request->schfile_road);
         $datas = [
-            'schfile_id'        => $schfile_id,
-            'schoolfile_name'   => trim($request->schoolfile_name),
+            'schfile_id'        => trim($request->schfile_id),
+            'schfile_name'      => trim($request->schfile_name),
             'schfile_num'       => trim($request->schfile_num),
-            'schfile_down_time' => trim($request->schfile_down_time)
+            'schfile_down_time' => trim($request->schfile_down_time),
+            'schfile_road'      => $schfile_road
         ];
         $judge_datas = judgeSchoolfileField($datas);
-        if($judge_datas['code ']== 1){
+        if($judge_datas['code']== 1){
             return $judge_datas;
         }
-        $shcoolfile_pdf       = $request->file('schoolfile_pdf');
+        $reset_file_status = false;
+        if(!$request->hasFile('sch_file')){
+            return SchoolfileDatabase::updateSchoolfileDatas($datas,$reset_file_status);
+        }
+        $reset_file_status = true;
+        $shcoolfile_pdf       = $request->file('sch_file');
         $judge_schoolfile_pdf = judgeReceiveFiles($shcoolfile_pdf);
         if($judge_schoolfile_pdf['code'] == 1){
             return $judge_schoolfile_pdf;
         }
-        $old_schoolfile_road = SchoolfileDatabase::selectSchoolfileRoad($schfile_id);
         $disk = UploadSubjectionConfig::SCHOOL_FILE;
         $subjection_shoolfile  = UploadSubjectionConfig::SCHOOL_FILE_PDF;
         $new_schoolfile_road = uploadFiles($subjection_shoolfile,$shcoolfile_pdf,$disk);
         $datas['schfile_road'] = $new_schoolfile_road;
-        $update_schoolfile = SchoolfileDatabase::updateSchoolfileDatas($datas);
+        $update_schoolfile = SchoolfileDatabase::updateSchoolfileDatas($datas,$reset_file_status);
         if($update_schoolfile){
-            deletefiles($disk,$old_schoolfile_road);
+            deletefiles($disk,$schfile_road);
             return responseTojson(0,'修改校发文件成功');
         }
         deletefiles($disk,$new_schoolfile_road);

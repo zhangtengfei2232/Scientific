@@ -26,7 +26,7 @@ class AgreementController extends Controller
         ];
         $judge_datas = judgeAgreementField($datas);
         if($judge_datas['code'] == 1){
-            return responseTojson(1,$judge_datas['message']);
+            return $judge_datas;
         }
         $disk = UploadSubjectionConfig::APPRAISAL;
         $subjection_appraisal = UploadSubjectionConfig::AGREEMENT_PDF;

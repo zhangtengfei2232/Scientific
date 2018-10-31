@@ -83,10 +83,9 @@ class PatentController extends Controller
          if(!$request->isMethod('POST')){
              return responseTojson(1,'你请求的方式不对');
          }
-         $pa_id[0] = trim($request->pa_id);
          $pa_road  = trim($request->pa_road);
          $datas  = [
-            'pa_id'            => $pa_id[0],
+            'pa_id'            => trim($request->pa_id),
             'first_inventor'   => trim($request->first_inventor),
             'pa_all_author'    => trim($request->pa_all_author),
             'pa_type'          => trim($request->pa_type),
@@ -95,14 +94,14 @@ class PatentController extends Controller
             'author_num'       => trim($request->author_num),
             'author_cert_num'  => trim($request->author_cert_num),
             'author_notic_day' => trim($request->author_notic_day),
-            'pa_integral'      => trim($request->pa_integral),
-            '$pa_road'         => $pa_road
+            'pa_integral'      => trim($request->pa_integral)
          ];
          $judge_datas = judgePatenField($datas);
          if($judge_datas['code']== 1){
              return $judge_datas;
          }
          $reset_image_status = false;
+         $datas['pa_road']   = $pa_road;
          $datas['pa_remarks'] = trim($request->pa_remarks);
          if(!$request->hasFile('pat_pic')){
              return PatentDatabase::updatePatentDatas($datas,$reset_image_status);
@@ -121,7 +120,9 @@ class PatentController extends Controller
          $reset_patent      = PatentDatabase::updatePatentDatas($datas,$reset_image_status);
          if($reset_patent){
              PatentDatabase::commit();
-             deletefiles($disk,$pa_road);
+             if(!empty($pa_road)){
+                 deletefiles($disk,$pa_road);
+             }
              return responseTojson(0,'修改专利信息成功');
          }
          PatentDatabase::rollback();

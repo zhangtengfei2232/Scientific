@@ -31,7 +31,6 @@ class OpusController  extends Controller
             'op_cate_research' => trim($request->op_cate_research),
             'op_sub_category'  => trim($request->op_sub_category)
         ];
-        dd($datas);
         $judge_datas = judgeOpusField($datas);
         if($judge_datas['code'] == 1){
             return $judge_datas;
@@ -123,7 +122,6 @@ class OpusController  extends Controller
             'op_cate_research' => trim($request->op_cate_research),
             'op_sub_category'  => trim($request->op_sub_category)
         ];
-        dd($datas);
         $judge_datas = judgeOpusField($datas);
         if($judge_datas['code'] == 1){
             return $judge_datas;
@@ -136,6 +134,7 @@ class OpusController  extends Controller
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
+        dd($request);
         $op_id               = $request->op_id;
         $update_image_status = $request->update_image_status;
         if($update_image_status == 1){

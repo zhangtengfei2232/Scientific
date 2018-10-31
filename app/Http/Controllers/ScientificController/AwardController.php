@@ -61,7 +61,7 @@ class AwardController extends Controller
          $old_image_rod = AwardDatabase::selectAwardRoadDatas($aw_id_datas);
          $delete_award  = AwardDatabase::deleteAwardDatas($aw_id_datas);
          deleteAllFiles(UploadSubjectionConfig::AWARD,$old_image_rod);
-         responseTojson(0,'删除成功');
+         return responseTojson(0,'删除成功');
      }
      //查看单个获奖信息
      public function selectAward(Request $request){
@@ -71,7 +71,6 @@ class AwardController extends Controller
      //查看所有获奖信息
      public function selectAllAward(){
          $result = AwardDatabase::selectAllAwardDatas(session('usercount'));
-         dd(5);
          return responseTojson(0,'查询成功','',$result);
      }
     //根据时间区间搜索获奖信息
@@ -87,35 +86,33 @@ class AwardController extends Controller
          if(!$request->isMethod('POST')){
              return responseTojson(1,'你请求的方式不对');
          }
-         $aw_id[0] = trim($request->aw_id);
          $aw_road  = trim($request->aw_road);
          $datas = [
-             'aw_id'            => $aw_id[0],
+             'aw_id'            => trim($request->aw_id),
              'aw_first_author'  => trim($request->aw_first_author),
              'aw_all_author'    => trim($request->aw_all_author),
              'prize_win_name'   => trim($request->prize_win_name),
              'award_name'       => trim($request->award_name),
              'form_achievement' => trim($request->form_achievement),
-             'aw_category'      => trim($request->aw_category),
              'aw_level'         => trim($request->aw_level),
              'aw_grade'         => trim($request->aw_grade),
              'aw_grant_unit'    => trim($request->aw_grant_unit),
              'aw_grant_time'    => trim($request->aw_grant_time),
              'aw_certi_number'  => trim($request->aw_certi_number),
              'aw_sch_rank'      => trim($request->aw_sch_rank),
-             'aw_integral'      => trim($request->aw_integral),
-             'aw_road'          => $aw_road
+             'aw_integral'      => trim($request->aw_integral)
          ];
          $judge_datas = judgeAwardField($datas);
          if($judge_datas['code'] == 1){
              return $judge_datas;
          }
          $reset_image_status = false;
-         if(!$request->hasFile('aw_file')){
+         $datas['aw_road'] = $aw_road;
+         if(!$request->hasFile('aw_pic')){
             return AwardDatabase::updateAwardDatas($datas,$reset_image_status);
          }
          $reset_image_status = true;
-         $award_image = $request->file('aw_file');
+         $award_image = $request->file('aw_pic');
          $judge_image = judgeFileImage($award_image);
          if($judge_image['code'] == 1){
              return $judge_image;
@@ -128,7 +125,9 @@ class AwardController extends Controller
          $reset_award      = AwardDatabase::updateAwardDatas($datas,$reset_image_status);
          if($reset_award){
              ArticalDatabase::commit();
-             deletefiles($disk,$aw_road);
+             if(!empty($aw_road)){
+                 deletefiles($disk,$aw_road);
+             }
              return responseTojson(0,'修改获奖信息成功');
          }
          ArticalDatabase::rollback();

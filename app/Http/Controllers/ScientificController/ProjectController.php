@@ -89,10 +89,9 @@ class ProjectController extends Controller
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
-        $project_id[0] = trim($request->pro_id);
-        $pro_road      = trim($request->pro_road);
+        $pro_road = trim($request->pro_road);
         $datas = [
-            'pro_id'            => $project_id[0],
+            'pro_id'            => trim($request->pro_id),
             'pro_host'          => trim($request->pro_host),
             'pro_all_author'    => trim($request->pro_all_author),
             'entry_name'        => trim($request->entry_name),
@@ -106,8 +105,7 @@ class ProjectController extends Controller
             'social_eco_goal'   => trim($request->social_eco_goal),
             'na_eco_industry'   => trim($request->na_eco_industry),
             'pro_integral'      => trim($request->pro_integral),
-            'project_year'      => trim($request->project_year),
-            'pro_road'          => $pro_road
+            'project_year'      => trim($request->project_year)
         ];
         $judge_project_datas = judgeProjectField($datas);
         if($judge_project_datas['code'] == 1){
@@ -115,6 +113,7 @@ class ProjectController extends Controller
         }
         $reset_image_status = false;
         $datas['pro_remarks'] = trim($request->pro_remarks);
+        $datas['pro_road']    = $pro_road;
         if(!$request->hasFile('pro_file')){
             return ProjectDatabase::updateProjectDatas($datas,$reset_image_status);
         }
@@ -132,7 +131,9 @@ class ProjectController extends Controller
         $reset_project      = ProjectDatabase::updateProjectDatas($datas,$reset_image_status);
         if($reset_project){
             ProjectDatabase::commit();
-            deletefiles($disk,$pro_road);
+            if(!empty($pro_road)){
+                deletefiles($disk,$pro_road);
+            }
             return responseTojson(0,'修改项目成功');
         }
         ProjectDatabase::rollback();
