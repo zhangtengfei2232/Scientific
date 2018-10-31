@@ -124,7 +124,7 @@
                     du_name: '',
                     du_duty: '',
                     du_year_num: '',
-//                    data1: '',
+                    year: '',
 //                    date2: '',
                     delivery: false,
                     type: [],
@@ -167,6 +167,7 @@
                 onSubmit(form,year1,year2) {
                     let vue = this;
                     form.year = year1+","+year2;
+                    console.log(form.year,'+++++++++++ott');
                     if(form.teacher_name == '') {
                         this.$message.error('老师姓名不能为空');
                         return
@@ -190,11 +191,7 @@
                         return
                     }
                     this.$refs['form'].validate((valid) => {
-//                        var d = form.project_year;
-//                        form.project_year = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
-//                        let vue = this;
                         if (valid) {
-//                            console.log(form,'添加ooo');
                             jQuery.each(vue.form,function(i,val){
                                 vue.dataForm.append(i,val);
                             });
@@ -206,7 +203,7 @@
                                         message: '添加成功',
                                         type: 'success'
                                     });
-//                                    this.$router.push({path: '/duties'});
+                                    this.$router.push({path: '/duties'});
                                 } else {
                                     vue.$notify({
                                         type: 'error',
@@ -231,24 +228,24 @@
                         data: data
                     });
                 },
-                checkFileExt(filename){
-                    if(filename == '') {
-                        this.$message.error('上传文件不能为空');
-                    }
-                    var flag = false;
-                    var arr = ["pdf"];
-                    var index = filename.lastIndexOf(".");
-                    var ext = filename.substr(index+1);
-                    for(var i=0;i<arr.length;i++){
-                        if(ext == arr[i]){
-                            flag = true;
-                            break;
-                        }
-                    }
-                    if(!flag){
-                        this.$message.error('请上传PDF');
-                    }
-                },
+//                checkFileExt(filename){
+//                    if(filename == '') {
+//                        this.$message.error('上传文件不能为空');
+//                    }
+//                    var flag = false;
+//                    var arr = ["pdf"];
+//                    var index = filename.lastIndexOf(".");
+//                    var ext = filename.substr(index+1);
+//                    for(var i=0;i<arr.length;i++){
+//                        if(ext == arr[i]){
+//                            flag = true;
+//                            break;
+//                        }
+//                    }
+//                    if(!flag){
+//                        this.$message.error('请上传PDF');
+//                    }
+//                },
             }
         }
 

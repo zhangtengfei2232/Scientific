@@ -179,7 +179,7 @@ export default {
                 if (data.code == 0) {
                     self.BookSelfData = data.datas;
                     self.form = data.datas;
-                    self.filelist.url = 'showimage?disk=apus&subjection=' + data.datas.op_cover_road; 
+                    self.filelist.url = 'showimage?disk=apus&subjection=' + data.datas.op_cover_road;
                     self.filelists.url = 'showimage?disk=apus&subjection=' + data.datas.op_coright_road;
                 } else {
                     self.$notify({
@@ -292,7 +292,7 @@ export default {
                 this.$message.error('备注不能为空');
                 return
             }
-            console.log(form);
+//            console.log(form);
             this.$refs['form'].validate((valid) => {
                 let vue = this;
                 if (valid) {
