@@ -177,21 +177,21 @@ export default new VueRouter({
                 component: resolve => void(require(['../components/duties/editDuties.vue'], resolve))
             },
             // 校发文件
-            // {
-            //     name: 'schoolFile',
-            //     path: '/schoolFile',
-            //     component: resolve => void(require(['../components/schoolfile/schoolFile.vue'], resolve))
-            // },
-            // {
-            //     name: 'addSchoolFile',
-            //     path: '/addSchoolFile',
-            //     component: resolve => void(require(['../components/schoolfile/addSchoolFile.vue'], resolve))
-            // },
-            // {
-            //     name: 'selfSchoolFile',
-            //     path: '/selfSchoolFile/:schfile_id',
-            //     component: resolve => void(require(['../components/schoolfile/selfSchoolFile.vue'], resolve))
-            // },
+            {
+                name: 'schoolfile',
+                path: '/schoolFile',
+                component: resolve => void(require(['../components/schoolfile/schoolFile.vue'], resolve))
+            },
+            {
+                name: 'addSchoolFile',
+                path: '/addSchoolFile',
+                component: resolve => void(require(['../components/schoolfile/addSchoolFile.vue'], resolve))
+            },
+            {
+                name: 'selfSchoolFile',
+                path: '/selfSchoolFile/:schfile_id',
+                component: resolve => void(require(['../components/schoolfile/selfSchoolFile.vue'], resolve))
+            },
             // 教学科研等合作协议
             {
                 name: 'agreement',
