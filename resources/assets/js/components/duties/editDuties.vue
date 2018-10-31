@@ -173,9 +173,6 @@
                 }else if(form.du_duty == '') {
                     this.$message.error('老师所任职务不能为空');
                     return
-                }else if(form.du_year_num == '') {
-                    this.$message.error('老师担任年限不能为空');
-                    return
                 }this.$refs['form'].validate((valid) => {
 //                    var d = form.project_year;
 //                    form.project_year = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
@@ -186,6 +183,7 @@
                         });
                         vue.addDutiesData(vue.dataForm).then(res => {
                             var data = res.data;
+                            console.log(data,'@@@@@@@@!!');
                             if (data.code == 0) {
                                 vue.$message({
                                     message: '添加成功',

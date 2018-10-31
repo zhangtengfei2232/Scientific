@@ -167,7 +167,6 @@
                             });
                             vue.addDutiesData(vue.dataForm).then(res => {
                                 var data = res.data;
-                                console.log(data,'++++++++');
                                 if (data.code == 0) {
                                     vue.$message({
                                         message: '添加成功',

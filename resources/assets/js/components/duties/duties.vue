@@ -219,7 +219,7 @@
                 var du_id_datas = [];//存放删除的数据
                 if(self.multipleSelection == undefined){
                     self.$message({
-                        message: '警告哦，这是一条警告消息',
+                        message: '请选择要删除论文',
                         type: 'warning'
                     });
                 }else{
@@ -241,13 +241,14 @@
                     } else {
                         self.$notify({
                             type: 'error',
-                            message: data.msg,
+                            message: data.message,
                             duration: 2000,
                         });
                     }
                 });
             },
             deleteDutiesDatas(du_id_datas) {
+                console.log(du_id_datas,'批量删除啊@@@@@@@@!!');
                 this.$confirm('此操作批量删除文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -282,16 +283,22 @@
             },
 
             deleteStudygroupDate(du_id) {
-                this.id = du_id;
+                console.log(du_id,"删除啊————————————");
+                this.id.push(du_id);
+//                this.id = du_id;
                 this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
                     let self = this;
-                    axios.get("deleteduties?du_id="+id).then(function (response) {
+                    axios.get("deleteduties",{
+                        params:{
+                            du_id_datas:this.id
+                        }
+
+                        }).then(function (response) {
                         var data = response.data;
-                        console.log(data,"删除————————————");
                         if (data.code == 0) {
                             this.$message({
                                 type: 'success',
