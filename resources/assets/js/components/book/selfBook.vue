@@ -94,7 +94,7 @@
                 <el-form-item label="著作封面">
                     <el-upload
                         class="upload-demo"
-                        ref="bo_file"
+                        ref="op_cover_road"
                         action="#"
                         :before-upload="fileProfil"
                         :on-preview="handlePreview"
@@ -111,7 +111,7 @@
                 <el-form-item label="版权页图片">
                     <el-upload
                         class="upload-demo"
-                        ref="bo_files"
+                        ref="op_coright_road"
                         action="#"
                         :before-upload="fileProfils"
                         :on-preview="handlePreview"
@@ -146,8 +146,8 @@ export default {
     data() {
         return {
             BookSelfData: {},
-            bo_files: '',
-            bo_file: '',
+            op_coright_road: '',
+            op_cover_road: '',
             filelist: [{name:'',url:''}],
             filelists: [{name:'',url:''}],
             dataForm: new FormData(),
@@ -179,8 +179,12 @@ export default {
                 if (data.code == 0) {
                     self.BookSelfData = data.datas;
                     self.form = data.datas;
-                    self.filelist.url = 'showimage?disk=apus&subjection=' + data.datas.op_cover_road; 
-                    self.filelists.url = 'showimage?disk=apus&subjection=' + data.datas.op_coright_road;
+                    if(data.datas.op_cover_road !== ''){
+                        self.filelist.url = 'showimage?disk=apus&subjection=' + data.datas.op_cover_road;
+                    }
+                    if(data.datas.op_coright_road !== ''){
+                        self.filelists.url = 'showimage?disk=apus&subjection=' + data.datas.op_coright_road;
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -191,10 +195,10 @@ export default {
             });
         },
         submitUpload() {
-            this.$refs.bo_file.submit();
+            this.$refs.op_cover_road.submit();
         },
         submitUploads() {
-            this.$refs.bo_files.submit();
+            this.$refs.op_coright_road.submit();
         },
         handleRemove(file, fileList) {
             console.log(file, fileList);
@@ -204,8 +208,9 @@ export default {
         },
         fileProfil(file){
             if(file !== ''){
-                this.dataFile.append('bo_files', file);
-                this.sendfile(file,1);
+                this.dataFile.append('op_cover_road', file);
+                let id = this.form.op_id;
+                this.sendfile(dataFile,1,id);
             }else{
                 this.$message.error('请先添加文件');
                 return false
@@ -213,17 +218,18 @@ export default {
         },
         fileProfils(files){
             if(files !== ''){
-                this.dataFile.append('bo_files', files);
-                this.sendfile(files,2);
+                this.dataFile.append('op_coright_road', files);
+                let id = this.form.op_id;
+                this.sendfile(dataFile,2,id);
                 this.$refs.bo_files.submit();
             }else{
                 this.$message.error('请先添加文件');
                 return false
             }
         },
-        sendfile(file,m) {
+        sendfile(dataFile,reset_image_status) {
             let vue = this;
-            this.addBookFile(vue.dataFile,m).then(res => {
+            this.addBookFile(vue.dataFile,reset_image_status,id).then(res => {
                 var data = res.data;   
                 if (data.code == 0) {
                     vue.$message({
@@ -292,7 +298,6 @@ export default {
                 this.$message.error('备注不能为空');
                 return
             }
-            console.log(form);
             this.$refs['form'].validate((valid) => {
                 let vue = this;
                 if (valid) {

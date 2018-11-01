@@ -75,7 +75,7 @@
                             drag
                             action=""
                             multiple
-                            ref="aw_pic"
+                            ref="aw_road"
                             :before-upload="filePic"
                             :auto-upload="false">
                         <i class="el-icon-upload"></i>
@@ -106,7 +106,7 @@
   export default {
     data() {
       return {
-            aw_pic:'',
+            aw_road:'',
             dataForm: new FormData(),
             form: {
                 aw_first_author: '',
@@ -126,7 +126,7 @@
     },
     methods: {
         filePic(file) {
-            this.dataForm.append('aw_pic', file);
+            this.dataForm.append('aw_road', file);
             return false;
         },
         onSubmit(form) {
@@ -189,7 +189,7 @@
                             });
                         }
                     })
-                    vue.$refs.aw_pic.submit()
+                    vue.$refs.aw_road.submit()
                 } else {
                     console.log('error submit!!')
                     return false

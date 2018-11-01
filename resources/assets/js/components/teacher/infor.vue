@@ -146,40 +146,76 @@
                                 <el-input v-model="form.master_time"></el-input>
                             </el-form-item>
 
+                            <el-form-item>
+                                <el-button type="primary" @click="onSubmit(form)">保存修改</el-button>
+                                <el-button>取消</el-button>
+                            </el-form-item>
+
                             <el-form-item label="毕业证书图片">
                                 <el-upload
-                                    class="upload-demo"
-                                    action=""
-                                    :on-preview="handlePreview"
-                                    :on-remove="handleRemove"
-                                    :before-upload="fileArtpdf"
-                                    ref="gra_cert_road"
-                                    :file-list="fileList2"
-                                    list-type="picture">
-                                    <el-button size="small" type="primary">点击上传</el-button>
+                                        class="upload-demo"
+                                        ref="gra_cert_road"
+                                        action="#"
+                                        :before-upload="fileProfil"
+                                        :on-preview="handlePreview"
+                                        :on-remove="handleRemove"
+                                        :file-list="filelist"
+                                        :auto-upload="false"
+                                        :limit="1"
+                                        list-type="picture">
+                                    <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                                    <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传</el-button>
                                     <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
                                 </el-upload>
-
                             </el-form-item>
                             <el-form-item label="学历证书图片">
                                 <el-upload
                                         class="upload-demo"
-                                        action=""
+                                        ref="edu_cert_road"
+                                        action="#"
+                                        :before-upload="fileEdufil"
                                         :on-preview="handlePreview"
                                         :on-remove="handleRemove"
-                                        :before-upload="fileArtedu"
-                                        ref="edu_cert_road"
-                                        :file-list="fileList2"
+                                        :file-list="filelist1"
+                                        :auto-upload="false"
+                                        :limit="1"
                                         list-type="picture">
-                                    <el-button size="small" type="primary">点击上传</el-button>
+                                    <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                                    <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUploads">上传</el-button>
                                     <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
                                 </el-upload>
                             </el-form-item>
+                            <!--<el-form-item label="毕业证书图片">-->
+                                <!--<el-upload-->
+                                    <!--class="upload-demo"-->
+                                    <!--action=""-->
+                                    <!--:on-preview="handlePreview"-->
+                                    <!--:on-remove="handleRemove"-->
+                                    <!--:before-upload="fileArtpdf"-->
+                                    <!--ref="gra_cert_road"-->
+                                    <!--:file-list="fileList2"-->
+                                    <!--list-type="picture">-->
+                                    <!--<el-button size="small" type="primary">点击上传</el-button>-->
+                                    <!--<div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>-->
+                                <!--</el-upload>-->
 
-                            <el-form-item>
-                                <el-button type="primary" @click="onSubmit('form')">保存修改</el-button>
-                                <!--<el-button><router-link to="/paper">取消</router-link></el-button>-->
-                            </el-form-item>
+                            <!--</el-form-item>-->
+                            <!--<el-form-item label="学历证书图片">-->
+                                <!--<el-upload-->
+                                        <!--class="upload-demo"-->
+                                        <!--action=""-->
+                                        <!--:on-preview="handlePreview"-->
+                                        <!--:on-remove="handleRemove"-->
+                                        <!--:before-upload="fileArtedu"-->
+                                        <!--ref="edu_cert_road"-->
+                                        <!--:file-list="fileList2"-->
+                                        <!--list-type="picture">-->
+                                    <!--<el-button size="small" type="primary">点击上传</el-button>-->
+                                    <!--<div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>-->
+                                <!--</el-upload>-->
+                            <!--</el-form-item>-->
+
+
                         </el-form>
                     </div>
                 </div>
@@ -194,9 +230,18 @@
     export default {
         data() {
             return {
-//                fileList2: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],
-
-                fileList2: [{url: ''}],
+                id:[],
+                filelist: [{name:'',url:''}],
+                filelist1: [{name:'',url:''}],
+                gra_cert_road: '',
+                edu_cert_road: '',
+                dataForm: new FormData(),
+                dataFile: new FormData(),
+                teacherDate: [],
+                show: false,
+                checked: false,
+                checkAll: false,
+                sortable:true,
                 form:{
                     name:'',
                     sex:'',
@@ -247,10 +292,6 @@
                     gra_cert_road:'',
 
                 },
-                tea_pic: '',
-                dataForm: new FormData(),
-                teacherDate: [],
-                show: false,
                 pickerOptions1: {
                     disabledDate(time) {
                         return time.getTime() > Date.now();
@@ -260,30 +301,15 @@
             }
         },
         methods: {
-            fileArtpdf(file){
-                this.dataForm.append('gra_cert_road', file);
-                return false;
-            },
-            fileArtedu(file){
-                this.dataForm.append('edu_cert_road', file);
-                return false;
-            },
-            handleRemove(file, fileList) {
-                //console.log(file, fileList);
-            },
-            handlePreview(file){
-                //console.log(file);
-            },
-
             getTeacherData(){
                 let self = this;
                 axios.get("selectteacher").then(function (response) {
                     var data = response.data;
                     if(data.code == 0){
-//                        self.teacherDate = data.datas;
-//                        console.log(self.teacherDate,"000000000000000");
+                        self.teacherDate = data.datas;
                         self.form = data.datas.information;
-//                        console.log(self.form,'___________');
+                        self.filelist.url = 'showimage?disk=infor&subjection=' + data.datas.gra_cert_road;
+                        self.filelist1.url = 'showimage?disk=infor&subjection=' + data.datas.edu_cert_road;
                     }else{
                         self.$notify({
                             type: 'error',
@@ -293,18 +319,65 @@
                     }
                 });
             },
-//            addTeacherData(data) {
-////                console.log(data,'--------------');
-//                return axios({
-//                    method: 'post',
-//                    url: 'updateteacher',
-//                    headers: {'Content-Type': 'multipart/form-data'},
-//                    timeout: 20000,
-//                    data: data
-//                });
-//            },
+            submitUpload() {
+                this.$refs.gra_cert_road.submit();
+            },
+            submitUploads() {
+                this.$refs.edu_cert_road.submit();
+            },
+            handleRemove(file, fileList) {
+                //console.log(file, fileList);
+            },
+            handlePreview(file){
+                //console.log(file);
+            },
+            fileProfil(file){
+                if(file !== ''){
+                    this.dataFile.append('gra_cert_road', file);
+                    this.sendfile(file,1);
+                }else{
+                    this.$message.error('请先添加文件');
+                    return false
+                }
+            },
+            fileEdufil(file){
+                if(file !== ''){
+                    this.dataFile.append('edu_cert_road', file);
+                    this.sendfile(file,1);
+                }else{
+                    this.$message.error('请先添加文件');
+                    return false
+                }
+            },
+            sendfile(file,m) {
+                let vue = this;
+                this.addTeacherFile(vue.dataFile,m).then(res => {
+                    var data = res.data;
+                    if (data.code == 0) {
+                        vue.$message({
+                            message: '修改成功',
+                            type: 'success'
+                        });
+                    } else {
+                        vue.$notify({
+                            type: 'error',
+                            message: '修改失败',
+                            duration: 2000,
+                        });
+                    }
+                })
+            },
+            addTeacherFile(data,m){
+                return axios({
+                    method: 'post',
+                    url: 'updateCertificate',
+                    headers: {'Content-Type': 'multipart/form-data'},
+                    timeout: 20000,
+                    data: data
+                });
+            },
             onSubmit(form) {
-//                console.log(teacherDate);
+                console.log(form,'00000000000');
                 let vue = this;
                 if(form.name == '') {
                     this.$message.error('老师姓名不能为空');
@@ -384,30 +457,32 @@
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);
                         });
-                        vue.updateTeacher(vue.dataForm).then(res => {
+                        console.log(vue.dataForm,'00000000000');
+                        vue.addTeaDate(vue.dataForm).then(res => {
                             var data = response.data;
+                            console.log(data,'_________');
                             if (data.code == 0) {
                                 vue.$message({
-                                    message: '添加成功',
+                                    message: '修改成功',
                                     type: 'success'
                                 });
                             } else {
                                 vue.$notify({
                                     type: 'error',
-                                    message: data.msg,
+                                    message: '修改失败',
                                     duration: 2000,
                                 });
                             }
                         });
-                        vue.$refs.gra_cert_road.submit();
-                        vue.$refs.edu_cert_road.submit()
+//                        vue.$refs.gra_cert_road.submit();
+//                        vue.$refs.edu_cert_road.submit()
                     } else {
                         console.log('error submit!!');
                         return false
                     }
                 })
             },
-            updateTeacher(data) {
+            addTeaDate(data) {
                 return axios({
                     method: 'post',
                     url: 'updateteacher',
@@ -416,6 +491,10 @@
                     data: data
                 });
             },
+
+
+
+
             checkFileExt(filename){
                 if(filename == '') {
                     this.$message.error('上传文件不能为空');

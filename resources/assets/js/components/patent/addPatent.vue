@@ -54,7 +54,7 @@
                         drag
                         action=""
                         multiple
-                        ref="pat_pic"
+                        ref="pa_road"
                         :before-upload="filePatpic"
                         :auto-upload="false">
                         <i class="el-icon-upload"></i>
@@ -86,7 +86,7 @@
   export default {
     data() {
       return {
-            pat_pic: '',
+            pa_road: '',
             dataForm: new FormData(),
             form: {
                 first_inventor: '',
@@ -104,7 +104,7 @@
     },
     methods: {
         filePatpic(file) {
-            this.dataForm.append('pat_pic', file);
+            this.dataForm.append('pa_road', file);
             return false;
         },
         onSubmit(form) {

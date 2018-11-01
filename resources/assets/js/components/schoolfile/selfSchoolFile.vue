@@ -26,7 +26,7 @@
                             :auto-upload="false"
                             drag
                             action="#"
-                            ref="pro_file"
+                            ref="schfile_file"
                             :before-upload="fileProfil"
                             :file-list="filelists"
                             multiple>
@@ -61,7 +61,7 @@
             return {
                 schoolFleData:{},
                 filelists: [{url:''}],
-                pro_file:'',
+                schfile_file:'',
                 dataForm: new FormData(),
                 form: {
                     schfile_name: '',
@@ -91,8 +91,12 @@
                 });
             },
             fileProfil(file){
-                this.dataForm.append('pro_file', file);
-                return false;
+                if(file !== ''){
+                    this.dataForm.append('schfile_file', file);
+                    return false;
+                }else{
+                    this.$message.error('文件不能为空');                    
+                }
             },
              onSubmit(form) {
                 if(form.schfile_name == '') {

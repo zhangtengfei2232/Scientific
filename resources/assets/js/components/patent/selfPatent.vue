@@ -57,7 +57,7 @@
                         drag
                         action="#"
                         :file-list="fileList"
-                        ref="pat_pic"
+                        ref="pa_road"
                         :before-upload="filePatpic"
                         multiple
                         :auto-upload="false">
@@ -89,7 +89,7 @@
 export default {
     data() {
         return {
-            pat_pic:'',
+            pa_road:'',
             PatetSelfData: {},
             fileList:[{url:""}],
             dataForm: new FormData(),
@@ -111,7 +111,7 @@ export default {
 
     methods: {
         filePatpic(file) {
-            this.dataForm.append('pat_pic', file);
+            this.dataForm.append('pa_road', file);
             return false;
         },
         getPatentSelfData() {
@@ -186,7 +186,7 @@ export default {
                                 });
                             }
                         })
-                        vue.$refs.pat_pic.submit()
+                        vue.$refs.pa_road.submit()
                     } else {
                         console.log('error submit!!')
                         return false

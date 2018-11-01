@@ -53,7 +53,7 @@
                     <el-upload
                         drag
                         action="#"
-                        ref="jo_file"
+                        ref="jo_image"
                         :limit=1
                         :before-upload="fileProfil"
                         :auto-upload="true">
@@ -65,12 +65,11 @@
                     <el-upload
                         drag
                         action="#"
-                        ref="jo_files"
+                        ref="jo_graph_inject"
                         :before-upload="fileProfils"
                         :auto-upload="true"
                         multiple>
                         <i class="el-icon-upload"
-                        multiple
                         show-file-list='true'></i>
                         <div class="el-upload__text"><em>若多选请一次性上传</em></div>
                     </el-upload>
@@ -101,8 +100,8 @@
     data() {
       return {
             dataForm: new FormData(),
-            ho_file: '',
-            ho_files: '',
+            jo_image: '',
+            jo_graph_inject: '',
             dataFile: new FormData(),
             Bcode:false,
             multiple:true,
@@ -122,14 +121,14 @@
     },
     methods: {
         fileProfil(file){
-            this.dataForm.append('jo_file', file);
+            this.dataForm.append('jo_image', file);
             return false;
         },
         fileProfils(files){
             if(this.Bcode == true){
-                this.dataFile.append('jo_files', files);
+                this.dataFile.append('jo_graph_inject', files);
                 this.sendfile(files);
-                this.$refs.jo_files.submit();
+                this.$refs.jo_graph_inject.submit();
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
@@ -215,7 +214,7 @@
                                 });
                             }
                         })
-                        vue.$refs.jo_file.submit()
+                        vue.$refs.jo_image.submit()
                     } else {
                         console.log('error submit!!')
                         return false

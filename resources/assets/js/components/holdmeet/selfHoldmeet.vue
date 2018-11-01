@@ -40,7 +40,7 @@
                         </el-date-picker>
                     </el-col>
                 </el-form-item>
-                <el-form-item label="会议图注">
+                <el-form-item label="会议图片">
                     <el-upload
                         class="upload-demo"
                         drag
@@ -58,7 +58,7 @@
                         <img src="{{ items.url }}" alt="无法加载">
                     </li> -->
                 </thead>
-                <el-form-item label="餐会图注">
+                <el-form-item label="会议图注">
                     <el-upload
                         class="upload-demo"
                         drag
@@ -100,7 +100,7 @@ export default {
             dataForm: new FormData(),
             dataFile: new FormData(),
             ho_file: '',
-            ho_files: '',
+            ho_graph_inject: '',
             filelists:[],
             form: {
                 ho_name: '',
@@ -140,9 +140,9 @@ export default {
         },
         fileProfils(files){
             if(this.Bcode == true){
-                this.dataFile.append('ho_files', files);
-                this.sendfile(files,2);
-                this.$refs.ho_files.submit();
+                this.dataFile.append('ho_graph_inject', files);
+                this.sendfile(dataFile);
+                this.$refs.ho_graph_inject.submit();
             }else{
                 this.$message.error('请先添加数据信息');
                 return false

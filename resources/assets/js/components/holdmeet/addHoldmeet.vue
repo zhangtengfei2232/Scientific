@@ -40,22 +40,22 @@
                         </el-date-picker>
                     </el-col>
                 </el-form-item>
-                <el-form-item label="会议图注">
+                <el-form-item label="会议图片">
                     <el-upload
                         drag
                         action="#"
-                        ref="ho_file"
+                        ref="ho_image"
                         :before-upload="fileProfil"
                         :auto-upload="false">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
                 </el-form-item>
-                <el-form-item label="餐会图注">
+                <el-form-item label="会议图注">
                     <el-upload
                         drag
                         action="#"
-                        ref="ho_files"
+                        ref="ho_graph_inject"
                         :before-upload="fileProfils"
                         :auto-upload="false">
                         <i class="el-icon-upload"></i>
@@ -90,8 +90,8 @@
             dataForm: new FormData(),
             dataFile: new FormData(),
             Bcode:false,
-            ho_file: '',
-            ho_files: '',
+            ho_image: '',
+            ho_graph_inject: '',
             form: {
                 ho_name: '',
                 ho_art_status: '',
@@ -105,14 +105,14 @@
     },
     methods: {
         fileProfil(file){
-            this.dataForm.append('ho_file', file);
+            this.dataForm.append('ho_image', file);
             return false;
         },
         fileProfils(files){
             if(this.Bcode == true){
-                this.dataFile.append('ho_files', files);
-                this.sendfile(files);
-                this.$refs.ho_files.submit();
+                this.dataFile.append('ho_graph_inject', files);
+                this.sendfile(dataFile);
+                this.$refs.ho_graph_inject.submit();
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
@@ -189,7 +189,7 @@
                                 });
                             }
                         })
-                        vue.$refs.ho_file.submit()
+                        vue.$refs.ho_image.submit()
                     } else {
                         console.log('error submit!!')
                         return false
