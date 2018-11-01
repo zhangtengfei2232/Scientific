@@ -129,9 +129,9 @@ class ArticalController extends Controller
              'art_remarks'       => trim($request->art_remarks),              //论文备注
              'art_time'          => trim($request->art_time),                 //发表时间
          ];
-         $respose = judgeArticalField($datas);                  //判断论文字段是否合法
-         if($respose['code'] == 1){
-             return $respose;
+         $judge_datas = judgeArticalField($datas);                  //判断论文字段是否合法
+         if($judge_datas['code'] == 1){
+             return responseTojson(1,$judge_datas['message']);
          }
          if(!$request->is_change_artical){                                    //判断老师是否修改论文
              return ArticalDatabase::updateArticalDatas($datas);              //直接修改数据库论文信息

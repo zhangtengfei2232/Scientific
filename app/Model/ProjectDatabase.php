@@ -54,8 +54,7 @@ class ProjectDatabase extends ModelDatabase
     }
     //修改老师项目和项目合同信息
     public static function updateProjectDatas($datas,$reset_image_status){
-        $pro_id = $datas['pro_id'];
-        $resetinfor = DB::table('project')->where('pro_id',$pro_id)
+        $resetinfor = DB::table('project')->where('pro_id',$datas['pro_id'])
                       ->update([
                       'pro_host'          => $datas['pro_host'],
                       'pro_all_author'    => $datas['pro_all_author'],

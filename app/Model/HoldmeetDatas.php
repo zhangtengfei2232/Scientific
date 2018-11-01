@@ -22,7 +22,7 @@ class HoldmeetDatas extends ModelDatabase
                         'ho_graph_inject' => $ho_graph_inject
                     ]);
          if(empty($ho_graph_inject)){
-             return ($response) ? responseTojson(0,'添加会议信息成功',$response)
+             return ($response > 0) ? responseTojson(0,'添加会议信息成功','',$response)
                   : responseTojson(1,'添加信息失败');
          }
          return $response;
@@ -52,11 +52,11 @@ class HoldmeetDatas extends ModelDatabase
             $road = DB::table('holdmeet')->select('ho_graph_inject')->where('ho_id',$ho_id_datas[$i])->first();
             $ho_image_road[$i] = $road['ho_graph_inject'];
          }
+         return $ho_image_road;
     }
     //修改会议信息
-    public static function updateHoldmeetDatas($datas){
-        $ho_id = $datas['ho_id'];
-        $response = DB::table('holdmeet')->where('ho_id',$ho_id)
+    public static function updateHoldmeetDatas($datas,$reset_inject_status){
+        $response = DB::table('holdmeet')->where('ho_id',$datas['ho_id'])
                     ->update([
                         'ho_name'        => $datas['ho_name'],
                         'ho_art_status'  => $datas['ho_art_status'],
@@ -66,12 +66,10 @@ class HoldmeetDatas extends ModelDatabase
                         'ho_level'       => $datas['ho_level'],
                         'ho_time'        => $datas['ho_time']
                     ]);
-        if(array_key_exists('ho_graph_inject',$datas)){
-            $reset_image = DB::tbale('holdmeet')->where('ho_id',$ho_id)
-                           ->update(['ho_graph_inject' => $datas['ho_graph_inject']]);
-            return ($response !=1 || $reset_image != 1) ? false :true;
+        if($reset_inject_status){
+            return ($response !=1) ? false :true;
         }
-        return ($response != 1) ? showMsg(1,'修改举行会议信息失败')
+        return ($response != 1) ? responseTojson(1,'修改举行会议信息失败')
                : responseTojson(0,'修改举行会议成功');
     }
 }

@@ -27,7 +27,7 @@ class LectureController extends Controller
          ];
          $judge_datas = judgeLectureField($datas);
          if($judge_datas['code'] == 1){
-             return $judge_datas;
+             return responseTojson(1,$judge_datas['message']);
          }
          if(!$request->hasFile('lecture_inject')){
              $datas['le_img_road'] = '';
@@ -36,15 +36,15 @@ class LectureController extends Controller
          $lecture_inject = $request->file('lecture_inject');
          $judge_inject   = judgeFileImage($lecture_inject);
          if($judge_inject['code'] == 1){
-             return $judge_inject;
+             return responseTojson(1,$judge_inject['message']);
          }
          $disk  = UploadSubjectionConfig::LECTURE;
          $subjection_lecture   = UploadSubjectionConfig::LECTURE_INJECTION;
          $new_inject_road      = uploadFiles($subjection_lecture,$lecture_inject,$disk);
          $datas['le_img_road'] = $new_inject_road;
          $add_lecture          = LectureDatabase::addLectureDatas($datas);
-         if($add_lecture){
-             return responseTojson(0,'添加讲学信息成功');
+         if($add_lecture > 0){
+             return responseTojson(0,'添加讲学信息成功','',$add_lecture);
          }
          deletefiles(UploadSubjectionConfig::LECTURE,$new_inject_road);
          return responseTojson(1,'添加讲学信息失败');
@@ -55,15 +55,24 @@ class LectureController extends Controller
          $old_inject_road = LectureDatabase::selectLectureInject($le_id_datas);
          $owner_status    = UploadSubjectionConfig::LECTURE_IMG_STATUS;
          $old_image_road  = ImageDatas::selectAllOwnerImage($le_id_datas,$owner_status);
-         $image_road      = array_merge($old_inject_road,$old_image_road);        //讲学图片和图注合并
-         deleteAllFiles(UploadSubjectionConfig::LECTURE,$image_road);
+         LectureDatabase::beginTraction();
+         $delete_lecture  = LectureDatabase::deleteLectureDatas($le_id_datas);
+         $delete_image    = ImageDatas::byOwnerdeleteImagesDatas($le_id_datas);
+         if($delete_image && $delete_lecture){
+             LectureDatabase::commit();
+             $image_road      = array_merge($old_inject_road,$old_image_road);  //讲学图片和图注合并
+             deleteAllFiles(UploadSubjectionConfig::LECTURE,$image_road);
+             return responseTojson(0,'删除讲学信息成功');
+         }
+         LectureDatabase::rollback();
+         return responseTojson(1,'删除讲学信息失败');
      }
      //查看单个专家讲学信息
      public function selectLecture(Request $request){
-         $le_id[0] = $request->le_id;
-         $lecture_information = LectureDatabase::selectLectureDatas($le_id[0]);
-         $owner_status        = uploadSubjectionConfig::LECTURE_IMG_STATUS;
-         $lecture_images      = ImageDatas::selectAllOwnerImage($le_id,$owner_status);
+         $le_id               = $request->le_id;
+         $lecture_information = LectureDatabase::selectLectureDatas($le_id);
+         $image_status        = UploadSubjectionConfig::LECTURE_IMG_STATUS;
+         $lecture_images      = ImageDatas::selectImageDatas($le_id,$image_status);
          $datas['lecture_information'] = $lecture_information;
          $datas['lecture_images']      = $lecture_images;
          return responseTojson(0,'查询成功','',$datas);
@@ -75,45 +84,51 @@ class LectureController extends Controller
      }
     //根据时间区间搜索成果鉴定
     public function timeSelectLecture(Request $request){
-        $start_time = $request->start_time;
-        $end_time   = $request->end_tiem;
-        $table_name = SearchMessageConfig::LECTURE_TABLE;
-        $time_field = SearchMessageConfig::LE_TIME;
-        return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field);
+         $start_time = $request->start_time;
+         $end_time   = $request->end_tiem;
+         $table_name = SearchMessageConfig::LECTURE_TABLE;
+         $time_field = SearchMessageConfig::LE_TIME;
+         return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field);
     }
      //修改专家讲学信息
-     public function updateLecture(Request $request){
+    public function updateLecture(Request $request){
          if(!$request->isMethod('POST')){
              return responseTojson(1,'你请求的方式不对');
          }
          $le_id[0] = trim($request->le_id);
+         dd($request);
          $datas = [
              'le_id'            => $le_id[0],
-             'le_expert_name'   => trim($request->le_export_name),
-             'le_expert_level'  => trim($request->le_export_level),
+             'le_expert_name'   => trim($request->le_expert_name),
+             'le_expert_level'  => trim($request->le_expert_level),
              'le_report_name'   => trim($request->le_report_name),
              'le_invite_status' => trim($request->le_invite_status),
              'le_invite_unit'   => trim($request->le_invite_unite),
-             'le_time'          => trim($request->le_time)
+             'le_time'          => trim($request->le_time),
+             'le_img_road'      => trim($request->le_img_road)
          ];
+         dd($datas);
          $judge_datas = judgeLectureField($datas);
          if($judge_datas['code'] == 1){
-             return $judge_datas;
+             return responseTojson(1,$judge_datas['message']);
          }
+         $reset_inject_status = false;
          if(!$request->hasFile('lecture_inject')){
-             return LectureDatabase::updateLectureDatas($datas);
+             return LectureDatabase::updateLectureDatas($datas,$reset_inject_status);
          }
+         $reset_inject_status = true;
          $update_inject = $request->file('lecture_inject');
          $judge_inject  = judgeFileImage($update_inject);
+
          if($judge_inject->code == 1){
-             return $judge_inject;
+             return responseTojson(1,$judge_inject['message']);
          }
          $old_inject_road      = LectureDatabase::selectLectureInject($le_id);
          $disk                 = UploadSubjectionConfig::LECTURE;
-         $subjection_lecture   = uploadSubjectionConfig::LECTURE_INJECTION;
+         $subjection_lecture   = UploadSubjectionConfig::LECTURE_INJECTION;
          $new_inject_road      = uploadFiles($subjection_lecture,$update_inject,$disk);
          $datas['le_img_road'] = $new_inject_road;
-         $reset_lecture        = LectureDatabase::updateLectureDatas($datas);
+         $reset_lecture        = LectureDatabase::updateLectureDatas($datas,$reset_inject_status);
          if($reset_lecture){
              deletefiles($disk,$old_inject_road[0]);
              return responseTojson(0,'修改讲学信息成功');
@@ -123,61 +138,41 @@ class LectureController extends Controller
      }
     //添加专家讲学图片
     public function addLectureImages(Request $request){
-        $validate = true;
-        if(!$request->isMethod('POST')){
+         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
-        }
-        if(!$request->is_add_lecture){
+         }
+         if(!$request->is_add_lecture){
             return responseTojson(1,'请你先添加讲学信息');
-        }
-        $hold_images = $request->file('hold_images');
-        $judge_images = judgeAllFileImage($hold_images);
-        if($judge_images->code == 1){
-            $validate = false;
-        }
-        $disk = UploadSubjectionConfig::LECTURE;
-        $success_images  = $judge_images['success_images'];
-        $subjection      = UploadSubjectionConfig::LECTURE_IMG;
-        $le_id           = $request->le_id;
-        $all_images_road = uploadAllImgs($subjection,$success_images,$disk);
-        $images_status   = UploadSubjectionConfig::LECTURE_IMG_STATUS;
-        $add_images      = ImageDatas::addImagesDatas($all_images_road,$le_id,$images_status);
-        if($validate && $add_images->code == 1){
-            return responseTojson(0,'全部图片添加成功');
-        }
-        if($add_images->code == 1){
-            $delete_fail_images = [];
-            $fail_images = [];
-            for($i = 0; $i < count($add_images); $i++){
-                $index = $add_images->datas[$i];
-                //获取添加失败的图片名字
-                $fail_images_name = $success_images[$index]->getClientOriginalName();
-                $fail_images[$i]  = $fail_images_name;       //添加失败的图片名字数组
-                //取出添加数据库失败的图片路径
-                $delete_fail_images[$i] = $all_images_road[$index];//添加失败的图片路径数组
-            }
-            deleteAllImgs($disk,$delete_fail_images);
-            $response['fail_images'] = $fail_images;
-        }
-        if(!$validate){
-            //有的图片验证也没通过，错误信息也返回
-            $response['error_images'] = $judge_images['error_images'];
-        }
-        return responseTojson(1,'部分图片添加失败',$response);
+         }
+         if(!$request->hasFile('hold_image')){
+            return responseTojson(1,'请你上传专家讲学图片');
+         }
+         $hold_images = $request->file('hold_images');
+         $judge_images = judgeAllFileImage($hold_images);
+         if($judge_images['code'] == 1){
+            return responseTojson(1,'图片上传失败');
+         }
+         $disk = UploadSubjectionConfig::LECTURE;
+         $success_images  = $judge_images['datas'];
+         $subjection      = UploadSubjectionConfig::LECTURE_IMG;
+         $le_id           = $request->le_id;
+         $all_images_road = uploadAllImgs($subjection,$success_images,$disk);
+         $images_status   = UploadSubjectionConfig::LECTURE_IMG_STATUS;
+         return ImageDatas::addImagesDatas($all_images_road,$le_id,$images_status);
     }
     //删除专家讲学图片
     public function deleteLectureImages(Request $request){
-        $delete_le_id = $request->le_id_datas;
-        //先去查询所有删除的图片路径
-        $all_images_road = ImageDatas::selectAllImageRoadDatas($delete_le_id);
-        ImageDatas::beginTraction();                                   //开启事务处理
-        $delete_images = ImageDatas::deleteImagesDatas($delete_le_id); //删除数据库图片路径
-        if($delete_images){
+         $delete_im_id = $request->im_id_datas;
+         //先去查询所有删除的图片路径
+         $all_images_road = ImageDatas::selectAllImageRoadDatas($delete_im_id);
+         ImageDatas::beginTraction();                                   //开启事务处理
+         $delete_images = ImageDatas::deleteImagesDatas($delete_im_id); //删除数据库图片路径
+         if($delete_images){
             ImageDatas::commit();
-            deleteAllImgs(uploadSubjectionConfig::HOLD_MEET,$all_images_road);
+            deleteAllFiles(UploadSubjectionConfig::HOLD_MEET,$all_images_road);
             return responseTojson(0,'删除举办会议图片成功');
-        }
-        ImageDatas::rollback();                                        //回滚，回复数据库数据
-        return responseTojson(1,'删除举办会议图片失败');
+         }
+         ImageDatas::rollback();                                        //回滚，回复数据库数据
+         return responseTojson(1,'删除举办会议图片失败');
     }
 }

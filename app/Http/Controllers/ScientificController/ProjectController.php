@@ -34,7 +34,7 @@ class ProjectController extends Controller
         ];
         $judge_project_datas = judgeProjectField($datas);                  //验证字段
         if($judge_project_datas['code'] == 1){
-            return $judge_project_datas;
+            return responseTojson(1,$judge_project_datas['message']);
         }
         $datas['pro_remarks'] = trim($request->pro_remarks);
         if(!$request->hasFile('pro_file')){                            //判断用户是否添加证书
@@ -44,7 +44,7 @@ class ProjectController extends Controller
         $project_image = $request->file('pro_file');
         $judge_project_image = judgeFileImage($project_image);
         if($judge_project_image['code'] == 1){                             //验证图片
-            return $judge_project_datas;
+            return responseTojson(1,$judge_project_image['message']);
         }
         $disk = UploadSubjectionConfig::PROJECT;
         $subjection_project = UploadSubjectionConfig::PROJECT_IMG;
@@ -109,7 +109,7 @@ class ProjectController extends Controller
         ];
         $judge_project_datas = judgeProjectField($datas);
         if($judge_project_datas['code'] == 1){
-            return $judge_project_datas;
+            return responseTojson(1,$judge_project_datas['message']);
         }
         $reset_image_status = false;
         $datas['pro_remarks'] = trim($request->pro_remarks);
@@ -121,7 +121,7 @@ class ProjectController extends Controller
         $project_image = $request->file('pro_file');
         $judge_project_img = judgeFileImage($project_image);
         if($judge_project_img['code'] == 1){
-            return $judge_project_img;
+            return responseTojson(1,$judge_project_img['message']);
         }
         $disk               = UploadSubjectionConfig::PROJECT;
         $subjection_project = UploadSubjectionConfig::PROJECT_IMG;

@@ -58,8 +58,7 @@ class PatentDatabase  extends ModelDatabase
     }
     //修改专利信息
     public static function updatePatentDatas($datas,$reset_image_status){
-        $pa_id = $datas['pa_id'];
-        $response = DB::table('patent')->where('pa_id',$pa_id)
+        $response = DB::table('patent')->where('pa_id',$datas['pa_id'])
                   ->update([
                   'first_inventor'   => $datas['first_inventor'],
                   'pa_all_author'    => $datas['pa_all_author'],

@@ -21,15 +21,15 @@ class SchoolfileController extends Controller
         ];
         $judge_datas = judgeSchoolfileField($datas);
         if($judge_datas['code'] == 1){
-            return $judge_datas;
+            return responseTojson(1,$judge_datas['message']);
         }
-        if(!$request->hasFile('sch_file')){
+        if(!$request->hasFile('schfile_road')){
             return responseTojson(1,'必须要上传PDF格式的校发文件');
         }
-        $schoolfile_pdf   = $request->file('sch_file');//验证接收的文件
+        $schoolfile_pdf   = $request->file('schfile_road');       //验证接收的文件
         $judge_schoolfile = judgeReceiveFiles($schoolfile_pdf);
         if($judge_schoolfile['code'] == 1){
-            return $judge_schoolfile;
+            return responseTojson(1,$judge_schoolfile['$judge_schoolfile']);
         }
         $disk                  = UploadSubjectionConfig::SCHOOL_FILE;
         $subjection_shoolfile  = UploadSubjectionConfig::SCHOOL_FILE_PDF;
@@ -44,25 +44,11 @@ class SchoolfileController extends Controller
     }
     //删除校发文件
     public function deleteSchoolfile(Request $request){
-        $validate = true;
-        $schoolfile_id_datas  = $request->schoolfile_id_datas;
-        $schoofile_road_datas = SchoolfileDatabase::selectAllSchoolfileRoad($schoolfile_id_datas);
-        $delete_schoolfile    = SchoolfileDatabase::deleteAllSchoolfileDatas($schoolfile_id_datas);
-        if($delete_schoolfile['code'] == 1){
-            $validate = false;
-            //有些校发文件删除失败，去查文件的原来名称
-            $schoolfile_name = SchoolfileDatabase::selectAllSchoolfileName($delete_schoolfile);
-            //根据文件'ID'键，去除掉删除失败的校发文件路径
-            for($i = 0; $i < count($delete_schoolfile); $i++){
-                array_splice($schoofile_road_datas,$delete_schoolfile[$i],1);
-            }
-            $response['fail_schoolfile'] = $schoolfile_name;
-        }
+        $schoolfile_id_datas  = $request->schfile_id_datas;
+        $schoofile_road_datas = SchoolfileDatabase::selectSchoolfileRoad($schoolfile_id_datas);
+        $delete_schoolfile    = SchoolfileDatabase::deleteSchoolfileDatas($schoolfile_id_datas);
         deletefiles(uploadSubjectionConfig::SCHOOL_FILE,$schoofile_road_datas);
-        if($validate){
-            return $delete_schoolfile;
-        }
-        return responseTojson(1,$delete_schoolfile->message,$response);
+        return responseTojson(1);
     }
     //修改校发文件
     public function updateSchoolfile(Request $request){
@@ -79,17 +65,17 @@ class SchoolfileController extends Controller
         ];
         $judge_datas = judgeSchoolfileField($datas);
         if($judge_datas['code']== 1){
-            return $judge_datas;
+            return responseTojson(1,$judge_datas['message']);
         }
         $reset_file_status = false;
-        if(!$request->hasFile('sch_file')){
+        if(!$request->hasFile('schfile_road')){
             return SchoolfileDatabase::updateSchoolfileDatas($datas,$reset_file_status);
         }
         $reset_file_status = true;
-        $shcoolfile_pdf       = $request->file('sch_file');
+        $shcoolfile_pdf       = $request->file('schfile_road');
         $judge_schoolfile_pdf = judgeReceiveFiles($shcoolfile_pdf);
         if($judge_schoolfile_pdf['code'] == 1){
-            return $judge_schoolfile_pdf;
+            return responseTojson(1,$judge_schoolfile_pdf['message']);
         }
         $disk = UploadSubjectionConfig::SCHOOL_FILE;
         $subjection_shoolfile  = UploadSubjectionConfig::SCHOOL_FILE_PDF;
