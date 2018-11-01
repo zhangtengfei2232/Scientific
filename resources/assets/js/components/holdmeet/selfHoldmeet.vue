@@ -40,7 +40,7 @@
                         </el-date-picker>
                     </el-col>
                 </el-form-item>
-                <el-form-item label="会议图注">
+                <el-form-item label="会议图片">
                     <el-upload
                         class="upload-demo"
                         drag
@@ -58,7 +58,7 @@
                         <img src="{{ items.url }}" alt="无法加载">
                     </li> -->
                 </thead>
-                <el-form-item label="餐会图注">
+                <el-form-item label="会议图注">
                     <el-upload
                         class="upload-demo"
                         drag
