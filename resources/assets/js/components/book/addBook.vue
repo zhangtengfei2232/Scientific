@@ -182,7 +182,7 @@
             if(this.Bcode == true){
                 this.dataFile.append('op_cover_road', file);
                 let id = this.form.op_id;
-                this.sendfile(dataFile,1,id);
+                this.sendfile(dataFile,id);
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
@@ -192,13 +192,13 @@
             if(this.Bcode == true){
                 this.dataFile.append('op_coright_road', files);
                 let id = this.form.op_id;
-                this.sendfile(dataFile,2,id);
+                this.sendfile(dataFile,id);
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
             }
         },
-        sendfile(dataFile,reset_image_status,id) {
+        sendfile(dataFile,id) {
             this.addBookFile(vue.dataFile,reset_image_status).then(res => {
                 let vue = this;
                 var data = res.data;
@@ -216,7 +216,7 @@
                 }
             })  
         },
-        addBookFile(data,reset_image_status,id){
+        addBookFile(data,id){
              return axios({
                 method: 'post',
                 url: 'addopusimage',

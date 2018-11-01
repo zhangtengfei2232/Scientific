@@ -162,7 +162,7 @@ export default {
             if(file !== ''){
                 this.dataFile.append('ap_cover_road', file);
                 let id = this.form.ap_id;
-                this.sendfile(dataFile,1,id);
+                this.sendfile(dataFile,id);
             }else{
                 this.$message.error('请先添加文件');
                 return false
@@ -172,14 +172,14 @@ export default {
             if(files !== ''){
                 this.dataFile.append('ap_cover_road', files);
                 let id = this.form.ap_id;
-                this.sendfile(dataFile,1,id);
+                this.sendfile(dataFile,id);
             }else{
                 this.$message.error('请先添加文件');
                 return false
             }
         },
-        sendfile(dataFile,reset_image_status,id) {
-            this.addBookFile(vue.dataFile,reset_image_status,id).then(res => {
+        sendfile(dataFile,,id) {
+            this.addBookFile(vue.dataFile,,id).then(res => {
                 var data = res.data;
                 if (data.code == 0) {
                     vue.$message({
@@ -195,7 +195,7 @@ export default {
                 }
             })  
         },
-        addBookFile(data,reset_image_status,id){
+        addBookFile(data,id){
              return axios({
                 method: 'post',
                 url: '',

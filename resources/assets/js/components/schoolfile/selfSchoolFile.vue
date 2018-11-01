@@ -54,7 +54,6 @@
     }
 </style>
 
-
 <script>
     export default {
         data() {
@@ -67,7 +66,6 @@
                     schfile_name: '',
                     schfile_num: '',
                     schfile_down_time: '',
-
                 }
             }
         },
@@ -80,7 +78,7 @@
                     if (data.code == 0) {
                         self.schoolFleData = data.datas;
                         self.form = data.datas;
-                        console.log(data.datas);
+                        self.schfile_road = 'showfile?disk=project&subjection=' + data.datas.schfile_road;
                     } else {
                         self.$notify({
                             type: 'error',

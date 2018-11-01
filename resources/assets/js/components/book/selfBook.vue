@@ -180,10 +180,10 @@ export default {
                     self.BookSelfData = data.datas;
                     self.form = data.datas;
                     if(data.datas.op_cover_road !== ''){
-                        self.filelist.url = 'showimage?disk=apus&subjection=' + data.datas.op_cover_road;
+                        self.filelist.url = 'showfile?disk=apus&subjection=' + data.datas.op_cover_road;
                     }
                     if(data.datas.op_coright_road !== ''){
-                        self.filelists.url = 'showimage?disk=apus&subjection=' + data.datas.op_coright_road;
+                        self.filelists.url = 'showfile?disk=apus&subjection=' + data.datas.op_coright_road;
                     }
                 } else {
                     self.$notify({
@@ -210,7 +210,7 @@ export default {
             if(file !== ''){
                 this.dataFile.append('op_cover_road', file);
                 let id = this.form.op_id;
-                this.sendfile(dataFile,1,id);
+                this.sendfile(dataFile,id);
             }else{
                 this.$message.error('请先添加文件');
                 return false
@@ -220,16 +220,16 @@ export default {
             if(files !== ''){
                 this.dataFile.append('op_coright_road', files);
                 let id = this.form.op_id;
-                this.sendfile(dataFile,2,id);
+                this.sendfile(dataFile,id);
                 this.$refs.bo_files.submit();
             }else{
                 this.$message.error('请先添加文件');
                 return false
             }
         },
-        sendfile(dataFile,reset_image_status) {
+        sendfile(dataFile,id) {
             let vue = this;
-            this.addBookFile(vue.dataFile,reset_image_status,id).then(res => {
+            this.addBookFile(vue.dataFile,id).then(res => {
                 var data = res.data;   
                 if (data.code == 0) {
                     vue.$message({
@@ -245,7 +245,7 @@ export default {
                 }
             })  
         },
-        addBookFile(data,m){
+        addBookFile(data,id){
              return axios({
                 method: 'post',
                 url: 'updateopusimage',
