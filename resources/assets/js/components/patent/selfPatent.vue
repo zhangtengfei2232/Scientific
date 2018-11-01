@@ -122,7 +122,7 @@ export default {
                     if (data.code == 0) {
                         self.PatentSelfData = data.datas;
                         self.form = data.datas;
-                        self.fileList.url=data.datas.pa_road; 
+                        self.fileList.url= 'showfile?disk=joinmeet&subjection=' + data.datas.pa_road; 
                     } else {
                         self.$notify({
                             type: 'error',

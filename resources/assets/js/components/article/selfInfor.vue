@@ -217,7 +217,7 @@ export default {
                     let time = data.datas.period;
                     checkYearExt(time);
                     self.form = data.datas;
-                    self.filelists.url = 'showimage?disk=article&subjection=' + data.datas.home_page_road; 
+                    self.filelists.url = 'showfile?disk=article&subjection=' + data.datas.home_page_road; 
                 } else {
                     self.$notify({
                         type: 'error',

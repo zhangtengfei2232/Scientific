@@ -122,7 +122,7 @@ export default {
                 if (data.code == 0) {
                     self.HoldmeetSelfData = data.datas.information;
                     self.form = data.datas.information;
-                    self.filelist.url = 'showimage?disk=holdmeet&subjection=' + data.datas.information.ho_graph_inject;
+                    self.filelist.url = 'showfile?disk=holdmeet&subjection=' + data.datas.information.ho_graph_inject;
                     // let image = data.datas.information.ho_image;
                     // self.filelists = 'showimage?disk=holdmeet&subjection=' + image;
                 } else {

@@ -161,7 +161,7 @@
                 if (data.code == 0) {
                     self.ProjectSelfData = data.datas;
                     self.form = data.datas;
-                    let road = 'showimage?disk=project&subjection=' + data.datas.pro_road;
+                    let road = 'showfile?disk=project&subjection=' + data.datas.pro_road;
                     self.filelists.url = road;
                 }else {
                     self.$notify({

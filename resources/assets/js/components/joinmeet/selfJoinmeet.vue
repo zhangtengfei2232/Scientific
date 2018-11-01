@@ -130,7 +130,7 @@ export default {
                     if (data.code == 0) {
                         self.JoinmeetSelfData = data.datas;
                         self.form = data.datas.information;
-                        // self.filelists = 'showimage?disk=joinmeet&subjection=' + data.datas.jo_graph_inject;
+                         self.filelists = 'showfile?disk=joinmeet&subjection=' + data.datas.jo_graph_inject;
                     } else {
                         self.$notify({
                             type: 'error',
