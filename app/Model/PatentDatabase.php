@@ -71,6 +71,7 @@ class PatentDatabase  extends ModelDatabase
                   'author_notic_day' => $datas['author_notic_day'],
                   'pa_integral'      => $datas['pa_integral'],
                   'pa_remarks'       => $datas['pa_remarks'],
+                  'pa_road'          => $datas['pa_road']
                   ]);
         if($reset_image_status){
             return ($response != 1) ? false : true;

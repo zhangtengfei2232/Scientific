@@ -14,8 +14,23 @@
                     <div class="block">
                         <span class="demonstration">按专家姓名检索:</span>
                          <el-input v-model="form.le_expert_name" placeholder="请输入专家姓名" style="width:30%;"></el-input>
-                        <el-button type="primary" style="margin-left:10px" v-on:click="byNameSearch(form)">搜索</el-button>
+                        <el-button type="primary" style="margin-left:10px" v-on:click="byNameSearch">搜索</el-button>
                     </div>
+                    <!--<div class="block">-->
+                        <!--<span class="demonstration">按讲学时间检索:</span>-->
+                        <!--<el-date-picker-->
+                                <!--v-model="form.data1"-->
+                                <!--type="date"-->
+                                <!--placeholder="选择日期">-->
+                        <!--</el-date-picker>-->
+                        <!--<span>-</span>-->
+                        <!--<el-date-picker-->
+                                <!--v-model="form.data2"-->
+                                <!--type="date"-->
+                                <!--placeholder="选择日期">-->
+                        <!--</el-date-picker>-->
+                        <!--<el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch">搜索</el-button>-->
+                    <!--</div>-->
                 </el-form>
             </span>
     </header>
@@ -54,6 +69,7 @@
                             width="200">
                         <template slot-scope="scope">
                             <el-button
+                                    @click.native.prevent="deleteRow(scope.$index, ExperspeakDate)"
                                     type="text"
                                     size="small">
                                 <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentExperspeakDate(ExperspeakDate[scope.$index].le_id)"></el-button>
@@ -129,6 +145,7 @@
                 id: [],
                 dataForm: new FormData(),
                 ExperspeakDate: [],
+                sortable:true,
                 checked: false,
                 form: {
                     le_expert_name:'',
@@ -154,11 +171,26 @@
             handleSelectionChange(val) {
                 this.multipleSelection = val;
             },
+            getExperspeakDate() {
+                let self = this;
+                axios.get("selectalllecture").then(function (response) {
+                    var data = response.data;
+                    if (data.code == 0) {
+                        self.ExperspeakDate = data.datas;
+                    } else {
+                        self.$notify({
+                            type: 'error',
+                            message: data.msg,
+                            duration: 2000,
+                        });
+                    }
+                });
+            },
             BatchDelete(){
                 var self = this;
                 var le_id_datas = [];//存放删除的数据
                 if(self.multipleSelection == undefined){
-                    self.$message({
+                    this.$message({
                         message: '请选择要删除论文',
                         type: 'warning'
                     });
@@ -171,23 +203,9 @@
                     this.deleteExperspeakDates(le_id_datas);
                 }
             },
-            getExperspeakDate() {
-                let self = this;
-                axios.get("selectalllecture").then(function (response) {
-                    var data = response.data;
-                    if (data.code == 0) {
-                        self.ExperspeakDate = data.datas;
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.message,
-                            duration: 2000,
-                        });
-                    }
-                });
-            },
+
             deleteExperspeakDates(le_id_datas) {
-                console.log(le_id_datas,'下面删除AAAAAAA');
+//                console.log(le_id_datas,'下面删除AAAAAAA');
                 this.$confirm('此操作批量删除文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -208,7 +226,7 @@
                         } else {
                             self.$notify({
                                 type: 'error',
-                                message: data.message,
+                                message: data.msg,
                                 duration: 2000,
                             });
                         }
@@ -222,9 +240,7 @@
             },
             deleteExperspeakDate(le_id) {
                 console.log(le_id,'图标删除AAAAAAA');
-
                 this.id.push(le_id);
-
                 this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -257,7 +273,12 @@
                     });
                 });
             },
-
+            sentExperspeakDate(le_id) {
+                this.$router.push({
+                    path: `/editLecture/${le_id}`,
+                })
+            },
+//
 //            handleCheckAllChange(val) {
 //                this.checkedCities = val ? this.ExperspeakDate : [];
 //                this.isIndeterminate = false;
@@ -267,8 +288,8 @@
 //                this.checkAll = checkedCount === this.ExperspeakDate.length;
 //                this.isIndeterminate = checkedCount > 0 && checkedCount < this.ExperspeakDate.length;
 //            },
-            byNameSearch(form) {
-                let self = this;
+            byNameSearch() {
+//                let self = this;
                 axios.get("",form).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
@@ -282,11 +303,7 @@
                     }
                 });
             },
-            sentExperspeakDate(le_id) {
-                this.$router.push({
-                    path: `/editLecture/${le_id}`,
-                })
-            },
+
         },
 
         mounted() {

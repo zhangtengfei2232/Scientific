@@ -55,11 +55,11 @@
                 <el-upload
                         class="upload-demo"
                         drag
-                        action=""
+                        action="#"
                         multiple
+                        :file-list="filelists"
                         ref="zu_file"
-                        :before-upload="fileZufil"
-                        :auto-upload="false">
+                        :before-upload="fileZufil">
                     <i class="el-icon-upload"></i>
                     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                 </el-upload>
@@ -97,9 +97,11 @@
                 pic_file:'',
                 zu_file:'',
                 Bcode:false,
+                multiple: true,
                 dataForm: new FormData(),
                 dataFile: new FormData(),
                 EditLectureData: {},
+                filelists:[],
                 filelist: [{url:''}],
                 form: {
                     le_expert_name:'',
@@ -162,9 +164,7 @@
                     if (data.code == 0) {
                         self.EditLectureData = data.datas;
                         self.form = data.datas.lecture_information;
-//                        console.log(data.datas,"+++++++++++++");
-                        self.filelist.url='../../storage/app/data/lecture/'+data.datas.le_img_road
-
+//                        self.filelists.url='../../storage/app/data/lecture/'+data.datas.le_img_road
                     } else {
                         self.$notify({
                             type: 'error',
@@ -175,7 +175,7 @@
                 });
             },
             onSubmit(form) {
-                console.log(form,"修改成功啦+++++++++++++");
+//                console.log(form,"修改成功啦+++++++++++++");
                 if(form.le_expert_name == '') {
                     this.$message.error('专家姓名不能为空');
                     return
@@ -200,7 +200,6 @@
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);
                         });
-//                        console.log(vue.dataForm);
                         vue.addLectureData(vue.dataForm).then(res => {
                             var data = res.data;
                             if (data.code == 0) {
@@ -213,13 +212,13 @@
                             } else {
                                 vue.$notify({
                                     type: 'error',
-                                    message: data.message,
+                                    message: data.msg,
                                     duration: 2000,
                                 });
                             }
                         })
-                        vue.$refs.zu_file.submit();
-//                        vue.$refs.pic_file.submit();
+//                        vue.$refs.zu_file.submit();
+                        vue.$refs.pic_file.submit();
                     } else {
                         console.log('error submit!!');
                         return false
@@ -229,7 +228,7 @@
             addLectureData(data) {
                 return axios({
                     method: 'post',
-                    url: 'updatelecture',
+                    url: 'addLecture',
                     headers: {'Content-Type': 'multipart/form-data'},
                     timeout: 20000,
                     data: data

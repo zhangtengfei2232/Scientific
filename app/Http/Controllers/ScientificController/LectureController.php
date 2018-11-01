@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\ScientificController;
 
 use App\Http\Controllers\Controller;
+use App\Model\ModelDatabase;
 use Illuminate\Http\Request;
 use App\Model\LectureDatabase;
 use App\Model\ImageDatas;
 use config\UploadSubjectionConfig;
+use config\SearchMessageConfig;
 class LectureController extends Controller
 {
      //添加专家讲学信息
@@ -71,6 +73,14 @@ class LectureController extends Controller
          $result = LectureDatabase::selectLectureAllDatas(session('usercount'));
          return responseTojson(0,'查询成功','',$result);
      }
+    //根据时间区间搜索成果鉴定
+    public function timeSelectLecture(Request $request){
+        $start_time = $request->start_time;
+        $end_time   = $request->end_tiem;
+        $table_name = SearchMessageConfig::LECTURE_TABLE;
+        $time_field = SearchMessageConfig::LE_TIME;
+        return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field);
+    }
      //修改专家讲学信息
      public function updateLecture(Request $request){
          if(!$request->isMethod('POST')){

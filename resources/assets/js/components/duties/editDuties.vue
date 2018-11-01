@@ -36,11 +36,11 @@
 
             <el-form-item label="担任学术团体名称">
                 <el-input v-model="form.du_name" placeholder="请输入担任学术团体名称"style="width: 370px;"></el-input>
-                <el-select v-model="form.level" placeholder="担任学术团体级别" style="width: 200px;">
-                    <el-option label="省级" value="1"></el-option>
-                    <el-option label="国家级" value="2"></el-option>
-                    <el-option label="国际级" value="3"></el-option>
-                </el-select>
+                <!--<el-select v-model="form.level" placeholder="担任学术团体级别" style="width: 200px;">-->
+                    <!--<el-option label="省级" value="1"></el-option>-->
+                    <!--<el-option label="国家级" value="2"></el-option>-->
+                    <!--<el-option label="国际级" value="3"></el-option>-->
+                <!--</el-select>-->
             </el-form-item>
 
             <el-form-item label="所任职务">
@@ -50,7 +50,7 @@
                 <el-date-picker
                         v-model="year1"
                         type="date"
-                        format="yyyy 年 MM 月 dd 日"
+                        fo  rmat="yyyy 年 MM 月 dd 日"
                         value-format="timestamp"
                         placeholder="选择日期">
                 </el-date-picker>
@@ -146,12 +146,17 @@
                     var data = response.data;
                     if (data.code == 0) {
                         self.DutiesData = data.datas;
+                        console.log(self.DutiesData,'书看@@@@@@@@!!');
                         let time = data.datas.du_year_num;
+//                        let time1 = data.datas.year1;
+//                        let time2 = data.datas.year2;
+//                        let time = time1+","+time2;
+//                        console.log(time,'f时间m@@@@@@@@!!');
                         self.form = data.datas;
-//                        console.log(self.form,'form@@@@@@@@!!');
-                        self.checkYearExt('4,3');
-                        self.filelist.url = 'showimage?disk=duties&subjection=' + data.datas.du_road;
-//                        console.log(self.filelist.url,'添加1@@@@@@@@!!');
+                        self.checkYearExt(time);
+
+                        let road = 'showimage?disk=duties&subjection=' + data.datas.du_road;
+                        self.filelist.url = road;
                     } else {
                         self.$notify({
                             type: 'error',
@@ -185,8 +190,8 @@
                     this.$message.error('老师所任职务不能为空');
                     return
                 }this.$refs['form'].validate((valid) => {
-//                    var d = form.project_year;
-//                    form.project_year = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+                    var d = form.project_year;
+                    form.project_year = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                     let vue = this;
                     if (valid) {
                         jQuery.each(vue.form,function(i,val){
@@ -194,17 +199,16 @@
                         });
                         vue.addDutiesData(vue.dataForm).then(res => {
                             var data = res.data;
-//                            console.log(data,'添加1@@@@@@@@!!');
                             if (data.code == 0) {
                                 vue.$message({
-                                    message: '添加成功',
+                                    message: '修改成功',
                                     type: 'success'
                                 });
                                 this.$router.push({path: '/duties'});
                             } else {
                                 vue.$notify({
                                     type: 'error',
-                                    message: data.msg,
+                                    message: '修改失败',
                                     duration: 2000,
                                 });
                             }
@@ -225,35 +229,34 @@
                     data: data
                 });
             },
-            checkFileExt(filename){
-                if(filename == '') {
-                    this.$message.error('上传文件不能为空');
-                }
-                var flag = false; //状态
-                var arr = ["pdf"];
-                //取出上传文件的扩展名
-                console.log(filename);
-                var index = filename.lastIndexOf(".");
-                var ext = filename.substr(index+1);
-                //循环比较
-                for(var i=0;i<arr.length;i++){
-                    if(ext == arr[i]){
-                        flag = true;
-                        break;
-                    }
-                }
-                if(!flag){
-                    this.$message.error('请上传PDF');
-                }
-            },
+//            checkFileExt(filename){
+//                if(filename == '') {
+//                    this.$message.error('上传文件不能为空');
+//                }
+//                var flag = false; //状态
+//                var arr = ["pdf"];
+//                //取出上传文件的扩展名
+//                console.log(filename);
+//                var index = filename.lastIndexOf(".");
+//                var ext = filename.substr(index+1);
+//                //循环比较
+//                for(var i=0;i<arr.length;i++){
+//                    if(ext == arr[i]){
+//                        flag = true;
+//                        break;
+//                    }
+//                }
+//                if(!flag){
+//                    this.$message.error('请上传PDF');
+//                }
+//            },
             checkYearExt(time){
-//                console.log(time,'@@@@@@@@!!');
-
                 let a = time.split(',');
+//                console.log(a);
                 this.year1 = a[0];
                 this.year2 = a[1];
-                console.log(this.year1);
-                console.log(this.year2);
+//                console.log(this.year1);
+//                console.log(this.year2);
             },
         },
         mounted() {

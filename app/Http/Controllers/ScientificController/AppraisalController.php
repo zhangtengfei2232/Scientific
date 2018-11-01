@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\ScientificController;
 
 use App\Http\Controllers\Controller;
+use App\Model\ModelDatabase;
 use Illuminate\Http\Request;
 use App\Model\AppraisalDatabase;
 use config\UploadSubjectionConfig;
+use config\SearchMessageConfig;
 class AppraisalController extends Controller
 {
     //添加成果鉴定
@@ -23,13 +25,14 @@ class AppraisalController extends Controller
              'ap_conclusion'   => trim($request->ap_conclusion),
              'ap_time'         => trim($request->ap_time),
              'ap_level'        => trim($request->ap_level),
-             'ap_integral'     => trim($request->ap_integral),
-             'ap_remarks'      => trim($request->ap_remarks)
+             'ap_integral'     => trim($request->ap_integral)
          ];
+         dd($datas);
          $judge_datas = judgeAppraisalField($datas);
          if($judge_datas['code'] == 1){
              return $judge_datas;
          }
+         $datas['ap_remarks'] = trim($request->ap_remarks);
          return  AppraisalDatabase::addAppraisalDatas($datas);
     }
     //添加成功鉴定证书和封面图片
@@ -80,6 +83,14 @@ class AppraisalController extends Controller
         $result = AppraisalDatabase::selectAppraisalAllDatas(session('usercount'));
         return responseTojson(0,'查询成功','',$result);
     }
+    //根据时间区间搜索成果鉴定
+    public function timeSelectAppraisal(Request $request){
+        $start_time = $request->start_time;
+        $end_time   = $request->end_tiem;
+        $table_name = SearchMessageConfig::APPRAISAL_TABLE;
+        $time_field = SearchMessageConfig::AP_TIME;
+        return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field);
+    }
     //修改成功鉴定
     public function updateAppraisal(Request $request){
         if(!$request->isMethod('POST')){
@@ -97,6 +108,7 @@ class AppraisalController extends Controller
              'ap_level'        => trim($request->ap_level),
              'ap_integral'     => trim($request->ap_integral)
          ];
+        dd($request);
         $judge_datas = judgeAppraisalField($datas);
         if($judge_datas['code'] == 1){
             return $judge_datas;

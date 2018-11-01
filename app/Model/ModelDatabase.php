@@ -16,8 +16,9 @@ class ModelDatabase  extends  Model
     public static function rollback(){
         return DB::rollback();
     }
-    //出现异常删除文件
-    public static function unlink(){
-        unlink();
+    //根据时间区间搜索信息
+    public static function timeSelectInformation($start_time,$end_time,$table_name,$time_field){
+        $result = DB::table($table_name)->whereBetween($time_field,[$start_time,$end_time])->get();
+        return responseTojson(0,'查询成功','',$result);
     }
 }

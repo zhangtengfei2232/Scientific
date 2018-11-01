@@ -4,7 +4,9 @@ namespace App\Http\Controllers\ScientificController;
 
 use App\Http\Controllers\Controller;
 use App\Model\HoldmeetDatas;
+use App\Model\ModelDatabase;
 use config\UploadSubjectionConfig;
+use config\SearchMessageConfig;
 use Illuminate\Http\Request;
 use App\Model\ImageDatas;
 class HoldmeetController extends Controller
@@ -73,6 +75,14 @@ class HoldmeetController extends Controller
     public function selectAllHoldmeet(){
         $result = HoldmeetDatas::selectAllHoldmeetDatas(session('usercount'));
         return responseTojson(0,'查询成功','',$result);
+    }
+    //根据时间区间搜索举办会议信息
+    public function timeSelectHoldmeet(Request $request){
+        $start_time = $request->start_time;
+        $end_time   = $request->end_tiem;
+        $table_name = SearchMessageConfig::HOLD_MEET_TABLE;
+        $time_field = SearchMessageConfig::HO_TIME;
+        return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field);
     }
     //修改举行会议信息
     public function updateHoldmeet(Request $request){

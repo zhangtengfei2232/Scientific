@@ -19,8 +19,8 @@
             </el-form-item>
             <el-form-item label="邀请/未邀请">
                 <el-radio-group v-model="form.le_invite_status">
-                    <el-radio label="1">邀请</el-radio>
-                    <el-radio label="2">未邀请</el-radio>
+                    <el-radio :label="1">邀请</el-radio>
+                    <el-radio :label="2">未邀请</el-radio>
                 </el-radio-group>
             </el-form-item>
             <el-form-item label="邀请单位">
@@ -57,7 +57,7 @@
                         multiple
                         ref="zu_file"
                         :before-upload="fileZufil"
-                        :auto-upload="false">
+                        :auto-upload="true">
                     <i class="el-icon-upload"></i>
                     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                 </el-upload>
@@ -95,6 +95,7 @@
                 dataForm: new FormData(),
                 dataFile: new FormData(),
                 Bcode:false,
+                multiple:true,
                 zu_file: '',
                 pic_file: '',
                 form: {
@@ -128,15 +129,15 @@
                 this.addBookFile(vue.dataFile).then(res => {
                     var data = res.data;
                     if (data.code == 0) {
-                        this.Bcode = true;
+//                        this.Bcode = true;
                         vue.$message({
-                            message: '修改成功',
+                            message: '添加成功',
                             type: 'success'
                         });
                     } else {
                         vue.$notify({
                             type: 'error',
-                            message: '修改失败',
+                            message: '添加失败',
                             duration: 2000,
                         });
                     }
@@ -152,6 +153,7 @@
                 });
             },
             onSubmit(form) {
+                let vue = this;
                 if(form.le_expert_name == '') {
                     this.$message.error('专家姓名不能为空');
                     return
@@ -172,18 +174,17 @@
                     return
                 }
                 this.$refs['form'].validate((valid) => {
-                    var d = form.le_time;
-
-                    form.le_time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
-                    let vue = this;
+//                    var d = form.le_time;
+//                    form.le_time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                     if (valid) {
                         jQuery.each(form,function(i,val){
                             vue.dataForm.append(i,val);
                         });
-                        console.log(vue.dataForm,'添加ooo');
+//                        console.log(vue.dataForm,'添加ooo');
                         vue.addLectureData(vue.dataForm).then(res => {
                             var data = res.data;
                             if (data.code == 0) {
+                                this.Bcode = true;
                                 vue.$message({
                                     message: '添加成功',
                                     type: 'success'
@@ -191,13 +192,13 @@
                             } else {
                                 vue.$notify({
                                     type: 'error',
-                                    message: data.message,
+                                    message: data.msg,
                                     duration: 2000,
                                 });
                             }
                         })
-//                        vue.$refs.pic_file.submit();
-                        vue.$refs.zu_file.submit();
+                        vue.$refs.pic_file.submit();
+//                        vue.$refs.zu_file.submit();
 
                     } else {
                         console.log('error submit!!');

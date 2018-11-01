@@ -14,7 +14,7 @@
                     <div class="block">
                         <span class="demonstration">按老师姓名检索:</span>
                         <el-input v-model="form.teacher_name" placeholder="请输入老师姓名" style="width: 30%;"></el-input>
-                        <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch(form)">搜索</el-button>
+                        <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch">搜索</el-button>
                     </div>
                 </el-form>
             </span>
@@ -219,7 +219,7 @@
                 var self = this;
                 var du_id_datas = [];//存放删除的数据
                 if(self.multipleSelection == undefined){
-                    self.$message({
+                    this.$message({
                         message: '请选择要删除论文',
                         type: 'warning'
                     });
@@ -230,12 +230,10 @@
                     this.deleteDutiesDatas(du_id_datas);
                 }
             },
-
             getStudygroupDate() {
                 let self = this;
                 axios.get("selectallduties").then(function (response) {
                     var data = response.data;
-//                    console.log(data.datas);
                     if (data.code == 0) {
                         self.StudygroupDate = data.datas;
 //                        console.log(data.datas);
@@ -249,7 +247,6 @@
                 });
             },
             deleteDutiesDatas(du_id_datas) {
-                console.log(du_id_datas,'批量删除啊@@@@@@@@!!');
                 this.$confirm('此操作批量删除文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -261,7 +258,7 @@
                             du_id_datas:du_id_datas
                         }
                     }).then(function (response) {
-                        var data = response.data;
+                    var data = response.data;
                         if (data.code == 0) {
                             self.$message({
                                 type: 'success',
@@ -270,7 +267,7 @@
                         } else {
                             self.$notify({
                                 type: 'error',
-                                message: data.message,
+                                message: data.msg,
                                 duration: 2000,
                             });
                         }
@@ -324,7 +321,7 @@
                     path: `/editDuties/${du_id}`,
                 })
             },
-            byTimeSearch() {
+            byTimeSearch(form) {
                 axios.get("",form).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {

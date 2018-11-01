@@ -40,4 +40,5 @@ class uploadSubjectionConfig
     const HOLD_IMG_STATUS     = 0;                       //举办会议照片状态
     const JOIN_IMG_STATUS     = 1;                       //参加会议照片状态
     const LECTURE_IMG_STATUS  = 2;                       //讲学照片状态
+
 }

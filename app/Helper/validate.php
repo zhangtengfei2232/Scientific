@@ -308,7 +308,7 @@
         }
         if(strlen($datas['schfile_num']) > 20){
             return responseTojson(1,'你输入的文件编号过长',1);
-        }elseif (strlen($datas['schoolfile_name']) > 30){
+        }elseif (strlen($datas['schfile_name']) > 30){
             return responseTojson(1,'你输入的文件名称过长',1);
         }else{
             return responseTojson(0,'验证通过',1);

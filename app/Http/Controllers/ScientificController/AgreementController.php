@@ -4,7 +4,9 @@ namespace App\Http\Controllers\ScientificController;
 use App\Http\Controllers\Controller;
 use App\Model\AgreementDatabase;
 use config\UploadSubjectionConfig;
+use config\SearchMessageConfig;
 use Illuminate\Http\Request;
+use App\Model\ModelDatabase;
 class AgreementController extends Controller
 {
     //添加教学科研合作协议信息
@@ -24,7 +26,7 @@ class AgreementController extends Controller
         ];
         $judge_datas = judgeAgreementField($datas);
         if($judge_datas['code'] == 1){
-            return responseTojson(1,$judge_datas['message']);
+            return $judge_datas;
         }
         $disk = UploadSubjectionConfig::APPRAISAL;
         $subjection_appraisal = UploadSubjectionConfig::AGREEMENT_PDF;
@@ -101,5 +103,13 @@ class AgreementController extends Controller
     public function selectAllAgreement(){
         $result = AgreementDatabase::selectAllAgreementDatas();
         return responseTojson(0,'查询成功','',$result);
+    }
+    //根据时间区间搜索教学科研合作协议信息
+    public function timeSelectAgreemet(Request $request){
+        $start_time = $request->strat_time;
+        $end_time   = $request->end_time;
+        $table_name = SearchMessageConfig::AGREEMENT_TABLE;
+        $time_field = SearchMessageConfig::AGREE_TIME;
+        return  ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field);
     }
 }
