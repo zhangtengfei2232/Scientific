@@ -44,7 +44,7 @@
                     <el-upload
                         drag
                         action="#"
-                        ref="ho_file"
+                        ref="ho_image"
                         :before-upload="fileProfil"
                         :auto-upload="false">
                         <i class="el-icon-upload"></i>
@@ -55,7 +55,7 @@
                     <el-upload
                         drag
                         action="#"
-                        ref="ho_files"
+                        ref="ho_graph_inject"
                         :before-upload="fileProfils"
                         :auto-upload="false">
                         <i class="el-icon-upload"></i>
@@ -90,8 +90,8 @@
             dataForm: new FormData(),
             dataFile: new FormData(),
             Bcode:false,
-            ho_file: '',
-            ho_files: '',
+            ho_image: '',
+            ho_graph_inject: '',
             form: {
                 ho_name: '',
                 ho_art_status: '',
@@ -105,14 +105,14 @@
     },
     methods: {
         fileProfil(file){
-            this.dataForm.append('ho_file', file);
+            this.dataForm.append('ho_image', file);
             return false;
         },
         fileProfils(files){
             if(this.Bcode == true){
-                this.dataFile.append('ho_files', files);
-                this.sendfile(files);
-                this.$refs.ho_files.submit();
+                this.dataFile.append('ho_graph_inject', files);
+                this.sendfile(dataFile);
+                this.$refs.ho_graph_inject.submit();
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
@@ -189,7 +189,7 @@
                                 });
                             }
                         })
-                        vue.$refs.ho_file.submit()
+                        vue.$refs.ho_image.submit()
                     } else {
                         console.log('error submit!!')
                         return false

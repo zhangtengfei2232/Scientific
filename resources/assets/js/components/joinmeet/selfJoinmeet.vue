@@ -53,7 +53,7 @@
                     <el-upload
                         class="upload-demo"
                         drag
-                        ref="jo_file"
+                        ref="jo_image"
                         :before-upload="fileProfil"
                         action="#"
                         multiple>
@@ -65,7 +65,7 @@
                     <el-upload
                         class="upload-demo"
                         drag
-                        ref="jo_files"
+                        ref="jo_graph_inject"
                         :file-list="filelists"
                         :before-upload="fileProfils"
                         action="#"
@@ -101,13 +101,13 @@ export default {
             dataForm: new FormData(),
             dataFile: new FormData(),
             Bcode:false,
-            jo_file: '',
-            jo_files: '',
+            jo_image: '',
+            jo_graph_inject: '',
             multiple: true,
             JoinmeetSelfData: {},
             filelists:[],
             form: {
-                 join_people: '',
+                join_people: '',
                 jo_name: '',
                 jo_hold_unit: '',
                 jo_take_unit: '',
@@ -141,14 +141,14 @@ export default {
                 });
         },
         fileProfil(file){
-            this.dataForm.append('jo_file', file);
+            this.dataForm.append('jo_image', file);
             return false;
         },
         fileProfils(files){
             if(this.Bcode == true){
-                this.dataFile.append('jo_files', files);
-                this.sendfile(files);
-                this.$refs.jo_files.submit();
+                this.dataFile.append('jo_graph_inject', files);
+                this.sendfile(dataFile);
+                this.$refs.jo_graph_inject.submit();
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
@@ -234,7 +234,7 @@ export default {
                                 });
                             }
                         })
-                        vue.$refs.jo_file.submit()
+                        vue.$refs.jo_image.submit()
                     } else {
                         console.log('error submit!!')
                         return false

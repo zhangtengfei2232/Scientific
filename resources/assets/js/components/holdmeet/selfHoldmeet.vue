@@ -100,7 +100,7 @@ export default {
             dataForm: new FormData(),
             dataFile: new FormData(),
             ho_file: '',
-            ho_files: '',
+            ho_graph_inject: '',
             filelists:[],
             form: {
                 ho_name: '',
@@ -140,9 +140,9 @@ export default {
         },
         fileProfils(files){
             if(this.Bcode == true){
-                this.dataFile.append('ho_files', files);
-                this.sendfile(files,2);
-                this.$refs.ho_files.submit();
+                this.dataFile.append('ho_graph_inject', files);
+                this.sendfile(dataFile);
+                this.$refs.ho_graph_inject.submit();
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
