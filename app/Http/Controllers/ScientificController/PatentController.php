@@ -100,7 +100,7 @@ class PatentController extends Controller
             'pa_integral'      => trim($request->pa_integral)
          ];
          $judge_datas = judgePatenField($datas);
-         if($judge_datas['code']== 1){
+         if($judge_datas['code'] == 1){
              return responseTojson(1,$judge_datas['message']);
          }
          $reset_image_status = false;

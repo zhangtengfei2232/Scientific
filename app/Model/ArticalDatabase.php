@@ -16,7 +16,7 @@ class ArticalDatabase  extends ModelDatabase
      public static function selectAllArticalDatas($teacher_id){
          $result = DB::table('artical')->where('teacher_id',$teacher_id)->orderBy('art_time','desc')->get();
          foreach ($result as  $datas){
-             $datas->art_time = date('Y-m-d',$datas->art_time);
+             $datas->art_time = date('Y-m-d',$datas->art_time/1000);
          }
          return $result;
      }

@@ -42,7 +42,7 @@ class AgreementDatabase extends ModelDatabase
     public static function selectAllAgreementDatas(){
        $result = DB::table('agreement')->orderBy('agree_time','desc')->get();
        foreach ($result as $datas){
-           $datas->agree_time = date('Y-m-d',$datas->agree_time);
+           $datas->agree_time = date('Y-m-d',$datas->agree_time/1000);
        }
        return $result;
     }

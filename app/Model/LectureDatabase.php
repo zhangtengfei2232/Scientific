@@ -57,7 +57,7 @@ class LectureDatabase  extends ModelDatabase
     public static function selectLectureAllDatas($teacher_id){
         $result = DB::table('lecture')->where('teacher_id',$teacher_id)->orderBy('le_time','desc')->get();
         foreach ($result as $datas){
-            $datas->le_time = date('Y-m-d',$datas->le_time);
+            $datas->le_time = date('Y-m-d',$datas->le_time/1000);
         }
         return $result;
     }
