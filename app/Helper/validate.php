@@ -86,7 +86,7 @@
             return responseTojson(1,'你输入刊物名称不合法',1);
         }elseif (strlen($datas['publication_num']) > 20){
             return responseTojson(1,'你输入的刊号不合法',1);
-        }elseif (!is_numeric($datas['num_words'])
+        }elseif (!preg_match("/^[0-9]*$/",$datas['num_words'])
             || strlen($datas['num_words']) > 11){
             return responseTojson(1,'你输入的论文字数不合法',1);
         }elseif (strlen($datas['periodical_cate']) > 10){
@@ -95,7 +95,7 @@
             return responseTojson(1,'你输入的所属项目名称不合法',1);
         }elseif (strlen($datas['art_cate_research']) > 20){
             return responseTojson(1,'你输入的研究类别名称不合法',1);
-        }elseif (!is_numeric($datas['art_integral'])
+        }elseif (!preg_match("/^[0-9]*$/",$datas['art_integral'])
             || strlen($datas['art_integral']) > 11){
             return responseTojson(1,'你输入的积分不合法',1);
         }elseif (strlen($datas['sch_percal_cate']) > 20){
@@ -117,13 +117,13 @@
             return responseTojson(1,'你输入的项目类别名过长',1);
         }elseif (strlen($datas['approval_unit']) > 20){
             return responseTojson(1,'你输入的批准单位名字过长',1);
-        }elseif (!is_numeric($datas['approval_funds'])
+        }elseif (!preg_match("/^[0-9]*$/",$datas['approval_funds'])
             || strlen($datas['approval_funds']) > 10){
             return responseTojson(1,'你输入的批准经费必须全为数字且不超过10位',1);
-        }elseif (!is_numeric($datas['account_outlay'])
+        }elseif (!preg_match("/^[0-9]*$/",$datas['account_outlay'])
             || strlen($datas['account_outlay']) > 10){
             return responseTojson(1,'你输入的当年到账经费必须全为数字且不超过10位',1);
-        }elseif (!is_numeric($datas['pro_integral'])
+        }elseif (!preg_match("/^[0-9]*$/",$datas['pro_integral'])
             || strlen($datas['pro_integral']) > 10){
             return responseTojson(1,'你输入的积分必须全为数字且不超过10位',1);
         }elseif (strlen($datas['pro_cate_research']) > 20){
@@ -148,13 +148,13 @@
         }elseif (strlen($datas['op_number']) > 30){
             return responseTojson(1,'你填写的著作书号过长',1);
         }elseif (strlen($datas['op_total_words']) > 10
-            || !is_numeric($datas['op_total_words'])){
+            || !preg_match("/^[0-9]*$/",$datas['op_total_words'])){
             return responseTojson(1,'你填写的著作总字数必须全为数字且不超过10位',1);
         }elseif (strlen($datas['op_self_words']) > 10
-            || !is_numeric($datas['op_self_words'])){
+            || !preg_match("/^[0-9]*$/",$datas['op_self_words'])){
             return responseTojson(1,'你填写的著作本人字数必须全为数字且不超过10位',1);
         }elseif (strlen($datas['op_integral']) > 10
-            || !is_numeric($datas['op_integral'])){
+            || !preg_match("/^[0-9]*$/",$datas['op_integral'])){
             return responseTojson(1,'你填写的著作积分必须全为数字且不超过10位',1);
         }elseif (strlen($datas['op_cate_research']) > 20){
             return responseTojson(1,'你填写的著作研究类别名称过长',1);
@@ -177,7 +177,7 @@
             return responseTojson(1,'你输入的授予单位过长',1);
         }elseif (strlen($datas['aw_certi_number']) > 30){
             return responseTojson(1,'你输入的证书编号过长',1);
-        }elseif (!is_numeric($datas['aw_integral'])
+        }elseif (!preg_match("/^[0-9]*$/",$datas['aw_integral'])
             || strlen($datas['aw_integral']) > 10){
             return responseTojson(1,'你输入的积分必须全为数字且不超过10位',1);
         }else{
@@ -195,10 +195,10 @@
             return responseTojson(1,'你输入的专利名字过长',1);
         }elseif (strlen($datas['author_num']) > 30){
             return responseTojson(1,'你输入的授权编号过长',1);
-        }elseif (!is_numeric($datas['author_cert_num'])
+        }elseif (!preg_match("/^[0-9]*$/",$datas['author_cert_num'])
             || strlen($datas['author_cert_num']) >10){
             return responseTojson(1,'你输入的授权证书编号必须全为数字且不超过10位',1);
-        }elseif (!is_numeric($datas['pa_integral'])
+        }elseif (!preg_match("/^[0-9]*$/",$datas['pa_integral'])
             ||strlen($datas['pa_integral']) > 10){
             return responseTojson(1,'你输入的积分必须全为数字且不超过10位',1);
         }else{
@@ -219,7 +219,7 @@
         }elseif (strlen($datas['ap_num']) > 20){
             return responseTojson(1,'你输入的鉴定编号过长',1);
         }elseif (strlen($datas['ap_integral']) > 10
-            || !is_numeric($datas['ap_integral'])){
+            || !preg_match("/^[0-9]*$/",$datas['ap_integral'])){
             return responseTojson(1,'你输入的积分必须全为数字且不超过10位',1);
         }else{
             return responseTojson(0,'验证通过',1);
@@ -233,7 +233,7 @@
         if(strlen($datas['ho_name']) > 50){
             return responseTojson(1,'你输入的会议名称过长',1);
         }elseif (strlen($datas['people_num']) > 6
-            || !is_numeric($datas['people_num'])){
+            || !preg_match("/^[0-9]*$/",$datas['people_num'])){
             return responseTojson(1,'你输入的会议参加人数必须全为数字且不超过7位',1);
         }elseif (strlen($datas['ho_unit']) > 50){
             return responseTojson(1,'你输入的会议主办方单位名字过长',1);
@@ -257,7 +257,7 @@
         }elseif (strlen($datas['jo_place']) > 50){
             return responseTojson(1,'你输入的会议地点名称过长',1);
         }elseif (strlen($datas['jo_art_num']) > 9
-            || is_numeric($datas['jo_art_num'])){
+            || !preg_match("/^[0-9]*$/",$datas['jo_art_num'])){
             return responseTojson(1,'你输入的会议论文提交次数必须为数字且不超过9位',1);
         }elseif (strlen($datas['jo_title']) > 50){
             return responseTojson(1,'你输入的会议题目名称过长',1);
@@ -288,15 +288,12 @@
         }elseif (strlen($datas['du_academic']) > 10){
             return responseTojson(1,'你输入的职称名字过长',1);
         }elseif (strlen($datas['du_age']) > 9
-            || is_numeric($datas['du_age'])){
+            || !preg_match( "/^(?:[1-9]?\d|100)$/",$datas['du_age'])){
             return responseTojson(1,'你输入的年龄必须为数字且不超过9位',1);
         }elseif (strlen($datas['du_name']) > 50){
             return responseTojson(1,'你输入的担任学术团体名称过长',1);
         }elseif (strlen($datas['du_duty']) > 20){
             return responseTojson(1,'你输入的所任职务名称过长',1);
-        }elseif (strlen($datas['du_year_num']) > 3
-            || is_numeric($datas['du_year_num'])){
-            return responseTojson(1,'你输入的担任年限必须为数字且不超过3位',1);
         }else{
             return responseTojson(0,'验证通过',1);
         }
@@ -352,23 +349,19 @@
     }
     //验证多张图片
     function judgeAllFileImage($files_images){
-        $status        = true;
+        $validate        = true;
         $success_image = [];
-        $error_image   = [];
         for($i = 0; $i < count($files_images); $i++){
             $judge_image = judgeFileImage($files_images[$i]);
             if($judge_image['code'] == 1){
-                $status = false;
-                $image_name = $files_images[$i]->getClientOriginalName();
-                $error_image[$image_name] = $judge_image['message'];
+                $validate = false;
+                break;
             }else{
                 array_push($files_images[$i],$success_image);
             }
         }
-        $image_datas['error_images'] = $error_image;
-        $image_datas['success_images']     = $success_image;
-        if($status){
-            return responseTojson(0,'验证通过',1);
+        if($validate){
+            return responseTojson(0,'验证通过',1,$success_image);
         }
-        return responseTojson(1,'验证存在错误',1,$image_datas);
+        return responseTojson(1,'验证存在错误',1);
     }

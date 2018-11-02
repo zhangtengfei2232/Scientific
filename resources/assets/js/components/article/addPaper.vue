@@ -13,7 +13,12 @@
                 </el-form-item>
                 <el-form-item label="发表时间">
                     <el-col :span="15">
-                        <el-date-picker type="date" placeholder="选择日期" v-model="form.art_time" style="width: 100%;"></el-date-picker>
+                        <el-date-picker type="date" 
+                        placeholder="选择日期" 
+                        v-model="form.art_time" 
+                        style="width: 100%;"
+                        format="yyyy 年 MM 月 dd 日"
+                        value-format="timestamp"></el-date-picker>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="发表刊物名称">
@@ -254,8 +259,6 @@
                     return
                 }
                 this.$refs['form'].validate((valid) => {
-                    var d = form.art_time; 
-                    form.art_time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                     if (valid) {
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);

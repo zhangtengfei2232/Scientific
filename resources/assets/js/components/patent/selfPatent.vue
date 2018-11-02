@@ -3,7 +3,7 @@
         <div class="add">
             <el-form ref="form" :model="form" label-width="200px">
                 <el-form-item label="专利权人">
-                    <el-input v-model="form.teacher_id"></el-input>
+                    <el-input v-model="form.patent_person"></el-input>
                 </el-form-item>
                 <el-form-item label="第一发明人">
                     <el-input v-model="form.first_inventor"></el-input>
@@ -56,8 +56,9 @@
                         class="upload-demo"
                         drag
                         action="#"
+                        :limit="1"
                         :file-list="fileList"
-                        ref="pat_pic"
+                        ref="pa_road"
                         :before-upload="filePatpic"
                         multiple
                         :auto-upload="false">
@@ -89,12 +90,12 @@
 export default {
     data() {
         return {
-            pat_pic:'',
+            pa_road:'',
             PatetSelfData: {},
             fileList:[{url:""}],
             dataForm: new FormData(),
             form: {
-                teacher_id: '',
+                patent_person: '',
                 first_inventor: '',
                 pa_all_author: '',
                 pa_type: '',
@@ -111,7 +112,7 @@ export default {
 
     methods: {
         filePatpic(file) {
-            this.dataForm.append('pat_pic', file);
+            this.dataForm.append('pa_road', file);
             return false;
         },
         getPatentSelfData() {
@@ -122,7 +123,7 @@ export default {
                     if (data.code == 0) {
                         self.PatentSelfData = data.datas;
                         self.form = data.datas;
-                        self.fileList.url=data.datas.pa_road; 
+                        self.fileList.url= 'showfile?disk=joinmeet&subjection=' + data.datas.pa_road; 
                     } else {
                         self.$notify({
                             type: 'error',
@@ -134,7 +135,10 @@ export default {
         },
         onSubmit(form) {
             let vue = this;
-            if(form.first_inventor == '') {
+            if(form.patent_person == '') {
+                this.$message.error('专利权人不能为空');
+                return
+            }else if(form.first_inventor == '') {
                 this.$message.error('第一发明人不能为空');
                 return
             }else if(form.pa_all_author == ''){
@@ -186,7 +190,7 @@ export default {
                                 });
                             }
                         })
-                        vue.$refs.pat_pic.submit()
+                        vue.$refs.pa_road.submit()
                     } else {
                         console.log('error submit!!')
                         return false

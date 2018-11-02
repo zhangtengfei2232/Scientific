@@ -27,17 +27,17 @@ class DutiesController extends Controller
         dd($datas);
         $judge_datas = judgeDutiesField($datas);
         if($judge_datas['code'] == 1){
-            return $judge_datas;
+            return responseTojson(1,$judge_datas['message']);
         }
-        if(!$request->hasFile('du_file')){                     //判断用户是否添加证书
+        if(!$request->hasFile('du_road')){                     //判断用户是否添加证书
             $datas['du_road'] = '';
             return DutiesDatabase::addDutiesDatas($datas);
         }
         $datas['du_remark'] = trim($request->du_remark);
-        $duties_image = $request->file('du_file');
+        $duties_image = $request->file('du_road');
         $judge_image  = judgeFileImage($duties_image);
         if($judge_image['code'] == 1){
-            return $judge_image;
+            return responseTojson(1,$judge_image['message']);
         }
         $disk = UploadSubjectionConfig::DUTIES;
         $subjection_duties = UploadSubjectionConfig::DUTIES_IMG;
@@ -85,22 +85,21 @@ class DutiesController extends Controller
             'du_duty'      => trim($request->du_duty),
             'du_year_num'  => trim($request->du_year_num)
         ];
-        dd($datas);
         $judge_datas = judgeDutiesField($datas);
         if($judge_datas['code'] == 1){
-            return $judge_datas;
+            return responseTojson(1,$judge_datas['message']);
         }
         $reset_image_status = false;
         $datas['du_road']   = $du_road;
         $datas['du_remark'] = trim($request->du_remark);
-        if(!$request->hasFile('du_file')){//判断老师是否上传证书图片
+        if(!$request->hasFile('du_road')){//判断老师是否上传证书图片
             return DutiesDatabase::updateDutiesDatas($datas,$reset_image_status);
         }
         $reset_image_status = true;
-        $duties_image = $request->file('du_file');
+        $duties_image = $request->file('du_road');
         $judge_image  = judgeFileImage($duties_image);
         if($judge_image['code'] == 1){
-            return $judge_image;
+            return responseTojson(1,$judge_image['message']);
         }
         $disk = UploadSubjectionConfig::DUTIES;
         $subjection_duties = UploadSubjectionConfig::DUTIES_IMG;

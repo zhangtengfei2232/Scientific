@@ -17,21 +17,8 @@ class SchoolfileDatabase extends ModelDatabase
                     ]);
     }
     //删除多个校发文件信息
-    public static function deleteAllSchoolfileDatas($schoolfile_id_datas){
-        $fail_schoolfile_id = [];
-        $validate = true;
-        for($i = 0; $i < count($schoolfile_id_datas); $i++){
-            $response = DB::table('schoolfile')->where('schfile_id',$schoolfile_id_datas[$i])->delete();
-            if($response != 1){
-                $validate = false;
-                array_push($fail_schoolfile_id,$schoolfile_id_datas[$i]);
-            }
-        }
-        if($validate){
-            return responseTojson(0,'校发文件全部删除成功');
-        }
-        $count_id = count($fail_schoolfile_id);
-        return responseTojson(1,'有'.$count_id.'个校发文件删除失败',$fail_schoolfile_id);
+    public static function deleteSchoolfileDatas($schoolfile_id_datas){
+           DB::table('schoolfile')->whereIn('schfile_id',$schoolfile_id_datas)->delete();
     }
     //修改校发文件信息
     public static function updateSchoolfileDatas($datas,$reset_file_status){
@@ -61,13 +48,11 @@ class SchoolfileDatabase extends ModelDatabase
         return $result;
     }
     //查询多个校发文件路径
-    public static function selectAllSchoolfileRoad($school_id_datas){
-        $schoolfile_road = array();
+    public static function selectSchoolfileRoad($school_id_datas){
+        $schoolfile_road = [];
         for($i = 0; $i < count($schoolfile_road); $i++){
             $result = DB::table('schoolfile')->select('schfile_road')->where('shcfile_id',$school_id_datas[$i])->first();
-            //用校发文件ID作为键，路径作为值存入
-            $school_id = $school_id_datas[$i];
-            $schoolfile_road[$school_id] = $result->schfile_road;
+           $schoolfile_road[$i] = $result->schfile_road;
         }
         return $schoolfile_road;
     }

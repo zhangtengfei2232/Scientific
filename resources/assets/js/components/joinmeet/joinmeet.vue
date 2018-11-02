@@ -16,13 +16,17 @@
                         <el-date-picker
                         v-model="form.data1"
                         type="date"
-                        placeholder="选择日期">
+                        placeholder="选择日期"
+                        format="yyyy 年 MM 月 dd 日"
+                        value-format="timestamp">
                         </el-date-picker>
                         <span>-</span>
                         <el-date-picker
                         v-model="form.data2"
                         type="date"
-                        placeholder="选择日期">
+                        placeholder="选择日期"
+                        format="yyyy 年 MM 月 dd 日"
+                        value-format="timestamp">
                         </el-date-picker>
                         <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch">搜索</el-button>
                     </div>
@@ -242,13 +246,17 @@
                 });
             },
             sentJoinmeetSelfData(jo_id) {
-                console.log(jo_id);
                 this.$router.push({
                     path: `/selfJoinmeet/${jo_id}`,
                 })
             },
             byTimeSearch() {
-                axios.get("",form).then(function (response) {
+                axios.get("timeselectjoinmeet",{
+                    params:{
+                        start_time: form.data1,
+                        end_time: form.data1,
+                    }
+                }).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
                         self.JoinmeetDate = data.datas;

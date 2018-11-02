@@ -71,23 +71,7 @@
                 <el-form-item label="积分">
                     <el-input v-model="form.pro_integral"></el-input>
                 </el-form-item>
-                <el-form-item label="备注">
-                    <el-input type="textarea" v-model="form.pro_remarks"></el-input>
-                </el-form-item>
-                <el-form-item label="项目合同书封面图片">
-                    <el-upload
-                        class="upload-demo"
-                            drag
-                            action="#"
-                            multiple
-                            ref="pro_file"
-                            :before-upload="fileProfil"
-                            :auto-upload="false">
-                        <i class="el-icon-upload"></i>
-                        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                    </el-upload>
-                </el-form-item>
-                 <el-form-item label="项目年份">
+                <el-form-item label="项目年份">
                     <el-col :span="15">
                         <el-date-picker
                             type="date"
@@ -98,6 +82,22 @@
                             style="width: 100%;">
                         </el-date-picker>
                     </el-col>
+                </el-form-item>
+                <el-form-item label="备注">
+                    <el-input type="textarea" v-model="form.pro_remarks"></el-input>
+                </el-form-item>
+                <el-form-item label="项目合同书封面图片">
+                    <el-upload
+                        class="upload-demo"
+                            drag
+                            action="#"
+                            multiple
+                            ref="pro_road"
+                            :before-upload="fileProfil"
+                            :auto-upload="false">
+                        <i class="el-icon-upload"></i>
+                        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                    </el-upload>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="onSubmit(form)">立即创建</el-button>
@@ -124,7 +124,7 @@
     data() {
       return {
             dataForm: new FormData(),
-            pro_file: '',
+            pro_road: '',
             form: {
                 pro_host: '',
                 pro_all_author: '',
@@ -146,7 +146,7 @@
     },
     methods: {
         fileProfil(file){
-            this.dataForm.append('pro_file', file);
+            this.dataForm.append('pro_road', file);
             return false;
         },
         onSubmit(form) {
@@ -219,7 +219,7 @@
                                 });
                             }
                         })
-                        vue.$refs.pro_file.submit();
+                        vue.$refs.pro_road.submit();
                     } else {
                         console.log('error submit!!')
                         return false

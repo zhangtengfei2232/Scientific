@@ -12,11 +12,13 @@ class PatentController extends Controller
      //添加专利信息
      public function addPatent(Request $request)
      {
+         dd($request->file());
          if(!$request->isMethod('POST')){
              return responseTojson(1,'你请求的方式不对');
          }
          $datas = [
              'teacher_id'       => session('usercount'),
+             'patent_person'    => trim($request->patent_person),
              'first_inventor'   => trim($request->first_inventor),
              'pa_all_author'    => trim($request->pa_all_author),
              'pa_type'          => trim($request->pa_type),
@@ -29,17 +31,17 @@ class PatentController extends Controller
          ];
          $judge_datas = judgePatenField($datas);
          if($judge_datas['code'] == 1){
-             return $judge_datas;
+             return responseTojson(1,$judge_datas['message']);
          }
          $datas['pa_remarks'] = trim($request->pa_remarks);
-         if(!$request->hasFile('pat_pic')){                    //判断是否添加图片
+         if(!$request->hasFile('pa_road')){                    //判断是否添加图片
              $datas['pa_road'] = '';
              return PatentDatabase::addPatentDatas($datas);
          }
-         $patent_image = $request->file('pat_pic');
+         $patent_image = $request->file('pa_road');
          $judge_image  = judgeFileImage($patent_image);
          if($judge_image['code'] == 1){
-             return $judge_image;
+             return responseTojson(1,$judge_image['message']);
          }
          $disk              = UploadSubjectionConfig::PATENT;
          $subjection_patent = UploadSubjectionConfig::PATENT_IMG;
@@ -86,6 +88,7 @@ class PatentController extends Controller
          $pa_road  = trim($request->pa_road);
          $datas  = [
             'pa_id'            => trim($request->pa_id),
+            'patent_person'    => trim($request->patent_person),
             'first_inventor'   => trim($request->first_inventor),
             'pa_all_author'    => trim($request->pa_all_author),
             'pa_type'          => trim($request->pa_type),
@@ -98,19 +101,19 @@ class PatentController extends Controller
          ];
          $judge_datas = judgePatenField($datas);
          if($judge_datas['code']== 1){
-             return $judge_datas;
+             return responseTojson(1,$judge_datas['message']);
          }
          $reset_image_status = false;
          $datas['pa_road']   = $pa_road;
          $datas['pa_remarks'] = trim($request->pa_remarks);
-         if(!$request->hasFile('pat_pic')){
+         if(!$request->hasFile('pa_road')){
              return PatentDatabase::updatePatentDatas($datas,$reset_image_status);
          }
          $reset_image_status = true;
-         $patent_image = $request->file('pat_pic');
-         $judge_iamge  = judgeFileImage($patent_image);
-         if($judge_iamge['code'] ==1){
-             return $judge_iamge;
+         $patent_image = $request->file('pa_road');
+         $judge_image  = judgeFileImage($patent_image);
+         if($judge_image['code'] ==1){
+             return responseTojson(1,$judge_image['message']);
          }
          $disk              = UploadSubjectionConfig::PATENT;
          $subjection_patent = UploadSubjectionConfig::PATENT_IMG;

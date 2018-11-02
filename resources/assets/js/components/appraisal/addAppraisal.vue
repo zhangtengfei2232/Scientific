@@ -46,12 +46,16 @@
                 <el-form-item label="备注">
                     <el-input type="textarea" v-model="form.ap_remarks"></el-input>
                 </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="onSubmit(form)">保存修改</el-button>
+                    <el-button>取消</el-button>
+                </el-form-item>
                 <el-form-item label="成果封面">
                     <el-upload
                         class="upload-demo"
-                        ref="pat_pic"
+                        ref="ap_cover_road"
                         action="#"
-                        :before-upload="filePatpic"
+                        :before-upload="fileProfil"
                         :on-preview="handlePreview"
                         :on-remove="handleRemove"
                         :auto-upload="false"
@@ -65,7 +69,7 @@
                 <el-form-item label="成果鉴定证书图片">
                     <el-upload
                         class="upload-demo"
-                        ref="pat_pics"
+                        ref="ap_road"
                         action="#"
                         :before-upload="fileProfils"
                         :on-preview="handlePreview"
@@ -98,8 +102,8 @@
   export default {
     data() {
       return {
-            pat_pic: '',
-            pat_pics: '',
+            ap_cover_road: '',
+            ap_road: '',
             dataForm: new FormData(),
             dataFile: new FormData(),
             Bcode:false,
@@ -119,10 +123,10 @@
     },
     methods: {
         submitUpload() {
-            this.$refs.pat_pic.submit();
+            this.$refs.ap_cover_road.submit();
         },
         submitUploads() {
-            this.$refs.pat_pics.submit();
+            this.$refs.ap_road.submit();
         },
         handleRemove(file, fileList) {
             console.log(file, fileList);
@@ -130,34 +134,36 @@
         handlePreview(file) {
             console.log(file);
         },
-        filePatpic(file){
+        fileProfil(file){
             if(this.Bcode == true){
-                this.dataFile.append('pat_pic', file);
-                this.sendfile(files,1);
+                this.dataFile.append('ap_cover_road', file);
+                let id = this.form.ap_id;
+                this.sendfile(this.dataFile,id);
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
             }  
         },
-        filePatpics(files){
+        fileProfils(files){
             if(this.Bcode == true){
-                this.dataFile.append('pat_pics', files);
-                this.sendfile(files,2);
+                this.dataFile.append('ap_road', files);
+                let id = this.form.ap_id;
+                this.sendfile(this.dataFile,id);
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
             }
         },
-        sendfile(file,m) {
-            this.addBookFile(vue.dataFile,m).then(res => {
+        sendfile(dataFile,id) {
+            this.addBookFile(this.dataFile,id).then(res => {
                 var data = res.data;
                 if (data.code == 0) {
-                    vue.$message({
+                    this.$message({
                         message: '添加成功',
                         type: 'success'
                     });
                 } else {
-                    vue.$notify({
+                    this.$notify({
                         type: 'error',
                         message: '添加失败',
                         duration: 2000,
@@ -165,10 +171,10 @@
                 }
             })  
         },
-        addBookFile(data,m){
+        addBookFile(data,id){
              return axios({
                 method: 'post',
-                url: '',
+                url: 'addappraisalimage',
                 headers: {'Content-Type': 'multipart/form-data'},
                 timeout: 20000,
                 data: data
@@ -207,7 +213,6 @@
                 this.$message.error('备注不能为空');
                 return
             }
-            console.log(form);
             this.$refs['form'].validate((valid) => {
                 if (valid) {
                     jQuery.each(vue.form,function(i,val){

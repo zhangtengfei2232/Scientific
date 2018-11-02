@@ -33,7 +33,7 @@ class OpusController  extends Controller
         ];
         $judge_datas = judgeOpusField($datas);
         if($judge_datas['code'] == 1){
-            return $judge_datas;
+            return responseTojson(1,$judge_datas['message']);
         }
         $datas['op_remarks'] = trim($request->op_remarks);
         return OpusDatabase::addOpusDatas($datas);
@@ -46,17 +46,21 @@ class OpusController  extends Controller
         if(!$request->is_add_opus){
             return responseTojson(1,'请你先添加著作信息');
         }
-        $add_image_status = $request->add_image_status;
-        if($add_image_status == 1){
-            $opus_image = $request->file('op_cover_image');
+        if(!$request->hasFile('op_cover_road') || !$request->hasFile('op_coright_road')){
+            return responseTojson(1,'请你上传著作证书图片');
+        }
+        if($request->hasFile('op_cover_road')){
+            $add_image_status = 1;
+            $opus_image = $request->file('op_cover_road');
             $subjection = UploadSubjectionConfig::OPUS_COVER_IMG;
         }else{
-            $opus_image = $request->file('op_coright_image');
+            $add_image_status = 2;
+            $opus_image = $request->file('op_coright_road');
             $subjection = UploadSubjectionConfig::COPYRIGHT_IMG;
         }
         $judge_opu_iamge  = judgeFileImage($opus_image);
         if($judge_opu_iamge['code'] == 1){
-            return $judge_opu_iamge;
+            return responseTojson(1,$judge_opu_iamge['message']);
         }
         $op_id       = $request->op_id;
         $disk        = UploadSubjectionConfig::OPUS;
@@ -136,17 +140,21 @@ class OpusController  extends Controller
         }
         dd($request);
         $op_id               = $request->op_id;
-        $update_image_status = $request->update_image_status;
-        if($update_image_status == 1){
-            $opus_image = $request->file('op_cover_image');
+        if(!$request->hasFile('op_cover_road') || !$request->hasFile('op_coright_road')){
+            return responseTojson(1,'请你上传著作证书图片');
+        }
+        if($request->hasFile('op_cover_road')){
+            $update_image_status = 1;
+            $opus_image = $request->file('op_cover_road');
             $subjection = UploadSubjectionConfig::OPUS_COVER_IMG;
         }else{
-            $opus_image = $request->file('op_coright_image');
+            $update_image_status = 2;
+            $opus_image = $request->file('op_coright_road');
             $subjection = UploadSubjectionConfig::COPYRIGHT_IMG;
         }
-        $response       = judgeFileImage($opus_image);
-        if($response['code'] == 1){
-            return $response;
+        $judge_image       = judgeFileImage($opus_image);
+        if($judge_image['code'] == 1){
+            return responseTojson(1,$judge_image['message']);
         }
         $disk = UploadSubjectionConfig::OPUS;
         $old_image_road = OpusDatabase::selectOpusImageRoad($op_id,$update_image_status);

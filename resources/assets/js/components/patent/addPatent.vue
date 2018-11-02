@@ -2,6 +2,9 @@
     <div class="contents">
         <div class="add">
             <el-form ref="form" :model="form" label-width="200px">
+                <el-form-item label="专利权人">
+                    <el-input v-model="form.patent_person"></el-input>
+                </el-form-item>
                 <el-form-item label="第一发明人">
                     <el-input v-model="form.first_inventor"></el-input>
                 </el-form-item>
@@ -54,7 +57,8 @@
                         drag
                         action=""
                         multiple
-                        ref="pat_pic"
+                        ref="pa_road"
+                        :limit="1"
                         :before-upload="filePatpic"
                         :auto-upload="false">
                         <i class="el-icon-upload"></i>
@@ -86,9 +90,10 @@
   export default {
     data() {
       return {
-            pat_pic: '',
+            pa_road: '',
             dataForm: new FormData(),
             form: {
+                patent_person:'',
                 first_inventor: '',
                 pa_all_author: '',
                 pa_type: '',
@@ -104,11 +109,14 @@
     },
     methods: {
         filePatpic(file) {
-            this.dataForm.append('pat_pic', file);
+            this.dataForm.append('pa_road', file);
             return false;
         },
         onSubmit(form) {
-            if(form.first_inventor == '') {
+            if(form.patent_person == '') {
+                this.$message.error('专利权人不能为空');
+                return
+            }else if(form.first_inventor == '') {
                 this.$message.error('第一发明人不能为空');
                 return
             }else if(form.pa_all_author == ''){
@@ -161,7 +169,7 @@
                                 });
                             }
                         })
-                        vue.$refs.pat_pic.submit()
+                        vue.$refs.pa_road.submit()
                     } else {
                         console.log('error submit!!')
                         return false

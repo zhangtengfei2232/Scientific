@@ -16,13 +16,17 @@
                         <el-date-picker
                                 v-model="form.data1"
                                 type="date"
-                                placeholder="选择日期">
+                                placeholder="选择日期"
+                                format="yyyy 年 MM 月 dd 日"
+                                value-format="timestamp">
                         </el-date-picker>
                         <span>-</span>
                         <el-date-picker
                                 v-model="form.data2"
                                 type="date"
-                                placeholder="选择日期">
+                                placeholder="选择日期"
+                                format="yyyy 年 MM 月 dd 日"
+                                value-format="timestamp">
                         </el-date-picker>
                         <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch">搜索</el-button>
                     </div>
@@ -64,7 +68,6 @@
                             width="200">
                         <template slot-scope="scope">
                             <el-button
-                                    @click.native.prevent="deleteRow(scope.$index, agreementDate)"
                                     type="text"
                                     size="small">
                                 <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentAgreementData(agreementDate[scope.$index].agree_id)"></el-button>
@@ -133,6 +136,7 @@
             return {
                 agreementDate: [],
                 checked: false,
+                id:[],
                 form: {
                     data1: '',
                     data2: '',
@@ -184,7 +188,7 @@
                     }).then(function (response) {
                         var data = response.data;
                         if (data.code == 0) {
-                            this.$message({
+                            self.$message({
                                 type: 'success',
                                 message: '删除成功!'
                             });
@@ -213,12 +217,12 @@
                     let self = this;
                     axios.get("deleteagreement",{
                         params:{
-                            ag_id_datas:schfile_id
+                            ag_id_datas:agree_id
                         }
                     }).then(function (response) {
                         var data = response.data;
                         if (data.code == 0) {
-                            this.$message({
+                            self.$message({
                                 type: 'success',
                                 message: '删除成功!'
                             });
@@ -258,7 +262,12 @@
                 })
             },
             byTimeSearch() {
-                axios.get("",form).then(function (response) {
+                axios.get("timeselectagreement",{
+                    params:{
+                        start_time: form.data1,
+                        end_time: form.data1,
+                    }
+                }).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
                         self.agreementDate = data.datas;

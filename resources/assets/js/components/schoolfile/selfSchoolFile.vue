@@ -26,7 +26,7 @@
                             :auto-upload="false"
                             drag
                             action="#"
-                            ref="pro_file"
+                            ref="schfile_file"
                             :before-upload="fileProfil"
                             :file-list="filelists"
                             multiple>
@@ -54,20 +54,18 @@
     }
 </style>
 
-
 <script>
     export default {
         data() {
             return {
                 schoolFleData:{},
                 filelists: [{url:''}],
-                pro_file:'',
+                schfile_file:'',
                 dataForm: new FormData(),
                 form: {
                     schfile_name: '',
                     schfile_num: '',
                     schfile_down_time: '',
-
                 }
             }
         },
@@ -80,7 +78,7 @@
                     if (data.code == 0) {
                         self.schoolFleData = data.datas;
                         self.form = data.datas;
-                        console.log(data.datas);
+                        self.schfile_road = 'showfile?disk=project&subjection=' + data.datas.schfile_road;
                     } else {
                         self.$notify({
                             type: 'error',
@@ -91,8 +89,12 @@
                 });
             },
             fileProfil(file){
-                this.dataForm.append('pro_file', file);
-                return false;
+                if(file !== ''){
+                    this.dataForm.append('schfile_file', file);
+                    return false;
+                }else{
+                    this.$message.error('文件不能为空');                    
+                }
             },
              onSubmit(form) {
                 if(form.schfile_name == '') {

@@ -67,7 +67,7 @@ class InformationController extends Controller
         ];
         $judge_datas = judgeTeacherField($datas);
         if($judge_datas['code'] == 1){                                        //没有字段通过验证
-            return $judge_datas;
+            return responseTojson(1,$judge_datas['message']);
         }
         return TeacherDatabase::addTeacherDatas($datas);
     }
@@ -87,9 +87,9 @@ class InformationController extends Controller
             $subjection     = UploadSubjectionConfig::EDUCATION_IMG;
             $certificate    = $request->file('education_image');          //接收证书图片
         }
-        $response = judgeFileImage($certificate);                              //判断文件是否合法
-        if($response['code'] == 1){
-            return $response;
+        $judge_certificate  = judgeFileImage($certificate);                              //判断文件是否合法
+        if($judge_certificate['code'] == 1){
+            return responseTojson(1,$judge_certificate['message']);
         }
         $disk       = UploadSubjectionConfig::TEACHER;
         $teacher_id = session('usercount');
@@ -169,7 +169,7 @@ class InformationController extends Controller
         dd($request);
         $judge_datas = judgeTeacherField($datas);
         if($judge_datas['code'] == 1){                                         //没有字段通过验证
-            return $judge_datas;
+            return responseTojson(1,$judge_datas['message']);
         }
         $teacher_id = session('usercount');
         return TeacherDatabase::updateTeacherDatas($teacher_id,$datas);
@@ -187,9 +187,9 @@ class InformationController extends Controller
             $certificate = $request->file('education_image');           //接收证书图片文件
             $subjection  = UploadSubjectionConfig::EDUCATION_IMG;
         }
-        $response = judgeFileImage($certificate);                            //判断文件是否合法
-        if($response['code'] == 1){
-           return $response;
+        $judge_certificate = judgeFileImage($certificate);                            //判断文件是否合法
+        if($judge_certificate['code'] == 1){
+           return responseTojson(1,$judge_certificate['message']);
         }
         $disk             = UploadSubjectionConfig::TEACHER;
         $teacher_id       = session('usercount');

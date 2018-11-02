@@ -73,11 +73,12 @@
                     <el-upload
                         class="upload-demo"
                         drag
-                        ref="aw_pic"
+                        ref="aw_road"
                         :before-upload="filePic"
                         action="#"
                         filelist="filelist"
-                        multiple>
+                        multiple
+                        :auto-upload="false">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
@@ -109,7 +110,7 @@ export default {
             AwardSelfData: {},
             filelist: [{url:''}],
             dataForm: new FormData(),
-            aw_pic:'',
+            aw_road:'',
             form: {
                 aw_first_author: '',
                 aw_first_author: '',
@@ -135,7 +136,7 @@ export default {
                     if (data.code == 0) {
                         self.AwardSelfData = data.datas;
                         self.form = data.datas;
-                        self.filelist.url = 'showimage?disk=award&subjection=' + data.datas.aw_road; 
+                        self.filelist.url = 'showfile?disk=award&subjection=' + data.datas.aw_road; 
                     } else {
                         self.$notify({
                             type: 'error',
@@ -146,7 +147,7 @@ export default {
                 });
         },
         filePic(file) {
-            this.dataForm.append('aw_pic', file);
+            this.dataForm.append('aw_road', file);
             return false;
         },
         onSubmit(form) {
@@ -209,7 +210,7 @@ export default {
                                 });
                             }
                         })
-                        vue.$refs.aw_pic.submit()
+                        vue.$refs.aw_road.submit()
                     } else {
                         console.log('error submit!!')
                         return false

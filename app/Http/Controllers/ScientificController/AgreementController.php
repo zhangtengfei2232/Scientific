@@ -11,13 +11,9 @@ class AgreementController extends Controller
 {
     //添加教学科研合作协议信息
     public function addAgreement(Request $request){
+        dd($request);
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
-        }
-        $agreement_pdf = $request->file('agreement_pdf');
-        $judge_agreement = judgeReceiveFiles($agreement_pdf);
-        if($judge_agreement['code'] == 1){
-            return responseTojson(1,$judge_agreement['message']);
         }
         $datas = [
             'agree_name'           => trim($request->agree_name),
@@ -26,7 +22,15 @@ class AgreementController extends Controller
         ];
         $judge_datas = judgeAgreementField($datas);
         if($judge_datas['code'] == 1){
-            return $judge_datas;
+            return responseTojson(1,$judge_datas['message']);
+        }
+        if(!$request->hasFile('agree_road')){
+            return responseTojson(1,'必须要上传PDF格式的合作协议文件');
+        }
+        $agreement_pdf = $request->file('agree_road');
+        $judge_agreement = judgeReceiveFiles($agreement_pdf);
+        if($judge_agreement['code'] == 1){
+            return responseTojson(1,$judge_agreement['message']);
         }
         $disk = UploadSubjectionConfig::APPRAISAL;
         $subjection_appraisal = UploadSubjectionConfig::AGREEMENT_PDF;
@@ -41,54 +45,47 @@ class AgreementController extends Controller
     }
     //删除教学科研合作协议信息
     public function deleteAgreement(Request $request){
-        $validate = true;
-        $agreement_id_datas   = $request->agreement_id_datas;
-        $agreement_raod_datas = AgreementDatabase::selectAllAgreementRoad($agreement_id_datas);
-        $delete_agreement     = AgreementDatabase::deleteAllAgreementDatas($agreement_id_datas);
-        if($delete_agreement['code']== 1){
-            $validate = false;
-            //有些教学科研合作协议删除失败，去查文件的原来名称
-            $agreement_name = AgreementDatabase::selectAgreementName($delete_agreement);
-            //根据文件'ID'键，去除掉删除失败的教学科研合作协议路径
-            for($i = 0; $i < count($delete_agreement); $i++){
-                array_slice($agreement_raod_datas,$delete_agreement[$i],1);
-            }
-            $response['fail_agreement'] = $agreement_name;
-        }
+        dd($request);
+        $agreement_id_datas   = $request->ag_id_datas;
+        $agreement_raod_datas = AgreementDatabase::selectAgreementRoad($agreement_id_datas);
+        $delete_agreement     = AgreementDatabase::deleteAgreementDatas($agreement_id_datas);
         deleteAllFiles(uploadSubjectionConfig::AGREEMENT,$agreement_raod_datas);
-        if($validate){
-            return $delete_agreement;
-        }
-        return responseTojson(1,$delete_agreement->message,$agreement_name);
+        return responseTojson(1,'删除成功');
     }
     //修改教学科研合作协议信息
     public function updateAgreement(Request $request){
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
-        $agree_id = trim($request->agree_id);
+        $agree_road = trim($request->agree_road);
         $datas = [
-            'agree_id'             => $agree_id,
+            'agree_id'             => trim($request->agree_id),
             'agree_name'           => trim($request->agree_name),
             'agree_cooperate_unit' => trim($request->agree_cooperate_unit),
-            'agree_time'           => trim($request->agree_time)
+            'agree_time'           => trim($request->agree_time),
+            'agree_road'           => $agree_road
         ];
+        dd($datas);
         $judge_datas = judgeAgreementField($datas);
         if($judge_datas['code'] == 1){
-            return $judge_datas;
+            return responseTojson(1,$judge_datas['message']);
         }
-        $agreement_pdf       = $request->file('agreement_pdf');
+        $reset_file_status = false;
+        if(!$request->hasFile('agree_road')){
+            return AgreementDatabase::updateAgreementDatas($datas,$reset_file_status);
+        }
+        $reset_file_status = true;
+        $agreement_pdf       = $request->file('agree_road');
         $judge_agreement_pdf = judgeReceiveFiles($agreement_pdf);
         if($judge_agreement_pdf['code'] == 1){
-            return $judge_agreement_pdf;
+            return responseTojson(1,$judge_agreement_pdf['message']);
         }
-        $old_agreement_road  = AgreementDatabase::selectAgreementRoad($agree_id);
-        $new_agreement_road  = uploadFiles(uploadSubjectionConfig::AGREEMENT_PDF,$agreement_pdf);
-        $datas['agree_road'] = $new_agreement_road;
         $disk = uploadSubjectionConfig::AGREEMENT;
-        $update_agreement    = AgreementDatabase::updateAgreementDatas($datas);
+        $new_agreement_road  = uploadFiles(uploadSubjectionConfig::AGREEMENT_PDF,$agreement_pdf,$disk);
+        $datas['agree_road'] = $new_agreement_road;
+        $update_agreement    = AgreementDatabase::updateAgreementDatas($datas,$reset_file_status);
         if($update_agreement){
-            deletefiles($disk,$old_agreement_road);
+            deletefiles($disk,$agree_road);
             return responseTojson(0,'修改教学合作协议成功');
         }
         deletefiles($disk,$new_agreement_road);
@@ -110,6 +107,6 @@ class AgreementController extends Controller
         $end_time   = $request->end_time;
         $table_name = SearchMessageConfig::AGREEMENT_TABLE;
         $time_field = SearchMessageConfig::AGREE_TIME;
-        return  ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field);
+        return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field);
     }
 }

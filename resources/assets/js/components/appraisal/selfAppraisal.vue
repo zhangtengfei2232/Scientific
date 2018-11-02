@@ -53,9 +53,9 @@
                 <el-form-item label="成果封面">
                     <el-upload
                         class="upload-demo"
-                        ref="pat_pic"
+                        ref="ap_cover_road"
                         action="#"
-                        :before-upload="filePatpic"
+                        :before-upload="fileProfil"
                         :on-preview="handlePreview"
                         :on-remove="handleRemove"
                         :file-list="filelist"
@@ -70,12 +70,12 @@
                 <el-form-item label="成果鉴定证书图片">
                     <el-upload
                         class="upload-demo"
-                        ref="pat_pics"
+                        ref="ap_road"
                         action="#"
                         :before-upload="fileProfils"
                         :on-preview="handlePreview"
                         :on-remove="handleRemove"
-                        :file-list="filePatpics"
+                        :file-list="filelists"
                         :auto-upload="false"
                         :limit="1"
                         list-type="picture">
@@ -109,6 +109,8 @@ export default {
             dataFile: new FormData(),
             filelist: [{url:''}],
             filelists: [{url:''}],
+            ap_cover_road:'',
+            ap_road:'',
             form: {
                 ap_first_author: '',
                 ap_all_author: '',
@@ -133,8 +135,8 @@ export default {
                 if (data.code == 0) {
                     self.AppraisalSelfData = data.datas;
                     self.form = data.datas;
-                    self.filelist.url = 'showimage?disk=appraisal&subjection=' + data.datas.pro_road;
-                    self.filelists.url = 'showimage?disk=appraisal&subjection=' + data.datas.ap_cover_road; 
+                    self.filelist.url = 'showfile?disk=appraisal&subjection=' + data.datas.pro_road;
+                    self.filelists.url = 'showfile?disk=appraisal&subjection=' + data.datas.ap_cover_road; 
                 } else {
                     self.$notify({
                         type: 'error',
@@ -145,10 +147,10 @@ export default {
             });
         },
         submitUpload() {
-            this.$refs.pat_pic.submit();
+            this.$refs.ap_cover_road.submit();
         },
         submitUploads() {
-            this.$refs.pat_pics.submit();
+            this.$refs.ap_road.submit();
         },
         handleRemove(file, fileList) {
             console.log(file, fileList);
@@ -156,36 +158,36 @@ export default {
         handlePreview(file) {
             console.log(file);
         },
-        filePatpic(file){
-            if(file == ''){
-                this.dataFile.append('pat_pic', file);
-                this.sendfile(files,1);
-                
+        fileProfil(file){
+            if(file !== ''){
+                this.dataFile.append('ap_cover_road', file);
+                let id = this.form.ap_id;
+                this.sendfile(this.dataFile,id);
             }else{
                 this.$message.error('请先添加文件');
                 return false
             }  
         },
-        filePatpics(files){
-            if(files == ''){
-                this.dataFile.append('pat_pic', files);
-                this.sendfile(files,2);
-                
+        fileProfils(files){
+            if(files !== ''){
+                this.dataFile.append('ap_cover_road', files);
+                let id = this.form.ap_id;
+                this.sendfile(this.dataFile,id);
             }else{
                 this.$message.error('请先添加文件');
                 return false
             }
         },
-        sendfile(file,m) {
-            this.addBookFile(vue.dataFile,m).then(res => {
+        sendfile(dataFile,id) {
+            this.addBookFile(this.dataFile,id).then(res => {
                 var data = res.data;
                 if (data.code == 0) {
-                    vue.$message({
+                    this.$message({
                         message: '修改成功',
                         type: 'success'
                     });A
                 } else {
-                    vue.$notify({
+                    this.$notify({
                         type: 'error',
                         message: '修改失败',
                         duration: 2000,
@@ -193,7 +195,7 @@ export default {
                 }
             })  
         },
-        addBookFile(data,m){
+        addBookFile(data,id){
              return axios({
                 method: 'post',
                 url: '',

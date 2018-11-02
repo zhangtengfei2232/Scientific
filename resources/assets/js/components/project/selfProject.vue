@@ -74,21 +74,7 @@
                 <el-form-item label="备注">
                     <el-input type="textarea" v-model="form.pro_remarks"></el-input>
                 </el-form-item>
-                <el-form-item label="项目合同书封面图片">
-                    <el-upload
-                        class="upload-demo"
-                            :auto-upload="false"
-                            drag
-                            action="#"
-                            ref="pro_file"
-                            :before-upload="fileProfil"
-                            :file-list="filelists"
-                            multiple>
-                        <i class="el-icon-upload"></i>
-                        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                    </el-upload>
-                </el-form-item>
-                 <el-form-item label="项目年份">
+                <el-form-item label="项目年份">
                     <el-col :span="15">
                         <el-date-picker
                             type="date"
@@ -99,6 +85,20 @@
                             style="width: 100%;">
                         </el-date-picker>
                     </el-col>
+                </el-form-item>
+                <el-form-item label="项目合同书封面图片">
+                    <el-upload
+                        class="upload-demo"
+                            :auto-upload="false"
+                            drag
+                            action="#"
+                            ref="pro_road"
+                            :before-upload="fileProfil"
+                            :file-list="filelists"
+                            multiple>
+                        <i class="el-icon-upload"></i>
+                        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                    </el-upload>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="onSubmit(form)">保存修改</el-button>
@@ -126,7 +126,7 @@
       return {
             ProjectSelfData: {},
             filelists: [{url:''}],
-            pro_file:'',
+            pro_road:'',
             dataForm: new FormData(),
             form: {
                 pro_host: '',
@@ -150,7 +150,7 @@
     },
     methods: {
         fileProfil(file){
-            this.dataForm.append('pro_file', file);
+            this.dataForm.append('pro_road', file);
             return false;
         },
         getProjectSelfData() {
@@ -161,7 +161,7 @@
                 if (data.code == 0) {
                     self.ProjectSelfData = data.datas;
                     self.form = data.datas;
-                    let road = 'showimage?disk=project&subjection=' + data.datas.pro_road;
+                    let road = 'showfile?disk=project&subjection=' + data.datas.pro_road;
                     self.filelists.url = road;
                 }else {
                     self.$notify({
@@ -240,7 +240,7 @@
                                 });
                             }
                         })
-                        vue.$refs.pro_file.submit();
+                        vue.$refs.pro_road.submit();
                     } else {
                         console.log('error submit!!')
                         return false
