@@ -321,7 +321,7 @@
                     first_graduate_school:'',
                     most_graduation_time:'',
                     most_graduate_school:'',
-                    edu_cert_road:'',
+//                    edu_cert_road:'',
 
 
 
@@ -350,7 +350,7 @@
                     teach_course:'',
                     master_company:'',
                     master_time:'',
-                    gra_cert_road:'',
+//                    gra_cert_road:'',
 
                 },
             }
@@ -373,7 +373,7 @@
                     this.dataFile.append('gra_cert_road', file);
                     this.sendfile(file,1);
                 }else{
-                    this.$message.error('请先添加文件');
+                    this.$message.error('请先添加毕业证书图片');
                     return false
                 }
             },
@@ -382,7 +382,7 @@
                     this.dataFile.append('edu_cert_road', file);
                     this.sendfile(file,1);
                 }else{
-                    this.$message.error('请先添加文件');
+                    this.$message.error('请先添加学历证书图片');
                     return false
                 }
             },
@@ -414,90 +414,90 @@
                 });
             },
             onSubmit(form) {
-//                console.log(form,'00000000000');
+                console.log(form,'00000000000');
                 let vue = this;
-                if(form.name == '') {
-                    this.$message.error('老师姓名不能为空');
-                }else if(form.teacher_id == '') {
-                    this.$message.error('老师性别不能为空');
-                }else if(form.teacher_department == '') {
-                    this.$message.error('老师分组不能为空');
-                }else if(form.teacher_id == '') {
-                    this.$message.error('老师工号不能为空');
-                }else if(form.office_phone == '') {
-                    this.$message.error('办公电话不能为空');
-                }else if(form.home_phone == '') {
-                    this.$message.error('住宅电话不能为空');
-                }else if(form.phone == '') {
-                    this.$message.error('手机号不能为空');
-                }else if(form.native_place == '') {
-                    this.$message.error('籍贯不能为空');
-                }else if(form.number == '') {
-                    this.$message.error('老师编号不能为空');
-                }else if(form.nation == '') {
-                    this.$message.error('民族不能为空');
-                }else if(form.borth == '') {
-                    this.$message.error('出生年月不能为空');
-                }else if(form.polit_outlook == '') {
-                    this.$message.error('政治面貌不能为空');
-                }else if(form.admin_duties == '') {
-                    this.$message.error('行政职务不能为空');
-                }else if(form.admin_tenure_time == '') {
-                    this.$message.error('任职时间不能为空');
-                }else if(form.job_level == '') {
-                    this.$message.error('职务级别不能为空');
-                }else if(form.admin_tenure_time == '') {
-                    this.$message.error('任职时间不能为空');
-                }else if(form.technical_position == '') {
-                    this.$message.error('专业技术职务不能为空');
-                }else if(form.review_time == '') {
-                    this.$message.error('评审通过时间不能为空');
-                }else if(form.appointment_time == '') {
-                    this.$message.error('聘任时间不能为空');
-                }else if(form.series == '') {
-                    this.$message.error('老师系列不能为空');
-                }else if(form.post_category == '') {
-                    this.$message.error('岗位类别不能为空');
-                }else if(form.company == '') {
-                    this.$message.error('所在单位不能为空');
-                }else if(form.te_re_department == '') {
-                    this.$message.error('所属教研室和实验室不能为空');
-                }else if(form.working_hours == '') {
-                    this.$message.error('来校工作时间不能为空');
-                }else if(form.origin_work_unit == '') {
-                    this.$message.error('原工作单位不能为空');
-                }else if(form.certificate_num == '') {
-                    this.$message.error('教师资格证书编号不能为空');
-                }else if(form.identity_card == '') {
-                    this.$message.error('身份证号不能为空');
-                }else if(form.most_academic == '') {
-                    this.$message.error('学历/学位不能为空');
-                }else if(form.most_graduate_school == '') {
-                    this.$message.error('毕业学校不能为空');
-                }else if(form.most_study_major == '') {
-                    this.$message.error('所学专业不能为空');
-                }else if(form.most_graduation_time == '') {
-                    this.$message.error('毕业时间不能为空');
-                }else if(form.work_major == '') {
-                    this.$message.error('现从事专业不能为空');
-                }else if(form.belong_subject == '') {
-                    this.$message.error('所属学科不能为空');
-                }else if(form.teach_course == '') {
-                    this.$message.error('任教课程不能为空');
-                }else if(form.master_company == '') {
-                    this.$message.error('授予单位不能为空');
-                }else if(form.master_time == '') {
-                    this.$message.error('获得时间不能为空');
-                }
+//                if(form.name == '') {
+//                    this.$message.error('老师姓名不能为空');
+//                }else if(form.teacher_id == '') {
+//                    this.$message.error('老师性别不能为空');
+//                }else if(form.teacher_department == '') {
+//                    this.$message.error('老师分组不能为空');
+//                }else if(form.teacher_id == '') {
+//                    this.$message.error('老师工号不能为空');
+//                }else if(form.office_phone == '') {
+//                    this.$message.error('办公电话不能为空');
+//                }else if(form.home_phone == '') {
+//                    this.$message.error('住宅电话不能为空');
+//                }else if(form.phone == '') {
+//                    this.$message.error('手机号不能为空');
+//                }else if(form.native_place == '') {
+//                    this.$message.error('籍贯不能为空');
+//                }else if(form.number == '') {
+//                    this.$message.error('老师编号不能为空');
+//                }else if(form.nation == '') {
+//                    this.$message.error('民族不能为空');
+//                }else if(form.borth == '') {
+//                    this.$message.error('出生年月不能为空');
+//                }else if(form.polit_outlook == '') {
+//                    this.$message.error('政治面貌不能为空');
+//                }else if(form.admin_duties == '') {
+//                    this.$message.error('行政职务不能为空');
+//                }else if(form.admin_tenure_time == '') {
+//                    this.$message.error('任职时间不能为空');
+//                }else if(form.job_level == '') {
+//                    this.$message.error('职务级别不能为空');
+//                }else if(form.admin_tenure_time == '') {
+//                    this.$message.error('任职时间不能为空');
+//                }else if(form.technical_position == '') {
+//                    this.$message.error('专业技术职务不能为空');
+//                }else if(form.review_time == '') {
+//                    this.$message.error('评审通过时间不能为空');
+//                }else if(form.appointment_time == '') {
+//                    this.$message.error('聘任时间不能为空');
+//                }else if(form.series == '') {
+//                    this.$message.error('老师系列不能为空');
+//                }else if(form.post_category == '') {
+//                    this.$message.error('岗位类别不能为空');
+//                }else if(form.company == '') {
+//                    this.$message.error('所在单位不能为空');
+//                }else if(form.te_re_department == '') {
+//                    this.$message.error('所属教研室和实验室不能为空');
+//                }else if(form.working_hours == '') {
+//                    this.$message.error('来校工作时间不能为空');
+//                }else if(form.origin_work_unit == '') {
+//                    this.$message.error('原工作单位不能为空');
+//                }else if(form.certificate_num == '') {
+//                    this.$message.error('教师资格证书编号不能为空');
+//                }else if(form.identity_card == '') {
+//                    this.$message.error('身份证号不能为空');
+//                }else if(form.most_academic == '') {
+//                    this.$message.error('学历/学位不能为空');
+//                }else if(form.most_graduate_school == '') {
+//                    this.$message.error('毕业学校不能为空');
+//                }else if(form.most_study_major == '') {
+//                    this.$message.error('所学专业不能为空');
+//                }else if(form.most_graduation_time == '') {
+//                    this.$message.error('毕业时间不能为空');
+//                }else if(form.work_major == '') {
+//                    this.$message.error('现从事专业不能为空');
+//                }else if(form.belong_subject == '') {
+//                    this.$message.error('所属学科不能为空');
+//                }else if(form.teach_course == '') {
+//                    this.$message.error('任教课程不能为空');
+//                }else if(form.master_company == '') {
+//                    this.$message.error('授予单位不能为空');
+//                }else if(form.master_time == '') {
+//                    this.$message.error('获得时间不能为空');
+//                }
                 vue.$refs['form'].validate((valid) => {
                     if (valid) {
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);
                         });
-//                        console.log(vue.dataForm,'00000000000');
+                        console.log( vue.dataForm,'_9999999_');
                         vue.addTeaDate(vue.dataForm).then(res => {
                             var data = response.data;
-                            console.log(data,'_________');
+                            console.log(response.data,'_________');
                             if (data.code == 0) {
                                 vue.$message({
                                     message: '修改成功',
@@ -511,8 +511,8 @@
                                 });
                             }
                         });
-//                        vue.$refs.gra_cert_road.submit();
-//                        vue.$refs.edu_cert_road.submit()
+                        vue.$refs.gra_cert_road.submit();
+                        vue.$refs.edu_cert_road.submit()
                     } else {
                         console.log('error submit!!');
                         return false
