@@ -69,6 +69,9 @@
                 <el-form-item label="积分">
                     <el-input v-model="form.aw_integral"></el-input>
                 </el-form-item>
+                <div class="demo" v-show="type1">
+                    <img :src="filelist.url" alt="无法加载" style="width:100px">
+                </div>
                 <el-form-item label="证书图片">
                     <el-upload
                         class="upload-demo"
@@ -76,7 +79,6 @@
                         ref="aw_road"
                         :before-upload="filePic"
                         action="#"
-                        filelist="filelist"
                         multiple
                         :auto-upload="false">
                         <i class="el-icon-upload"></i>
@@ -101,6 +103,9 @@
         width: 80%;
         margin: 35px 0 0 35px;
     }
+    .demo{
+        margin: 10px 0 10px 30%;
+    }
 </style>
 
 <script>
@@ -111,6 +116,7 @@ export default {
             filelist: [{url:''}],
             dataForm: new FormData(),
             aw_road:'',
+            type1:false,
             form: {
                 aw_first_author: '',
                 aw_first_author: '',
@@ -136,7 +142,10 @@ export default {
                     if (data.code == 0) {
                         self.AwardSelfData = data.datas;
                         self.form = data.datas;
-                        self.filelist.url = 'showfile?disk=award&subjection=' + data.datas.aw_road; 
+                        if(data.datas.aw_road !== ''){
+                            self.type1=true;
+                            self.filelist.url = 'showfile?disk=award&subjection=' + data.datas.aw_road; 
+                        }
                     } else {
                         self.$notify({
                             type: 'error',

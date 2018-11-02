@@ -138,7 +138,6 @@ class OpusController  extends Controller
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
-        dd($request);
         $op_id               = $request->op_id;
         if(!$request->hasFile('op_cover_road') || !$request->hasFile('op_coright_road')){
             return responseTojson(1,'请你上传著作证书图片');

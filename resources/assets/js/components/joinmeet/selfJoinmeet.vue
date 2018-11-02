@@ -69,7 +69,7 @@
                 <div class="demo" v-show="picType">
                     <thead>
                         <!-- <li v-for="(id,filelists) in items" v-bind:key="filelists">
-                            <img src="{{ items.url }}" alt="无法加载">
+                            <img :src="items.url" alt="无法加载">
                             <el-button type="primary" @click="deletePic(items)">保存修改</el-button>
                         </li> -->
                     </thead>
@@ -104,12 +104,16 @@
         width: 80%;
         margin: 35px 0 0 35px;
     }
+    .demo{
+        margin: 10px 0 10px 30%;
+    }
 </style>
 
 <script>
 export default {
     data() {
         return {
+            jo_id:'',
             picType:false,
             dataForm: new FormData(),
             dataFile: new FormData(),
@@ -144,11 +148,11 @@ export default {
                         self.JoinmeetSelfData = data.datas;
                         self.form = data.datas.information;
                         self.filelists = 'showfile?disk=joinmeet&subjection=' + data.datas.jo_graph_inject;
-                        // let image = data.datas.information.ho_image;
-                        // if(image !== ''){
-                        //     this.picType = true;
-                        //     self.filelists = 'showfile?disk=holdmeet&subjection=' + image;
-                        // } 
+                        let image = data.datas.information.ho_image;
+                        if(image !== ''){
+                            self.picType = true;
+                            self.filelists = 'showfile?disk=holdmeet&subjection=' + image;
+                        } 
                     } else {
                         self.$notify({
                             type: 'error',
@@ -205,7 +209,8 @@ export default {
                 url: 'addjoinmeetimage',
                 headers: {'Content-Type': 'multipart/form-data'},
                 timeout: 20000,
-                data: data
+                data: data,
+                jo_id:id
             });
         },
        onSubmit(form) {

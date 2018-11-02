@@ -50,6 +50,9 @@
                     <el-button type="primary" @click="onSubmit(form)">立即修改</el-button>
                     <el-button>取消</el-button>
                 </el-form-item>
+                <div class="demo" v-show="type1">
+                    <img :src="filelist.url" alt="无法加载" style="width:100px">
+                </div>
                 <el-form-item label="成果封面">
                     <el-upload
                         class="upload-demo"
@@ -58,7 +61,6 @@
                         :before-upload="fileProfil"
                         :on-preview="handlePreview"
                         :on-remove="handleRemove"
-                        :file-list="filelist"
                         :auto-upload="false"
                         :limit="1"
                         list-type="picture">
@@ -67,6 +69,9 @@
                         <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
                     </el-upload>
                 </el-form-item>
+                <div class="demo" v-show="type2">
+                   <img :src="filelists.url" alt="无法加载" style="width:100px"> 
+                </div>
                 <el-form-item label="成果鉴定证书图片">
                     <el-upload
                         class="upload-demo"
@@ -75,7 +80,6 @@
                         :before-upload="fileProfils"
                         :on-preview="handlePreview"
                         :on-remove="handleRemove"
-                        :file-list="filelists"
                         :auto-upload="false"
                         :limit="1"
                         list-type="picture">
@@ -98,12 +102,17 @@
         width: 80%;
         margin: 35px 0 0 35px;
     }
+    .demo{
+        margin: 10px 0 10px 30%;
+    }
 </style>
 
 <script>
 export default {
     data() {
         return {
+            type1:false,
+            type2:false,
             AppraisalSelfData: {},
             dataForm: new FormData(),
             dataFile: new FormData(),
@@ -135,8 +144,14 @@ export default {
                 if (data.code == 0) {
                     self.AppraisalSelfData = data.datas;
                     self.form = data.datas;
-                    self.filelist.url = 'showfile?disk=appraisal&subjection=' + data.datas.pro_road;
-                    self.filelists.url = 'showfile?disk=appraisal&subjection=' + data.datas.ap_cover_road; 
+                    if(data.datas.pro_road !== ''){
+                        self.type1=true;
+                        self.filelist.url = 'showfile?disk=appraisal&subjection=' + data.datas.pro_road;
+                    }
+                    if(data.datas.ap_cover_road !== ''){
+                        self.type2=true;
+                        self.filelists.url = 'showfile?disk=appraisal&subjection=' + data.datas.ap_cover_road; 
+                    }      
                 } else {
                     self.$notify({
                         type: 'error',
@@ -201,7 +216,8 @@ export default {
                 url: '',
                 headers: {'Content-Type': 'multipart/form-data'},
                 timeout: 20000,
-                data: data
+                data: data,
+
             });
         },
         onSubmit(form) {
