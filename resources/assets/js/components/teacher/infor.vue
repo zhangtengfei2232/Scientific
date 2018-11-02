@@ -231,6 +231,8 @@
         data() {
             return {
                 id:[],
+                type1:false,
+                type2:false,
                 filelist: [{name:'',url:''}],
                 filelist1: [{name:'',url:''}],
                 gra_cert_road: '',
@@ -243,6 +245,7 @@
                 checkAll: false,
                 sortable:true,
                 form:{
+                    id:'',
                     name:'',
                     sex:'',
                     teacher_department:'',
@@ -303,13 +306,24 @@
         methods: {
             getTeacherData(){
                 let self = this;
-                axios.get("selectteacher").then(function (response) {
+                self.form.id = self.$route.params.id;
+                console.log(self.form.id,'==========');
+                axios.get("selectteacher?id"+this.form.id).then(function (response) {
                     var data = response.data;
                     if(data.code == 0){
                         self.teacherDate = data.datas;
                         self.form = data.datas.information;
-                        self.filelist.url = 'showimage?disk=infor&subjection=' + data.datas.gra_cert_road;
-                        self.filelist1.url = 'showimage?disk=infor&subjection=' + data.datas.edu_cert_road;
+
+                        if(data.datas.gra_cert_road !== ''){
+                            self.type1=true;
+                            self.filelist.url = 'showfile?disk=teacher&subjection=' + data.datas.gra_cert_road;
+                        }
+                        if(data.datas.edu_cert_road !== ''){
+                            self.type2=true;
+                            self.filelist1.url = 'showfile?disk=teacher&subjection=' + data.datas.edu_cert_road;
+                        }
+//                        self.filelist.url = 'showimage?disk=infor&subjection=' + data.datas.gra_cert_road;
+//                        self.filelist1.url = 'showimage?disk=infor&subjection=' + data.datas.edu_cert_road;
                     }else{
                         self.$notify({
                             type: 'error',
