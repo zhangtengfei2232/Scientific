@@ -220,6 +220,12 @@ export default new VueRouter({
                 path: '/allArticle',
                 component: resolve => void(require(['../components/allArticle/allArticle.vue'], resolve))
             },
+             // 添加老师
+            {
+                name: 'addteacher',
+                path: '/addteacher',
+                component: resolve => void(require(['../components/addteacher/addTeacher.vue'], resolve))
+            },
       ]
 
 })

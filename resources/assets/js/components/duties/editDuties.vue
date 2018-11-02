@@ -146,14 +146,19 @@
                     var data = response.data;
                     if (data.code == 0) {
                         self.DutiesData = data.datas;
-                        console.log(self.DutiesData,'书看@@@@@@@@!!');
+//                        console.log(self.DutiesData,'书看@@@@@@@@!!');
                         let time = data.datas.du_year_num;
-//                        let time1 = data.datas.year1;
-//                        let time2 = data.datas.year2;
+                        self.checkYearExt(time);
+//                        let year1 = self.year1;
+//                        console.log(year1,'////////////');
+//                        year1 = year1.getFullYear() + '-' + (year1.getMonth() + 1) + '-' + year1.getDate();
+//                        console.log(year1,'f时间m@@@@@@@@!!');
+                        // let time2 = self.year2;
 //                        let time = time1+","+time2;
 //                        console.log(time,'f时间m@@@@@@@@!!');
                         self.form = data.datas;
-                        self.checkYearExt(time);
+
+
 
                         let road = 'showimage?disk=duties&subjection=' + data.datas.du_road;
                         self.filelist.url = road;
@@ -189,14 +194,18 @@
                 }else if(form.du_duty == '') {
                     this.$message.error('老师所任职务不能为空');
                     return
+                }else if(form.du_year_num == '') {
+                    this.$message.error('担任职务年限不能为空');
+                    return
                 }this.$refs['form'].validate((valid) => {
-                    var d = form.project_year;
-                    form.project_year = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+//                    console.log(year2,';;;;;;;;;;')
+//                    form.project_year = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                     let vue = this;
                     if (valid) {
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);
                         });
+                        console.log(form,'--8888--------======');
                         vue.addDutiesData(vue.dataForm).then(res => {
                             var data = res.data;
                             if (data.code == 0) {
@@ -212,7 +221,7 @@
                                     duration: 2000,
                                 });
                             }
-                        })
+                        });
                         vue.$refs.pic_file.submit();
                     } else {
                         console.log('error submit!!');
@@ -221,6 +230,7 @@
                 })
             },
             addDutiesData(data) {
+//                console.log(data,'---------------======');
                 return axios({
                     method: 'post',
                     url: 'updateduties',
@@ -258,6 +268,7 @@
 //                console.log(this.year1);
 //                console.log(this.year2);
             },
+
         },
         mounted() {
             this.getDutiesData();
