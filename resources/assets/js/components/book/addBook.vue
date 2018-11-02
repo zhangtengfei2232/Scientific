@@ -93,7 +93,6 @@
                 </el-form-item>
                 <el-form-item label="著作封面">
                     <el-upload
-                        class="upload-demo"
                         ref="op_cover_road"
                         action="#"
                         :before-upload="fileProfil"
@@ -109,7 +108,6 @@
                 </el-form-item>
                 <el-form-item label="版权页图片">
                     <el-upload
-                        class="upload-demo"
                         ref="op_coright_road"
                         action="#"
                         :before-upload="fileProfils"
@@ -182,7 +180,7 @@
             if(this.Bcode == true){
                 this.dataFile.append('op_cover_road', file);
                 let id = this.form.op_id;
-                this.sendfile(dataFile,id);
+                this.sendfile(this.dataFile,id);
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
@@ -192,14 +190,14 @@
             if(this.Bcode == true){
                 this.dataFile.append('op_coright_road', files);
                 let id = this.form.op_id;
-                this.sendfile(dataFile,id);
+                this.sendfile(this.dataFile,id);
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
             }
         },
         sendfile(dataFile,id) {
-            this.addBookFile(vue.dataFile,reset_image_status).then(res => {
+            this.addBookFile(this.dataFile,id).then(res => {
                 let vue = this;
                 var data = res.data;
                 if (data.code == 0) {

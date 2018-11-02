@@ -49,18 +49,6 @@
                 <el-form-item label="报告题目">
                     <el-input v-model="form.jo_title"></el-input>
                 </el-form-item>
-                <el-form-item label="会议图片">
-                    <el-upload
-                        drag
-                        action="#"
-                        ref="jo_image"
-                        :limit=1
-                        :before-upload="fileProfil"
-                        :auto-upload="true">
-                        <i class="el-icon-upload"></i>
-                        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                    </el-upload>
-                </el-form-item>
                 <el-form-item label="会议图注">
                     <el-upload
                         drag
@@ -77,6 +65,21 @@
                 <el-form-item>
                     <el-button type="primary" @click="onSubmit(form)">立即创建</el-button>
                     <el-button>取消</el-button>
+                </el-form-item>
+                <el-form-item label="会议图片">
+                    <el-upload
+                        drag
+                        ref="jo_image"
+                        action="#"
+                        :before-upload="fileProfil"
+                        :on-preview="handlePreview"
+                        :on-remove="handleRemove"
+                        :auto-upload="false"
+                        list-type="picture">
+                        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUploads">上传</el-button>
+                        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+                    </el-upload>
                 </el-form-item>
             </el-form>
         </div>
@@ -120,6 +123,15 @@
         }
     },
     methods: {
+        submitUploads() {
+            this.$refs.ho_graph_inject.submit();
+        },
+        handleRemove(file, fileList) {
+            console.log(file, fileList);
+        },
+        handlePreview(file) {
+            console.log(file);
+        },
         fileProfil(file){
             this.dataForm.append('jo_image', file);
             return false;
@@ -127,23 +139,24 @@
         fileProfils(files){
             if(this.Bcode == true){
                 this.dataFile.append('jo_graph_inject', files);
-                this.sendfile(files);
+                let id = this.form.jo_id;
+                this.sendfile(this.dataFile,id);
                 this.$refs.jo_graph_inject.submit();
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
             }
         },
-        sendfile(file) {
-            this.addBookFile(vue.dataFile).then(res => {
+        sendfile(dataFile,id) {
+            this.addBookFile(dataFile,id).then(res => {
                 var data = res.data;
                 if (data.code == 0) {
-                    vue.$message({
+                    this.$message({
                         message: '添加成功',
                         type: 'success'
                     });
                 } else {
-                    vue.$notify({
+                    this.$notify({
                         type: 'error',
                         message: '添加失败',
                         duration: 2000,
@@ -151,7 +164,7 @@
                 }
             })  
         },
-        addBookFile(data){
+        addBookFile(data,id){
              return axios({
                 method: 'post',
                 url: 'addjoinmeetimage',

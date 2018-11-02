@@ -162,7 +162,7 @@ export default {
             if(file !== ''){
                 this.dataFile.append('ap_cover_road', file);
                 let id = this.form.ap_id;
-                this.sendfile(dataFile,id);
+                this.sendfile(this.dataFile,id);
             }else{
                 this.$message.error('请先添加文件');
                 return false
@@ -172,22 +172,22 @@ export default {
             if(files !== ''){
                 this.dataFile.append('ap_cover_road', files);
                 let id = this.form.ap_id;
-                this.sendfile(dataFile,id);
+                this.sendfile(this.dataFile,id);
             }else{
                 this.$message.error('请先添加文件');
                 return false
             }
         },
-        sendfile(dataFile,,id) {
-            this.addBookFile(vue.dataFile,,id).then(res => {
+        sendfile(dataFile,id) {
+            this.addBookFile(this.dataFile,id).then(res => {
                 var data = res.data;
                 if (data.code == 0) {
-                    vue.$message({
+                    this.$message({
                         message: '修改成功',
                         type: 'success'
                     });A
                 } else {
-                    vue.$notify({
+                    this.$notify({
                         type: 'error',
                         message: '修改失败',
                         duration: 2000,

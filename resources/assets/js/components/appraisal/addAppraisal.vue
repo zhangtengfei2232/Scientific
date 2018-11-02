@@ -138,7 +138,7 @@
             if(this.Bcode == true){
                 this.dataFile.append('ap_cover_road', file);
                 let id = this.form.ap_id;
-                this.sendfile(dataFile,id);
+                this.sendfile(this.dataFile,id);
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
@@ -148,22 +148,22 @@
             if(this.Bcode == true){
                 this.dataFile.append('ap_road', files);
                 let id = this.form.ap_id;
-                this.sendfile(dataFile,id);
+                this.sendfile(this.dataFile,id);
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
             }
         },
         sendfile(dataFile,id) {
-            this.addBookFile(vue.dataFile,id).then(res => {
+            this.addBookFile(this.dataFile,id).then(res => {
                 var data = res.data;
                 if (data.code == 0) {
-                    vue.$message({
+                    this.$message({
                         message: '添加成功',
                         type: 'success'
                     });
                 } else {
-                    vue.$notify({
+                    this.$notify({
                         type: 'error',
                         message: '添加失败',
                         duration: 2000,
