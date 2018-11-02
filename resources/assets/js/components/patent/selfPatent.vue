@@ -51,18 +51,21 @@
                 <el-form-item label="备注">
                     <el-input type="textarea" v-model="form.pa_remarks"></el-input>
                 </el-form-item>
+                <div class="demo" v-show="type1">
+                    <img :src="filelist.url " alt="无法加载" style="width:100px">
+                </div>
                 <el-form-item label="专利图片">
                     <el-upload
                         class="upload-demo"
                         drag
                         action="#"
                         :limit="1"
-                        :file-list="fileList"
                         ref="pa_road"
                         :before-upload="filePatpic"
                         multiple
                         :auto-upload="false">
-                        <i class="el-icon-upload"></i>
+                        <i class="el-icon-upload"
+                        list-type="picture"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
                 </el-form-item>
@@ -84,17 +87,22 @@
         width: 80%;
         margin: 35px 0 0 35px;
     }
+    .demo{
+        margin: 10px 0 10px 30%;
+    }
 </style>
 
 <script>
 export default {
     data() {
         return {
+            type1:false,
             pa_road:'',
             PatetSelfData: {},
             fileList:[{url:""}],
             dataForm: new FormData(),
             form: {
+                pa_id:'',
                 patent_person: '',
                 first_inventor: '',
                 pa_all_author: '',
@@ -123,7 +131,10 @@ export default {
                     if (data.code == 0) {
                         self.PatentSelfData = data.datas;
                         self.form = data.datas;
-                        self.fileList.url= 'showfile?disk=joinmeet&subjection=' + data.datas.pa_road; 
+                        if(data.datas.pa_road !== ''){
+                            self.type1=true;
+                            self.fileList.url= 'showfile?disk=joinmeet&subjection=' + data.datas.pa_road; 
+                        }
                     } else {
                         self.$notify({
                             type: 'error',

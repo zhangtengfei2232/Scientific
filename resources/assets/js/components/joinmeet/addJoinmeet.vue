@@ -56,7 +56,8 @@
                         ref="jo_graph_inject"
                         :before-upload="fileProfils"
                         :auto-upload="true"
-                        multiple>
+                        multiple
+                        list-type="picture">
                         <i class="el-icon-upload"
                         show-file-list='true'></i>
                         <div class="el-upload__text"><em>若多选请一次性上传</em></div>
@@ -109,6 +110,7 @@
             Bcode:false,
             multiple:true,
             form: {
+                jo_id:'',
                 join_people: '',
                 jo_name: '',
                 jo_hold_unit: '',
@@ -124,7 +126,7 @@
     },
     methods: {
         submitUploads() {
-            this.$refs.ho_graph_inject.submit();
+            this.$refs.jo_image.submit();
         },
         handleRemove(file, fileList) {
             console.log(file, fileList);
@@ -133,15 +135,14 @@
             console.log(file);
         },
         fileProfil(file){
-            this.dataForm.append('jo_image', file);
+            this.dataForm.append('jo_graph_inject', file);
             return false;
         },
         fileProfils(files){
             if(this.Bcode == true){
-                this.dataFile.append('jo_graph_inject', files);
+                this.dataFile.append('jo_image', files);
                 let id = this.form.jo_id;
                 this.sendfile(this.dataFile,id);
-                this.$refs.jo_graph_inject.submit();
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
@@ -170,7 +171,8 @@
                 url: 'addjoinmeetimage',
                 headers: {'Content-Type': 'multipart/form-data'},
                 timeout: 20000,
-                data: data
+                data: data,
+                jo_id:id
             });
         },
        onSubmit(form) {

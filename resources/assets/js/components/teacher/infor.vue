@@ -150,7 +150,9 @@
                                 <el-button type="primary" @click="onSubmit(form)">保存修改</el-button>
                                 <el-button>取消</el-button>
                             </el-form-item>
-
+                            <div class="demo" v-show="type1">
+                                <img :src="filelist.url" alt="无法加载" style="width:100px">
+                            </div>
                             <el-form-item label="毕业证书图片">
                                 <el-upload
                                         class="upload-demo"
@@ -168,6 +170,9 @@
                                     <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
                                 </el-upload>
                             </el-form-item>
+                            <div class="demo" v-show="type2">
+                                <img :src="filelist1.url" alt="无法加载" style="width:100px">
+                            </div>
                             <el-form-item label="学历证书图片">
                                 <el-upload
                                         class="upload-demo"
@@ -231,6 +236,8 @@
         data() {
             return {
                 id:[],
+                type1:false,
+                type2:false,
                 filelist: [{name:'',url:''}],
                 filelist1: [{name:'',url:''}],
                 gra_cert_road: '',
@@ -243,6 +250,7 @@
                 checkAll: false,
                 sortable:true,
                 form:{
+                    id:'',
                     name:'',
                     sex:'',
                     teacher_department:'',
@@ -303,13 +311,24 @@
         methods: {
             getTeacherData(){
                 let self = this;
-                axios.get("selectteacher").then(function (response) {
+                self.form.id = self.$route.params.id;
+                console.log(self.form.id,'==========');
+                axios.get("selectteacher?id"+this.form.id).then(function (response) {
                     var data = response.data;
                     if(data.code == 0){
                         self.teacherDate = data.datas;
                         self.form = data.datas.information;
-                        self.filelist.url = 'showimage?disk=infor&subjection=' + data.datas.gra_cert_road;
-                        self.filelist1.url = 'showimage?disk=infor&subjection=' + data.datas.edu_cert_road;
+
+                        if(data.datas.gra_cert_road !== ''){
+                            self.type1=true;
+                            self.filelist.url = 'showfile?disk=teacher&subjection=' + data.datas.gra_cert_road;
+                        }
+                        if(data.datas.edu_cert_road !== ''){
+                            self.type2=true;
+                            self.filelist1.url = 'showfile?disk=teacher&subjection=' + data.datas.edu_cert_road;
+                        }
+//                        self.filelist.url = 'showimage?disk=infor&subjection=' + data.datas.gra_cert_road;
+//                        self.filelist1.url = 'showimage?disk=infor&subjection=' + data.datas.edu_cert_road;
                     }else{
                         self.$notify({
                             type: 'error',
@@ -334,7 +353,9 @@
             fileProfil(file){
                 if(file !== ''){
                     this.dataFile.append('gra_cert_road', file);
-                    this.sendfile(file,1);
+                    let id = this.form.id;
+                    this.sendfile(this.dataFile,id);
+//                    this.sendfile(file,1);
                 }else{
                     this.$message.error('请先添加文件');
                     return false
@@ -343,7 +364,10 @@
             fileEdufil(file){
                 if(file !== ''){
                     this.dataFile.append('edu_cert_road', file);
-                    this.sendfile(file,1);
+                    let id = this.form.id;
+                    console.log(id);
+                    this.sendfile(dataFile,id);
+//                    this.$refs.bo_files.submit();
                 }else{
                     this.$message.error('请先添加文件');
                     return false

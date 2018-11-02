@@ -86,6 +86,9 @@
                         </el-date-picker>
                     </el-col>
                 </el-form-item>
+                <div class="demo" v-show="type1">
+                    <img :src="filelists.url" alt="无法加载" style="width:100px">
+                </div>
                 <el-form-item label="项目合同书封面图片">
                     <el-upload
                         class="upload-demo"
@@ -94,8 +97,8 @@
                             action="#"
                             ref="pro_road"
                             :before-upload="fileProfil"
-                            :file-list="filelists"
-                            multiple>
+                            multiple
+                            list-type="picture">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
@@ -118,12 +121,16 @@
         width: 73%;
         margin: 35px 0 0 35px;
     }
+    .demo{
+        margin: 10px 0 10px 30%;
+    }
 </style>
 
 <script>
   export default {
     data() {
       return {
+            type1:false,
             ProjectSelfData: {},
             filelists: [{url:''}],
             pro_road:'',
@@ -162,7 +169,11 @@
                     self.ProjectSelfData = data.datas;
                     self.form = data.datas;
                     let road = 'showfile?disk=project&subjection=' + data.datas.pro_road;
-                    self.filelists.url = road;
+                    if(road !== ''){
+                        self.type1=true;
+                        self.filelists.url = road;
+                    }
+                    
                 }else {
                     self.$notify({
                         type: 'error',

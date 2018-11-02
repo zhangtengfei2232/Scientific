@@ -46,7 +46,8 @@
                         action="#"
                         ref="ho_graph_inject"
                         :before-upload="fileProfils"
-                        :auto-upload="false">
+                        :auto-upload="false"
+                        list-type="picture">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
@@ -97,6 +98,7 @@
             ho_file: '',
             ho_graph_inject: '',
             form: {
+                ho_id:'',
                 ho_name: '',
                 ho_art_status: '',
                 people_num: '',
@@ -154,7 +156,8 @@
                 url: 'addholdmeetimages',
                 headers: {'Content-Type': 'multipart/form-data'},
                 timeout: 20000,
-                data: data
+                data: data,
+                ho_id:id
             });
         },
        onSubmit(form) {

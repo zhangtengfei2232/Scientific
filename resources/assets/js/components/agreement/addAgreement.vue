@@ -52,13 +52,12 @@
     }
 </style>
 
-
 <script>
     export default {
         data() {
             return {
-                agree_road:'',
                 dataForm: new FormData(),
+                school:false,
                 form: {
                     agree_name: '',
                     agree_cooperate_unit: '',
@@ -68,8 +67,14 @@
         },
         methods: {
             fileProfil(file){
-                this.dataForm.append('agree_road', file);
-                return false;
+                if(file !== ''){
+                    this.school=true;
+                    this.dataForm.append('agree_road', file);
+                    return false;
+                }else{
+                    this.$message.error('文件不能为空');
+                    return
+                }
             },
             onSubmit(form) {
                 if(form.agree_name == '') {
@@ -81,13 +86,18 @@
                 }else if(form.agree_time == '') {
                     this.$message.error('协议时间不能为空');
                     return
-                }this.$refs['form'].validate((valid) => {
+                }
+                this.$refs['form'].validate((valid) => {
                         let vue = this;
                         if (valid) {
                             jQuery.each(vue.form,function(i,val){
                                 vue.dataForm.append(i,val);
                             });
                             vue.addAgreementData(vue.dataForm).then(res => {
+                                if(vue.school == false){
+                                    vue.$message.error('pdf文件不能为空');
+                                    return 
+                                }
                                 var data = res.data;
                                 if (data.code == 0) {
                                     vue.$message({
@@ -103,7 +113,7 @@
                                     });
                                 }
                             })
-                            vue.$refs.pro_file.submit();
+                            vue.$refs.agree_road.submit();
                         } else {
                             console.log('error submit!!')
                             return false

@@ -54,10 +54,10 @@
                         class="upload-demo"
                         drag
                         ref="jo_graph_inject"
-                        :file-list="filelists"
                         :before-upload="fileProfils"
                         action="#"
-                        multiple>
+                        multiple
+                        list-type="picture">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
@@ -68,8 +68,8 @@
                 </el-form-item>
                 <div class="demo" v-show="picType">
                     <thead>
-                        <!-- <li v-for="(id,filelists) in items" v-bind:key="filelists">
-                            <img src="{{ items.url }}" alt="无法加载">
+                        <!-- <li v-for="(index,filelists) in items" v-bind:key="filelists">
+                            <img :src="items.url" alt="无法加载">
                             <el-button type="primary" @click="deletePic(items)">保存修改</el-button>
                         </li> -->
                     </thead>
@@ -83,7 +83,7 @@
                         :on-preview="handlePreview"
                         :on-remove="handleRemove"
                         :auto-upload="false"
-                        :file-list="filelist"
+                        :limit="1"
                         list-type="picture">
                         <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
                         <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUploads">上传</el-button>
@@ -104,13 +104,18 @@
         width: 80%;
         margin: 35px 0 0 35px;
     }
+    .demo{
+        margin: 10px 0 10px 30%;
+    }
 </style>
 
 <script>
 export default {
     data() {
         return {
+            jo_id:'',
             picType:false,
+            picTypes:false,
             dataForm: new FormData(),
             dataFile: new FormData(),
             Bcode:false,
@@ -119,6 +124,7 @@ export default {
             multiple: true,
             JoinmeetSelfData: {},
             filelists:[],
+            filelist: '',
             form: {
                 join_people: '',
                 jo_name: '',
@@ -143,12 +149,15 @@ export default {
                     if (data.code == 0) {
                         self.JoinmeetSelfData = data.datas;
                         self.form = data.datas.information;
-                        self.filelists = 'showfile?disk=joinmeet&subjection=' + data.datas.jo_graph_inject;
-                        // let image = data.datas.information.ho_image;
-                        // if(image !== ''){
-                        //     this.picType = true;
-                        //     self.filelists = 'showfile?disk=holdmeet&subjection=' + image;
-                        // } 
+                        if(data.datas.jo_graph_inject!==''){
+                            self.picType=true;
+                            self.filelist = 'showfile?disk=joinmeet&subjection=' + data.datas.jo_graph_inject;
+                        }
+                        let image = data.datas.information.jo_image;
+                        if(image !== ''){
+                            self.picTypes = true;
+                            self.filelists = 'showfile?disk=holdmeet&subjection=' + image;
+                        } 
                     } else {
                         self.$notify({
                             type: 'error',
@@ -159,7 +168,7 @@ export default {
                 });
         },
         submitUploads() {
-            this.$refs.ho_graph_inject.submit();
+            this.$refs.jo_image.submit();
         },
         handleRemove(file, fileList) {
             console.log(file, fileList);
@@ -168,15 +177,14 @@ export default {
             console.log(file);
         },
         fileProfil(file){
-            this.dataForm.append('jo_image', file);
+            this.dataForm.append('jo_graph_inject', file);
             return false;
         },
         fileProfils(files){
             if(this.Bcode == true){
-                this.dataFile.append('jo_graph_inject', files);
-                let id = this.form.ho_id;
-                this.sendfile(this.dataFile);
-                this.$refs.jo_graph_inject.submit();
+                this.dataFile.append('jo_image', files);
+                let id = this.form.jo_id;
+                this.sendfile(this.dataFile,id);
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
@@ -191,7 +199,7 @@ export default {
                         type: 'success'
                     });
                 } else {
-                    this.$$notify({
+                    this.$notify({
                         type: 'error',
                         message: '修改失败',
                         duration: 2000,
@@ -205,7 +213,8 @@ export default {
                 url: 'addjoinmeetimage',
                 headers: {'Content-Type': 'multipart/form-data'},
                 timeout: 20000,
-                data: data
+                data: data,
+                jo_id:id
             });
         },
        onSubmit(form) {
