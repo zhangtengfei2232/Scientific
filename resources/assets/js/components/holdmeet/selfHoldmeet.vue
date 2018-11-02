@@ -46,7 +46,6 @@
                         drag
                         action="#"
                         ref="ho_files"
-                        :file-list="filelists"
                         :before-upload="fileProfils"
                         multiple>
                         <i class="el-icon-upload"></i>
@@ -57,14 +56,14 @@
                     <el-button type="primary" @click="onSubmit(form)">保存修改</el-button>
                     <el-button>取消</el-button>
                 </el-form-item>
-                <div class="demo" v-show="picType">
+                <!-- <div class="demo" v-show="picType">
                     <thead>
                         <li v-for="(index,filelists) in items" v-bind:key="filelists">
                             <img :src="items.url" alt="无法加载" style="width:100px">
                             <el-button type="primary" @click="deletePic(items.im_id)">保存修改</el-button>
                         </li>
                     </thead>
-                </div>
+                </div> -->
                 <el-form-item label="会议图片">
                     <el-upload
                         drag
@@ -109,7 +108,7 @@ export default {
             dataFile: new FormData(),
             ho_file: '',
             ho_graph_inject: '',
-            filelists:[{}],
+            filelists:[],
             form: {
                 ho_id:'',
                 ho_name: '',

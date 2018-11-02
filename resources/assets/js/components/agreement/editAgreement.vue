@@ -61,6 +61,7 @@
                 AgreementeDitData: {},
                 filelists: [{url:''}],
                 agree_road:'',
+                school:false,
                 dataForm: new FormData(),
                 form: {
                     agree_name: '',
@@ -78,6 +79,7 @@
                     if (data.code == 0) {
                         self.AgreementeDitData = data.datas;
                         self.form = data.datas;
+                        console.log(self.form);
                         self.filelists.url = 'showfile?disk=agreement&subjection=' + data.datas.agree_road;
                     } else {
                         self.$notify({
@@ -89,8 +91,14 @@
                 });
             },
             fileProfil(file){
-                this.dataForm.append('agree_road', file);
-                return false;
+                if(file !== ''){
+                    this.school=true;
+                    this.dataForm.append('agree_road', file);
+                    return false;
+                }else{
+                    this.$message.error('文件不能为空');
+                    return
+                }
             },
             onSubmit(form) {
                 if(form.agree_name == '') {
@@ -110,6 +118,10 @@
                             });
                             vue.addAgreementData(vue.dataForm).then(res => {
                                 var data = res.data;
+                                if(vue.school == false){
+                                    vue.$message.error('pdf文件不能为空');
+                                    return 
+                                }
                                 if (data.code == 0) {
                                     vue.$message({
                                         message: '修改成功',

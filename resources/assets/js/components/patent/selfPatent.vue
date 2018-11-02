@@ -64,7 +64,8 @@
                         :before-upload="filePatpic"
                         multiple
                         :auto-upload="false">
-                        <i class="el-icon-upload"></i>
+                        <i class="el-icon-upload"
+                        list-type="picture"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
                 </el-form-item>
