@@ -73,7 +73,7 @@
                         action=""
                         multiple
                         :file-list="filelist"
-                        ref="pic_file"
+                        ref="du_road"
                         :before-upload="fileProfil"
                         :auto-upload="false">
                     <i class="el-icon-upload"></i>
@@ -81,7 +81,7 @@
                 </el-upload>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="onSubmit(form,year1,year2)">立即创建</el-button>
+                <el-button type="primary" @click="onSubmit(form,year1,year2)">立即修改</el-button>
                 <el-button><router-link to="/duties">取消</router-link></el-button>
             </el-form-item>
         </el-form>
@@ -110,7 +110,7 @@
         data() {
             return {
                 DutiesData:{},
-                pic_file:'',
+                du_road:'',
                 dataForm: new FormData(),
                 dataFile: new FormData(),
                 Bcode:false,
@@ -136,7 +136,7 @@
         },
         methods: {
             fileProfil(file){
-                this.dataForm.append('pic_file', file);
+                this.dataForm.append('du_road', file);
                 return false;
             },
             getDutiesData() {
@@ -157,9 +157,6 @@
 //                        let time = time1+","+time2;
 //                        console.log(time,'f时间m@@@@@@@@!!');
                         self.form = data.datas;
-
-
-
                         let road = 'showimage?disk=duties&subjection=' + data.datas.du_road;
                         self.filelist.url = road;
                     } else {
@@ -194,7 +191,10 @@
                 }else if(form.du_duty == '') {
                     this.$message.error('老师所任职务不能为空');
                     return
-                }else if(form.du_year_num == '') {
+                }else if(year1 == '') {
+                    this.$message.error('担任职务年限不能为空');
+                    return
+                }else if(year2 == '') {
                     this.$message.error('担任职务年限不能为空');
                     return
                 }this.$refs['form'].validate((valid) => {
@@ -222,7 +222,7 @@
                                 });
                             }
                         });
-                        vue.$refs.pic_file.submit();
+                        vue.$refs.du_road.submit();
                     } else {
                         console.log('error submit!!');
                         return false

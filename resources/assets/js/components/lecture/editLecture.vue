@@ -43,7 +43,7 @@
                             class="upload-demo"
                             drag
                             action="#"
-                            ref="pic_file"
+                            ref="lec_image"
                             :before-upload="filePicfil"
                             :file-list="filelist"
                             multiple>
@@ -58,7 +58,7 @@
                         action="#"
                         multiple
                         :file-list="filelists"
-                        ref="zu_file"
+                        ref="le_img_road"
                         :before-upload="fileZufil">
                     <i class="el-icon-upload"></i>
                     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -94,8 +94,8 @@
     export default {
         data() {
             return {
-                pic_file:'',
-                zu_file:'',
+                image_road:'',
+                le_img_road:'',
                 Bcode:false,
                 multiple: true,
                 dataForm: new FormData(),
@@ -117,14 +117,14 @@
         },
         methods: {
             filePicfil(file){
-                this.dataForm.append('pic_file', file);
+                this.dataForm.append('image_road', file);
                 return false;
             },
             fileZufil(file){
                 if(this.Bcode == true){
-                    this.dataForm.append('zu_file', file);
+                    this.dataForm.append('image_road', file);
                     this.sendfile(files);
-                    this.$refs.zu_file.submit();
+                    this.$refs.image_road.submit();
                 }else{
                     this.$message.error('请先添加数据信息');
                     return false
@@ -164,7 +164,7 @@
                     if (data.code == 0) {
                         self.EditLectureData = data.datas;
                         self.form = data.datas.lecture_information;
-//                        self.filelists.url='../../storage/app/data/lecture/'+data.datas.le_img_road
+                        self.filelists.url='../../storage/app/data/lecture/'+data.datas.le_img_road
                     } else {
                         self.$notify({
                             type: 'error',
@@ -217,8 +217,8 @@
                                 });
                             }
                         })
-//                        vue.$refs.zu_file.submit();
-                        vue.$refs.pic_file.submit();
+                        vue.$refs.le_img_road.submit();
+//                        vue.$refs.image_road.submit();
                     } else {
                         console.log('error submit!!');
                         return false

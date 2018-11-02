@@ -75,7 +75,7 @@
                         drag
                         action=""
                         multiple
-                        ref="pic_file"
+                        ref="du_road"
                         :before-upload="fileProfil"
                         :auto-upload="false">
                     <i class="el-icon-upload"></i>
@@ -83,7 +83,7 @@
                 </el-upload>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="onSubmit(form,year1,year2)">立即创建</el-button>
+                <el-button type="primary" @click="onSubmit(form,year1,year2)">立即添加</el-button>
                 <el-button><router-link to="/duties">取消</router-link></el-button>
             </el-form-item>
         </el-form>
@@ -112,7 +112,7 @@
         data() {
             return {
                 dataForm: new FormData(),
-                pic_file: '',
+                du_road: '',
                 year1:'',
                 year2:'',
                 form: {
@@ -125,7 +125,7 @@
                     du_duty: '',
                     du_year_num: '',
                     year: '',
-//                    date2: '',
+//                    date: '',
                     delivery: false,
                     type: [],
                     du_remark: '',
@@ -133,9 +133,9 @@
             }
         },
         methods:
-            {
+                {
                 fileProfil(file){
-                    this.dataForm.append('pic_file', file);
+                    this.dataForm.append('du_road', file);
                     return false;
                 },
 //                sendfile(file) {
@@ -166,8 +166,9 @@
 //                },
                 onSubmit(form,year1,year2) {
                     let vue = this;
-                    form.year = year1+","+year2;
-                    console.log(form.year,'+++++++++++ott');
+                    form.du_year_num = year1+","+year2;
+                    console.log(form.du_year_num,'0000000000');
+
                     if(form.teacher_name == '') {
                         this.$message.error('老师姓名不能为空');
                         return
@@ -189,12 +190,19 @@
                     }else if(form.du_duty == '') {
                         this.$message.error('老师所任职务不能为空');
                         return
+                    }else if(year1 == '') {
+                        this.$message.error('老师担任职务年限不能为空');
+                        return
+                    }else if(year2 == '') {
+                        this.$message.error('老师担任职务年限不能为空');
+                        return
                     }
                     this.$refs['form'].validate((valid) => {
                         if (valid) {
                             jQuery.each(vue.form,function(i,val){
                                 vue.dataForm.append(i,val);
                             });
+                            console.log(form,'+++++++++++ott');
 //                            console.log(vue.dataForm,'添加ott');
                             vue.addDutiesData(vue.dataForm).then(res => {
                                 var data = res.data;
@@ -211,8 +219,8 @@
                                         duration: 2000,
                                     });
                                 }
-                            })
-                            vue.$refs.pic_file.submit();
+                            });
+                            vue.$refs.du_road.submit();
                         } else {
                             console.log('error submit!!');
                             return false
