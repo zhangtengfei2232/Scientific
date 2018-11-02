@@ -12,7 +12,6 @@ class PatentController extends Controller
      //添加专利信息
      public function addPatent(Request $request)
      {
-         dd($request->file());
          if(!$request->isMethod('POST')){
              return responseTojson(1,'你请求的方式不对');
          }

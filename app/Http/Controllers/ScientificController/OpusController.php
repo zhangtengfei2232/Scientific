@@ -40,13 +40,14 @@ class OpusController  extends Controller
     }
     //添加著作封面和版权图片
     public function addOpusImage(Request $request){
+        dd($request->op_id);
         if(!$request->isMethod('POST')){
-            return responseTojson('1','你请求的方式不对');
+            return responseTojson(1,'你请求的方式不对');
         }
-        if(!$request->is_add_opus){
-            return responseTojson(1,'请你先添加著作信息');
-        }
-        if(!$request->hasFile('op_cover_road') || !$request->hasFile('op_coright_road')){
+//        if(!$request->is_add_opus){
+//            return responseTojson(1,'请你先添加著作信息');
+//        }
+        if(!$request->hasFile('op_cover_road') && !$request->hasFile('op_coright_road')){
             return responseTojson(1,'请你上传著作证书图片');
         }
         if($request->hasFile('op_cover_road')){
@@ -160,14 +161,15 @@ class OpusController  extends Controller
         OpusDatabase::beginTraction();
         $new_image_road = uploadFiles($subjection,$opus_image,$disk);
         $reset_image    = OpusDatabase::updateImageDatas($new_image_road,$update_image_status,$op_id);
-        if(!$reset_image){
-            OpusDatabase::rollback();
-            deletefiles($disk,$new_image_road);
-            return responseTojson(1,'修改图片失败');
-        }else{
+        if($reset_image){
             OpusDatabase::commit();
-            deletefiles($disk,$old_image_road);
+            if(!empty($old_image_road)){
+                deletefiles($disk,$old_image_road);
+            }
             return responseTojson(0,'修改图片成功');
         }
+        OpusDatabase::rollback();
+        deletefiles($disk,$new_image_road);
+        return responseTojson(1,'修改图片失败');
     }
 }

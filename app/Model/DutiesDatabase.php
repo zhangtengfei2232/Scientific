@@ -10,7 +10,7 @@ class DutiesDatabase extends ModelDatabase
     public static function addDutiesDatas($datas){
         $du_road = $datas['du_road'];
         $add_duties = DB::table('duties')
-                      ->instert([
+                      ->insert([
                        'teacher_id'   => $datas['teacher_id'],
                        'teacher_name' => $datas['teacher_name'],
                        'du_academic'  => $datas['du_academic'],
@@ -21,7 +21,7 @@ class DutiesDatabase extends ModelDatabase
                        'du_duty'      => $datas['du_duty'],
                        'du_year_num'  => $datas['du_year_num'],
                        'du_remark'    => $datas['du_remark'],
-                       'du_road'      => $datas['road']
+                       'du_road'      => $datas['du_road']
                       ]);
         if(empty($du_road)){
             return ($add_duties) ? responseTojson(0,'添加成功')

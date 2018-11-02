@@ -64,7 +64,7 @@ class AppraisalDatabase extends ModelDatabase
     }
     //修改成果鉴定信息
     public static function updateAppraisalDatas($datas){
-        $response = DB::table('appraisal')->where('ap_id',$datas->ap_id)
+        $response = DB::table('appraisal')->where('ap_id',$datas['ap_id'])
                   ->update([
                       'ap_first_author' => $datas['ap_first_author'],
                       'ap_all_author'   => $datas['ap_all_author'],
