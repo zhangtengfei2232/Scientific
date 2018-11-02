@@ -18,6 +18,7 @@ class PatentController extends Controller
          }
          $datas = [
              'teacher_id'       => session('usercount'),
+             'patent_person'    => trim($request->patent_person),
              'first_inventor'   => trim($request->first_inventor),
              'pa_all_author'    => trim($request->pa_all_author),
              'pa_type'          => trim($request->pa_type),
@@ -87,6 +88,7 @@ class PatentController extends Controller
          $pa_road  = trim($request->pa_road);
          $datas  = [
             'pa_id'            => trim($request->pa_id),
+            'patent_person'    => trim($request->patent_person),
             'first_inventor'   => trim($request->first_inventor),
             'pa_all_author'    => trim($request->pa_all_author),
             'pa_type'          => trim($request->pa_type),

@@ -13,6 +13,7 @@ class PatentDatabase  extends ModelDatabase
         $add_patent =  DB::table('patent')
                        ->insert([
                        'teacher_id'       => $datas['teacher_id'],
+                       'patent_person'    => $datas['patent_person'],
                        'first_inventor'   => $datas['first_inventor'],
                        'pa_all_author'    => $datas['pa_all_author'],
                        'pa_type'          => $datas['pa_type'],
@@ -60,6 +61,7 @@ class PatentDatabase  extends ModelDatabase
     public static function updatePatentDatas($datas,$reset_image_status){
         $response = DB::table('patent')->where('pa_id',$datas['pa_id'])
                   ->update([
+                  'patent_person'    => $datas['patent_person'],
                   'first_inventor'   => $datas['first_inventor'],
                   'pa_all_author'    => $datas['pa_all_author'],
                   'pa_type'          => $datas['pa_type'],
