@@ -150,7 +150,9 @@
                                 <el-button type="primary" @click="onSubmit(form)">保存修改</el-button>
                                 <el-button>取消</el-button>
                             </el-form-item>
-
+                            <div class="demo" v-show="type1">
+                                <img :src="filelist.url" alt="无法加载" style="width:100px">
+                            </div>
                             <el-form-item label="毕业证书图片">
                                 <el-upload
                                         class="upload-demo"
@@ -168,6 +170,9 @@
                                     <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
                                 </el-upload>
                             </el-form-item>
+                            <div class="demo" v-show="type2">
+                                <img :src="filelist1.url" alt="无法加载" style="width:100px">
+                            </div>
                             <el-form-item label="学历证书图片">
                                 <el-upload
                                         class="upload-demo"
@@ -348,7 +353,9 @@
             fileProfil(file){
                 if(file !== ''){
                     this.dataFile.append('gra_cert_road', file);
-                    this.sendfile(file,1);
+                    let id = this.form.id;
+                    this.sendfile(this.dataFile,id);
+//                    this.sendfile(file,1);
                 }else{
                     this.$message.error('请先添加文件');
                     return false
@@ -357,7 +364,10 @@
             fileEdufil(file){
                 if(file !== ''){
                     this.dataFile.append('edu_cert_road', file);
-                    this.sendfile(file,1);
+                    let id = this.form.id;
+                    console.log(id);
+                    this.sendfile(dataFile,id);
+//                    this.$refs.bo_files.submit();
                 }else{
                     this.$message.error('请先添加文件');
                     return false
