@@ -58,8 +58,8 @@ class AppraisalDatabase extends ModelDatabase
               $road = DB::table('appraisal')->select('ap_road','ap_cover_road')
                       ->where('ap_id',$appraisal_id_datas[$i])
                       ->first();
-              array_push($images_road_datas,$road['ap_road']);
-              array_push($images_road_datas,$road['ap_cover_road']);
+              array_push($images_road_datas,$road->ap_road);
+              array_push($images_road_datas,$road->ap_cover_road);
           }
     }
     //修改成果鉴定信息

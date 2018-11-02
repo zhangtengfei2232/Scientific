@@ -12,6 +12,7 @@ class PatentController extends Controller
      //添加专利信息
      public function addPatent(Request $request)
      {
+         dd($request->file());
          if(!$request->isMethod('POST')){
              return responseTojson(1,'你请求的方式不对');
          }
@@ -32,11 +33,11 @@ class PatentController extends Controller
              return responseTojson(1,$judge_datas['message']);
          }
          $datas['pa_remarks'] = trim($request->pa_remarks);
-         if(!$request->hasFile('pat_pic')){                    //判断是否添加图片
+         if(!$request->hasFile('pa_road')){                    //判断是否添加图片
              $datas['pa_road'] = '';
              return PatentDatabase::addPatentDatas($datas);
          }
-         $patent_image = $request->file('pat_pic');
+         $patent_image = $request->file('pa_road');
          $judge_image  = judgeFileImage($patent_image);
          if($judge_image['code'] == 1){
              return responseTojson(1,$judge_image['message']);
@@ -103,11 +104,11 @@ class PatentController extends Controller
          $reset_image_status = false;
          $datas['pa_road']   = $pa_road;
          $datas['pa_remarks'] = trim($request->pa_remarks);
-         if(!$request->hasFile('pat_pic')){
+         if(!$request->hasFile('pa_road')){
              return PatentDatabase::updatePatentDatas($datas,$reset_image_status);
          }
          $reset_image_status = true;
-         $patent_image = $request->file('pat_pic');
+         $patent_image = $request->file('pa_road');
          $judge_image  = judgeFileImage($patent_image);
          if($judge_image['code'] ==1){
              return responseTojson(1,$judge_image['message']);

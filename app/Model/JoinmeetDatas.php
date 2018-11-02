@@ -39,16 +39,17 @@ class JoinmeetDatas extends ModelDatabase
     public static function updateJoinmeetDatas($datas,$reset_inject_status){
         $response = DB::table('joinmeet')->where('jo_id',$datas['jo_id'])
                     ->update([
-                        'join_people'  => $datas['join_people'],
-                        'jo_name'      => $datas['jo_name'],
-                        'jo_hold_unit' => $datas['jo_hold_unit'],
-                        'jo_take_unit' => $datas['jo_take_unit'],
-                        'jo_level'     => $datas['jo_level'],
-                        'jo_time'      => $datas['jo_time'],
-                        'jo_place'     => $datas['jo_place'],
-                        'jo_art_num'   => $datas['jo_art_num'],
-                        'jo_is_invite' => $datas['jo_is_invite'],
-                        'jo_title'     => $datas['jo_title']
+                        'join_people'     => $datas['join_people'],
+                        'jo_name'         => $datas['jo_name'],
+                        'jo_hold_unit'    => $datas['jo_hold_unit'],
+                        'jo_take_unit'    => $datas['jo_take_unit'],
+                        'jo_level'        => $datas['jo_level'],
+                        'jo_time'         => $datas['jo_time'],
+                        'jo_place'        => $datas['jo_place'],
+                        'jo_art_num'      => $datas['jo_art_num'],
+                        'jo_is_invite'    => $datas['jo_is_invite'],
+                        'jo_title'        => $datas['jo_title'],
+                        'jo_graph_inject' => $datas['jo_graph_inject']
                     ]);
         if($reset_inject_status){
             return ($response != 1) ? false : true;

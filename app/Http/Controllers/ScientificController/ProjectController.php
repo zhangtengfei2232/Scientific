@@ -37,11 +37,11 @@ class ProjectController extends Controller
             return responseTojson(1,$judge_project_datas['message']);
         }
         $datas['pro_remarks'] = trim($request->pro_remarks);
-        if(!$request->hasFile('pro_file')){                            //判断用户是否添加证书
+        if(!$request->hasFile('pro_road')){                            //判断用户是否添加证书
             $datas['pro_road'] = '';
             return ProjectDatabase::addProjectDatas($datas);
         }
-        $project_image = $request->file('pro_file');
+        $project_image = $request->file('pro_road');
         $judge_project_image = judgeFileImage($project_image);
         if($judge_project_image['code'] == 1){                             //验证图片
             return responseTojson(1,$judge_project_image['message']);
@@ -114,11 +114,11 @@ class ProjectController extends Controller
         $reset_image_status = false;
         $datas['pro_remarks'] = trim($request->pro_remarks);
         $datas['pro_road']    = $pro_road;
-        if(!$request->hasFile('pro_file')){
+        if(!$request->hasFile('pro_road')){
             return ProjectDatabase::updateProjectDatas($datas,$reset_image_status);
         }
         $reset_image_status = true;
-        $project_image = $request->file('pro_file');
+        $project_image = $request->file('pro_road');
         $judge_project_img = judgeFileImage($project_image);
         if($judge_project_img['code'] == 1){
             return responseTojson(1,$judge_project_img['message']);

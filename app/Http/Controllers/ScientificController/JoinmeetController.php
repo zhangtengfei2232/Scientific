@@ -118,6 +118,7 @@ class JoinmeetController  extends Controller
         }
         $reset_inject_status = false;
         if(!$request->hasFile('joinmeet_inject')){
+            $datas['jo_graph_inject'] = trim($request->jo_graph_inject);
             return JoinmeetDatas::updateJoinmeetDatas($datas,$reset_inject_status);
         }
         $reset_inject_status = true;

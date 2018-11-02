@@ -104,8 +104,7 @@ class HoldmeetController extends Controller
             'ho_unit'         => trim($request->ho_unit),
             'undertake_unit'  => trim($request->undertake_unit),
             'ho_level'        => trim($request->ho_level),
-            'ho_time'         => trim($request->ho_time),
-            'ho_graph_inject' => trim($request->ho_graph_inject)
+            'ho_time'         => trim($request->ho_time)
         ];
         $judge_datas = judgeHoldmeetField($datas);
         if($judge_datas['code'] == 1){
@@ -113,6 +112,7 @@ class HoldmeetController extends Controller
         }
         $reset_inject_status = false;
         if(!$request->hasFile('ho_graph_inject')){
+            $datas['ho_graph_inject'] = trim($request->ho_graph_inject);
             return HoldmeetDatas::updateHoldmeetDatas($datas,$reset_inject_status);
         }
         $reset_inject_status = true;

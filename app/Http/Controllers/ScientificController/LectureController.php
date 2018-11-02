@@ -104,8 +104,7 @@ class LectureController extends Controller
              'le_report_name'   => trim($request->le_report_name),
              'le_invite_status' => trim($request->le_invite_status),
              'le_invite_unit'   => trim($request->le_invite_unite),
-             'le_time'          => trim($request->le_time),
-             'le_img_road'      => trim($request->le_img_road)
+             'le_time'          => trim($request->le_time)
          ];
          dd($datas);
          $judge_datas = judgeLectureField($datas);
@@ -114,6 +113,7 @@ class LectureController extends Controller
          }
          $reset_inject_status = false;
          if(!$request->hasFile('lecture_inject')){
+             $datas['le_img_road'] = trim($request->le_img_road);
              return LectureDatabase::updateLectureDatas($datas,$reset_inject_status);
          }
          $reset_inject_status = true;

@@ -27,7 +27,6 @@ class AppraisalController extends Controller
              'ap_level'        => trim($request->ap_level),
              'ap_integral'     => trim($request->ap_integral)
          ];
-         dd($datas);
          $judge_datas = judgeAppraisalField($datas);
          if($judge_datas['code'] == 1){
              return responseTojson(1,$judge_datas['message']);
@@ -69,7 +68,7 @@ class AppraisalController extends Controller
          deletefiles($disk,$new_image_road);
          return responseTojson(1,'上传图片失败');
     }
-    //删除单个鉴定成果信息
+    //删除鉴定成果信息
     public function deleteAppraisal(Request $request){
         $ap_id_datas = $request->ap_id_datas;
         $old_image_road      = AppraisalDatabase::selectAllAppraisalImageRoad($ap_id_datas);
@@ -79,8 +78,8 @@ class AppraisalController extends Controller
     }
     //查看单个成果鉴定信息
     public function selectAppraisal(Request $request){
-       $result = AppraisalDatabase::selectAppraisalDatas($request->ap_id);
-       return responseTojson(0,'查询成功','',$result);
+        $result = AppraisalDatabase::selectAppraisalDatas($request->ap_id);
+        return responseTojson(0,'查询成功','',$result);
     }
     //查看所有成果鉴定信息
     public function selectAllAppraisal(){

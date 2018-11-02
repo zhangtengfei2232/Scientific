@@ -57,6 +57,7 @@ use Illuminate\Support\Facades\Storage;
     //删除多个文件
     function deleteAllFiles($disk,$files_raod){
         for($i = 0; $i < count($files_raod); $i++){
+            if(empty($files_raod[$i])) continue;
             deletefiles($disk,$files_raod[$i]);
         }
     }

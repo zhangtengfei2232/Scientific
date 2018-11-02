@@ -58,13 +58,14 @@ class HoldmeetDatas extends ModelDatabase
     public static function updateHoldmeetDatas($datas,$reset_inject_status){
         $response = DB::table('holdmeet')->where('ho_id',$datas['ho_id'])
                     ->update([
-                        'ho_name'        => $datas['ho_name'],
-                        'ho_art_status'  => $datas['ho_art_status'],
-                        'people_num'     => $datas['people_num'],
-                        'ho_unit'        => $datas['ho_unit'],
-                        'undertake_unit' => $datas['undertake_unit'],
-                        'ho_level'       => $datas['ho_level'],
-                        'ho_time'        => $datas['ho_time']
+                        'ho_name'         => $datas['ho_name'],
+                        'ho_art_status'   => $datas['ho_art_status'],
+                        'people_num'      => $datas['people_num'],
+                        'ho_unit'         => $datas['ho_unit'],
+                        'undertake_unit'  => $datas['undertake_unit'],
+                        'ho_level'        => $datas['ho_level'],
+                        'ho_time'         => $datas['ho_time'],
+                        'ho_graph_inject' => $datas['ho_graph_inject']
                     ]);
         if($reset_inject_status){
             return ($response !=1) ? false :true;

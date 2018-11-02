@@ -117,13 +117,13 @@
             return responseTojson(1,'你输入的项目类别名过长',1);
         }elseif (strlen($datas['approval_unit']) > 20){
             return responseTojson(1,'你输入的批准单位名字过长',1);
-        }elseif (!preg_match("^[0-9]*$",$datas['approval_funds'])
+        }elseif (!preg_match("/^[0-9]*$/",$datas['approval_funds'])
             || strlen($datas['approval_funds']) > 10){
             return responseTojson(1,'你输入的批准经费必须全为数字且不超过10位',1);
-        }elseif (!preg_match("^[0-9]*$",$datas['account_outlay'])
+        }elseif (!preg_match("/^[0-9]*$/",$datas['account_outlay'])
             || strlen($datas['account_outlay']) > 10){
             return responseTojson(1,'你输入的当年到账经费必须全为数字且不超过10位',1);
-        }elseif (!preg_match("^[0-9]*$",$datas['pro_integral'])
+        }elseif (!preg_match("/^[0-9]*$/",$datas['pro_integral'])
             || strlen($datas['pro_integral']) > 10){
             return responseTojson(1,'你输入的积分必须全为数字且不超过10位',1);
         }elseif (strlen($datas['pro_cate_research']) > 20){
@@ -148,13 +148,13 @@
         }elseif (strlen($datas['op_number']) > 30){
             return responseTojson(1,'你填写的著作书号过长',1);
         }elseif (strlen($datas['op_total_words']) > 10
-            || !preg_match("^[0-9]*$",$datas['op_total_words'])){
+            || !preg_match("/^[0-9]*$/",$datas['op_total_words'])){
             return responseTojson(1,'你填写的著作总字数必须全为数字且不超过10位',1);
         }elseif (strlen($datas['op_self_words']) > 10
-            || !preg_match("^[0-9]*$",$datas['op_self_words'])){
+            || !preg_match("/^[0-9]*$/",$datas['op_self_words'])){
             return responseTojson(1,'你填写的著作本人字数必须全为数字且不超过10位',1);
         }elseif (strlen($datas['op_integral']) > 10
-            || !preg_match("^[0-9]*$",$datas['op_integral'])){
+            || !preg_match("/^[0-9]*$/",$datas['op_integral'])){
             return responseTojson(1,'你填写的著作积分必须全为数字且不超过10位',1);
         }elseif (strlen($datas['op_cate_research']) > 20){
             return responseTojson(1,'你填写的著作研究类别名称过长',1);
@@ -177,7 +177,7 @@
             return responseTojson(1,'你输入的授予单位过长',1);
         }elseif (strlen($datas['aw_certi_number']) > 30){
             return responseTojson(1,'你输入的证书编号过长',1);
-        }elseif (!preg_match("^[0-9]*$",$datas['aw_integral'])
+        }elseif (!preg_match("/^[0-9]*$/",$datas['aw_integral'])
             || strlen($datas['aw_integral']) > 10){
             return responseTojson(1,'你输入的积分必须全为数字且不超过10位',1);
         }else{
@@ -195,10 +195,10 @@
             return responseTojson(1,'你输入的专利名字过长',1);
         }elseif (strlen($datas['author_num']) > 30){
             return responseTojson(1,'你输入的授权编号过长',1);
-        }elseif (!preg_match("^[0-9]*$",$datas['author_cert_num'])
+        }elseif (!preg_match("/^[0-9]*$/",$datas['author_cert_num'])
             || strlen($datas['author_cert_num']) >10){
             return responseTojson(1,'你输入的授权证书编号必须全为数字且不超过10位',1);
-        }elseif (!preg_match("^[0-9]*$",$datas['pa_integral'])
+        }elseif (!preg_match("/^[0-9]*$/",$datas['pa_integral'])
             ||strlen($datas['pa_integral']) > 10){
             return responseTojson(1,'你输入的积分必须全为数字且不超过10位',1);
         }else{
@@ -219,7 +219,7 @@
         }elseif (strlen($datas['ap_num']) > 20){
             return responseTojson(1,'你输入的鉴定编号过长',1);
         }elseif (strlen($datas['ap_integral']) > 10
-            || !preg_match("^[0-9]*$",$datas['ap_integral'])){
+            || !preg_match("/^[0-9]*$/",$datas['ap_integral'])){
             return responseTojson(1,'你输入的积分必须全为数字且不超过10位',1);
         }else{
             return responseTojson(0,'验证通过',1);
@@ -233,7 +233,7 @@
         if(strlen($datas['ho_name']) > 50){
             return responseTojson(1,'你输入的会议名称过长',1);
         }elseif (strlen($datas['people_num']) > 6
-            || !preg_match("^[0-9]*$",$datas['people_num'])){
+            || !preg_match("/^[0-9]*$/",$datas['people_num'])){
             return responseTojson(1,'你输入的会议参加人数必须全为数字且不超过7位',1);
         }elseif (strlen($datas['ho_unit']) > 50){
             return responseTojson(1,'你输入的会议主办方单位名字过长',1);
@@ -257,7 +257,7 @@
         }elseif (strlen($datas['jo_place']) > 50){
             return responseTojson(1,'你输入的会议地点名称过长',1);
         }elseif (strlen($datas['jo_art_num']) > 9
-            || !preg_match("^[0-9]*$",$datas['jo_art_num'])){
+            || !preg_match("/^[0-9]*$/",$datas['jo_art_num'])){
             return responseTojson(1,'你输入的会议论文提交次数必须为数字且不超过9位',1);
         }elseif (strlen($datas['jo_title']) > 50){
             return responseTojson(1,'你输入的会议题目名称过长',1);

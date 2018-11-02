@@ -60,16 +60,15 @@ class OpusDatabase  extends ModelDatabase
     }
     //查询以前的著作图片路径
     public static function selectOpusAllImageDatas($op_id_datas){
-        $op_cover_raod_datas = [];
-        $op_coright_road_datas = [];
+        $op_raod_datas = [];
         for($i = 0; $i < count($op_id_datas); $i++){
             $road = DB::table('opus')->select('op_cover_road','op_coright_road')
                     ->where('op_id',$op_id_datas[$i])
                     ->first();
-            $op_cover_raod_datas[$i]   = $road['op_cover_road'];
-            $op_coright_road_datas[$i] = $road['op_coright_road'];
+            array_push($op_raod_datas,$road->op_cover_road) ;
+            array_push($op_raod_datas,$road->op_coright_road);
         }
-        return array_merge($op_cover_raod_datas,$op_coright_road_datas);//版权和著作封面图片路径合并
+        return $op_raod_datas;
     }
     //修改著作信息
     public static function updateOpusDatas($datas){
