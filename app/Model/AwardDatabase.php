@@ -60,8 +60,7 @@ class AwardDatabase extends ModelDatabase
     }
     //修改获奖信息
     public static function updateAwardDatas($datas,$reset_image_status){
-        $aw_id    = $datas['aw_id'];
-        $response = DB::table('award')->where('aw_id',$aw_id)
+        $response = DB::table('award')->where('aw_id',$datas['aw_id'])
                     ->update([
                     'aw_first_author'  => $datas['aw_first_author'],
                     'aw_all_author'    => $datas['aw_all_author'],

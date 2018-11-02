@@ -33,16 +33,16 @@ class AwardController extends Controller
          ];
          $judge_datas = judgeAwardField($datas);
          if($judge_datas['code'] == 1){
-             return $judge_datas;
+             return responseTojson(1,$judge_datas['message']);
          }
-         if(!$request->hasFile('aw_pic')){
+         if(!$request->hasFile('aw_road')){
              $datas['aw_road'] = '';
              return AwardDatabase::addAwardDatas($datas);
          }
-         $award_image = $request->file('aw_pic');
+         $award_image = $request->file('aw_road');
          $judge_image = judgeFileImage($award_image);
          if($judge_image['code'] == 1){
-             return $judge_image;
+             return responseTojson(1,$judge_image['message']);
          }
          $disk             = UploadSubjectionConfig::AWARD;
          $subjection_image = UploadSubjectionConfig::AWARD_IMG;
@@ -104,18 +104,18 @@ class AwardController extends Controller
          ];
          $judge_datas = judgeAwardField($datas);
          if($judge_datas['code'] == 1){
-             return $judge_datas;
+             return responseTojson(1,$judge_datas['message']);
          }
          $reset_image_status = false;
          $datas['aw_road'] = $aw_road;
-         if(!$request->hasFile('aw_pic')){
+         if(!$request->hasFile('aw_road')){
             return AwardDatabase::updateAwardDatas($datas,$reset_image_status);
          }
          $reset_image_status = true;
-         $award_image = $request->file('aw_pic');
+         $award_image = $request->file('aw_road');
          $judge_image = judgeFileImage($award_image);
          if($judge_image['code'] == 1){
-             return $judge_image;
+             return responseTojson(1,$judge_image['message']);
          }
          $disk = UploadSubjectionConfig::AWARD;
          $subjection_award = UploadSubjectionConfig::AWARD_IMG;

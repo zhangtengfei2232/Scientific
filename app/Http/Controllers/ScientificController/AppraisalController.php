@@ -27,10 +27,9 @@ class AppraisalController extends Controller
              'ap_level'        => trim($request->ap_level),
              'ap_integral'     => trim($request->ap_integral)
          ];
-         dd($datas);
          $judge_datas = judgeAppraisalField($datas);
          if($judge_datas['code'] == 1){
-             return $judge_datas;
+             return responseTojson(1,$judge_datas['message']);
          }
          $datas['ap_remarks'] = trim($request->ap_remarks);
          return  AppraisalDatabase::addAppraisalDatas($datas);
@@ -43,17 +42,21 @@ class AppraisalController extends Controller
          if(!$request->is_add_appraisal){
             return responseTojson(1,'请你先添加成功鉴定信息');
          }
-         $add_image_status = $request->add_image_status;
-         if($add_image_status == 1){
+         if(!$request->hasFile('ap_road') || !$request->hasFile('ap_cover_road')){
+             return responseTojson(1,'请上传所要修改的成功鉴定证书图片');
+         }
+         if($request->hasFile('ap_road')){
+             $add_image_status = 1;
              $subjection       = UploadSubjectionConfig::APPRAISAL_IMG;
-             $appraisal_image  = $request->file('ap_image');
+             $appraisal_image  = $request->file('ap_road');
          }else{
+             $add_image_status = 2;
              $subjection       = UploadSubjectionConfig::APPRAISAL_COVER_IMG;
-             $appraisal_image  = $request->file('ap_cover_image');
+             $appraisal_image  = $request->file('ap_cover_road');
          }
          $judge_image = judgeFileImage($appraisal_image);
          if($judge_image['code'] == 1){
-             return $judge_image;
+             return responseTojson(1,$judge_image['message']);
          }
          $disk      = UploadSubjectionConfig::APPRAISAL;
          $ap_id     = $request->ap_id;
@@ -65,7 +68,7 @@ class AppraisalController extends Controller
          deletefiles($disk,$new_image_road);
          return responseTojson(1,'上传图片失败');
     }
-    //删除单个鉴定成果信息
+    //删除鉴定成果信息
     public function deleteAppraisal(Request $request){
         $ap_id_datas = $request->ap_id_datas;
         $old_image_road      = AppraisalDatabase::selectAllAppraisalImageRoad($ap_id_datas);
@@ -75,8 +78,8 @@ class AppraisalController extends Controller
     }
     //查看单个成果鉴定信息
     public function selectAppraisal(Request $request){
-       $result = AppraisalDatabase::selectAppraisalDatas($request->ap_id);
-       return responseTojson(0,'查询成功','',$result);
+        $result = AppraisalDatabase::selectAppraisalDatas($request->ap_id);
+        return responseTojson(0,'查询成功','',$result);
     }
     //查看所有成果鉴定信息
     public function selectAllAppraisal(){
@@ -111,7 +114,7 @@ class AppraisalController extends Controller
         dd($request);
         $judge_datas = judgeAppraisalField($datas);
         if($judge_datas['code'] == 1){
-            return $judge_datas;
+            return responseTojson(1,$judge_datas['message']);
         }
         $datas['ap_remarks'] = trim($request->ap_remarks);
         return  AppraisalDatabase::updateAppraisalDatas($datas);
@@ -121,17 +124,21 @@ class AppraisalController extends Controller
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
-        $update_image_status = $request->update_image_status;
-        if($update_image_status == 1){
-            $appraisal_image = $request->file('ap_image');
+        if(!$request->hasFile('ap_road') || !$request->hasFile('ap_cover_road')){
+            return responseTojson(1,'请上传所要修改的成功鉴定证书图片');
+        }
+        if($request->hasFile('ap_road')){
+            $update_image_status = 1;
+            $appraisal_image = $request->file('ap_road');
             $subjection      = UploadSubjectionConfig::APPRAISAL_IMG;
         }else{
-            $appraisal_image = $request->file('ap_cover_image');
-            $subjection      = UploadSubjectionConfig::APPRAISAL_COVER_IMG;
+            $update_image_status = 2;
+            $appraisal_image     = $request->file('ap_cover_road');
+            $subjection          = UploadSubjectionConfig::APPRAISAL_COVER_IMG;
         }
         $judge_image         = judgeFileImage($appraisal_image);
         if($judge_image['code'] == 1){
-            return $judge_image;
+            return responseTojson(1,$judge_image['message']);
         }
         $ap_id          = $request->ap_id;
         $disk           = UploadSubjectionConfig::APPRAISAL;

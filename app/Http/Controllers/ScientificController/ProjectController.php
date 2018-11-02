@@ -34,17 +34,17 @@ class ProjectController extends Controller
         ];
         $judge_project_datas = judgeProjectField($datas);                  //验证字段
         if($judge_project_datas['code'] == 1){
-            return $judge_project_datas;
+            return responseTojson(1,$judge_project_datas['message']);
         }
         $datas['pro_remarks'] = trim($request->pro_remarks);
-        if(!$request->hasFile('pro_file')){                            //判断用户是否添加证书
+        if(!$request->hasFile('pro_road')){                            //判断用户是否添加证书
             $datas['pro_road'] = '';
             return ProjectDatabase::addProjectDatas($datas);
         }
-        $project_image = $request->file('pro_file');
+        $project_image = $request->file('pro_road');
         $judge_project_image = judgeFileImage($project_image);
         if($judge_project_image['code'] == 1){                             //验证图片
-            return $judge_project_datas;
+            return responseTojson(1,$judge_project_image['message']);
         }
         $disk = UploadSubjectionConfig::PROJECT;
         $subjection_project = UploadSubjectionConfig::PROJECT_IMG;
@@ -109,19 +109,19 @@ class ProjectController extends Controller
         ];
         $judge_project_datas = judgeProjectField($datas);
         if($judge_project_datas['code'] == 1){
-            return $judge_project_datas;
+            return responseTojson(1,$judge_project_datas['message']);
         }
         $reset_image_status = false;
         $datas['pro_remarks'] = trim($request->pro_remarks);
         $datas['pro_road']    = $pro_road;
-        if(!$request->hasFile('pro_file')){
+        if(!$request->hasFile('pro_road')){
             return ProjectDatabase::updateProjectDatas($datas,$reset_image_status);
         }
         $reset_image_status = true;
-        $project_image = $request->file('pro_file');
+        $project_image = $request->file('pro_road');
         $judge_project_img = judgeFileImage($project_image);
         if($judge_project_img['code'] == 1){
-            return $judge_project_img;
+            return responseTojson(1,$judge_project_img['message']);
         }
         $disk               = UploadSubjectionConfig::PROJECT;
         $subjection_project = UploadSubjectionConfig::PROJECT_IMG;

@@ -35,8 +35,7 @@ class DutiesDatabase extends ModelDatabase
     }
     //修改担任团体职务信息
     public static function updateDutiesDatas($datas,$reset_image_status){
-        $du_id = $datas['du_id'];
-        $response = DB::table('duties')->where('du_id',$du_id)
+        $response = DB::table('duties')->where('du_id',$datas['du_id'])
                     ->update([
                     'teacher_name' => $datas['teacher_name'],
                     'du_academic'  => $datas['du_academic'],
@@ -47,7 +46,7 @@ class DutiesDatabase extends ModelDatabase
                     'du_duty'      => $datas['du_duty'],
                     'du_year_num'  => $datas['du_year_num'],
                     'du_remark'    => $datas['du_remark'],
-                    'du_road'      => $datas['road']
+                    'du_road'      => $datas['du_road']
                     ]);
         if($reset_image_status){
             return ($response != 1) ? false : true;
