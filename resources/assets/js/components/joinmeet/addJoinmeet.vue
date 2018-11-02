@@ -109,6 +109,7 @@
             Bcode:false,
             multiple:true,
             form: {
+                jo_id:'',
                 join_people: '',
                 jo_name: '',
                 jo_hold_unit: '',
@@ -170,7 +171,8 @@
                 url: 'addjoinmeetimage',
                 headers: {'Content-Type': 'multipart/form-data'},
                 timeout: 20000,
-                data: data
+                data: data,
+                jo_id:id
             });
         },
        onSubmit(form) {

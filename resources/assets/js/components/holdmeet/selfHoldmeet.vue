@@ -59,10 +59,10 @@
                 </el-form-item>
                 <div class="demo" v-show="picType">
                     <thead>
-                        <!-- <li v-for="(id,filelists) in items" v-bind:key="filelists">
-                            <img src="{{ items.url }}" alt="无法加载">
-                            <el-button type="primary" @click="deletePic(items)">保存修改</el-button>
-                        </li> -->
+                        <li v-for="(index,filelists) in items" v-bind:key="filelists">
+                            <img :src="items.url" alt="无法加载" style="width:100px">
+                            <el-button type="primary" @click="deletePic(items.im_id)">保存修改</el-button>
+                        </li>
                     </thead>
                 </div>
                 <el-form-item label="会议图片">
@@ -73,8 +73,7 @@
                         :before-upload="fileProfil"
                         :on-preview="handlePreview"
                         :on-remove="handleRemove"
-                        :auto-upload="false"
-                        list-type="picture">
+                        :auto-upload="false">
                         <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
                         <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUploads">上传</el-button>
                         <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
@@ -94,6 +93,9 @@
         width: 80%;
         margin: 35px 0 0 35px;
     }
+    .demo{
+        margin: 10px 0 10px 30%;
+    }
 </style>
 
 <script>
@@ -109,6 +111,7 @@ export default {
             ho_graph_inject: '',
             filelists:[{}],
             form: {
+                ho_id:'',
                 ho_name: '',
                 ho_art_status: '',
                 people_num: '',
@@ -129,11 +132,11 @@ export default {
                     self.HoldmeetSelfData = data.datas.information;
                     self.form = data.datas.information;
                     self.filelist.url = 'showfile?disk=holdmeet&subjection=' + data.datas.information.ho_graph_inject;
-                    // let image = data.datas.information.ho_image;
-                    // if(image !== ''){
-                    //     this.picType = true;
-                    //     self.filelists = 'showfile?disk=holdmeet&subjection=' + image;
-                    // }   
+                    let image = data.datas.information.ho_image;
+                    if(image !== ''){
+                        self.picType = true;
+                        self.filelists = 'showfile?disk=holdmeet&subjection=' + image;
+                    }   
                 } else {
                     self.$notify({
                         type: 'error',
@@ -189,7 +192,8 @@ export default {
                 url: 'addholdmeetimages',
                 headers: {'Content-Type': 'multipart/form-data'},
                 timeout: 20000,
-                data: data
+                data: data,
+                ho_id:id
             });
         },
        onSubmit(form) {

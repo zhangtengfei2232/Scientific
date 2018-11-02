@@ -109,8 +109,12 @@
     },
     methods: {
         filePatpic(file) {
-            this.dataForm.append('pa_road', file);
-            return false;
+            if(file == '') {
+                return
+            }else{
+                this.dataForm.append('pa_road', file);
+                return false;
+            }
         },
         onSubmit(form) {
             if(form.patent_person == '') {

@@ -146,6 +146,7 @@
             dataFile: new FormData(),
             Bcode:false,
             form: {
+                op_id:'',
                 op_first_author: '',
                 op_all_author: '',
                 op_name: '',
@@ -220,7 +221,8 @@
                 url: 'addopusimage',
                 headers: {'Content-Type': 'multipart/form-data'},
                 timeout: 20000,
-                data: data
+                data: data,
+                op_id:id
             });
         },
         onSubmit(form) {

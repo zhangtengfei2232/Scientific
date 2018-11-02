@@ -97,6 +97,7 @@
             ho_file: '',
             ho_graph_inject: '',
             form: {
+                ho_id:'',
                 ho_name: '',
                 ho_art_status: '',
                 people_num: '',
@@ -154,7 +155,8 @@
                 url: 'addholdmeetimages',
                 headers: {'Content-Type': 'multipart/form-data'},
                 timeout: 20000,
-                data: data
+                data: data,
+                ho_id:id
             });
         },
        onSubmit(form) {
