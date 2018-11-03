@@ -107,6 +107,7 @@
             dataForm: new FormData(),
             dataFile: new FormData(),
             Bcode:false,
+            ap_id:'',
             form: {
                 ap_first_author: '',
                 ap_all_author: '',
@@ -149,7 +150,7 @@
         fileProfils(files){
             if(this.Bcode == true){
                 this.dataFile.append('ap_road', files);
-                let id = this.form.ap_id;
+                let id = this.ap_id;
                 this.dataFile.append('ap_id', id);
                 this.dataFile.append('is_add_appraisal',this.Bcode);
                 this.sendfile(this.dataFile);
@@ -226,6 +227,7 @@
                         var data = res.data;
                         if (data.code == 0) {
                             this.Bcode = true;
+                            vue.ap_id = res.data.datas;
                             vue.$message({
                                 message: '添加成功',
                                 type: 'success'
