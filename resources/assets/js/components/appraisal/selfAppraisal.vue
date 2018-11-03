@@ -174,6 +174,7 @@ export default {
             console.log(file);
         },
         fileProfil(file){
+            console.log(file);
             if(file !== ''){
                 this.dataFile.append('ap_cover_road', file);
                 let id = this.form.ap_id;
@@ -184,6 +185,7 @@ export default {
             }  
         },
         fileProfils(files){
+            console.log(files);
             if(files !== ''){
                 this.dataFile.append('ap_cover_road', files);
                 let id = this.form.ap_id;
@@ -204,7 +206,7 @@ export default {
                 } else {
                     this.$notify({
                         type: 'error',
-                        message: '修改失败',
+                        message: data.message,
                         duration: 2000,
                     });
                 }

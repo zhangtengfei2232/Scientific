@@ -139,7 +139,7 @@ export default {
                 } else {
                     self.$notify({
                         type: 'error',
-                        message: data.msg,
+                        message: data.message,
                         duration: 2000,         
                     });
                 }
@@ -179,7 +179,7 @@ export default {
                 } else {
                     this.$notify({
                         type: 'error',
-                        message: '修改失败',
+                        message: data.message,
                         duration: 2000,
                     });
                 }
@@ -235,7 +235,7 @@ export default {
                             } else {
                                 vue.$notify({
                                     type: 'error',
-                                    message: '修改失败',
+                                    message: data.message,
                                     duration: 2000,
                                 });
                             }
@@ -258,7 +258,7 @@ export default {
         },
          deletePic(id) {
             let self = this;
-            axios.get("",{
+            axios.get("deletejoinmeetimage",{
                 params:{
                     id:id
                 }
@@ -272,7 +272,7 @@ export default {
                 } else {
                     self.$notify({
                         type: 'error',
-                        message: data.msg,
+                        message: data.message,
                         duration: 2000,
                     });
                 }

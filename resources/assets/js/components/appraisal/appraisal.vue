@@ -157,7 +157,7 @@
                     } else {
                         self.$notify({
                             type: 'error',
-                            message: data.msg,
+                            message: data.message,
                             duration: 2000,
                         });
                     }
@@ -166,7 +166,6 @@
             BatchDelete(){
 		    	var self = this;
                 var pro_id_datas = [];//存放删除的数据
-                console.log(self.multipleSelection);
                 if(self.multipleSelection == undefined){
                     this.$message({
                         message: '警告哦，这是一条警告消息',
@@ -186,7 +185,7 @@
                     type: 'warning'
                 }).then(() => {
                     let self = this;
-                    axios.get("deleteallappraisal",{
+                    axios.get("deleteappraisal",{
                         params:{
                             ap_id_datas:pro_id_datas
                         }
@@ -200,7 +199,7 @@
                         } else {
                             self.$notify({
                                 type: 'error',
-                                message: data.msg,
+                                message: data.message,
                                 duration: 2000,
                             });
                         }
@@ -220,7 +219,7 @@
                     type: 'warning'
                 }).then(() => {
                     let self = this;
-                    axios.get("deleteallappraisal",{
+                    axios.get("deleteappraisal",{
                         params:{
                             ap_id_datas:id
                         }
@@ -234,7 +233,7 @@
                         } else {
                             self.$notify({
                                 type: 'error',
-                                message: data.msg,
+                                message: data.message,
                                 duration: 2000,
                             });
                         }
@@ -264,7 +263,7 @@
                     } else {
                         self.$notify({
                             type: 'error',
-                            message: data.msg,
+                            message: data.message,
                             duration: 2000,         
                         });
                     }

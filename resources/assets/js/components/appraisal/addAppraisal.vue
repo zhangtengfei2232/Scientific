@@ -138,7 +138,7 @@
             if(this.Bcode == true){
                 this.dataFile.append('ap_cover_road', file);
                 let id = this.form.ap_id;
-                this.sendfile(this.dataFile,id);
+                this.sendfile(this.dataFile,id,this.Bcode);
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
@@ -148,14 +148,14 @@
             if(this.Bcode == true){
                 this.dataFile.append('ap_road', files);
                 let id = this.form.ap_id;
-                this.sendfile(this.dataFile,id);
+                this.sendfile(this.dataFile,id,this.Bcode);
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
             }
         },
-        sendfile(dataFile,id) {
-            this.addBookFile(this.dataFile,id).then(res => {
+        sendfile(dataFile,id,Bcode) {
+            this.addBookFile(this.dataFile,id,Bcode).then(res => {
                 var data = res.data;
                 if (data.code == 0) {
                     this.$message({
@@ -165,19 +165,20 @@
                 } else {
                     this.$notify({
                         type: 'error',
-                        message: '添加失败',
+                        message: data.message,
                         duration: 2000,
                     });
                 }
             })  
         },
-        addBookFile(data,id){
+        addBookFile(data,id,Bcode){
              return axios({
                 method: 'post',
                 url: 'addappraisalimage',
                 headers: {'Content-Type': 'multipart/form-data'},
                 timeout: 20000,
-                data: data
+                data: data,
+                is_add_appraisal:Bcode
             });
         },
         onSubmit(form) {
@@ -229,12 +230,12 @@
                         } else {
                             vue.$notify({
                                 type: 'error',
-                                message: '添加失败',
+                                message: data.message,
                                 duration: 2000,
                             });
                         }
                     })
-                    vue.$refs.pat_pic.submit()
+                    vue.$refs.ap_road.submit()
                 } else {
                     console.log('error submit!!')
                     return false
