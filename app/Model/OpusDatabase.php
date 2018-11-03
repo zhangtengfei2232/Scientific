@@ -51,10 +51,10 @@ class OpusDatabase  extends ModelDatabase
     //查找以前的著作封面和版权图片路径
     public static function selectOpusImageRoad($op_id,$update_image_status){
         if($update_image_status == 1){
-            $image = DB::table('opus')->select('op_cover_road')->where('op_id',$op_id)->get();
+            $image = DB::table('opus')->select('op_cover_road')->where('op_id',$op_id)->first();
             return $image->op_cover_road;
         }elseif ($update_image_status == 2){
-            $image = DB::table('opus')->select('op_coright_road')->where('op_id',$op_id)->get();
+            $image = DB::table('opus')->select('op_coright_road')->where('op_id',$op_id)->first();
             return $image->op_coright_road;
         }
     }
