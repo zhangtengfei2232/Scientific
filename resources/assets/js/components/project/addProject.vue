@@ -215,7 +215,7 @@
                             } else {
                                 vue.$notify({
                                     type: 'error',
-                                    message: '添加失败',
+                                    message: data.message,
                                     duration: 2000,
                                 });
                             }

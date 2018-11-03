@@ -179,26 +179,27 @@
         },
         fileProfil(file){
             if(this.Bcode == true){
-                this.dataFile.append('op_cover_road', file);
+                this.dataFile.append('op_cover_road', file,);
                 let id = this.form.op_id;
-                this.sendfile(this.dataFile,id);
-            }else{
-                this.$message.error('请先添加数据信息');
-                return false
-            }  
-        },
-        fileProfils(files){
-            if(this.Bcode == true){
-                this.dataFile.append('op_coright_road', files);
-                let id = this.form.op_id;
-                this.sendfile(this.dataFile,id);
+                this.sendfile(this.dataFile,id,this.Bcode);
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
             }
         },
-        sendfile(dataFile,id) {
-            this.addBookFile(this.dataFile,id).then(res => {
+        fileProfils(files){
+            if(this.Bcode == true){
+                this.dataFile.append('op_coright_road', files);
+                let id = this.form.op_id;
+                this.sendfile(this.dataFile,id,this.Bcode);
+            }else{
+                this.$message.error('请先添加数据信息');
+                return false
+            }
+        },
+        sendfile(dataFile,id,Bcode) {
+            console.log(id);
+            this.addBookFile(this.dataFile,id,Bcode).then(res => {
                 let vue = this;
                 var data = res.data;
                 if (data.code == 0) {
@@ -209,20 +210,21 @@
                 } else {
                     vue.$notify({
                         type: 'error',
-                        message: '添加失败',
+                        message: data.message,
                         duration: 2000,
                     });
                 }
             })  
         },
-        addBookFile(data,id){
+        addBookFile(data,id,Bcode){
              return axios({
                 method: 'post',
                 url: 'addopusimage',
                 headers: {'Content-Type': 'multipart/form-data'},
                 timeout: 20000,
                 data: data,
-                op_id:id
+                op_id:id,
+                is_add_apus:Bcode
             });
         },
         onSubmit(form) {
@@ -277,8 +279,11 @@
                     });
                     vue.addBookData(vue.dataForm).then(res => {
                         var data = res.data;
+                        console.log(res.data);
                         if (data.code == 0) {
                             this.Bcode=true;
+                            vue.form.op_id =  res.data.datas;
+                            
                             vue.$message({
                                 message: '添加成功',
                                 type: 'success'
@@ -286,7 +291,7 @@
                         } else {
                             vue.$notify({
                                 type: 'error',
-                                message: '添加失败',
+                                message: data.message,
                                 duration: 2000,
                             });
                         }

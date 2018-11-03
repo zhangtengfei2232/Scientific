@@ -156,7 +156,7 @@
                     } else {
                         self.$notify({
                             type: 'error',
-                            message: data.msg,
+                            message: data.message,
                             duration: 2000,
                         });
                     }
@@ -198,7 +198,7 @@
                         }else {
                             self.$notify({
                                 type: 'error',
-                                message: '删除失败!',
+                                message: data.message,
                                 duration: 2000,
                             });
                         }
@@ -233,7 +233,7 @@
                         } else {
                             self.$notify({
                                 type: 'error',
-                                message: '删除失败!',
+                                message: data.message,
                                 duration: 2000,
                             });
                         }
@@ -263,7 +263,7 @@
                     } else {
                         self.$notify({
                             type: 'error',
-                            message: data.msg,
+                            message: data.message,
                             duration: 2000,         
                         });
                     }

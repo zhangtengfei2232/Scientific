@@ -220,7 +220,7 @@ export default {
                 } else {
                     self.$notify({
                         type: 'error',
-                        message: data.msg,
+                        message: data.message,
                         duration: 2000,         
                     });
                 }
@@ -297,7 +297,7 @@ export default {
                         } else {
                             vue.$notify({
                                 type: 'error',
-                                message: data.msg,
+                                message: data.message,
                                 duration: 2000,
                             });
                         }
