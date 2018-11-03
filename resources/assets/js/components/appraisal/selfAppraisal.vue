@@ -191,7 +191,7 @@ export default {
             console.log(files);
             if(files !== ''){
                 this.dataFile.append('ap_cover_road', files);
-                let id = this.form.ap_id;
+                let id = this.ap_id;
                 this.dataFile.append('ap_id', id);
                 this.sendfile(this.dataFile);
             }else{
@@ -265,7 +265,7 @@ export default {
                             vue.dataForm.append(i,val);
                         });
                         vue.addAppraisalData(vue.dataForm).then(res => {
-                            var data = response.data;
+                            var data = res.data;
                             if (data.code == 0) {
                                 this.Bcode = true;
                                 vue.$message({

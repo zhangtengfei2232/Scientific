@@ -45,12 +45,12 @@
                 </div>
                 <el-form-item label="会议图注">
                     <el-upload
-                        class="upload-demo"
                         drag
                         action="#"
-                        ref="ho_files"
+                        ref="ho_graph_inject"
                         :before-upload="fileProfil"
-                        multiple>
+                        :auto-upload="false"
+                        list-type="picture">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
@@ -74,7 +74,8 @@
                         :before-upload="fileProfils"
                         :on-preview="handlePreview"
                         :on-remove="handleRemove"
-                        :auto-upload="false">
+                        :auto-upload="false"
+                        list-type="picture">
                         <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
                         <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUploads">上传</el-button>
                         <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
@@ -124,7 +125,7 @@ export default {
                 ho_unit: '',
                 undertake_unit: '',
                 ho_level: '',
-                ho_time: '',
+                ho_time:' ',
             },
         }
     },
@@ -157,7 +158,7 @@ export default {
             });
         },
         submitUploads() {
-            this.$refs.ho_graph_inject.submit();
+            this.$refs.ho_file.submit();
         },
         handleRemove(file, fileList) {
             console.log(file, fileList);
@@ -166,13 +167,13 @@ export default {
             console.log(file);
         },
         fileProfil(file){
-            this.dataForm.append('ho_file', file);
+            this.dataForm.append('ho_graph_inject', file);
             return false;
         },
         fileProfils(files){
             if(this.Bcode == true){
-                this.dataFile.append('ho_graph_inject', files);
-                let id = this.form.ho_id;
+                this.dataFile.append('ho_file', files);
+                let id = this.ho_id;
                 this.dataFile.append('ho_id', id);
                 this.sendfile(dataFile);      
             }else{
@@ -251,7 +252,7 @@ export default {
                                 });
                             }
                         })
-                        vue.$refs.ho_file.submit()
+                        vue.$refs.ho_graph_inject.submit()
                     } else {
                         console.log('error submit!!')
                         return false
