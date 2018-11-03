@@ -66,6 +66,9 @@
             <el-form-item label="备注">
                 <el-input type="textarea" v-model="form.du_remark"></el-input>
             </el-form-item>
+                <div class="demo" v-show="type1">
+                    <img :src="filelists.url" style="width:100px">
+                </div>
             <el-form-item label="证书图片">
                 <el-upload
                         class="upload-demo"
@@ -97,6 +100,9 @@
     .add{
         width: 80%;
         margin: 35px 0 0 35px;
+    }
+    .demo{
+        margin: 10px 0 10px 30%;
     }
     /*组件*/
     .el-form{

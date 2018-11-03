@@ -92,7 +92,7 @@
                     <el-button>取消</el-button>
                 </el-form-item>
                 <div class="demo" v-show="type1">
-                    <img :src="filelist.url" alt="无法加载" style="width:100px">
+                    <img :src="filelist" alt="无法加载" style="width:100px">
                 </div>
                 <el-form-item label="著作封面">
                     <el-upload
@@ -111,7 +111,7 @@
                     </el-upload>
                 </el-form-item>
                 <div class="demo" v-show="type2">
-                    <img :src="filelists.url" alt="无法加载" style="width:100px">
+                    <img :src="filelists" alt="无法加载" style="width:100px">
                 </div>
                 <el-form-item label="版权页图片">
                     <el-upload
@@ -157,8 +157,8 @@ export default {
             BookSelfData: {},
             op_coright_road: '',
             op_cover_road: '',
-            filelist: [{name:'',url:''}],
-            filelists: [{name:'',url:''}],
+            filelist: '',
+            filelists: '',
             dataForm: new FormData(),
             dataFile: new FormData(),
             form: {
@@ -222,7 +222,8 @@ export default {
             if(file !== ''){
                 this.dataFile.append('op_cover_road', file);
                 let id = this.form.op_id;
-                this.sendfile(this.dataFile,id);
+                this.dataFile.append('op_id', id);
+                this.sendfile(this.dataFile);
             }else{
                 this.$message.error('请先添加文件');
                 return false
@@ -231,18 +232,17 @@ export default {
         fileProfils(files){
             if(files !== ''){
                 this.dataFile.append('op_coright_road', files);
-                let op_id = this.form.op_id;
-                console.log(op_id);
-                this.sendfile(dataFile,op_id);
-                this.$refs.bo_files.submit();
+                let id = this.form.op_id;
+                this.dataFile.append('op_id', id);
+                this.sendfile(this.dataFile);
             }else{
                 this.$message.error('请先添加文件');
                 return false
             }
         },
-        sendfile(dataFile,op_id) {
+        sendfile(dataFile) {
             let vue = this;
-            this.addBookFile(vue.dataFile,op_id).then(res => {
+            this.addBookFile(dataFile).then(res => {
                 var data = res.data;   
                 if (data.code == 0) {
                     vue.$message({
@@ -258,14 +258,13 @@ export default {
                 }
             })  
         },
-        addBookFile(data,op_id){
+        addBookFile(data){
              return axios({
                 method: 'post',
                 url: 'updateopusimage',
                 headers: {'Content-Type': 'multipart/form-data'},
                 timeout: 20000,
                 data: data,
-                op_id:op_id
             });
         },
         onSubmit(form) {

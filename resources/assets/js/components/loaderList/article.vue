@@ -1,0 +1,101 @@
+<template>
+    <div>
+        <div class="cont">
+            <template>
+                <el-table
+                    :data="allArticle"
+                    style="width: 100%"
+                    height="250">
+                    <el-table-column
+                        fixed
+                        prop="date"
+                        label="第一作者"
+                        width="150">
+                    </el-table-column>
+                    <el-table-column
+                        prop="name"
+                        label="全部作者"
+                        width="120">
+                    </el-table-column>
+                    <el-table-column
+                        prop="province"
+                        label="论文题目"
+                        width="120">
+                    </el-table-column>
+                    <el-table-column
+                        prop="city"
+                        label="发表时间"
+                        width="120">
+                    </el-table-column>
+                    <el-table-column
+                        prop="address"
+                        label="发表刊物名称"
+                        width="300">
+                    </el-table-column>
+                    <el-table-column
+                        prop="zip"
+                        label="刊号"
+                        width="120">
+                    </el-table-column>
+                    <el-table-column
+                        prop="zip"
+                        label="年，卷，期"
+                        width="120">
+                    </el-table-column>
+                    <el-table-column
+                        prop="zip"
+                        label="字数"
+                        width="120">
+                    </el-table-column>
+                    <el-table-column
+                        prop="zip"
+                        label="期刊级别"
+                        width="120">
+                    </el-table-column>
+                    <el-table-column
+                        prop="zip"
+                        label="所属项目"
+                        width="120">
+                    </el-table-column>
+                    <el-table-column
+                        prop="zip"
+                        label="研究类别"
+                        width="120">
+                    </el-table-column>
+                    <el-table-column
+                        prop="zip"
+                        label="学科门类"
+                        width="120">
+                    </el-table-column>
+                    <el-table-column
+                        prop="zip"
+                        label="积分"
+                        width="120">
+                    </el-table-column>
+                    <el-table-column
+                        prop="zip"
+                        label="学校认定刊物级别"
+                        width="120">
+                    </el-table-column>
+                </el-table>
+            </template>
+        </div>
+    </div>
+</template>
+
+<style>
+    .cont{
+        width: 80%;
+        float: left;
+    }
+</style>
+
+<script>
+export default {
+    data() {
+        return {
+            allArticle:[],
+        }
+    },
+}
+</script>

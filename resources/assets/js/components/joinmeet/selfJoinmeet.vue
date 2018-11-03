@@ -49,16 +49,20 @@
                 <el-form-item label="报告题目">
                     <el-input v-model="form.jo_title"></el-input>
                 </el-form-item>
+                <div class="demo" v-show="picType">
+                    <img :src="filelist" alt="无法加载" style="width:100px">
+                </div>
                 <el-form-item label="会议图注">
                     <el-upload
                         class="upload-demo"
                         drag
-                        ref="jo_graph_inject"
-                        :before-upload="fileProfils"
                         action="#"
-                        multiple
+                        ref="jo_graph_inject"
+                        :before-upload="fileProfil"
+                        :auto-upload="false"                        
                         list-type="picture">
-                        <i class="el-icon-upload"></i>
+                        <i class="el-icon-upload"
+                        show-file-list='true'></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
                 </el-form-item>
@@ -66,7 +70,7 @@
                     <el-button type="primary" @click="onSubmit(form)">保存修改</el-button>
                     <el-button>取消</el-button>
                 </el-form-item>
-                <div class="demo" v-show="picType">
+                <div class="demo" v-show="picTypes">
                     <thead>
                         <!-- <li v-for="(index,filelists) in items" v-bind:key="filelists">
                             <img :src="items.url" alt="无法加载">
@@ -76,15 +80,14 @@
                 </div>
                 <el-form-item label="会议图片">
                     <el-upload
-                        drag
+                        class="upload-demo"
                         ref="jo_image"
                         action="#"
-                        :before-upload="fileProfil"
+                        :before-upload="fileProfils"
                         :on-preview="handlePreview"
                         :on-remove="handleRemove"
                         :auto-upload="false"
-                        :limit="1"
-                        list-type="picture">
+                        :limit="1">
                         <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
                         <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUploads">上传</el-button>
                         <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
@@ -121,7 +124,6 @@ export default {
             Bcode:false,
             jo_image: '',
             jo_graph_inject: '',
-            multiple: true,
             JoinmeetSelfData: {},
             filelists:[],
             filelist: '',
@@ -149,12 +151,14 @@ export default {
                     if (data.code == 0) {
                         self.JoinmeetSelfData = data.datas;
                         self.form = data.datas.information;
-                        if(data.datas.jo_graph_inject!==''){
+                        if(data.datas.information.jo_graph_inject == ''){
+                            self.picType=false;
+                        }else{
                             self.picType=true;
-                            self.filelist = 'showfile?disk=joinmeet&subjection=' + data.datas.jo_graph_inject;
+                            self.filelist = 'showfile?disk=joinmeet&subjection=' + data.datas.information.jo_graph_inject;
                         }
-                        let image = data.datas.information.jo_image;
-                        if(image !== ''){
+                        let image = data.datas.image;
+                        if(image != ''){
                             self.picTypes = true;
                             self.filelists = 'showfile?disk=holdmeet&subjection=' + image;
                         } 
@@ -184,14 +188,15 @@ export default {
             if(this.Bcode == true){
                 this.dataFile.append('jo_image', files);
                 let id = this.form.jo_id;
-                this.sendfile(this.dataFile,id);
+                this.dataFile.append('jo_id', id);
+                this.sendfile(this.dataFile);
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
             }
         },
         sendfile(dataFile) {
-            this.addBookFile(dataFile,id).then(res => {
+            this.addBookFile(dataFile).then(res => {
                 var data = res.data;
                 if (data.code == 0) {
                     this.$message({
@@ -207,14 +212,13 @@ export default {
                 }
             })  
         },
-        addBookFile(data,id){
+        addBookFile(data){
              return axios({
                 method: 'post',
                 url: 'addjoinmeetimage',
                 headers: {'Content-Type': 'multipart/form-data'},
                 timeout: 20000,
                 data: data,
-                jo_id:id
             });
         },
        onSubmit(form) {

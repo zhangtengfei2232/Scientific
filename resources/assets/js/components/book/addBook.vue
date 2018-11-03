@@ -181,7 +181,9 @@
             if(this.Bcode == true){
                 this.dataFile.append('op_cover_road', file,);
                 let id = this.form.op_id;
-                this.sendfile(this.dataFile,id,this.Bcode);
+                this.dataFile.append('op_id', id);
+                this.dataFile.append('is_add_apus',this.Bcode);
+                this.sendfile(this.dataFile);
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
@@ -191,15 +193,16 @@
             if(this.Bcode == true){
                 this.dataFile.append('op_coright_road', files);
                 let id = this.form.op_id;
-                this.sendfile(this.dataFile,id,this.Bcode);
+                this.dataFile.append('op_id', id);
+                this.dataFile.append('is_add_apus',this.Bcode);
+                this.sendfile(this.dataFile);
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
             }
         },
-        sendfile(dataFile,id,Bcode) {
-            console.log(id);
-            this.addBookFile(this.dataFile,id,Bcode).then(res => {
+        sendfile(dataFile) {
+            this.addBookFile(dataFile).then(res => {
                 let vue = this;
                 var data = res.data;
                 if (data.code == 0) {
@@ -216,15 +219,13 @@
                 }
             })  
         },
-        addBookFile(data,id,Bcode){
+        addBookFile(data){
              return axios({
                 method: 'post',
                 url: 'addopusimage',
                 headers: {'Content-Type': 'multipart/form-data'},
                 timeout: 20000,
                 data: data,
-                op_id:id,
-                is_add_apus:Bcode
             });
         },
         onSubmit(form) {
@@ -279,11 +280,9 @@
                     });
                     vue.addBookData(vue.dataForm).then(res => {
                         var data = res.data;
-                        console.log(res.data);
                         if (data.code == 0) {
                             this.Bcode=true;
                             vue.form.op_id =  res.data.datas;
-                            
                             vue.$message({
                                 message: '添加成功',
                                 type: 'success'
