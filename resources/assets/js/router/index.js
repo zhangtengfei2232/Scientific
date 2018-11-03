@@ -214,11 +214,89 @@ export default new VueRouter({
                 path: '/Glverview',
                 component: resolve => void(require(['../components/globalOverview/Glverview.vue'], resolve))
             },
-            // 所有老师论文
+            // 所有老师信息
             {
-                name: 'allArticle',
-                path: '/allArticle',
-                component: resolve => void(require(['../components/allArticle/allArticle.vue'], resolve))
+                name: 'teachers',
+                path: '/loaderList/teacher',
+                component: resolve => void(require(['../components/loaderList/teacher.vue'], resolve))
+            },
+            //所有论文信息
+            {
+                name: 'articles',
+                path: '/loaderList/article',
+                component: resolve => void(require(['../components/loaderList/article.vue'], resolve))
+            },
+            //所有项目信息
+            {
+                name: 'projects',
+                path: '/loaderList/project',
+                component: resolve => void(require(['../components/loaderList/project.vue'], resolve))
+            },
+            //所有著作信息
+            {
+                name: 'apus',
+                path: '/loaderList/apus',
+                component: resolve => void(require(['../components/loaderList/apus.vue'], resolve))
+            },
+            //所有获奖信息
+            {
+                name: 'awards',
+                path: '/loaderList/award',
+                component: resolve => void(require(['../components/loaderList/award.vue'], resolve))
+            },
+            //所有专利信息
+            {
+                name: 'patents',
+                path: '/loaderList/patent',
+                component: resolve => void(require(['../components/loaderList/patent.vue'], resolve))
+            },
+            //所有专利信息
+            {
+                name: 'appraisals',
+                path: '/loaderList/appraisal',
+                component: resolve => void(require(['../components/loaderList/appraisal.vue'], resolve))
+            },
+             //所有成果鉴定信息
+             {
+                name: 'appraisals',
+                path: '/loaderList/appraisal',
+                component: resolve => void(require(['../components/loaderList/appraisal.vue'], resolve))
+            },
+            //所有举办会议信息
+            {
+                name: 'holdmeets',
+                path: '/loaderList/holdmeet',
+                component: resolve => void(require(['../components/loaderList/holdmeet.vue'], resolve))
+            },
+            //所有参加会议信息
+            {
+                name: 'joinmeets',
+                path: '/loaderList/joinmeet',
+                component: resolve => void(require(['../components/loaderList/joinmeet.vue'], resolve))
+            },
+            //所有专家讲学信息
+            {
+                name: 'lectures',
+                path: '/loaderList/lecture',
+                component: resolve => void(require(['../components/loaderList/lecture.vue'], resolve))
+            },
+            //所有担任学术团体职务信息
+            {
+                name: 'dutiess',
+                path: '/loaderList/duties',
+                component: resolve => void(require(['../components/loaderList/duties.vue'], resolve))
+            },
+            //所有校发文件信息
+            {
+                name: 'schoolfiles',
+                path: '/loaderList/schoolfile',
+                component: resolve => void(require(['../components/loaderList/schoolfile.vue'], resolve))
+            },
+            //所有教学科研等合作协议信息
+            {
+                name: 'agreements',
+                path: '/loaderList/agreement',
+                component: resolve => void(require(['../components/loaderList/agreement.vue'], resolve))
             },
       ]
 

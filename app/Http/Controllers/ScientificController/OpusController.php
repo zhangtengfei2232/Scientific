@@ -40,7 +40,7 @@ class OpusController  extends Controller
     }
     //添加著作封面和版权图片
     public function addOpusImage(Request $request){
-        dd($request->op_id);
+        dd($request);
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }

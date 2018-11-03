@@ -162,14 +162,15 @@ export default {
             if(this.Bcode == true){
                 this.dataFile.append('ho_graph_inject', files);
                 let id = this.form.ho_id;
-                this.sendfile(dataFile,id);      
+                this.dataFile.append('ho_id', id);
+                this.sendfile(dataFile);      
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
             }
         },
         sendfile(file) {
-            this.addBookFile(dataFile,id).then(res => {
+            this.addBookFile(dataFile).then(res => {
                 var data = res.data;
                 if (data.code == 0) {
                     this.$message({
@@ -185,14 +186,13 @@ export default {
                 }
             })  
         },
-        addBookFile(data,id){
+        addBookFile(data){
              return axios({
                 method: 'post',
                 url: 'addholdmeetimages',
                 headers: {'Content-Type': 'multipart/form-data'},
                 timeout: 20000,
                 data: data,
-                ho_id:id
             });
         },
        onSubmit(form) {

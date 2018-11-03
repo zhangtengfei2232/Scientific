@@ -222,7 +222,8 @@ export default {
             if(file !== ''){
                 this.dataFile.append('op_cover_road', file);
                 let id = this.form.op_id;
-                this.sendfile(this.dataFile,id);
+                this.dataFile.append('op_id', id);
+                this.sendfile(this.dataFile);
             }else{
                 this.$message.error('请先添加文件');
                 return false
@@ -232,17 +233,16 @@ export default {
             if(files !== ''){
                 this.dataFile.append('op_coright_road', files);
                 let op_id = this.form.op_id;
-                console.log(op_id);
-                this.sendfile(dataFile,op_id);
-                this.$refs.bo_files.submit();
+                this.dataFile.append('op_id', id);
+                this.sendfile(dataFile);
             }else{
                 this.$message.error('请先添加文件');
                 return false
             }
         },
-        sendfile(dataFile,op_id) {
+        sendfile(dataFile) {
             let vue = this;
-            this.addBookFile(vue.dataFile,op_id).then(res => {
+            this.addBookFile(vue.dataFile).then(res => {
                 var data = res.data;   
                 if (data.code == 0) {
                     vue.$message({
@@ -258,14 +258,13 @@ export default {
                 }
             })  
         },
-        addBookFile(data,op_id){
+        addBookFile(data){
              return axios({
                 method: 'post',
                 url: 'updateopusimage',
                 headers: {'Content-Type': 'multipart/form-data'},
                 timeout: 20000,
                 data: data,
-                op_id:op_id
             });
         },
         onSubmit(form) {

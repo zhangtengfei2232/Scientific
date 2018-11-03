@@ -138,7 +138,9 @@
             if(this.Bcode == true){
                 this.dataFile.append('ap_cover_road', file);
                 let id = this.form.ap_id;
-                this.sendfile(this.dataFile,id,this.Bcode);
+                this.dataFile.append('ap_id', id);
+                this.dataFile.append('is_add_appraisal',this.Bcode);
+                this.sendfile(this.dataFile);
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
@@ -148,14 +150,16 @@
             if(this.Bcode == true){
                 this.dataFile.append('ap_road', files);
                 let id = this.form.ap_id;
-                this.sendfile(this.dataFile,id,this.Bcode);
+                this.dataFile.append('ap_id', id);
+                this.dataFile.append('is_add_appraisal',this.Bcode);
+                this.sendfile(this.dataFile);
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
             }
         },
-        sendfile(dataFile,id,Bcode) {
-            this.addBookFile(this.dataFile,id,Bcode).then(res => {
+        sendfile(dataFile) {
+            this.addBookFile(this.dataFile).then(res => {
                 var data = res.data;
                 if (data.code == 0) {
                     this.$message({
@@ -171,14 +175,13 @@
                 }
             })  
         },
-        addBookFile(data,id,Bcode){
+        addBookFile(data){
              return axios({
                 method: 'post',
                 url: 'addappraisalimage',
                 headers: {'Content-Type': 'multipart/form-data'},
                 timeout: 20000,
                 data: data,
-                is_add_appraisal:Bcode
             });
         },
         onSubmit(form) {
