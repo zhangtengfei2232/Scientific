@@ -29,11 +29,11 @@ class LectureController extends Controller
          if($judge_datas['code'] == 1){
              return responseTojson(1,$judge_datas['message']);
          }
-         if(!$request->hasFile('lecture_inject')){
+         if(!$request->hasFile('le_img_road')){
              $datas['le_img_road'] = '';
              return LectureDatabase::addLectureDatas($datas);
          }
-         $lecture_inject = $request->file('lecture_inject');
+         $lecture_inject = $request->file('le_img_road');
          $judge_inject   = judgeFileImage($lecture_inject);
          if($judge_inject['code'] == 1){
              return responseTojson(1,$judge_inject['message']);
@@ -112,12 +112,12 @@ class LectureController extends Controller
              return responseTojson(1,$judge_datas['message']);
          }
          $reset_inject_status = false;
-         if(!$request->hasFile('lecture_inject')){
+         if(!$request->hasFile('le_img_road')){
              $datas['le_img_road'] = trim($request->le_img_road);
              return LectureDatabase::updateLectureDatas($datas,$reset_inject_status);
          }
          $reset_inject_status = true;
-         $update_inject = $request->file('lecture_inject');
+         $update_inject = $request->file('le_img_road');
          $judge_inject  = judgeFileImage($update_inject);
 
          if($judge_inject->code == 1){

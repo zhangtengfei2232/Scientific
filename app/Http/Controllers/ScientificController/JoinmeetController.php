@@ -34,7 +34,7 @@ class JoinmeetController  extends Controller
             return responseTojson(1,$judge_datas['message']);
         }
         if(!$request->hasFile('joinmeet_inject')){
-            $datas['joinmeet_inject'] = '';
+            $datas['jo_graph_inject'] = '';
             return JoinmeetDatas::addJoinmeetDatas($datas);
         }
         $joinmeet_inject = $request->file('joinmeet_inject');
@@ -45,7 +45,7 @@ class JoinmeetController  extends Controller
         $disk                = UploadSubjectionConfig::JOIN_MEET;
         $subjection_joinmeet = UploadSubjectionConfig::JOIN_INJECTION;
         $new_inject_road     = uploadFiles($subjection_joinmeet,$judge_inject,$disk);
-        $datas['joinmeet_inject'] = $new_inject_road;
+        $datas['jo_graph_inject'] = $new_inject_road;
         $add_joinmeet = JoinmeetDatas::addJoinmeetDatas($datas);
         if($add_joinmeet > 0){
             return responseTojson(0,'添加参加会议成功','',$add_joinmeet);
@@ -148,10 +148,10 @@ class JoinmeetController  extends Controller
         if(!$request->is_add_joinmeet){
             return responseTojson(1,'请你先添加参加会议信息');
         }
-        if(!$request->hasFile('joinmeet_image')){
+        if(!$request->hasFile('jo_graph_inject')){
             return responseTojson(1,'请你添加参加会议图片');
         }
-        $join_images = $request->file('joinmeet_image');
+        $join_images = $request->file('jo_graph_inject');
         $judge_images = judgeAllFileImage($join_images);
         if($judge_images['code'] == 1){
             return responseTojson(1,'上传图片失败');
