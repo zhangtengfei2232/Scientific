@@ -8,7 +8,7 @@ class JoinmeetDatas extends ModelDatabase
     //添加参加会议信息
     public static function addJoinmeetDatas($datas){
         $jo_graph_inject = $datas['jo_graph_inject'];
-        $response = DB::tabel('joinmeet')
+        $response = DB::table('joinmeet')
                     ->insertGetId([
                         'teacher_id'      => $datas['teacher_id'],
                         'join_people'     => $datas['join_people'],

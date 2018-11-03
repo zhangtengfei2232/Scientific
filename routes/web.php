@@ -93,8 +93,8 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
 
     //老师对参加会议的操作
     Route::post('addjoinmeet', 'JoinmeetController@addJoinmeet');                  //添加参加会议
-    Route::get('addjoinmeetimage', 'JoinmeetController@addJoinmeetImage');         //添加参加会议图片
-    Route::get('deletejoinmeet', 'JoinmeetController@addJoinmeetImage');           //删除参加会议信息
+    Route::post('addjoinmeetimage', 'JoinmeetController@addJoinmeetImage');        //添加参加会议图片
+    Route::get('deletejoinmeet', 'JoinmeetController@deleteJoinmeet');             //删除参加会议信息
     Route::get('deletejoinmeetimage', 'JoinmeetController@deleteJoinmeetImage');   //删除参加会议图片
     Route::get('selectjoinmeet', 'JoinmeetController@selectJoinmeet');             //查询单个参加会议信息
     Route::get('selectalljoinmeet', 'JoinmeetController@selectAllJoinmeet');       //查询全部参加会议信息
