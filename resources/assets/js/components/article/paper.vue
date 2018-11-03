@@ -72,7 +72,7 @@
                                 <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentArticleSelfData(ArticleDate[scope.$index].art_id)"></el-button>
                                 <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentArticleSelfData(ArticleDate[scope.$index].art_id)"></el-button>
                                 <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteArticleData(ArticleDate[scope.$index].art_id)"></el-button>
-                                <a ><el-button type="success" icon="el-icon-download" size="mini"></el-button></a>
+                                <!-- <a href="downloadfile?file=article/{{ ArticleDate.[scope.$index].art_road }}"><el-button type="success" icon="el-icon-download" size="mini"></el-button></a> -->
                             </el-button>
                         </template>
                     </el-table-column>
@@ -156,6 +156,7 @@
                     var data = response.data;
                     if (data.code == 0) {
                         self.ArticleDate = data.datas;
+                        console.log(data.datas);
                     } else {
                         self.$notify({
                             type: 'error',
