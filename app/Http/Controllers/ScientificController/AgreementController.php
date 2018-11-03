@@ -93,7 +93,7 @@ class AgreementController extends Controller
     }
     //查看单个教学科研合作协议信息
     public function selectAgreement(Request $request){
-        $result = AgreementDatabase::selectAgreementDatas($request->agreement_id) ;
+        $result = AgreementDatabase::selectAgreementDatas($request->agree_id) ;
         return responseTojson(0,'查询成功','',$result);
     }
     //查看全部教学科研合作协议信息

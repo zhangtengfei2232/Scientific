@@ -42,7 +42,7 @@ class AppraisalController extends Controller
          if(!$request->is_add_appraisal){
             return responseTojson(1,'请你先添加成功鉴定信息');
          }
-         if(!$request->hasFile('ap_road') || !$request->hasFile('ap_cover_road')){
+         if(!$request->hasFile('ap_road') && !$request->hasFile('ap_cover_road')){
              return responseTojson(1,'请上传所要修改的成功鉴定证书图片');
          }
          if($request->hasFile('ap_road')){
@@ -111,7 +111,7 @@ class AppraisalController extends Controller
              'ap_level'        => trim($request->ap_level),
              'ap_integral'     => trim($request->ap_integral)
          ];
-        dd($request);
+//        dd($request);
         $judge_datas = judgeAppraisalField($datas);
         if($judge_datas['code'] == 1){
             return responseTojson(1,$judge_datas['message']);
@@ -143,12 +143,17 @@ class AppraisalController extends Controller
         $ap_id          = $request->ap_id;
         $disk           = UploadSubjectionConfig::APPRAISAL;
         $old_image_road = AppraisalDatabase::selectAppraisalImageRoad($ap_id,$update_image_status);
+        AppraisalDatabase::beginTraction();
         $new_image_road = uploadFiles($subjection,$appraisal_image,$disk);
         $reset_image    = AppraisalDatabase::updateAppraisalImageDatas($new_image_road,$update_image_status,$ap_id);
         if($reset_image){
-            deletefiles($disk,$old_image_road);
+            AppraisalDatabase::commit();
+            if(!empty($old_image_road)){
+                deletefiles($disk,$old_image_road);
+            }
             return responseTojson(0,'修改鉴定成果图片成功');
         }
+        AppraisalDatabase::rollback();
         deletefiles($disk,$new_image_road);
         return responseTojson(1,'修改鉴定成果图片失败');
     }

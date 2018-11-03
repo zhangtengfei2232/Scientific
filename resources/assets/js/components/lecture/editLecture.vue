@@ -40,13 +40,15 @@
             </el-form-item>
                 <el-form-item label="图片">
                     <el-upload
-                            class="upload-demo"
                             drag
-                            action="#"
                             ref="lec_image"
+                            action="#"
                             :before-upload="filePicfil"
+                            :on-preview="handlePreview"
+                            :on-remove="handleRemove"
+                            :auto-upload="false"
                             :file-list="filelist"
-                            multiple>
+                            list-type="picture">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
@@ -59,6 +61,7 @@
                         multiple
                         :file-list="filelists"
                         ref="le_img_road"
+                        :auto-upload="false"
                         :before-upload="fileZufil">
                     <i class="el-icon-upload"></i>
                     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -94,7 +97,7 @@
     export default {
         data() {
             return {
-                image_road:'',
+                lec_image:'',
                 le_img_road:'',
                 Bcode:false,
                 multiple: true,
@@ -104,6 +107,7 @@
                 filelists:[],
                 filelist: [{url:''}],
                 form: {
+                    le_id:'',
                     le_expert_name:'',
                     le_expert_level:'',
                     le_report_name:'',
@@ -116,23 +120,64 @@
             }
         },
         methods: {
-            filePicfil(file){
-                this.dataForm.append('image_road', file);
-                return false;
+            getEditLectureData() {
+                let self = this;
+                let le_id = self.$route.params.le_id;
+                axios.get("selectlecture?le_id="+le_id).then(function (response) {
+                    var data = response.data;
+                    if (data.code == 0) {
+                        self.EditLectureData = data.datas;
+                        self.form = data.datas.lecture_information;
+                        self.filelists.url='../../storage/app/data/lecture/'+data.datas.le_img_road;
+                        let image = data.datas.lecture_information.lec_image;
+//                        if(image !== ''){
+//                            self.picType = true;
+//                            self.filelists = 'showfile?disk=holdmeet&subjection=' + image;
+//                        }
+                    } else {
+                        self.$notify({
+                            type: 'error',
+                            message: data.msg,
+                            duration: 2000,
+                        });
+                    }
+                });
+            },
+            submitUploads() {
+                this.$refs.le_img_road.submit();
+            },
+            handleRemove(file, fileList) {
+//                console.log(file, fileList);
+            },
+            handlePreview(files) {
+//                console.log(file);
             },
             fileZufil(file){
+//                console.log(file,'--8888--------======');
+                this.dataForm.append('le_img_road', file);
+                return false;
+            },
+            filePicfil(files){
+                console.log(files,'-you---======');
                 if(this.Bcode == true){
-                    this.dataForm.append('image_road', file);
-                    this.sendfile(files);
-                    this.$refs.image_road.submit();
+//
+                    this.dataFile.append('lec_image', files);
+                    let id = this.form.le_id;
+//                    console.log(id,'love=====');
+                    this.sendfile(this.dataFile);
+                    this.$refs.lec_image.submit();
+//                    console.log(files,'=============');
+//                    console.log(this.form.le_id,'====------=====');
                 }else{
                     this.$message.error('请先添加数据信息');
                     return false
                 }
             },
-            sendfile(file) {
-                this.addBookFile(vue.dataFile).then(res => {
+            sendfile(dataFile) {
+                this.addBookFile(dataFile,id).then(res => {
                     var data = res.data;
+//                    console.log(data,'--8888--------======');
+//                    console.log(id,'--5555555--------======');
                     if (data.code == 0) {
                         vue.$message({
                             message: '修改成功',
@@ -147,33 +192,17 @@
                     }
                 })
             },
-            addBookFile(data){
+            addBookFile(data,id){
                 return axios({
                     method: 'post',
                     url: 'addLectureImages',
                     headers: {'Content-Type': 'multipart/form-data'},
                     timeout: 20000,
-                    data: data
+                    data: data,
+                    le_id:id
                 });
             },
-            getEditLectureData() {
-                let self = this;
-                let le_id = self.$route.params.le_id;
-                axios.get("selectlecture?le_id="+le_id).then(function (response) {
-                    var data = response.data;
-                    if (data.code == 0) {
-                        self.EditLectureData = data.datas;
-                        self.form = data.datas.lecture_information;
-                        self.filelists.url='../../storage/app/data/lecture/'+data.datas.le_img_road
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.msg,
-                            duration: 2000,
-                        });
-                    }
-                });
-            },
+
             onSubmit(form) {
 //                console.log(form,"修改成功啦+++++++++++++");
                 if(form.le_expert_name == '') {
@@ -200,6 +229,7 @@
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);
                         });
+                        console.log(vue.form,"修改+++++++++++++");
                         vue.addLectureData(vue.dataForm).then(res => {
                             var data = res.data;
                             if (data.code == 0) {
@@ -218,7 +248,7 @@
                             }
                         })
                         vue.$refs.le_img_road.submit();
-//                        vue.$refs.image_road.submit();
+//                        vue.$refs.lec_image.submit();
                     } else {
                         console.log('error submit!!');
                         return false

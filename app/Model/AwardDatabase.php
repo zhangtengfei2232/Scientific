@@ -45,7 +45,7 @@ class AwardDatabase extends ModelDatabase
     public static function selectAllAwardDatas($teacher_id){
         $result =  DB::table('award')->where('teacher_id',$teacher_id)->orderBy('aw_grant_time','desc')->get();
         foreach ($result as $datas){
-            $datas->aw_grant_time = date('Y-m-d',$datas->aw_grant_time);
+            $datas->aw_grant_time = date('Y-m-d',$datas->aw_grant_time/1000);
         }
         return $result;
     }

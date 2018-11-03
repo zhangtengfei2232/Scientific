@@ -42,8 +42,9 @@
                             class="upload-demo"
                             drag
                             action="#"
-                            ref="pic_file"
-                            :before-upload="filePicfil"
+                            ref="lec_image"
+                            :before-upload="fileZufil"
+                            :auto-upload="false"
                             multiple>
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -55,9 +56,9 @@
                         drag
                         action=""
                         multiple
-                        ref="zu_file"
-                        :before-upload="fileZufil"
-                        :auto-upload="true">
+                        ref="le_img_road"
+                        :before-upload="filePicfil"
+                        :auto-upload="false">
                     <i class="el-icon-upload"></i>
                     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                 </el-upload>
@@ -96,8 +97,8 @@
                 dataFile: new FormData(),
                 Bcode:false,
                 multiple:true,
-                zu_file: '',
-                pic_file: '',
+                le_img_road: '',
+                lec_image: '',
                 form: {
                     le_expert_name:'',
                     le_expert_level:'',
@@ -112,21 +113,25 @@
         },
         methods: {
             filePicfil(file){
-                this.dataForm.append('pic_file', file);
+                console.log(file,"tpypyypypyp")
+                this.dataForm.append('le_img_road', file);
                 return false;
             },
             fileZufil(file){
                 if(this.Bcode == true){
-                    this.dataForm.append('zu_file', file);
-                    this.sendfile(files);
-                    this.$refs.zu_file.submit();
+                    this.dataFile.append('lec_image', file);
+                    let id = this.form.le_id;
+                    this.sendfile(this.dataFile,id);
+//                    this.sendfile(files);
+                    this.$refs.lec_image.submit();
+                    console.log(file,"bbbbbbbbbbbbbbb")
                 }else{
                     this.$message.error('请先添加数据信息');
                     return false
                 }
             },
             sendfile(file) {
-                this.addBookFile(vue.dataFile).then(res => {
+                this.addBookFile(vue.dataFile,id).then(res => {
                     var data = res.data;
                     if (data.code == 0) {
 //                        this.Bcode = true;
@@ -143,13 +148,14 @@
                     }
                 })
             },
-            addBookFile(data){
+            addBookFile(data,id){
                 return axios({
                     method: 'post',
                     url: 'addLectureImages',
                     headers: {'Content-Type': 'multipart/form-data'},
                     timeout: 20000,
-                    data: data
+                    data: data,
+                    le_id:id
                 });
             },
             onSubmit(form) {
@@ -174,13 +180,11 @@
                     return
                 }
                 this.$refs['form'].validate((valid) => {
-//                    var d = form.le_time;
-//                    form.le_time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                     if (valid) {
                         jQuery.each(form,function(i,val){
                             vue.dataForm.append(i,val);
                         });
-//                        console.log(vue.dataForm,'添加ooo');
+                       console.log(form,'+++++++++++ott');
                         vue.addLectureData(vue.dataForm).then(res => {
                             var data = res.data;
                             if (data.code == 0) {
@@ -197,8 +201,7 @@
                                 });
                             }
                         })
-                        vue.$refs.pic_file.submit();
-//                        vue.$refs.zu_file.submit();
+                        vue.$refs.le_img_road.submit();
 
                     } else {
                         console.log('error submit!!');

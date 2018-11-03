@@ -12,7 +12,6 @@ class PatentController extends Controller
      //添加专利信息
      public function addPatent(Request $request)
      {
-         dd($request->file());
          if(!$request->isMethod('POST')){
              return responseTojson(1,'你请求的方式不对');
          }
@@ -100,7 +99,7 @@ class PatentController extends Controller
             'pa_integral'      => trim($request->pa_integral)
          ];
          $judge_datas = judgePatenField($datas);
-         if($judge_datas['code']== 1){
+         if($judge_datas['code'] == 1){
              return responseTojson(1,$judge_datas['message']);
          }
          $reset_image_status = false;

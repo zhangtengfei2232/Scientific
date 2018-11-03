@@ -44,7 +44,7 @@ class OpusDatabase  extends ModelDatabase
     public static function selectOpusAllDatas($teacher_id){
         $result = DB::table('opus')->where('teacher_id',$teacher_id)->orderBy('op_publish_time','desc')->get();
         foreach ($result as  $datas){
-            $datas->op_publish_time = date('Y-m-d',$datas->op_publish_time);
+            $datas->op_publish_time = date('Y-m-d',$datas->op_publish_time/1000);
         }
         return $result;
     }

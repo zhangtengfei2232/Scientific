@@ -44,7 +44,7 @@ class PatentDatabase  extends ModelDatabase
     public static function selectPatenAllDatas($teacher_id){
         $result = DB::table('patent')->where('teacher_id',$teacher_id)->orderBy('author_notic_day','desc')->get();
         foreach ($result as $datas){
-            $datas->author_notic_day = date('Y-m-d',$datas->author_notic_day);
+            $datas->author_notic_day = date('Y-m-d',$datas->author_notic_day/1000);
         }
         return $result;
     }

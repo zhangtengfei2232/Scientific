@@ -16,7 +16,7 @@ class ArticalDatabase  extends ModelDatabase
      public static function selectAllArticalDatas($teacher_id){
          $result = DB::table('artical')->where('teacher_id',$teacher_id)->orderBy('art_time','desc')->get();
          foreach ($result as  $datas){
-             $datas->art_time = date('Y-m-d',$datas->art_time);
+             $datas->art_time = date('Y-m-d',$datas->art_time/1000);
          }
          return $result;
      }
@@ -97,8 +97,8 @@ class ArticalDatabase  extends ModelDatabase
                 'art_time'          => strtotime($datas->art_time),
                 'art_remarks'       => $datas->art_remarks
             ]);
-        return ($response != 1) ? showMsg(1,'修改论文失败')
-               : showMsg(0,'修改论文成功');
+        return ($response != 1) ? responseTojson(1,'修改论文失败')
+               : responseTojson(0,'修改论文成功');
     }
     //查找论文、首页原始、SCI索引报告路径
     public static function selectArticalRoad($artical_id){
