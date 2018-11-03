@@ -51,16 +51,16 @@
                 </el-form-item>
                 <el-form-item label="会议图注">
                     <el-upload
+                        class="upload-demo"
                         drag
                         action="#"
                         ref="jo_graph_inject"
-                        :before-upload="fileProfils"
-                        :auto-upload="true"
-                        multiple
+                        :before-upload="fileProfil"
+                        :auto-upload="false"                        
                         list-type="picture">
                         <i class="el-icon-upload"
                         show-file-list='true'></i>
-                        <div class="el-upload__text"><em>若多选请一次性上传</em></div>
+                        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
                 </el-form-item>
                 <el-form-item>
@@ -69,14 +69,14 @@
                 </el-form-item>
                 <el-form-item label="会议图片">
                     <el-upload
-                        drag
+                        class="upload-demo"
                         ref="jo_image"
                         action="#"
-                        :before-upload="fileProfil"
+                        :before-upload="fileProfils"
                         :on-preview="handlePreview"
                         :on-remove="handleRemove"
                         :auto-upload="false"
-                        list-type="picture">
+                        :limit="1">
                         <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
                         <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUploads">上传</el-button>
                         <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
