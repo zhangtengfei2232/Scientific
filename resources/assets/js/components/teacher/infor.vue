@@ -101,7 +101,7 @@
 
                             </div>
                             <div class="contentRight"style="width: 50%;">
-                                <el-form-item label="第一学历：" ></el-form-item>
+                                <el-form-item label="第一学历："style="font-weight:800 !important; font-size: 17px;" ></el-form-item>
 
                                 <el-form-item label="第一学历/学位" prop="first_graduate_school">
                                     <el-input v-model="form.first_graduate_school"></el-input>
@@ -116,7 +116,7 @@
                                     <el-input v-model="form.first_graduation_time"></el-input>
                                 </el-form-item>
 
-                                <el-form-item label="最高学历：" ></el-form-item>
+                                <el-form-item label="最高学历：" style="font-weight: 800; font-size: 17px;"></el-form-item>
 
                                 <el-form-item label="最高学历/学位" prop="most_academic">
                                     <el-input v-model="form.most_academic"></el-input>
@@ -140,7 +140,7 @@
                                 <el-form-item label="任教课程" prop="teach_course">
                                     <el-input v-model="form.teach_course"></el-input>
                                 </el-form-item>
-                                <el-form-item label="硕(博)导：" ></el-form-item>
+                                <el-form-item label="硕(博)导："style="font-weight: 800; font-size: 17px;" ></el-form-item>
 
                                 <el-form-item label="授予单位" prop="master_company">
                                     <el-input v-model="form.master_company"></el-input>
@@ -148,9 +148,12 @@
                                 <el-form-item label="获得时间" prop="master_time">
                                     <el-input v-model="form.master_time"></el-input>
                                 </el-form-item>
-
+                                <el-form-item>
+                                    <el-button type="primary" @click="onSubmit(form)">保存修改</el-button>
+                                    <el-button>取消</el-button>
+                                </el-form-item>
                                 <div class="demo" v-show="type1">
-                                    <img :src="filelist.url" style="width:100px">
+                                    <img :src="filelist" style="width:100px">
                                 </div>
                                 <el-form-item label="毕业证书图片">
                                     <el-upload
@@ -160,7 +163,6 @@
                                             :before-upload="fileProfil"
                                             :on-preview="handlePreview"
                                             :on-remove="handleRemove"
-                                            :file-list="filelist"
                                             :auto-upload="false"
                                             :limit="1"
                                             list-type="picture">
@@ -170,7 +172,7 @@
                                     </el-upload>
                                 </el-form-item>
                                 <div class="demo" v-show="type2">
-                                    <img :src="filelist1.url" alt="无法加载" style="width:100px">
+                                    <img :src="filelists" alt="无法加载" style="width:100px">
                                 </div>
                                 <el-form-item label="学历证书图片">
                                     <el-upload
@@ -180,7 +182,6 @@
                                             :before-upload="fileEdufil"
                                             :on-preview="handlePreview"
                                             :on-remove="handleRemove"
-                                            :file-list="filelist1"
                                             :auto-upload="false"
                                             :limit="1"
                                             list-type="picture">
@@ -189,10 +190,6 @@
                                         <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
                                     </el-upload>
                                 </el-form-item>
-                                    <el-form-item>
-                                        <el-button type="primary" @click="onSubmit(form)">保存修改</el-button>
-                                        <el-button>取消</el-button>
-                                    </el-form-item>
                             </div>
                         </el-form>
                     </div>
@@ -208,20 +205,20 @@
     export default {
         data() {
             return {
-                id:[],
+//                id:[],
                 type1:false,
                 type2:false,
-                filelist: [{name:'',url:''}],
-                filelist1: [{name:'',url:''}],
+                filelist:'',
+                filelists:'',
                 gra_cert_road: '',
                 edu_cert_road: '',
                 dataForm: new FormData(),
                 dataFile: new FormData(),
-                teacherDate: [],
-                show: false,
-                checked: false,
-                checkAll: false,
-                sortable:true,
+                teacherDate:{},
+//                show: false,
+//                checked: false,
+//                checkAll: false,
+//                sortable:true,
                 form:{
                     id:'',
                     name:'',
@@ -242,8 +239,6 @@
                     most_graduation_time:'',
                     most_graduate_school:'',
                     edu_cert_road:'',
-
-
 
                     polit_outlook:'',
                     admin_duties:'',
@@ -273,35 +268,29 @@
                     gra_cert_road:'',
 
                 },
-                pickerOptions1: {
-                    disabledDate(time) {
-                        return time.getTime() > Date.now();
-                    },
-                },
-                value1: '',
             }
         },
         methods: {
             getTeacherData(){
                 let self = this;
-                self.form.id = self.$route.params.id;
-                console.log(self.form.id,'==========');
+                this.form.id = self.$route.params.id;
+//                console.log(self.form.id,'==========');
                 axios.get("selectteacher?id"+this.form.id).then(function (response) {
                     var data = response.data;
                     if(data.code == 0){
                         self.teacherDate = data.datas;
                         self.form = data.datas.information;
 
-                        if(data.datas.gra_cert_road !== ''){
+                        if(data.datas.information.gra_cert_road !== ''){
                             self.type1=true;
-                            self.filelist.url = 'showfile?disk=teacher&subjection=' + data.datas.gra_cert_road;
+                            self.filelist.url = 'showfile?disk=teacher&subjection=' + data.datas.information.gra_cert_road;
+                        console.log(self.filelist.url,'===]][[[[[[[[[[[[[')
                         }
-                        if(data.datas.edu_cert_road !== ''){
+                        if(data.datas.information.edu_cert_road !== ''){
                             self.type2=true;
-                            self.filelist1.url = 'showfile?disk=teacher&subjection=' + data.datas.edu_cert_road;
+                            self.filelists.url = 'showfile?disk=teacher&subjection=' + data.datas.information.edu_cert_road;
+                            console.log(self.filelists.url,'===]][[[[[[[[[[[[[')
                         }
-//                        self.filelist.url = 'showimage?disk=infor&subjection=' + data.datas.gra_cert_road;
-//                        self.filelist1.url = 'showimage?disk=infor&subjection=' + data.datas.edu_cert_road;
                     }else{
                         self.$notify({
                             type: 'error',
@@ -318,37 +307,45 @@
                 this.$refs.edu_cert_road.submit();
             },
             handleRemove(file, fileList) {
-                //console.log(file, fileList);
+                console.log(file, fileList);
             },
             handlePreview(file){
-                //console.log(file);
+                console.log(file);
             },
+//            fileProfil(file){
+//                this.dataForm.append('gra_cert_road', file);
+//                return false;
+//            },
+//            fileEdufil(files){
+//                this.dataForm.append('edu_cert_road', file);
+//                return false;
+//            },
             fileProfil(file){
                 if(file !== ''){
                     this.dataFile.append('gra_cert_road', file);
-                    let id = this.form.le_id;
-                    this.sendfile(this.dataFile,id);
-//                    this.sendfile(file,1);
+//                    let id = this.form.id;
+//                    this.dataFile.append('id', id);
+                    this.sendfile(this.dataFile);
                 }else{
                     this.$message.error('请先添加文件');
                     return false
                 }
             },
-            fileEdufil(file){
-                if(file !== ''){
-                    this.dataFile.append('edu_cert_road', file);
-                    let le_id = this.form.le_id;
-                    console.log(le_id);
-                    this.sendfile(dataFile,le_id);
-//                    this.$refs.bo_files.submit();
+            fileEdufil(files){
+                if(files !== ''){
+                    this.dataFile.append('edu_cert_road', files);
+//                    let id = this.form.id;
+//                    this.dataFile.append('id', id);
+                    this.sendfile(this.dataFile);
                 }else{
                     this.$message.error('请先添加文件');
                     return false
                 }
             },
-            sendfile(dataFile,le_id) {
+            sendfile(dataFile) {
+//                console.log(dataFile,'00000000000[[[[[[')
                 let vue = this;
-                this.addTeacherFile(vue.dataFile,le_id).then(res => {
+                this.addTeacherFile(dataFile).then(res => {
                     var data = res.data;
                     if (data.code == 0) {
                         vue.$message({
@@ -358,31 +355,31 @@
                     } else {
                         vue.$notify({
                             type: 'error',
-                            message: '修改失败',
+                            message: data.message,
                             duration: 2000,
                         });
                     }
                 })
             },
-            addTeacherFile(data,le_id){
+            addTeacherFile(data){
                 return axios({
                     method: 'post',
                     url: 'updateCertificate',
                     headers: {'Content-Type': 'multipart/form-data'},
                     timeout: 20000,
                     data: data,
-                    le_id:le_id
+//                    le_id:le_id
                 });
             },
             onSubmit(form) {
-                console.log(form,'00000000000');
+                console.log(form,'0=-----00000');
                 let vue = this;
                 if(form.name == '') {
                     this.$message.error('老师姓名不能为空');
                 }else if(form.teacher_id == '') {
                     this.$message.error('老师性别不能为空');
                 }else if(form.teacher_department == '') {
-                    this.$message.error('老师分组不能为空');
+                    this.$message.error('老师所属部门不能为空');
                 }else if(form.teacher_id == '') {
                     this.$message.error('老师工号不能为空');
                 }else if(form.office_phone == '') {
@@ -455,10 +452,10 @@
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);
                         });
-                        console.log(vue.dataForm,'00000000000');
+//                        console.log(vue.dataForm,'00000000000');
                         vue.addTeaDate(vue.dataForm).then(res => {
                             var data = response.data;
-                            console.log(data,'_________');
+//                            console.log(data,'_________');
                             if (data.code == 0) {
                                 vue.$message({
                                     message: '修改成功',
@@ -467,7 +464,7 @@
                             } else {
                                 vue.$notify({
                                     type: 'error',
-                                    message: '修改失败',
+                                    message: data.message,
                                     duration: 2000,
                                 });
                             }
@@ -579,9 +576,7 @@
     .graduationPic{
         margin-bottom: 193px;
     }
-    .demo{
-        margin: 10px 0 10px 30%;
-    }
+
     /*//组件*/
 
     .upload-demo{

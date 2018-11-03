@@ -14,7 +14,7 @@
                     <div class="block">
                         <span class="demonstration">按老师姓名检索:</span>
                         <el-input v-model="form.teacher_name" placeholder="请输入老师姓名" style="width: 30%;"></el-input>
-                        <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch">搜索</el-button>
+                        <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch(form)">搜索</el-button>
                     </div>
                 </el-form>
             </span>
@@ -282,7 +282,6 @@
 
             deleteStudygroupDate(du_id) {
                 this.id.push(du_id);
-//                this.id = du_id;
                 this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -297,7 +296,7 @@
                     }).then(function (response) {
                     var data = response.data;
                         if (data.code == 0) {
-                            this.$message({
+                            self.$message({
                                 type: 'success',
                                 message: '删除成功!'
                             });
