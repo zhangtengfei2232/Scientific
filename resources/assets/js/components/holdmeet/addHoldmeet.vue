@@ -45,7 +45,7 @@
                         drag
                         action="#"
                         ref="ho_graph_inject"
-                        :before-upload="fileProfils"
+                        :before-upload="fileProfil"
                         :auto-upload="false"
                         list-type="picture">
                         <i class="el-icon-upload"></i>
@@ -58,10 +58,9 @@
                 </el-form-item>
                 <el-form-item label="会议图片">
                     <el-upload
-                        drag
                         ref="ho_file"
                         action="#"
-                        :before-upload="fileProfil"
+                        :before-upload="fileProfils"
                         :on-preview="handlePreview"
                         :on-remove="handleRemove"
                         :auto-upload="false"

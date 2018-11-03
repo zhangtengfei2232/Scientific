@@ -40,13 +40,14 @@
                         </el-date-picker>
                     </el-col>
                 </el-form-item>
+                
                 <el-form-item label="会议图注">
                     <el-upload
                         class="upload-demo"
                         drag
                         action="#"
                         ref="ho_files"
-                        :before-upload="fileProfils"
+                        :before-upload="fileProfil"
                         multiple>
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -66,10 +67,9 @@
                 </div> -->
                 <el-form-item label="会议图片">
                     <el-upload
-                        drag
                         ref="ho_file"
                         action="#"
-                        :before-upload="fileProfil"
+                        :before-upload="fileProfils"
                         :on-preview="handlePreview"
                         :on-remove="handleRemove"
                         :auto-upload="false">
@@ -102,6 +102,7 @@ export default {
     data() {
         return {
             picType:false,
+            picTypes:false,
             filelist:[{url:''}],
             HoldmeetSelfData: {},
             dataForm: new FormData(),
@@ -130,10 +131,13 @@ export default {
                 if (data.code == 0) {
                     self.HoldmeetSelfData = data.datas.information;
                     self.form = data.datas.information;
-                    self.filelist.url = 'showfile?disk=holdmeet&subjection=' + data.datas.information.ho_graph_inject;
+                    if(data.datas.information.ho_graph_inject !== ''){
+                        self.picType = true;
+                        self.filelist.url = 'showfile?disk=holdmeet&subjection=' + data.datas.information.ho_graph_inject;
+                    }
                     let image = data.datas.information.ho_image;
                     if(image !== ''){
-                        self.picType = true;
+                        self.picTypes = true;
                         self.filelists = 'showfile?disk=holdmeet&subjection=' + image;
                     }   
                 } else {

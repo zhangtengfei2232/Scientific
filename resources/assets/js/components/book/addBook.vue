@@ -194,7 +194,6 @@
                 this.dataFile.append('op_coright_road', files);
                 let id = this.form.op_id;
                 this.dataFile.append('op_id', id);
-
                 this.dataFile.append('is_add_apus',this.Bcode);
                 this.sendfile(this.dataFile);
             }else{

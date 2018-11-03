@@ -92,7 +92,7 @@
                     <el-button>取消</el-button>
                 </el-form-item>
                 <div class="demo" v-show="type1">
-                    <img :src="filelist.url" alt="无法加载" style="width:100px">
+                    <img :src="filelist" alt="无法加载" style="width:100px">
                 </div>
                 <el-form-item label="著作封面">
                     <el-upload
@@ -111,7 +111,7 @@
                     </el-upload>
                 </el-form-item>
                 <div class="demo" v-show="type2">
-                    <img :src="filelists.url" alt="无法加载" style="width:100px">
+                    <img :src="filelists" alt="无法加载" style="width:100px">
                 </div>
                 <el-form-item label="版权页图片">
                     <el-upload
@@ -157,8 +157,8 @@ export default {
             BookSelfData: {},
             op_coright_road: '',
             op_cover_road: '',
-            filelist: [{name:'',url:''}],
-            filelists: [{name:'',url:''}],
+            filelist: '',
+            filelists: '',
             dataForm: new FormData(),
             dataFile: new FormData(),
             form: {
