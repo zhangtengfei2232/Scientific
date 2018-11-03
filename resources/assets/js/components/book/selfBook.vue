@@ -232,9 +232,9 @@ export default {
         fileProfils(files){
             if(files !== ''){
                 this.dataFile.append('op_coright_road', files);
-                let op_id = this.form.op_id;
+                let id = this.form.op_id;
                 this.dataFile.append('op_id', id);
-                this.sendfile(dataFile);
+                this.sendfile(this.dataFile);
             }else{
                 this.$message.error('请先添加文件');
                 return false
@@ -242,7 +242,7 @@ export default {
         },
         sendfile(dataFile) {
             let vue = this;
-            this.addBookFile(vue.dataFile).then(res => {
+            this.addBookFile(dataFile).then(res => {
                 var data = res.data;   
                 if (data.code == 0) {
                     vue.$message({

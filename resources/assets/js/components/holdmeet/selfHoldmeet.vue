@@ -40,7 +40,9 @@
                         </el-date-picker>
                     </el-col>
                 </el-form-item>
-                
+                 <div class="demo" v-show="picType">
+                    <img :src="filelist" alt="无法加载" style="width:100px">
+                </div>
                 <el-form-item label="会议图注">
                     <el-upload
                         class="upload-demo"
@@ -57,14 +59,14 @@
                     <el-button type="primary" @click="onSubmit(form)">保存修改</el-button>
                     <el-button>取消</el-button>
                 </el-form-item>
-                <!-- <div class="demo" v-show="picType">
+                <div class="demo" v-show="picTypes">
                     <thead>
                         <li v-for="(index,filelists) in items" v-bind:key="filelists">
                             <img :src="items.url" alt="无法加载" style="width:100px">
                             <el-button type="primary" @click="deletePic(items.im_id)">保存修改</el-button>
                         </li>
                     </thead>
-                </div> -->
+                </div>
                 <el-form-item label="会议图片">
                     <el-upload
                         ref="ho_file"
@@ -103,7 +105,7 @@ export default {
         return {
             picType:false,
             picTypes:false,
-            filelist:[{url:''}],
+            filelist:'',
             HoldmeetSelfData: {},
             dataForm: new FormData(),
             dataFile: new FormData(),
@@ -135,7 +137,7 @@ export default {
                         self.picType = true;
                         self.filelist.url = 'showfile?disk=holdmeet&subjection=' + data.datas.information.ho_graph_inject;
                     }
-                    let image = data.datas.information.ho_image;
+                    let image = data.datas.ho_image;
                     if(image !== ''){
                         self.picTypes = true;
                         self.filelists = 'showfile?disk=holdmeet&subjection=' + image;

@@ -72,6 +72,7 @@
                                 <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentArticleSelfData(ArticleDate[scope.$index].art_id)"></el-button>
                                 <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentArticleSelfData(ArticleDate[scope.$index].art_id)"></el-button>
                                 <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteArticleData(ArticleDate[scope.$index].art_id)"></el-button>
+                                <a ><el-button type="success" icon="el-icon-download" size="mini"></el-button></a>
                             </el-button>
                         </template>
                     </el-table-column>
