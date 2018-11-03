@@ -144,13 +144,13 @@ export default {
                 if (data.code == 0) {
                     self.AppraisalSelfData = data.datas;
                     self.form = data.datas;
-                    if(data.datas.pro_road !== ''){
-                        self.type1=true;
-                        self.filelist.url = 'showfile?disk=appraisal&subjection=' + data.datas.pro_road;
-                    }
                     if(data.datas.ap_cover_road !== ''){
+                        self.type1=true;
+                        self.filelist.url = 'showfile?disk=appraisal&subjection=' + data.datas.ap_cover_road;
+                    }
+                    if(data.datas.ap_road !== ''){
                         self.type2=true;
-                        self.filelists.url = 'showfile?disk=appraisal&subjection=' + data.datas.ap_cover_road; 
+                        self.filelists.url = 'showfile?disk=appraisal&subjection=' + data.datas.ap_road; 
                     }      
                 } else {
                     self.$notify({
