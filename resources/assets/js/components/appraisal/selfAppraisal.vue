@@ -174,50 +174,53 @@ export default {
             console.log(file);
         },
         fileProfil(file){
+            console.log(file);
             if(file !== ''){
                 this.dataFile.append('ap_cover_road', file);
                 let id = this.form.ap_id;
-                this.sendfile(this.dataFile,id);
+                this.dataFile.append('ap_id', id);
+                this.sendfile(this.dataFile);
             }else{
                 this.$message.error('请先添加文件');
                 return false
             }  
         },
         fileProfils(files){
+            console.log(files);
             if(files !== ''){
                 this.dataFile.append('ap_cover_road', files);
                 let id = this.form.ap_id;
-                this.sendfile(this.dataFile,id);
+                this.dataFile.append('ap_id', id);
+                this.sendfile(this.dataFile);
             }else{
                 this.$message.error('请先添加文件');
                 return false
             }
         },
-        sendfile(dataFile,id) {
-            this.addBookFile(this.dataFile,id).then(res => {
+        sendfile(dataFile) {
+            this.addBookFile(this.dataFile).then(res => {
                 var data = res.data;
                 if (data.code == 0) {
                     this.$message({
                         message: '修改成功',
                         type: 'success'
-                    });A
+                    });
                 } else {
                     this.$notify({
                         type: 'error',
-                        message: '修改失败',
+                        message: data.message,
                         duration: 2000,
                     });
                 }
             })  
         },
-        addBookFile(data,id){
+        addBookFile(data){
              return axios({
                 method: 'post',
-                url: '',
+                url: 'updateappraisalimage',
                 headers: {'Content-Type': 'multipart/form-data'},
                 timeout: 20000,
                 data: data,
-
             });
         },
         onSubmit(form) {

@@ -142,14 +142,15 @@
             if(this.Bcode == true){
                 this.dataFile.append('jo_image', files);
                 let id = this.form.jo_id;
-                this.sendfile(this.dataFile,id);
+                this.dataFile.append('jo_id', id);
+                this.sendfile(this.dataFile);
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
             }
         },
-        sendfile(dataFile,id) {
-            this.addBookFile(dataFile,id).then(res => {
+        sendfile(dataFile) {
+            this.addBookFile(dataFile).then(res => {
                 var data = res.data;
                 if (data.code == 0) {
                     this.$message({
@@ -159,20 +160,19 @@
                 } else {
                     this.$notify({
                         type: 'error',
-                        message: '添加失败',
+                        message: data.message,
                         duration: 2000,
                     });
                 }
             })  
         },
-        addBookFile(data,id){
+        addBookFile(data){
              return axios({
                 method: 'post',
                 url: 'addjoinmeetimage',
                 headers: {'Content-Type': 'multipart/form-data'},
                 timeout: 20000,
                 data: data,
-                jo_id:id
             });
         },
        onSubmit(form) {
@@ -224,7 +224,7 @@
                             } else {
                                 vue.$notify({
                                     type: 'error',
-                                    message: data.msg,
+                                    message: data.message,
                                     duration: 2000,
                                 });
                             }

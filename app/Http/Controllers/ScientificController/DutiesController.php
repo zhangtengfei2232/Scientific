@@ -24,16 +24,15 @@ class DutiesController extends Controller
             'du_duty'      => trim($request->du_duty),
             'du_year_num'  => trim($request->du_year_num)
         ];
-        dd($datas);
         $judge_datas = judgeDutiesField($datas);
         if($judge_datas['code'] == 1){
             return responseTojson(1,$judge_datas['message']);
         }
+        $datas['du_remark'] = trim($request->du_remark);
         if(!$request->hasFile('du_road')){                     //判断用户是否添加证书
             $datas['du_road'] = '';
             return DutiesDatabase::addDutiesDatas($datas);
         }
-        $datas['du_remark'] = trim($request->du_remark);
         $duties_image = $request->file('du_road');
         $judge_image  = judgeFileImage($duties_image);
         if($judge_image['code'] == 1){
@@ -56,7 +55,7 @@ class DutiesController extends Controller
         $old_image_road = DutiesDatabase::selectImageRoadDatas($du_id_datas);
         $delete_duties  = DutiesDatabase::deleteDutiesDatas($du_id_datas);
         deleteAllFiles(UploadSubjectionConfig::DUTIES,$old_image_road);
-        responseTojson(0,'删除成功');
+        return responseTojson(0,'删除成功');
     }
     //查看学术团体职务信息
     public function selectDuties(Request $request){

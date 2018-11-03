@@ -215,7 +215,7 @@ export default {
                             } else {
                                 vue.$notify({
                                     type: 'error',
-                                    message: '修改失败',
+                                    message: data.message,
                                     duration: 2000,
                                 });
                             }

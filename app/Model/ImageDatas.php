@@ -10,7 +10,7 @@ class ImageDatas extends ModelDatabase
             for($i = 0; $i < count($all_images_road); $i++){
                  $result = DB::table('image')
                      ->insert([
-                         'owner_id'       => $owner_id,
+                         'owner_id'      => $owner_id,
                          'meet_img_road' => $all_images_road[$i],
                          'create_time'   => time(),
                          'image_status'  => $image_status
@@ -45,7 +45,7 @@ class ImageDatas extends ModelDatabase
         public static function selectImageDatas($owner_id,$image_status){
             return DB::table('image')->select('im_id','image_road')
                 ->where([
-                    ['owner_id',$owner_id],
+                    ['owner_id','=',$owner_id],
                     ['image_status','=',$image_status]
                 ])->orderBy('create_time','desc')->get();
         }

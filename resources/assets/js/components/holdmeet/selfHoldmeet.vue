@@ -139,7 +139,7 @@ export default {
                 } else {
                     self.$notify({
                         type: 'error',
-                        message: data.msg,
+                        message: data.message,
                         duration: 2000,         
                     });
                 }
@@ -162,14 +162,15 @@ export default {
             if(this.Bcode == true){
                 this.dataFile.append('ho_graph_inject', files);
                 let id = this.form.ho_id;
-                this.sendfile(dataFile,id);      
+                this.dataFile.append('ho_id', id);
+                this.sendfile(dataFile);      
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
             }
         },
         sendfile(file) {
-            this.addBookFile(dataFile,id).then(res => {
+            this.addBookFile(dataFile).then(res => {
                 var data = res.data;
                 if (data.code == 0) {
                     this.$message({
@@ -179,20 +180,19 @@ export default {
                 } else {
                     this.$notify({
                         type: 'error',
-                        message: '修改失败',
+                        message: data.message,
                         duration: 2000,
                     });
                 }
             })  
         },
-        addBookFile(data,id){
+        addBookFile(data){
              return axios({
                 method: 'post',
                 url: 'addholdmeetimages',
                 headers: {'Content-Type': 'multipart/form-data'},
                 timeout: 20000,
                 data: data,
-                ho_id:id
             });
         },
        onSubmit(form) {
@@ -235,7 +235,7 @@ export default {
                             } else {
                                 vue.$notify({
                                     type: 'error',
-                                    message: '修改失败',
+                                    message: data.message,
                                     duration: 2000,
                                 });
                             }
@@ -258,7 +258,7 @@ export default {
         },
          deletePic(id) {
             let self = this;
-            axios.get("",{
+            axios.get("deletejoinmeetimage",{
                 params:{
                     id:id
                 }
@@ -272,7 +272,7 @@ export default {
                 } else {
                     self.$notify({
                         type: 'error',
-                        message: data.msg,
+                        message: data.message,
                         duration: 2000,
                     });
                 }

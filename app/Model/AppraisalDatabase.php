@@ -33,7 +33,7 @@ class AppraisalDatabase extends ModelDatabase
     public static function selectAppraisalAllDatas($teacher_id){
         $result = DB::table('appraisal')->where('teacher_id',$teacher_id)->orderBy('ap_time','desc')->get();
         foreach ($result as $datas){
-            $datas->ap_time = date('Y-m-d',$datas->ap_time);
+            $datas->ap_time = date('Y-m-d',$datas->ap_time/1000);
         }
         return $result;
     }
@@ -64,7 +64,7 @@ class AppraisalDatabase extends ModelDatabase
     }
     //修改成果鉴定信息
     public static function updateAppraisalDatas($datas){
-        $response = DB::table('appraisal')->where('ap_id',$datas->ap_id)
+        $response = DB::table('appraisal')->where('ap_id',$datas['ap_id'])
                   ->update([
                       'ap_first_author' => $datas['ap_first_author'],
                       'ap_all_author'   => $datas['ap_all_author'],

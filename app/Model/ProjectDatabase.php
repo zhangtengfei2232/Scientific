@@ -48,7 +48,7 @@ class ProjectDatabase extends ModelDatabase
     public static function selectAllProjectDatas($teacher_id){
       $result = DB::table('project')->where('teacher_id',$teacher_id)->orderBy('project_year','desc')->get();
       foreach ($result as $datas){
-          $datas->project_year = date('Y-m-d',$datas->project_year);
+          $datas->project_year = date('Y-m-d',$datas->project_year/1000);
       }
       return $result;
     }
