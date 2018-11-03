@@ -191,11 +191,11 @@ export default {
                     self.form = data.datas; 
                     if(data.datas.op_cover_road !== ''){
                         self.type1=true;
-                        self.filelist.url = 'showfile?disk=apus&subjection=' + data.datas.op_cover_road;
+                        self.filelist.url = 'showfile?disk=opus&subjection=' + data.datas.op_cover_road;
                     }
                     if(data.datas.op_coright_road !== ''){
                         self.type2=true;
-                        self.filelists.url = 'showfile?disk=apus&subjection=' + data.datas.op_coright_road;
+                        self.filelists.url = 'showfile?disk=opus&subjection=' + data.datas.op_coright_road;
                     }
                 } else {
                     self.$notify({
@@ -249,6 +249,7 @@ export default {
                         message: '修改成功',
                         type: 'success'
                     });
+                    location. reload();
                 } else {
                     vue.$notify({
                         type: 'error',
