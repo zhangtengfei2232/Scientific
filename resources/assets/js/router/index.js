@@ -208,6 +208,12 @@ export default new VueRouter({
                 path: '/editAgreement/:agree_id',
                 component: resolve => void(require(['../components/agreement/editAgreement.vue'], resolve))
             },
+            //添加老师
+            {
+                name: 'addTeacher',
+                path: '/addTeacher',
+                component: resolve => void(require(['../components/addteacher/addTeacher.vue'], resolve))
+            },
             /*全局总览*/
             {
                 name: 'Glverview',
