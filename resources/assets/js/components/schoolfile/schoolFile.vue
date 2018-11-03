@@ -74,6 +74,7 @@
                                 <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentshoolFileDate(shoolFileDate[scope.$index].schfile_id)"></el-button>
                                 <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentshoolFileDate(shoolFileDate[scope.$index].schfile_id)"></el-button>
                                 <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteshooolFileDate(shoolFileDate[scope.$index].schfile_id)"></el-button>
+                                <el-button type="success" icon="el-icon-download" size="mini" @click="uploadshooolFileData(shoolFileDate[scope.$index].schfile_road)"></el-button>
                             </el-button>
                         </template>
                     </el-table-column>
@@ -158,6 +159,14 @@
                     });
                 } else {
                     this.$refs.multipleTable.clearSelection();
+                }
+            },
+            uploadshooolFileData(schfile_road) {
+                if(schfile_road == 1) {
+                    this.$message.error('pdf文件为空');
+                }else{
+                    let urls =  `downloadfile?file=article/${art_road}`;
+                    window.location.href = urls;
                 }
             },
             BatchDelete(){

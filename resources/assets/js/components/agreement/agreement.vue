@@ -73,6 +73,7 @@
                                 <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentAgreementData(agreementDate[scope.$index].agree_id)"></el-button>
                                 <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentAgreementData(agreementDate[scope.$index].agree_id)"></el-button>
                                 <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteAgreementDate(agreementDate[scope.$index].agree_id)"></el-button>
+                                <el-button type="success" icon="el-icon-download" size="mini" @click="uploadAgreementData(agreementDate[scope.$index].agree_road)"></el-button>
                             </el-button>
                         </template>
                     </el-table-column>
@@ -149,6 +150,14 @@
             },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
+            },
+            uploadAgreementData(agree_road) {
+                if(agree_road == 1) {
+                    this.$message.error('pdf文件为空');
+                }else{
+                    let urls =  `downloadfile?file=article/${agree_road}`;
+                    window.location.href = urls;
+                }
             },
             toggleSelection(rows) {
                 if (rows) {
