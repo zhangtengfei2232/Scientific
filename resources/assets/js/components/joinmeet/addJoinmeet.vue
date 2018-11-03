@@ -109,8 +109,8 @@
             dataFile: new FormData(),
             Bcode:false,
             multiple:true,
+            jo_id:'',
             form: {
-                jo_id:'',
                 join_people: '',
                 jo_name: '',
                 jo_hold_unit: '',
@@ -215,6 +215,7 @@
                         });
                         vue.addJoinmeetData(vue.dataForm).then(res => {
                             var data = res.data;
+                            self.jo_id = res.data.datas;
                             if (data.code == 0) {
                                 this.Bcode = true;
                                 vue.$message({

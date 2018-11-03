@@ -67,18 +67,18 @@
                 <el-input type="textarea" v-model="form.du_remark"></el-input>
             </el-form-item>
                 <div class="demo" v-show="type1">
-                    <img :src="filelists.url" style="width:100px">
+                    <img :src="filelists.url" alt="无法加载" style="width:100px">
                 </div>
             <el-form-item label="证书图片">
                 <el-upload
                         class="upload-demo"
+                        :auto-upload="false"
                         drag
-                        action=""
-                        multiple
-                        :file-list="filelist"
+                        action="#"
                         ref="du_road"
                         :before-upload="fileProfil"
-                        :auto-upload="false">
+                        multiple
+                        list-type="picture">
                     <i class="el-icon-upload"></i>
                     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                 </el-upload>
@@ -115,6 +115,7 @@
     export default {
         data() {
             return {
+                type1:false,
                 DutiesData:{},
                 du_road:'',
                 dataForm: new FormData(),
@@ -122,6 +123,7 @@
                 Bcode:false,
                 multiple: true,
                 filelist: [{url:''}],
+                filelists: [{url:''}],
                 year1: '',
                 year2: '',
                 form: {
@@ -152,19 +154,14 @@
                     var data = response.data;
                     if (data.code == 0) {
                         self.DutiesData = data.datas;
-//                        console.log(self.DutiesData,'书看@@@@@@@@!!');
                         let time = data.datas.du_year_num;
                         self.checkYearExt(time);
-//                        let year1 = self.year1;
-//                        console.log(year1,'////////////');
-//                        year1 = year1.getFullYear() + '-' + (year1.getMonth() + 1) + '-' + year1.getDate();
-//                        console.log(year1,'f时间m@@@@@@@@!!');
-                        // let time2 = self.year2;
-//                        let time = time1+","+time2;
-//                        console.log(time,'f时间m@@@@@@@@!!');
                         self.form = data.datas;
                         let road = 'showimage?disk=duties&subjection=' + data.datas.du_road;
-                        self.filelist.url = road;
+                        if(road !== ''){
+                            self.type1=true;
+                            self.filelists.url = road;
+                        }
                     } else {
                         self.$notify({
                             type: 'error',

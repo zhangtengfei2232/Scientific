@@ -61,9 +61,9 @@
                 </el-form-item>
                 <div class="demo" v-show="picTypes">
                     <thead>
-                        <li v-for="(index,filelists) in items" v-bind:key="filelists">
-                            <img :src="items.url" alt="无法加载" style="width:100px">
-                            <el-button type="primary" @click="deletePic(items.im_id)">保存修改</el-button>
+                        <li v-for="(index,items) in filelists" v-bind:key="items">
+                            <img :src="items.url" alt="无法加载" style="width:50px">
+                            <el-button type="primary" size="mini"  @click="deletePic(items.im_id)">删除</el-button>
                         </li>
                     </thead>
                 </div>
@@ -86,7 +86,7 @@
 </template>
 
 <style>
- .information{
+    .information{
         width: 75%;
         float: left;
     }
@@ -96,6 +96,10 @@
     }
     .demo{
         margin: 10px 0 10px 30%;
+    }
+    thead li{
+        float: left;
+        margin: 20px;
     }
 </style>
 
@@ -112,8 +116,8 @@ export default {
             ho_file: '',
             ho_graph_inject: '',
             filelists:[],
+            ho_id:'',
             form: {
-                ho_id:'',
                 ho_name: '',
                 ho_art_status: '',
                 people_num: '',
@@ -133,12 +137,13 @@ export default {
                 if (data.code == 0) {
                     self.HoldmeetSelfData = data.datas.information;
                     self.form = data.datas.information;
+                    self.ho_id = data.datas.information.ho_id;
                     if(data.datas.information.ho_graph_inject !== ''){
                         self.picType = true;
                         self.filelist.url = 'showfile?disk=holdmeet&subjection=' + data.datas.information.ho_graph_inject;
                     }
-                    let image = data.datas.ho_image;
-                    if(image !== ''){
+                    let image = data.datas.hold_images;
+                    if(image.length !== 0){
                         self.picTypes = true;
                         self.filelists = 'showfile?disk=holdmeet&subjection=' + image;
                     }   

@@ -64,7 +64,7 @@
                     <el-table-column
                         fixed="right"
                         label="操作"
-                        width="200">
+                        width="250">
                         <template slot-scope="scope">
                             <el-button
                             type="text"
@@ -72,7 +72,7 @@
                                 <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentArticleSelfData(ArticleDate[scope.$index].art_id)"></el-button>
                                 <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentArticleSelfData(ArticleDate[scope.$index].art_id)"></el-button>
                                 <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteArticleData(ArticleDate[scope.$index].art_id)"></el-button>
-                                <!-- <a href="downloadfile?file=article/{{ ArticleDate.[scope.$index].art_road }}"><el-button type="success" icon="el-icon-download" size="mini"></el-button></a> -->
+                                <el-button type="success" icon="el-icon-download" size="mini" @click="uploadArticleData(ArticleDate[scope.$index].art_road)"></el-button>
                             </el-button>
                         </template>
                     </el-table-column>
@@ -150,13 +150,20 @@
             handleSelectionChange(val) {
                 this.multipleSelection = val;
             },
+            uploadArticleData(art_road) {
+                if(art_road == 1) {
+                    this.$message.error('pdf文件为空');
+                }else{
+                    let urls =  `downloadfile?file=article/${art_road}`;
+                    window.location.href = urls;
+                }
+            },
             getArticleData() {
                 let self = this;
                 axios.get("selectallattical").then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
                         self.ArticleDate = data.datas;
-                        console.log(data.datas);
                     } else {
                         self.$notify({
                             type: 'error',
@@ -167,7 +174,6 @@
                 });
             },
             sentArticleSelfData(art_id) {
-                console.log(art_id);
                 this.$router.push({
                     path: `/selfInfor/${art_id}`,
                 })
@@ -195,7 +201,6 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => { 
-                console.log(art_id_datas);
                     let self = this;
                     axios.get("deleteartical?art_id_datas="+art_id_datas).then(function (response) {
                     var data = response.data;

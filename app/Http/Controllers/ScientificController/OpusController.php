@@ -10,7 +10,8 @@ use config\SearchMessageConfig;
 class OpusController  extends Controller
 {
     //添加著作信息
-    public function addOpus(Request $request){
+    public function addOpus(Request $request)
+    {
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
@@ -39,12 +40,13 @@ class OpusController  extends Controller
     }
     //添加著作封面和版权图片
     public function addOpusImage(Request $request){
+        dd($request);
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
-        if(!$request->is_add_opus){
-            return responseTojson(1,'请你先添加著作信息');
-        }
+//        if(!$request->is_add_opus){
+//            return responseTojson(1,'请你先添加著作信息');
+//        }
         if(!$request->hasFile('op_cover_road') && !$request->hasFile('op_coright_road')){
             return responseTojson(1,'请你上传著作证书图片');
         }
@@ -72,7 +74,8 @@ class OpusController  extends Controller
         return responseTojson(1,'上传图片失败');
     }
     //删除著作信息
-    public function deleteOpus(Request $request){
+    public function deleteOpus(Request $request)
+    {
         $op_id_datas = $request->op_id_datas;
         $old_images_road = OpusDatabase::selectOpusAllImageDatas($op_id_datas);
         $delete_opus     = OpusDatabase::deleteOpusDatas($op_id_datas);
@@ -80,13 +83,15 @@ class OpusController  extends Controller
         return responseTojson(0,'删除成功');
     }
     //查看著作信息
-    public function selectOpus(Request $request){
-        $op_id = $request->op_id;
-        $opus  = OpusDatabase::selectOpusDatas($op_id);
-        return responseTojson(0,'查询成功','',$opus);
+    public function selectOpus(Request $request)
+    {
+       $op_id = $request->op_id;
+       $opus  = OpusDatabase::selectOpusDatas($op_id);
+       return responseTojson(0,'查询成功','',$opus);
     }
     //查看所有著作信息
-    public function selectAllOpus(){
+    public function selectAllOpus()
+    {
         $teacher_id = session('usercount');
         $all_opus   = OpusDatabase::selectOpusAllDatas($teacher_id);
         return responseTojson(0,'查询成功','',$all_opus);
@@ -100,7 +105,8 @@ class OpusController  extends Controller
         return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field);
     }
     //修改著作信息
-    public function updateOpus(Request $request){
+    public function updateOpus(Request $request)
+    {
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }

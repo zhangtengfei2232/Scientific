@@ -37,36 +37,38 @@
                     </el-date-picker>
                 </el-col>
             </el-form-item>
-                <el-form-item label="图片">
-                    <el-upload
-                            class="upload-demo"
-                            drag
-                            action="#"
-                            ref="lec_image"
-                            :before-upload="fileZufil"
-                            :auto-upload="false"
-                            multiple>
-                        <i class="el-icon-upload"></i>
-                        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                    </el-upload>
-                </el-form-item>
             <el-form-item label="图注">
                 <el-upload
-                        class="upload-demo"
                         drag
-                        action=""
-                        multiple
+                        action="#"
                         ref="le_img_road"
                         :before-upload="filePicfil"
-                        :auto-upload="false">
+                        :auto-upload="true"
+                        multiple
+                        list-type="picture">
                     <i class="el-icon-upload"></i>
-                    <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                    <div class="el-upload__text"><em>若多张请一次上传</em></div>
                 </el-upload>
             </el-form-item>
-
             <el-form-item>
                 <el-button type="primary" @click="onSubmit(form)">立即创建</el-button>
                 <el-button>取消</el-button>
+            </el-form-item>
+            <el-form-item label="图片">
+                <el-upload
+                        drag
+                        ref="lec_image"
+                        action="#"
+                        :before-upload="fileZufil"
+                        :on-preview="handlePreview"
+                        :on-remove="handleRemove"
+                        :auto-upload="false"
+                        list-type="picture">
+                    <i class="el-icon-upload"></i>
+                    <div class="el-upload__text"slot="trigger" size="small" type="primary">将文件拖到此处，或<em>点击上传</em></div>
+                    <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUploads">上传</el-button>
+                    <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+                </el-upload>
             </el-form-item>
         </el-form>
         </div>
@@ -99,6 +101,7 @@
                 multiple:true,
                 le_img_road: '',
                 lec_image: '',
+                le_id:'',
                 form: {
                     le_expert_name:'',
                     le_expert_level:'',
@@ -112,8 +115,16 @@
             }
         },
         methods: {
+            submitUploads() {
+                this.$refs.lec_image.submit();
+            },
+            handleRemove(file, fileList) {
+                console.log(file, fileList);
+            },
+            handlePreview(file) {
+                console.log(file);
+            },
             filePicfil(file){
-                console.log(file,"tpypyypypyp")
                 this.dataForm.append('le_img_road', file);
                 return false;
             },
@@ -121,17 +132,17 @@
                 if(this.Bcode == true){
                     this.dataFile.append('lec_image', file);
                     let id = this.form.le_id;
-                    this.sendfile(this.dataFile,id);
+                    this.dataFile.append('le_id', id);
+                    this.sendfile(this.dataFile);
 //                    this.sendfile(files);
-                    this.$refs.lec_image.submit();
-                    console.log(file,"bbbbbbbbbbbbbbb")
+//                    this.$refs.lec_image.submit();
                 }else{
                     this.$message.error('请先添加数据信息');
                     return false
                 }
             },
-            sendfile(file) {
-                this.addBookFile(vue.dataFile,id).then(res => {
+            sendfile(dataFile) {
+                this.addBookFile(dataFile).then(res => {
                     var data = res.data;
                     if (data.code == 0) {
 //                        this.Bcode = true;
@@ -148,14 +159,14 @@
                     }
                 })
             },
-            addBookFile(data,id){
+            addBookFile(data){
                 return axios({
                     method: 'post',
                     url: 'addLectureImages',
                     headers: {'Content-Type': 'multipart/form-data'},
                     timeout: 20000,
                     data: data,
-                    le_id:id
+//                    le_id:id
                 });
             },
             onSubmit(form) {
@@ -196,11 +207,11 @@
                             } else {
                                 vue.$notify({
                                     type: 'error',
-                                    message: data.msg,
+                                    message: data.message,
                                     duration: 2000,
                                 });
                             }
-                        })
+                        });
                         vue.$refs.le_img_road.submit();
 
                     } else {

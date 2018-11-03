@@ -182,7 +182,7 @@
                 this.dataFile.append('op_cover_road', file,);
                 let id = this.form.op_id;
                 this.dataFile.append('op_id', id);
-                this.dataFile.append('is_add_apus',this.Bcode);
+                this.dataFile.append('is_add_opus',this.Bcode);
                 this.sendfile(this.dataFile);
             }else{
                 this.$message.error('请先添加数据信息');
