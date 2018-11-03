@@ -138,7 +138,8 @@
         fileProfil(file){
             if(this.Bcode == true){
                 this.dataFile.append('ap_cover_road', file);
-                let id = this.form.ap_id;
+                let id = this.ap_id;
+                console.log(id);
                 this.dataFile.append('ap_id', id);
                 this.dataFile.append('is_add_appraisal',this.Bcode);
                 this.sendfile(this.dataFile);

@@ -191,7 +191,7 @@ export default {
             console.log(files);
             if(files !== ''){
                 this.dataFile.append('ap_cover_road', files);
-                let id = this.form.ap_id;
+                let id = this.ap_id;
                 this.dataFile.append('ap_id', id);
                 this.sendfile(this.dataFile);
             }else{
