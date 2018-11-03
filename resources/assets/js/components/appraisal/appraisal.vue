@@ -173,7 +173,7 @@
                     });
                 }else{
                     for (var i = 0; i < self.multipleSelection.length; i++) {
-                        pro_id_datas.push(self.multipleSelection[i].pro_id);
+                        pro_id_datas.push(self.multipleSelection[i].ap_id);
                     };
                     this.deleteAppraisalDatas(pro_id_datas);
                 }

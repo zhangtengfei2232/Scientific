@@ -110,7 +110,7 @@
     },
     methods: {
         submitUploads() {
-            this.$refs.ho_graph_inject.submit();
+            this.$refs.ho_file.submit();
         },
         handleRemove(file, fileList) {
             console.log(file, fileList);
@@ -119,14 +119,15 @@
             console.log(file);
         },
         fileProfil(file){
-            this.dataForm.append('ho_file', file);
+            this.dataForm.append('ho_graph_inject', file);
             return false;
         },
         fileProfils(files){
             if(this.Bcode == true){
-                this.dataFile.append('ho_graph_inject', files);
-                let id = this.form.ho_id;
+                this.dataFile.append('ho_file', files);
+                let id = this.ho_id;
                 this.dataFile.append('ho_id', id);
+                this.dataFile.append('is_add_joinmeet',this.Bcode);
                 this.sendfile(this.dataFile);
             }else{
                 this.$message.error('请先添加数据信息');
@@ -140,7 +141,7 @@
                     this.$message({
                         message: '添加成功',
                         type: 'success'
-                    });A
+                    });
                 } else {
                     this.$notify({
                         type: 'error',
@@ -205,7 +206,7 @@
                                 });
                             }
                         })
-                        vue.$refs.ho_file.submit()
+                        vue.$refs.ho_graph_inject.submit()
                     } else {
                         console.log('error submit!!')
                         return false

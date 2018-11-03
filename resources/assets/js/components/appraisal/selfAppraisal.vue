@@ -265,7 +265,7 @@ export default {
                             vue.dataForm.append(i,val);
                         });
                         vue.addAppraisalData(vue.dataForm).then(res => {
-                            var data = response.data;
+                            var data = res.data;
                             if (data.code == 0) {
                                 this.Bcode = true;
                                 vue.$message({

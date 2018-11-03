@@ -76,7 +76,8 @@
                         :on-preview="handlePreview"
                         :on-remove="handleRemove"
                         :auto-upload="false"
-                        :limit="1">
+                        :limit="1"
+                        list-type="picture">
                         <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
                         <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUploads">上传</el-button>
                         <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
@@ -143,6 +144,7 @@
                 this.dataFile.append('jo_image', files);
                 let id = this.form.jo_id;
                 this.dataFile.append('jo_id', id);
+                this.dataFile.append('is_add_joinmeet',this.Bcode);
                 this.sendfile(this.dataFile);
             }else{
                 this.$message.error('请先添加数据信息');
@@ -230,7 +232,7 @@
                                 });
                             }
                         })
-                        vue.$refs.jo_image.submit()
+                        vue.$refs.jo_graph_inject.submit()
                     } else {
                         console.log('error submit!!')
                         return false

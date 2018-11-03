@@ -52,7 +52,7 @@
                     <el-input type="textarea" v-model="form.pa_remarks"></el-input>
                 </el-form-item>
                 <div class="demo" v-show="type1">
-                    <img :src="filelist.url " alt="无法加载" style="width:100px">
+                    <img :src="filelist " alt="无法加载" style="width:100px">
                 </div>
                 <el-form-item label="专利图片">
                     <el-upload
@@ -99,7 +99,7 @@ export default {
             type1:false,
             pa_road:'',
             PatetSelfData: {},
-            fileList:[{url:""}],
+            filelist:'',
             dataForm: new FormData(),
             form: {
                 pa_id:'',
@@ -133,7 +133,7 @@ export default {
                         self.form = data.datas;
                         if(data.datas.pa_road !== ''){
                             self.type1=true;
-                            self.fileList.url= 'showfile?disk=joinmeet&subjection=' + data.datas.pa_road; 
+                            self.filelist= 'showfile?disk=joinmeet&subjection=' + data.datas.pa_road; 
                         }
                     } else {
                         self.$notify({
