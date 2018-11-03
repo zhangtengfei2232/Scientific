@@ -96,7 +96,7 @@ class LectureController extends Controller
              return responseTojson(1,'你请求的方式不对');
          }
          $le_id[0] = trim($request->le_id);
-         dd($request);
+//         dd($request);
          $datas = [
              'le_id'            => $le_id[0],
              'le_expert_name'   => trim($request->le_expert_name),

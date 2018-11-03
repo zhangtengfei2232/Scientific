@@ -36,7 +36,6 @@ class AppraisalController extends Controller
     }
     //添加成功鉴定证书和封面图片
     public function addAppraisalImage(Request $request){
-         dd($request);
          if(!$request->isMethod('POST')){
              return responseTojson(1,'你请求的方式不对');
          }
@@ -112,7 +111,6 @@ class AppraisalController extends Controller
              'ap_level'        => trim($request->ap_level),
              'ap_integral'     => trim($request->ap_integral)
          ];
-//        dd($request);
         $judge_datas = judgeAppraisalField($datas);
         if($judge_datas['code'] == 1){
             return responseTojson(1,$judge_datas['message']);
@@ -125,7 +123,7 @@ class AppraisalController extends Controller
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
-        if(!$request->hasFile('ap_road') || !$request->hasFile('ap_cover_road')){
+        if(!$request->hasFile('ap_road') && !$request->hasFile('ap_cover_road')){
             return responseTojson(1,'请上传所要修改的成功鉴定证书图片');
         }
         if($request->hasFile('ap_road')){
