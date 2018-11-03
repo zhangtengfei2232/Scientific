@@ -2,13 +2,14 @@
     <div>
         <div class="header">
             <el-header>
-                
+                <span class="art"></span>
             </el-header>
         </div>
         <div class="cont">
             <el-table
                 :data="allArticle"
                 style="width: 100%"
+                border
                 height="250">
                 <el-table-column
                     fixed
@@ -98,14 +99,14 @@
 export default {
     data() {
         return {
+            border:true,
             allArticle:[],
-
         }
     },
     methods: {
         getArticleData() {
                 let self = this;
-                axios.get("selectallattical").then(function (response) {
+                axios.get("").then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
                         self.allArticle = data.datas;
@@ -120,7 +121,7 @@ export default {
             },
     },
     mounted() {
-
+        this.getArticleData();
     }
 }
 </script>

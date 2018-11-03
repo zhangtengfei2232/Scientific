@@ -189,8 +189,6 @@
                 }else{
                     for (var i = 0; i < self.multipleSelection.length; i++) {
                         art_id_datas.push(self.multipleSelection[i].art_id);
-                        //删除数组——删除选择的行
-                        //pro_id_datas.splice(0,self.multipleSelection.length);
                     };
                     this.deleteArticleDatas(art_id_datas);
                 }
