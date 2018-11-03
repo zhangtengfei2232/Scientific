@@ -36,6 +36,7 @@ class AppraisalController extends Controller
     }
     //添加成功鉴定证书和封面图片
     public function addAppraisalImage(Request $request){
+         dd($request);
          if(!$request->isMethod('POST')){
              return responseTojson(1,'你请求的方式不对');
          }

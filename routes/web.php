@@ -8,14 +8,26 @@ Route::get('/', function () {
 Route::group(['namespace' => 'Login'], function (){
     Route::post('login','LoginController@selectUserLogin');
 });
+/**
+ * 导出Excel表格
+ */
+Route::group(['namespace' => 'ExportController'], function (){
+    Route::get('exportexcel','ExcelController@exportExcel');
+});
 
 Route::group(['namespace' => 'ScientificController','middleware'=>['validate']], function (){
-    Route::get('showfile','AccessFileController@showFile');                        //请求资源
-    Route::get('indexpage', 'InformationController@showIndex');
-
+    /**
+     * 请求storage文件夹下的资源
+     */
+    Route::get('showfile','AccessFileController@showFile');                       //请求资源
+    /**
+     * 下载storage文件夹下的文件
+     */
+    Route::get('downloadfile','AccessFileController@downloadFile');               //下载文件
 
 
     //老师对信息的操作
+    Route::get('indexpage', 'InformationController@showIndex');                   //查看老师信息页面
     Route::post('addteacher', 'InformationController@addTeacher');                //添加老师信息
     Route::get('deleteteacher', 'InformationController@deleteTeacher');           //删除老师信息
     Route::get('selectteacher', 'InformationController@selectTeacher');           //查询老师信息
