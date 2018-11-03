@@ -52,6 +52,7 @@ class HoldmeetController extends Controller
     }
     //删除举行会议信息
     public function deleteHoldmeet(Request $request){
+        dd($request);
         $ho_id_datas     = $request->ho_id_datas;
         $old_inject_road = HoldmeetDatas::selectHoldmeetInjectRoad($ho_id_datas);
         $owner_status    = UploadSubjectionConfig::HOLD_IMG_STATUS;
@@ -142,10 +143,10 @@ class HoldmeetController extends Controller
         if(!$request->is_add_holdmeet){
             return responseTojson(1,'请你先添加会议信息');
         }
-        if(!$request->hasFile('ho_graph_inject')){
+        if(!$request->hasFile('ho_image')){
             return responseTojson(1,'请你上传举行会议图片');
         }
-        $holdmeet_images = $request->file('ho_graph_inject');        //接收数组形式的图片文件
+        $holdmeet_images = $request->file('ho_image');              //接收数组形式的图片文件
         $judge_images    = judgeAllFileImage($holdmeet_images);
         if($judge_images['code'] == 1){
            return responseTojson(1,'图片上传失败');

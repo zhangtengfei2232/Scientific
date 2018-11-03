@@ -148,10 +148,10 @@ class JoinmeetController  extends Controller
         if(!$request->is_add_joinmeet){
             return responseTojson(1,'请你先添加参加会议信息');
         }
-        if(!$request->hasFile('jo_graph_inject')){
+        if(!$request->hasFile('jo_image')){
             return responseTojson(1,'请你添加参加会议图片');
         }
-        $join_images = $request->file('jo_graph_inject');
+        $join_images = $request->file('jo_image');
         $judge_images = judgeAllFileImage($join_images);
         if($judge_images['code'] == 1){
             return responseTojson(1,'上传图片失败');
