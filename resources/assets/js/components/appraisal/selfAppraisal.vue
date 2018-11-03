@@ -120,6 +120,7 @@ export default {
             filelists: [{url:''}],
             ap_cover_road:'',
             ap_road:'',
+            ap_id: '',
             form: {
                 ap_first_author: '',
                 ap_all_author: '',
@@ -144,6 +145,7 @@ export default {
                 if (data.code == 0) {
                     self.AppraisalSelfData = data.datas;
                     self.form = data.datas;
+                    self.ap_id = data.datas.op_id;
                     if(data.datas.ap_cover_road !== ''){
                         self.type1=true;
                         self.filelist.url = 'showfile?disk=appraisal&subjection=' + data.datas.ap_cover_road;
@@ -177,7 +179,7 @@ export default {
             console.log(file);
             if(file !== ''){
                 this.dataFile.append('ap_cover_road', file);
-                let id = this.form.ap_id;
+                let id = this.ap_id;
                 this.dataFile.append('ap_id', id);
                 this.sendfile(this.dataFile);
             }else{
@@ -189,7 +191,7 @@ export default {
             console.log(files);
             if(files !== ''){
                 this.dataFile.append('ap_cover_road', files);
-                let id = this.form.ap_id;
+                let id = this.ap_id;
                 this.dataFile.append('ap_id', id);
                 this.sendfile(this.dataFile);
             }else{
@@ -263,7 +265,7 @@ export default {
                             vue.dataForm.append(i,val);
                         });
                         vue.addAppraisalData(vue.dataForm).then(res => {
-                            var data = response.data;
+                            var data = res.data;
                             if (data.code == 0) {
                                 this.Bcode = true;
                                 vue.$message({

@@ -87,7 +87,7 @@
                     </el-col>
                 </el-form-item>
                 <div class="demo" v-show="type1">
-                    <img :src="filelists.url" alt="无法加载" style="width:100px">
+                    <img :src="filelists" alt="无法加载" style="width:100px">
                 </div>
                 <el-form-item label="项目合同书封面图片">
                     <el-upload
@@ -132,7 +132,7 @@
       return {
             type1:false,
             ProjectSelfData: {},
-            filelists: [{url:''}],
+            filelists: '',
             pro_road:'',
             dataForm: new FormData(),
             form: {
@@ -168,10 +168,10 @@
                 if (data.code == 0) {
                     self.ProjectSelfData = data.datas;
                     self.form = data.datas;
-                    let road = 'showfile?disk=project&subjection=' + data.datas.pro_road;
-                    if(road !== ''){
+                    if(data.datas.pro_road !== ''){ 
+                        let road = 'showfile?disk=project&subjection=' + data.datas.pro_road;
                         self.type1=true;
-                        self.filelists.url = road;
+                        self.filelists = road;
                     }
                     
                 }else {
@@ -230,33 +230,33 @@
                 this.$message.error('项目年份不能为空');
                 return
             }this.$refs['form'].validate((valid) => {
-                    let vue = this;
-                    if (valid) {
-                        jQuery.each(vue.form,function(i,val){
-                            vue.dataForm.append(i,val);
-                        });
-                        vue.addProjectData(vue.dataForm).then(res => {
-                            var data = res.data;
-                            if (data.code == 0) {
-                                vue.$message({
-                                    message: '修改成功',
-                                    type: 'success'
-                                });
-                                this.$router.push({path: '/project'});
-                            } else { 
-                                vue.$notify({
-                                    type: 'error',
-                                    message: data.message,
-                                    duration: 2000,
-                                });
-                            }
-                        })
-                        vue.$refs.pro_road.submit();
-                    } else {
-                        console.log('error submit!!')
-                        return false
-                    }
-                })
+                let vue = this;
+                if (valid) {
+                    jQuery.each(vue.form,function(i,val){
+                        vue.dataForm.append(i,val);
+                    });
+                    vue.addProjectData(vue.dataForm).then(res => {
+                        var data = res.data;
+                        if (data.code == 0) {
+                            vue.$message({
+                                message: '修改成功',
+                                type: 'success'
+                            });
+                            this.$router.push({path: '/project'});
+                        } else { 
+                            vue.$notify({
+                                type: 'error',
+                                message: data.message,
+                                duration: 2000,
+                            });
+                        }
+                    })
+                    vue.$refs.pro_road.submit();
+                } else {
+                    console.log('error submit!!')
+                    return false
+                }
+            })
         },
         addProjectData(data) {
             return axios({
