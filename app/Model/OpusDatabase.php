@@ -27,7 +27,7 @@ class OpusDatabase  extends ModelDatabase
                     'op_sub_category'  => $datas['op_sub_category'],
                     'op_remarks'       => $datas['op_remarks']
                 ]);
-       return ($response) ? responseTojson(0,'添加著作信息成功',$response)
+       return ($response) ? responseTojson(0,'添加著作信息成功','',$response)
               : responseTojson(1,'添加著作信息失败');
     }
     //删除著作信息

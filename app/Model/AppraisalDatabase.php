@@ -22,7 +22,7 @@ class AppraisalDatabase extends ModelDatabase
                        'ap_integral'     => $datas['ap_integral'],
                        'ap_remarks'      => $datas['ap_remarks']
                    ]);
-        return ($response) ? responseTojson(0,'添加成果鉴定信息成功',$response)
+        return ($response) ? responseTojson(0,'添加成果鉴定信息成功','',$response)
                : responseTojson(1,'添加成果鉴定信息失败');
     }
     //删除成果鉴定
