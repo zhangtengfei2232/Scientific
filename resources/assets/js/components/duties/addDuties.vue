@@ -67,17 +67,18 @@
                 </el-date-picker>
             </el-form-item>
             <el-form-item label="备注">
-                <el-input type="textarea" v-model="form.du_remark"></el-input>
+                <el-input type="textarea" alt="无法加载" v-model="form.du_remark"></el-input>
             </el-form-item>
             <el-form-item label="证书图片">
                 <el-upload
                         class="upload-demo"
                         drag
-                        action=""
+                        action="#"
                         multiple
                         ref="du_road"
                         :before-upload="fileProfil"
-                        :auto-upload="false">
+                        :auto-upload="false"
+                        list-type="picture">
                     <i class="el-icon-upload"></i>
                     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                 </el-upload>
@@ -126,7 +127,7 @@
                     du_year_num: '',
                     year: '',
 //                    date: '',
-                    delivery: false,
+//                    delivery: false,
                     type: [],
                     du_remark: '',
                 }

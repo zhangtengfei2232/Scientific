@@ -101,7 +101,7 @@
 
                             </div>
                             <div class="contentRight"style="width: 50%;">
-                                <el-form-item label="第一学历：" ></el-form-item>
+                                <el-form-item label="第一学历："style="font-weight:800 !important; font-size: 17px;" ></el-form-item>
 
                                 <el-form-item label="第一学历/学位" prop="first_graduate_school">
                                     <el-input v-model="form.first_graduate_school"></el-input>
@@ -116,7 +116,7 @@
                                     <el-input v-model="form.first_graduation_time"></el-input>
                                 </el-form-item>
 
-                                <el-form-item label="最高学历：" ></el-form-item>
+                                <el-form-item label="最高学历：" style="font-weight: 800; font-size: 17px;"></el-form-item>
 
                                 <el-form-item label="最高学历/学位" prop="most_academic">
                                     <el-input v-model="form.most_academic"></el-input>
@@ -140,7 +140,7 @@
                                 <el-form-item label="任教课程" prop="teach_course">
                                     <el-input v-model="form.teach_course"></el-input>
                                 </el-form-item>
-                                <el-form-item label="硕(博)导：" ></el-form-item>
+                                <el-form-item label="硕(博)导："style="font-weight: 800; font-size: 17px;" ></el-form-item>
 
                                 <el-form-item label="授予单位" prop="master_company">
                                     <el-input v-model="form.master_company"></el-input>
@@ -148,7 +148,10 @@
                                 <el-form-item label="获得时间" prop="master_time">
                                     <el-input v-model="form.master_time"></el-input>
                                 </el-form-item>
-
+                                <el-form-item>
+                                    <el-button type="primary" @click="onSubmit(form)">保存修改</el-button>
+                                    <el-button>取消</el-button>
+                                </el-form-item>
                                 <div class="demo" v-show="type1">
                                     <img :src="filelist.url" style="width:100px">
                                 </div>
@@ -189,10 +192,6 @@
                                         <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
                                     </el-upload>
                                 </el-form-item>
-                                    <el-form-item>
-                                        <el-button type="primary" @click="onSubmit(form)">保存修改</el-button>
-                                        <el-button>取消</el-button>
-                                    </el-form-item>
                             </div>
                         </el-form>
                     </div>
@@ -208,7 +207,7 @@
     export default {
         data() {
             return {
-                id:[],
+//                id:[],
                 type1:false,
                 type2:false,
                 filelist: [{name:'',url:''}],
@@ -273,12 +272,12 @@
                     gra_cert_road:'',
 
                 },
-                pickerOptions1: {
-                    disabledDate(time) {
-                        return time.getTime() > Date.now();
-                    },
-                },
-                value1: '',
+//                pickerOptions1: {
+//                    disabledDate(time) {
+//                        return time.getTime() > Date.now();
+//                    },
+//                },
+//                value1: '',
             }
         },
         methods: {
@@ -295,10 +294,12 @@
                         if(data.datas.gra_cert_road !== ''){
                             self.type1=true;
                             self.filelist.url = 'showfile?disk=teacher&subjection=' + data.datas.gra_cert_road;
+                            console.log(self.filelist.url,'77788900----')
                         }
                         if(data.datas.edu_cert_road !== ''){
                             self.type2=true;
                             self.filelist1.url = 'showfile?disk=teacher&subjection=' + data.datas.edu_cert_road;
+                            console.log(self.filelist1.url,'77788900----')
                         }
 //                        self.filelist.url = 'showimage?disk=infor&subjection=' + data.datas.gra_cert_road;
 //                        self.filelist1.url = 'showimage?disk=infor&subjection=' + data.datas.edu_cert_road;
@@ -579,9 +580,7 @@
     .graduationPic{
         margin-bottom: 193px;
     }
-    .demo{
-        margin: 10px 0 10px 30%;
-    }
+
     /*//组件*/
 
     .upload-demo{
