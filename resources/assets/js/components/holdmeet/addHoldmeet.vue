@@ -95,9 +95,9 @@
             dataFile: new FormData(),
             Bcode:false,
             ho_file: '',
+            ho_id:'',
             ho_graph_inject: '',
             form: {
-                ho_id:'',
                 ho_name: '',
                 ho_art_status: '',
                 people_num: '',
@@ -190,6 +190,7 @@
                         });
                         vue.addHoldmeetData(vue.dataForm).then(res => {
                             var data = res.data;
+                            self.ho_id = res.data.datas;
                             if (data.code == 0) {
                                 this.Bcode = true;
                                 vue.$message({

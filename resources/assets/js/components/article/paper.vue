@@ -73,6 +73,7 @@
                                 <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentArticleSelfData(ArticleDate[scope.$index].art_id)"></el-button>
                                 <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteArticleData(ArticleDate[scope.$index].art_id)"></el-button>
                                 <!-- <a href="downloadfile?file=article/{{ ArticleDate.[scope.$index].art_road }}"><el-button type="success" icon="el-icon-download" size="mini"></el-button></a> -->
+                                {{ ArticleDate.art_road }}
                             </el-button>
                         </template>
                     </el-table-column>

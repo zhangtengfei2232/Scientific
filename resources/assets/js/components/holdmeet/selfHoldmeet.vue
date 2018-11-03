@@ -116,8 +116,8 @@ export default {
             ho_file: '',
             ho_graph_inject: '',
             filelists:[],
+            ho_id:'',
             form: {
-                ho_id:'',
                 ho_name: '',
                 ho_art_status: '',
                 people_num: '',
@@ -137,7 +137,7 @@ export default {
                 if (data.code == 0) {
                     self.HoldmeetSelfData = data.datas.information;
                     self.form = data.datas.information;
-                    console.log(data.datas);
+                    self.ho_id = data.datas.information.ho_id;
                     if(data.datas.information.ho_graph_inject !== ''){
                         self.picType = true;
                         self.filelist.url = 'showfile?disk=holdmeet&subjection=' + data.datas.information.ho_graph_inject;

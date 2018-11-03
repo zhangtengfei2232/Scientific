@@ -110,6 +110,10 @@
     .demo{
         margin: 10px 0 10px 30%;
     }
+    thead li{
+        float: left;
+        margin: 20px;
+    }
 </style>
 
 <script>
