@@ -72,10 +72,10 @@
                 </el-form-item>
                 <div class="demo" v-show="picTypes">
                     <thead>
-                        <!-- <li v-for="(index,filelists) in items" v-bind:key="filelists">
+                        <li v-for="(index,items) in filelists" v-bind:key="items">
                             <img :src="items.url" alt="无法加载">
                             <el-button type="primary" @click="deletePic(items)">保存修改</el-button>
-                        </li> -->
+                        </li>
                     </thead>
                 </div>
                 <el-form-item label="会议图片">
@@ -158,7 +158,7 @@ export default {
                             self.filelist = 'showfile?disk=joinmeet&subjection=' + data.datas.information.jo_graph_inject;
                         }
                         let image = data.datas.image;
-                        if(image != ''){
+                        if(image.length !== 0){
                             self.picTypes = true;
                             self.filelists = 'showfile?disk=holdmeet&subjection=' + image;
                         } 
