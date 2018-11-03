@@ -191,11 +191,11 @@ export default {
                     self.form = data.datas; 
                     if(data.datas.op_cover_road !== ''){
                         self.type1=true;
-                        self.filelist.url = 'showfile?disk=opus&subjection=' + data.datas.op_cover_road;
+                        self.filelist = 'showfile?disk=opus&subjection=' + data.datas.op_cover_road;
                     }
                     if(data.datas.op_coright_road !== ''){
                         self.type2=true;
-                        self.filelists.url = 'showfile?disk=opus&subjection=' + data.datas.op_coright_road;
+                        self.filelists = 'showfile?disk=opus&subjection=' + data.datas.op_coright_road;
                     }
                 } else {
                     self.$notify({
