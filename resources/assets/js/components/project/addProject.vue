@@ -92,6 +92,7 @@
                             drag
                             action="#"
                             multiple
+                            :limit="1"
                             ref="pro_road"
                             :before-upload="fileProfil"
                             :auto-upload="false"

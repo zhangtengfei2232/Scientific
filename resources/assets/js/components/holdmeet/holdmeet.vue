@@ -222,6 +222,7 @@
                                 type: 'success',
                                 message: '删除成功!'
                             });
+                            location.reload();
                         } else {
                             self.$notify({
                                 type: 'error',
@@ -256,6 +257,7 @@
                                 type: 'success',
                                 message: '删除成功!'
                             });
+                            location.reload();
                         } else {
                             self.$notify({
                                 type: 'error',
