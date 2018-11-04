@@ -11,8 +11,6 @@
             </span>
             <span class="searchtime">
                     <el-form>
-                        <span class="searchtime">
-                    <el-form>
                         <div class="block">
                             <span class="demonstration">按讲学时间检索:</span>
                             <el-date-picker
@@ -54,8 +52,8 @@
                         <!--</el-date-picker>-->
                         <!--<el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch">搜索</el-button>-->
                     <!--</div>-->
-                </el-form>
-            </span>
+                <!--</el-form>-->
+            <!--</span>-->
     </header>
 
         <div class="table">
@@ -134,7 +132,7 @@
         border-right: 1px solid #eee;
     }
     .searchtime{
-        width: 59%;
+        width: 45%;
         display: inline-block;
         margin: 15px 0 0 7%;
     }
@@ -246,6 +244,7 @@
                                 type: 'success',
                                 message: '删除成功!'
                             });
+                            location.reload();
                         } else {
                             self.$notify({
                                 type: 'error',
@@ -281,6 +280,7 @@
                                 type: 'success',
                                 message: '删除成功!'
                             });
+                            location.reload();
                         } else {
                             self.$notify({
                                 type: 'error',
@@ -301,26 +301,21 @@
                     path: `/editLecture/${le_id}`,
                 })
             },
-//
-//            handleCheckAllChange(val) {
-//                this.checkedCities = val ? this.ExperspeakDate : [];
-//                this.isIndeterminate = false;
-//            },
-//            handleCheckedCitiesChange(value) {
-//                let checkedCount = value.length;
-//                this.checkAll = checkedCount === this.ExperspeakDate.length;
-//                this.isIndeterminate = checkedCount > 0 && checkedCount < this.ExperspeakDate.length;
-//            },
             byTimeSearch() {
 //                let self = this;
-                axios.get("timeselectlecture",form).then(function (response) {
+                axios.get("timeselectlecture",{
+                    params:{
+                        start_time: form.data1,
+                        end_time: form.data1,
+                    }
+                }).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
                         self.ExperspeakDate = data.datas;
                     } else {
                         self.$notify({
                             type: 'error',
-                            message: data.msg,
+                            message: data.message,
                             duration: 2000,
                         });
                     }

@@ -67,7 +67,7 @@
                 <el-input type="textarea" v-model="form.du_remark"></el-input>
             </el-form-item>
                 <div class="demo" v-show="type1">
-                    <img :src="filelists.url" alt="无法加载" style="width:100px">
+                    <img :src="filelists" alt="无法加载" style="width:100px">
                 </div>
             <el-form-item label="证书图片">
                 <el-upload
@@ -78,6 +78,7 @@
                         ref="du_road"
                         :before-upload="fileProfil"
                         multiple
+                        :limit="1"
                         list-type="picture">
                     <i class="el-icon-upload"></i>
                     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -120,10 +121,10 @@
                 du_road:'',
                 dataForm: new FormData(),
                 dataFile: new FormData(),
-                Bcode:false,
-                multiple: true,
-                filelist: [{url:''}],
-                filelists: [{url:''}],
+//                Bcode:false,
+//                multiple: true,
+//                filelist: '',
+                filelists: '',
                 year1: '',
                 year2: '',
                 form: {
@@ -139,6 +140,7 @@
                     delivery: false,
                     type: [],
                     du_remark: '',
+                    du_road:'',
                 }
             }
         },
@@ -157,10 +159,10 @@
                         let time = data.datas.du_year_num;
                         self.checkYearExt(time);
                         self.form = data.datas;
-                        let road = 'showimage?disk=duties&subjection=' + data.datas.du_road;
-                        if(road !== ''){
+                        if(data.datas.du_road !== ''){
+                            let road = 'showfile?disk=duties&subjection=' + data.datas.du_road;
                             self.type1=true;
-                            self.filelists.url = road;
+                            self.filelists = road;
                         }
                     } else {
                         self.$notify({
@@ -201,14 +203,11 @@
                     this.$message.error('担任职务年限不能为空');
                     return
                 }this.$refs['form'].validate((valid) => {
-//                    console.log(year2,';;;;;;;;;;')
-//                    form.project_year = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                     let vue = this;
                     if (valid) {
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);
                         });
-                        console.log(form,'--8888--------======');
                         vue.addDutiesData(vue.dataForm).then(res => {
                             var data = res.data;
                             if (data.code == 0) {
@@ -220,7 +219,7 @@
                             } else {
                                 vue.$notify({
                                     type: 'error',
-                                    message: '修改失败',
+                                    message: data.message,
                                     duration: 2000,
                                 });
                             }
@@ -233,7 +232,6 @@
                 })
             },
             addDutiesData(data) {
-//                console.log(data,'---------------======');
                 return axios({
                     method: 'post',
                     url: 'updateduties',

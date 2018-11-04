@@ -9,7 +9,7 @@
                     <div class="detialRight">
 
                         <el-form ref="form" :model="form" label-width="200px" style="display: flex;">
-                            <div class="contentLeft"style="width: 50%;">
+                            <div class="contentLeft" style="width: 50%;">
                                 <el-form-item label="头像">
                                     <img src="/dist/img/pic_fill.png" alt="未加载">
                                 </el-form-item>
@@ -229,7 +229,7 @@
                                 <el-form-item label="任教课程" prop="teach_course">
                                     <el-input v-model="form.teach_course"></el-input>
                                 </el-form-item>
-                                <el-form-item label="硕(博)导："style="font-weight: 800; font-size: 17px;" ></el-form-item>
+                                <el-form-item label="硕(博)导：" style="font-weight: 800; font-size: 17px;" ></el-form-item>
 
                                 <el-form-item label="授予单位" prop="master_company">
                                     <el-input v-model="form.master_company"></el-input>
@@ -313,10 +313,6 @@
                 dataForm: new FormData(),
                 dataFile: new FormData(),
                 teacherDate:{},
-//                show: false,
-//                checked: false,
-//                checkAll: false,
-//                sortable:true,
                 form:{
                     id:'',
                     name:'',
@@ -336,7 +332,6 @@
                     first_graduate_school:'',
                     most_graduation_time:'',
                     most_graduate_school:'',
-                    edu_cert_road:'',
 
                     polit_outlook:'',
                     admin_duties:'',
@@ -363,7 +358,6 @@
                     teach_course:'',
                     master_company:'',
                     master_time:'',
-                    gra_cert_road:'',
 
                 },
             }
@@ -371,9 +365,7 @@
         methods: {
             getTeacherData(){
                 let self = this;
-                this.form.id = self.$route.params.id;
-//                console.log(self.form.id,'==========');
-                axios.get("selectteacher?id"+this.form.id).then(function (response) {
+                axios.get("selectteacher").then(function (response) {
                     var data = response.data;
                     if(data.code == 0){
                         self.teacherDate = data.datas;
@@ -382,17 +374,17 @@
                         if(data.datas.information.gra_cert_road !== ''){
                             self.type1=true;
                             self.filelist.url = 'showfile?disk=teacher&subjection=' + data.datas.information.gra_cert_road;
-                            console.log(self.filelist.url,'===]][[[[[[[[[[[[[')
+//                            console.log(self.filelist.url,'===]][[[[[[[[[[[[[')
                         }
                         if(data.datas.information.edu_cert_road !== ''){
                             self.type2=true;
                             self.filelists.url = 'showfile?disk=teacher&subjection=' + data.datas.information.edu_cert_road;
-                            console.log(self.filelists.url,'===]][[[[[[[[[[[[[')
+//                            console.log(self.filelists.url,'===]][[[[[[[[[[[[[')
                         }
                     }else{
                         self.$notify({
                             type: 'error',
-                            message: data.msg,
+                            message: data.message,
                             duration: 2000,
                         });
                     }
@@ -422,8 +414,6 @@
                 if(this.Bcode == true){
                     this.dataFile.append('gra_cert_road', file);
                     this.dataFile.append('is_add_teacher',this.Bcode);
-//                    let id = this.form.id;
-//                    this.dataFile.append('id', id);
                     this.sendfile(this.dataFile);
                 }else{
                     this.$message.error('请先添加文件');
@@ -443,7 +433,7 @@
                 }
             },
             sendfile(dataFile) {
-//                console.log(dataFile,'00000000000[[[[[[')
+                console.log(dataFile,'-=-=-=-==--');
                 let vue = this;
                 this.addTeacherFile(dataFile).then(res => {
                     var data = res.data;
@@ -468,12 +458,11 @@
                     headers: {'Content-Type': 'multipart/form-data'},
                     timeout: 20000,
                     data: data,
-//                    le_id:le_id
                 });
             },
             onSubmit(form) {
                 console.log(form,'0=-----00000');
-                let vue = this;
+//                let vue = this;
                 if(form.name == '') {
                     this.$message.error('老师姓名不能为空');
                 }else if(form.teacher_id == '') {
@@ -547,7 +536,8 @@
                 }else if(form.master_time == '') {
                     this.$message.error('获得时间不能为空');
                 }
-                vue.$refs['form'].validate((valid) => {
+                this.$refs['form'].validate((valid) => {
+                    let vue = this;
                     if (valid) {
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);

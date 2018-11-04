@@ -47,9 +47,9 @@
                                 <span>特殊功能</span>
                             </template>
                             <el-menu-item-group>
-                                <el-menu-item index="/schoolfile">校发文件</el-menu-item>
-                                <el-menu-item index="/addteacher">添加老师</el-menu-item>
-                                <el-menu-item index="/agreement">教学科研等合作协议</el-menu-item>
+                                <el-menu-item index="/schoolfile" style="padding-left: 30px;">校发文件</el-menu-item>
+                                <el-menu-item index="/addteacher" style="padding-left: 30px;">添加老师</el-menu-item>
+                                <el-menu-item index="/agreement" style="padding-left: 30px;">教学科研等合作协议</el-menu-item>
                             </el-menu-item-group>
                         </el-submenu>
 
@@ -237,5 +237,11 @@
     }
     .el-icon-arrow-down:before{
         font-weight: 800;
+    }
+    .el-menu-item-group>ul{
+        overflow: hidden;
+    }
+    .el-submenu .el-menu-item{
+        min-width: 160px;
     }
 </style>

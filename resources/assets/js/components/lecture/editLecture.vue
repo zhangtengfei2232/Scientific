@@ -38,7 +38,10 @@
                     </el-date-picker>
                 </el-col>
             </el-form-item>
-                <div class="demo" v-show="picType">
+                <!--<div class="demo" v-show="picType">-->
+                    <!--<img :src="filelist" alt="无法加载" style="width:100px">-->
+                <!--</div>-->
+                <div class="demo" v-show="type1">
                     <img :src="filelist" alt="无法加载" style="width:100px">
                 </div>
             <el-form-item label="图注">
@@ -96,6 +99,9 @@
         width: 80%;
         margin: 35px 0 0 35px;
     }
+    .demo{
+        margin: 10px 0 10px 30%;
+    }
     /*组件*/
     .el-form{
         width:62%;
@@ -110,6 +116,7 @@
                 le_id:'',
                 le_image:[],
                 le_img_road:'',
+                type1:false,
                 picType:false,
                 picTypes:false,
                 Bcode:false,
@@ -141,22 +148,21 @@
                     if (data.code == 0) {
                         self.EditLectureData = data.datas;
                         self.form = data.datas.lecture_information;
-                        if(data.datas.lecture_information.le_img_road == ''){
-                            self.picType=false;
-                        }else{
-                            self.picType=true;
-                            self.filelist = 'showfile?disk=lecture&subjection=' + data.datas.lecture_information.le_img_road;
+                        if(data.datas.lecture_information.le_img_road !== ''){
+                            let road = 'showfile?disk=lecture&subjection=' + data.datas.lecture_information.le_img_road;
+                            self.type1=true;
+                            self.filelist = road;
                         }
-                        let image = data.datas.image;
-                        if(image.length !== 0){
-                            self.picTypes = true;
-                            self.filelists = 'showfile?disk=lecture&subjection=' + image;
-                        }
-//                        self.filelists.url='../../storage/app/data/lecture/'+data.datas.le_img_road;
-//                        let image = data.datas.lecture_information.le_image;
-//                        if(image !== ''){
-//                            self.picType = true;
-//                            self.filelists = 'showfile?disk=holdmeet&subjection=' + image;
+//                        if(data.datas.lecture_information.le_img_road == ''){
+//                            self.picType=false;
+//                        }else{
+//                            self.picType=true;
+//                            self.filelist = 'showfile?disk=lecture&subjection=' + data.datas.lecture_information.le_img_road;
+//                        }
+//                        let image = data.datas.image;
+//                        if(image.length !== 0){
+//                            self.picTypes = true;
+//                            self.filelists = 'showfile?disk=lecture&subjection=' + image;
 //                        }
                     } else {
                         self.$notify({
