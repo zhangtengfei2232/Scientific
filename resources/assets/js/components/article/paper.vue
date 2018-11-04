@@ -189,8 +189,6 @@
                 }else{
                     for (var i = 0; i < self.multipleSelection.length; i++) {
                         art_id_datas.push(self.multipleSelection[i].art_id);
-                        //删除数组——删除选择的行
-                        //pro_id_datas.splice(0,self.multipleSelection.length);
                     };
                     this.deleteArticleDatas(art_id_datas);
                 }
@@ -202,7 +200,11 @@
                     type: 'warning'
                 }).then(() => { 
                     let self = this;
-                    axios.get("deleteartical?art_id_datas="+art_id_datas).then(function (response) {
+                    axios.get("deleteartical",{
+                         params:{
+                            artical_id:art_id_datas
+                        }
+                    }).then(function (response) {
                     var data = response.data;
                         if (data.code == 0) {
                              self.$message({
@@ -210,6 +212,7 @@
                                 message: '删除成功!',
                                 type: 'success'
                             });
+                            location.reload();
                         } else {
                             self.$notify({
                                 type: 'error',
@@ -226,21 +229,25 @@
                 });
             },
             deleteArticleData(art_id) {
-                this.id = art_id;
+                this.id.push(art_id);
                 this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
-                }).then(() => { 
+                }).then(() => {
                     let self = this;
-                    axios.get("deleteartical?art_id="+id).then(function (response) {
+                    axios.get("deleteartical",{
+                         params:{
+                            artical_id:self.id
+                        }
+                    }).then(function (response) {
                     var data = response.data;
                         if (data.code == 0) {
                              self.$message({
-                                showClose: true,
-                                message: '删除成功!',
-                                type: 'success'
+                                type: 'success',
+                                message: '删除成功!'
                             });
+                            location. reload();
                         } else {
                             self.$notify({
                                 type: 'error',

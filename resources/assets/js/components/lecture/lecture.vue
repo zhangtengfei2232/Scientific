@@ -9,13 +9,34 @@
                     <el-button type="primary"><i class="el-icon-plus el-icon--left">上传</i></el-button>
                 </router-link>
             </span>
-        <span class="searchtime">
-                <el-form>
-                    <div class="block">
-                        <span class="demonstration">按专家姓名检索:</span>
-                         <el-input v-model="form.le_expert_name" placeholder="请输入专家姓名" style="width:30%;"></el-input>
-                        <el-button type="primary" style="margin-left:10px" v-on:click="byNameSearch">搜索</el-button>
-                    </div>
+            <span class="searchtime">
+                    <el-form>
+                        <div class="block">
+                            <span class="demonstration">按讲学时间检索:</span>
+                            <el-date-picker
+                                    v-model="form.data1"
+                                    type="date"
+                                    placeholder="选择日期"
+                                    format="yyyy 年 MM 月 dd 日"
+                                    value-format="timestamp">
+                            </el-date-picker>
+                            <span>-</span>
+                            <el-date-picker
+                                    v-model="form.data2"
+                                    type="date"
+                                    placeholder="选择日期"
+                                    format="yyyy 年 MM 月 dd 日"
+                                    value-format="timestamp">
+                            </el-date-picker>
+                            <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch">搜索</el-button>
+                        </div>
+                    </el-form>
+                </span>
+                    <!--<div class="block">-->
+                        <!--<span class="demonstration">按专家姓名检索:</span>-->
+                         <!--<el-input v-model="form.le_expert_name" placeholder="请输入专家姓名" style="width:30%;"></el-input>-->
+                        <!--<el-button type="primary" style="margin-left:10px" v-on:click="byNameSearch">搜索</el-button>-->
+                    <!--</div>-->
                     <!--<div class="block">-->
                         <!--<span class="demonstration">按讲学时间检索:</span>-->
                         <!--<el-date-picker-->
@@ -31,8 +52,8 @@
                         <!--</el-date-picker>-->
                         <!--<el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch">搜索</el-button>-->
                     <!--</div>-->
-                </el-form>
-            </span>
+                <!--</el-form>-->
+            <!--</span>-->
     </header>
 
         <div class="table">
@@ -113,7 +134,7 @@
     .searchtime{
         width: 45%;
         display: inline-block;
-        margin: 15px 0 0 12%;
+        margin: 15px 0 0 7%;
     }
     .demonstration{
         font-weight: lighter;
@@ -180,7 +201,7 @@
                     } else {
                         self.$notify({
                             type: 'error',
-                            message: data.msg,
+                            message: data.message,
                             duration: 2000,
                         });
                     }
@@ -223,10 +244,11 @@
                                 type: 'success',
                                 message: '删除成功!'
                             });
+                            location.reload();
                         } else {
                             self.$notify({
                                 type: 'error',
-                                message: data.msg,
+                                message: data.message,
                                 duration: 2000,
                             });
                         }
@@ -258,10 +280,11 @@
                                 type: 'success',
                                 message: '删除成功!'
                             });
+                            location.reload();
                         } else {
                             self.$notify({
                                 type: 'error',
-                                message: data.msg,
+                                message: data.message,
                                 duration: 2000,
                             });
                         }
@@ -278,26 +301,21 @@
                     path: `/editLecture/${le_id}`,
                 })
             },
-//
-//            handleCheckAllChange(val) {
-//                this.checkedCities = val ? this.ExperspeakDate : [];
-//                this.isIndeterminate = false;
-//            },
-//            handleCheckedCitiesChange(value) {
-//                let checkedCount = value.length;
-//                this.checkAll = checkedCount === this.ExperspeakDate.length;
-//                this.isIndeterminate = checkedCount > 0 && checkedCount < this.ExperspeakDate.length;
-//            },
-            byNameSearch() {
+            byTimeSearch() {
 //                let self = this;
-                axios.get("",form).then(function (response) {
+                axios.get("timeselectlecture",{
+                    params:{
+                        start_time: form.data1,
+                        end_time: form.data1,
+                    }
+                }).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
                         self.ExperspeakDate = data.datas;
                     } else {
                         self.$notify({
                             type: 'error',
-                            message: data.msg,
+                            message: data.message,
                             duration: 2000,
                         });
                     }

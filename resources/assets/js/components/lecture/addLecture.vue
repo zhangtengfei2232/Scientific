@@ -39,15 +39,16 @@
             </el-form-item>
             <el-form-item label="图注">
                 <el-upload
+                        class="upload-demo"
                         drag
                         action="#"
                         ref="le_img_road"
                         :before-upload="filePicfil"
-                        :auto-upload="true"
+                        :auto-upload="false"
                         multiple
                         list-type="picture">
                     <i class="el-icon-upload"></i>
-                    <div class="el-upload__text"><em>若多张请一次上传</em></div>
+                    <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                 </el-upload>
             </el-form-item>
             <el-form-item>
@@ -56,16 +57,15 @@
             </el-form-item>
             <el-form-item label="图片">
                 <el-upload
-                        drag
-                        ref="lec_image"
+                        class="upload-demo"
+                        ref="le_image"
                         action="#"
                         :before-upload="fileZufil"
                         :on-preview="handlePreview"
                         :on-remove="handleRemove"
                         :auto-upload="false"
                         list-type="picture">
-                    <i class="el-icon-upload"></i>
-                    <div class="el-upload__text"slot="trigger" size="small" type="primary">将文件拖到此处，或<em>点击上传</em></div>
+                    <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
                     <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUploads">上传</el-button>
                     <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
                 </el-upload>
@@ -100,7 +100,7 @@
                 Bcode:false,
                 multiple:true,
                 le_img_road: '',
-                lec_image: '',
+                le_image: [],
                 le_id:'',
                 form: {
                     le_expert_name:'',
@@ -116,7 +116,7 @@
         },
         methods: {
             submitUploads() {
-                this.$refs.lec_image.submit();
+                this.$refs.le_image.submit();
             },
             handleRemove(file, fileList) {
                 console.log(file, fileList);
@@ -128,14 +128,15 @@
                 this.dataForm.append('le_img_road', file);
                 return false;
             },
-            fileZufil(file){
+            fileZufil(files){
                 if(this.Bcode == true){
-                    this.dataFile.append('lec_image', file);
+                    this.dataFile.append('le_image', files);
                     let id = this.form.le_id;
                     this.dataFile.append('le_id', id);
+                    this.dataFile.append('is_add_lecture',this.Bcode);
                     this.sendfile(this.dataFile);
 //                    this.sendfile(files);
-//                    this.$refs.lec_image.submit();
+//                    this.$refs.le_image.submit();
                 }else{
                     this.$message.error('请先添加数据信息');
                     return false
@@ -198,6 +199,7 @@
                        console.log(form,'+++++++++++ott');
                         vue.addLectureData(vue.dataForm).then(res => {
                             var data = res.data;
+                            self.le_id = res.data.datas;
                             if (data.code == 0) {
                                 this.Bcode = true;
                                 vue.$message({

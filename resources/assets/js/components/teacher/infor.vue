@@ -9,15 +9,21 @@
                     <div class="detialRight">
 
                         <el-form ref="form" :model="form" label-width="200px" style="display: flex;">
-                            <div class="contentLeft"style="width: 50%;">
+                            <div class="contentLeft" style="width: 50%;">
                                 <el-form-item label="头像">
                                     <img src="/dist/img/pic_fill.png" alt="未加载">
                                 </el-form-item>
                                 <el-form-item label="老师所属部门" prop="teacher_department">
-                                    <el-input v-model="form.teacher_department"></el-input>
+                                    <el-select v-model="form.teacher_department" placeholder="请选择老师所属部门">
+                                        <el-option label="生工" value="1"></el-option>
+                                        <el-option label="生物技术系" value="2"></el-option>
+                                        <el-option label="农学系" value="3"></el-option>
+                                        <el-option label="领导行政政工" value="4"></el-option>
+                                    </el-select>
+                                    <!--<el-input v-model="form.teacher_department"></el-input>-->
                                 </el-form-item>
                                 <el-form-item label="老师工号" prop="teacher_id">
-                                    <el-input v-model="form.teacher_id"></el-input>
+                                    <el-input v-model="form.teacher_id":disabled="true"></el-input>
                                 </el-form-item>
                                 <el-form-item label="姓名" prop="name">
                                     <el-input v-model="form.name"></el-input>
@@ -35,13 +41,24 @@
                                     <el-input v-model="form.number"></el-input>
                                 </el-form-item>
                                 <el-form-item label="性别" prop="sex">
-                                    <el-input v-model="form.sex"></el-input>
+                                    <el-radio-group v-model="form.sex">
+                                        <el-radio :label="1">男</el-radio>
+                                        <el-radio :label="2">女</el-radio>
+                                    </el-radio-group>
                                 </el-form-item>
                                 <el-form-item label="民族" prop="nation">
                                     <el-input v-model="form.nation"></el-input>
                                 </el-form-item>
                                 <el-form-item label="出生年月" prop="borth">
-                                    <el-input v-model="form.borth"></el-input>
+                                    <el-col :span="15">
+                                        <el-date-picker
+                                                type="date"
+                                                placeholder="选择日期"
+                                                v-model="form.borth"
+                                                format="yyyy 年 MM 月 dd 日"
+                                                value-format="timestamp">
+                                        </el-date-picker>
+                                    </el-col>
                                 </el-form-item>
                                 <el-form-item label="政治面貌" prop="polit_outlook">
                                     <el-input v-model="form.polit_outlook"></el-input>
@@ -53,28 +70,76 @@
                                     <el-input v-model="form.admin_duties"></el-input>
                                 </el-form-item>
                                 <el-form-item label="任职时间" prop="admin_tenure_time">
-                                    <el-input v-model="form.admin_tenure_time"></el-input>
+                                    <el-col :span="15">
+                                        <el-date-picker
+                                                type="date"
+                                                placeholder="选择日期"
+                                                v-model="form.admin_tenure_time"
+                                                format="yyyy 年 MM 月 dd 日"
+                                                value-format="timestamp">
+                                        </el-date-picker>
+                                    </el-col>
                                 </el-form-item>
                                 <el-form-item label="职务级别" prop="job_level">
-                                    <el-input v-model="form.job_level"></el-input>
+                                    <el-select v-model="form.job_level" placeholder="请选择老师级别">
+                                        <el-option label="正处" value="1"></el-option>
+                                        <el-option label="副处" value="2"></el-option>
+                                        <el-option label="正科" value="3"></el-option>
+                                        <el-option label="副科" value="4"></el-option>
+                                        <el-option label="其他" value="5"></el-option>
+                                    </el-select>
                                 </el-form-item>
                                 <el-form-item label="专业技术职务" prop="technical_position">
-                                    <el-input v-model="form.technical_position"></el-input>
+                                    <el-select v-model="form.technical_position" placeholder="老师专业技术职务">
+                                        <el-option label="教授" value="1"></el-option>
+                                        <el-option label="副教授" value="2"></el-option>
+                                        <el-option label="讲师" value="3"></el-option>
+                                        <el-option label="助教" value="4"></el-option>
+                                        <el-option label="实验师" value="5"></el-option>
+                                        <el-option label="助理实验师" value="6"></el-option>
+                                        <el-option label="高级实验师" value="7"></el-option>
+                                    </el-select>
                                 </el-form-item>
                                 <el-form-item label="老师职称" prop="academic_title">
-                                    <el-input v-model="form.academic_title"></el-input>
+                                    <el-select v-model="form.academic_title" placeholder="请选择老师职称">
+                                        <el-option label="初级" value="1"></el-option>
+                                        <el-option label="中级" value="2"></el-option>
+                                        <el-option label="副高" value="3"></el-option>
+                                        <el-option label="正高" value="4"></el-option>
+                                    </el-select>
                                 </el-form-item>
                                 <el-form-item label="评审通过时间" prop="review_time">
-                                    <el-input v-model="form.review_time"></el-input>
+                                    <el-col :span="15">
+                                        <el-date-picker
+                                                type="date"
+                                                placeholder="选择日期"
+                                                v-model="form.review_time"
+                                                format="yyyy 年 MM 月 dd 日"
+                                                value-format="timestamp">
+                                        </el-date-picker>
+                                    </el-col>
                                 </el-form-item>
                                 <el-form-item label="聘任时间" prop="appointment_time">
-                                    <el-input v-model="form.appointment_time"></el-input>
+                                    <el-col :span="15">
+                                        <el-date-picker
+                                                type="date"
+                                                placeholder="选择日期"
+                                                v-model="form.appointment_time"
+                                                format="yyyy 年 MM 月 dd 日"
+                                                value-format="timestamp">
+                                        </el-date-picker>
+                                    </el-col>
                                 </el-form-item>
                                 <el-form-item label="系列" prop="series">
                                     <el-input v-model="form.series"></el-input>
                                 </el-form-item>
                                 <el-form-item label="岗位类别" prop="post_category">
-                                    <el-input v-model="form.post_category"></el-input>
+                                    <el-select v-model="form.post_category" placeholder="请选择老师岗位类别">
+                                        <el-option label="教学秘书" value="1"></el-option>
+                                        <el-option label="院长" value="2"></el-option>
+                                        <el-option label="办公室主任" value="3"></el-option>
+                                        <el-option label="副主任" value="4"></el-option>
+                                    </el-select>
                                 </el-form-item>
                                 <el-form-item label="所在单位" prop="company">
                                     <el-input v-model="form.company"></el-input>
@@ -83,7 +148,15 @@
                                     <el-input v-model="form.te_re_department"></el-input>
                                 </el-form-item>
                                 <el-form-item label="来校工作时间" prop="working_hours">
-                                    <el-input v-model="form.working_hours"></el-input>
+                                    <el-col :span="15">
+                                        <el-date-picker
+                                                type="date"
+                                                placeholder="选择日期"
+                                                v-model="form.working_hours"
+                                                format="yyyy 年 MM 月 dd 日"
+                                                value-format="timestamp">
+                                        </el-date-picker>
+                                    </el-col>
                                 </el-form-item>
                                 <el-form-item label="原工作单位" prop="origin_work_unit">
                                     <el-input v-model="form.origin_work_unit"></el-input>
@@ -113,7 +186,15 @@
                                     <el-input v-model="form.first_study_major"></el-input>
                                 </el-form-item>
                                 <el-form-item label="第一毕业时间" prop="first_graduation_time">
-                                    <el-input v-model="form.first_graduation_time"></el-input>
+                                    <el-col :span="15">
+                                        <el-date-picker
+                                                type="date"
+                                                placeholder="选择日期"
+                                                v-model="form.first_graduation_time"
+                                                format="yyyy 年 MM 月 dd 日"
+                                                value-format="timestamp">
+                                        </el-date-picker>
+                                    </el-col>
                                 </el-form-item>
 
                                 <el-form-item label="最高学历：" style="font-weight: 800; font-size: 17px;"></el-form-item>
@@ -128,7 +209,15 @@
                                     <el-input v-model="form.most_study_major"></el-input>
                                 </el-form-item>
                                 <el-form-item label="最高毕业时间" prop="most_graduation_time">
-                                    <el-input v-model="form.most_graduation_time"></el-input>
+                                    <el-col :span="15">
+                                        <el-date-picker
+                                                type="date"
+                                                placeholder="选择日期"
+                                                v-model="form.most_graduation_time"
+                                                format="yyyy 年 MM 月 dd 日"
+                                                value-format="timestamp">
+                                        </el-date-picker>
+                                    </el-col>
                                 </el-form-item>
 
                                 <el-form-item label="现从事专业" prop="work_major">
@@ -140,13 +229,21 @@
                                 <el-form-item label="任教课程" prop="teach_course">
                                     <el-input v-model="form.teach_course"></el-input>
                                 </el-form-item>
-                                <el-form-item label="硕(博)导："style="font-weight: 800; font-size: 17px;" ></el-form-item>
+                                <el-form-item label="硕(博)导：" style="font-weight: 800; font-size: 17px;" ></el-form-item>
 
                                 <el-form-item label="授予单位" prop="master_company">
                                     <el-input v-model="form.master_company"></el-input>
                                 </el-form-item>
                                 <el-form-item label="获得时间" prop="master_time">
-                                    <el-input v-model="form.master_time"></el-input>
+                                    <el-col :span="15">
+                                        <el-date-picker
+                                                type="date"
+                                                placeholder="选择日期"
+                                                v-model="form.master_time"
+                                                format="yyyy 年 MM 月 dd 日"
+                                                value-format="timestamp">
+                                        </el-date-picker>
+                                    </el-col>
                                 </el-form-item>
                                 <el-form-item>
                                     <el-button type="primary" @click="onSubmit(form)">保存修改</el-button>
@@ -208,6 +305,7 @@
 //                id:[],
                 type1:false,
                 type2:false,
+                Bcode:false,
                 filelist:'',
                 filelists:'',
                 gra_cert_road: '',
@@ -215,10 +313,6 @@
                 dataForm: new FormData(),
                 dataFile: new FormData(),
                 teacherDate:{},
-//                show: false,
-//                checked: false,
-//                checkAll: false,
-//                sortable:true,
                 form:{
                     id:'',
                     name:'',
@@ -238,7 +332,6 @@
                     first_graduate_school:'',
                     most_graduation_time:'',
                     most_graduate_school:'',
-                    edu_cert_road:'',
 
                     polit_outlook:'',
                     admin_duties:'',
@@ -265,7 +358,6 @@
                     teach_course:'',
                     master_company:'',
                     master_time:'',
-                    gra_cert_road:'',
 
                 },
             }
@@ -273,9 +365,7 @@
         methods: {
             getTeacherData(){
                 let self = this;
-                this.form.id = self.$route.params.id;
-//                console.log(self.form.id,'==========');
-                axios.get("selectteacher?id"+this.form.id).then(function (response) {
+                axios.get("selectteacher").then(function (response) {
                     var data = response.data;
                     if(data.code == 0){
                         self.teacherDate = data.datas;
@@ -284,17 +374,17 @@
                         if(data.datas.information.gra_cert_road !== ''){
                             self.type1=true;
                             self.filelist.url = 'showfile?disk=teacher&subjection=' + data.datas.information.gra_cert_road;
-                        console.log(self.filelist.url,'===]][[[[[[[[[[[[[')
+//                            console.log(self.filelist.url,'===]][[[[[[[[[[[[[')
                         }
                         if(data.datas.information.edu_cert_road !== ''){
                             self.type2=true;
                             self.filelists.url = 'showfile?disk=teacher&subjection=' + data.datas.information.edu_cert_road;
-                            console.log(self.filelists.url,'===]][[[[[[[[[[[[[')
+//                            console.log(self.filelists.url,'===]][[[[[[[[[[[[[')
                         }
                     }else{
                         self.$notify({
                             type: 'error',
-                            message: data.msg,
+                            message: data.message,
                             duration: 2000,
                         });
                     }
@@ -321,10 +411,9 @@
 //                return false;
 //            },
             fileProfil(file){
-                if(file !== ''){
+                if(this.Bcode == true){
                     this.dataFile.append('gra_cert_road', file);
-//                    let id = this.form.id;
-//                    this.dataFile.append('id', id);
+                    this.dataFile.append('is_add_teacher',this.Bcode);
                     this.sendfile(this.dataFile);
                 }else{
                     this.$message.error('请先添加文件');
@@ -332,8 +421,9 @@
                 }
             },
             fileEdufil(files){
-                if(files !== ''){
+                if(this.Bcode == true){
                     this.dataFile.append('edu_cert_road', files);
+                    this.dataFile.append('is_add_teacher',this.Bcode);
 //                    let id = this.form.id;
 //                    this.dataFile.append('id', id);
                     this.sendfile(this.dataFile);
@@ -343,7 +433,7 @@
                 }
             },
             sendfile(dataFile) {
-//                console.log(dataFile,'00000000000[[[[[[')
+                console.log(dataFile,'-=-=-=-==--');
                 let vue = this;
                 this.addTeacherFile(dataFile).then(res => {
                     var data = res.data;
@@ -368,12 +458,11 @@
                     headers: {'Content-Type': 'multipart/form-data'},
                     timeout: 20000,
                     data: data,
-//                    le_id:le_id
                 });
             },
             onSubmit(form) {
                 console.log(form,'0=-----00000');
-                let vue = this;
+//                let vue = this;
                 if(form.name == '') {
                     this.$message.error('老师姓名不能为空');
                 }else if(form.teacher_id == '') {
@@ -447,16 +536,18 @@
                 }else if(form.master_time == '') {
                     this.$message.error('获得时间不能为空');
                 }
-                    vue.$refs['form'].validate((valid) => {
+                this.$refs['form'].validate((valid) => {
+                    let vue = this;
                     if (valid) {
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);
                         });
 //                        console.log(vue.dataForm,'00000000000');
                         vue.addTeaDate(vue.dataForm).then(res => {
-                            var data = response.data;
-//                            console.log(data,'_________');
+                            var data = res.data;
+
                             if (data.code == 0) {
+                                this.Bcode = true;
                                 vue.$message({
                                     message: '修改成功',
                                     type: 'success'

@@ -145,7 +145,7 @@ export default {
                 if (data.code == 0) {
                     self.AppraisalSelfData = data.datas;
                     self.form = data.datas;
-                    self.ap_id = data.datas.op_id;
+                    self.ap_id = data.datas.ap_id;
                     if(data.datas.ap_cover_road !== ''){
                         self.type1=true;
                         self.filelist.url = 'showfile?disk=appraisal&subjection=' + data.datas.ap_cover_road;
@@ -176,10 +176,10 @@ export default {
             console.log(file);
         },
         fileProfil(file){
-            console.log(file);
             if(file !== ''){
                 this.dataFile.append('ap_cover_road', file);
                 let id = this.ap_id;
+                console.log(this.ap_id);
                 this.dataFile.append('ap_id', id);
                 this.sendfile(this.dataFile);
             }else{
@@ -188,7 +188,6 @@ export default {
             }  
         },
         fileProfils(files){
-            console.log(files);
             if(files !== ''){
                 this.dataFile.append('ap_cover_road', files);
                 let id = this.ap_id;
@@ -207,7 +206,6 @@ export default {
                         message: '修改成功',
                         type: 'success'
                     });
-                    location. reload();
                 } else {
                     this.$notify({
                         type: 'error',

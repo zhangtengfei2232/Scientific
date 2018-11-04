@@ -9,15 +9,6 @@
                     <el-button type="primary"><i class="el-icon-plus el-icon--left">上传</i></el-button>
                 </router-link>
             </span>
-            <span class="searchtime">
-                <el-form>
-                    <div class="block">
-                        <span class="demonstration">按老师姓名检索:</span>
-                        <el-input v-model="form.teacher_name" placeholder="请输入老师姓名" style="width: 30%;"></el-input>
-                        <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch(form)">搜索</el-button>
-                    </div>
-                </el-form>
-            </span>
         </header>
         <div class="table">
             <template>
@@ -264,6 +255,7 @@
                                 type: 'success',
                                 message: '删除成功!'
                             });
+                            location.reload();
                         } else {
                             self.$notify({
                                 type: 'error',
@@ -300,6 +292,7 @@
                                 type: 'success',
                                 message: '删除成功!'
                             });
+                            location.reload();
                         }else{
                             self.$notify({
                                 type: 'error',
@@ -320,21 +313,6 @@
                     path: `/editDuties/${du_id}`,
                 })
             },
-            byTimeSearch(form) {
-                axios.get("",form).then(function (response) {
-                    var data = response.data;
-                    if (data.code == 0) {
-                        self.StudygroupDate = data.datas;
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.msg,
-                            duration: 2000,
-                        });
-                    }
-                });
-            },
-
         },
         mounted() {
             this.getStudygroupDate();
