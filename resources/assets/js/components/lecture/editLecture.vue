@@ -108,7 +108,7 @@
         data() {
             return {
                 le_id:'',
-                le_image:'',
+                le_image:[],
                 le_img_road:'',
                 picType:false,
                 picTypes:false,
@@ -196,8 +196,6 @@
             sendfile(dataFile) {
                 this.addBookFile(dataFile,id).then(res => {
                     var data = res.data;
-//                    console.log(data,'--8888--------======');
-//                    console.log(id,'--5555555--------======');
                     if (data.code == 0) {
                         vue.$message({
                             message: '修改成功',
