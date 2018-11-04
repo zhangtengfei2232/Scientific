@@ -11,7 +11,6 @@ class AgreementController extends Controller
 {
     //添加教学科研合作协议信息
     public function addAgreement(Request $request){
-        dd($request);
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
@@ -45,7 +44,6 @@ class AgreementController extends Controller
     }
     //删除教学科研合作协议信息
     public function deleteAgreement(Request $request){
-        dd($request);
         $agreement_id_datas   = $request->ag_id_datas;
         $agreement_raod_datas = AgreementDatabase::selectAgreementRoad($agreement_id_datas);
         $delete_agreement     = AgreementDatabase::deleteAgreementDatas($agreement_id_datas);
@@ -103,10 +101,11 @@ class AgreementController extends Controller
     }
     //根据时间区间搜索教学科研合作协议信息
     public function timeSelectAgreemet(Request $request){
+        $teacher_id = session('usercount');
         $start_time = $request->strat_time;
         $end_time   = $request->end_time;
         $table_name = SearchMessageConfig::AGREEMENT_TABLE;
         $time_field = SearchMessageConfig::AGREE_TIME;
-        return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field);
+        return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field,$teacher_id);
     }
 }

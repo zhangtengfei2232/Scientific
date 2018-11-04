@@ -158,5 +158,19 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     Route::get('selectschoolfile','SchoolfileController@selectSchoolfile');        //查询单个校发文件信息
     Route::get('selectallschoolfile','SchoolfileController@selectAllSchoolfile');  //查询全部校发文件信息
     Route::get('timeselectschoolfile','SchoolfileController@timeSelectSchoolfile');//根据时间区间查询信息
+
+
+
+    /**
+     * 1.秘书、院长的特殊功能======>检索所有信息功能的路由
+     * 2.生成=======>师资组成(学历，职称，学缘)，论文(期刊级别)，
+     * 项目(证书级别)，著作(著作类别)，获奖(获奖级别)的路由
+     */
+
+
+
+
+
+
 });
 
