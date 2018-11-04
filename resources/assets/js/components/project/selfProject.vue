@@ -98,6 +98,7 @@
                             ref="pro_road"
                             :before-upload="fileProfil"
                             multiple
+                            :limit="1"
                             list-type="picture">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -172,8 +173,7 @@
                         let road = 'showfile?disk=project&subjection=' + data.datas.pro_road;
                         self.type1=true;
                         self.filelists = road;
-                    }
-                    
+                    }       
                 }else {
                     self.$notify({
                         type: 'error',
