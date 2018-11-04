@@ -18,22 +18,22 @@ class LectureController extends Controller
          }
          $datas = [
              'teacher_id'       => session('usercount'),
-             'le_expert_name'   => trim($request->le_export_name),
-             'le_expert_level'  => trim($request->le_export_level),
+             'le_expert_name'   => trim($request->le_expert_name),
+             'le_expert_level'  => trim($request->le_expert_level),
              'le_report_name'   => trim($request->le_report_name),
              'le_invite_status' => trim($request->le_invite_status),
-             'le_invite_unit'   => trim($request->le_invite_unite),
+             'le_invite_unit'   => trim($request->le_invite_unit),
              'le_time'          => trim($request->le_time)
          ];
          $judge_datas = judgeLectureField($datas);
          if($judge_datas['code'] == 1){
              return responseTojson(1,$judge_datas['message']);
          }
-         if(!$request->hasFile('lecture_inject')){
+         if(!$request->hasFile('le_img_road')){
              $datas['le_img_road'] = '';
              return LectureDatabase::addLectureDatas($datas);
          }
-         $lecture_inject = $request->file('lecture_inject');
+         $lecture_inject = $request->file('le_img_road');
          $judge_inject   = judgeFileImage($lecture_inject);
          if($judge_inject['code'] == 1){
              return responseTojson(1,$judge_inject['message']);
@@ -112,12 +112,12 @@ class LectureController extends Controller
              return responseTojson(1,$judge_datas['message']);
          }
          $reset_inject_status = false;
-         if(!$request->hasFile('lecture_inject')){
+         if(!$request->hasFile('le_img_road')){
              $datas['le_img_road'] = trim($request->le_img_road);
              return LectureDatabase::updateLectureDatas($datas,$reset_inject_status);
          }
          $reset_inject_status = true;
-         $update_inject = $request->file('lecture_inject');
+         $update_inject = $request->file('le_img_road');
          $judge_inject  = judgeFileImage($update_inject);
 
          if($judge_inject->code == 1){
@@ -144,10 +144,10 @@ class LectureController extends Controller
          if(!$request->is_add_lecture){
             return responseTojson(1,'请你先添加讲学信息');
          }
-         if(!$request->hasFile('hold_image')){
+         if(!$request->hasFile('le_image')){
             return responseTojson(1,'请你上传专家讲学图片');
          }
-         $hold_images = $request->file('hold_images');
+         $hold_images = $request->file('le_image');
          $judge_images = judgeAllFileImage($hold_images);
          if($judge_images['code'] == 1){
             return responseTojson(1,'图片上传失败');

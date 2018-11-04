@@ -63,9 +63,10 @@
                         ref="pa_road"
                         :before-upload="filePatpic"
                         multiple
+                        list-type="picture"
                         :auto-upload="false">
                         <i class="el-icon-upload"
-                        list-type="picture"></i>
+                        ></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
                 </el-form-item>

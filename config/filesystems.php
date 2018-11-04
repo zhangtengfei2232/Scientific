@@ -63,9 +63,9 @@ return [
             'driver' => 'local',
             'root'   => storage_path('app/data/award'),
         ],
-        'document' => [
+        'holdmeet' => [
             'driver' => 'local',
-            'root'   => storage_path('app/data/document'),
+            'root'   => storage_path('app/data/holdmeet'),
         ],
         'duties' => [
             'driver' => 'local',
@@ -75,9 +75,9 @@ return [
             'driver' => 'local',
             'root'   => storage_path('app/data/lecture'),
         ],
-        'meeting' => [
+        'joinmeet' => [
             'driver' => 'local',
-            'root'   => storage_path('app/data/meeting'),
+            'root'   => storage_path('app/data/joinmeet'),
         ],
         'opus' => [
             'driver' => 'local',

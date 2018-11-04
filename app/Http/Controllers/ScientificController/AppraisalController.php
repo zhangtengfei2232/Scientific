@@ -120,6 +120,7 @@ class AppraisalController extends Controller
     }
     //修改成果鉴定证书和封面图片
     public function updateAppraisalImage(Request $request){
+//        dd($request);
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }

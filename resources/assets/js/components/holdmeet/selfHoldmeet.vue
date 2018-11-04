@@ -74,7 +74,8 @@
                         :before-upload="fileProfils"
                         :on-preview="handlePreview"
                         :on-remove="handleRemove"
-                        :auto-upload="false">
+                        :auto-upload="false"
+                        list-type="picture">
                         <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
                         <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUploads">上传</el-button>
                         <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
