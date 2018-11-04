@@ -38,21 +38,9 @@
                     </el-date-picker>
                 </el-col>
             </el-form-item>
-                <el-form-item label="图片">
-                    <el-upload
-                            drag
-                            ref="lec_image"
-                            action="#"
-                            :before-upload="filePicfil"
-                            :on-preview="handlePreview"
-                            :on-remove="handleRemove"
-                            :auto-upload="false"
-                            :file-list="filelist"
-                            list-type="picture">
-                        <i class="el-icon-upload"></i>
-                        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                    </el-upload>
-                </el-form-item>
+                <div class="demo" v-show="picType">
+                    <img :src="filelist" alt="无法加载" style="width:100px">
+                </div>
             <el-form-item label="图注">
                 <el-upload
                         class="upload-demo"
@@ -67,11 +55,33 @@
                     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                 </el-upload>
             </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="onSubmit(form)">保存修改</el-button>
+                    <el-button><router-link to="/lecture">取消</router-link></el-button>
+                </el-form-item>
+                <div class="demo" v-show="picTypes">
+                    <thead>
+                    <li v-for="(index,items) in filelists" v-bind:key="items">
+                        <img :src="items.url" alt="无法加载">
+                        <el-button type="primary" @click="deletePic(items)">保存修改</el-button>
+                    </li>
+                    </thead>
+                </div>
+                <el-form-item label="图片">
+                    <el-upload
+                            ref="le_image"
+                            action="#"
+                            :before-upload="filePicfil"
+                            :on-preview="handlePreview"
+                            :on-remove="handleRemove"
+                            :auto-upload="false"
+                            :limit="1">
+                        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUploads">上传</el-button>
+                        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+                    </el-upload>
+                </el-form-item>
 
-            <el-form-item>
-                <el-button type="primary" @click="onSubmit(form)">保存修改</el-button>
-                <el-button><router-link to="/lecture">取消</router-link></el-button>
-            </el-form-item>
         </el-form>
         </div>
     </div>
@@ -97,15 +107,18 @@
     export default {
         data() {
             return {
-                lec_image:'',
+                le_id:'',
+                le_image:'',
                 le_img_road:'',
+                picType:false,
+                picTypes:false,
                 Bcode:false,
                 multiple: true,
                 dataForm: new FormData(),
                 dataFile: new FormData(),
                 EditLectureData: {},
                 filelists:[],
-                filelist: [{url:''}],
+                filelist: '',
                 form: {
                     le_id:'',
                     le_expert_name:'',
@@ -128,8 +141,19 @@
                     if (data.code == 0) {
                         self.EditLectureData = data.datas;
                         self.form = data.datas.lecture_information;
-                        self.filelists.url='../../storage/app/data/lecture/'+data.datas.le_img_road;
-                        let image = data.datas.lecture_information.lec_image;
+                        if(data.datas.lecture_information.le_img_road == ''){
+                            self.picType=false;
+                        }else{
+                            self.picType=true;
+                            self.filelist = 'showfile?disk=lecture&subjection=' + data.datas.lecture_information.le_img_road;
+                        }
+                        let image = data.datas.image;
+                        if(image.length !== 0){
+                            self.picTypes = true;
+                            self.filelists = 'showfile?disk=lecture&subjection=' + image;
+                        }
+//                        self.filelists.url='../../storage/app/data/lecture/'+data.datas.le_img_road;
+//                        let image = data.datas.lecture_information.le_image;
 //                        if(image !== ''){
 //                            self.picType = true;
 //                            self.filelists = 'showfile?disk=holdmeet&subjection=' + image;
@@ -153,7 +177,6 @@
 //                console.log(file);
             },
             fileZufil(file){
-//                console.log(file,'--8888--------======');
                 this.dataForm.append('le_img_road', file);
                 return false;
             },
@@ -161,13 +184,10 @@
                 console.log(files,'-you---======');
                 if(this.Bcode == true){
 //
-                    this.dataFile.append('lec_image', files);
+                    this.dataFile.append('le_image', files);
                     let id = this.form.le_id;
-//                    console.log(id,'love=====');
                     this.sendfile(this.dataFile);
-                    this.$refs.lec_image.submit();
-//                    console.log(files,'=============');
-//                    console.log(this.form.le_id,'====------=====');
+                    this.$refs.le_image.submit();
                 }else{
                     this.$message.error('请先添加数据信息');
                     return false
@@ -248,7 +268,7 @@
                             }
                         })
                         vue.$refs.le_img_road.submit();
-//                        vue.$refs.lec_image.submit();
+//                        vue.$refs.le_image.submit();
                     } else {
                         console.log('error submit!!');
                         return false
