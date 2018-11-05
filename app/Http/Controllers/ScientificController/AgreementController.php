@@ -101,11 +101,10 @@ class AgreementController extends Controller
     }
     //根据时间区间搜索教学科研合作协议信息
     public function timeSelectAgreemet(Request $request){
-        $teacher_id = session('usercount');
         $start_time = $request->strat_time;
         $end_time   = $request->end_time;
         $table_name = SearchMessageConfig::AGREEMENT_TABLE;
         $time_field = SearchMessageConfig::AGREE_TIME;
-        return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field,$teacher_id);
+        return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field);
     }
 }

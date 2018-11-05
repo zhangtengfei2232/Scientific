@@ -61,8 +61,10 @@ class ModelDatabase  extends  Model
      */
     public static function byNameSelectDatas($table_name,$field,$name,$time_field){
        $result = DB::table($table_name)->where($field,'like',"%".$name."%")->get();
-       foreach ($result as $datas){
-           $datas->$time_field = date('Y-m-d',$datas->$time_field);
+       if(!empty($time_field)){
+           foreach ($result as $datas){
+               $datas->$time_field = date('Y-m-d',$datas->$time_field);
+           }
        }
        return responseTojson(0,'查询成功','',$result);
     }

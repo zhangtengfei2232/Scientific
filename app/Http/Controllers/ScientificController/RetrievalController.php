@@ -310,33 +310,49 @@ class RetrievalController extends Controller
     public function byHostSelectAppraisal(Request $request){
         $table_name = SearchMessageConfig::APPRAISAL_TABLE;
         $time_field = SearchMessageConfig::AP_TIME;
-        
-
+        $ap_first_author_field = SearchMessageConfig::APPRAISAL_AP_FIRST_AUTHOR;
+        $ap_first_author       = $request->ap_first_author ;
+        return ModelDatabase::byNameSelectDatas($table_name,$ap_first_author_field,$ap_first_author,$time_field);
     }
     //鉴定成果名称
     public function byNameSelectAppraisal(Request $request){
         $table_name = SearchMessageConfig::APPRAISAL_TABLE;
         $time_field = SearchMessageConfig::AP_TIME;
+        $ap_res_name_field = SearchMessageConfig::APPRAISAL_AP_RES_NAME;
+        $ap_res_name       = $request->ap_res_name ;
+        return ModelDatabase::byNameSelectDatas($table_name,$ap_res_name_field,$ap_res_name,$time_field);
     }
     //鉴定形式
     public function byFormSelectAppraisal(Request $request){
         $table_name = SearchMessageConfig::APPRAISAL_TABLE;
         $time_field = SearchMessageConfig::AP_TIME;
+        $ap_form_field = SearchMessageConfig::APPRAISAL_AP_FORM;
+        $ap_form       = $request->ap_form;
+        return ModelDatabase::categorySelectInformation($table_name,$ap_form_field,$ap_form,$time_field);
     }
     //鉴定结论
     public function byConclusionSelectAppraisal(Request $request){
         $table_name = SearchMessageConfig::APPRAISAL_TABLE;
         $time_field = SearchMessageConfig::AP_TIME;
+        $ap_conclusion_field = SearchMessageConfig::APPRAISAL_AP_CONCLUSION;
+        $ap_conclusion       = $request->ap_conclusion;
+        return ModelDatabase::byNameSelectDatas($table_name,$ap_conclusion_field,$ap_conclusion,$time_field);
     }
     //鉴定时间
     public function byTimeSelectAppraisal(Request $request){
         $table_name = SearchMessageConfig::APPRAISAL_TABLE;
         $time_field = SearchMessageConfig::AP_TIME;
+        $start_time = $request->start_time;
+        $end_time   = $request->end_time;
+        return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field);
     }
     //鉴定级别
     public function byLevelSelectAppraisal(Request $request){
         $table_name = SearchMessageConfig::APPRAISAL_TABLE;
         $time_field = SearchMessageConfig::AP_TIME;
+        $ap_level_field = SearchMessageConfig::APPRAISAL_AP_LEVEL;
+        $ap_level       = $request->ap_level;
+        return ModelDatabase::categorySelectInformation($table_name,$ap_level_field,$ap_level,$time_field);
     }
 
     /**
@@ -344,15 +360,27 @@ class RetrievalController extends Controller
      */
     //举办会议名称
     public function byNameSelectHoldmeet(Request $request){
-
+        $table_name = SearchMessageConfig::HOLD_MEET_TABLE;
+        $time_field = SearchMessageConfig::HO_TIME;
+        $ho_name_field = SearchMessageConfig::HOLDMEET_HO_NAME;
+        $ho_name       = $request->ho_name;
+        return ModelDatabase::byNameSelectDatas($table_name,$ho_name_field,$ho_name,$time_field);
     }
     //举办会议级别
     public function byLevelSelectHoldmeet(Request $request){
-
+        $table_name = SearchMessageConfig::HOLD_MEET_TABLE;
+        $time_field = SearchMessageConfig::HO_TIME;
+        $ho_level_field = SearchMessageConfig::HOLDMEET_HO_LEVEL;
+        $ho_level       = $request->ho_level;
+        return ModelDatabase::categorySelectInformation($table_name,$ho_level_field,$ho_level,$time_field);
     }
     //举办会议时间
     public function byTimeSelectHoldmeet(Request $request){
-
+        $table_name = SearchMessageConfig::HOLD_MEET_TABLE;
+        $time_field = SearchMessageConfig::HO_TIME;
+        $start_time = $request->start_time;
+        $end_time   = $request->end_time;
+        return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field);
     }
 
     /**
@@ -360,35 +388,63 @@ class RetrievalController extends Controller
      */
     //参加会议名称
     public function byNameSelectJoinmeet(Request $request){
-
+        $table_name = SearchMessageConfig::JOIN_MEET_TABLE;
+        $time_field = SearchMessageConfig::JO_TIME;
+        $jo_name_field = SearchMessageConfig::JOINMEET_JO_NAME;
+        $jo_name       = $request->jo_name;
+        return ModelDatabase::byNameSelectDatas($table_name,$jo_name_field,$jo_name,$time_field);
     }
     //参加会议级别
     public function byLevelSelectJoinmeet(Request $request){
-
+        $table_name = SearchMessageConfig::JOIN_MEET_TABLE;
+        $time_field = SearchMessageConfig::JO_TIME;
+        $jo_level_field = SearchMessageConfig::JOINMEET_JO_LEVEL;
+        $jo_level       = $request->jo_level;
+        return ModelDatabase::categorySelectInformation($table_name,$jo_level_field,$jo_level,$time_field);
     }
     //参加会议时间
     public function byTimeSelectJoinmeet(Request $request){
-
+        $table_name = SearchMessageConfig::JOIN_MEET_TABLE;
+        $time_field = SearchMessageConfig::JO_TIME;
+        $start_time = $request->start_time;
+        $end_time   = $request->end_time;
+        return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field);
     }
 
     /**
      * 专家讲学检索
      */
-    //专家名称
+    //专家名字
     public function byNameSelectLecture(Request $request){
-
+        $table_name = SearchMessageConfig::LECTURE_TABLE;
+        $time_field = SearchMessageConfig::LE_TIME;
+        $le_expert_name_field = SearchMessageConfig::LECTURE_LE_EXPERT_NAME;
+        $le_expert_name       = $request->le_expert_name;
+        return ModelDatabase::byNameSelectDatas($table_name,$le_expert_name_field,$le_expert_name,$time_field);
     }
     //专家级别
     public function byLevelSelectLecture(Request $request){
-
+        $table_name = SearchMessageConfig::LECTURE_TABLE;
+        $time_field = SearchMessageConfig::LE_TIME;
+        $le_expert_level_field = SearchMessageConfig::LECTURE_LE_EXPERT_LEVEL;
+        $le_expert_level       = $request->le_expert_level;
+        return ModelDatabase::categorySelectInformation($table_name,$le_expert_level_field,$le_expert_level,$time_field);
     }
     //邀请单位
-    public function byInvitingUnitSelectLecture(Request $request){
-
+    public function byInviteUnitSelectLecture(Request $request){
+        $table_name = SearchMessageConfig::LECTURE_TABLE;
+        $time_field = SearchMessageConfig::LE_TIME;
+        $le_invite_unit_field = SearchMessageConfig::LECTURE_LE_INVITE_UNIT;
+        $le_invite_unit       = $request->le_invite_unit;
+        return ModelDatabase::byNameSelectDatas($table_name,$le_invite_unit_field,$le_invite_unit,$time_field);
     }
     //邀请时间
-    public function byInvitingTimeSelectLecture(Request $request){
-
+    public function byInviteTimeSelectLecture(Request $request){
+        $table_name = SearchMessageConfig::LECTURE_TABLE;
+        $time_field = SearchMessageConfig::LE_TIME;
+        $start_time = $request->start_time;
+        $end_time   = $request->end_time;
+        return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field);
     }
 
     /**
@@ -396,11 +452,19 @@ class RetrievalController extends Controller
      */
     //校发文件名称
     public function byNameSelectSchoofile(Request $request){
-
+        $table_name = SearchMessageConfig::SCHOOL_FILE_TABLE;
+        $time_field = SearchMessageConfig::SCHFILE_DOWN_TIME;
+        $schfile_name_field = SearchMessageConfig::SCHOOLFILE_SCHFILE_NAME;
+        $schfile_name       = $request->schfile_name;
+        return ModelDatabase::byNameSelectDatas($table_name,$schfile_name_field,$schfile_name,$time_field);
     }
     //校发时间
     public function byTimeSelectSchoofile(Request $request){
-
+        $table_name = SearchMessageConfig::SCHOOL_FILE_TABLE;
+        $time_field = SearchMessageConfig::SCHFILE_DOWN_TIME;
+        $start_time = $request->start_time;
+        $end_time   = $request->end_time;
+        return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field);
     }
 
     /**
@@ -408,11 +472,19 @@ class RetrievalController extends Controller
      */
     //合作协议名称
     public function byNameSelectAgreement(Request $request){
-
+        $table_name = SearchMessageConfig::AGREEMENT_TABLE;
+        $time_field = SearchMessageConfig::AGREE_TIME;
+        $agree_name_filed = SearchMessageConfig::AGREEMENT_AGREE_NAME;
+        $agree_name       = $request->agree_name;
+        return ModelDatabase::byNameSelectDatas($table_name,$agree_name_filed,$agree_name,$time_field);
     }
     //协议时间
     public function byTimeSelectAgreement(Request $request){
-
+        $table_name = SearchMessageConfig::AGREEMENT_TABLE;
+        $time_field = SearchMessageConfig::AGREE_TIME;
+        $start_time = $request->start_time;
+        $end_time   = $request->end_time;
+        return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field);
     }
 
     /**
@@ -420,8 +492,12 @@ class RetrievalController extends Controller
      */
     //担任学术团体名称
     public function byNameSelectDuties(Request $request){
-
+        $table_name = SearchMessageConfig::DUTIES_TABLE;
+        $du_name_field = SearchMessageConfig::DUTIES_DU_NAME;
+        $du_name       = $request->du_name;
+        return ModelDatabase::byNameSelectDatas($table_name,$du_name_field,$du_name,'');
     }
+
 
     /**
      * 查询饼图数据
@@ -431,16 +507,22 @@ class RetrievalController extends Controller
      * 老师饼图数据
      */
     //按老师学历分组查询
-    public function groupByTeacherEducation(Request $request){
-
+    public function groupByTeacherEducation(){
+        $table_name  = SearchMessageConfig::TEACHER_TABLE;
+        $group_field = SearchMessageConfig::TEACHER_MOST_ACADEMIC;
+        return ModelDatabase::groupByAndCountDatas($table_name,$group_field);
     }
-    //按老师学历分组查询
-    public function groupByTeacherTechnicalTitle(Request $request){
-
+    //按老师职称分组查询
+    public function groupByTeacherTechnicalTitle(){
+        $table_name  = SearchMessageConfig::TEACHER_TABLE;
+        $group_field = SearchMessageConfig::TEACHER_ACADEMIC_TITLE;
+        return ModelDatabase::groupByAndCountDatas($table_name,$group_field);
     }
     //按老师学缘分组查询
-    public function groupByTeacherAcademicMargin(Request $request){
-
+    public function groupByTeacherAcademicMargin(){
+        $table_name  = SearchMessageConfig::TEACHER_TABLE;
+        $group_field = SearchMessageConfig::TEACHER_EDU_SCHOOL;
+        return ModelDatabase::groupByAndCountDatas($table_name,$group_field);
     }
 
     /**
@@ -448,15 +530,19 @@ class RetrievalController extends Controller
      */
     //期刊级别
     public function groupByArticalJournalLevel(Request $request){
-
+        $table_name = SearchMessageConfig::ARTICAL_TABLE;
+        $group_field = SearchMessageConfig::ARTICAL_PERCAL_CATE;
+        return ModelDatabase::groupByAndCountDatas($table_name,$group_field);
     }
 
     /**
      * 项目饼图数据
      */
-    //项目证书级别
+    //项目学科门类
     public function groupByProjectCertificateLevel(Request $request){
-
+         $table_name = SearchMessageConfig::PROJECT_TABLE;
+         $group_field = SearchMessageConfig::PROJECT_PRO_SUB_CATEGORY;
+         return ModelDatabase::groupByAndCountDatas($table_name,$group_field);
     }
 
     /**
@@ -464,14 +550,18 @@ class RetrievalController extends Controller
      */
     //著作类别
     public function gropuByOpusCategory(Request $request){
-
+         $table_name = SearchMessageConfig::OPUS_TABLE;
+         $group_field = SearchMessageConfig::OPUS_OP_CATE_WORK;
+         return ModelDatabase::groupByAndCountDatas($table_name,$group_field);
     }
 
     /**
      * 获奖饼图数据
      */
     //获奖级别
-    public function groupBywinningLevel(Request $request){
-
+    public function groupBywinLevel(Request $request){
+         $table_name = SearchMessageConfig::AWARD_TABLE;
+         $group_field = SearchMessageConfig::AWARD_AW_LEVEL;
+         return ModelDatabase::groupByAndCountDatas($table_name,$group_field);
     }
 }
