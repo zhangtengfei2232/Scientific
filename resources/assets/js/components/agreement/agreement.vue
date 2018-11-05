@@ -79,7 +79,7 @@
                     </el-table-column>
                 </el-table>
                 <div style="margin-top: 20px">
-                    <el-button @click="toggleSelection([agreementDate[1], agreementDate[2]])">切换第二、第三行的选中状态</el-button>
+                    <el-button @click="toggleSelection([agreementDate[0],agreementDate[1], agreementDate[2]])">选中前三条</el-button>
                     <el-button @click="toggleSelection()">取消选择</el-button>
                     <el-button @click="BatchDelete()">删除</el-button>
                 </div>
