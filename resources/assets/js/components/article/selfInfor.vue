@@ -214,7 +214,7 @@ export default {
                 if (data.code == 0) {
                     self.ArticleSelfData = data.datas;
                     let time = data.datas.period;
-                    checkYearExt(time);
+                    // checkYearExt(time);
                     self.form = data.datas;
                     self.filelists.url = 'showfile?disk=article&subjection=' + data.datas.home_page_road; 
                 } else {
@@ -341,7 +341,7 @@ export default {
             }
         },
         checkYearExt(time){
-            let a = time.split(',');
+            let a = time.split('，');
             this.year1 = a[0];
             this.year2 = a[1];
             this.year3 = a[2];

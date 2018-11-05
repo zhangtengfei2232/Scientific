@@ -256,12 +256,6 @@ export default new VueRouter({
                 path: '/loaderList/patent',
                 component: resolve => void(require(['../components/loaderList/patent.vue'], resolve))
             },
-            //所有专利信息
-            {
-                name: 'appraisals',
-                path: '/loaderList/appraisal',
-                component: resolve => void(require(['../components/loaderList/appraisal.vue'], resolve))
-            },
              //所有成果鉴定信息
              {
                 name: 'appraisals',
