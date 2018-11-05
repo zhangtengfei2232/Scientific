@@ -166,57 +166,148 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
      * 2.生成=======>师资组成(学历，职称，学缘)，论文(期刊级别)，
      * 项目(证书级别)，著作(著作类别)，获奖(获奖级别)的路由
      */
-    Route::get('byauthorselectartical','RetrievalController@byAuthorSelectArtical');
-    Route::get('bydatelineselectartical','RetrievalController@byDatelineSelectArtical');
-    Route::get('byperiodicalselectartical','RetrievalController@byPeriodicalSelectArtical');
-    Route::get('byjournallevelselectartical','RetrievalController@byJournalLevelSelectArtical');
-    Route::get('bybelongprojectselectartical','RetrievalController@byBelongProjectSelectArtical');
-    Route::get('bysubjectcategoryselectartical','RetrievalController@bySubjectCategorySelectArtical');
-    Route::get('bycategoryresearchselectartical','RetrievalController@byCategoryResearchSelectArtical');
-    Route::get('byschoolaffirmlevelselectartical','RetrievalController@bySchoolaffirmLevelSelectArtical');
-    Route::get('byhostselectproject','RetrievalController@byHostSelectProject');
-    Route::get('byyearselectproject','RetrievalController@byYearSelectProject');
-    Route::get('bycategoryselectproject','RetrievalController@byCategorySelectProject');
-    Route::get('byapprovalunitaelectproject','RetrievalController@byApprovalUnitSelectProject');
-    Route::get('bysubjectcategoryselectproject','RetrievalController@bySubjectCategorySelectProject');
-    Route::get('bycategoryresearchselectproject','RetrievalController@byCategoryResearchSelectProject');
-    Route::get('bynameselectopus','RetrievalController@byNameSelectOpus');
+    /**
+     * 论文查询路由
+     */
+    Route::get('leaderselectallartical','RetrievalController@leaderSelectAllArtical');                    //查询论文全部信息
+    Route::get('byauthorselectartical','RetrievalController@byAuthorSelectArtical');                      //根据论文作者模糊查询
+    Route::get('bydatelineselectartical','RetrievalController@byDatelineSelectArtical');                  //发表刊物名称查询
+    Route::get('byperiodicalselectartical','RetrievalController@byPeriodicalSelectArtical');              //发表日期查询
+    Route::get('byjournallevelselectartical','RetrievalController@byJournalLevelSelectArtical');          //刊物级别查询
+    Route::get('bybelongprojectselectartical','RetrievalController@byBelongProjectSelectArtical');        //所属项目查询
+    Route::get('bysubjectcategoryselectartical','RetrievalController@bySubjectCategorySelectArtical');    //学科门类查询
+    Route::get('bycategoryresearchselectartical','RetrievalController@byCategoryResearchSelectArtical');  //研究类别查询
+    Route::get('byschoolaffirmlevelselectartical','RetrievalController@bySchoolaffirmLevelSelectArtical');//学校认定刊物级别查询
 
-    Route::get('byauthorselectopus','RetrievalController@byAuthorSelectOpus');
-    Route::get('bycategoryselectopus','RetrievalController@byCategorySelectOpus');
-    Route::get('byformwritingselectopus','RetrievalController@byFormWritingSelectOpus');
-    Route::get('bysubjectcategoryselectopus','RetrievalController@bySubjectCategorySelectOpus');
-    Route::get('bypublicationdateselectopus','RetrievalController@byPublicationDateSelectOpus');
-    Route::get('bycategoryresearchselectopus','RetrievalController@byCategoryResearchSelectOpus');
-    Route::get('byfirstwinnerselectaward','RetrievalController@byFirstWinnerSelectAward');
-    Route::get('byawardingunitselectaward','RetrievalController@byAwardingUnitSelectAward');
-    Route::get('byawardtimeselectaward','RetrievalController@byAwardTimeSelectAward');
-    Route::get('byresultsnameselectaward','RetrievalController@byResultsNameSelectAward');
-    Route::get('bywinnergradeselectaward','RetrievalController@byWinnerGradeSelectAward');
-    Route::get('byschoolrankselectaward','RetrievalController@bySchoolRankSelectAward');
-    Route::get('byfirstinventorselectpatent','RetrievalController@byFirstInventorSelectPatent');
-    Route::get('bytypeselectpatent','RetrievalController@byTypeSelectPatent');
-    Route::get('byimplementstatusselectpatent','RetrievalController@byImplementStatusSelectPatent');
-    Route::get('byadmissibilitydayselectpatent','RetrievalController@byAdmissibilityDaySelectPatent');
+    /**
+     * 项目查询路由
+     */
+    Route::get('leaderselectallproject','RetrievalController@leaderSelectAllProject');                    //查询全部项目信息
+    Route::get('byhostselectproject','RetrievalController@byHostSelectProject');                          //主持人查询
+    Route::get('byyearselectproject','RetrievalController@byYearSelectProject');                          //项目年份查询
+    Route::get('bycategoryselectproject','RetrievalController@byCategorySelectProject');                  //项目类别查询
+    Route::get('byapprovalunitaelectproject','RetrievalController@byApprovalUnitSelectProject');          //批准单位查询
+    Route::get('bysubjectcategoryselectproject','RetrievalController@bySubjectCategorySelectProject');    //学科门类查询
+    Route::get('bycategoryresearchselectproject','RetrievalController@byCategoryResearchSelectProject');  //项目研究类别查询
 
+    /**
+     * 著作查询路由
+     */
+    Route::get('leaderselecttallopus','RetrievalController@leaderSelecttAllOpus');                       //查询全部著作信息
+    Route::get('bynameselectopus','RetrievalController@byNameSelectOpus');                               //著作名称查询
+    Route::get('byauthorselectopus','RetrievalController@byAuthorSelectOpus');                           //第一作者查询
+    Route::get('bycategoryselectopus','RetrievalController@byCategorySelectOpus');                       //著作类别查询
+    Route::get('byformwritingselectopus','RetrievalController@byFormWritingSelectOpus');                 //编著形式查询
+    Route::get('bysubjectcategoryselectopus','RetrievalController@bySubjectCategorySelectOpus');         //学科门类查询
+    Route::get('bypublicationdateselectopus','RetrievalController@byPublicationDateSelectOpus');         //出版日期查询
+    Route::get('bycategoryresearchselectopus','RetrievalController@byCategoryResearchSelectOpus');       //研究类别查询
 
-    Route::get('bynameselectpatent','RetrievalController@byNameSelectPatent');
-    Route::get('byhostselectappraisal','RetrievalController@byHostSelectAppraisal');
-    Route::get('bynameselectappraisal','RetrievalController@byNameSelectAppraisal');
-    Route::get('byformselectappraisal','RetrievalController@byFormSelectAppraisal');
-    Route::get('byconclusionselectappraisal','RetrievalController@byConclusionSelectAppraisal');
-    Route::get('bytimeselectappraisal','RetrievalController@byTimeSelectAppraisal');
-    Route::get('bylevelselectappraisal','RetrievalController@byLevelSelectAppraisal');
-    Route::get('bynameselectholdmeet','RetrievalController@byNameSelectHoldmeet');
-    Route::get('bylevelselectholdmeet','RetrievalController@byLevelSelectHoldmeet');
-    Route::get('bytimeselectholdmeet','RetrievalController@byTimeSelectHoldmeet');
-    Route::get('bynameselectjoinmeet','RetrievalController@byNameSelectJoinmeet');
-    Route::get('bylevelselectjoinmeet','RetrievalController@byLevelSelectJoinmeet');
+    /**
+     * 获奖查询路由
+     */
+    Route::get('leaderselectallaward','RetrievalController@leaderSelectAllAward');                      //查询全部获奖信息
+    Route::get('byfirstwinnerselectaward','RetrievalController@byFirstWinnerSelectAward');              //第一获奖人查询
+    Route::get('byawardingunitselectaward','RetrievalController@byAwardingUnitSelectAward');            //授奖单位查询
+    Route::get('byawardtimeselectaward','RetrievalController@byAwardTimeSelectAward');                  //授予时间查询
+    Route::get('bynameselectaward','RetrievalController@byNameSelectAward');                            //奖励名称查询
+    Route::get('byresultsnameselectaward','RetrievalController@byResultsNameSelectAward');              //获奖成果名称查询
+    Route::get('bywinnergradeselectaward','RetrievalController@byWinnerGradeSelectAward');              //获奖级别查询
+    Route::get('byschoolrankselectaward','RetrievalController@bySchoolRankSelectAward');                //获奖级别查询
 
+    /**
+     * 专利查询路由
+     */
+    Route::get('leaderselectallpatent','RetrievalController@leaderSelectAllPatent');                    //查询全部专利信息
+    Route::get('byfirstinventorselectpatent','RetrievalController@byFirstInventorSelectPatent');        //第一发明人查询
+    Route::get('bytypeselectpatent','RetrievalController@byTypeSelectPatent');                          //专利类型查询
+    Route::get('byimplementstatusselectpatent','RetrievalController@byImplementStatusSelectPatent');    //实施情况查询
+    Route::get('byadmissibilitydayselectpatent','RetrievalController@byAdmissibilityDaySelectPatent');  //受理日查询
+    Route::get('bynameselectpatent','RetrievalController@byNameSelectPatent');                          //专利名称查询
 
+    /**
+     * 成果鉴定查询路由
+     */
+    Route::get('leaderselectallappraisal','RetrievalController@leaderSelectAllAppraisal');              //查询全部鉴定成果信息
+    Route::get('byhostselectappraisal','RetrievalController@byHostSelectAppraisal');                    //主持人查询
+    Route::get('bynameselectappraisal','RetrievalController@byNameSelectAppraisal');                    //鉴定成果名称查询
+    Route::get('byformselectappraisal','RetrievalController@byFormSelectAppraisal');                    //鉴定形式查询
+    Route::get('byconclusionselectappraisal','RetrievalController@byConclusionSelectAppraisal');        //鉴定结论查询
+    Route::get('bytimeselectappraisal','RetrievalController@byTimeSelectAppraisal');                    //鉴定时间查询
+    Route::get('bylevelselectappraisal','RetrievalController@byLevelSelectAppraisal');                  //鉴定级别查询
 
+    /**
+     * 举办会议查询路由
+     */
+    Route::get('leaderselectallholdmeet','RetrievalController@leaderSelectAllHoldmeet');                //查询全部举办会议信息
+    Route::get('bynameselectholdmeet','RetrievalController@byNameSelectHoldmeet');                      //举办会议名称查询
+    Route::get('bylevelselectholdmeet','RetrievalController@byLevelSelectHoldmeet');                    //举办会议级别查询
+    Route::get('bytimeselectholdmeet','RetrievalController@byTimeSelectHoldmeet');                      //举办会议时间查询
 
+    /**
+     * 参加会议查询路由
+     */
+    Route::get('leaderselectalljoinmeet','RetrievalController@leaderSelectAllJoinmeet');                //查询全部参加会议信息
+    Route::get('bynameselectjoinmeet','RetrievalController@byNameSelectJoinmeet');                      //参加会议名称查询
+    Route::get('bylevelselectjoinmeet','RetrievalController@byLevelSelectJoinmeet');                    //参加会议级别查询
+    Route::get('bytimeselectjoinmeet','RetrievalController@byTimeSelectJoinmeet');                      //参加会议时间查询
 
+    /**
+     * 专家讲学路由
+     */
+    Route::get('leaderselectalllecture','RetrievalController@leaderSelectAllLecture');                  //查询全部专家讲学信息
+    Route::get('bynameselectlecture','RetrievalController@byNameSelectLecture');                        //专家名字查询
+    Route::get('bylevelselectlecture','RetrievalController@byLevelSelectLecture');                      //专家级别查询
+    Route::get('byinviteunitselectlecture','RetrievalController@byInviteUnitSelectLecture');            //邀请单位查询
+    Route::get('byinvitetimeselectlecture','RetrievalController@byInviteTimeSelectLecture');            //邀请时间查询
+
+    /**
+     * 校发文件查询路由
+     */
+    Route::get('leaderselectallschoolfile','RetrievalController@leaderSelectAllSchoolfile');            //查询全部校发文件信息
+    Route::get('bynameselectschoofile','RetrievalController@byNameSelectSchoofile');                    //校发文件名称查询
+    Route::get('bytimeselectschoofile','RetrievalController@byTimeSelectSchoofile');                    //校发时间查询
+
+    /**
+     * 合作协议查询路由
+     */
+    Route::get('leaderselectallagreement','RetrievalController@leaderSelectAllAgreement');              //查询全部合作协议信息
+    Route::get('bynameselectagreement','RetrievalController@byNameSelectAgreement');                    //合作协议名称查询
+    Route::get('bytimeselectagreement','RetrievalController@byTimeSelectAgreement');                    //协议时间查询
+    /**
+     * 担任团体职务查询路由
+     */
+    Route::get('leaderselectallduties','RetrievalController@leaderSelectAllDuties');                    //查询全部担任团体职务信息
+    Route::get('bynameselectduties','RetrievalController@byNameSelectDuties');                          //担任学术团体名称查询
+    Route::get('byteachernameselectduties','RetrievalController@byTeacherNameSelectDuties');            //根据老师名字查询
+
+    /**
+     * 饼图数据路由
+     */
+
+    /**
+     * 师资组成数据路由
+     */
+    Route::get('groupbyteachereducation','RetrievalController@groupByTeacherEducation');
+    Route::get('groupbyteachertechnicaltitle','RetrievalController@byLevelSelectLecture');
+    Route::get('groupbyteacheracademicmargin','RetrievalController@groupByTeacherAcademicMargin');
+
+    /**
+     * 论文数据路由
+     */
+    Route::get('groupbyarticaljournallevel','RetrievalController@groupByArticalJournalLevel');
+
+    /**
+     * 项目数据路由
+     */
+    Route::get('groupbyprojectcertificatelevel','RetrievalController@groupByProjectCertificateLevel');
+    /**
+     * 著作数据路由
+     */
+    Route::get('gropubyopuscategory','RetrievalController@gropuByOpusCategory');
+    /**
+     * 获奖数据路由
+     */
+    Route::get('groupbywinlevel','RetrievalController@groupBywinLevel');
 
 });
 

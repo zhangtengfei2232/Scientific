@@ -16,6 +16,21 @@ class ModelDatabase  extends  Model
     public static function rollback(){
         return DB::rollback();
     }
+
+    /**查询某个表的所有数据
+     * @param $table_name
+     * @param $time_field
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public static function selectAllDatas($table_name,$time_field){
+        $result = DB::table($table_name)->get();
+        if(!empty($time_field)){
+            foreach ($result as $datas){
+                $datas->$time_field = date('Y-m-d',$datas->$time_field);
+            }
+        }
+        return responseTojson(0,'查询成功','',$result);
+    }
     /**根据时间区间搜索单个信息
      * @param $start_time
      * @param $end_time
@@ -47,8 +62,10 @@ class ModelDatabase  extends  Model
      */
     public static function categorySelectInformation($table_name,$field,$cetificate,$time_field){
         $result = DB::table($table_name)->where($field,$cetificate)->get();
-        foreach ($result as $datas){
-            $datas->$time_field = date('Y-m-d',$datas->$time_field);
+        if(!empty($time_field)){
+            foreach ($result as $datas){
+                $datas->$time_field = date('Y-m-d',$datas->$time_field);
+            }
         }
         return responseTojson(0,'查询成功','',$result);
     }
