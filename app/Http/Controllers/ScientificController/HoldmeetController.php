@@ -85,11 +85,12 @@ class HoldmeetController extends Controller
     }
     //根据时间区间搜索举办会议信息
     public function timeSelectHoldmeet(Request $request){
+        $teacher_id = session('usercount');
         $start_time = $request->start_time;
         $end_time   = $request->end_tiem;
         $table_name = SearchMessageConfig::HOLD_MEET_TABLE;
         $time_field = SearchMessageConfig::HO_TIME;
-        return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field);
+        return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field,$teacher_id);
     }
     //修改举行会议信息
     public function updateHoldmeet(Request $request){

@@ -99,11 +99,12 @@ class ArticalController extends Controller
      }
     //根据时间区间搜索文章信息
     public function timeSelectArtical(Request $request){
+        $teacher_id = session('usercount');
         $start_time = $request->start_time;
         $end_time   = $request->end_tiem;
         $table_name = SearchMessageConfig::ARTICAL_TABLE;
         $time_field = SearchMessageConfig::ART_TIME;
-        return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field);
+        return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field,$teacher_id);
     }
      //修改论文
      public function updateArtical(Request $request){

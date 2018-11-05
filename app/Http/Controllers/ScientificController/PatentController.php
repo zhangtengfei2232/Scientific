@@ -73,11 +73,12 @@ class PatentController extends Controller
      }
     //根据时间区间搜索成果鉴定
     public function timeSelectPatent(Request $request){
+        $teacher_id = session('usercount');
         $start_time = $request->start_time;
         $end_time   = $request->end_tiem;
         $table_name = SearchMessageConfig::PATENT_TABLE;
         $time_field = SearchMessageConfig::AUTHOR_NOTIC_DAY;
-        return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field);
+        return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field,$teacher_id);
     }
      //修改专利信息
      public function updatePatent(Request $request){
