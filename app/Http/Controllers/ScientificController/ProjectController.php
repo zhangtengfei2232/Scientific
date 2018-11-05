@@ -78,11 +78,12 @@ class ProjectController extends Controller
     }
     //根据时间查看项目信息
     public function timeSelectProject(Request $request){
+        $teacher_id = session('usercount');
         $start_time = $request->start_time;
         $end_time   = $request->end_tiem;
         $table_name = SearchMessageConfig::PROJECT_TABLE;
         $time_field = SearchMessageConfig::PROJECT_YEAR;
-        return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field);
+        return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field,$teacher_id);
     }
     //修改项目信息
     public function updateProject(Request $request){

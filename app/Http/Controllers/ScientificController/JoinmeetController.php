@@ -87,11 +87,12 @@ class JoinmeetController  extends Controller
     }
     //根据时间区间搜索参加会议信息
     public function timeSelectJoinmeet(Request $request){
+        $teacher_id = session('usercount');
         $start_time = $request->start_time;
         $end_time   = $request->end_tiem;
         $table_name = SearchMessageConfig::JOIN_MEET_TABLE;
         $time_field = SearchMessageConfig::JO_TIME;
-        return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field);
+        return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field,$teacher_id);
     }
     //修改参加会议信息
     public function updateJoinmeet(Request $request){

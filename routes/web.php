@@ -158,5 +158,65 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     Route::get('selectschoolfile','SchoolfileController@selectSchoolfile');        //查询单个校发文件信息
     Route::get('selectallschoolfile','SchoolfileController@selectAllSchoolfile');  //查询全部校发文件信息
     Route::get('timeselectschoolfile','SchoolfileController@timeSelectSchoolfile');//根据时间区间查询信息
+
+
+
+    /**
+     * 1.秘书、院长的特殊功能======>检索所有信息功能的路由
+     * 2.生成=======>师资组成(学历，职称，学缘)，论文(期刊级别)，
+     * 项目(证书级别)，著作(著作类别)，获奖(获奖级别)的路由
+     */
+    Route::get('byauthorselectartical','RetrievalController@byAuthorSelectArtical');
+    Route::get('bydatelineselectartical','RetrievalController@byDatelineSelectArtical');
+    Route::get('byperiodicalselectartical','RetrievalController@byPeriodicalSelectArtical');
+    Route::get('byjournallevelselectartical','RetrievalController@byJournalLevelSelectArtical');
+    Route::get('bybelongprojectselectartical','RetrievalController@byBelongProjectSelectArtical');
+    Route::get('bysubjectcategoryselectartical','RetrievalController@bySubjectCategorySelectArtical');
+    Route::get('bycategoryresearchselectartical','RetrievalController@byCategoryResearchSelectArtical');
+    Route::get('byschoolaffirmlevelselectartical','RetrievalController@bySchoolaffirmLevelSelectArtical');
+    Route::get('byhostselectproject','RetrievalController@byHostSelectProject');
+    Route::get('byyearselectproject','RetrievalController@byYearSelectProject');
+    Route::get('bycategoryselectproject','RetrievalController@byCategorySelectProject');
+    Route::get('byapprovalunitaelectproject','RetrievalController@byApprovalUnitSelectProject');
+    Route::get('bysubjectcategoryselectproject','RetrievalController@bySubjectCategorySelectProject');
+    Route::get('bycategoryresearchselectproject','RetrievalController@byCategoryResearchSelectProject');
+    Route::get('bynameselectopus','RetrievalController@byNameSelectOpus');
+
+    Route::get('byauthorselectopus','RetrievalController@byAuthorSelectOpus');
+    Route::get('bycategoryselectopus','RetrievalController@byCategorySelectOpus');
+    Route::get('byformwritingselectopus','RetrievalController@byFormWritingSelectOpus');
+    Route::get('bysubjectcategoryselectopus','RetrievalController@bySubjectCategorySelectOpus');
+    Route::get('bypublicationdateselectopus','RetrievalController@byPublicationDateSelectOpus');
+    Route::get('bycategoryresearchselectopus','RetrievalController@byCategoryResearchSelectOpus');
+    Route::get('byfirstwinnerselectaward','RetrievalController@byFirstWinnerSelectAward');
+    Route::get('byawardingunitselectaward','RetrievalController@byAwardingUnitSelectAward');
+    Route::get('byawardtimeselectaward','RetrievalController@byAwardTimeSelectAward');
+    Route::get('byresultsnameselectaward','RetrievalController@byResultsNameSelectAward');
+    Route::get('bywinnergradeselectaward','RetrievalController@byWinnerGradeSelectAward');
+    Route::get('byschoolrankselectaward','RetrievalController@bySchoolRankSelectAward');
+    Route::get('byfirstinventorselectpatent','RetrievalController@byFirstInventorSelectPatent');
+    Route::get('bytypeselectpatent','RetrievalController@byTypeSelectPatent');
+    Route::get('byimplementstatusselectpatent','RetrievalController@byImplementStatusSelectPatent');
+    Route::get('byadmissibilitydayselectpatent','RetrievalController@byAdmissibilityDaySelectPatent');
+
+
+    Route::get('bynameselectpatent','RetrievalController@byNameSelectPatent');
+    Route::get('byhostselectappraisal','RetrievalController@byHostSelectAppraisal');
+    Route::get('bynameselectappraisal','RetrievalController@byNameSelectAppraisal');
+    Route::get('byformselectappraisal','RetrievalController@byFormSelectAppraisal');
+    Route::get('byconclusionselectappraisal','RetrievalController@byConclusionSelectAppraisal');
+    Route::get('bytimeselectappraisal','RetrievalController@byTimeSelectAppraisal');
+    Route::get('bylevelselectappraisal','RetrievalController@byLevelSelectAppraisal');
+    Route::get('bynameselectholdmeet','RetrievalController@byNameSelectHoldmeet');
+    Route::get('bylevelselectholdmeet','RetrievalController@byLevelSelectHoldmeet');
+    Route::get('bytimeselectholdmeet','RetrievalController@byTimeSelectHoldmeet');
+    Route::get('bynameselectjoinmeet','RetrievalController@byNameSelectJoinmeet');
+    Route::get('bylevelselectjoinmeet','RetrievalController@byLevelSelectJoinmeet');
+
+
+
+
+
+
 });
 
