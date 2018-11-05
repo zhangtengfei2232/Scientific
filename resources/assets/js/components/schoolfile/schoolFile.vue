@@ -65,7 +65,7 @@
                     <el-table-column
                             fixed="right"
                             label="操作"
-                            width="200">
+                            width="250">
                         <template slot-scope="scope">
                             <el-button
                                     @click.native.prevent="deleteRow(scope.$index, shoolFileDate)"
