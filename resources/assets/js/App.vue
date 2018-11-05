@@ -60,11 +60,19 @@
                                 <span>成果汇总</span>
                             </template>
                             <el-menu-item-group style="background-color: plum !important;">
-                                <el-menu-item index="/allArticle">所有论文</el-menu-item>
-                                <el-menu-item index="2-2">所有项目</el-menu-item>
-                                <el-menu-item index="2-3">所有著作</el-menu-item>
-                                <el-menu-item index="2-4">所有成果</el-menu-item>
-                                <el-menu-item index="2-5">所有专利</el-menu-item>
+                                <el-menu-item index="/loaderList/teacher">老师信息</el-menu-item>
+                                <el-menu-item index="/loaderList/article">论文信息</el-menu-item>
+                                <el-menu-item index="/loaderList/project">项目信息</el-menu-item>
+                                <el-menu-item index="/loaderList/apus">著作信息</el-menu-item>
+                                <el-menu-item index="/loaderList/award">获奖信息</el-menu-item>
+                                <el-menu-item index="/loaderList/patent">专利信息</el-menu-item>
+                                <el-menu-item index="/loaderList/appraisal">成果鉴定</el-menu-item>
+                                <el-menu-item index="/loaderList/holdmeet">举办会议</el-menu-item>
+                                <el-menu-item index="/loaderList/joinmeet">参加会议</el-menu-item>
+                                <el-menu-item index="/loaderList/lecture">专家讲学</el-menu-item>
+                                <el-menu-item index="/loaderList/duties">担任学术团体</el-menu-item>
+                                <el-menu-item index="/loaderList/schoolfile">校发文件</el-menu-item>
+                                <el-menu-item index="/loaderList/agreement">科研合作协议</el-menu-item>
                             </el-menu-item-group>
                         </el-submenu>
 
