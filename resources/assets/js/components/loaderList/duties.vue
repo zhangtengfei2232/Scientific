@@ -39,44 +39,47 @@
                     height="250">
                 <el-table-column
                         fixed
+                        header-align="center"
                         prop="teacher_name"
-                        label="作者姓名"
-                        width="154">
+                        label="作者姓名">
                 </el-table-column>
                 <el-table-column
                         prop="du_academic"
-                        label="职称"
-                        width="150">
+                        header-align="center"
+                        label="职称">
                 </el-table-column>
                 <el-table-column
                         prop="du_education"
                         label="学历"
-                        width="150">
+                        header-align="center">
                 </el-table-column>
                 <el-table-column
                         prop="du_degree"
                         label="学位"
-                        width="150">
+                        header-align="center">
                 </el-table-column>
                 <el-table-column
                         prop="du_age"
                         label="年龄"
-                        width="150">
+                        header-align="center">
                 </el-table-column>
                 <el-table-column
                         prop="du_name"
                         label="担任学术团体名称"
-                        width="250">
+                        header-align="center">
                 </el-table-column>
                 <el-table-column
                         prop="du_duty"
                         label="所任职务"
-                        width="150">
+                        header-align="center">
                 </el-table-column>
                 <el-table-column
                         prop="du_year_num"
                         label="担任职务年限"
-                        width="155">
+                        format="yyyy 年 MM 月 dd 日"
+                        value-format="timestamp"
+                        type="date"
+                        header-align="center">
                 </el-table-column>
             </el-table>
             <el-pagination
@@ -119,6 +122,8 @@
                 border:true,
                 StudygroupDate: [],
                 data1: '',
+                year1: '',
+                year2: '',
                 input:'',
                 form: {
                     type:'',
@@ -130,8 +135,21 @@
         methods: {
             getArticleData() {
                 let self = this;
-                axios.get("").then(function (response) {
+                axios.get("leaderselectallduties").then(function (response) {
                     var data = response.data;
+                    var time = data.datas[0].du_year_num;
+//                    console.log(time,"**************");
+                     self.checkYearExt(time);
+//                     var star = self.checkYearExt(time).year1;
+//                     var end = self.checkYearExt(time).year2;
+                    var kk =self.year1;
+                    var kk2 =self.year2;
+                     var star = self.formatDate(kk);
+                    console.log(star,"**///////");
+                    var end = self.formatDate(kk2);
+                    console.log(end,"**///////");
+                    self.du_year_num = star+"-"+end;
+                    console.log( self.du_year_num,"**///////");
                     if (data.code == 0) {
                         self.StudygroupDate = data.datas;
                     } else {
@@ -142,6 +160,23 @@
                         });
                     }
                 });
+            },
+            checkYearExt(time){
+                let a = time.split(',');
+                this.year1 = a[0];
+                this.year2 = a[1];
+//                console.log(kk,'...........');
+//                console.log(this.year2);
+            },
+            formatDate(timestamp) {
+                var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+                var Y = date.getFullYear() + '-';
+                var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+                var D = date.getDate() + ' ';
+//                var h = date.getHours() + ':';
+//                var m = date.getMinutes() + ':';
+//                var s = date.getSeconds();
+                return Y+M+D;
             },
             onSubmit() {
 

@@ -98,32 +98,32 @@
                         fixed
                         prop="le_expert_name"
                         label="专家姓名"
-                        width="154">
+                        header-align="center">
                 </el-table-column>
                 <el-table-column
                         prop="le_expert_level"
                         label="专家级别"
-                        width="150">
+                        header-align="center">
                 </el-table-column>
                 <el-table-column
                         prop="le_report_name"
                         label="报告名称"
-                        width="150">
+                        header-align="center">
                 </el-table-column>
                 <el-table-column
                         prop="le_invite_status"
                         label="邀请/被邀"
-                        width="150">
+                        header-align="center">
                 </el-table-column>
                 <el-table-column
                         prop="le_invite_unit"
                         label="邀请单位"
-                        width="150">
+                        header-align="center">
                 </el-table-column>
                 <el-table-column
                         prop="le_time"
                         label="讲学时间"
-                        width="250">
+                        header-align="center">
                 </el-table-column>
             </el-table>
             <el-pagination
@@ -177,7 +177,7 @@
         methods: {
             getArticleData() {
                 let self = this;
-                axios.get("").then(function (response) {
+                axios.get("leaderselectalllecture").then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
                         self.ExperspeakDate = data.datas;

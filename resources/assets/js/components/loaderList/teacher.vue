@@ -158,208 +158,167 @@
                 <el-table-column
                         fixed
                         prop="teacher_department"
-                        label="老师所属部门"
-                        width="120">
+                        label="老师所属部门">
                 </el-table-column>
                 <el-table-column
                         prop="teacher_id"
-                        label="老师工号"
-                        width="100">
+                        label="老师工号">
                 </el-table-column>
                 <el-table-column
                         prop="name"
-                        label="姓名"
-                        width="80">
+                        label="姓名">
                 </el-table-column>
                 <el-table-column
                         prop="office_phone"
-                        label="办公电话"
-                        width="100">
+                        label="办公电话">
                 </el-table-column>
                 <el-table-column
                         prop="home_phone"
-                        label="住宅电话"
-                        width="100">
+                        label="住宅电话">
                 </el-table-column>
                 <el-table-column
                         prop="phone"
-                        label="手机号"
-                        width="100">
+                        label="手机号">
                 </el-table-column>
                 <el-table-column
                         prop="sex"
-                        label="性别"
-                        width="50">
+                        label="性别">
                 </el-table-column>
                 <el-table-column
                         prop="nation"
-                        label="民族"
-                        width="80">
+                        label="民族">
                 </el-table-column>
                 <el-table-column
                         prop="borth"
-                        label="出生年月"
-                        width="100">
+                        label="出生年月">
                 </el-table-column>
                 <el-table-column
                         prop="polit_outlook"
-                        label="政治面貌"
-                        width="80">
+                        label="政治面貌">
                 </el-table-column>
                 <el-table-column
                         prop="native_place"
-                        label="籍贯"
-                        width="250">
+                        label="籍贯">
                 </el-table-column>
                 <el-table-column
                         prop="admin_duties"
-                        label="行政职务"
-                        width="100">
+                        label="行政职务">
                 </el-table-column>
                 <el-table-column
                         prop="admin_tenure_time"
-                        label="任职时间"
-                        width="100">
+                        label="任职时间">
                 </el-table-column>
                 <el-table-column
                         prop="job_level"
-                        label="职务级别"
-                        width="100">
+                        label="职务级别">
                 </el-table-column>
                 <el-table-column
                         prop="technical_position"
-                        label="专业技术职务"
-                        width="120">
+                        label="专业技术职务">
                 </el-table-column>
                 <el-table-column
                         prop="academic_title"
-                        label="老师职称"
-                        width="100">
+                        label="老师职称">
                 </el-table-column>
                 <el-table-column
                         prop="review_time"
-                        label="评审通过时间"
-                        width="120">
+                        label="评审通过时间">
                 </el-table-column>
                 <el-table-column
                         prop="appointment_time"
-                        label="聘任时间"
-                        width="100">
+                        label="聘任时间">
                 </el-table-column>
                 <el-table-column
                         prop="series"
-                        label="系列"
-                        width="80">
+                        label="系列">
                 </el-table-column>
                 <el-table-column
                         prop="post_category"
-                        label="岗位类别"
-                        width="90">
+                        label="岗位类别">
                 </el-table-column>
                 <el-table-column
                         prop="company"
-                        label="所在单位"
-                        width="150">
+                        label="所在单位">
                 </el-table-column>
                 <el-table-column
                         prop="te_re_department"
-                        label="所属教研室和实验室"
-                        width="150">
+                        label="所属教研室和实验室">
                 </el-table-column>
                 <el-table-column
                         prop="working_hours"
-                        label="来校工作时间"
-                        width="120">
+                        label="来校工作时间">
                 </el-table-column>
                 <el-table-column
                         prop="origin_work_unit"
-                        label="原工作单位"
-                        width="150">
+                        label="原工作单位">
                 </el-table-column>
                 <el-table-column
                         prop="certificate_num"
-                        label="教师资格证编号"
-                        width="140">
+                        label="教师资格证编号">
                 </el-table-column>
                 <el-table-column
                     prop="identity_card"
-                    label="身份证号"
-                    width="120">
+                    label="身份证号">
                 </el-table-column>
                 <el-table-column
                         prop="edu_school"
-                        label="毕业院校"
-                        width="200">
+                        label="毕业院校">
                 </el-table-column>
                 <el-table-column
                         prop="first_academic"
-                        label="第一学历学位"
-                        width="120">
+                        label="第一学历学位">
                 </el-table-column>
                 <el-table-column
                         prop="first_graduate_school"
-                        label="第一毕业学校"
-                        width="120">
+                        label="第一毕业学校">
                 </el-table-column>
                 <el-table-column
                         prop="first_study_major"
-                        label="第一所学专业"
-                        width="120">
+                        label="第一所学专业">
                 </el-table-column>
                 <el-table-column
                         prop="first_graduation_time"
-                        label="第一毕业时间"
-                        width="120">
+                        label="第一毕业时间">
                 </el-table-column>
                 <el-table-column
                         prop="most_academic"
-                        label="最高学历学位"
-                        width="120">
+                        label="最高学历学位">
                 </el-table-column>
                 <el-table-column
                         prop="most_graduate_school"
-                        label="最高毕业学校"
-                        width="120">
+                        label="最高毕业学校">
                 </el-table-column>
                 <el-table-column
                         prop="most_study_major"
-                        label="最高所学专业"
-                        width="120">
+                        label="最高所学专业">
                 </el-table-column>
                 <el-table-column
                         prop="most_graduation_time"
-                        label="最高毕业时间"
-                        width="120">
+                        label="最高毕业时间">
                 </el-table-column>
                 <el-table-column
                         prop="work_major"
-                        label="从事专业"
-                        width="120">
+                        label="从事专业">
                 </el-table-column>
                 <el-table-column
                         prop="belong_subject"
-                        label="从事专业所属学科"
-                        width="140">
+                        label="从事专业所属学科">
                 </el-table-column>
                 <el-table-column
                         prop="teach_course"
-                        label="任教课程"
-                        width="120">
+                        label="任教课程">
                 </el-table-column>
                 <el-table-column
                         prop="master_company"
-                        label="硕博导授予单位"
-                        width="120">
+                        label="硕博导授予单位">
                 </el-table-column>
                 <el-table-column
                         prop="master_time"
-                        label="硕博获得时间"
-                        width="120">
+                        label="硕博获得时间">
                 </el-table-column>
                 <el-table-column
                         fixed="right"
-                        label="操作"
-                        width="120">
+                        label="操作">
                     <template slot-scope="scope">
                         <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
                         <el-button type="text" size="small">编辑</el-button>

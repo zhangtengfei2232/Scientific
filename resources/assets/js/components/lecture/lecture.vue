@@ -28,7 +28,7 @@
                                     format="yyyy 年 MM 月 dd 日"
                                     value-format="timestamp">
                             </el-date-picker>
-                            <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch">搜索</el-button>
+                            <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch(form)">搜索</el-button>
                         </div>
                     </el-form>
                 </span>
@@ -301,22 +301,21 @@
                     path: `/editLecture/${le_id}`,
                 })
             },
-            byTimeSearch() {
-                console.log(form.data1,'/////////');
-                console.log(form.data2,'/////////');
-//                let self = this;
+            byTimeSearch(form) {
+                console.log(form,'/////////');
+                let self = this;
                 axios.get("timeselectlecture",{
                     params:{
                         start_time: form.data1,
-                        end_time: form.data1,
+                        end_time: form.data2,
                     }
-
                 }).then(function (response) {
-
                     var data = response.data;
+                   console.log(form.data1,"-88888888----------------");
+                   console.log(form.data2,"99999------------");
                     if (data.code == 0) {
                         self.ExperspeakDate = data.datas;
-                        console.log()
+                        console.log(data.datas,"[]]]-------");
                     } else {
                         self.$notify({
                             type: 'error',
