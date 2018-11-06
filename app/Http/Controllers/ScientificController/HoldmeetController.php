@@ -141,8 +141,10 @@ class HoldmeetController extends Controller
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
-        if(!$request->is_add_holdmeet){
-            return responseTojson(1,'请你先添加会议信息');
+        if($request->has('is_add_holdmeet')){
+            if(!$request->is_add_holdmeet){
+                return responseTojson(1,'请你先添加会议信息');
+            }
         }
         if(!$request->hasFile('ho_image')){
             return responseTojson(1,'请你上传举行会议图片');

@@ -140,8 +140,10 @@ class LectureController extends Controller
          if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
          }
-         if(!$request->is_add_lecture){
-            return responseTojson(1,'请你先添加讲学信息');
+         if($request->has('is_add_lecture')){
+             if(!$request->is_add_lecture){
+                 return responseTojson(1,'请你先添加讲学信息');
+             }
          }
          if(!$request->hasFile('le_image')){
             return responseTojson(1,'请你上传专家讲学图片');

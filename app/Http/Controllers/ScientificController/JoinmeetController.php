@@ -146,8 +146,10 @@ class JoinmeetController  extends Controller
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
-        if(!$request->is_add_joinmeet){
-            return responseTojson(1,'请你先添加参加会议信息');
+        if($request->has('is_add_joinmeet')){
+            if(!$request->is_add_joinmeet){
+                return responseTojson(1,'请你先添加参加会议信息');
+            }
         }
         if(!$request->hasFile('jo_image')){
             return responseTojson(1,'请你添加参加会议图片');
