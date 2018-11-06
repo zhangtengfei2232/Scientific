@@ -50,8 +50,8 @@ class SchoolfileDatabase extends ModelDatabase
     //查询多个校发文件路径
     public static function selectSchoolfileRoad($school_id_datas){
         $schoolfile_road = [];
-        for($i = 0; $i < count($schoolfile_road); $i++){
-            $result = DB::table('schoolfile')->select('schfile_road')->where('shcfile_id',$school_id_datas[$i])->first();
+        for($i = 0; $i < count($school_id_datas); $i++){
+           $result = DB::table('schoolfile')->select('schfile_road')->where('schfile_id',$school_id_datas[$i])->first();
            $schoolfile_road[$i] = $result->schfile_road;
         }
         return $schoolfile_road;

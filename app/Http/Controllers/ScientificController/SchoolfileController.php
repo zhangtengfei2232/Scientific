@@ -44,11 +44,11 @@ class SchoolfileController extends Controller
     }
     //删除校发文件
     public function deleteSchoolfile(Request $request){
-        $schoolfile_id_datas  = $request->schfile_id_datas;
+        $schoolfile_id_datas  = $request->sc_id_datas;
         $schoofile_road_datas = SchoolfileDatabase::selectSchoolfileRoad($schoolfile_id_datas);
         $delete_schoolfile    = SchoolfileDatabase::deleteSchoolfileDatas($schoolfile_id_datas);
-        deletefiles(uploadSubjectionConfig::SCHOOL_FILE,$schoofile_road_datas);
-        return responseTojson(1);
+        deleteAllFiles(uploadSubjectionConfig::SCHOOL_FILE,$schoofile_road_datas);
+        return responseTojson(0,'删除成功');
     }
     //修改校发文件
     public function updateSchoolfile(Request $request){
