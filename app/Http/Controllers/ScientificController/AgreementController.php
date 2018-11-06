@@ -31,7 +31,7 @@ class AgreementController extends Controller
         if($judge_agreement['code'] == 1){
             return responseTojson(1,$judge_agreement['message']);
         }
-        $disk = UploadSubjectionConfig::APPRAISAL;
+        $disk = UploadSubjectionConfig::AGREEMENT;
         $subjection_appraisal = UploadSubjectionConfig::AGREEMENT_PDF;
         $add_agreement_raod   = uploadFiles($subjection_appraisal,$agreement_pdf,$disk);
         $datas['agree_road']  = $add_agreement_raod;
@@ -63,7 +63,6 @@ class AgreementController extends Controller
             'agree_time'           => trim($request->agree_time),
             'agree_road'           => $agree_road
         ];
-        dd($datas);
         $judge_datas = judgeAgreementField($datas);
         if($judge_datas['code'] == 1){
             return responseTojson(1,$judge_datas['message']);

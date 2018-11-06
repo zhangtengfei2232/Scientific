@@ -89,7 +89,7 @@ class JoinmeetController  extends Controller
     public function timeSelectJoinmeet(Request $request){
         $teacher_id = session('usercount');
         $start_time = $request->start_time;
-        $end_time   = $request->end_tiem;
+        $end_time   = $request->end_time;
         $table_name = SearchMessageConfig::JOIN_MEET_TABLE;
         $time_field = SearchMessageConfig::JO_TIME;
         return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field,$teacher_id);

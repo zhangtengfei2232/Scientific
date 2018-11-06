@@ -167,6 +167,19 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
      * 项目(证书级别)，著作(著作类别)，获奖(获奖级别)的路由
      */
     /**
+     * 老师查询路由
+     */
+    Route::get('leaderselectallteacher','RetrievalController@leaderSelectAllTeacher');                    //查询老师全部信息
+    Route::get('bynameselectteacher','RetrievalController@byNameSelectTeacher');                          //老师名字查询老师信息
+    Route::get('byacademictitleselectteacher','RetrievalController@byAcademicTitleSelectTeacher');        //老师职称查询
+    Route::get('byadmindutiesselectteacher','RetrievalController@byAdminDutiesSelectTeacher');            //老师行政职务查询
+    Route::get('byteachresearchselectteacher','RetrievalController@byTeachResearchSelectTeacher');        //老师所属教研室和实验室查询
+    Route::get('bypostcategoryselectteacher','RetrievalController@byPostCategorySelectTeacher');          //老师岗位类别查询
+    Route::get('byjoblevelselectteacher','RetrievalController@byJobLevelSelectTeacher');                  //老师职务级别查询
+    Route::get('byworkmajorselectteacher','RetrievalController@byWorkMajorSelectTeacher');                //老师先从事专业查询
+
+
+    /**
      * 论文查询路由
      */
     Route::get('leaderselectallartical','RetrievalController@leaderSelectAllArtical');                    //查询论文全部信息
@@ -280,7 +293,8 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     Route::get('bynameselectduties','RetrievalController@byNameSelectDuties');                          //担任学术团体名称查询
     Route::get('byteachernameselectduties','RetrievalController@byTeacherNameSelectDuties');            //根据老师名字查询
 
-    /**
+
+    /**总览数据
      * 饼图数据路由
      */
 
@@ -308,6 +322,5 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
      * 获奖数据路由
      */
     Route::get('groupbywinlevel','RetrievalController@groupBywinLevel');
-
 });
 

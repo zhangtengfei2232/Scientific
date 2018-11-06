@@ -70,7 +70,7 @@ class AppraisalController extends Controller
     }
     //删除鉴定成果信息
     public function deleteAppraisal(Request $request){
-        $ap_id_datas = $request->ap_id_datas;
+        $ap_id_datas         = $request->ap_id_datas;
         $old_image_road      = AppraisalDatabase::selectAllAppraisalImageRoad($ap_id_datas);
         $delete_appraisal    = AppraisalDatabase::deleteAllAppraisalDatas($ap_id_datas);
         deleteAllFiles(UploadSubjectionConfig::APPRAISAL,$old_image_road);
@@ -90,7 +90,7 @@ class AppraisalController extends Controller
     public function timeSelectAppraisal(Request $request){
         $teacher_id = session('usercount');
         $start_time = $request->start_time;
-        $end_time   = $request->end_tiem;
+        $end_time   = $request->end_time;
         $table_name = SearchMessageConfig::APPRAISAL_TABLE;
         $time_field = SearchMessageConfig::AP_TIME;
         return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field,$teacher_id);
@@ -121,7 +121,6 @@ class AppraisalController extends Controller
     }
     //修改成果鉴定证书和封面图片
     public function updateAppraisalImage(Request $request){
-//        dd($request);
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }

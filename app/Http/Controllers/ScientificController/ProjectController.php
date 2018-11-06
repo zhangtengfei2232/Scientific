@@ -80,7 +80,7 @@ class ProjectController extends Controller
     public function timeSelectProject(Request $request){
         $teacher_id = session('usercount');
         $start_time = $request->start_time;
-        $end_time   = $request->end_tiem;
+        $end_time   = $request->end_time;
         $table_name = SearchMessageConfig::PROJECT_TABLE;
         $time_field = SearchMessageConfig::PROJECT_YEAR;
         return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field,$teacher_id);

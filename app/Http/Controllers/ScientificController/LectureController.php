@@ -86,7 +86,7 @@ class LectureController extends Controller
     public function timeSelectLecture(Request $request){
          $teacher_id = session('usercount');
          $start_time = $request->start_time;
-         $end_time   = $request->end_tiem;
+         $end_time   = $request->end_time;
          $table_name = SearchMessageConfig::LECTURE_TABLE;
          $time_field = SearchMessageConfig::LE_TIME;
          return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field,$teacher_id);
@@ -97,7 +97,6 @@ class LectureController extends Controller
              return responseTojson(1,'你请求的方式不对');
          }
          $le_id[0] = trim($request->le_id);
-//         dd($request);
          $datas = [
              'le_id'            => $le_id[0],
              'le_expert_name'   => trim($request->le_expert_name),
@@ -107,7 +106,6 @@ class LectureController extends Controller
              'le_invite_unit'   => trim($request->le_invite_unite),
              'le_time'          => trim($request->le_time)
          ];
-         dd($datas);
          $judge_datas = judgeLectureField($datas);
          if($judge_datas['code'] == 1){
              return responseTojson(1,$judge_datas['message']);
