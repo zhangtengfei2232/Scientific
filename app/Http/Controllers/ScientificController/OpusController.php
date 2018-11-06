@@ -100,7 +100,7 @@ class OpusController  extends Controller
     public function timeSelectOpus(Request $request){
         $teacher_id = session('usercount');
         $start_time = $request->start_time;
-        $end_time   = $request->end_tiem;
+        $end_time   = $request->end_time;
         $table_name = SearchMessageConfig::OPUS_TABLE;
         $time_field = SearchMessageConfig::OP_PUBLISH_TIME;
         return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field,$teacher_id);

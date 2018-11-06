@@ -27,11 +27,21 @@ class SearchMessageConfig
     const AUTHOR_NOTIC_DAY  = 'author_notic_day';      //专利受理时间字段
     const PROJECT_YEAR      = 'project_year';          //项目年份字段
     const SCHFILE_DOWN_TIME = 'schfile_down_time';     //校发文件日期字段
+
+    const TEACHER_NAME              = 'name';               //老师姓名
+    const TEACHER_ADMIN_DUTIES      = 'admin_duties';       //老师行政职务
+    const TEACHER_TE_RE_DEPARTMENT  = 'te_re_department';   //老师所属教研室和实验室
+    const TEACHER_POST_CATEGORY     = 'post_category';      //老师岗位类别
+    const TEACHER_JOB_LEVEL         = 'job_level';          //老师职务级别
+    const TEACHER_WORK_MAJOR        = 'work_major';         //老师现从事专业
+    const TEACHER_MOST_ACADEMIC     = 'most_academic';      //老师最高学历学位
+    const TEACHER_ACADEMIC_TITLE    = 'academic_title';     //老师职称
+    const TEACHER_EDU_SCHOOL        = 'edu_school';         //老师学缘
     const ARTICAL_AUTHOR            = 'author';             //论文第一作者字段
     const ARTICAL_PUBLICATION_NAME  = 'publication_name';   //论文发表刊物名称
     const ARTICAL_PERCAL_CATE       = 'percal_cate';        //论文期刊级别
     const ARTICAL_BELONG_PROJECT    = 'belong_project';     //论文所属项目
-    const ARTICAL_ART_CATE_RESEARCH = 'art_cate_research';  //研究类别
+    const ARTICAL_ART_CATE_RESEARCH = 'art_cate_research';  //论文研究类别
     const ARTICAL_ART_SUB_CATEGORY  = 'art_sub_category';   //论文学科门类
     const ARTICAL_SCH_PERCAL_CATE   = 'sch_percal_cate';    //论文学校认证期刊级别
     const PROJECT_PRO_HOST          = 'pro_host';           //项目主持人
@@ -39,9 +49,6 @@ class SearchMessageConfig
     const PROJECT_PRO_CATE_RESEARCH = 'pro_cate_research';  //项目研究类别
     const PROJECT_PRO_SUB_CATEGORY  = 'pro_sub_category';   //项目学科门类
     const PROJECT_APPROVAL_UNIT     = 'approval_unit';      //项目批准单位
-    const TEACHER_MOST_ACADEMIC     = 'most_academic';      //老师最高学历学位
-    const TEACHER_ACADEMIC_TITLE    = 'academic_title';     //老师职称
-    const TEACHER_EDU_SCHOOL        = 'edu_school';         //老师学缘
     const OPUS_OP_FIRST_AUTHOR      = 'op_first_author';    //著作第一作者
     const OPUS_OP_NAME              = 'op_name';            //著作名称
     const OPUS_OP_CATE_WORK         = 'op_cate_work';       //著作类别
@@ -73,4 +80,5 @@ class SearchMessageConfig
     const SCHOOLFILE_SCHFILE_NAME   = 'schfile_name';       //校发文件名称
     const AGREEMENT_AGREE_NAME      = 'agree_name';         //合作协议名称
     const DUTIES_DU_NAME            = 'du_name';            //担任学术团体名称
+    const DUTIES_TEACHER_NAME       = 'teacher_name';       //担任学术团体老师名字
 }
