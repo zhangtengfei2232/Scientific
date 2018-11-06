@@ -41,7 +41,7 @@
                         fixed
                         prop="teacher_name"
                         label="作者姓名"
-                        width="200">
+                        width="154">
                 </el-table-column>
                 <el-table-column
                         prop="du_academic"
@@ -99,7 +99,7 @@
         border-right: 1px #d4d8d7 solid;
     }
     .cont{
-        width: 88%;
+        width: 85%;
         float: left;
         /*margin: 20px;*/
     }

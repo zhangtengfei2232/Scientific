@@ -302,16 +302,21 @@
                 })
             },
             byTimeSearch() {
+                console.log(form.data1,'/////////');
+                console.log(form.data2,'/////////');
 //                let self = this;
                 axios.get("timeselectlecture",{
                     params:{
                         start_time: form.data1,
                         end_time: form.data1,
                     }
+
                 }).then(function (response) {
+
                     var data = response.data;
                     if (data.code == 0) {
                         self.ExperspeakDate = data.datas;
+                        console.log()
                     } else {
                         self.$notify({
                             type: 'error',

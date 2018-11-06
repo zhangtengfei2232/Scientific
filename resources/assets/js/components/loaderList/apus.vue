@@ -44,11 +44,11 @@
                             width="400"
                             trigger="click">
                            <el-input
-                                placeholder="请输入作者名"
+                                placeholder="请输入第一作者"
                                 prefix-icon="el-icon-search"
                                 v-model="input">
                             </el-input>
-                            <div slot="reference">成员：作者<i class="el-icon-arrow-down el-icon--right"></i></div>
+                            <div slot="reference">检索：作者<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
                     </div>
                     <div class="search">
@@ -57,11 +57,11 @@
                             width="400"
                             trigger="click">
                             <el-input
-                                placeholder="请输入刊物级别"
+                                placeholder="请输入奖励名称"
                                 prefix-icon="el-icon-search"
                                 v-model="input">
                             </el-input>
-                            <div slot="reference">学校认定刊物级别<i class="el-icon-arrow-down el-icon--right"></i></div>
+                            <div slot="reference">奖励名称<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
                     </div>
                     <div class="search">
@@ -70,21 +70,24 @@
                             width="500"
                             trigger="click">
                             <el-form ref="form" :model="form" label-width="80px">   
-                                <el-form-item label="刊物级别">
+                                <el-form-item label="著作类别">
                                     <el-checkbox-group v-model="form.checkList">
-                                        <el-checkbox :label="1">SCI一区</el-checkbox>
-                                        <el-checkbox :label="2">SCI二区</el-checkbox>
-                                        <el-checkbox :label="3">SCI三区</el-checkbox>
-                                        <el-checkbox :label="4">SCI四区</el-checkbox>
-                                        <el-checkbox :label="5">EI</el-checkbox>
-                                        <el-checkbox :label="6">SSCI</el-checkbox>
-                                        <el-checkbox :label="7">CN</el-checkbox>
-                                        <el-checkbox :label="8">CSSCI核心库</el-checkbox>
-                                        <el-checkbox :label="9">中文核心</el-checkbox>
-                                        <el-checkbox :label="10">CSCD核心库</el-checkbox>
-                                        <el-checkbox :label="11">河南科技学院期刊</el-checkbox>  
+                                        <el-checkbox :label="1">专著</el-checkbox>
+                                        <el-checkbox :label="2">教科书</el-checkbox>
+                                        <el-checkbox :label="3">译注</el-checkbox>
+                                        <el-checkbox :label="4">编著</el-checkbox>
+                                        <el-checkbox :label="5">其他</el-checkbox>
                                     </el-checkbox-group>
                                 </el-form-item> 
+                                <el-form-item label="编著形式">
+                                    <el-checkbox-group v-model="form.checkList">
+                                        <el-checkbox :label="1" name="type">主编</el-checkbox>
+                                        <el-checkbox :label="2" name="type">副主编</el-checkbox>
+                                        <el-checkbox :label="3" name="type">参编</el-checkbox>
+                                        <el-checkbox :label="4" name="type">编著</el-checkbox>
+                                        <el-checkbox :label="5" name="type">其他</el-checkbox>
+                                    </el-checkbox-group>
+                                </el-form-item>
                                 <el-form-item label="研究类别">
                                     <el-checkbox-group v-model="form.checkList">
                                         <el-checkbox :label="1" name="type">基础研究</el-checkbox>
@@ -102,69 +105,69 @@
                 </el-header>
             </div>
             <el-table
-                :data="allArticle"
+                :data="allOpus"
                 style="width: 100%"
                 border
                 height="250">
                 <el-table-column
                     fixed
-                    prop="author"
+                    prop="op_first_author"
                     label="第一作者"
                     width="150">
                 </el-table-column>
                 <el-table-column
-                    prop="art_all_author"
+                    prop="op_all_author"
                     label="全部作者"
                     width="120">
                 </el-table-column>
                 <el-table-column
-                    prop="title"
-                    label="论文题目"
+                    prop="op_name"
+                    label="著作姓名"
                     width="120">
                 </el-table-column>
                 <el-table-column
-                    prop="art_time"
-                    label="发表时间"
+                    prop="op_form_write"
+                    label="编著形式"
                     width="120">
                 </el-table-column>
                 <el-table-column
-                    prop="publication_name"
-                    label="发表刊物名称"
+                    prop="op_publish"
+                    label="著作出版社"
                     width="120">
                 </el-table-column>
                 <el-table-column
-                    prop="publication_num"
-                    label="刊号"
+                    prop="op_publish_time"
+                    label="著作出版时间"
                     width="120">
                 </el-table-column>
                 <el-table-column
-                    prop="period"
-                    label="年，卷，期"
+                    prop="op_number"
+                    label="书号"
                     width="120">
                 </el-table-column>
                 <el-table-column
-                    prop="num_words"
-                    label="字数"
+                    prop="op_total_words"
+                    label="著作总字数"
                     width="120">
                 </el-table-column>
                 <el-table-column
-                    prop="percal_cate"
-                    label="期刊级别"
+                    prop="op_self_words"
+                    label="著作本人字数"
                     width="120">
                 </el-table-column>
                 <el-table-column
-                    prop="belong_project"
-                    label="所属项目"
+                    prop="op_cate_work"
+                    label="著作类别"
                     width="120">
                 </el-table-column>
                 <el-table-column
-                    prop="art_cate_research"
-                    label="研究类别"
+                    prop="op_integral"
+                    label="著作积分"
                     width="120">
                 </el-table-column>
                 <el-table-column
-                    prop="art_sub_category"
-                    label="学科门类"
+                    prop="op_cate_research"
+                    label="著作研究类别"
                     width="120">
                 </el-table-column>
                 <el-table-column
@@ -173,15 +176,15 @@
                     width="120">
                 </el-table-column>
                 <el-table-column
-                    prop="sch_percal_cate"
-                    label="学校认定刊物级别"
+                    prop="op_sub_category"
+                    label="著作学科门类"
                     width="140">
                 </el-table-column>
             </el-table>
             <el-pagination
                 background
                 layout="prev, pager, next"
-                :total="1000">
+                :total="100">
             </el-pagination>
         </div>
     </div>
@@ -214,7 +217,7 @@ export default {
         return {
             searchValue:'',
             border:true,
-            allArticle:[],
+            allOpus:[],
             data1: '',
             input:'',
             form: {
@@ -225,12 +228,12 @@ export default {
         }
     },
     methods: {
-        getArticleData() {
+        getOpusData() {
             let self = this;
             axios.get("").then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
-                    self.allArticle = data.datas;
+                    self.allOpus = data.datas;
                 } else {
                     self.$notify({
                         type: 'error',
@@ -245,7 +248,7 @@ export default {
         }
     },
     mounted() {
-        this.getArticleData();
+        this.getOpusData();
     }
 }
 </script>

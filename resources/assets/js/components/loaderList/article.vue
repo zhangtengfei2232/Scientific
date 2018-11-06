@@ -178,11 +178,13 @@
                     width="140">
                 </el-table-column>
             </el-table>
-            <el-pagination
-                background
-                layout="prev, pager, next"
-                :total="1000">
-            </el-pagination>
+            <div class="page">
+                <el-pagination
+                    background
+                    layout="prev, pager, next"
+                    :total="100">
+                </el-pagination>
+            </div> 
         </div>
     </div>
 </template>
@@ -197,7 +199,7 @@
         border-right: 1px #d4d8d7 solid;
     }
     .cont{
-        width: 80%;
+        width: 85%;
         float: left;
         margin: 20px;
     }
@@ -205,6 +207,10 @@
         float: left;
         padding: 20px 20px;
         border-right: 1px #d4d8d7 solid;
+    }
+    .page{
+        width: 30%;
+        margin: 0 auto;
     }
 </style>
 
