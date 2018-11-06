@@ -26,49 +26,49 @@ class RetrievalController extends Controller
     }
     //老师名字查询老师信息
     public function byNameSelectTeacher(Request $request){
-        $table_name = SearchMessageConfig::TEACHER_TABLE;
-        $name_field = SearchMessageConfig::TEACHER_NAME;
+        $table_name   = SearchMessageConfig::TEACHER_TABLE;
+        $name_field   = SearchMessageConfig::TEACHER_NAME;
         $teacher_name = $request->teacher_name;
         return ModelDatabase::byNameSelectDatas($table_name,$name_field,$teacher_name,'');
     }
     //老师职称查询
     public function byAcademicTitleSelectTeacher(Request $request){
-        $table_name = SearchMessageConfig::TEACHER_TABLE;
+        $table_name           = SearchMessageConfig::TEACHER_TABLE;
         $academic_title_field = SearchMessageConfig::TEACHER_ACADEMIC_TITLE;
         $academic_title       = $request->academic_title;
         return ModelDatabase::categorySelectInformation($table_name,$academic_title_field,$academic_title,'');
     }
     //老师行政职务查询
     public function byAdminDutiesSelectTeacher(Request $request){
-        $table_name = SearchMessageConfig::TEACHER_TABLE;
+        $table_name         = SearchMessageConfig::TEACHER_TABLE;
         $admin_duties_field = SearchMessageConfig::TEACHER_ADMIN_DUTIES;
         $admin_duties       = $request->admin_duties;
         return ModelDatabase::byNameSelectDatas($table_name,$admin_duties_field,$admin_duties,'');
     }
     //老师所属教研室和实验室查询
     public function byTeachResearchSelectTeacher(Request $request){
-        $table_name = SearchMessageConfig::TEACHER_TABLE;
+        $table_name             = SearchMessageConfig::TEACHER_TABLE;
         $te_re_department_field = SearchMessageConfig::TEACHER_TE_RE_DEPARTMENT;
         $te_re_department       = $request->te_re_department;
         return ModelDatabase::byNameSelectDatas($table_name,$te_re_department_field,$te_re_department,'');
     }
     //老师岗位类别查询
     public function byPostCategorySelectTeacher(Request $request){
-        $table_name = SearchMessageConfig::TEACHER_TABLE;
+        $table_name          = SearchMessageConfig::TEACHER_TABLE;
         $post_category_field = SearchMessageConfig::TEACHER_POST_CATEGORY;
         $post_category       = $request->post_category;
         return ModelDatabase::categorySelectInformation($table_name,$post_category_field,$post_category,'');
     }
     //老师职务级别查询
     public function byJobLevelSelectTeacher(Request $request){
-        $table_name = SearchMessageConfig::TEACHER_TABLE;
+        $table_name      = SearchMessageConfig::TEACHER_TABLE;
         $job_level_field = SearchMessageConfig::TEACHER_JOB_LEVEL;
         $job_level       = $request->job_level;
         return ModelDatabase::categorySelectInformation($table_name,$job_level_field,$job_level,'');
     }
     //老师先从事专业查询
     public function byWorkMajorSelectTeacher(Request $request){
-        $table_name = SearchMessageConfig::TEACHER_TABLE;
+        $table_name       = SearchMessageConfig::TEACHER_TABLE;
         $work_major_filed = SearchMessageConfig::TEACHER_WORK_MAJOR;
         $work_major       = $request->work_major;
         return ModelDatabase::byNameSelectDatas($table_name,$work_major_filed,$work_major,'');
