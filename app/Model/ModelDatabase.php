@@ -16,7 +16,17 @@ class ModelDatabase  extends  Model
     public static function rollback(){
         return DB::rollback();
     }
-
+    //根据字段组合查询数据
+    public static function combinationSelectDatas($condition_datas,$first_datas,$second_datas){
+         $result = DB::table($condition_datas['table_name'])
+                   ->whereIn($condition_datas['first_field'],$first_datas)
+                   ->whereIn($condition_datas['second_field'],$second_datas)
+                   ->get();
+         foreach ($result as $datas){
+             $datas->$condition_datas['time_field'] = date('Y-m-d',$datas->$condition_datas['time_field']/1000);
+         }
+         return $result;
+    }
     /**查询某个表的所有数据
      * @param $table_name
      * @param $time_field
@@ -26,7 +36,7 @@ class ModelDatabase  extends  Model
         $result = DB::table($table_name)->get();
         if(!empty($time_field)){
             foreach ($result as $datas){
-                $datas->$time_field = date('Y-m-d',$datas->$time_field);
+                $datas->$time_field = date('Y-m-d',$datas->$time_field/1000);
             }
         }
         return responseTojson(0,'查询成功','',$result);
@@ -49,7 +59,7 @@ class ModelDatabase  extends  Model
                 ->get();
         }
         foreach ($result as $datas){
-            $datas->$time_field = date('Y-m-d',$datas->$time_field);
+            $datas->$time_field = date('Y-m-d',$datas->$time_field/1000);
         }
         return responseTojson(0,'查询成功','',$result);
     }
@@ -64,7 +74,7 @@ class ModelDatabase  extends  Model
         $result = DB::table($table_name)->where($field,$cetificate)->get();
         if(!empty($time_field)){
             foreach ($result as $datas){
-                $datas->$time_field = date('Y-m-d',$datas->$time_field);
+                $datas->$time_field = date('Y-m-d',$datas->$time_field/1000);
             }
         }
         return responseTojson(0,'查询成功','',$result);
@@ -80,7 +90,7 @@ class ModelDatabase  extends  Model
        $result = DB::table($table_name)->where($field,'like',"%".$name."%")->get();
        if(!empty($time_field)){
            foreach ($result as $datas){
-               $datas->$time_field = date('Y-m-d',$datas->$time_field);
+               $datas->$time_field = date('Y-m-d',$datas->$time_field/1000);
            }
        }
        return responseTojson(0,'查询成功','',$result);
