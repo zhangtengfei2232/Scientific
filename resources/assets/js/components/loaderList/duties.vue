@@ -36,7 +36,7 @@
                     :data=" StudygroupDate"
                     style="width:81%"
                     border
-                    height="250">
+                    height="550">
                 <el-table-column
                         fixed
                         header-align="center"
@@ -138,20 +138,23 @@
                 axios.get("leaderselectallduties").then(function (response) {
                     var data = response.data;
                     var time = data.datas[0].du_year_num;
-//                    console.log(time,"**************");
+                    console.log(time,"**************");
                      self.checkYearExt(time);
-//                     var star = self.checkYearExt(time).year1;
-//                     var end = self.checkYearExt(time).year2;
-                    var kk =self.year1;
-                    var kk2 =self.year2;
-                     var star = self.formatDate(kk);
+//                    var kk =self.year1;
+//                    var kk2 =self.year2;
+//                    var kk =self.formatDate(999999)
+//                    console.log(kk,'=========')
+//                    var kk2 =self.formatDate(666666)
+//                    console.log(kk2,'[[[[[[]]]]]')
+                     var star = self.formatDate(parseInt(self.year1));
                     console.log(star,"**///////");
-                    var end = self.formatDate(kk2);
+                    var end = self.formatDate(parseInt(self.year2));
                     console.log(end,"**///////");
                     self.du_year_num = star+"-"+end;
-                    console.log( self.du_year_num,"**///////");
+//
                     if (data.code == 0) {
                         self.StudygroupDate = data.datas;
+
                     } else {
                         self.$notify({
                             type: 'error',
@@ -165,19 +168,28 @@
                 let a = time.split(',');
                 this.year1 = a[0];
                 this.year2 = a[1];
-//                console.log(kk,'...........');
-//                console.log(this.year2);
+                console.log( this.year1,'...........');
+                console.log(this.year2,'-0----8888888');
             },
             formatDate(timestamp) {
-                var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
-                var Y = date.getFullYear() + '-';
-                var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-                var D = date.getDate() + ' ';
-//                var h = date.getHours() + ':';
-//                var m = date.getMinutes() + ':';
-//                var s = date.getSeconds();
-                return Y+M+D;
-            },
+                var date = new Date(timestamp);
+                var year = date.getFullYear();
+                var month = date.getMonth() + 1;
+                var day = date.getDate();
+                if (month < 10) {
+                   month = "0" + month;
+                }
+                if (day < 10) {
+                   day = "0" + day;
+                }
+
+//        var hours = addZero(date.getHours());
+//        var minutes = addZero(date.getMinutes());
+//        var seconds = addZero(date.getSeconds());
+        // return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+        return year + '-' + month + '-' + day;
+    },
+
             onSubmit() {
 
             }
