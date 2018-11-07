@@ -60,7 +60,7 @@
                                 <span>成果汇总</span>
                             </template>
                             <el-menu-item-group style="background-color: plum !important;">
-                                <el-menu-item index="/loaderList/teacher">老师信息</el-menu-item>
+                                <el-menu-item index="/loaderList/teacher">老师管理</el-menu-item>
                                 <el-menu-item index="/loaderList/article">论文信息</el-menu-item>
                                 <el-menu-item index="/loaderList/project">项目信息</el-menu-item>
                                 <el-menu-item index="/loaderList/apus">著作信息</el-menu-item>

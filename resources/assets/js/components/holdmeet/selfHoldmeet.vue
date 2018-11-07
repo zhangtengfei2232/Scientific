@@ -62,7 +62,7 @@
                 <div class="demo" v-show="picTypes">
                     <thead>
                         <li v-for="(index,items) in filelists" v-bind:key="items">
-                            <img :src="items.url" alt="无法加载" style="width:50px">
+                            <img :src="items" alt="无法加载" style="width:50px">
                             <el-button type="primary" size="mini"  @click="deletePic(items.im_id)">删除</el-button>
                         </li>
                     </thead>
@@ -141,7 +141,7 @@ export default {
                     self.ho_id = data.datas.information.ho_id;
                     if(data.datas.information.ho_graph_inject !== ''){
                         self.picType = true;
-                        self.filelist.url = 'showfile?disk=holdmeet&subjection=' + data.datas.information.ho_graph_inject;
+                        self.filelist = 'showfile?disk=holdmeet&subjection=' + data.datas.information.ho_graph_inject;
                     }
                     let image = data.datas.hold_images;
                     if(image.length !== 0){
@@ -171,7 +171,7 @@ export default {
             return false;
         },
         fileProfils(files){
-            if(this.Bcode == true){
+            if(files  != ''){
                 this.dataFile.append('ho_file', files);
                 let id = this.ho_id;
                 this.dataFile.append('ho_id', id);
