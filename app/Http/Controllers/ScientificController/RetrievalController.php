@@ -25,8 +25,7 @@ class RetrievalController extends Controller
     }
     //查询老师全部信息
     public function leaderSelectAllTeacher(){
-        $table_name = SearchMessageConfig::TEACHER_TABLE;
-        return ModelDatabase::selectAllDatas($table_name,'');
+        return ModelDatabase::selectAllteacherDatas();
     }
     //老师名字查询老师信息
     public function byNameSelectTeacher(Request $request){

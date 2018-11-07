@@ -81,4 +81,15 @@ class SearchMessageConfig
     const AGREEMENT_AGREE_NAME      = 'agree_name';         //合作协议名称
     const DUTIES_DU_NAME            = 'du_name';            //担任学术团体名称
     const DUTIES_TEACHER_NAME       = 'teacher_name';       //担任学术团体老师名字
+
+
+    /**
+     * 下拉框配置信息
+     */
+    //老师
+    const SEX_DATAS                = ['男','女'];
+    const TEACHER_DEPARTMENT_DATAS = ['生工','生物技术系','农学系','领导行政政工'];
+    const TEACHER_JOB_LEVEL_DATAS  = ['正处','副处','正科','副科','其他'];
+    const TEACHER_TECHNICAL_DATAS  = ['教授','副教授','讲师','助教','实验师','助理实验师','高级实验师'];
+
 }
