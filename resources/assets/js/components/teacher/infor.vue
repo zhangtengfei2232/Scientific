@@ -315,6 +315,7 @@
                 dataFile: new FormData(),
                 teacherDate:{},
                 form:{
+                    Bcode:'',
                     id:'',
                     name:'',
                     sex:'',
@@ -366,6 +367,7 @@
         methods: {
             getTeacherData(){
                 let self = this;
+//                this.form.Bcode = self.$route.params.Bcode;
                 axios.get("selectteacher").then(function (response) {
                     var data = response.data;
                     if(data.code == 0){
@@ -403,14 +405,6 @@
             handlePreview(file){
                 console.log(file);
             },
-//            fileProfil(file){
-//                this.dataForm.append('gra_cert_road', file);
-//                return false;
-//            },
-//            fileEdufil(files){
-//                this.dataForm.append('edu_cert_road', file);
-//                return false;
-//            },
             fileProfil(file){
                 if(this.Bcode == true){
                     this.dataFile.append('gra_cert_road', file);
@@ -434,10 +428,11 @@
                 }
             },
             sendfile(dataFile) {
-                console.log(dataFile,'-=-=-=-==--');
+                console.log(dataFile,'544554=-==--');
                 let vue = this;
                 this.addTeacherFile(dataFile).then(res => {
                     var data = res.data;
+                    console.log(data,'-=-=data-==--');
                     if (data.code == 0) {
                         vue.$message({
                             message: '修改成功',

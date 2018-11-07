@@ -321,9 +321,6 @@
                     first_graduate_school:'',
                     most_graduation_time:'',
                     most_graduate_school:'',
-//                    edu_cert_road:'',
-
-
 
                     polit_outlook:'',
                     admin_duties:'',
@@ -350,8 +347,6 @@
                     teach_course:'',
                     master_company:'',
                     master_time:'',
-//                    gra_cert_road:'',
-
                 },
             }
         },
@@ -363,26 +358,20 @@
                 this.$refs.edu_cert_road.submit();
             },
             handleRemove(file, fileList) {
-                //console.log(file, fileList);
+                console.log(file, fileList);
             },
             handlePreview(file){
-                //console.log(file);
+                console.log(file);
             },
-//            fileProfil(file){
-//                this.dataForm.append('gra_cert_road', file);
-//                return false;
-//            },
-//            fileEdufil(file){
-//                this.dataForm.append('edu_cert_road', file);
-//                return false;
-//            },
+
             fileProfil(file){
                 if(this.Bcode == true){
                     this.dataFile.append('gra_cert_road', file);
                     let id = this.form.teacher_id;
+                    console.log(id);
                     this.dataFile.append('teacher_id', id);
                     this.dataFile.append('is_add_teacher',this.Bcode);
-                    this.sendfile(this.dataFile,1);
+                    this.sendfile(this.dataFile);
                 }else{
                     this.$message.error('请先添加毕业证书图片');
                     return false
@@ -394,15 +383,14 @@
                     let id = this.form.teacher_id;
                     this.dataFile.append('teacher_id', id);
                     this.dataFile.append('is_add_teacher',this.Bcode);
-                    this.sendfile(this.dataFile,1);
+                    this.sendfile(this.dataFile);
                 }else{
                     this.$message.error('请先添加学历证书图片');
                     return false
                 }
             },
-            sendfile(dataFile,m) {
-                let vue = this;
-                this.addTeacherFile(vue.dataFile,m).then(res => {
+            sendfile(dataFile) {
+                this.addTeacherFile(this.dataFile).then(res => {
                     var data = res.data;
                     if (data.code == 0) {
                         vue.$message({
@@ -412,7 +400,7 @@
                     } else {
                         vue.$notify({
                             type: 'error',
-                            message: '修改失败',
+                            message: data.message,
                             duration: 2000,
                         });
                     }
@@ -428,7 +416,7 @@
                 });
             },
             onSubmit(form) {
-                console.log(form,'00000000000');
+//                console.log(form,'00000000000');
                 let vue = this;
                 if(form.name == '') {
                     this.$message.error('老师姓名不能为空');
@@ -511,7 +499,6 @@
                         });
                         vue.addTeaDate(vue.dataForm).then(res => {
                             var data = res.data;
-//                            console.log( data,'_9999999_');
                             if (data.code == 0) {
                                 this.Bcode=true;
                                 vue.form.teacher_id =  res.data.datas;
@@ -528,7 +515,7 @@
                                 });
                             }
                         });
-                        vue.$refs.gra_cert_road.submit();
+//                        vue.$refs.gra_cert_road.submit();
                         vue.$refs.edu_cert_road.submit()
                     } else {
                         console.log('error submit!!');
