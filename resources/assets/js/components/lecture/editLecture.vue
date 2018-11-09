@@ -114,7 +114,7 @@
         data() {
             return {
                 le_id:'',
-                le_image:[],
+                le_image:'',
                 le_img_road:'',
                 type1:false,
                 picType:false,
@@ -124,7 +124,7 @@
                 dataForm: new FormData(),
                 dataFile: new FormData(),
                 EditLectureData: {},
-                filelists:[],
+                filelists:'',
                 filelist: '',
                 form: {
                     le_id:'',

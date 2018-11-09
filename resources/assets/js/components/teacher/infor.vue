@@ -141,6 +141,7 @@
                                         <el-option label="副主任" value="4"></el-option>
                                     </el-select>
                                 </el-form-item>
+
                                 <el-form-item label="所在单位" prop="company">
                                     <el-input v-model="form.company"></el-input>
                                 </el-form-item>
@@ -161,6 +162,8 @@
                                 <el-form-item label="原工作单位" prop="origin_work_unit">
                                     <el-input v-model="form.origin_work_unit"></el-input>
                                 </el-form-item>
+                            </div>
+                            <div class="contentRight"style="width: 50%;">
                                 <el-form-item label="教师资格证书编号" prop="certificate_num">
                                     <el-input v-model="form.certificate_num"></el-input>
                                 </el-form-item>
@@ -172,8 +175,6 @@
                                         <el-input v-model="form.edu_school"></el-input>
                                     </el-form-item>
 
-                            </div>
-                            <div class="contentRight"style="width: 50%;">
                                 <el-form-item label="第一学历："style="font-weight:800 !important; font-size: 17px;" ></el-form-item>
 
                                 <el-form-item label="第一学历/学位" prop="first_graduate_school">
@@ -314,6 +315,7 @@
                 dataFile: new FormData(),
                 teacherDate:{},
                 form:{
+                    Bcode:'',
                     id:'',
                     name:'',
                     sex:'',
@@ -365,6 +367,7 @@
         methods: {
             getTeacherData(){
                 let self = this;
+//                this.form.Bcode = self.$route.params.Bcode;
                 axios.get("selectteacher").then(function (response) {
                     var data = response.data;
                     if(data.code == 0){
@@ -402,14 +405,6 @@
             handlePreview(file){
                 console.log(file);
             },
-//            fileProfil(file){
-//                this.dataForm.append('gra_cert_road', file);
-//                return false;
-//            },
-//            fileEdufil(files){
-//                this.dataForm.append('edu_cert_road', file);
-//                return false;
-//            },
             fileProfil(file){
                 if(this.Bcode == true){
                     this.dataFile.append('gra_cert_road', file);
@@ -433,10 +428,11 @@
                 }
             },
             sendfile(dataFile) {
-                console.log(dataFile,'-=-=-=-==--');
+                console.log(dataFile,'544554=-==--');
                 let vue = this;
                 this.addTeacherFile(dataFile).then(res => {
                     var data = res.data;
+                    console.log(data,'-=-=data-==--');
                     if (data.code == 0) {
                         vue.$message({
                             message: '修改成功',

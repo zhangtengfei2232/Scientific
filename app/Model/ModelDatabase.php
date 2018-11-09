@@ -16,7 +16,32 @@ class ModelDatabase  extends  Model
     public static function rollback(){
         return DB::rollback();
     }
-
+    //根据字段组合查询数据
+    public static function combinationSelectDatas($condition_datas,$first_datas,$second_datas){
+         $result = DB::table($condition_datas['table_name'])
+                   ->whereIn($condition_datas['first_field'],$first_datas)
+                   ->whereIn($condition_datas['second_field'],$second_datas)
+                   ->get();
+         foreach ($result as $datas){
+             $datas->$condition_datas['time_field'] = date('Y-m-d',$datas->$condition_datas['time_field']/1000);
+         }
+         return $result;
+    }
+    //查老师所有信息
+    public static function selectAllteacherDatas(){
+        $result = DB::table('teacher')->get();
+        foreach ($result as $datas){
+            $datas->borth                 = date('Y-m-d',$datas->borth/1000);
+            $datas->admin_tenure_time     = date('Y-m-d',$datas->admin_tenure_time/1000);
+            $datas->review_time           = date('Y-m-d',$datas->review_time/1000);
+            $datas->appointment_time      = date('Y-m-d',$datas->appointment_time/1000);
+            $datas->working_hours         = date('Y-m-d',$datas->working_hours/1000);
+            $datas->first_graduation_time = date('Y-m-d',$datas->first_graduation_time/1000);
+            $datas->most_graduation_time  = date('Y-m-d',$datas->most_graduation_time/1000);
+            $datas->master_time           = date('Y-m-d',$datas->master_time/1000);
+        }
+        return responseTojson(0,'查询成功','',$result);
+    }
     /**查询某个表的所有数据
      * @param $table_name
      * @param $time_field
@@ -26,7 +51,7 @@ class ModelDatabase  extends  Model
         $result = DB::table($table_name)->get();
         if(!empty($time_field)){
             foreach ($result as $datas){
-                $datas->$time_field = date('Y-m-d',$datas->$time_field);
+                $datas->$time_field = date('Y-m-d',$datas->$time_field/1000);
             }
         }
         return responseTojson(0,'查询成功','',$result);
@@ -49,7 +74,7 @@ class ModelDatabase  extends  Model
                 ->get();
         }
         foreach ($result as $datas){
-            $datas->$time_field = date('Y-m-d',$datas->$time_field);
+            $datas->$time_field = date('Y-m-d',$datas->$time_field/1000);
         }
         return responseTojson(0,'查询成功','',$result);
     }
@@ -64,7 +89,7 @@ class ModelDatabase  extends  Model
         $result = DB::table($table_name)->where($field,$cetificate)->get();
         if(!empty($time_field)){
             foreach ($result as $datas){
-                $datas->$time_field = date('Y-m-d',$datas->$time_field);
+                $datas->$time_field = date('Y-m-d',$datas->$time_field/1000);
             }
         }
         return responseTojson(0,'查询成功','',$result);
@@ -80,7 +105,7 @@ class ModelDatabase  extends  Model
        $result = DB::table($table_name)->where($field,'like',"%".$name."%")->get();
        if(!empty($time_field)){
            foreach ($result as $datas){
-               $datas->$time_field = date('Y-m-d',$datas->$time_field);
+               $datas->$time_field = date('Y-m-d',$datas->$time_field/1000);
            }
        }
        return responseTojson(0,'查询成功','',$result);

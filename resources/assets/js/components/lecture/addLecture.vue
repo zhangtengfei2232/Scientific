@@ -100,7 +100,7 @@
                 Bcode:false,
                 multiple:true,
                 le_img_road: '',
-                le_image: [],
+                le_image: '',
                 le_id:'',
                 form: {
                     le_expert_name:'',

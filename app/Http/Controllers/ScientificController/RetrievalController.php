@@ -19,10 +19,13 @@ class RetrievalController extends Controller
     /**
      * 老师检索
      */
+    //根据多个条件，组合查询文章信息
+    public function combinationSelectArtical(){
+
+    }
     //查询老师全部信息
     public function leaderSelectAllTeacher(){
-        $table_name = SearchMessageConfig::TEACHER_TABLE;
-        return ModelDatabase::selectAllDatas($table_name,'');
+        return ModelDatabase::selectAllteacherDatas();
     }
     //老师名字查询老师信息
     public function byNameSelectTeacher(Request $request){

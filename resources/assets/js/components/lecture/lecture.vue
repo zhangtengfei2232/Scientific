@@ -28,32 +28,10 @@
                                     format="yyyy 年 MM 月 dd 日"
                                     value-format="timestamp">
                             </el-date-picker>
-                            <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch">搜索</el-button>
+                            <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch(form)">搜索</el-button>
                         </div>
                     </el-form>
                 </span>
-                    <!--<div class="block">-->
-                        <!--<span class="demonstration">按专家姓名检索:</span>-->
-                         <!--<el-input v-model="form.le_expert_name" placeholder="请输入专家姓名" style="width:30%;"></el-input>-->
-                        <!--<el-button type="primary" style="margin-left:10px" v-on:click="byNameSearch">搜索</el-button>-->
-                    <!--</div>-->
-                    <!--<div class="block">-->
-                        <!--<span class="demonstration">按讲学时间检索:</span>-->
-                        <!--<el-date-picker-->
-                                <!--v-model="form.data1"-->
-                                <!--type="date"-->
-                                <!--placeholder="选择日期">-->
-                        <!--</el-date-picker>-->
-                        <!--<span>-</span>-->
-                        <!--<el-date-picker-->
-                                <!--v-model="form.data2"-->
-                                <!--type="date"-->
-                                <!--placeholder="选择日期">-->
-                        <!--</el-date-picker>-->
-                        <!--<el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch">搜索</el-button>-->
-                    <!--</div>-->
-                <!--</el-form>-->
-            <!--</span>-->
     </header>
 
         <div class="table">
@@ -301,12 +279,12 @@
                     path: `/editLecture/${le_id}`,
                 })
             },
-            byTimeSearch() {
-//                let self = this;
+            byTimeSearch(form) {
+                let self = this;
                 axios.get("timeselectlecture",{
                     params:{
                         start_time: form.data1,
-                        end_time: form.data1,
+                        end_time: form.data2,
                     }
                 }).then(function (response) {
                     var data = response.data;

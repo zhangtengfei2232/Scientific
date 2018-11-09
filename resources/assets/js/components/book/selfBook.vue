@@ -243,7 +243,7 @@ export default {
         sendfile(dataFile) {
             let vue = this;
             this.addBookFile(dataFile).then(res => {
-                var data = res.data;   
+                var data = res.data;
                 if (data.code == 0) {
                     vue.$message({
                         message: '修改成功',
