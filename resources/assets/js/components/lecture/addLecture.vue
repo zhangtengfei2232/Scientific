@@ -58,7 +58,6 @@
             <el-form-item label="图片">
                 <el-upload
                         class="upload-demo"
-                        id="manyPic"
                         ref="le_image"
                         action="#"
                         :before-upload="fileZufil"
@@ -101,7 +100,7 @@
                 Bcode:false,
                 multiple:true,
                 le_img_road: '',
-                le_image: '',
+                le_image: [],
                 le_id:'',
                 form: {
                     le_expert_name:'',
@@ -111,7 +110,7 @@
                     le_invite_unit:'',
                     le_time: '',
                     delivery: false,
-//                    type: [],
+                    type: [],
                 }
             }
         },
@@ -131,7 +130,7 @@
             },
             fileZufil(files){
                 if(this.Bcode == true){
-                    this.dataFile.append("le_image", $("#manyPic")[0].files[0]);
+                    this.dataFile.append('le_image', files);
                     let id = this.form.le_id;
                     this.dataFile.append('le_id', id);
                     this.dataFile.append('is_add_lecture',this.Bcode);
@@ -144,22 +143,6 @@
                 }
             },
             sendfile(dataFile) {
-
-//                var formdata=new FormData($("#form1").[0]);//获取文件法一
-//var formdata=new FormData( );
-//formdata.append("file" , $("#file")[0].files[0]);//获取文件法二
-//                $.ajax({
-//                    type : 'post',
-//                    url : '#',
-//                    data : formdata,
-//                    cache : false,
-//                    processData : false, // 不处理发送的数据，因为data值是Formdata对象，不需要对数据做处理
-//                    contentType : false, // 不设置Content-type请求头
-//                    success : function(){},
-//                    error : function(){ }
-//                })
-
-//                console.log(dataFile,"...........*");
                 this.addBookFile(dataFile).then(res => {
                     var data = res.data;
                     if (data.code == 0) {
@@ -171,7 +154,7 @@
                     } else {
                         vue.$notify({
                             type: 'error',
-                            message: data.message,
+                            message: '添加失败',
                             duration: 2000,
                         });
                     }
@@ -184,10 +167,6 @@
                     headers: {'Content-Type': 'multipart/form-data'},
                     timeout: 20000,
                     data: data,
-
-                    cache : false,
-                    processData : false, // 不处理发送的数据，因为data值是Formdata对象，不需要对数据做处理
-                    contentType : false, // 不设置Content-type请求头
 //                    le_id:id
                 });
             },
