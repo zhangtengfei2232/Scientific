@@ -27,6 +27,21 @@ class ModelDatabase  extends  Model
          }
          return $result;
     }
+    //查老师所有信息
+    public static function selectAllteacherDatas(){
+        $result = DB::table('teacher')->get();
+        foreach ($result as $datas){
+            $datas->borth                 = date('Y-m-d',$datas->borth/1000);
+            $datas->admin_tenure_time     = date('Y-m-d',$datas->admin_tenure_time/1000);
+            $datas->review_time           = date('Y-m-d',$datas->review_time/1000);
+            $datas->appointment_time      = date('Y-m-d',$datas->appointment_time/1000);
+            $datas->working_hours         = date('Y-m-d',$datas->working_hours/1000);
+            $datas->first_graduation_time = date('Y-m-d',$datas->first_graduation_time/1000);
+            $datas->most_graduation_time  = date('Y-m-d',$datas->most_graduation_time/1000);
+            $datas->master_time           = date('Y-m-d',$datas->master_time/1000);
+        }
+        return responseTojson(0,'查询成功','',$result);
+    }
     /**查询某个表的所有数据
      * @param $table_name
      * @param $time_field
