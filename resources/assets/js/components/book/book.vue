@@ -260,7 +260,7 @@
                 axios.get("timeselectopus",{
                     params:{
                         start_time: form.data1,
-                        end_time: form.data1,
+                        end_time: form.data2,
                     }
                 }).then(function (response) {
                     var data = response.data;

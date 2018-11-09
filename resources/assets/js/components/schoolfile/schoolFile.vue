@@ -73,8 +73,8 @@
                                     size="small">
                                 <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentshoolFileDate(shoolFileDate[scope.$index].schfile_id)"></el-button>
                                 <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentshoolFileDate(shoolFileDate[scope.$index].schfile_id)"></el-button>
-                                <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteshooolFileDate(shoolFileDate[scope.$index].schfile_id)"></el-button>
-                                <el-button type="success" icon="el-icon-download" size="mini" @click="uploadshooolFileData(shoolFileDate[scope.$index].schfile_road)"></el-button>
+                                <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteshoolFileDate(shoolFileDate[scope.$index].schfile_id)"></el-button>
+                                <el-button type="success" icon="el-icon-download" size="mini" @click="uploadshoolFileData(shoolFileDate[scope.$index].schfile_road)"></el-button>
                             </el-button>
                         </template>
                     </el-table-column>
@@ -161,7 +161,7 @@
                     this.$refs.multipleTable.clearSelection();
                 }
             },
-            uploadshooolFileData(schfile_road) {
+            uploadshoolFileData(schfile_road) {
                 if(schfile_road == 1) {
                     this.$message.error('pdf文件为空');
                 }else{
@@ -275,15 +275,21 @@
                 })
             },
             byTimeSearch() {
+                let self = this;
                 axios.get("timeselectschoolfile",{
                     params:{
-                        start_time: form.data1,
-                        end_time: form.data1,
+                        start_time: this.form.data1,
+                        end_time: this.form.data2,
                     }
                 }).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
-                        self.shoolFileDate = data.datas;
+                        if(data.datas !== ''){
+                            self.shoolFileDate = data.datas;
+                        }else{
+                            this.$message.error("此时间段无数据");
+                        }
+                        
                     } else {
                         self.$notify({
                             type: 'error',

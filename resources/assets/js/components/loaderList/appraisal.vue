@@ -214,8 +214,7 @@ export default {
             form: {
                 type:'',
                 checkList: [],
-            },
-            
+            },          
         }
     },
     methods: {

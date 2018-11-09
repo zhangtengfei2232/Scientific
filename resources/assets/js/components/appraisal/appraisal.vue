@@ -28,7 +28,7 @@
                         format="yyyy 年 MM 月 dd 日"
                         value-format="timestamp">
                         </el-date-picker>
-                        <span><el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch()">搜索</el-button></span>
+                        <span><el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch(form)">搜索</el-button></span>
                     </div>
                 </el-form>
             </span>

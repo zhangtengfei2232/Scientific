@@ -86,8 +86,7 @@
                         :before-upload="fileProfils"
                         :on-preview="handlePreview"
                         :on-remove="handleRemove"
-                        :auto-upload="false"
-                        :limit="1">
+                        :auto-upload="false">
                         <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
                         <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUploads">上传</el-button>
                         <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
@@ -183,6 +182,9 @@ export default {
         },
         handlePreview(file) {
             console.log(file);
+            this.dataFile.append('jo_image', files);
+            let id = this.form.jo_id;
+            this.dataFile.append('jo_id', id);
         },
         fileProfil(file){
             this.dataForm.append('jo_graph_inject', file);
@@ -190,9 +192,6 @@ export default {
         },
         fileProfils(files){
             if(this.Bcode == true){
-                this.dataFile.append('jo_image', files);
-                let id = this.form.jo_id;
-                this.dataFile.append('jo_id', id);
                 this.sendfile(this.dataFile);
             }else{
                 this.$message.error('请先添加数据信息');
@@ -268,7 +267,7 @@ export default {
                             if (data.code == 0) {
                                 this.Bcode = true;
                                 vue.$message({
-                                    message: '添加成功',
+                                    message: '修改成功',
                                     type: 'success'
                                 });
                             } else {

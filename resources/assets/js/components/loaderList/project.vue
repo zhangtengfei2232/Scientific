@@ -3,7 +3,7 @@
         <div class="cont">
             <div class="header">
                 <el-header>
-                    <div class="art">项目（）</div>
+                    <div class="art">项目（{{ total }}）</div>
                     <div class="search">
                         <el-row>
                             <el-col :span="12">
@@ -48,7 +48,7 @@
                                 prefix-icon="el-icon-search"
                                 v-model="input">
                             </el-input>
-                            <div slot="reference">成员：作者<i class="el-icon-arrow-down el-icon--right"></i></div>
+                            <div slot="reference">检索：作者<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
                     </div>
                     <div class="search">
@@ -173,11 +173,13 @@
                     width="120">
                 </el-table-column>
             </el-table>
-            <el-pagination
-                background
-                layout="prev, pager, next"
-                :total="1000">
-            </el-pagination>
+            <div class="page">
+                <el-pagination
+                    background
+                    layout="prev, pager, next"
+                    :total="1000">
+                </el-pagination>
+            </div>
         </div>
     </div>
 </template>
@@ -201,6 +203,10 @@
         padding: 20px 20px;
         border-right: 1px #d4d8d7 solid;
     }
+    .page{
+        width: 30%;
+        margin: 0 auto;
+    }
 </style>
 
 <script>
@@ -212,6 +218,7 @@ export default {
             allProject:[],
             data1: '',
             input:'',
+            total:'',
             form: {
                 type:'',
                 checkList: [],
@@ -222,10 +229,11 @@ export default {
     methods: {
         getProjectData() {
             let self = this;
-            axios.get("").then(function (response) {
+            axios.get("leaderselectallproject").then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allProject = data.datas;
+                    self.total = data.datas.length;
                 } else {
                     self.$notify({
                         type: 'error',
@@ -240,7 +248,7 @@ export default {
         }
     },
     mounted() {
-        this.allProject();
+        this.getProjectData();
     }
 }
 </script>

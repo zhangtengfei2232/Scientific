@@ -117,6 +117,9 @@
         },
         handlePreview(file) {
             console.log(file);
+            this.dataFile.append('ho_file', files);
+            let id = this.ho_id;
+            this.dataFile.append('ho_id', id);
         },
         fileProfil(file){
             this.dataForm.append('ho_graph_inject', file);
@@ -124,9 +127,6 @@
         },
         fileProfils(files){
             if(this.Bcode == true){
-                this.dataFile.append('ho_file', files);
-                let id = this.ho_id;
-                this.dataFile.append('ho_id', id);
                 this.dataFile.append('is_add_joinmeet',this.Bcode);
                 this.sendfile(this.dataFile);
             }else{

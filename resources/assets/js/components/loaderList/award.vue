@@ -3,7 +3,7 @@
         <div class="cont">
             <div class="header">
                 <el-header>
-                    <div class="art">获奖（）</div>
+                    <div class="art">获奖（{{ total }}）</div>
                     <div class="search">
                         <el-row>
                             <el-col :span="12">
@@ -201,6 +201,7 @@ export default {
             allAward:[],
             data1: '',
             input:'',
+            total:'',
             form: {
                 type:'',
                 checkList: [],
@@ -211,10 +212,11 @@ export default {
     methods: {
         getArticleData() {
             let self = this;
-            axios.get("").then(function (response) {
+            axios.get("leaderselectallaward").then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allAward = data.datas;
+                    self.total = data.datas.length;
                 } else {
                     self.$notify({
                         type: 'error',
