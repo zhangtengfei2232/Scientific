@@ -28,7 +28,7 @@
                         format="yyyy 年 MM 月 dd 日"
                         value-format="timestamp">
                         </el-date-picker>
-                        <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch">搜索</el-button>
+                        <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch(form)">搜索</el-button>
                     </div>
                 </el-form>
             </span>
@@ -185,16 +185,20 @@
                 })
             },
             
-            byTimeSearch() {
+            byTimeSearch(form) {
                 axios.get("timeselectholdmeet",{
                     params:{
                         start_time: form.data1,
-                        end_time: form.data1,
+                        end_time: form.data2,
                     }
                 }).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
-                        self.AppraisalDate = data.datas;
+                        if(data.datas == '') {
+                            alert("此时间段无数据");
+                        }else{
+                            self.HoldmeetlDate = data.datas;
+                        }
                     } else {
                         self.$notify({
                             type: 'error',

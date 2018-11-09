@@ -34,7 +34,7 @@
             </span>
         </header>
 
-        <div class="table">
+        <div class="table" v-show="cont">
             <template>
                 <el-table
                     ref="multipleTable"
@@ -79,11 +79,14 @@
                     </el-table-column>
                 </el-table>
                 <div style="margin-top: 20px">
-                    <el-button @click="toggleSelection([BookDate[1], BookDate[2], BookDate[3]])">切换第二、第三行的选中状态</el-button>
+                    <el-button @click="toggleSelection([BookDate[1], BookDate[2], BookDate[0]])">选中前三条</el-button>
                     <el-button @click="toggleSelection()">取消选择</el-button>
                     <el-button @click="BatchDelete()">删除</el-button>
                 </div>
             </template>
+        </div>
+        <div class="null" v-show="conts">
+            <img src="/dist/img/null.png" alt="">
         </div>
     </div>
 </template>
@@ -118,6 +121,10 @@
         width: 80%;
         margin: 20px 0 0 5%;
     }
+    .null{
+        margin: 0 auto;
+        width: 150px;
+    }
 </style>
 
 <script>
@@ -129,6 +136,8 @@
                 checked: false,
                 checkAll: false,
                 sortable:true,
+                cont:true,
+                conts:false,
                 form: {
                     data1: '',
                     data2: '',
@@ -260,12 +269,19 @@
                 axios.get("timeselectopus",{
                     params:{
                         start_time: form.data1,
-                        end_time: form.data1,
+                        end_time: form.data2,
                     }
                 }).then(function (response) {
                     var data = response.data;
+                    console.log(data.datas);
                     if (data.code == 0) {
-                        self.BookDate = data.datas;
+                         if(data.datas == '') {
+                            self.cont = false;
+                            self.conts = true;
+                        }else{
+                            self.BookDate = data.datas;
+                            location. reload();
+                        }
                     } else {
                         self.$notify({
                             type: 'error',

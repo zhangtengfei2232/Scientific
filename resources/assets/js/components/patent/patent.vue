@@ -28,7 +28,7 @@
                         format="yyyy 年 MM 月 dd 日"
                         value-format="timestamp">
                         </el-date-picker>
-                        <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch">搜索</el-button>
+                        <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch(form)">搜索</el-button>
                     </div>
                 </el-form>
             </span>
@@ -77,7 +77,7 @@
                     </el-table-column>
                 </el-table>
                 <div style="margin-top: 20px">
-                    <el-button @click="toggleSelection([PatentDate[1], PatentDate[2]])">切换第二、第三行的选中状态</el-button>
+                    <el-button @click="toggleSelection([PatentDate[0],PatentDate[1], PatentDate[2]])">选中前三条</el-button>
                     <el-button @click="toggleSelection()">取消选择</el-button>
                     <el-button @click="BatchDelete()">删除</el-button>
                 </div>
@@ -252,18 +252,18 @@
                 path: `/selfPatent/${pa_id}`,
                 })
             },
-            byTimeSearch() {
+            byTimeSearch(form) {
                 axios.get("timeselectpatent",{
                     params:{
                         start_time: form.data1,
-                        end_time: form.data1,
+                        end_time: form.data2,
                     }
                 }).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
-                        self.PatentDate = data.datas;
+                        this.PatentDate = data.datas;
                     } else {
-                        self.$notify({
+                        this.$notify({
                             type: 'error',
                             message: data.message,
                             duration: 2000,         

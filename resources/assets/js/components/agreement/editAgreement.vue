@@ -59,7 +59,7 @@
         data() {
             return {
                 AgreementeDitData: {},
-                filelists: [{url:''}],
+                filelists: [],
                 agree_road:'',
                 school:false,
                 dataForm: new FormData(),
@@ -80,7 +80,7 @@
                         self.AgreementeDitData = data.datas;
                         self.form = data.datas;
                         console.log(self.form);
-                        self.filelists.url = 'showfile?disk=agreement&subjection=' + data.datas.agree_road;
+                        self.filelists = 'showfile?disk=agreement&subjection=' + data.datas.agree_road;
                     } else {
                         self.$notify({
                             type: 'error',

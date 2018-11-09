@@ -189,7 +189,7 @@ export default {
         },
         fileProfils(files){
             if(files !== ''){
-                this.dataFile.append('ap_cover_road', files);
+                this.dataFile.append('ap_road', files);
                 let id = this.ap_id;
                 this.dataFile.append('ap_id', id);
                 this.sendfile(this.dataFile);

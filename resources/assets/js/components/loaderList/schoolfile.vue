@@ -3,7 +3,7 @@
         <div class="cont">
             <div class="header">
                 <el-header>
-                    <div class="art">校发文件（）</div>
+                    <div class="art">校发文件（{{ total }}）</div>
                     <div class="search">
                         <el-row>
                             <el-col :span="12">
@@ -168,6 +168,7 @@ export default {
             allSchoolfile:[],
             data1: '',
             input:'',
+            total:'',
             form: {
                 type:'',
                 checkList: [],
@@ -178,10 +179,11 @@ export default {
     methods: {
         getSchoolfileData() {
             let self = this;
-            axios.get("").then(function (response) {
+            axios.get("leaderselectallschoolfile").then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allSchoolfile = data.datas;
+                    self.total = data.datas.length;
                 } else {
                     self.$notify({
                         type: 'error',

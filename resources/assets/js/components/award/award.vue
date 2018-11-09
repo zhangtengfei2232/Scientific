@@ -232,7 +232,7 @@
                     }).then(function (response) {
                     var data = response.data;
                         if (data.code == 0) {
-                             self.$message({
+                            self.$message({
                                 type: 'success',
                                 message: '删除成功!'
                             });
@@ -256,12 +256,18 @@
                 axios.get("timeselectaward",{ 
                     params:{
                         start_time: form.data1,
-                        end_time: form.data1,
+                        end_time: form.data2,
                     }
                 }).then(function (response) {
                     var data = response.data;
+                    console.log(response.data);
                     if (data.code == 0) {
-                        self.AwardDate = data.datas;
+                        if(data.datas == ''){
+                           alert("该时间段无数据!");
+                        }else{
+                            self.AwardDate = data.datas;
+                        }
+                        
                     } else {
                         self.$notify({
                             type: 'error',

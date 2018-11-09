@@ -92,7 +92,7 @@
                 if(file !== ''){
                     this.checkFileExt(file.name);
                     this.school = true;
-                    this.dataForm.append('schfile_file', file);
+                    this.dataForm.append('judge_schoolfile', file);
                     return false;
                 }else{
                     this.$message.error('文件不能为空');                    

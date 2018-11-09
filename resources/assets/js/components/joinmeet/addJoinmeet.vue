@@ -72,11 +72,11 @@
                         class="upload-demo"
                         ref="jo_image"
                         action="#"
+                        multiple
                         :before-upload="fileProfils"
                         :on-preview="handlePreview"
                         :on-remove="handleRemove"
                         :auto-upload="false"
-                        :limit="1"
                         list-type="picture">
                         <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
                         <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUploads">上传</el-button>
@@ -134,6 +134,9 @@
         },
         handlePreview(file) {
             console.log(file);
+            this.dataFile.append('jo_image', files);
+            let id = this.form.jo_id;
+            this.dataFile.append('jo_id', id);
         },
         fileProfil(file){
             this.dataForm.append('jo_graph_inject', file);
@@ -141,11 +144,9 @@
         },
         fileProfils(files){
             if(this.Bcode == true){
-                this.dataFile.append('jo_image', files);
-                let id = this.form.jo_id;
-                this.dataFile.append('jo_id', id);
                 this.dataFile.append('is_add_joinmeet',this.Bcode);
                 this.sendfile(this.dataFile);
+                console.log(this.dataFile);
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
