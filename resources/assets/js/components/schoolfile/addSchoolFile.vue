@@ -75,7 +75,7 @@
             fileProfil(file){
                 if(file !== ''){
                     this.school=true,
-                    this.dataForm.append('schfile_road', file);
+                    this.dataForm.append('judge_schoolfile', file);
                     return false;
                 }else{
                     this.$message.error('pdf文件不能为空');

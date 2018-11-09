@@ -28,7 +28,7 @@
                         format="yyyy 年 MM 月 dd 日"
                         value-format="timestamp">
                         </el-date-picker>
-                        <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch">搜索</el-button>
+                        <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch(form)">搜索</el-button>
                     </div>
                 </el-form>
             </span>
@@ -252,11 +252,12 @@
                     path: `/selfJoinmeet/${jo_id}`,
                 })
             },
-            byTimeSearch() {
+            byTimeSearch(form) {
+                console.log(form);
                 axios.get("timeselectjoinmeet",{
                     params:{
-                        start_time: this.form.data1,
-                        end_time: this.form.data2,
+                        start_time: form.data1,
+                        end_time: form.data2,
                     }
                 }).then(function (response) {
                     var data = response.data;
