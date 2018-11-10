@@ -28,6 +28,7 @@
                         :limit="1"
                         ref="schfile_file"
                         :before-upload="fileProfil"
+                        :on-preview="handlePreview"
                         accept="pdf"
                         multiple
                         :auto-upload="false">
@@ -61,6 +62,7 @@
             return {
                 school:false,
                 schoolFleData:{},
+                schfile_road:'',
                 dataForm: new FormData(),
                 form: {
                     schfile_name: '',
@@ -72,14 +74,17 @@
         methods: {
             fileProfil(file){
                 if(file !== ''){
-                    this.checkFileExt(file.name);
                     this.school=true,
-                    this.dataForm.append('schfile_file', file);
+                    this.dataForm.append('judge_schoolfile', file);
                     return false;
                 }else{
                     this.$message.error('pdf文件不能为空');
                     return                    
                 }
+            },
+            handlePreview(file) {
+                console.log(file);
+                this.checkFileExt(file.name);
             },
             checkFileExt(filename){
                 if(filename == '') {

@@ -341,7 +341,7 @@ export default {
             }
         },
         checkYearExt(time){
-            let a = time.split('，');
+            let a = time.split(',');
             this.year1 = a[0];
             this.year2 = a[1];
             this.year3 = a[2];

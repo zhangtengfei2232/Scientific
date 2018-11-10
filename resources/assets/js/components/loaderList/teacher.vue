@@ -3,7 +3,7 @@
         <div class="cont">
             <div class="header">
                 <el-header style="height: 45px;">
-                    <div class="art">所有成员(213)</div>
+                    <div class="art">所有成员({{form.num}})</div>
                     <!--<div class="search">-->
                         <!--<el-row>-->
                             <!--<el-col :span="12">-->
@@ -53,7 +53,7 @@
                         </el-popover>
                     </div>
                     <div class="search">
-                        <el-dropdown  @command="titleCommand">
+                        <el-dropdown  @command="titleCommand" style="font-size: 16px;">
                             <span class="el-dropdown-link">
                             老师职称<i class="el-icon-arrow-down el-icon--right"></i>
                             </span>
@@ -133,7 +133,7 @@
                                 <!--width="400"-->
                                 <!--trigger="click">-->
                             <el-form ref="form" :model="form" label-width="50px">
-                                <el-dropdown @command="levelCommand">
+                                <el-dropdown @command="levelCommand" style="font-size: 16px;">
                                     <span class="el-dropdown-link">
                                     职务级别<i class="el-icon-arrow-down el-icon--right"></i>
                                     </span>
@@ -145,22 +145,7 @@
                                         <el-dropdown-item command="5">其他</el-dropdown-item>
                                     </el-dropdown-menu>
                                 </el-dropdown>
-                                <!--<el-form-item>-->
-                                    <!--<el-checkbox-group v-model="form.checkList">-->
-                                        <!--<el-checkbox :label="1" name="type">正处</el-checkbox>-->
-                                        <!--<el-checkbox :label="2" name="type">副处</el-checkbox>-->
-                                        <!--<el-checkbox :label="3" name="type">正科</el-checkbox>-->
-                                        <!--<el-checkbox :label="4" name="type">副科</el-checkbox>-->
-                                        <!--<el-checkbox :label="5" name="type">其他</el-checkbox>-->
-                                    <!--</el-checkbox-group>-->
-                                <!--</el-form-item>-->
-                                <!--<el-form-item>-->
-                                    <!--<el-button type="primary" @click="onSubmitLevel(form)">确定</el-button>-->
-                                    <!--<el-button>取消</el-button>-->
-                                <!--</el-form-item>-->
                             </el-form>
-                            <!--<div slot="reference">职务级别<i class="el-icon-arrow-down el-icon&#45;&#45;right"></i></div>-->
-                        <!--</el-popover>-->
                     </div>
                     <div class="search">
                         <!--<el-popover-->
@@ -168,7 +153,7 @@
                                 <!--width="400"-->
                                 <!--trigger="click">-->
                             <el-form ref="form" :model="form" label-width="50px">
-                                <el-dropdown @command="postCommand">
+                                <el-dropdown @command="postCommand" style="font-size: 16px;">
                                     <span class="el-dropdown-link">
                                     岗位类别<i class="el-icon-arrow-down el-icon--right"></i>
                                     </span>
@@ -179,21 +164,7 @@
                                         <el-dropdown-item command="4">副主任</el-dropdown-item>
                                     </el-dropdown-menu>
                                 </el-dropdown>
-                                <!--<el-form-item>-->
-                                    <!--<el-checkbox-group v-model="form.checkList">-->
-                                        <!--<el-checkbox :label="1" name="type">教学秘书</el-checkbox>-->
-                                        <!--<el-checkbox :label="2" name="type">院长</el-checkbox>-->
-                                        <!--<el-checkbox :label="3" name="type">办公室主任</el-checkbox>-->
-                                        <!--<el-checkbox :label="4" name="type">副主任</el-checkbox>-->
-                                    <!--</el-checkbox-group>-->
-                                <!--</el-form-item>-->
-                                <!--<el-form-item>-->
-                                    <!--<el-button type="primary" @click="onSubmitPost(form)">确定</el-button>-->
-                                    <!--<el-button>取消</el-button>-->
-                                <!--</el-form-item>-->
                             </el-form>
-                            <!--<div slot="reference">岗位类别<i class="el-icon-arrow-down el-icon&#45;&#45;right"></i></div>-->
-                        <!--</el-popover>-->
                     </div>
                 </el-header>
             </div>
@@ -201,35 +172,40 @@
                     :data="teacherDate"
                     style="width:100%"
                     border
-                    height="550">
+                    height="560">
                 <el-table-column
                         fixed
+                        prop="name"
+                        label="姓名">
+                </el-table-column>
+                <el-table-column
                         prop="teacher_department"
-                        label="老师所属部门">
+                        label="老师所属部门"
+                        width="120">
                 </el-table-column>
                 <el-table-column
                         prop="teacher_id"
                         label="老师工号">
                 </el-table-column>
                 <el-table-column
-                        prop="name"
-                        label="姓名">
-                </el-table-column>
-                <el-table-column
                         prop="office_phone"
-                        label="办公电话">
+                        label="办公电话"
+                        width="113">
                 </el-table-column>
                 <el-table-column
                         prop="home_phone"
-                        label="住宅电话">
+                        label="住宅电话"
+                        width="113">
                 </el-table-column>
                 <el-table-column
                         prop="phone"
-                        label="手机号">
+                        label="手机号"
+                        width="113">
                 </el-table-column>
                 <el-table-column
                         prop="sex"
-                        label="性别">
+                        label="性别"
+                        width="40">
                 </el-table-column>
                 <el-table-column
                         prop="nation"
@@ -237,7 +213,9 @@
                 </el-table-column>
                 <el-table-column
                         prop="borth"
-                        label="出生年月">
+                        label="出生年月"
+                        align="center"
+                        width="100">
                 </el-table-column>
                 <el-table-column
                         prop="polit_outlook"
@@ -253,7 +231,9 @@
                 </el-table-column>
                 <el-table-column
                         prop="admin_tenure_time"
-                        label="任职时间">
+                        label="任职时间"
+                        align="center"
+                        width="100">
                 </el-table-column>
                 <el-table-column
                         prop="job_level"
@@ -269,11 +249,15 @@
                 </el-table-column>
                 <el-table-column
                         prop="review_time"
-                        label="评审通过时间">
+                        label="评审通过时间"
+                        align="center"
+                        width="100">
                 </el-table-column>
                 <el-table-column
                         prop="appointment_time"
-                        label="聘任时间">
+                        label="聘任时间"
+                        align="center"
+                        width="100">
                 </el-table-column>
                 <el-table-column
                         prop="series"
@@ -293,7 +277,9 @@
                 </el-table-column>
                 <el-table-column
                         prop="working_hours"
-                        label="来校工作时间">
+                        label="来校工作时间"
+                        align="center"
+                        width="100">
                 </el-table-column>
                 <el-table-column
                         prop="origin_work_unit"
@@ -325,7 +311,8 @@
                 </el-table-column>
                 <el-table-column
                         prop="first_graduation_time"
-                        label="第一毕业时间">
+                        label="第一毕业时间"
+                        width="100">
                 </el-table-column>
                 <el-table-column
                         prop="most_academic"
@@ -341,7 +328,8 @@
                 </el-table-column>
                 <el-table-column
                         prop="most_graduation_time"
-                        label="最高毕业时间">
+                        label="最高毕业时间"
+                        width="100">
                 </el-table-column>
                 <el-table-column
                         prop="work_major"
@@ -361,17 +349,18 @@
                 </el-table-column>
                 <el-table-column
                         prop="master_time"
-                        label="硕博获得时间">
-                </el-table-column>
-                <el-table-column
-                        fixed="right"
-                        label="操作"
+                        label="硕博获得时间"
                         width="100">
-                    <template slot-scope="scope">
-                        <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-                        <el-button type="text" size="small">编辑</el-button>
-                    </template>
                 </el-table-column>
+                <!--<el-table-column-->
+                        <!--fixed="right"-->
+                        <!--label="操作"-->
+                        <!--width="100">-->
+                    <!--<template slot-scope="scope">-->
+                        <!--<el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>-->
+                        <!--<el-button type="text" size="small">编辑</el-button>-->
+                    <!--</template>-->
+                <!--</el-table-column>-->
 
             </el-table>
             <el-pagination
@@ -427,12 +416,46 @@
                     duties:'',
                     lab:'',
                     major:'',
+                    num:''
                 },
                 sex:[
                     '男',
                     '女',
                 ],
-
+                teacher_department:[//所属部门
+                    '生工',
+                    '生物技术系',
+                    '农学系',
+                    '领导行政政工',
+                ],
+                job_level:[ //职务级别
+                    '正处',
+                    '副处',
+                    '正科',
+                    '副科',
+                    '其他'
+                ],
+                technical_position:[//专业技术职务
+                    '教授',
+                    '副教授',
+                    '讲师',
+                    '助教',
+                    '实验师',
+                    '助理实验师',
+                    '高级实验师'
+                ],
+                academic_title:[    //老师职称
+                    '初级',
+                    '中级',
+                    '副高',
+                    '正高'
+                ],
+                post_category:[     //岗位类别
+                    '教学秘书',
+                    '院长',
+                    '办公室主任',
+                    '副主任'
+                ]
             }
         },
         methods: {
@@ -440,6 +463,15 @@
                 let self = this;
                 axios.get("leaderselectallteacher").then(function (response) {
                     var data = response.data;
+                    self.form.num = data.datas.length;
+                    for(var i=0;i<data.datas.length;i++){
+                        data.datas[i].sex = self.sex[data.datas[i].sex];
+                        data.datas[i].teacher_department = self.teacher_department[data.datas[i].teacher_department];//所属部门
+                        data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
+                        data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
+                        data.datas[i].academic_title = self.academic_title[data.datas[i].academic_title];//老师职称
+                        data.datas[i].post_category = self.post_category[data.datas[i].post_category];//岗位类别
+                    }
                     if (data.code == 0) {
                         self.teacherDate = data.datas;
                     } else {
@@ -550,8 +582,6 @@
                 });
             },
             titleCommand(command){      //老师职称
-//                this.$message('click on item ' + command);
-//                console.log(command,'*/////*//*/*/*/*')
                 let self = this;
                 axios.get("byacademictitleselectteacher",{
                     params:{
@@ -571,10 +601,42 @@
                 });
             },
             levelCommand(command){       //职务级别
-
+                let self = this;
+                axios.get("byjoblevelselectteacher",{
+                    params:{
+                        job_level: command,
+                    }
+                }).then(function (response) {
+                    var data = response.data;
+                    if (data.code == 0) {
+                        self.teacherDate = data.datas;
+                    } else {
+                        self.$notify({
+                            type: 'error',
+                            message: data.message,
+                            duration: 2000,
+                        });
+                    }
+                });
             },
             postCommand(command){       //岗位类别
-
+                let self = this;
+                axios.get("bypostcategoryselectteacher",{
+                    params:{
+                        post_category: command,
+                    }
+                }).then(function (response) {
+                    var data = response.data;
+                    if (data.code == 0) {
+                        self.teacherDate = data.datas;
+                    } else {
+                        self.$notify({
+                            type: 'error',
+                            message: data.message,
+                            duration: 2000,
+                        });
+                    }
+                });
             },
 //            onSubmitPost() {
 //

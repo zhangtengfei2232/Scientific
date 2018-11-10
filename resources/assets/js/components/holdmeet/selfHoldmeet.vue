@@ -165,6 +165,9 @@ export default {
         },
         handlePreview(file) {
             console.log(file);
+            this.dataFile.append('ho_file', files);
+            let id = this.ho_id;
+            this.dataFile.append('ho_id', id);
         },
         fileProfil(file){
             this.dataForm.append('ho_graph_inject', file);
@@ -172,16 +175,13 @@ export default {
         },
         fileProfils(files){
             if(files  != ''){
-                this.dataFile.append('ho_file', files);
-                let id = this.ho_id;
-                this.dataFile.append('ho_id', id);
-                this.sendfile(dataFile);      
+                this.sendfile(this.dataFile);      
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
             }
         },
-        sendfile(file) {
+        sendfile(dataFile) {
             this.addBookFile(dataFile).then(res => {
                 var data = res.data;
                 if (data.code == 0) {

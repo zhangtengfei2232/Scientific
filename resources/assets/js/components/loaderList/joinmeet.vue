@@ -3,7 +3,7 @@
         <div class="cont">
             <div class="header">
                 <el-header>
-                    <div class="art">参加会议（）</div>
+                    <div class="art">参加会议（{{ total }}）</div>
                     <div class="search">
                         <el-row>
                             <el-col :span="12">
@@ -203,6 +203,7 @@ export default {
             allJoinmeet:[],
             data1: '',
             input:'',
+            total:'',
             form: {
                 type:'',
                 checkList: [],
@@ -213,10 +214,11 @@ export default {
     methods: {
         getJoinmeetData() {
             let self = this;
-            axios.get("").then(function (response) {
+            axios.get("leaderselectalljoinmeet").then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allJoinmeet = data.datas;
+                    self.total = data.datas.length;
                 } else {
                     self.$notify({
                         type: 'error',

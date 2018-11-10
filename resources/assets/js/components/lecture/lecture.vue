@@ -142,10 +142,10 @@
         data() {
             return {
                 id: [],
-                dataForm: new FormData(),
-                ExperspeakDate: [],
                 sortable:true,
+                ExperspeakDate: [],
                 checked: false,
+                dataForm: new FormData(),
                 form: {
                     le_expert_name:'',
                     data1: '',
@@ -170,21 +170,6 @@
             handleSelectionChange(val) {
                 this.multipleSelection = val;
             },
-            getExperspeakDate() {
-                let self = this;
-                axios.get("selectalllecture").then(function (response) {
-                    var data = response.data;
-                    if (data.code == 0) {
-                        self.ExperspeakDate = data.datas;
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.message,
-                            duration: 2000,
-                        });
-                    }
-                });
-            },
             BatchDelete(){
                 var self = this;
                 var le_id_datas = [];//存放删除的数据
@@ -202,7 +187,21 @@
                     this.deleteExperspeakDates(le_id_datas);
                 }
             },
-
+            getExperspeakDate() {
+                let self = this;
+                axios.get("selectalllecture").then(function (response) {
+                    var data = response.data;
+                    if (data.code == 0) {
+                        self.ExperspeakDate = data.datas;
+                    } else {
+                        self.$notify({
+                            type: 'error',
+                            message: data.message,
+                            duration: 2000,
+                        });
+                    }
+                });
+            },
             deleteExperspeakDates(le_id_datas) {
 //                console.log(le_id_datas,'下面删除AAAAAAA');
                 this.$confirm('此操作批量删除文件, 是否继续?', '提示', {
@@ -280,6 +279,9 @@
                 })
             },
             byTimeSearch(form) {
+                if(form.data1 == ''||form.data2 == ''){
+                    this.$message.error("搜索时间不能为空！");
+                }
                 let self = this;
                 axios.get("timeselectlecture",{
                     params:{

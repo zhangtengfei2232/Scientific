@@ -3,7 +3,7 @@
         <div class="cont">
             <div class="header">
                 <el-header>
-                    <div class="art">论文（）</div>
+                    <div class="art">论文（{{ total }}）</div>
                     <div class="search">
                         <el-row>
                             <el-col :span="12">
@@ -223,6 +223,7 @@ export default {
             allArticle:[],
             data1: '',
             input:'',
+            total:'',
             form: {
                 type:'',
                 checkList: [],
@@ -233,10 +234,11 @@ export default {
     methods: {
         getArticleData() {
             let self = this;
-            axios.get("").then(function (response) {
+            axios.get("leaderselectallartical").then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allArticle = data.datas;
+                    self.total = data.datas.length;
                 } else {
                     self.$notify({
                         type: 'error',

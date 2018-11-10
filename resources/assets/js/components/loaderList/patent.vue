@@ -3,7 +3,7 @@
         <div class="cont">
             <div class="header">
                 <el-header>
-                    <div class="art">专利（）</div>
+                    <div class="art">专利（{{ total }}）</div>
                     <div class="search">
                         <el-row>
                             <el-col :span="12">
@@ -82,7 +82,7 @@
                                         <el-checkbox :label="8">CSSCI核心库</el-checkbox>
                                         <el-checkbox :label="9">中文核心</el-checkbox>
                                         <el-checkbox :label="10">CSCD核心库</el-checkbox>
-                                        <el-checkbox :label="11">河南科技学院期刊</el-checkbox>  
+                                        <el-checkbox :label="11">河南科技学院期刊</el-checkbox>
                                     </el-checkbox-group>
                                 </el-form-item> 
                                 <el-form-item label="研究类别">
@@ -203,6 +203,7 @@ export default {
             allPatent:[],
             data1: '',
             input:'',
+            total:'',
             form: {
                 type:'',
                 checkList: [],
@@ -213,10 +214,12 @@ export default {
     methods: {
         getPatentData() {
             let self = this;
-            axios.get("").then(function (response) {
+            axios.get("leaderselectallpatent").then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allPatent = data.datas;
+                    console.log(data.datas);
+                    self.total = data.datas.length;
                 } else {
                     self.$notify({
                         type: 'error',

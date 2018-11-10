@@ -33,7 +33,7 @@
                 </el-form>
             </span>
         </header>
-        <div class="table">
+        <div class="table" v-show="cont">
             <template>
                 <el-table
                     ref="multipleTable"
@@ -84,6 +84,9 @@
                 </div>
             </template>
         </div>
+        <div class="null" v-show="conts">
+            <img src="/dist/img/null.png" alt="">
+        </div>
     </div>
 </template>
 
@@ -128,6 +131,8 @@
                 checked: false,
                 checkAll: false,
                 isIndeterminate: true,
+                cont:true,
+                conts:false,
                 form: {
                     data1: '',
                     data2: '',
@@ -273,7 +278,12 @@
                 }).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
-                        
+                        if(data.datas == '') {
+                            self.cont = false;
+                            self.conts = true;
+                        }else{
+                            self.ArticleDate = data.datas;
+                        }
                     } else {
                         self.$notify({
                             type: 'error',

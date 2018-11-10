@@ -28,7 +28,7 @@
                         format="yyyy 年 MM 月 dd 日"
                         value-format="timestamp">
                         </el-date-picker>
-                        <span><el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch()">搜索</el-button></span>
+                        <span><el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch(form)">搜索</el-button></span>
                     </div>
                 </el-form>
             </span>
@@ -252,27 +252,27 @@
                 path: `/selfAppraisal/${ap_id}`,
                 })
             },
-            byTimeSearch() {
-                console.log(this.form);
-                if(this.form.data1 == '' || this.form.data2 == ''){
+            byTimeSearch(form) {
+                if(form.data1 == '' || form.data2 == ''){
                     this.$message.error("不能输入空");
                     return
                 }
                 axios.get("timeselectappraisal",{
                     params:{
-                        start_time: this.form.data1,
-                        end_time: this.form.data2,
+                        start_time: form.data1,
+                        end_time: form.data2,
                     }
                 }).then(function (response) {
+                    let self = this;
                     var data = response.data;
                     if (data.code == 0) {
                         console.log(data.datas);
                         if(data.datas == ''){
                             alert("该时间段无数据");
-                            // this.$message.error("该时间段无数据");
                         }else{
-                            this.AppraisalDate = data.datas;
-                            this.$message({
+                            self.AppraisalDate = [];
+                            self.AppraisalDate = data.datas;
+                            self.$message({
                                 type: 'success',
                                 message: '查询成功!'
                             });
