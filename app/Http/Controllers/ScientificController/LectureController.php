@@ -52,11 +52,13 @@ class LectureController extends Controller
      //删除专家讲学信息
      public function deleteLecture(Request $request){
          $le_id_datas     = $request->le_id_datas;
+         $table_name          = SearchMessageConfig::LECTURE_TABLE;
+         $id_field            = SearchMessageConfig::LECTURE_ID;
          $old_inject_road = LectureDatabase::selectLectureInject($le_id_datas);
          $owner_status    = UploadSubjectionConfig::LECTURE_IMG_STATUS;
          $old_image_road  = ImageDatas::selectAllOwnerImage($le_id_datas,$owner_status);
          LectureDatabase::beginTraction();
-         $delete_lecture  = LectureDatabase::deleteLectureDatas($le_id_datas);
+         $delete_lecture  = ModelDatabase::deleteAllDatas($table_name,$id_field,$le_id_datas);
          $delete_image    = ImageDatas::byOwnerdeleteImagesDatas($le_id_datas);
          if($delete_image && $delete_lecture){
              LectureDatabase::commit();

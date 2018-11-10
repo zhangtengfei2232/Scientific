@@ -64,5 +64,6 @@ class AgreementDatabase extends ModelDatabase
                     ->first();
             $agreement_name[$i] = $name->agree_name;
         }
+        return $agreement_name;
     }
 }

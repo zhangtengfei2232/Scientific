@@ -45,10 +45,18 @@ class AgreementController extends Controller
     //删除教学科研合作协议信息
     public function deleteAgreement(Request $request){
         $agreement_id_datas   = $request->ag_id_datas;
+        $table_name           = SearchMessageConfig::AGREEMENT_TABLE;
+        $id_field             = SearchMessageConfig::AGREEMENT_ID;
         $agreement_raod_datas = AgreementDatabase::selectAgreementRoad($agreement_id_datas);
-        $delete_agreement     = AgreementDatabase::deleteAgreementDatas($agreement_id_datas);
-        deleteAllFiles(uploadSubjectionConfig::AGREEMENT,$agreement_raod_datas);
-        return responseTojson(1,'删除成功');
+        ModelDatabase::beginTraction();
+        $delete_agreement     = ModelDatabase::deleteAllDatas($table_name,$id_field,$agreement_id_datas);
+        if($delete_agreement){
+            ModelDatabase::commit();
+            deleteAllFiles(uploadSubjectionConfig::AGREEMENT,$agreement_raod_datas);
+            return responseTojson(0,'删除成功');
+        }
+        ModelDatabase::rollback();
+        return responseTojson(1,'删除失败');
     }
     //修改教学科研合作协议信息
     public function updateAgreement(Request $request){

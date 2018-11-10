@@ -16,6 +16,11 @@ class ModelDatabase  extends  Model
     public static function rollback(){
         return DB::rollback();
     }
+    //删除多个数据
+    public static function deleteAllDatas($table_name,$id_field,$id_datas){
+         $response = DB::table($table_name)->whereIn($id_field,$id_datas)->delete();
+         return ($response == count($id_datas)) ? true : false;
+    }
     //根据字段组合查询数据
     public static function combinationSelectDatas($condition_datas,$first_datas,$second_datas){
          $result = DB::table($condition_datas['table_name'])

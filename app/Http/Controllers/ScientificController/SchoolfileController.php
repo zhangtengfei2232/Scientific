@@ -45,10 +45,18 @@ class SchoolfileController extends Controller
     //删除校发文件
     public function deleteSchoolfile(Request $request){
         $schoolfile_id_datas  = $request->sc_id_datas;
+        $table_name          = SearchMessageConfig::SCHOOL_FILE_TABLE;
+        $id_field            = SearchMessageConfig::SCHOOLFILE_ID;
         $schoofile_road_datas = SchoolfileDatabase::selectSchoolfileRoad($schoolfile_id_datas);
-        $delete_schoolfile    = SchoolfileDatabase::deleteSchoolfileDatas($schoolfile_id_datas);
-        deleteAllFiles(uploadSubjectionConfig::SCHOOL_FILE,$schoofile_road_datas);
-        return responseTojson(0,'删除成功');
+        ModelDatabase::beginTraction();
+        $delete_schoolfile    = ModelDatabase::deleteAllDatas($table_name,$id_field,$schoolfile_id_datas);
+        if($delete_schoolfile) {
+            ModelDatabase::commit();
+            deleteAllFiles(uploadSubjectionConfig::SCHOOL_FILE, $schoofile_road_datas);
+            return responseTojson(0, '删除成功');
+        }
+        ModelDatabase::rollback();
+        return responseTojson(1,'删除失败');
     }
     //修改校发文件
     public function updateSchoolfile(Request $request){
