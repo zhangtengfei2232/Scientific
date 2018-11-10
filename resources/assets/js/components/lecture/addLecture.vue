@@ -100,7 +100,7 @@
                 Bcode:false,
                 multiple:true,
                 le_img_road: '',
-                le_image: [],
+                le_image: '',
                 le_id:'',
                 form: {
                     le_expert_name:'',
@@ -123,6 +123,9 @@
             },
             handlePreview(file) {
                 console.log(file);
+                this.dataFile.append('le_image', files);
+                let id = this.form.le_id;
+                this.dataFile.append('le_id', id);
             },
             filePicfil(file){
                 this.dataForm.append('le_img_road', file);
@@ -130,11 +133,12 @@
             },
             fileZufil(files){
                 if(this.Bcode == true){
-                    this.dataFile.append('le_image', files);
-                    let id = this.form.le_id;
-                    this.dataFile.append('le_id', id);
+//                    this.dataFile.append('le_image', files);
+//                    let id = this.form.le_id;
+//                    this.dataFile.append('le_id', id);
                     this.dataFile.append('is_add_lecture',this.Bcode);
                     this.sendfile(this.dataFile);
+                    console.log(this.dataFile);
 //                    this.sendfile(files);
 //                    this.$refs.le_image.submit();
                 }else{
@@ -154,7 +158,7 @@
                     } else {
                         vue.$notify({
                             type: 'error',
-                            message: '添加失败',
+                            message: data.message,
                             duration: 2000,
                         });
                     }

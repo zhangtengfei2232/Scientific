@@ -309,8 +309,8 @@
                 Bcode:false,
                 filelist:'',
                 filelists:'',
-                gra_cert_road: '',
-                edu_cert_road: '',
+//                gra_cert_road: '',
+//                edu_cert_road: '',
                 dataForm: new FormData(),
                 dataFile: new FormData(),
                 teacherDate:{},
@@ -371,17 +371,17 @@
                 axios.get("selectteacher").then(function (response) {
                     var data = response.data;
                     if(data.code == 0){
-                        self.teacherDate = data.datas;
+                        self.teacherDate = data.datas.information;
                         self.form = data.datas.information;
 
                         if(data.datas.information.gra_cert_road !== ''){
                             self.type1=true;
-                            self.filelist.url = 'showfile?disk=teacher&subjection=' + data.datas.information.gra_cert_road;
+                            self.filelist = 'showfile?disk=teacher&subjection=' + data.datas.information.gra_cert_road;
 //                            console.log(self.filelist.url,'===]][[[[[[[[[[[[[')
                         }
                         if(data.datas.information.edu_cert_road !== ''){
                             self.type2=true;
-                            self.filelists.url = 'showfile?disk=teacher&subjection=' + data.datas.information.edu_cert_road;
+                            self.filelists = 'showfile?disk=teacher&subjection=' + data.datas.information.edu_cert_road;
 //                            console.log(self.filelists.url,'===]][[[[[[[[[[[[[')
                         }
                     }else{
@@ -406,7 +406,7 @@
                 console.log(file);
             },
             fileProfil(file){
-                if(this.Bcode == true){
+                if(file !== ''){
                     this.dataFile.append('gra_cert_road', file);
                     this.dataFile.append('is_add_teacher',this.Bcode);
                     this.sendfile(this.dataFile);
@@ -416,7 +416,7 @@
                 }
             },
             fileEdufil(files){
-                if(this.Bcode == true){
+                if(files !== ''){
                     this.dataFile.append('edu_cert_road', files);
                     this.dataFile.append('is_add_teacher',this.Bcode);
 //                    let id = this.form.id;
@@ -428,11 +428,11 @@
                 }
             },
             sendfile(dataFile) {
-                console.log(dataFile,'544554=-==--');
+//                console.log(dataFile,'544554=-==--');
                 let vue = this;
                 this.addTeacherFile(dataFile).then(res => {
                     var data = res.data;
-                    console.log(data,'-=-=data-==--');
+//                    console.log(data,'-=-=data-==--');
                     if (data.code == 0) {
                         vue.$message({
                             message: '修改成功',

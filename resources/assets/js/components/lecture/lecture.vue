@@ -279,9 +279,9 @@
                 })
             },
             byTimeSearch(form) {
-//                if(form.data1 == ''||form.data2 == ''){
-//                    alert("搜索时间不能为空！");
-//                }
+                if(form.data1 == ''||form.data2 == ''){
+                    this.$message.error("搜索时间不能为空！");
+                }
                 let self = this;
                 axios.get("timeselectlecture",{
                     params:{

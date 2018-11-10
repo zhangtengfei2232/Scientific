@@ -390,7 +390,7 @@
                 }
             },
             sendfile(dataFile) {
-                this.addTeacherFile(this.dataFile).then(res => {
+                this.addTeacherFile(dataFile).then(res => {
                     var data = res.data;
                     if (data.code == 0) {
                         vue.$message({
