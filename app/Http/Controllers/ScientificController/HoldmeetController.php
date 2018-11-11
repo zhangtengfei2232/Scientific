@@ -140,6 +140,7 @@ class HoldmeetController extends Controller
     }
     //添加举行会议图片
     public function addHoldmeetImages(Request $request){
+        dd($request->file());
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
@@ -148,10 +149,10 @@ class HoldmeetController extends Controller
                 return responseTojson(1,'请你先添加会议信息');
             }
         }
-        if(!$request->hasFile('ho_image')){
+        if(!$request->hasFile('ho_file')){
             return responseTojson(1,'请你上传举行会议图片');
         }
-        $holdmeet_images = $request->file('ho_image');              //接收数组形式的图片文件
+        $holdmeet_images = $request->file('ho_file');              //接收数组形式的图片文件
         $judge_images    = judgeAllFileImage($holdmeet_images);
         if($judge_images['code'] == 1){
            return responseTojson(1,'图片上传失败');

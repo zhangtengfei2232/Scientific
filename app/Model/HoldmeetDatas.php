@@ -27,12 +27,6 @@ class HoldmeetDatas extends ModelDatabase
          }
          return $response;
     }
-    //删除会议信息
-    public static function deleteHoldmeetDatas($ho_id_datas){
-        for($i = 0; $i < count($ho_id_datas); $i++){
-            DB::table('holdmeet')->where('ho_id',$ho_id_datas[$i])->delete();
-        }
-    }
     //查看所有会议信息
     public static function selectAllHoldmeetDatas($teacher_id){
         $result = DB::table('holdmeet')->where('teacher_id',$teacher_id)->orderBy('ho_time','desc')->get();

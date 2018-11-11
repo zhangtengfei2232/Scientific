@@ -75,10 +75,15 @@ class ArticalDatabase  extends ModelDatabase
         return ($response != 1) ? false : true;
     }
     //查找论文、首页原始、SCI索引报告路径
-    public static function selectArticalRoad($artical_id){
-         return DB::table('artical')
-             ->select('art_road','home_page_road','art_sci_road')
-             ->where('art_id',$artical_id)
-             ->get();
+    public static function selectArticalRoad($art_id_datas){
+         $artical_road = [];
+         for($i = 0; $i < count($art_id_datas); $i++){
+             $road =  DB::table('artical')
+                     ->select('art_road','art_sci_road')
+                     ->where('art_id',$art_id_datas[$i])
+                     ->get();
+             array_push($artical_road,$road->art_road);
+         }
+         return $artical_road;
     }
 }

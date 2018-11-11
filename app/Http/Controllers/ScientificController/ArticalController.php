@@ -35,7 +35,7 @@ class ArticalController extends Controller
          ];
          $respose = judgeArticalField($datas);
          if($respose['code'] == 1){                                          //判断论文字段是否合法
-             return $respose;
+             return responseTojson(1,$respose['message']);
          }
          if(!$request->hasFile('art_road')){
              return responseTojson(1,'请你上传PDF格式的论文');
@@ -74,10 +74,10 @@ class ArticalController extends Controller
      }
      //删除论文
      public function deleteArtical(Request $request){
-         $artical_id          = $request->artical_id;
+         $art_id_datas        = $request->art_id_datas;
          $disk                = UploadSubjectionConfig::ARTICAL;
-         $select_artical_road = ArticalDatabase::selectArticalRoad($artical_id);
-         $delete_artical      = ArticalDatabase::deleteArticalDatas($artical_id);
+         $select_artical_road = ArticalDatabase::selectArticalRoad($art_id_datas);
+         $delete_artical      = ArticalDatabase::deleteArticalDatas($art_id_datas);
          if(!$delete_artical){
              return responseTojson(0,'删除文章失败');
          }
@@ -134,7 +134,7 @@ class ArticalController extends Controller
              return responseTojson(1,$judge_datas['message']);
          }
          if(!$request->is_change_artical){                                    //判断老师是否修改论文
-             return ArticalDatabase::updateArticalDatas($datas);              //直接修改数据库论文信息
+             return ArticalDatabase::updateArticalImage($datas);              //直接修改数据库论文信息
          }
          $artical_file  = $request->file('pdf');                          //接论文文件
          $artical_sci   = $request->file('sci');
@@ -169,7 +169,9 @@ class ArticalController extends Controller
      }
      //根据时间查询论文
      public function dateSelectArtical(Request $request){
-         $before_date = $request->before_date;
+         $start_time = $request->start_time;
+         $end_time   = $request->end_time;
+
 
      }
      //导出单个论文
@@ -177,7 +179,11 @@ class ArticalController extends Controller
 
      }
      //同时导出多个论文，取每个论文的第一页，形成一个新的PDF论文
-     public function exportAllArtical(){
-
+     public function exportAllArtical(Request $request){
+         $art_id_datas = $request->art_id_datas;
+         $art_road_datas = ArticalDatabase::selectArticalRoad($art_id_datas);
+         $disk = UploadSubjectionConfig::ARTICAL;
+         selectionFirstPageToNewPdf($disk,$art_road_datas);
+         return ;
      }
 }

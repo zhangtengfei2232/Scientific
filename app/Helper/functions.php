@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Storage;
+use setasign\Fpdi\Tcpdf\Fpdi;
    //后台验证处理返回信息
     function responseTojson($code = 0,$message = '',$status = '',$datas = ''){
         $response["code"] = $code;
@@ -89,6 +90,29 @@ use Illuminate\Support\Facades\Storage;
             return  $path;
         }
         return false;
+    }
+    //选取多个PDF，取第一页导出新的PDF
+    function  selectionFirstPageToNewPdf($disk,$pdf_road_datas){
+        $complete_pdf_road_datas = [];
+        //拼接PDF的完整路径
+        for($i = 0; $i < count($pdf_road_datas); $i++){
+            $complete_pdf_road_datas[$i] = storage_path().'/'.$disk.'/'.$pdf_road_datas[$i];
+        }
+        $pdf = new Fpdi();
+        // 載入現在 PDF 檔案
+        for($i = 0; $i < count($complete_pdf_road_datas); $i++){
+            $pdf->setSourceFile($complete_pdf_road_datas[$i]);  //该方法的返回值为，PDF总页数
+            $tpl = $pdf->importPage(1);            //取出PDF第一页
+            $pdf->addPage();                                    //添加到新的PDF上
+            $pdf->useTemplate($tpl);                            // 在新增的頁面上使用匯入的第一頁
+            // 輸出成本地端 PDF 檔案
+        }
+        //默认是I：在浏览器中打开，D：下载，F：在服务器生成pdf
+        //S：只返回pdf的字符串，个人感觉无实在意义
+        $pdf->output("test.pdf", "D");
+        // 結束 FPDI 剖析器
+        $pdf->closeParsers();
+        return;
     }
 
 

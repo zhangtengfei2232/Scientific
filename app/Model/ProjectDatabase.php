@@ -36,10 +36,6 @@ class ProjectDatabase extends ModelDatabase
        }
        return $add_project;
     }
-    //删除多个项目信息
-    public static function deleteAllProjectDatas($pro_id_datas){
-      DB::table('project')->whereIn('pro_id',$pro_id_datas)->delete();
-    }
     //查找单个项目信息
     public static function selectProjectDatas($project_id){
       return DB::table('project')->where('pro_id',$project_id)->first();

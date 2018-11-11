@@ -11,6 +11,7 @@ class SchoolfileController extends Controller
 {
     //添加校发文件
     public function addSchoolfile(Request $request){
+        dd($request);
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
@@ -26,7 +27,7 @@ class SchoolfileController extends Controller
         if(!$request->hasFile('schfile_road')){
             return responseTojson(1,'必须要上传PDF格式的校发文件');
         }
-        $schoolfile_pdf   = $request->file('schfile_road');       //验证接收的文件
+        $schoolfile_pdf   = $request->file('schfile_road');                //验证接收的文件
         $judge_schoolfile = judgeReceiveFiles($schoolfile_pdf);
         if($judge_schoolfile['code'] == 1){
             return responseTojson(1,$judge_schoolfile['$judge_schoolfile']);
