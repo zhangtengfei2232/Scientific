@@ -3,21 +3,21 @@
         <div class="cont">
             <div class="header">
                 <el-header style="height: 45px;">
-                    <div class="art">专家讲学(213)</div>
+                    <div class="art">专家讲学({{form.num}})</div>
                     <div class="search">
                         <el-row>
                             <el-col :span="12">
                                 <el-dropdown>
                                 <span class="el-dropdown-link">
-                                    讲学时间：全部<i class="el-icon-arrow-down el-icon--right"></i>
+                                    讲学时间<i class="el-icon-arrow-down el-icon--right"></i>
                                 </span>
                                     <el-dropdown-menu slot="dropdown">
-                                        <el-dropdown-item>全部</el-dropdown-item>
-                                        <el-dropdown-item>18年-今天</el-dropdown-item>
-                                        <el-dropdown-item>17年-今天</el-dropdown-item>
-                                        <el-dropdown-item>16年-今天</el-dropdown-item>
-                                        <el-dropdown-item>15年-今天</el-dropdown-item>
-                                        <el-dropdown-item>14年-今天</el-dropdown-item>
+                                        <!--<el-dropdown-item>全部</el-dropdown-item>-->
+                                        <!--<el-dropdown-item>18年-今天</el-dropdown-item>-->
+                                        <!--<el-dropdown-item>17年-今天</el-dropdown-item>-->
+                                        <!--<el-dropdown-item>16年-今天</el-dropdown-item>-->
+                                        <!--<el-dropdown-item>15年-今天</el-dropdown-item>-->
+                                        <!--<el-dropdown-item>14年-今天</el-dropdown-item>-->
                                         <el-dropdown-item>
                                             <el-popover
                                                     placement="top-start"
@@ -25,11 +25,16 @@
                                                     trigger="click">
                                                 <el-date-picker
                                                         v-model="data1"
-                                                        type="daterange"
-                                                        range-separator="至"
-                                                        start-placeholder="开始日期"
-                                                        end-placeholder="结束日期">
+                                                        type="date"
+                                                        placeholder="选择日期">
                                                 </el-date-picker>
+                                                <!--<el-date-picker-->
+                                                        <!--v-model="data1"-->
+                                                        <!--type="daterange"-->
+                                                        <!--range-separator="至"-->
+                                                        <!--start-placeholder="开始日期"-->
+                                                        <!--end-placeholder="结束日期">-->
+                                                <!--</el-date-picker>-->
                                                 <div slot="reference">自定义时段<i class="el-icon-arrow-down el-icon--right"></i></div>
                                             </el-popover>
                                         </el-dropdown-item>
@@ -46,7 +51,8 @@
                             <el-input
                                     placeholder="请输入专家姓名"
                                     prefix-icon="el-icon-search"
-                                    v-model="input">
+                                    v-model="form.name"
+                                    @keyup.enter.native="byNameSearch(form)">
                             </el-input>
                             <div slot="reference">专家：姓名<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
@@ -59,33 +65,27 @@
                             <el-input
                                     placeholder="请输入邀请单位"
                                     prefix-icon="el-icon-search"
-                                    v-model="input">
+
+                            >
                             </el-input>
                             <div slot="reference">邀请单位<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
                     </div>
                     <div class="search">
-                        <el-popover
-                                placement="top-start"
-                                width="400"
-                                trigger="click">
-                            <el-form ref="form" :model="form" label-width="50px">
-                                <el-form-item>
-                                    <el-checkbox-group v-model="form.checkList">
-                                        <el-checkbox :label="1" name="type">院士</el-checkbox>
-                                        <el-checkbox :label="2" name="type">博导</el-checkbox>
-                                        <el-checkbox :label="3" name="type">国务院学位委员会委员</el-checkbox>
-                                        <el-checkbox :label="4" name="type">教授</el-checkbox>
-                                        <el-checkbox :label="5" name="type">其他</el-checkbox>
-                                    </el-checkbox-group>
-                                </el-form-item>
-                                <el-form-item>
-                                    <el-button type="primary" @click="onSubmit(form)">确定</el-button>
-                                    <el-button>取消</el-button>
-                                </el-form-item>
-                            </el-form>
-                            <div slot="reference">专家级别<i class="el-icon-arrow-down el-icon--right"></i></div>
-                        </el-popover>
+                        <el-form ref="form" :model="form" label-width="50px">
+                            <el-dropdown @command="levelCommand" style="font-size: 16px;">
+                                <span class="el-dropdown-link">
+                                专家级别<i class="el-icon-arrow-down el-icon--right"></i>
+                                </span>
+                                <el-dropdown-menu slot="dropdown">
+                                    <el-dropdown-item command="0">院士</el-dropdown-item>
+                                    <el-dropdown-item command="1">博导</el-dropdown-item>
+                                    <el-dropdown-item command="2">国务院学位委员会委员</el-dropdown-item>
+                                    <el-dropdown-item command="3">教授</el-dropdown-item>
+                                    <el-dropdown-item command="4">其他</el-dropdown-item>
+                                </el-dropdown-menu>
+                            </el-dropdown>
+                        </el-form>
                     </div>
                 </el-header>
             </div>
@@ -169,8 +169,30 @@
                 input:'',
                 form: {
                     type:'',
+                    name:'',
+                    company:'',
                     checkList: [],
+                    num:'',
                 },
+                le_invite_status:[
+                    '邀请',
+                    '未邀请'
+                ],
+                le_expert_level:[
+                    '院士',
+                    '博导',
+                    '国务院学位委员会委员',
+                    '教授',
+                    '其他'
+                ],
+                le_time:[
+                    '全部',
+                    '18年-今天',
+                    '17年-今天',
+                    '16年-今天',
+                    '15年-今天',
+                    '14年-今天',
+                ],
 
             }
         },
@@ -179,6 +201,84 @@
                 let self = this;
                 axios.get("leaderselectalllecture").then(function (response) {
                     var data = response.data;
+//                    console.log(data,'////*******');
+                    self.form.num = data.datas.length;
+                    for(var i=0;i<data.datas.length;i++){
+                        data.datas[i].le_invite_status = self.le_invite_status[data.datas[i].le_invite_status];
+                        data.datas[i].le_expert_level = self.le_expert_level[data.datas[i].le_expert_level];
+                    }
+                    if (data.code == 0) {
+                        self.ExperspeakDate = data.datas;
+                    } else {
+                        self.$notify({
+                            type: 'error',
+                            message: data.message,
+                            duration: 2000,
+                        });
+                    }
+                });
+            },
+            byNameSearch(form) {                //专家姓名
+                let self = this;
+                axios.get("bynameselectlecture",{
+                    params:{
+                        le_expert_name: form.name,
+                    }
+                }).then(function (response) {
+                    var data = response.data;
+                    self.form.num = data.datas.length;
+                    for(var i=0;i<data.datas.length;i++){
+                        data.datas[i].le_invite_status = self.le_invite_status[data.datas[i].le_invite_status];
+                        data.datas[i].le_expert_level = self.le_expert_level[data.datas[i].le_expert_level];
+                    }
+                    if (data.code == 0) {
+                        self.ExperspeakDate = data.datas;
+                    } else {
+                        self.$notify({
+                            type: 'error',
+                            message: data.message,
+                            duration: 2000,
+                        });
+                    }
+                });
+            },
+            byCompanySearch(form){  // 邀请单位
+                let self = this;
+                axios.get("byinviteunitselectlecture",{
+                    params:{
+                        le_invite_unit: form.company,
+                    }
+                }).then(function (response) {
+                    var data = response.data;
+                    self.form.num = data.datas.length;
+                    for(var i=0;i<data.datas.length;i++){
+                        data.datas[i].le_invite_status = self.le_invite_status[data.datas[i].le_invite_status];
+                        data.datas[i].le_expert_level = self.le_expert_level[data.datas[i].le_expert_level];
+                    }
+                    if (data.code == 0) {
+                        self.ExperspeakDate = data.datas;
+                    } else {
+                        self.$notify({
+                            type: 'error',
+                            message: data.message,
+                            duration: 2000,
+                        });
+                    }
+                });
+            },
+            levelCommand(command){       //专家级别
+                let self = this;
+                axios.get("bylevelselectlecture",{
+                    params:{
+                        le_expert_level: command,
+                    }
+                }).then(function (response) {
+                    var data = response.data;
+                    self.form.num = data.datas.length;
+                    for(var i=0;i<data.datas.length;i++){
+                        data.datas[i].le_invite_status = self.le_invite_status[data.datas[i].le_invite_status];
+                        data.datas[i].le_expert_level = self.le_expert_level[data.datas[i].le_expert_level];
+                    }
                     if (data.code == 0) {
                         self.ExperspeakDate = data.datas;
                     } else {
