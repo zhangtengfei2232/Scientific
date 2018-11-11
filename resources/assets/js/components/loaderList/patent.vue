@@ -13,11 +13,11 @@
                                 </span>
                                 <el-dropdown-menu slot="dropdown">
                                     <el-dropdown-item>全部</el-dropdown-item>
-                                    <el-dropdown-item>18年-今天</el-dropdown-item>
-                                    <el-dropdown-item>17年-今天</el-dropdown-item>
-                                    <el-dropdown-item>16年-今天</el-dropdown-item>
-                                    <el-dropdown-item>15年-今天</el-dropdown-item>
-                                    <el-dropdown-item>14年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click="timeSearch(8)">18年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click="timeSearch(7)">17年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click="timeSearch(6)">16年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click="timeSearch(5)">15年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click="timeSearch(4)">14年-今天</el-dropdown-item>
                                     <el-dropdown-item>
                                         <el-popover
                                             placement="top-start"
@@ -246,6 +246,44 @@ export default {
                 }
             });
         },
+        paNameSearch() {
+            let self = this;
+            axios.get("bynameselectpatent",{
+                params:{
+                    first_inventor: self.first_inventor,
+                }
+            }).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.allPatent = data.datas;
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,         
+                    });
+                }
+            });
+        },
+         nameSearch() {
+            let self = this;
+            axios.get("byfirstinventorselectpatent",{
+                params:{
+                    pa_name: self.pa_name,
+                }
+            }).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.allPatent = data.datas;
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,         
+                    });
+                }
+            });
+        },
         timeSearch(time) {
             if(time == 8) {
                 this.newTime = '1514779200';
@@ -268,7 +306,7 @@ export default {
             }).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
-                    self.allArticle = data.datas;
+                    self.allPatent = data.datas;
                 } else {
                     self.$notify({
                         type: 'error',
@@ -288,7 +326,7 @@ export default {
             }).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
-                    self.allArticle = data.datas;
+                    self.allPatent = data.datas;
                 } else {
                     self.$notify({
                         type: 'error',
