@@ -72,9 +72,16 @@ class AppraisalController extends Controller
     public function deleteAppraisal(Request $request){
         $ap_id_datas         = $request->ap_id_datas;
         $old_image_road      = AppraisalDatabase::selectAllAppraisalImageRoad($ap_id_datas);
-        $delete_appraisal    = AppraisalDatabase::deleteAllAppraisalDatas($ap_id_datas);
-        deleteAllFiles(UploadSubjectionConfig::APPRAISAL,$old_image_road);
-        return responseTojson(0,'删除成功');
+        $table_name          = SearchMessageConfig::APPRAISAL_TABLE;
+        $id_field            = SearchMessageConfig::APPRAISAL_ID;
+        ModelDatabase::beginTraction();
+        $delete_appraisal    = ModelDatabase::deleteAllDatas($table_name,$id_field,$ap_id_datas);
+        if($delete_appraisal){
+            ModelDatabase::commit();
+            deleteAllFiles(UploadSubjectionConfig::APPRAISAL,$old_image_road);
+            return responseTojson(0,'删除成功');
+        }
+        return responseTojson(1,'删除失败');
     }
     //查看单个成果鉴定信息
     public function selectAppraisal(Request $request){

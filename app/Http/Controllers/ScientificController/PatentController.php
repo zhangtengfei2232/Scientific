@@ -56,10 +56,18 @@ class PatentController extends Controller
      //删除专利信息
      public function deletePatent(Request $request){
          $pa_id_datas = $request->pa_id_datas;
+         $table_name          = SearchMessageConfig::PATENT_TABLE;
+         $id_field            = SearchMessageConfig::PATENT;
          $old_image_road = PatentDatabase::selectImageRoadDatas($pa_id_datas);
-         $delete_patent  = PatentDatabase::deletePatentDatas($pa_id_datas);
-         deleteAllFiles(UploadSubjectionConfig::PATENT,$old_image_road);
-         return responseTojson(0,'删除成功');
+         ModelDatabase::beginTraction();
+         $delete_patent  = ModelDatabase::deleteAllDatas($table_name,$id_field,$pa_id_datas);
+         if($delete_patent) {
+             ModelDatabase::commit();
+             deleteAllFiles(UploadSubjectionConfig::PATENT, $old_image_road);
+             return responseTojson(0, '删除成功');
+         }
+         ModelDatabase::rollback();
+         return responseTojson(1,'删除失败');
      }
      //查看单个专利信息
      public function selectPatent(Request $request){

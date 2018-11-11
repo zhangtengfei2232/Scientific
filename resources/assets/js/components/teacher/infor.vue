@@ -15,10 +15,10 @@
                                 </el-form-item>
                                 <el-form-item label="老师所属部门" prop="teacher_department">
                                     <el-select v-model="form.teacher_department" placeholder="请选择老师所属部门">
-                                        <el-option label="生工" value="1"></el-option>
-                                        <el-option label="生物技术系" value="2"></el-option>
-                                        <el-option label="农学系" value="3"></el-option>
-                                        <el-option label="领导行政政工" value="4"></el-option>
+                                        <el-option label="生工" value="0"></el-option>
+                                        <el-option label="生物技术系" value="1"></el-option>
+                                        <el-option label="农学系" value="2"></el-option>
+                                        <el-option label="领导行政政工" value="3"></el-option>
                                     </el-select>
                                     <!--<el-input v-model="form.teacher_department"></el-input>-->
                                 </el-form-item>
@@ -42,8 +42,8 @@
                                 </el-form-item>
                                 <el-form-item label="性别" prop="sex">
                                     <el-radio-group v-model="form.sex">
-                                        <el-radio :label="1">男</el-radio>
-                                        <el-radio :label="2">女</el-radio>
+                                        <el-radio :label="0">男</el-radio>
+                                        <el-radio :label="1">女</el-radio>
                                     </el-radio-group>
                                 </el-form-item>
                                 <el-form-item label="民族" prop="nation">
@@ -82,30 +82,30 @@
                                 </el-form-item>
                                 <el-form-item label="职务级别" prop="job_level">
                                     <el-select v-model="form.job_level" placeholder="请选择老师级别">
-                                        <el-option label="正处" value="1"></el-option>
-                                        <el-option label="副处" value="2"></el-option>
-                                        <el-option label="正科" value="3"></el-option>
-                                        <el-option label="副科" value="4"></el-option>
-                                        <el-option label="其他" value="5"></el-option>
+                                        <el-option label="正处" value="0"></el-option>
+                                        <el-option label="副处" value="1"></el-option>
+                                        <el-option label="正科" value="2"></el-option>
+                                        <el-option label="副科" value="3"></el-option>
+                                        <el-option label="其他" value="4"></el-option>
                                     </el-select>
                                 </el-form-item>
                                 <el-form-item label="专业技术职务" prop="technical_position">
                                     <el-select v-model="form.technical_position" placeholder="老师专业技术职务">
-                                        <el-option label="教授" value="1"></el-option>
-                                        <el-option label="副教授" value="2"></el-option>
-                                        <el-option label="讲师" value="3"></el-option>
-                                        <el-option label="助教" value="4"></el-option>
-                                        <el-option label="实验师" value="5"></el-option>
-                                        <el-option label="助理实验师" value="6"></el-option>
-                                        <el-option label="高级实验师" value="7"></el-option>
+                                        <el-option label="教授" value="0"></el-option>
+                                        <el-option label="副教授" value="1"></el-option>
+                                        <el-option label="讲师" value="2"></el-option>
+                                        <el-option label="助教" value="3"></el-option>
+                                        <el-option label="实验师" value="4"></el-option>
+                                        <el-option label="助理实验师" value="5"></el-option>
+                                        <el-option label="高级实验师" value="6"></el-option>
                                     </el-select>
                                 </el-form-item>
                                 <el-form-item label="老师职称" prop="academic_title">
                                     <el-select v-model="form.academic_title" placeholder="请选择老师职称">
-                                        <el-option label="初级" value="1"></el-option>
-                                        <el-option label="中级" value="2"></el-option>
-                                        <el-option label="副高" value="3"></el-option>
-                                        <el-option label="正高" value="4"></el-option>
+                                        <el-option label="初级" value="0"></el-option>
+                                        <el-option label="中级" value="1"></el-option>
+                                        <el-option label="副高" value="2"></el-option>
+                                        <el-option label="正高" value="3"></el-option>
                                     </el-select>
                                 </el-form-item>
                                 <el-form-item label="评审通过时间" prop="review_time">
@@ -135,10 +135,10 @@
                                 </el-form-item>
                                 <el-form-item label="岗位类别" prop="post_category">
                                     <el-select v-model="form.post_category" placeholder="请选择老师岗位类别">
-                                        <el-option label="教学秘书" value="1"></el-option>
-                                        <el-option label="院长" value="2"></el-option>
-                                        <el-option label="办公室主任" value="3"></el-option>
-                                        <el-option label="副主任" value="4"></el-option>
+                                        <el-option label="教学秘书" value="0"></el-option>
+                                        <el-option label="院长" value="1"></el-option>
+                                        <el-option label="办公室主任" value="2"></el-option>
+                                        <el-option label="副主任" value="3"></el-option>
                                     </el-select>
                                 </el-form-item>
 
@@ -309,8 +309,8 @@
                 Bcode:false,
                 filelist:'',
                 filelists:'',
-                gra_cert_road: '',
-                edu_cert_road: '',
+//                gra_cert_road: '',
+//                edu_cert_road: '',
                 dataForm: new FormData(),
                 dataFile: new FormData(),
                 teacherDate:{},
@@ -371,17 +371,17 @@
                 axios.get("selectteacher").then(function (response) {
                     var data = response.data;
                     if(data.code == 0){
-                        self.teacherDate = data.datas;
+                        self.teacherDate = data.datas.information;
                         self.form = data.datas.information;
 
                         if(data.datas.information.gra_cert_road !== ''){
                             self.type1=true;
-                            self.filelist.url = 'showfile?disk=teacher&subjection=' + data.datas.information.gra_cert_road;
+                            self.filelist = 'showfile?disk=teacher&subjection=' + data.datas.information.gra_cert_road;
 //                            console.log(self.filelist.url,'===]][[[[[[[[[[[[[')
                         }
                         if(data.datas.information.edu_cert_road !== ''){
                             self.type2=true;
-                            self.filelists.url = 'showfile?disk=teacher&subjection=' + data.datas.information.edu_cert_road;
+                            self.filelists = 'showfile?disk=teacher&subjection=' + data.datas.information.edu_cert_road;
 //                            console.log(self.filelists.url,'===]][[[[[[[[[[[[[')
                         }
                     }else{
@@ -406,7 +406,7 @@
                 console.log(file);
             },
             fileProfil(file){
-                if(this.Bcode == true){
+                if(file !== ''){
                     this.dataFile.append('gra_cert_road', file);
                     this.dataFile.append('is_add_teacher',this.Bcode);
                     this.sendfile(this.dataFile);
@@ -416,7 +416,7 @@
                 }
             },
             fileEdufil(files){
-                if(this.Bcode == true){
+                if(files !== ''){
                     this.dataFile.append('edu_cert_road', files);
                     this.dataFile.append('is_add_teacher',this.Bcode);
 //                    let id = this.form.id;
@@ -428,11 +428,11 @@
                 }
             },
             sendfile(dataFile) {
-                console.log(dataFile,'544554=-==--');
+//                console.log(dataFile,'544554=-==--');
                 let vue = this;
                 this.addTeacherFile(dataFile).then(res => {
                     var data = res.data;
-                    console.log(data,'-=-=data-==--');
+//                    console.log(data,'-=-=data-==--');
                     if (data.code == 0) {
                         vue.$message({
                             message: '修改成功',

@@ -59,11 +59,16 @@ class ProjectController extends Controller
     }
     //删除项目信息
     public function deleteProject(Request $request){
-        $pro_id_datas = $request->pro_id_datas;
+        $pro_id_datas   = $request->pro_id_datas;
+        $table_name     = SearchMessageConfig::PROJECT_TABLE;
+        $id_field       = SearchMessageConfig::PROJECT_ID;
         $old_image_road = ProjectDatabase::selectImagesRoadDatas($pro_id_datas);
-        $response = ProjectDatabase::deleteAllProjectDatas($pro_id_datas);
-        deleteAllFiles(UploadSubjectionConfig::PROJECT,$old_image_road);
-        return responseTojson(0,'全部删除成功');
+        $delete_project = ModelDatabase::deleteAllDatas($table_name,$id_field,$pro_id_datas);
+        if($delete_project) {
+            deleteAllFiles(UploadSubjectionConfig::PROJECT, $old_image_road);
+            return responseTojson(0, '全部删除成功');
+        }
+        return responseTojson(1,'删除失败');
     }
     //查看单个项目信息
     public function selectProject(Request $request){

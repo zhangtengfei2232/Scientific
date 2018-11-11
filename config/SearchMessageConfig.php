@@ -16,6 +16,7 @@ class SearchMessageConfig
     const APPRAISAL_TABLE   = 'appraisal';             //成果鉴定表
     const AGREEMENT_TABLE   = 'agreement';             //合作协议表
     const PROJECT_TABLE     = 'project';               //项目表
+    const IMAGE_TABLE       = 'image';                 //图片表
     const AGREE_TIME        = 'agree_time';            //合作协议时间字段
     const AP_TIME           = 'ap_time';               //成果鉴定时间字段
     const ART_TIME          = 'art_time';              //文章的时间字段
@@ -82,7 +83,24 @@ class SearchMessageConfig
     const DUTIES_DU_NAME            = 'du_name';            //担任学术团体名称
     const DUTIES_TEACHER_NAME       = 'teacher_name';       //担任学术团体老师名字
 
-
+    /**
+     * 每个表的ID字段
+     */
+    const ACADEMIC_ID               = 'academic_id';
+    const AGREEMENT_ID              = 'agree_id';
+    const APPRAISAL_ID              = 'ap_id';
+    const ARTICAL_ID                = 'art_id';
+    const AWARD_ID                  = 'aw_id';
+    const DUTIES_ID                 = 'aw_id';
+    const HOLDMEET_ID               = 'ho_id';
+    const IMAGE_ID                  = 'im_id';
+    const JOINMEET_ID               = 'jo_id';
+    const LECTURE_ID                = 'le_id';
+    const OPUS_ID                   = 'op_id';
+    const PATENT                    = 'pa_id';
+    const PROJECT_ID                = 'pro_id';
+    const SCHOOLFILE_ID             = 'schfile_id';
+    const TEACHER_ID                = 'teacher_id';
     /**
      * 下拉框配置信息
      */

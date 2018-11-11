@@ -39,10 +39,9 @@ class ArticalDatabase  extends ModelDatabase
                     'art_integral'      => $datas['art_integral'],
                     'sch_percal_cate'   => $datas['sch_percal_cate'],
                     'art_road'          => $datas['art_road'],
-                    'home_page_road'    => $datas['home_page_road'],
                     'art_sci_road'      => $datas['art_sci_road'],
-                    'art_time'          => strtotime($datas['art_time']),
-                    'art_remarks'       => $datas->art_remarks
+                    'art_time'          => $datas['art_time'],
+                    'art_remarks'       => $datas['art_remarks']
                 ]);
      }
      //删除论文
@@ -69,36 +68,11 @@ class ArticalDatabase  extends ModelDatabase
                 'art_integral'      => $datas['art_integral'],
                 'sch_percal_cate'   => $datas['sch_percal_cate'],
                 'art_road'          => $datas['art_road'],
-                'home_page_road'    => $datas['home_page_road'],
                 'art_sci_road'      => $datas['art_sci_road'],
-                'art_time'          => strtotime($datas['art_time']),
-                'art_remarks'       => $datas->art_remarks
+                'art_time'          => $datas['art_time'],
+                'art_remarks'       => $datas['art_remarks']
              ]);
         return ($response != 1) ? false : true;
-    }
-    //修改论文信息
-    public static function updateArticalDatas($datas){
-        $response = DB::table('artical')
-            ->where('art_id',$datas->artical_id)
-            ->update([
-                'author'            => $datas['author'],
-                'art_all_author'    => $datas['art_all_author'],
-                'title'             => $datas['title'],
-                'publication_name'  => $datas['publication_name'],
-                'publication_num'   => $datas['publication_num'],
-                'period'            => $datas['period'],
-                'num_words'         => $datas['num_words'],
-                'percal_cate'       => $datas['percal_cate'],
-                'belong_project'    => $datas['belong_project'],
-                'art_cate_research' => $datas['art_cate_research'],
-                'art_sub_category'  => $datas['art_sub_category'],
-                'art_integral'      => $datas['art_integral'],
-                'sch_percal_cate'   => $datas['sch_percal_cate'],
-                'art_time'          => strtotime($datas->art_time),
-                'art_remarks'       => $datas->art_remarks
-            ]);
-        return ($response != 1) ? responseTojson(1,'修改论文失败')
-               : responseTojson(0,'修改论文成功');
     }
     //查找论文、首页原始、SCI索引报告路径
     public static function selectArticalRoad($artical_id){

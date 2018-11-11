@@ -50,17 +50,19 @@
                         drag
                         action="#"
                         multiple
-                        :file-list="filelists"
                         ref="le_img_road"
                         :auto-upload="false"
-                        :before-upload="fileZufil">
+                        :before-upload="fileZufil"
+                        :on-preview="handlePreview"
+                        :on-remove="handleRemove"
+                        list-type="picture">
                     <i class="el-icon-upload"></i>
                     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                 </el-upload>
             </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="onSubmit(form)">保存修改</el-button>
-                    <el-button><router-link to="/lecture">取消</router-link></el-button>
+                    <el-button>取消</el-button>
                 </el-form-item>
                 <div class="demo" v-show="picTypes">
                     <thead>
@@ -78,7 +80,7 @@
                             :on-preview="handlePreview"
                             :on-remove="handleRemove"
                             :auto-upload="false"
-                            :limit="1">
+                            list-type="picture">
                         <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
                         <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUploads">上传</el-button>
                         <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
@@ -113,6 +115,7 @@
     export default {
         data() {
             return {
+                image:[],
                 le_id:'',
                 le_image:'',
                 le_img_road:'',
@@ -124,7 +127,7 @@
                 dataForm: new FormData(),
                 dataFile: new FormData(),
                 EditLectureData: {},
-                filelists:'',
+                filelists:[],
                 filelist: '',
                 form: {
                     le_id:'',
@@ -146,61 +149,63 @@
                 axios.get("selectlecture?le_id="+le_id).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
-                        self.EditLectureData = data.datas;
+                        self.EditLectureData = data.datas.lecture_information;
                         self.form = data.datas.lecture_information;
+                        self.le_id = data.datas.lecture_information.le_id;
                         if(data.datas.lecture_information.le_img_road !== ''){
-                            let road = 'showfile?disk=lecture&subjection=' + data.datas.lecture_information.le_img_road;
                             self.type1=true;
-                            self.filelist = road;
+                            self.filelist = 'showfile?disk=lecture&subjection=' + data.datas.lecture_information.le_img_road;
                         }
-//                        if(data.datas.lecture_information.le_img_road == ''){
-//                            self.picType=false;
-//                        }else{
-//                            self.picType=true;
-//                            self.filelist = 'showfile?disk=lecture&subjection=' + data.datas.lecture_information.le_img_road;
-//                        }
-//                        let image = data.datas.image;
-//                        if(image.length !== 0){
-//                            self.picTypes = true;
-//                            self.filelists = 'showfile?disk=lecture&subjection=' + image;
-//                        }
+                        self.image = data.datas.lecture_images;
+                        console.log(data.datas,'/*/*/*/');
+                        if(self.image.length !== 0){
+                            self.picTypes = true;
+                            self.filelists = 'showfile?disk=lecture&subjection=' + image;
+                        }
                     } else {
                         self.$notify({
                             type: 'error',
-                            message: data.msg,
+                            message: data.message,
                             duration: 2000,
                         });
                     }
                 });
             },
             submitUploads() {
-                this.$refs.le_img_road.submit();
+                this.$refs.le_image.submit();
             },
             handleRemove(file, fileList) {
-//                console.log(file, fileList);
+                console.log(file, fileList);
             },
             handlePreview(files) {
-//                console.log(file);
+                console.log(file);
+                this.dataFile.append('le_image', files);
+                let id = this.le_id;
+                this.dataFile.append('le_id', id);
             },
             fileZufil(file){
                 this.dataForm.append('le_img_road', file);
                 return false;
             },
             filePicfil(files){
-                console.log(files,'-you---======');
-                if(this.Bcode == true){
-//
-                    this.dataFile.append('le_image', files);
-                    let id = this.form.le_id;
+                if(files  != ''){
                     this.sendfile(this.dataFile);
-                    this.$refs.le_image.submit();
                 }else{
                     this.$message.error('请先添加数据信息');
                     return false
                 }
+//                if(this.Bcode == true){
+//                    this.dataFile.append('le_image', files);
+//                    let id = this.form.le_id;
+//                    this.sendfile(this.dataFile);
+//                    this.$refs.le_image.submit();
+//                }else{
+//                    this.$message.error('请先添加数据信息');
+//                    return false
+//                }
             },
             sendfile(dataFile) {
-                this.addBookFile(dataFile,id).then(res => {
+                this.addBookFile(dataFile).then(res => {
                     var data = res.data;
                     if (data.code == 0) {
                         vue.$message({
@@ -210,7 +215,7 @@
                     } else {
                         vue.$notify({
                             type: 'error',
-                            message: '修改失败',
+                            message: data.message,
                             duration: 2000,
                         });
                     }
