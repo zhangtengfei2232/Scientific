@@ -157,16 +157,15 @@ class JoinmeetController  extends Controller
         if(!$request->hasFile('jo_file')){
             return responseTojson(1,'请你添加参加会议图片');
         }
-        $join_images = $request->file('jo_file');
-        $judge_images = judgeAllFileImage($join_images);
+        $join_images  = $request->file('jo_file');
+        $judge_images = judgeFileImage($join_images);
         if($judge_images['code'] == 1){
             return responseTojson(1,'上传图片失败');
         }
         $disk = UploadSubjectionConfig::JOIN_MEET;
-        $success_images = $judge_images['success_images'];
         $subjection     = UploadSubjectionConfig::JOIN_IMG;
         $ho_id          = $request->ho_id;
-        $all_image_road = uploadAllImgs($subjection,$success_images,$disk);
+        $all_image_road = uploadFiles($subjection,$join_images,$disk);
         $image_status   = UploadSubjectionConfig::JOIN_IMG_STATUS;
         return ImageDatas::addImagesDatas($all_image_road,$ho_id,$image_status);
     }

@@ -726,8 +726,6 @@ class RetrievalController extends Controller
         $teacher_name       = $request->teacher_name;
         return ModelDatabase::byNameSelectDatas($table_name,$teacher_name_field,$teacher_name,'');
     }
-
-
     /**
      * 查询饼图数据
      */
