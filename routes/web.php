@@ -46,7 +46,7 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     Route::get('dateselectartical', 'ArticalController@dateSelectArtical');        //根据日期查找论文
     Route::post('updateartical', 'ArticalController@updateArtical');               //修改论文
     Route::get('exportartical', 'ArticalController@exportArtical');                //导出一篇论文
-    Route::get('exportallartical', 'ArticalController@exportAllArtical');          //导出多个论文，取第一页
+    Route::get('exportallartical', 'ArticalController@exportAllArtical');          //导出多个论文，取第一页,合成一个新的PDF
 
 
 

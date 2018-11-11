@@ -16,10 +16,6 @@ class SchoolfileDatabase extends ModelDatabase
                         'schfile_road'      => $datas['schfile_road']
                     ]);
     }
-    //删除多个校发文件信息
-    public static function deleteSchoolfileDatas($schoolfile_id_datas){
-           DB::table('schoolfile')->whereIn('schfile_id',$schoolfile_id_datas)->delete();
-    }
     //修改校发文件信息
     public static function updateSchoolfileDatas($datas,$reset_file_status){
         $response = DB::table('schoolfile')->where('schfile_id',$datas['schfile_id'])

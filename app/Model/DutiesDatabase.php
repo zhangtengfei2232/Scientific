@@ -29,10 +29,6 @@ class DutiesDatabase extends ModelDatabase
         }
         return $add_duties;
     }
-    //删除担任团体职务信息
-    public static function deleteDutiesDatas($du_id_datas){
-        DB::table('duties')->whereIn('du_id',$du_id_datas)->delete();
-    }
     //修改担任团体职务信息
     public static function updateDutiesDatas($datas,$reset_image_status){
         $response = DB::table('duties')->where('du_id',$datas['du_id'])
