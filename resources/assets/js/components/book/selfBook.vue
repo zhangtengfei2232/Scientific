@@ -46,11 +46,11 @@
                 </el-form-item>
                 <el-form-item label="著作类别">
                     <el-select v-model="form.op_cate_work" placeholder="请选择类别">
-                        <el-option label="专著" value="1"></el-option>
-                        <el-option label="教科书" value="2"></el-option>
-                        <el-option label="译著" value="3"></el-option>
-                        <el-option label="编著" value="4"></el-option>
-                        <el-option label="其他" value="5"></el-option>
+                        <el-option label="专著" value="0"></el-option>
+                        <el-option label="教科书" value="1"></el-option>
+                        <el-option label="译著" value="2"></el-option>
+                        <el-option label="编著" value="3"></el-option>
+                        <el-option label="其他" value="4"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="积分">
@@ -64,24 +64,24 @@
                 </el-form-item>
                  <el-form-item label="学科门类">
                     <el-select v-model="form.op_sub_category" placeholder="请选择学科门类">
-                        <el-option label="理学" value="1"></el-option>
-                        <el-option label="工学" value="2"></el-option>
-                        <el-option label="农学" value="3"></el-option>
-                        <el-option label="医学" value="4"></el-option>
-                        <el-option label="管理学" value="5"></el-option>
-                        <el-option label="马克思主义" value="6"></el-option>
-                        <el-option label="哲学" value="7"></el-option>
-                        <el-option label="逻辑学" value="8"></el-option>
-                        <el-option label="宗教学" value="9"></el-option>
-                        <el-option label="语言学" value="10"></el-option>
-                        <el-option label="中国文学" value="11"></el-option>
-                        <el-option label="外国文学" value="12"></el-option>
-                        <el-option label="艺术学" value="13"></el-option>
-                        <el-option label="历史学" value="14"></el-option>
-                        <el-option label="考古学" value="15"></el-option>
-                        <el-option label="经济学" value="16"></el-option>
-                        <el-option label="政治学" value="17"></el-option>
-                        <el-option label="法学" value="18"></el-option>
+                       <el-option label="理学" value="0"></el-option>
+                        <el-option label="工学" value="1"></el-option>
+                        <el-option label="农学" value="2"></el-option>
+                        <el-option label="医学" value="3"></el-option>
+                        <el-option label="管理学" value="4"></el-option>
+                        <el-option label="马克思主义" value="5"></el-option>
+                        <el-option label="哲学" value="6"></el-option>
+                        <el-option label="逻辑学" value="7"></el-option>
+                        <el-option label="宗教学" value="8"></el-option>
+                        <el-option label="语言学" value="9"></el-option>
+                        <el-option label="中国文学" value="10"></el-option>
+                        <el-option label="外国文学" value="11"></el-option>
+                        <el-option label="艺术学" value="12"></el-option>
+                        <el-option label="历史学" value="13"></el-option>
+                        <el-option label="考古学" value="14"></el-option>
+                        <el-option label="经济学" value="15"></el-option>
+                        <el-option label="政治学" value="16"></el-option>
+                        <el-option label="法学" value="17"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="备注">

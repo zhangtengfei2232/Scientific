@@ -262,12 +262,7 @@
                     var data = response.data;
                     console.log(response.data);
                     if (data.code == 0) {
-                        if(data.datas == ''){
-                           alert("该时间段无数据!");
-                        }else{
-                            self.AwardDate = data.datas;
-                        }
-                        
+                        self.AwardDate = data.datas;
                     } else {
                         self.$notify({
                             type: 'error',

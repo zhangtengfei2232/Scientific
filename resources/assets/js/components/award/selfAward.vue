@@ -16,33 +16,33 @@
                 </el-form-item>  
                 <el-form-item label="成果形式">
                     <el-select v-model="form.form_achievement" placeholder="请选择类别">
-                        <el-option label="论文" value="1"></el-option>
-                        <el-option label="研究报告" value="2"></el-option>
-                        <el-option label="新技术" value="3"></el-option>
-                        <el-option label="新工艺" value="4"></el-option>
-                         <el-option label="课件" value="1"></el-option>
-                        <el-option label="新产品" value="2"></el-option>
-                        <el-option label="专著" value="3"></el-option>
-                        <el-option label="编著" value="4"></el-option>
-                        <el-option label="计算机软件" value="3"></el-option>
-                        <el-option label="教材" value="4"></el-option>
-                        <el-option label="其他" value="5"></el-option>
+                        <el-option label="论文" value="0"></el-option>
+                        <el-option label="研究报告" value="1"></el-option>
+                        <el-option label="新技术" value="2"></el-option>
+                        <el-option label="新工艺" value="3"></el-option>
+                         <el-option label="课件" value="4"></el-option>
+                        <el-option label="新产品" value="5"></el-option>
+                        <el-option label="专著" value="6"></el-option>
+                        <el-option label="编著" value="7"></el-option>
+                        <el-option label="计算机软件" value="8"></el-option>
+                        <el-option label="教材" value="9"></el-option>
+                        <el-option label="其他" value="10"></el-option>
                     </el-select>
                 </el-form-item>
                  <el-form-item label="等级">
                     <el-select v-model="form.aw_grade" placeholder="请选择类别">
-                        <el-option label="一等奖" value="1"></el-option>
-                        <el-option label="二等奖" value="2"></el-option>
-                        <el-option label="三等奖" value="3"></el-option>
+                        <el-option label="一等奖" value="0"></el-option>
+                        <el-option label="二等奖" value="1"></el-option>
+                        <el-option label="三等奖" value="2"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="奖励级别">
                     <el-select v-model="form.aw_level" placeholder="请选择类别">
-                        <el-option label="国家级" value="1"></el-option>
-                        <el-option label="省部级" value="2"></el-option>
-                        <el-option label="厅局级" value="3"></el-option>
-                        <el-option label="校级" value="4"></el-option>
-                        <el-option label="其他" value="5"></el-option>
+                        <el-option label="国家级" value="0"></el-option>
+                        <el-option label="省部级" value="1"></el-option>
+                        <el-option label="厅局级" value="2"></el-option>
+                        <el-option label="校级" value="3"></el-option>
+                        <el-option label="其他" value="4"></el-option>
                     </el-select>
                 </el-form-item>
                  <el-form-item label="授奖单位">

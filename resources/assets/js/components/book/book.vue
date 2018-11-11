@@ -275,13 +275,7 @@
                     var data = response.data;
                     console.log(data.datas);
                     if (data.code == 0) {
-                         if(data.datas == '') {
-                            self.cont = false;
-                            self.conts = true;
-                        }else{
-                            self.BookDate = data.datas;
-                            location. reload();
-                        }
+                        self.BookDate = data.datas;
                     } else {
                         self.$notify({
                             type: 'error',

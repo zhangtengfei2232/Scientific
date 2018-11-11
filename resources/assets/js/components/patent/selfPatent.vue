@@ -13,9 +13,9 @@
                 </el-form-item>
                  <el-form-item label="专利类型">
                     <el-select v-model="form.pa_type" placeholder="请选择类别">
-                        <el-option label="发明专利" value="1"></el-option>
-                        <el-option label="实用新型专利" value="2"></el-option>
-                        <el-option label="外观设计专利" value="3"></el-option>
+                        <el-option label="发明专利" value="0"></el-option>
+                        <el-option label="实用新型专利" value="1"></el-option>
+                        <el-option label="外观设计专利" value="2"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="专利名称">
@@ -23,8 +23,8 @@
                 </el-form-item>  
                 <el-form-item label="实施情况">
                     <el-select v-model="form.pa_imple_situ" placeholder="请选择类别">
-                        <el-option label="授权" value="1"></el-option>
-                        <el-option label="受理" value="2"></el-option>
+                        <el-option label="授权" value="0"></el-option>
+                        <el-option label="受理" value="1"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="授权编号或申请号">

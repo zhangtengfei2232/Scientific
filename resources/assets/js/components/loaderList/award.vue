@@ -19,17 +19,22 @@
                                     <el-dropdown-item>15年-今天</el-dropdown-item>
                                     <el-dropdown-item>14年-今天</el-dropdown-item>
                                     <el-dropdown-item>
-                                        <el-popover
+                                         <el-popover
                                             placement="top-start"
                                             width="400"
-                                            trigger="click">
-                                            <el-date-picker
-                                                v-model="data1"
-                                                type="daterange"
-                                                range-separator="至"
-                                                start-placeholder="开始日期"
-                                                end-placeholder="结束日期">
-                                            </el-date-picker>
+                                            trigger="click"
+                                            style="width:450px !important">
+                                            <span style="float:left;width: 87%;">
+                                                <el-date-picker
+                                                    v-model="data1"
+                                                    type="daterange"
+                                                    range-separator="至"
+                                                    start-placeholder="开始日期"
+                                                    end-placeholder="结束日期"
+                                                    value-format="timestamp">
+                                                </el-date-picker>
+                                            </span>
+                                            <span style="float:left"><el-button type="primary" icon="el-icon-search" @click="twoTimeSearch()" style="width:25px;margin: 0 5px;"></el-button></span>
                                             <div slot="reference">自定义时段<i class="el-icon-arrow-down el-icon--right"></i></div>
                                         </el-popover>
                                     </el-dropdown-item>
@@ -44,11 +49,11 @@
                             width="400"
                             trigger="click">
                            <el-input
-                                placeholder="请输入第一作者"
+                                placeholder="请输入第一获奖人"
                                 prefix-icon="el-icon-search"
-                                v-model="input">
+                                v-model="aw_first_author" @keyup.enter.native="nameSearch()">
                             </el-input>
-                            <div slot="reference">检索：作者<i class="el-icon-arrow-down el-icon--right"></i></div>
+                            <div slot="reference">检索：获奖人<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
                     </div>
                     <div class="search">
@@ -59,7 +64,7 @@
                            <el-input
                                 placeholder="请输入奖励名称"
                                 prefix-icon="el-icon-search"
-                                v-model="input">
+                                v-model="award_name" @keyup.enter.native="awNameSearch()">
                             </el-input>
                             <div slot="reference">检索：奖励名称<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
@@ -71,12 +76,12 @@
                             trigger="click">
                             <el-form ref="form" :model="form" label-width="80px">
                                 <el-form-item label="奖励级别">
-                                    <el-checkbox-group v-model="form.checkList">
-                                        <el-checkbox :label="1" name="type">国家级</el-checkbox>
-                                        <el-checkbox :label="2" name="type">省部级</el-checkbox>
-                                        <el-checkbox :label="3" name="type">厅局级</el-checkbox>
-                                        <el-checkbox :label="4" name="type">校级</el-checkbox>
-                                        <el-checkbox :label="5" name="type">其他</el-checkbox>
+                                    <el-checkbox-group v-model="form.aw_level">
+                                        <el-checkbox :label="0" name="type">国家级</el-checkbox>
+                                        <el-checkbox :label="1" name="type">省部级</el-checkbox>
+                                        <el-checkbox :label="2" name="type">厅局级</el-checkbox>
+                                        <el-checkbox :label="3" name="type">校级</el-checkbox>
+                                        <el-checkbox :label="4" name="type">其他</el-checkbox>
                                     </el-checkbox-group>
                                 </el-form-item>
                                 <el-form-item>
@@ -200,23 +205,64 @@ export default {
             border:true,
             allAward:[],
             data1: '',
-            input:'',
+            aw_first_author:'',
+            award_name:'',
             total:'',
             form: {
-                type:'',
-                checkList: [],
+                aw_level: [],
             },
-            
+            form_achievement:[
+                '论文',
+                '研究报告',
+                '新技术',
+                '新工艺',
+                '课件',
+                '新产品',
+                '专著',
+                '编著',
+                '计算机软件',
+                '教材',
+                '其他',
+            ],
+            aw_grade: [
+                '一等奖',
+                '二等奖',
+                '三等奖',
+            ],
+            aw_level: [
+                '国家级',
+                '省部级',
+                '厅局级',
+                '校级',
+                '其他',
+            ]
         }
     },
     methods: {
-        getArticleData() {
+        getAwardData() {
             let self = this;
             axios.get("leaderselectallaward").then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allAward = data.datas;
                     self.total = data.datas.length;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.form_achievement.length;i++){
+                            if(data.datas[j].form_achievement == i){  
+                                data.datas[j].form_achievement = self.form_achievement[i];
+                            }
+                        }
+                        for(var i= 0;i<self.aw_grade.length;i++){
+                            if(data.datas[j].aw_grade == i){  
+                                data.datas[j].aw_grade = self.aw_grade[i];
+                            }
+                        }
+                        for(var i= 0;i<self.aw_level.length;i++){
+                            if(data.datas[j].aw_level == i){  
+                                data.datas[j].aw_level = self.aw_level[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -226,12 +272,102 @@ export default {
                 }
             });
         },
+        timeSearch(time) {
+            if(time == 8) {
+                this.newTime = '1514779200';
+            }else if(time == 7) {
+                this.newTime = '1483243200';
+            }else if(time == 6) {
+                this.newTime = '1451620800';
+            }else if(time == 5) {
+                this.newTime = '1420084800';
+            }else if(time == 4) {
+                this.newTime = '1388548800';
+            }
+            var timestamp = Date.parse(new Date());
+            let self = this;
+            axios.get("byawardtimeselectaward",{
+                params:{
+                    start_time:newTime,
+                    end_time:timestamp
+                }
+            }).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.allAward = data.datas;
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,         
+                    });
+                }
+            });
+        },
+        twoTimeSearch() {
+           let self = this;
+            axios.get("byawardtimeselectaward",{
+                params:{
+                    start_time:self.data1[0],
+                    end_time:self.data1[1],
+                }
+            }).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.allAward = data.datas;
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,         
+                    });
+                }
+            });
+        },
+        nameSearch() {
+            let self = this;
+            axios.get("byfirstwinnerselectaward",{
+                params:{
+                    aw_first_author: self.aw_first_author,
+                }
+            }).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.allAward = data.datas;
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,         
+                    });
+                }
+            });
+        },
+         awNameSearch() {
+            let self = this;
+            axios.get("bynameselectaward",{
+                params:{
+                    award_name: self.award_name,
+                }
+            }).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.allAward = data.datas;
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,         
+                    });
+                }
+            });
+        },
         onSubmit() {
             
         }
     },
     mounted() {
-        this.getArticleData();
+        this.getAwardData();
     }
 }
 </script>
