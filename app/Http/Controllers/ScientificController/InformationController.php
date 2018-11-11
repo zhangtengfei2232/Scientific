@@ -36,7 +36,7 @@ class InformationController extends Controller
             'polit_outlook'         => trim($request->polit_outlook),        //老师政治面貌
             'native_place'          => trim($request->native_place),         //老师籍贯
             'admin_duties'          => trim($request->admin_duties),         //老师行政职务
-            'tennure_time'          => trim($request->admin_tenure_time),    //老师任职时间
+            'admin_tenure_time'     => trim($request->admin_tenure_time),    //老师任职时间
             'job_level'             => trim($request->job_level),            //老师职务级别
             'technical_position'    => trim($request->technical_position),   //老师专业技术职务
             'academic_title'        => trim($request->academic_title),       //老师职称
@@ -138,7 +138,7 @@ class InformationController extends Controller
             'polit_outlook'         => trim($request->polit_outlook),        //老师政治面貌
             'native_place'          => trim($request->native_place),         //老师籍贯
             'admin_duties'          => trim($request->admin_duties),         //老师行政职务
-            'tennure_time'          => trim($request->admin_tenure_time),    //老师任职时间
+            'admin_tenure_time'     => trim($request->admin_tenure_time),    //老师任职时间
             'job_level'             => trim($request->job_level),            //老师职务级别
             'technical_position'    => trim($request->technical_position),   //老师专业技术职务
             'academic_title'        => trim($request->academic_title),       //老师职称
