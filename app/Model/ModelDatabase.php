@@ -22,15 +22,50 @@ class ModelDatabase  extends  Model
          return ($response == count($id_datas)) ? true : false;
     }
     //根据字段组合查询数据
-    public static function combinationSelectDatas($condition_datas,$first_datas,$second_datas){
-         $result = DB::table($condition_datas['table_name'])
-                   ->whereIn($condition_datas['first_field'],$first_datas)
-                   ->whereIn($condition_datas['second_field'],$second_datas)
-                   ->get();
+    public static function combinationSelectDatas($condition_datas,$second_field = '',$second_datas = [],$third_field = '',$third_datas = []){
+         $table_name  = $condition_datas['table_name'];
+         $first_field = $condition_datas['first_field'];
+         $first_datas = $condition_datas['first_datas'];
+         if(count($first_datas) == 0 && count($second_datas) == 0 && count($third_datas) == 0){          //三个字段都为空
+                 $result = DB::table($table_name)->get();
+         }elseif (count($first_datas) != 0 && count($second_datas) != 0 && count($third_datas) != 0){ //三个字段都不为空
+             $result = DB::table($table_name)
+                 ->whereIn($first_field,$first_datas)
+                 ->whereIn($second_field,$second_datas)
+                 ->whereIn($third_field,$third_datas)
+                 ->get();
+         }elseif (count($first_datas) != 0 && count($second_datas) == 0 && count($third_datas) == 0){
+             $result = DB::table($table_name)
+                 ->whereIn($first_field,$first_datas)
+                 ->get();
+         }elseif (count($first_datas) == 0 && count($second_datas) != 0 && count($third_datas) == 0){
+             $result = DB::table($table_name)
+                 ->whereIn($second_field,$second_datas)
+                 ->get();
+         }elseif (count($first_datas) == 0 && count($second_datas) == 0 && count($third_datas) != 0){
+             $result = DB::table($table_name)
+                 ->whereIn($third_field,$third_datas)
+                 ->get();
+         }elseif (count($first_datas) != 0 && count($second_datas) != 0 && count($third_datas) == 0){
+             $result = DB::table($table_name)
+                 ->whereIn($first_field,$first_datas)
+                 ->whereIn($second_field,$second_datas)
+                 ->get();
+         }elseif (count($first_datas) != 0 && count($second_datas) == 0 && count($third_datas) != 0){
+             $result = DB::table($table_name)
+                 ->whereIn($first_field,$first_datas)
+                 ->whereIn($third_field,$third_datas)
+                 ->get();
+         }elseif(count($first_datas) == 0 && count($second_datas) != 0 && count($third_datas) != 0){
+             $result = DB::table($table_name)
+                 ->whereIn($second_field,$second_datas)
+                 ->whereIn($third_field,$third_datas)
+                 ->get();
+         }
          foreach ($result as $datas){
              $datas->$condition_datas['time_field'] = date('Y-m-d',$datas->$condition_datas['time_field']/1000);
          }
-         return $result;
+         return responseTojson(0,'查询成功','',$result);
     }
     //查老师所有信息
     public static function selectAllteacherDatas(){
@@ -54,6 +89,9 @@ class ModelDatabase  extends  Model
      */
     public static function selectAllDatas($table_name,$time_field){
         $result = DB::table($table_name)->get();
+        if($table_name == 'duties'){
+            return  self::changeDutiesTimeDatas($result);
+        }
         if(!empty($time_field)){
             foreach ($result as $datas){
                 $datas->$time_field = date('Y-m-d',$datas->$time_field/1000);
@@ -108,12 +146,26 @@ class ModelDatabase  extends  Model
      */
     public static function byNameSelectDatas($table_name,$field,$name,$time_field){
        $result = DB::table($table_name)->where($field,'like',"%".$name."%")->get();
+       if($table_name == 'duties'){
+           return self::changeDutiesTimeDatas($result);
+       }
        if(!empty($time_field)){
            foreach ($result as $datas){
                $datas->$time_field = date('Y-m-d',$datas->$time_field/1000);
            }
        }
        return responseTojson(0,'查询成功','',$result);
+    }
+    public static function changeDutiesTimeDatas($result){
+        foreach ($result as $datas){
+            $duties_time_datas = explode(',',$datas->du_year_num);
+            $start_time        = date('Y-m-d',$duties_time_datas[0]);
+            $end_time          = date('Y-m-d',$duties_time_datas[1]);
+        }
+        $datas['information'] = $result;
+        $datas['start_time']  = $start_time;
+        $datas['end_time']    = $end_time;
+        return responseTojson(0,'查询成功','',$datas);
     }
     /**根据字段进行分组======>按字段 '升序' 分组返回个数
      * 饼图：师资（学历，职称，学缘），论文（期刊级别），

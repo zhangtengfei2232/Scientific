@@ -101,13 +101,5 @@ class SearchMessageConfig
     const PROJECT_ID                = 'pro_id';
     const SCHOOLFILE_ID             = 'schfile_id';
     const TEACHER_ID                = 'teacher_id';
-    /**
-     * 下拉框配置信息
-     */
-    //老师
-    const SEX_DATAS                = ['男','女'];
-    const TEACHER_DEPARTMENT_DATAS = ['生工','生物技术系','农学系','领导行政政工'];
-    const TEACHER_JOB_LEVEL_DATAS  = ['正处','副处','正科','副科','其他'];
-    const TEACHER_TECHNICAL_DATAS  = ['教授','副教授','讲师','助教','实验师','助理实验师','高级实验师'];
 
 }
