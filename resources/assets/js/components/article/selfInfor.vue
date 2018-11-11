@@ -66,18 +66,18 @@
                             <el-input v-model="form.num_words"></el-input>
                         </el-form-item>
                         <el-form-item label="期刊级别">
-                            <el-radio-group v-model="form.periodical_cate">
-                                <el-radio :label="1" style="margin:10px">SCI一区</el-radio>
-                                <el-radio :label="2" style="margin:10px">SCI二区</el-radio>
-                                <el-radio :label="3" style="margin:10px">SCI三区</el-radio>
-                                <el-radio :label="4" style="margin:10px">SCI四区</el-radio>
-                                <el-radio :label="5" style="margin:10px">EI</el-radio>
-                                <el-radio :label="6" style="margin:10px">SSCI</el-radio>
-                                <el-radio :label="7" style="margin:10px">CN</el-radio>
-                                <el-radio :label="8" style="margin:10px">CSSCI核心库</el-radio>
-                                <el-radio :label="9" style="margin:10px">中文核心</el-radio>
-                                <el-radio :label="10" style="margin:10px">CSCD核心库</el-radio>
-                                <el-radio :label="11" style="margin:10px">河南科技学院期刊</el-radio>
+                            <el-radio-group v-model="form.percal_cate">
+                                <el-radio :label="0" style="margin:10px">SCI一区</el-radio>
+                                <el-radio :label="1" style="margin:10px">SCI二区</el-radio>
+                                <el-radio :label="2" style="margin:10px">SCI三区</el-radio>
+                                <el-radio :label="3" style="margin:10px">SCI四区</el-radio>
+                                <el-radio :label="4" style="margin:10px">EI</el-radio>
+                                <el-radio :label="5" style="margin:10px">SSCI</el-radio>
+                                <el-radio :label="6" style="margin:10px">CN</el-radio>
+                                <el-radio :label="7" style="margin:10px">CSSCI核心库</el-radio>
+                                <el-radio :label="8" style="margin:10px">中文核心</el-radio>
+                                <el-radio :label="9" style="margin:10px">CSCD核心库</el-radio>
+                                <el-radio :label="10" style="margin:10px">河南科技学院期刊</el-radio>
                             </el-radio-group>
                         </el-form-item>
                         <el-form-item label="所属项目">
@@ -91,31 +91,31 @@
                         </el-form-item>
                         <el-form-item label="学科门类">
                             <el-select v-model="form.art_sub_category" placeholder="请选择学科门类">
-                                <el-option label="理学" value="1"></el-option>
-                                <el-option label="工学" value="2"></el-option>
-                                <el-option label="农学" value="3"></el-option>
-                                <el-option label="医学" value="4"></el-option>
-                                <el-option label="管理学" value="5"></el-option>
-                                <el-option label="马克思主义" value="6"></el-option>
-                                <el-option label="哲学" value="7"></el-option>
-                                <el-option label="逻辑学" value="8"></el-option>
-                                <el-option label="宗教学" value="9"></el-option>
-                                <el-option label="语言学" value="10"></el-option>
-                                <el-option label="中国文学" value="11"></el-option>
-                                <el-option label="外国文学" value="12"></el-option>
-                                <el-option label="艺术学" value="13"></el-option>
-                                <el-option label="历史学" value="14"></el-option>
-                                <el-option label="考古学" value="15"></el-option>
-                                <el-option label="经济学" value="16"></el-option>
-                                <el-option label="政治学" value="17"></el-option>
-                                <el-option label="法学" value="18"></el-option>
+                                 <el-option label="理学" value="0"></el-option>
+                                <el-option label="工学" value="1"></el-option>
+                                <el-option label="农学" value="2"></el-option>
+                                <el-option label="医学" value="3"></el-option>
+                                <el-option label="管理学" value="4"></el-option>
+                                <el-option label="马克思主义" value="5"></el-option>
+                                <el-option label="哲学" value="6"></el-option>
+                                <el-option label="逻辑学" value="7"></el-option>
+                                <el-option label="宗教学" value="8"></el-option>
+                                <el-option label="语言学" value="9"></el-option>
+                                <el-option label="中国文学" value="10"></el-option>
+                                <el-option label="外国文学" value="11"></el-option>
+                                <el-option label="艺术学" value="12"></el-option>
+                                <el-option label="历史学" value="13"></el-option>
+                                <el-option label="考古学" value="14"></el-option>
+                                <el-option label="经济学" value="15"></el-option>
+                                <el-option label="政治学" value="16"></el-option>
+                                <el-option label="法学" value="17"></el-option>
                             </el-select>
                         </el-form-item>
                         <el-form-item label="积分">
                             <el-input v-model="form.art_integral"></el-input>
                         </el-form-item>
                         <el-form-item label="学校认定刊物级别">
-                            <el-input v-model="form.percal_cate"></el-input>
+                            <el-input v-model="form.sch_percal_cate"></el-input>
                         </el-form-item>
                         <el-form-item label="论文全文PDF上传">
                             <el-upload
@@ -192,6 +192,7 @@ export default {
                 art_integral: '',
                 period: '',
                 percal_cate: '',
+                sch_percal_cate:'',
                 art_time: '',
             },
         }

@@ -54,18 +54,20 @@ class HoldmeetController extends Controller
     public function deleteHoldmeet(Request $request){
         dd($request);
         $ho_id_datas     = $request->ho_id_datas;
+        $table_name          = SearchMessageConfig::HOLD_MEET_TABLE;
+        $id_field            = SearchMessageConfig::HOLDMEET_ID;
         $old_inject_road = HoldmeetDatas::selectHoldmeetInjectRoad($ho_id_datas);
         $owner_status    = UploadSubjectionConfig::HOLD_IMG_STATUS;
         $old_image_road  = ImageDatas::selectAllOwnerImage($ho_id_datas,$owner_status);
-        HoldmeetDatas::beginTraction();
-        $delete_holdmeet = HoldmeetDatas::deleteHoldmeetDatas($ho_id_datas);
+        ModelDatabase::beginTraction();
+        $delete_holdmeet = ModelDatabase::deleteAllDatas($table_name,$id_field,$ho_id_datas);
         $delete_image    = ImageDatas::byOwnerdeleteImagesDatas($ho_id_datas);
         if($delete_image && $delete_holdmeet){
-            HoldmeetDatas::commit();
+            ModelDatabase::commit();
             $image_road  = array_merge($old_inject_road,$old_image_road);     //举行会议图片和图注合并
             deleteAllFiles(UploadSubjectionConfig::HOLD_IMG,$image_road);
         }
-        HoldmeetDatas::rollback();
+        ModelDatabase::rollback();
         return responseTojson(0,'举行会议删除成功');
     }
     //查看单个举行会议信息
@@ -138,6 +140,7 @@ class HoldmeetController extends Controller
     }
     //添加举行会议图片
     public function addHoldmeetImages(Request $request){
+        dd($request->file());
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
@@ -146,10 +149,10 @@ class HoldmeetController extends Controller
                 return responseTojson(1,'请你先添加会议信息');
             }
         }
-        if(!$request->hasFile('ho_image')){
+        if(!$request->hasFile('ho_file')){
             return responseTojson(1,'请你上传举行会议图片');
         }
-        $holdmeet_images = $request->file('ho_image');              //接收数组形式的图片文件
+        $holdmeet_images = $request->file('ho_file');              //接收数组形式的图片文件
         $judge_images    = judgeAllFileImage($holdmeet_images);
         if($judge_images['code'] == 1){
            return responseTojson(1,'图片上传失败');

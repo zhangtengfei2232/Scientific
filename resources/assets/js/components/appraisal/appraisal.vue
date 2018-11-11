@@ -78,7 +78,7 @@
                     </el-table-column>
                 </el-table>
                 <div style="margin-top: 20px">
-                    <el-button @click="toggleSelection([AppraisalDate[1], AppraisalDate[2],AppraisalDate[3]])">切换第二、第三行的选中状态</el-button>
+                    <el-button @click="toggleSelection([AppraisalDate[1], AppraisalDate[2],AppraisalDate[0]])">选中前三行</el-button>
                     <el-button @click="toggleSelection()">取消选择</el-button>
                     <el-button @click="BatchDelete()">删除</el-button>
                 </div>
@@ -253,30 +253,16 @@
                 })
             },
             byTimeSearch(form) {
-                if(form.data1 == '' || form.data2 == ''){
-                    this.$message.error("不能输入空");
-                    return
-                }
+                let self = this;
                 axios.get("timeselectappraisal",{
                     params:{
                         start_time: form.data1,
                         end_time: form.data2,
                     }
                 }).then(function (response) {
-                    let self = this;
                     var data = response.data;
                     if (data.code == 0) {
-                        console.log(data.datas);
-                        if(data.datas == ''){
-                            alert("该时间段无数据");
-                        }else{
-                            self.AppraisalDate = [];
-                            self.AppraisalDate = data.datas;
-                            self.$message({
-                                type: 'success',
-                                message: '查询成功!'
-                            });
-                        }
+                        self.AppraisalDate = data.datas;
                     } else {
                         self.$notify({
                             type: 'error',

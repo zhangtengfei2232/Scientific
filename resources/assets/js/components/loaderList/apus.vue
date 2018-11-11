@@ -13,23 +13,28 @@
                                 </span>
                                 <el-dropdown-menu slot="dropdown">
                                     <el-dropdown-item>全部</el-dropdown-item>
-                                    <el-dropdown-item>18年-今天</el-dropdown-item>
-                                    <el-dropdown-item>17年-今天</el-dropdown-item>
-                                    <el-dropdown-item>16年-今天</el-dropdown-item>
-                                    <el-dropdown-item>15年-今天</el-dropdown-item>
-                                    <el-dropdown-item>14年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click="timeSearch(8)">18年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click="timeSearch(7)">17年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click="timeSearch(6)">16年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click="timeSearch(5)">15年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click="timeSearch(4)">14年-今天</el-dropdown-item>
                                     <el-dropdown-item>
                                         <el-popover
                                             placement="top-start"
                                             width="400"
-                                            trigger="click">
-                                            <el-date-picker
-                                                v-model="data1"
-                                                type="daterange"
-                                                range-separator="至"
-                                                start-placeholder="开始日期"
-                                                end-placeholder="结束日期">
-                                            </el-date-picker>
+                                            trigger="click"
+                                            style="width:450px !important">
+                                            <span style="float:left;width: 87%;">
+                                                <el-date-picker
+                                                    v-model="data1"
+                                                    type="daterange"
+                                                    range-separator="至"
+                                                    start-placeholder="开始日期"
+                                                    end-placeholder="结束日期"
+                                                    value-format="timestamp">
+                                                </el-date-picker>
+                                            </span>
+                                            <span style="float:left"><el-button type="primary" icon="el-icon-search" @click="twoTimeSearch()" style="width:25px;margin: 0 5px;"></el-button></span>
                                             <div slot="reference">自定义时段<i class="el-icon-arrow-down el-icon--right"></i></div>
                                         </el-popover>
                                     </el-dropdown-item>
@@ -46,7 +51,7 @@
                            <el-input
                                 placeholder="请输入第一作者"
                                 prefix-icon="el-icon-search"
-                                v-model="input">
+                                v-model="op_first_author" @keyup.enter.native="nameSearch()">
                             </el-input>
                             <div slot="reference">检索：作者<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
@@ -59,7 +64,7 @@
                             <el-input
                                 placeholder="请输入奖励名称"
                                 prefix-icon="el-icon-search"
-                                v-model="input">
+                                v-model="op_name" @keyup.enter.native="apNameSearch()">
                             </el-input>
                             <div slot="reference">奖励名称<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
@@ -72,26 +77,26 @@
                             <el-form ref="form" :model="form" label-width="80px">   
                                 <el-form-item label="著作类别">
                                     <el-checkbox-group v-model="form.checkList">
-                                        <el-checkbox :label="1">专著</el-checkbox>
-                                        <el-checkbox :label="2">教科书</el-checkbox>
-                                        <el-checkbox :label="3">译注</el-checkbox>
-                                        <el-checkbox :label="4">编著</el-checkbox>
-                                        <el-checkbox :label="5">其他</el-checkbox>
+                                        <el-checkbox :label="0">专著</el-checkbox>
+                                        <el-checkbox :label="1">教科书</el-checkbox>
+                                        <el-checkbox :label="2">译注</el-checkbox>
+                                        <el-checkbox :label="3">编著</el-checkbox>
+                                        <el-checkbox :label="4">其他</el-checkbox>
                                     </el-checkbox-group>
                                 </el-form-item> 
                                 <el-form-item label="编著形式">
                                     <el-checkbox-group v-model="form.checkList">
-                                        <el-checkbox :label="1" name="type">主编</el-checkbox>
-                                        <el-checkbox :label="2" name="type">副主编</el-checkbox>
-                                        <el-checkbox :label="3" name="type">参编</el-checkbox>
-                                        <el-checkbox :label="4" name="type">编著</el-checkbox>
-                                        <el-checkbox :label="5" name="type">其他</el-checkbox>
+                                        <el-checkbox :label="0" name="type">主编</el-checkbox>
+                                        <el-checkbox :label="1" name="type">副主编</el-checkbox>
+                                        <el-checkbox :label="2" name="type">参编</el-checkbox>
+                                        <el-checkbox :label="3" name="type">编著</el-checkbox>
+                                        <el-checkbox :label="4" name="type">其他</el-checkbox>
                                     </el-checkbox-group>
                                 </el-form-item>
                                 <el-form-item label="研究类别">
                                     <el-checkbox-group v-model="form.checkList">
-                                        <el-checkbox :label="1" name="type">基础研究</el-checkbox>
-                                        <el-checkbox :label="2" name="type">应用研究</el-checkbox>
+                                        <el-checkbox :label="0" name="type">基础研究</el-checkbox>
+                                        <el-checkbox :label="1" name="type">应用研究</el-checkbox>
                                     </el-checkbox-group>
                                 </el-form-item>
                                 <el-form-item>
@@ -185,7 +190,7 @@
                 <el-pagination
                     background
                     layout="prev, pager, next"
-                    :total="1000">
+                    :total="total">
                 </el-pagination>
             </div>
         </div>
@@ -225,13 +230,51 @@ export default {
             border:true,
             allOpus:[],
             data1: '',
-            input:'',
-            total:'',
+            op_first_author:'',
+            op_name:'',
+            total:0,
             form: {
                 type:'',
                 checkList: [],
             },
-            
+            op_form_write: [
+                '主编',
+                '副主编',
+                '参编',
+                '编著',
+                '其他',
+            ],
+            op_cate_research:[
+                '基础研究',
+                '应用研究'
+            ],
+            op_cate_work:[
+                '专著',
+                '教科书',
+                '译著',
+                '编著',
+                '其他',
+            ],
+            op_sub_category:[
+                '理学',
+                '工学',   
+                '农学',
+                '医学',
+                '管理学',
+                '马克思主义',
+                '哲学',
+                '逻辑学',
+                '宗教学',
+                '语言学' ,
+                '中国文学',
+                '外国文学',
+                '艺术学',
+                '历史学',
+                '考古学',
+                '经济学',
+                '政治学',
+                '法学',
+            ]
         }
     },
     methods: {
@@ -242,11 +285,123 @@ export default {
                 if (data.code == 0) {
                     self.allOpus = data.datas;
                     self.total = data.datas.length;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.op_form_write.length;i++){
+                            if(data.datas[j].op_form_write == i){  
+                                data.datas[j].op_form_write = self.op_form_write[i];
+                            }
+                        }
+                        for(var i= 0;i<self.op_cate_research.length;i++){
+                            if(data.datas[j].op_cate_research == i){  
+                                data.datas[j].op_cate_research = self.op_cate_research[i];
+                            }
+                        }
+                        for(var i= 0;i<self.op_cate_work.length;i++){
+                            if(data.datas[j].op_cate_work == i){  
+                                data.datas[j].op_cate_work = self.op_cate_work[i];
+                            }
+                        }
+                        for(var i= 0;i<self.op_sub_category.length;i++){
+                            if(data.datas[j].op_sub_category == i){  
+                                data.datas[j].op_sub_category = self.op_sub_category[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
                         message: data.message,
                         duration: 2000,
+                    });
+                }
+            });
+        },
+        timeSearch(time) {
+            if(time == 8) {
+                this.newTime = '1514779200';
+            }else if(time == 7) {
+                this.newTime = '1483243200';
+            }else if(time == 6) {
+                this.newTime = '1451620800';
+            }else if(time == 5) {
+                this.newTime = '1420084800';
+            }else if(time == 4) {
+                this.newTime = '1388548800';
+            }
+            var timestamp = Date.parse(new Date());
+            let self = this;
+            axios.get("bypublicationdateselectopus",{
+                params:{
+                    start_time:newTime,
+                    end_time:timestamp
+                }
+            }).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.allOpus = data.datas;
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,         
+                    });
+                }
+            });
+        },
+        twoTimeSearch() {
+           let self = this;
+            axios.get("bypublicationdateselectopus",{
+                params:{
+                    start_time:self.data1[0],
+                    end_time:self.data1[1],
+                }
+            }).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.allOpus = data.datas;
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,         
+                    });
+                }
+            });
+        },
+        nameSearch() {
+            let self = this;
+            axios.get("byauthorselectopus",{
+                params:{
+                    op_first_author: self.op_first_author,
+                }
+            }).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.allOpus = data.datas;
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,         
+                    });
+                }
+            });
+        },
+        apNameSearch() {
+            let self = this;
+            axios.get("bynameselectopus",{
+                params:{
+                    op_name: self.op_name,
+                }
+            }).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.allOpus = data.datas;
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,         
                     });
                 }
             });

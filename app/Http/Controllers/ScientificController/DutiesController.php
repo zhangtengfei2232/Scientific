@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\ScientificController;
 
 use App\Http\Controllers\Controller;
+use App\Model\ModelDatabase;
+use config\SearchMessageConfig;
 use config\UploadSubjectionConfig;
 use Illuminate\Http\Request;
 use App\Model\DutiesDatabase;
@@ -51,11 +53,19 @@ class DutiesController extends Controller
     }
     //删除学术团体职务信息
     public function deleteDuties(Request $request){
-        $du_id_datas    = $request->du_id_datas;
+        $du_id_datas         = $request->du_id_datas;
+        $table_name          = SearchMessageConfig::DUTIES_TABLE;
+        $id_field            = SearchMessageConfig::DUTIES_ID;
         $old_image_road = DutiesDatabase::selectImageRoadDatas($du_id_datas);
-        $delete_duties  = DutiesDatabase::deleteDutiesDatas($du_id_datas);
-        deleteAllFiles(UploadSubjectionConfig::DUTIES,$old_image_road);
-        return responseTojson(0,'删除成功');
+        ModelDatabase::beginTraction();
+        $delete_duties  = ModelDatabase::deleteAllDatas($table_name,$id_field,$du_id_datas);
+        if($delete_duties) {
+            ModelDatabase::commit();
+            deleteAllFiles(UploadSubjectionConfig::DUTIES, $old_image_road);
+            return responseTojson(0, '删除成功');
+        }
+        ModelDatabase::rollback();
+        return responseTojson(1,'删除失败');
     }
     //查看学术团体职务信息
     public function selectDuties(Request $request){

@@ -30,12 +30,6 @@ class OpusDatabase  extends ModelDatabase
        return ($response) ? responseTojson(0,'添加著作信息成功','',$response)
               : responseTojson(1,'添加著作信息失败');
     }
-    //删除著作信息
-    public static function deleteOpusDatas($op_id_datas){
-        for($i = 0; $i < count($op_id_datas); $i++){
-            DB::table('opus')->where('op_id',$op_id_datas[$i])->delete();
-        }
-    }
     //查看单个著作信息
     public static function selectOpusDatas($op_id){
         return DB::table('opus')->where('op_id',$op_id)->first();

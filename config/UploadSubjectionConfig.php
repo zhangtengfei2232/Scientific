@@ -28,7 +28,6 @@ class uploadSubjectionConfig
     const LECTURE_IMG         = 'lectureimage';          //老师上传讲学图片文件夹名
     const LECTURE_INJECTION   = 'lectureinjection';      //老师上传讲学图注图片文件夹名
     const AWARD_IMG           = 'awardimg';              //老师上传获奖图片文件夹名
-    const ARTICAL_IMG         = 'articalimg';            //老师上传论文首页图片文件夹名
     const ARTICAL_PDF         = 'articalpdf';            //老师上传论文文件夹名
     const ARTICAL_SCI         = 'articalsci';            //老师上传论文SCI索引报告
     const APPRAISAL_COVER_IMG = 'appraisalcoverimg';     //老师上传鉴定封面图片文件夹名

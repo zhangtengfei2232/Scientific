@@ -19,10 +19,6 @@ class RetrievalController extends Controller
     /**
      * 老师检索
      */
-    //根据多个条件，组合查询文章信息
-    public function combinationSelectArtical(){
-
-    }
     //查询老师全部信息
     public function leaderSelectAllTeacher(){
         return ModelDatabase::selectAllteacherDatas();
@@ -80,6 +76,18 @@ class RetrievalController extends Controller
     /**
      * 论文检索
      */
+    //根据多个条件，组合查询文章信息
+    public function combinationSelectArtical(Request $request){
+        $condition_datas = [
+            'table_name'  => SearchMessageConfig::ARTICAL_TABLE,
+            'time_field'  => SearchMessageConfig::ART_TIME,
+            'first_fied'  => SearchMessageConfig::ARTICAL_PERCAL_CATE,            //文章刊物级别字段
+            'first_datas' => $request->percal_cate_datas
+        ];
+        $art_cate_research_field = SearchMessageConfig::ARTICAL_ART_CATE_RESEARCH;//文章研究类别字段
+        $cate_research_datas     = $request->cate_research_datas;
+        return ModelDatabase::combinationSelectDatas($condition_datas,$art_cate_research_field,$cate_research_datas);
+    }
     public function leaderSelectAllArtical(){
         $table_name = SearchMessageConfig::ARTICAL_TABLE;
         $time_field = SearchMessageConfig::ART_TIME;
@@ -153,6 +161,16 @@ class RetrievalController extends Controller
     /**
      * 项目检索
      */
+    //根据多个条件，组合查询文章信息
+    public function combinationSelectProject(Request $request){
+        $condition_datas = [
+            'table_name'  => SearchMessageConfig::PROJECT_TABLE,
+            'time_field'  => SearchMessageConfig::PROJECT_YEAR,
+            'first_fied'  => SearchMessageConfig::PROJECT_PRO_SUB_CATEGORY,  //文章刊物级别字段
+            'first_datas' => $request->pro_sub_category_datas
+        ];
+        return ModelDatabase::combinationSelectDatas($condition_datas);
+    }
     //查询全部项目信息
     public function leaderSelectAllProject(){
         $table_name     = SearchMessageConfig::PROJECT_TABLE;
@@ -211,6 +229,20 @@ class RetrievalController extends Controller
     /**
      * 著作检索
      */
+    //根据多个条件，组合查询文章信息
+    public function combinationSelectOpus(Request $request){
+        $condition_datas = [
+            'table_name'  => SearchMessageConfig::OPUS_TABLE,
+            'time_field'  => SearchMessageConfig::OP_PUBLISH_TIME,
+            'first_fied'  => SearchMessageConfig::OPUS_OP_CATE_WORK,               //著作类别字段
+            'first_datas' => $request->op_cate_work_datas
+        ];
+        $op_cate_research_field = SearchMessageConfig::OPUS_OP_CATE_RESEARCH;      //著作研究类别字段
+        $op_cate_research_datas = $request->op_cate_research_datas;
+        $op_form_write_field    = SearchMessageConfig::OPUS_OP_FORM_WRITE;         //著作编著形式
+        $op_form_write_datas    = $request->op_form_write_datas;
+        return ModelDatabase::combinationSelectDatas($condition_datas,$op_cate_research_field,$op_cate_research_datas,$op_form_write_field,$op_form_write_datas);
+    }
     //查询全部著作信息
     public function leaderSelecttAllOpus(){
         $table_name = SearchMessageConfig::OPUS_TABLE;
@@ -277,6 +309,16 @@ class RetrievalController extends Controller
     /**
      * 获奖检索
      */
+    //根据多个条件，组合查询获奖信息
+    public function combinationSelectAward(Request $request){
+        $condition_datas = [
+            'table_name'  => SearchMessageConfig::AWARD_TABLE,
+            'time_field'  => SearchMessageConfig::AW_GRANT_TIME,
+            'first_fied'  => SearchMessageConfig::AWARD_AW_LEVEL,  //文章刊物级别字段
+            'first_datas' => $request->aw_level_datas
+        ];
+        return ModelDatabase::combinationSelectDatas($condition_datas);
+    }
     //查询全部获奖信息
     public function leaderSelectAllAward(){
         $table_name = SearchMessageConfig::AWARD_TABLE;
@@ -343,6 +385,18 @@ class RetrievalController extends Controller
     /**
      * 专利检索
      */
+    //根据多个条件，组合查询文章信息
+    public function combinationSelectPatent(Request $request){
+        $condition_datas = [
+            'table_name'  => SearchMessageConfig::PATENT_TABLE,
+            'time_field'  => SearchMessageConfig::AUTHOR_NOTIC_DAY,
+            'first_fied'  => SearchMessageConfig::PATENT_PA_TYPE,                     //专利类型字段
+            'first_datas' => $request->pa_type_datas
+        ];
+        $pa_imple_situ_field = SearchMessageConfig::PATENT_PA_IMPLE_SITU;         //专利实施情况字段
+        $pa_imple_situ_datas     = $request->pa_imple_situ_datas;
+        return ModelDatabase::combinationSelectDatas($condition_datas,$pa_imple_situ_field,$pa_imple_situ_datas);
+    }
     //查询全部专利信息
     public function leaderSelectAllPatent(){
         $table_name = SearchMessageConfig::PATENT_TABLE;
@@ -393,6 +447,16 @@ class RetrievalController extends Controller
     /**
      * 成果鉴定检索
      */
+    //根据多个条件，组合查询文章信息
+    public function combinationSelectAppraisal(Request $request){
+        $condition_datas = [
+            'table_name'  => SearchMessageConfig::APPRAISAL_TABLE,
+            'time_field'  => SearchMessageConfig::AP_TIME,
+            'first_fied'  => SearchMessageConfig::APPRAISAL_AP_LEVEL,  //文章刊物级别字段
+            'first_datas' => $request->ap_level_datas
+        ];
+        return ModelDatabase::combinationSelectDatas($condition_datas);
+    }
     //查询全部成果鉴定信息
     public function leaderSelectAllAppraisal(){
         $table_name = SearchMessageConfig::APPRAISAL_TABLE;
@@ -451,6 +515,16 @@ class RetrievalController extends Controller
     /**
      * 举办会议检索
      */
+    //根据多个条件，组合查询文章信息
+    public function combinationSelectHoldmeet(Request $request){
+        $condition_datas = [
+            'table_name'  => SearchMessageConfig::HOLD_MEET_TABLE,
+            'time_field'  => SearchMessageConfig::HO_TIME,
+            'first_fied'  => SearchMessageConfig::HOLDMEET_HO_LEVEL,  //文章刊物级别字段
+            'first_datas' => $request->ho_level_datas
+        ];
+        return ModelDatabase::combinationSelectDatas($condition_datas);
+    }
     //查询全部举办会议信息
     public function leaderSelectAllHoldmeet(){
         $table_name = SearchMessageConfig::HOLD_MEET_TABLE;
@@ -485,6 +559,16 @@ class RetrievalController extends Controller
     /**
      * 参加会议检索
      */
+    //根据多个条件，组合查询文章信息
+    public function combinationSelectJoinmeet(Request $request){
+        $condition_datas = [
+            'table_name'  => SearchMessageConfig::JOIN_MEET_TABLE,
+            'time_field'  => SearchMessageConfig::JO_TIME,
+            'first_fied'  => SearchMessageConfig::JOINMEET_JO_LEVEL,  //文章刊物级别字段
+            'first_datas' => $request->jo_level_datas
+        ];
+        return ModelDatabase::combinationSelectDatas($condition_datas);
+    }
     //查询全部参加会议信息
     public function leaderSelectAllJoinmeet(){
         $table_name = SearchMessageConfig::JOIN_MEET_TABLE;
@@ -519,6 +603,16 @@ class RetrievalController extends Controller
     /**
      * 专家讲学检索
      */
+    //根据多个条件，组合查询讲学信息
+    public function combinationSelectLecture(Request $request){
+        $condition_datas = [
+            'table_name'  => SearchMessageConfig::LECTURE_TABLE,
+            'time_field'  => SearchMessageConfig::LE_TIME,
+            'first_fied'  => SearchMessageConfig::LECTURE_LE_EXPERT_LEVEL,  //专家级别字段
+            'first_datas' => $request->le_expert_level_datas
+        ];
+        return ModelDatabase::combinationSelectDatas($condition_datas);
+    }
     //查询全部专家讲学信息
     public function leaderSelectAllLecture(){
         $table_name = SearchMessageConfig::LECTURE_TABLE;

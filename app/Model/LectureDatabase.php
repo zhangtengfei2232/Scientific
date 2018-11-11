@@ -26,11 +26,6 @@ class LectureDatabase  extends ModelDatabase
         }
         return $response;
     }
-    //删除讲学信息
-    public static function deleteLectureDatas($le_id_datas){
-        $response = DB::table('lecture')->whereIn('le_id',$le_id_datas)->delete();
-        return ($response > 0) ? true : false;
-    }
     //修改讲学信息
     public static function updateLectureDatas($datas,$reset_inject_status){
         $response = DB::table('lecture')->where('le_id',$datas['le_id'])

@@ -253,7 +253,10 @@
                 })
             },
             byTimeSearch(form) {
-                console.log(form);
+                if(form.data1 == '' || form.data2 == ''){
+                    this.$message.error("不能输入空");
+                    return
+                }
                 axios.get("timeselectjoinmeet",{
                     params:{
                         start_time: form.data1,

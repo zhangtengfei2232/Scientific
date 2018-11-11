@@ -284,12 +284,7 @@
                 }).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
-                        if(data.datas !== ''){
-                            self.shoolFileDate = data.datas;
-                        }else{
-                            this.$message.error("此时间段无数据");
-                        }
-                        
+                        self.shoolFileDate = data.datas;
                     } else {
                         self.$notify({
                             type: 'error',

@@ -77,10 +77,18 @@ class OpusController  extends Controller
     public function deleteOpus(Request $request)
     {
         $op_id_datas = $request->op_id_datas;
+        $table_name          = SearchMessageConfig::OPUS_TABLE;
+        $id_field            = SearchMessageConfig::OPUS_ID;
         $old_images_road = OpusDatabase::selectOpusAllImageDatas($op_id_datas);
-        $delete_opus     = OpusDatabase::deleteOpusDatas($op_id_datas);
-        deleteAllFiles(UploadSubjectionConfig::OPUS,$old_images_road);
-        return responseTojson(0,'删除成功');
+        ModelDatabase::beginTraction();
+        $delete_opus     = ModelDatabase::deleteAllDatas($table_name,$id_field,$op_id_datas);
+        if($delete_opus) {
+            ModelDatabase::commit();
+            deleteAllFiles(UploadSubjectionConfig::OPUS, $old_images_road);
+            return responseTojson(0, '删除成功');
+        }
+        ModelDatabase::rollback();
+        return responseTojson(1,'删除失败');
     }
     //查看著作信息
     public function selectOpus(Request $request)

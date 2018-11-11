@@ -34,10 +34,10 @@
                 </el-form-item>
                  <el-form-item label="鉴定级别">
                     <el-select v-model="form.ap_level" placeholder="请选择类别">
-                        <el-option label="国家级" value="1"></el-option>
-                        <el-option label="省级" value="2"></el-option>
-                        <el-option label="厅级" value="3"></el-option>
-                        <el-option label="校级" value="4"></el-option>
+                        <el-option label="国家级" value="0"></el-option>
+                        <el-option label="省级" value="1"></el-option>
+                        <el-option label="厅级" value="2"></el-option>
+                        <el-option label="校级" value="3"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="积分">

@@ -29,12 +29,6 @@ class JoinmeetDatas extends ModelDatabase
         }
         return $response;
     }
-    //删除参加会议信息
-    public static function deleteJoinmeetDatas($jo_id_datas){
-        for($i = 0; $i < count($jo_id_datas); $i++){
-            DB::table('joinmeet')->where('jo_id',$jo_id_datas[$i])->delete();
-        }
-    }
     //修改参加会议信息
     public static function updateJoinmeetDatas($datas,$reset_inject_status){
         $response = DB::table('joinmeet')->where('jo_id',$datas['jo_id'])

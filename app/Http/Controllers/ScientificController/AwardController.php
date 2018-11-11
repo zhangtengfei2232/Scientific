@@ -57,11 +57,19 @@ class AwardController extends Controller
      }
      //删除获奖信息
      public function deleteAward(Request $request){
-         $aw_id_datas = $request->aw_id_datas;
+         $aw_id_datas   = $request->aw_id_datas;
          $old_image_rod = AwardDatabase::selectAwardRoadDatas($aw_id_datas);
-         $delete_award  = AwardDatabase::deleteAwardDatas($aw_id_datas);
-         deleteAllFiles(UploadSubjectionConfig::AWARD,$old_image_rod);
-         return responseTojson(0,'删除成功');
+         $table_name    = SearchMessageConfig::AWARD_TABLE;
+         $id_field      = SearchMessageConfig::AWARD_ID;
+         ModelDatabase::beginTraction();
+         $delete_award  = ModelDatabase::deleteAllDatas($table_name,$id_field,$aw_id_datas);
+         if($delete_award) {
+             ModelDatabase::commit();
+             deleteAllFiles(UploadSubjectionConfig::AWARD, $old_image_rod);
+             return responseTojson(0, '删除成功');
+         }
+         ModelDatabase::rollback();
+         return responseTojson(1,'删除失败');
      }
      //查看单个获奖信息
      public function selectAward(Request $request){

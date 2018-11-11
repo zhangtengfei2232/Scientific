@@ -13,23 +13,28 @@
                                 </span>
                                 <el-dropdown-menu slot="dropdown">
                                     <el-dropdown-item>全部</el-dropdown-item>
-                                    <el-dropdown-item>18年-今天</el-dropdown-item>
-                                    <el-dropdown-item>17年-今天</el-dropdown-item>
-                                    <el-dropdown-item>16年-今天</el-dropdown-item>
-                                    <el-dropdown-item>15年-今天</el-dropdown-item>
-                                    <el-dropdown-item>14年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click="timeSearch(8)">18年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click="timeSearch(7)">17年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click="timeSearch(6)">16年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click="timeSearch(5)">15年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click="timeSearch(4)">14年-今天</el-dropdown-item>
                                     <el-dropdown-item>
                                         <el-popover
                                             placement="top-start"
                                             width="400"
-                                            trigger="click">
-                                            <el-date-picker
-                                                v-model="data1"
-                                                type="daterange"
-                                                range-separator="至"
-                                                start-placeholder="开始日期"
-                                                end-placeholder="结束日期">
-                                            </el-date-picker>
+                                            trigger="click"
+                                            style="width:450px !important">
+                                            <span style="float:left;width: 87%;">
+                                                <el-date-picker
+                                                    v-model="data1"
+                                                    type="daterange"
+                                                    range-separator="至"
+                                                    start-placeholder="开始日期"
+                                                    end-placeholder="结束日期"
+                                                    value-format="timestamp">
+                                                </el-date-picker>
+                                            </span>
+                                            <span style="float:left"><el-button type="primary" icon="el-icon-search" @click="twoTimeSearch()" style="width:25px;margin: 0 5px;"></el-button></span>
                                             <div slot="reference">自定义时段<i class="el-icon-arrow-down el-icon--right"></i></div>
                                         </el-popover>
                                     </el-dropdown-item>
@@ -46,9 +51,9 @@
                            <el-input
                                 placeholder="请输入作者名"
                                 prefix-icon="el-icon-search"
-                                v-model="input">
+                                v-model="art_name" @keyup.enter.native="nameSearch()">
                             </el-input>
-                            <div slot="reference">成员：作者<i class="el-icon-arrow-down el-icon--right"></i></div>
+                            <div slot="reference">检索：作者<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
                     </div>
                     <div class="search">
@@ -59,7 +64,7 @@
                             <el-input
                                 placeholder="请输入刊物级别"
                                 prefix-icon="el-icon-search"
-                                v-model="input">
+                                v-model="art_rank" @keyup.enter.native="rankSearch()">
                             </el-input>
                             <div slot="reference">学校认定刊物级别<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
@@ -71,24 +76,24 @@
                             trigger="click">
                             <el-form ref="form" :model="form" label-width="80px">   
                                 <el-form-item label="刊物级别">
-                                    <el-checkbox-group v-model="form.checkList">
-                                        <el-checkbox :label="1">SCI一区</el-checkbox>
-                                        <el-checkbox :label="2">SCI二区</el-checkbox>
-                                        <el-checkbox :label="3">SCI三区</el-checkbox>
-                                        <el-checkbox :label="4">SCI四区</el-checkbox>
-                                        <el-checkbox :label="5">EI</el-checkbox>
-                                        <el-checkbox :label="6">SSCI</el-checkbox>
-                                        <el-checkbox :label="7">CN</el-checkbox>
-                                        <el-checkbox :label="8">CSSCI核心库</el-checkbox>
-                                        <el-checkbox :label="9">中文核心</el-checkbox>
-                                        <el-checkbox :label="10">CSCD核心库</el-checkbox>
-                                        <el-checkbox :label="11">河南科技学院期刊</el-checkbox>  
+                                    <el-checkbox-group v-model="form.percal_cate">
+                                        <el-checkbox :label="0">SCI一区</el-checkbox>
+                                        <el-checkbox :label="1">SCI二区</el-checkbox>
+                                        <el-checkbox :label="2">SCI三区</el-checkbox>
+                                        <el-checkbox :label="3">SCI四区</el-checkbox>
+                                        <el-checkbox :label="4">EI</el-checkbox>
+                                        <el-checkbox :label="5">SSCI</el-checkbox>
+                                        <el-checkbox :label="6">CN</el-checkbox>
+                                        <el-checkbox :label="7">CSSCI核心库</el-checkbox>
+                                        <el-checkbox :label="8">中文核心</el-checkbox>
+                                        <el-checkbox :label="9">CSCD核心库</el-checkbox>
+                                        <el-checkbox :label="10">河南科技学院期刊</el-checkbox>  
                                     </el-checkbox-group>
                                 </el-form-item> 
                                 <el-form-item label="研究类别">
-                                    <el-checkbox-group v-model="form.checkList">
-                                        <el-checkbox :label="1" name="type">基础研究</el-checkbox>
-                                        <el-checkbox :label="2" name="type">应用研究</el-checkbox>
+                                    <el-checkbox-group v-model="form.art_cate_research">
+                                        <el-checkbox :label="0" name="type">基础研究</el-checkbox>
+                                        <el-checkbox :label="1" name="type">应用研究</el-checkbox>
                                     </el-checkbox-group>
                                 </el-form-item>
                                 <el-form-item>
@@ -182,7 +187,7 @@
                 <el-pagination
                     background
                     layout="prev, pager, next"
-                    :total="100">
+                    :total="total">
                 </el-pagination>
             </div> 
         </div>
@@ -219,16 +224,54 @@ export default {
     data() {
         return {
             searchValue:'',
+            art_rank: '',
             border:true,
             allArticle:[],
             data1: '',
-            input:'',
-            total:'',
-            form: {
-                type:'',
-                checkList: [],
+            art_name:'',
+            total: 0,
+            newTime: '',
+            form:{
+                art_cate_research: [],
+                percal_cate:[]
             },
-            
+            percal_cate:[
+                'SCI一区',
+                'SCI二区',
+                'SCI三区',
+                'SCI四区',
+                'EI',
+                'SSCI',
+                'CN',
+                'CSSCI核心库',
+                '中文核心',
+                'CSCD核心库',
+                '河南科技学院期刊',
+            ],
+            art_cate_research:[
+                '基础研究',
+                '应用研究'
+            ],
+            art_sub_category:[
+                '理学',
+                '工学',   
+                '农学',
+                '医学',
+                '管理学',
+                '马克思主义',
+                '哲学',
+                '逻辑学',
+                '宗教学',
+                '语言学' ,
+                '中国文学',
+                '外国文学',
+                '艺术学',
+                '历史学',
+                '考古学',
+                '经济学',
+                '政治学',
+                '法学',
+            ]
         }
     },
     methods: {
@@ -239,6 +282,23 @@ export default {
                 if (data.code == 0) {
                     self.allArticle = data.datas;
                     self.total = data.datas.length;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.percal_cate.length;i++){
+                            if(data.datas[j].percal_cate == i){  
+                                data.datas[j].percal_cate = self.percal_cate[i];
+                            }
+                        }
+                        for(var i= 0;i<self.art_sub_category.length;i++){
+                            if(data.datas[j].art_sub_category == i){  
+                                data.datas[j].art_sub_category = self.art_sub_category[i];
+                            }
+                        }
+                        for(var i= 0;i<self.art_cate_research.length;i++){
+                            if(data.datas[j].art_cate_research == i){  
+                                data.datas[j].art_cate_research = self.art_cate_research[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -248,8 +308,130 @@ export default {
                 }
             });
         },
-        onSubmit() {
-            
+        timeSearch(time) {
+            if(time == 8) {
+                this.newTime = '1514779200';
+            }else if(time == 7) {
+                this.newTime = '1483243200';
+            }else if(time == 6) {
+                this.newTime = '1451620800';
+            }else if(time == 5) {
+                this.newTime = '1420084800';
+            }else if(time == 4) {
+                this.newTime = '1388548800';
+            }
+            var timestamp = Date.parse(new Date());
+            let self = this;
+            axios.get("byperiodicalselectartical",{
+                params:{
+                    start_time:newTime,
+                    end_time:timestamp
+                }
+            }).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.allArticle = data.datas;
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,         
+                    });
+                }
+            });
+        },
+        twoTimeSearch() {
+           let self = this;
+            axios.get("byperiodicalselectartical",{
+                params:{
+                    start_time:self.data1[0],
+                    end_time:self.data1[1],
+                }
+            }).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.allArticle = data.datas;
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,         
+                    });
+                }
+            });
+        },
+        nameSearch() {
+            let self = this;
+            axios.get("byauthorselectartical",{
+                params:{
+                    author: self.art_name,
+                }
+            }).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.allArticle = data.datas;
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,         
+                    });
+                }
+            });
+        },
+        rankSearch() {
+            let self = this;
+            axios.get("byschoolaffirmlevelselectartical",{
+                params:{
+                    sch_percal_cate: self.art_rank,
+                }
+            }).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.allArticle = data.datas;
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,         
+                    });
+                }
+            });
+        },
+        onSubmit(form) {
+            let self = this;
+            axios.get("byjournallevelselectartical",{
+                params:{
+                    percal_cate: form.percal_cate,
+                }
+            }).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.allArticle = data.datas;
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,         
+                    });
+                }
+            });
+            axios.get("bycategoryresearchselectartical",{
+                params:{
+                    art_cate_research: form.art_cate_research,
+                }
+            }).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.allArticle = data.datas;
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,         
+                    });
+                }
+            });
         }
     },
     mounted() {

@@ -22,10 +22,10 @@
                 </el-form-item> 
                 <el-form-item label="会议级别">
                     <el-select v-model="form.ho_level" placeholder="请选择类别">
-                        <el-option label="省级" value="1"></el-option>
-                        <el-option label="大区级" value="2"></el-option>
-                        <el-option label="国家级" value="3"></el-option>
-                        <el-option label="国际会议" value="4"></el-option>
+                        <el-option label="省级" value="0"></el-option>
+                        <el-option label="大区级" value="1"></el-option>
+                        <el-option label="国家级" value="2"></el-option>
+                        <el-option label="国际会议" value="3"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="会议时间">
@@ -50,6 +50,7 @@
                         ref="ho_graph_inject"
                         :before-upload="fileProfil"
                         :auto-upload="false"
+                        :limit="1"
                         list-type="picture">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -162,12 +163,12 @@ export default {
         },
         handleRemove(file, fileList) {
             console.log(file, fileList);
-        },
-        handlePreview(file) {
-            console.log(file);
-            this.dataFile.append('ho_file', files);
+            this.dataFile.append('ho_file', file);
             let id = this.ho_id;
             this.dataFile.append('ho_id', id);
+        },
+        handlePreview(file) {
+            // console.log(file);
         },
         fileProfil(file){
             this.dataForm.append('ho_graph_inject', file);

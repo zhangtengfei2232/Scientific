@@ -11,6 +11,7 @@ class SchoolfileController extends Controller
 {
     //添加校发文件
     public function addSchoolfile(Request $request){
+        dd($request);
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
@@ -26,7 +27,7 @@ class SchoolfileController extends Controller
         if(!$request->hasFile('schfile_road')){
             return responseTojson(1,'必须要上传PDF格式的校发文件');
         }
-        $schoolfile_pdf   = $request->file('schfile_road');       //验证接收的文件
+        $schoolfile_pdf   = $request->file('schfile_road');                //验证接收的文件
         $judge_schoolfile = judgeReceiveFiles($schoolfile_pdf);
         if($judge_schoolfile['code'] == 1){
             return responseTojson(1,$judge_schoolfile['$judge_schoolfile']);
@@ -45,10 +46,18 @@ class SchoolfileController extends Controller
     //删除校发文件
     public function deleteSchoolfile(Request $request){
         $schoolfile_id_datas  = $request->sc_id_datas;
+        $table_name          = SearchMessageConfig::SCHOOL_FILE_TABLE;
+        $id_field            = SearchMessageConfig::SCHOOLFILE_ID;
         $schoofile_road_datas = SchoolfileDatabase::selectSchoolfileRoad($schoolfile_id_datas);
-        $delete_schoolfile    = SchoolfileDatabase::deleteSchoolfileDatas($schoolfile_id_datas);
-        deleteAllFiles(uploadSubjectionConfig::SCHOOL_FILE,$schoofile_road_datas);
-        return responseTojson(0,'删除成功');
+        ModelDatabase::beginTraction();
+        $delete_schoolfile    = ModelDatabase::deleteAllDatas($table_name,$id_field,$schoolfile_id_datas);
+        if($delete_schoolfile) {
+            ModelDatabase::commit();
+            deleteAllFiles(uploadSubjectionConfig::SCHOOL_FILE, $schoofile_road_datas);
+            return responseTojson(0, '删除成功');
+        }
+        ModelDatabase::rollback();
+        return responseTojson(1,'删除失败');
     }
     //修改校发文件
     public function updateSchoolfile(Request $request){

@@ -15,16 +15,6 @@ class ArticalController extends Controller
               return responseTojson(1,'你请求的方式不对',1);
 
          }
-         $artical_file  = $request->file('art_pdf');                    //接论文文件
-         $artical_sci   = $request->file('art_sci');                    //接收sci索引报告
-         $judge_artical = judgeReceiveFiles($artical_file);                  //验证论文
-         if($judge_artical['code'] == 1){
-             return responseTojson(1,'论文'.$judge_artical['message']);
-         }
-         $judge_sci = judgeReceiveFiles($artical_sci);                       //验证论文SCI
-         if($judge_sci['code'] == 1){
-             return responseTojson(1,'论文SCI索引报告'.$judge_sci['message']);
-         }
          $teacher_id = session('usercount');
          $datas = [
              'teacher_id'        => $teacher_id,                              //老师工号
@@ -41,26 +31,37 @@ class ArticalController extends Controller
              'art_sub_category'  => trim($request->art_sub_category),         //学科门类
              'art_integral'      => trim($request->art_integral),             //学科积分
              'sch_percal_cate'   => trim($request->sch_percal_cate),          //学校认证期刊级别
-             'art_remarks'       => trim($request->art_remarks),              //论文备注
              'art_time'          => trim($request->art_time),                 //发表时间
          ];
-//         $respose = showResponse(judgeArticalField($datas));
-//         //判断论文字段是否合法
-//         if($respose->code == 1){
-//             return $respose;
-//         }
+         $respose = judgeArticalField($datas);
+         if($respose['code'] == 1){                                          //判断论文字段是否合法
+             return responseTojson(1,$respose['message']);
+         }
+         if(!$request->hasFile('art_road')){
+             return responseTojson(1,'请你上传PDF格式的论文');
+         }
+         if(!$request->hasFile('art_sci_road')){
+             return responseTojson(1,'请你上传PDF格式的SCI索引报告');
+         }
+         $artical_file  = $request->file('art_road');                     //接论文文件
+         $artical_sci   = $request->file('art_sci_road');                 //接收sci索引报告
+         $judge_artical = judgeReceiveFiles($artical_file);                   //验证论文
+         if($judge_artical['code'] == 1){
+             return responseTojson(1,'论文'.$judge_artical['message']);
+         }
+         $judge_sci = judgeReceiveFiles($artical_sci);                       //验证论文SCI
+         if($judge_sci['code'] == 1){
+             return responseTojson(1,'论文SCI索引报告'.$judge_sci['message']);
+         }
          $disk               = UploadSubjectionConfig::ARTICAL;
-         $subjection         = UploadSubjectionConfig::ARTICAL_IMG;
-         $artical_name       = $artical_file->getClientOriginalName();        //获取文件名字
          ArticalDatabase::beginTraction();
          $subjection_artical = UploadSubjectionConfig::ARTICAL_PDF;
          $subjection_sci     = UploadSubjectionConfig::ARTICAL_SCI;
          $artical_road       = uploadFiles($subjection_artical,$artical_file,$disk);
          $artical_sci_road   = uploadFiles($subjection_sci,$artical_sci,$disk);
-         $artical_first_road = pdfToPngUpload($disk,$artical_road,$subjection,$artical_name,1);
          $datas['art_road']       = $artical_road;
-         $datas['home_page_road'] = $artical_first_road;
          $datas['art_sci_road']   = $artical_sci_road;
+         $datas['art_remarks']    = trim($request->art_remarks);
          $add_artical = ArticalDatabase::addArticalDatas($datas);
          if($add_artical){
              ArticalDatabase::commit();
@@ -69,20 +70,18 @@ class ArticalController extends Controller
          ArticalDatabase::rollback();
          deletefiles($disk,$artical_road);
          deletefiles($disk,$artical_sci_road);
-         deletefiles($disk,$artical_first_road);
          return responseTojson(1,'添加论文失败');
      }
      //删除论文
      public function deleteArtical(Request $request){
-         $artical_id          = $request->artical_id;
+         $art_id_datas        = $request->art_id_datas;
          $disk                = UploadSubjectionConfig::ARTICAL;
-         $select_artical_road = ArticalDatabase::selectArticalRoad($artical_id);
-         $delete_artical      = ArticalDatabase::deleteArticalDatas($artical_id);
+         $select_artical_road = ArticalDatabase::selectArticalRoad($art_id_datas);
+         $delete_artical      = ArticalDatabase::deleteArticalDatas($art_id_datas);
          if(!$delete_artical){
              return responseTojson(0,'删除文章失败');
          }
          deletefiles($disk,$select_artical_road->art_road);
-         deletefiles($disk,$select_artical_road->home_page_road);
          deletefiles($disk,$select_artical_road->art_sci_road);
          return responseTojson(0,'删除文章成功');
      }
@@ -135,7 +134,7 @@ class ArticalController extends Controller
              return responseTojson(1,$judge_datas['message']);
          }
          if(!$request->is_change_artical){                                    //判断老师是否修改论文
-             return ArticalDatabase::updateArticalDatas($datas);              //直接修改数据库论文信息
+             return ArticalDatabase::updateArticalImage($datas);              //直接修改数据库论文信息
          }
          $artical_file  = $request->file('pdf');                          //接论文文件
          $artical_sci   = $request->file('sci');
@@ -151,13 +150,9 @@ class ArticalController extends Controller
          $disk                  = UploadSubjectionConfig::ARTICAL;
          $subjection_pdf        = uploadSubjectionConfig::ARTICAL_PDF;
          $subjection_sci        = uploadSubjectionConfig::ARTICAL_SCI;
-         $subjection_img        = UploadSubjectionConfig::ARTICAL_IMG;
          ArticalDatabase::beginTraction();
          $reset_artical_road      = uploadfiles($subjection_pdf,$artical_file,$disk);
          $reset_sci_road          = uploadFiles($subjection_sci,$artical_sci,$disk);
-         $artical_name            = $artical_file->getClientOriginalName();
-         $reset_first_page_road   = pdfToPngUpload($disk,$reset_artical_road,$subjection_img,$artical_name,1);
-         $datas['home_page_road'] = $reset_first_page_road;
          $datas['art_road']       = $reset_artical_road;
          $datas['art_sci_road']   = $reset_sci_road;
          $retUpdate  = ArticalDatabase::updateArticalImage($datas);
@@ -165,18 +160,18 @@ class ArticalController extends Controller
              ArticalDatabase::rollback();
              deletefiles($disk,$reset_artical_road);
              deletefiles($disk,$reset_sci_road);
-             deletefiles($disk,$reset_first_page_road);
              return responseTojson(1,'修改文章失败');
          }
          ArticalDatabase::commit();
          deletefiles($disk,$old_artical_road->art_road);            //删除原来的首页
-         deletefiles($disk,$old_artical_road->home_page_road);      //删除原来的论文
          deletefiles($disk,$old_artical_road->art_sci_road);        //删除原来的论文SCI
          return responseTojson(0,'修改论文信息成功');
      }
      //根据时间查询论文
      public function dateSelectArtical(Request $request){
-         $before_date = $request->before_date;
+         $start_time = $request->start_time;
+         $end_time   = $request->end_time;
+
 
      }
      //导出单个论文
@@ -184,7 +179,11 @@ class ArticalController extends Controller
 
      }
      //同时导出多个论文，取每个论文的第一页，形成一个新的PDF论文
-     public function exportAllArtical(){
-
+     public function exportAllArtical(Request $request){
+         $art_id_datas = $request->art_id_datas;
+         $art_road_datas = ArticalDatabase::selectArticalRoad($art_id_datas);
+         $disk = UploadSubjectionConfig::ARTICAL;
+         selectionFirstPageToNewPdf($disk,$art_road_datas);
+         return ;
      }
 }

@@ -273,17 +273,12 @@
                 axios.get("timeselectattical",{
                      params:{
                         start_time: form.data1,
-                        end_time: form.data1,
+                        end_time: form.data2,
                     }
                 }).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
-                        if(data.datas == '') {
-                            self.cont = false;
-                            self.conts = true;
-                        }else{
-                            self.ArticleDate = data.datas;
-                        }
+                        self.ArticleDate = data.datas;
                     } else {
                         self.$notify({
                             type: 'error',
