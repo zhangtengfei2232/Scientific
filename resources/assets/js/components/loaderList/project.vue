@@ -196,7 +196,7 @@
                 <el-pagination
                     background
                     layout="prev, pager, next"
-                    :total="1000">
+                    :total="total">
                 </el-pagination>
             </div>
         </div>
@@ -238,7 +238,7 @@ export default {
             data1: '',
             pro_name:'',
             project_category:'',
-            total:'',
+            total:0,
             approval_unit:'',
             form: {
                 pro_sub_category:[],

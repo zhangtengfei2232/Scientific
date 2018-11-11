@@ -162,7 +162,7 @@
                 <el-pagination
                     background
                     layout="prev, pager, next"
-                    :total="100">
+                    :total="total">
                 </el-pagination>
             </div> 
         </div>
@@ -205,7 +205,7 @@ export default {
             ap_first_author:'',
             ap_res_name:'',
             ap_form:'',
-            total:'',
+            total: 0,
             form: {
                 ap_level: [],
             },   
@@ -360,7 +360,7 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allAppraisal = data.datas;
-                } else {
+                }else {
                     self.$notify({
                         type: 'error',
                         message: data.message,

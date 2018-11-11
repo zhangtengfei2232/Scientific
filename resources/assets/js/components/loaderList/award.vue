@@ -165,7 +165,7 @@
                 <el-pagination
                     background
                     layout="prev, pager, next"
-                    :total="100">
+                    :total="total">
                 </el-pagination>
             </div> 
         </div>
@@ -207,7 +207,7 @@ export default {
             data1: '',
             aw_first_author:'',
             award_name:'',
-            total:'',
+            total:0,
             form: {
                 aw_level: [],
             },

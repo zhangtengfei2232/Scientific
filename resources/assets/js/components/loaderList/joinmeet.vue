@@ -141,7 +141,7 @@
                 <el-pagination
                     background
                     layout="prev, pager, next"
-                    :total="100">
+                    :total="total">
                 </el-pagination>
             </div> 
         </div>
@@ -182,7 +182,7 @@ export default {
             allJoinmeet:[],
             data1: '',
             input:'',
-            total:'',
+            total:0,
             form: {
                 jo_level: [],
             },

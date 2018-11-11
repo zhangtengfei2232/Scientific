@@ -159,7 +159,7 @@
                 <el-pagination
                     background
                     layout="prev, pager, next"
-                    :total="100">
+                    :total="total">
                 </el-pagination>
             </div> 
         </div>
@@ -201,7 +201,7 @@ export default {
             data1: '',
             first_inventor:'',
             pa_name:'',
-            total:'',
+            total:0,
             form: {
                 pa_type:[],
                 pa_imple_situ: [],

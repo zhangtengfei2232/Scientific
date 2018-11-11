@@ -47,6 +47,7 @@
                         ref="ho_graph_inject"
                         :before-upload="fileProfil"
                         :auto-upload="false"
+                        :limit="1"
                         list-type="picture">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -114,12 +115,12 @@
         },
         handleRemove(file, fileList) {
             console.log(file, fileList);
-        },
-        handlePreview(file) {
-            console.log(file);
-            this.dataFile.append('ho_file', files);
+            this.dataFile.append('ho_file', file);
             let id = this.ho_id;
             this.dataFile.append('ho_id', id);
+        },
+        handlePreview(file) {
+            // console.log(file);
         },
         fileProfil(file){
             this.dataForm.append('ho_graph_inject', file);
