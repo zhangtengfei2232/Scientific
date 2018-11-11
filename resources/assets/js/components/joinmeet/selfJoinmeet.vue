@@ -191,7 +191,7 @@ export default {
             return false;
         },
         fileProfils(files){
-            if(this.Bcode == true){
+            if(file !== ''){
                 this.sendfile(this.dataFile);
             }else{
                 this.$message.error('请先添加数据信息');

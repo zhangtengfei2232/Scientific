@@ -92,7 +92,7 @@
                 if(file !== ''){
                     this.checkFileExt(file.name);
                     this.school = true;
-                    this.dataForm.append('judge_schoolfile', file);
+                    this.dataForm.append('schfile_road', file);
                     return false;
                 }else{
                     this.$message.error('文件不能为空');                    
@@ -152,7 +152,7 @@
                                     });
                                 }
                             })
-                            vue.$refs.schfile_file.submit();
+                            vue.$refs.schfile_road.submit();
                         } else {
                             console.log('error submit!!')
                             return false
