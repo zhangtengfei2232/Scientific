@@ -157,15 +157,13 @@ class ModelDatabase  extends  Model
        return responseTojson(0,'查询成功','',$result);
     }
     public static function changeDutiesTimeDatas($result){
-        foreach ($result as $datas){
-            $duties_time_datas = explode(',',$datas->du_year_num);
-            $start_time        = date('Y-m-d',$duties_time_datas[0]);
-            $end_time          = date('Y-m-d',$duties_time_datas[1]);
+        $result = json_decode(json_encode($result));
+        for($i = 0; $i < count($result); $i++){
+            $duties_time_datas        = explode(',',$result[$i]->du_year_num);
+            $result[$i]['start_time'] = date('Y-m-d',$duties_time_datas[0]);
+            $result[$i]['end_time']   = date('Y-m-d',$duties_time_datas[1]);
         }
-        $datas['information'] = $result;
-        $datas['start_time']  = $start_time;
-        $datas['end_time']    = $end_time;
-        return responseTojson(0,'查询成功','',$datas);
+        return responseTojson(0,'查询成功','',$result);
     }
     /**根据字段进行分组======>按字段 '升序' 分组返回个数
      * 饼图：师资（学历，职称，学缘），论文（期刊级别），

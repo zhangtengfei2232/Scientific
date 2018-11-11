@@ -11,7 +11,6 @@ class SchoolfileController extends Controller
 {
     //添加校发文件
     public function addSchoolfile(Request $request){
-        dd($request);
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
