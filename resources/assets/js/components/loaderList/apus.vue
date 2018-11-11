@@ -190,7 +190,7 @@
                 <el-pagination
                     background
                     layout="prev, pager, next"
-                    :total="1000">
+                    :total="total">
                 </el-pagination>
             </div>
         </div>
@@ -232,7 +232,7 @@ export default {
             data1: '',
             op_first_author:'',
             op_name:'',
-            total:'',
+            total:0,
             form: {
                 type:'',
                 checkList: [],

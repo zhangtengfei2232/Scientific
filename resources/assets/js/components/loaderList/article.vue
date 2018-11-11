@@ -187,7 +187,7 @@
                 <el-pagination
                     background
                     layout="prev, pager, next"
-                    :total="100">
+                    :total="total">
                 </el-pagination>
             </div> 
         </div>
@@ -229,7 +229,7 @@ export default {
             allArticle:[],
             data1: '',
             art_name:'',
-            total:'',
+            total: 0,
             newTime: '',
             form:{
                 art_cate_research: [],
