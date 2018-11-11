@@ -25,7 +25,7 @@ class InformationController extends Controller
         $datas  = [
             'teacher_id'            => $teacher_id,                          //老师工号
             'teacher_department'    => trim($request->teacher_department),   //老师所属部门
-            'name'                  => trim($request->teacher_name),         //老师名字
+            'name'                  => trim($request->name),                 //老师名字
             'office_phone'          => trim($request->office_phone),         //老师办公电话
             'home_phone'            => trim($request->home_phone),           //老师住宅电话
             'phone'                 => trim($request->phone),                //老师手机号
@@ -36,7 +36,7 @@ class InformationController extends Controller
             'polit_outlook'         => trim($request->polit_outlook),        //老师政治面貌
             'native_place'          => trim($request->native_place),         //老师籍贯
             'admin_duties'          => trim($request->admin_duties),         //老师行政职务
-            'tennure_time'          => trim($request->tennure_time),         //老师任职时间
+            'tennure_time'          => trim($request->admin_tenure_time),    //老师任职时间
             'job_level'             => trim($request->job_level),            //老师职务级别
             'technical_position'    => trim($request->technical_position),   //老师专业技术职务
             'academic_title'        => trim($request->academic_title),       //老师职称
@@ -127,7 +127,7 @@ class InformationController extends Controller
         }
         $datas  = [
             'teacher_department'    => trim($request->teacher_department),   //老师所属部门
-            'name'                  => trim($request->teacher_name),         //老师名字
+            'name'                  => trim($request->name),                 //老师名字
             'office_phone'          => trim($request->office_phone),         //老师办公电话
             'home_phone'            => trim($request->home_phone),           //老师住宅电话
             'phone'                 => trim($request->phone),                //老师手机号
@@ -138,7 +138,7 @@ class InformationController extends Controller
             'polit_outlook'         => trim($request->polit_outlook),        //老师政治面貌
             'native_place'          => trim($request->native_place),         //老师籍贯
             'admin_duties'          => trim($request->admin_duties),         //老师行政职务
-            'tennure_time'          => trim($request->tennure_time),         //老师任职时间
+            'tennure_time'          => trim($request->admin_tenure_time),    //老师任职时间
             'job_level'             => trim($request->job_level),            //老师职务级别
             'technical_position'    => trim($request->technical_position),   //老师专业技术职务
             'academic_title'        => trim($request->academic_title),       //老师职称
