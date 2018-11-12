@@ -25,7 +25,7 @@ class InformationController extends Controller
         $datas  = [
             'teacher_id'            => $teacher_id,                          //老师工号
             'teacher_department'    => trim($request->teacher_department),   //老师所属部门
-            'name'                  => trim($request->teacher_name),         //老师名字
+            'name'                  => trim($request->name),                 //老师名字
             'office_phone'          => trim($request->office_phone),         //老师办公电话
             'home_phone'            => trim($request->home_phone),           //老师住宅电话
             'phone'                 => trim($request->phone),                //老师手机号
@@ -36,7 +36,7 @@ class InformationController extends Controller
             'polit_outlook'         => trim($request->polit_outlook),        //老师政治面貌
             'native_place'          => trim($request->native_place),         //老师籍贯
             'admin_duties'          => trim($request->admin_duties),         //老师行政职务
-            'tennure_time'          => trim($request->tennure_time),         //老师任职时间
+            'admin_tenure_time'     => trim($request->admin_tenure_time),    //老师任职时间
             'job_level'             => trim($request->job_level),            //老师职务级别
             'technical_position'    => trim($request->technical_position),   //老师专业技术职务
             'academic_title'        => trim($request->academic_title),       //老师职称
@@ -82,10 +82,10 @@ class InformationController extends Controller
         $status         = trim($request->reset_image_status);                  //老师修改证书的状态
         if($status == 1){
             $subjection     = UploadSubjectionConfig::GRADUCETION_IMG;
-            $certificate    = $request->file('graducation_image');        //接收证书图片
+            $certificate    = $request->file('gra_cert_road');            //接收证书图片
         }else{
             $subjection     = UploadSubjectionConfig::EDUCATION_IMG;
-            $certificate    = $request->file('education_image');          //接收证书图片
+            $certificate    = $request->file('edu_cert_road');           //接收证书图片
         }
         $judge_certificate  = judgeFileImage($certificate);                              //判断文件是否合法
         if($judge_certificate['code'] == 1){
@@ -108,6 +108,7 @@ class InformationController extends Controller
      * @param Request $request
      */
     public function deleteTeacher(Request $request){
+        $teacher_id = trim($request->teacher_id);
 
 
     }
@@ -126,7 +127,7 @@ class InformationController extends Controller
         }
         $datas  = [
             'teacher_department'    => trim($request->teacher_department),   //老师所属部门
-            'name'                  => trim($request->teacher_name),         //老师名字
+            'name'                  => trim($request->name),                 //老师名字
             'office_phone'          => trim($request->office_phone),         //老师办公电话
             'home_phone'            => trim($request->home_phone),           //老师住宅电话
             'phone'                 => trim($request->phone),                //老师手机号
@@ -137,7 +138,7 @@ class InformationController extends Controller
             'polit_outlook'         => trim($request->polit_outlook),        //老师政治面貌
             'native_place'          => trim($request->native_place),         //老师籍贯
             'admin_duties'          => trim($request->admin_duties),         //老师行政职务
-            'tennure_time'          => trim($request->tennure_time),         //老师任职时间
+            'admin_tenure_time'     => trim($request->admin_tenure_time),    //老师任职时间
             'job_level'             => trim($request->job_level),            //老师职务级别
             'technical_position'    => trim($request->technical_position),   //老师专业技术职务
             'academic_title'        => trim($request->academic_title),       //老师职称
@@ -166,7 +167,6 @@ class InformationController extends Controller
             'master_company'        => trim($request->master_company),       //老师硕博导授予单位
             'master_time '          => trim($request->master_time)           //老师硕博导授予时间
         ];
-        dd($request);
         $judge_datas = judgeTeacherField($datas);
         if($judge_datas['code'] == 1){                                         //没有字段通过验证
             return responseTojson(1,$judge_datas['message']);
@@ -181,13 +181,13 @@ class InformationController extends Controller
         }
         $status      = trim($request->resetimage);                           //老师修改证书的状态
         if($status == 1){
-            $certificate = $request->file('graducation_image');         //接收证书图片文件
+            $certificate = $request->file('gra_cert_road');             //接收证书图片文件
             $subjection  = UploadSubjectionConfig::GRADUCETION_IMG;
         }else{
-            $certificate = $request->file('education_image');           //接收证书图片文件
+            $certificate = $request->file('edu_cert_road');             //接收证书图片文件
             $subjection  = UploadSubjectionConfig::EDUCATION_IMG;
         }
-        $judge_certificate = judgeFileImage($certificate);                            //判断文件是否合法
+        $judge_certificate = judgeFileImage($certificate);                  //判断文件是否合法
         if($judge_certificate['code'] == 1){
            return responseTojson(1,$judge_certificate['message']);
         }

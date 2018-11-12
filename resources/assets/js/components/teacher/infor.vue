@@ -177,11 +177,11 @@
 
                                 <el-form-item label="第一学历："style="font-weight:800 !important; font-size: 17px;" ></el-form-item>
 
-                                <el-form-item label="第一学历/学位" prop="first_graduate_school">
-                                    <el-input v-model="form.first_graduate_school"></el-input>
+                                <el-form-item label="第一学历/学位" prop="first_academic">
+                                    <el-input v-model="form.first_academic"></el-input>
                                 </el-form-item>
-                                <el-form-item label="第一毕业学校" prop="edu_school">
-                                    <el-input v-model="form.edu_school"></el-input>
+                                <el-form-item label="第一毕业学校" prop="first_graduate_school">
+                                    <el-input v-model="form.first_graduate_school"></el-input>
                                 </el-form-item>
                                 <el-form-item label="第一所学专业" prop="first_study_major">
                                     <el-input v-model="form.first_study_major"></el-input>
@@ -327,6 +327,7 @@
                     native_place:'',
                     number:'',
                     borth:'',
+                    first_academic:'',
 
                     academic_title:'',
                     nation:'',
@@ -461,7 +462,7 @@
 //                let vue = this;
                 if(form.name == '') {
                     this.$message.error('老师姓名不能为空');
-                }else if(form.teacher_id == '') {
+                }else if(form.sex == '') {
                     this.$message.error('老师性别不能为空');
                 }else if(form.teacher_department == '') {
                     this.$message.error('老师所属部门不能为空');
@@ -485,13 +486,17 @@
                     this.$message.error('政治面貌不能为空');
                 }else if(form.admin_duties == '') {
                     this.$message.error('行政职务不能为空');
+                }else if(form.native_place == '') {
+                    this.$message.error('籍贯不能为空');
                 }else if(form.admin_tenure_time == '') {
                     this.$message.error('任职时间不能为空');
                 }else if(form.job_level == '') {
                     this.$message.error('职务级别不能为空');
-                }else if(form.admin_tenure_time == '') {
-                    this.$message.error('任职时间不能为空');
-                }else if(form.technical_position == '') {
+                }
+//                else if(form.academic_title == '') {
+//                    this.$message.error('老师职称不能为空');
+//                }
+                else if(form.technical_position == '') {
                     this.$message.error('专业技术职务不能为空');
                 }else if(form.review_time == '') {
                     this.$message.error('评审通过时间不能为空');
@@ -513,6 +518,16 @@
                     this.$message.error('教师资格证书编号不能为空');
                 }else if(form.identity_card == '') {
                     this.$message.error('身份证号不能为空');
+                }else if(form.edu_school == '') {
+                    this.$message.error('毕业院校不能为空');
+                }else if(form.first_academic == '') {
+                    this.$message.error('第一学历学位不能为空');
+                }else if(form.first_graduate_school == '') {
+                    this.$message.error('第一毕业学校不能为空');
+                }else if(form.first_study_major == '') {
+                    this.$message.error('第一所学专业不能为空');
+                }else if(form.first_graduation_time == '') {
+                    this.$message.error('第一毕业时间不能为空');
                 }else if(form.most_academic == '') {
                     this.$message.error('学历/学位不能为空');
                 }else if(form.most_graduate_school == '') {

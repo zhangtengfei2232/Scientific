@@ -3,7 +3,7 @@
         <div class="cont">
             <div class="header">
                 <el-header style="height: 45px;">
-                    <div class="art">学生团体任职(213)</div>
+                    <div class="art">学生团体任职({{form.num}})</div>
                     <div class="search">
                         <el-popover
                                 placement="top-start"
@@ -12,7 +12,8 @@
                             <el-input
                                     placeholder="请输入老师姓名"
                                     prefix-icon="el-icon-search"
-                                    v-model="input">
+                                    v-model="form.name"
+                                    @keyup.enter.native="byNameSearch(form)">
                             </el-input>
                             <div slot="reference">老师：姓名<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
@@ -25,7 +26,8 @@
                             <el-input
                                     placeholder="请输入担任的学术团体名称"
                                     prefix-icon="el-icon-search"
-                                    v-model="input">
+                                    v-model="form.groupname"
+                                    @keyup.enter.native="byGroupNameSearch(form)">
                             </el-input>
                             <div slot="reference">担任学术团体名称<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
@@ -128,8 +130,29 @@
                 form: {
                     type:'',
                     checkList: [],
+                    num:'',
+                    name:'',
+                    groupname:''
                 },
-
+                du_academic:[   //职称
+                    '教授',
+                    '副教授',
+                    '讲师',
+                    '助教',
+                    '高级实验师',
+                    '实验师',
+                    '助理实验师'
+                ],
+                du_education:[  //学历
+                    '大专',
+                    '研究生',
+                    '本科',
+                ],
+                du_degree:[     //学位
+                    '硕士',
+                    '博士',
+                    '学士',
+                ],
             }
         },
         methods: {
@@ -137,20 +160,20 @@
                 let self = this;
                 axios.get("leaderselectallduties").then(function (response) {
                     var data = response.data;
-                    var time = data.datas[0].du_year_num;
-                    console.log(time,"**************");
-                     self.checkYearExt(time);
-//                    var kk =self.year1;
-//                    var kk2 =self.year2;
-//                    var kk =self.formatDate(999999)
-//                    console.log(kk,'=========')
-//                    var kk2 =self.formatDate(666666)
-//                    console.log(kk2,'[[[[[[]]]]]')
-                     var star = self.formatDate(parseInt(self.year1));
-                    console.log(star,"**///////");
-                    var end = self.formatDate(parseInt(self.year2));
-                    console.log(end,"**///////");
-                    self.du_year_num = star+"-"+end;
+                    self.form.num = data.datas.length;
+                    for(var i=0;i<data.datas.length;i++){
+                        data.datas[i].du_academic = self.du_academic[data.datas[i].du_academic];
+                        data.datas[i].du_education = self.du_education[data.datas[i].du_education];
+                        data.datas[i].du_degree = self.du_degree[data.datas[i].du_degree];
+                    }
+//                    var time = data.datas[0].du_year_num;
+//                    console.log(time,"**************");
+//                     self.checkYearExt(time);
+//                     var star = self.formatDate(parseInt(self.year1));
+//                    console.log(star,"**///////");
+//                    var end = self.formatDate(parseInt(self.year2));
+//                    console.log(end,"**///////");
+//                    self.du_year_num = star+"-"+end;
 //
                     if (data.code == 0) {
                         self.StudygroupDate = data.datas;
@@ -168,28 +191,77 @@
                 let a = time.split(',');
                 this.year1 = a[0];
                 this.year2 = a[1];
-                console.log( this.year1,'...........');
-                console.log(this.year2,'-0----8888888');
+//                console.log( this.year1,'...........');
+//                console.log(this.year2,'-0----8888888');
             },
-            formatDate(timestamp) {
-                var date = new Date(timestamp);
-                var year = date.getFullYear();
-                var month = date.getMonth() + 1;
-                var day = date.getDate();
-                if (month < 10) {
-                   month = "0" + month;
-                }
-                if (day < 10) {
-                   day = "0" + day;
-                }
-
-//        var hours = addZero(date.getHours());
-//        var minutes = addZero(date.getMinutes());
-//        var seconds = addZero(date.getSeconds());
-        // return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
-        return year + '-' + month + '-' + day;
-    },
-
+//            formatDate(timestamp) {
+//                var date = new Date(timestamp);
+//                var year = date.getFullYear();
+//                var month = date.getMonth() + 1;
+//                var day = date.getDate();
+//                if (month < 10) {
+//                   month = "0" + month;
+//                }
+//                if (day < 10) {
+//                   day = "0" + day;
+//                }
+//
+////        var hours = addZero(date.getHours());
+////        var minutes = addZero(date.getMinutes());
+////        var seconds = addZero(date.getSeconds());
+//        // return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+//        return year + '-' + month + '-' + day;
+//    },
+            byNameSearch(form) {                //老师姓名
+                let self = this;
+                axios.get("byteachernameselectduties",{
+                    params:{
+                        teacher_name: form.name,
+                    }
+                }).then(function (response) {
+                    var data = response.data;
+                    self.form.num = data.datas.length;
+                    for(var i=0;i<data.datas.length;i++){
+                        data.datas[i].du_academic = self.du_academic[data.datas[i].du_academic];
+                        data.datas[i].du_education = self.du_education[data.datas[i].du_education];
+                        data.datas[i].du_degree = self.du_degree[data.datas[i].du_degree];
+                    }
+                    if (data.code == 0) {
+                        self.StudygroupDate = data.datas;
+                    } else {
+                        self.$notify({
+                            type: 'error',
+                            message: data.message,
+                            duration: 2000,
+                        });
+                    }
+                });
+            },
+            byGroupNameSearch(form) {                //担任学术团体名称
+                let self = this;
+                axios.get("bynameselectduties",{
+                    params:{
+                        du_name: form.groupname,
+                    }
+                }).then(function (response) {
+                    var data = response.data;
+                    self.form.num = data.datas.length;
+                    for(var i=0;i<data.datas.length;i++){
+                        data.datas[i].du_academic = self.du_academic[data.datas[i].du_academic];
+                        data.datas[i].du_education = self.du_education[data.datas[i].du_education];
+                        data.datas[i].du_degree = self.du_degree[data.datas[i].du_degree];
+                    }
+                    if (data.code == 0) {
+                        self.StudygroupDate = data.datas;
+                    } else {
+                        self.$notify({
+                            type: 'error',
+                            message: data.message,
+                            duration: 2000,
+                        });
+                    }
+                });
+            },
             onSubmit() {
 
             }

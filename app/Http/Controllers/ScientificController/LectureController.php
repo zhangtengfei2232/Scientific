@@ -150,16 +150,15 @@ class LectureController extends Controller
          if(!$request->hasFile('le_image')){
             return responseTojson(1,'请你上传专家讲学图片');
          }
-         $hold_images = $request->file('le_image');
-         $judge_images = judgeAllFileImage($hold_images);
+         $lecture_images = $request->file('le_image');
+         $judge_images = judgeFileImage($lecture_images);
          if($judge_images['code'] == 1){
             return responseTojson(1,'图片上传失败');
          }
          $disk = UploadSubjectionConfig::LECTURE;
-         $success_images  = $judge_images['datas'];
          $subjection      = UploadSubjectionConfig::LECTURE_IMG;
          $le_id           = $request->le_id;
-         $all_images_road = uploadAllImgs($subjection,$success_images,$disk);
+         $all_images_road = uploadFiles($subjection,$lecture_images,$disk);
          $images_status   = UploadSubjectionConfig::LECTURE_IMG_STATUS;
          return ImageDatas::addImagesDatas($all_images_road,$le_id,$images_status);
     }

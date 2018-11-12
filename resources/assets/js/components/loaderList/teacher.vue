@@ -4,40 +4,6 @@
             <div class="header">
                 <el-header style="height: 45px;">
                     <div class="art">所有成员({{form.num}})</div>
-                    <!--<div class="search">-->
-                        <!--<el-row>-->
-                            <!--<el-col :span="12">-->
-                                <!--<el-dropdown>-->
-                                <!--<span class="el-dropdown-link">-->
-                                    <!--讲学时间：全部<i class="el-icon-arrow-down el-icon&#45;&#45;right"></i>-->
-                                <!--</span>-->
-                                    <!--<el-dropdown-menu slot="dropdown">-->
-                                        <!--<el-dropdown-item>全部</el-dropdown-item>-->
-                                        <!--<el-dropdown-item>18年-今天</el-dropdown-item>-->
-                                        <!--<el-dropdown-item>17年-今天</el-dropdown-item>-->
-                                        <!--<el-dropdown-item>16年-今天</el-dropdown-item>-->
-                                        <!--<el-dropdown-item>15年-今天</el-dropdown-item>-->
-                                        <!--<el-dropdown-item>14年-今天</el-dropdown-item>-->
-                                        <!--<el-dropdown-item>-->
-                                            <!--<el-popover-->
-                                                    <!--placement="top-start"-->
-                                                    <!--width="400"-->
-                                                    <!--trigger="click">-->
-                                                <!--<el-date-picker-->
-                                                        <!--v-model="data1"-->
-                                                        <!--type="daterange"-->
-                                                        <!--range-separator="至"-->
-                                                        <!--start-placeholder="开始日期"-->
-                                                        <!--end-placeholder="结束日期">-->
-                                                <!--</el-date-picker>-->
-                                                <!--<div slot="reference">自定义时段<i class="el-icon-arrow-down el-icon&#45;&#45;right"></i></div>-->
-                                            <!--</el-popover>-->
-                                        <!--</el-dropdown-item>-->
-                                    <!--</el-dropdown-menu>-->
-                                <!--</el-dropdown>-->
-                            <!--</el-col>-->
-                        <!--</el-row>-->
-                    <!--</div>-->
                     <div class="search">
                         <el-popover
                                 placement="top-start"
@@ -58,32 +24,12 @@
                             老师职称<i class="el-icon-arrow-down el-icon--right"></i>
                             </span>
                             <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item command="1">初级</el-dropdown-item>
-                                <el-dropdown-item command="2">中级</el-dropdown-item>
-                                <el-dropdown-item command="3">副高</el-dropdown-item>
-                                <el-dropdown-item command="4">正高</el-dropdown-item>
+                                <el-dropdown-item command="0">初级</el-dropdown-item>
+                                <el-dropdown-item command="1">中级</el-dropdown-item>
+                                <el-dropdown-item command="2">副高</el-dropdown-item>
+                                <el-dropdown-item command="3">正高</el-dropdown-item>
                             </el-dropdown-menu>
                         </el-dropdown>
-                        <!--<el-dropdown trigger="click">-->
-                            <!--<el-dropdown-menu slot="dropdown">-->
-                                <!--&lt;!&ndash;<el-option label="初级" value="1"></el-option>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<el-option label="中级" value="2"></el-option>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<el-option label="副高" value="3"></el-option>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<el-option label="正高" value="4"></el-option>&ndash;&gt;-->
-                            <!--</el-dropdown-menu>-->
-                        <!--</el-dropdown>-->
-                        <!--<el-popover-->
-                                <!--placement="top-start"-->
-                                <!--width="400"-->
-                                <!--trigger="click">-->
-                            <!--<el-input-->
-                                    <!--placeholder="请输入职称"-->
-                                    <!--prefix-icon="el-icon-search"-->
-                                    <!--v-model="form.title"-->
-                                    <!--@keyup.enter.native="byTitleSearch(form)">-->
-                            <!--</el-input>-->
-                            <!--<div slot="reference">老师职称<i class="el-icon-arrow-down el-icon&#45;&#45;right"></i></div>-->
-                        <!--</el-popover>-->
                     </div>
                     <div class="search">
                         <el-popover
@@ -128,40 +74,32 @@
                         </el-popover>
                 </div>
                     <div class="search">
-                        <!--<el-popover-->
-                                <!--placement="top-start"-->
-                                <!--width="400"-->
-                                <!--trigger="click">-->
-                            <el-form ref="form" :model="form" label-width="50px">
-                                <el-dropdown @command="levelCommand" style="font-size: 16px;">
-                                    <span class="el-dropdown-link">
-                                    职务级别<i class="el-icon-arrow-down el-icon--right"></i>
-                                    </span>
-                                    <el-dropdown-menu slot="dropdown">
-                                        <el-dropdown-item command="1">正处</el-dropdown-item>
-                                        <el-dropdown-item command="2">副处</el-dropdown-item>
-                                        <el-dropdown-item command="3">正科</el-dropdown-item>
-                                        <el-dropdown-item command="4">副科</el-dropdown-item>
-                                        <el-dropdown-item command="5">其他</el-dropdown-item>
-                                    </el-dropdown-menu>
-                                </el-dropdown>
-                            </el-form>
+                        <el-form ref="form" :model="form" label-width="50px">
+                            <el-dropdown @command="levelCommand" style="font-size: 16px;">
+                                <span class="el-dropdown-link">
+                                职务级别<i class="el-icon-arrow-down el-icon--right"></i>
+                                </span>
+                                <el-dropdown-menu slot="dropdown">
+                                    <el-dropdown-item command="0">正处</el-dropdown-item>
+                                    <el-dropdown-item command="1">副处</el-dropdown-item>
+                                    <el-dropdown-item command="2">正科</el-dropdown-item>
+                                    <el-dropdown-item command="3">副科</el-dropdown-item>
+                                    <el-dropdown-item command="4">其他</el-dropdown-item>
+                                </el-dropdown-menu>
+                            </el-dropdown>
+                        </el-form>
                     </div>
                     <div class="search">
-                        <!--<el-popover-->
-                                <!--placement="top-start"-->
-                                <!--width="400"-->
-                                <!--trigger="click">-->
                             <el-form ref="form" :model="form" label-width="50px">
                                 <el-dropdown @command="postCommand" style="font-size: 16px;">
                                     <span class="el-dropdown-link">
                                     岗位类别<i class="el-icon-arrow-down el-icon--right"></i>
                                     </span>
                                     <el-dropdown-menu slot="dropdown">
-                                        <el-dropdown-item command="1">教学秘书</el-dropdown-item>
-                                        <el-dropdown-item command="2">院长</el-dropdown-item>
-                                        <el-dropdown-item command="3">办公室主任</el-dropdown-item>
-                                        <el-dropdown-item command="4">副主任</el-dropdown-item>
+                                        <el-dropdown-item command="0">教学秘书</el-dropdown-item>
+                                        <el-dropdown-item command="1">院长</el-dropdown-item>
+                                        <el-dropdown-item command="2">办公室主任</el-dropdown-item>
+                                        <el-dropdown-item command="3">副主任</el-dropdown-item>
                                     </el-dropdown-menu>
                                 </el-dropdown>
                             </el-form>
@@ -404,7 +342,6 @@
                 teacherDate:[],
                 data1: '',
                 nameinput:'',
-//                titleinput:'',
                 labinput:'',
                 dutiesinput:'',
                 majorinput:'',
@@ -412,7 +349,6 @@
                     type:'',
                     checkList: [],
                     name:'',
-//                    title:'',
                     duties:'',
                     lab:'',
                     major:'',
@@ -494,6 +430,15 @@
                     }
                 }).then(function (response) {
                     var data = response.data;
+                    self.form.num = data.datas.length;
+                    for(var i=0;i<data.datas.length;i++){
+                        data.datas[i].sex = self.sex[data.datas[i].sex];
+                        data.datas[i].teacher_department = self.teacher_department[data.datas[i].teacher_department];//所属部门
+                        data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
+                        data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
+                        data.datas[i].academic_title = self.academic_title[data.datas[i].academic_title];//老师职称
+                        data.datas[i].post_category = self.post_category[data.datas[i].post_category];//岗位类别
+                    }
                     if (data.code == 0) {
                         self.teacherDate = data.datas;
                     } else {
@@ -505,25 +450,6 @@
                     }
                 });
             },
-//            byTitleSearch(form){                //老师职称
-//                let self = this;
-//                axios.get("byacademictitleselectteacher",{
-//                    params:{
-//                        academic_title: form.title,
-//                    }
-//                }).then(function (response) {
-//                    var data = response.data;
-//                    if (data.code == 0) {
-//                        self.teacherDate = data.datas;
-//                    } else {
-//                        self.$notify({
-//                            type: 'error',
-//                            message: data.message,
-//                            duration: 2000,
-//                        });
-//                    }
-//                });
-//            },
             byDutiesSearch(form){               //行政职务
                 let self = this;
                 axios.get("byadmindutiesselectteacher",{
@@ -532,6 +458,15 @@
                     }
                 }).then(function (response) {
                     var data = response.data;
+                    self.form.num = data.datas.length;
+                    for(var i=0;i<data.datas.length;i++){
+                        data.datas[i].sex = self.sex[data.datas[i].sex];
+                        data.datas[i].teacher_department = self.teacher_department[data.datas[i].teacher_department];//所属部门
+                        data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
+                        data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
+                        data.datas[i].academic_title = self.academic_title[data.datas[i].academic_title];//老师职称
+                        data.datas[i].post_category = self.post_category[data.datas[i].post_category];//岗位类别
+                    }
                     if (data.code == 0) {
                         self.teacherDate = data.datas;
                     } else {
@@ -551,6 +486,15 @@
                     }
                 }).then(function (response) {
                     var data = response.data;
+                    self.form.num = data.datas.length;
+                    for(var i=0;i<data.datas.length;i++){
+                        data.datas[i].sex = self.sex[data.datas[i].sex];
+                        data.datas[i].teacher_department = self.teacher_department[data.datas[i].teacher_department];//所属部门
+                        data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
+                        data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
+                        data.datas[i].academic_title = self.academic_title[data.datas[i].academic_title];//老师职称
+                        data.datas[i].post_category = self.post_category[data.datas[i].post_category];//岗位类别
+                    }
                     if (data.code == 0) {
                         self.teacherDate = data.datas;
                     } else {
@@ -570,6 +514,15 @@
                     }
                 }).then(function (response) {
                     var data = response.data;
+                    self.form.num = data.datas.length;
+                    for(var i=0;i<data.datas.length;i++){
+                        data.datas[i].sex = self.sex[data.datas[i].sex];
+                        data.datas[i].teacher_department = self.teacher_department[data.datas[i].teacher_department];//所属部门
+                        data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
+                        data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
+                        data.datas[i].academic_title = self.academic_title[data.datas[i].academic_title];//老师职称
+                        data.datas[i].post_category = self.post_category[data.datas[i].post_category];//岗位类别
+                    }
                     if (data.code == 0) {
                         self.teacherDate = data.datas;
                     } else {
@@ -589,6 +542,15 @@
                     }
                 }).then(function (response) {
                     var data = response.data;
+                    self.form.num = data.datas.length;
+                    for(var i=0;i<data.datas.length;i++){
+                        data.datas[i].sex = self.sex[data.datas[i].sex];
+                        data.datas[i].teacher_department = self.teacher_department[data.datas[i].teacher_department];//所属部门
+                        data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
+                        data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
+                        data.datas[i].academic_title = self.academic_title[data.datas[i].academic_title];//老师职称
+                        data.datas[i].post_category = self.post_category[data.datas[i].post_category];//岗位类别
+                    }
                     if (data.code == 0) {
                         self.teacherDate = data.datas;
                     } else {
@@ -608,6 +570,15 @@
                     }
                 }).then(function (response) {
                     var data = response.data;
+                    self.form.num = data.datas.length;
+                    for(var i=0;i<data.datas.length;i++){
+                        data.datas[i].sex = self.sex[data.datas[i].sex];
+                        data.datas[i].teacher_department = self.teacher_department[data.datas[i].teacher_department];//所属部门
+                        data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
+                        data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
+                        data.datas[i].academic_title = self.academic_title[data.datas[i].academic_title];//老师职称
+                        data.datas[i].post_category = self.post_category[data.datas[i].post_category];//岗位类别
+                    }
                     if (data.code == 0) {
                         self.teacherDate = data.datas;
                     } else {
@@ -627,6 +598,15 @@
                     }
                 }).then(function (response) {
                     var data = response.data;
+                    self.form.num = data.datas.length;
+                    for(var i=0;i<data.datas.length;i++){
+                        data.datas[i].sex = self.sex[data.datas[i].sex];
+                        data.datas[i].teacher_department = self.teacher_department[data.datas[i].teacher_department];//所属部门
+                        data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
+                        data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
+                        data.datas[i].academic_title = self.academic_title[data.datas[i].academic_title];//老师职称
+                        data.datas[i].post_category = self.post_category[data.datas[i].post_category];//岗位类别
+                    }
                     if (data.code == 0) {
                         self.teacherDate = data.datas;
                     } else {

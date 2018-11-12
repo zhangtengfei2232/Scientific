@@ -182,6 +182,7 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     /**
      * 论文查询路由
      */
+    Route::get('combinationselectartical','RetrievalController@combinationSelectArtical');                //组合查询文章信息
     Route::get('leaderselectallartical','RetrievalController@leaderSelectAllArtical');                    //查询论文全部信息
     Route::get('byauthorselectartical','RetrievalController@byAuthorSelectArtical');                      //根据论文作者模糊查询
     Route::get('bydatelineselectartical','RetrievalController@byDatelineSelectArtical');                  //发表刊物名称查询
@@ -195,6 +196,7 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     /**
      * 项目查询路由
      */
+    Route::get('combinationselectproject','RetrievalController@combinationSelectProject');                //组合查询项目信息
     Route::get('leaderselectallproject','RetrievalController@leaderSelectAllProject');                    //查询全部项目信息
     Route::get('byhostselectproject','RetrievalController@byHostSelectProject');                          //主持人查询
     Route::get('byyearselectproject','RetrievalController@byYearSelectProject');                          //项目年份查询
@@ -206,6 +208,7 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     /**
      * 著作查询路由
      */
+    Route::get('combinationselectopus','RetrievalController@combinationSelectOpus');                     //组合查询著作信息
     Route::get('leaderselecttallopus','RetrievalController@leaderSelecttAllOpus');                       //查询全部著作信息
     Route::get('bynameselectopus','RetrievalController@byNameSelectOpus');                               //著作名称查询
     Route::get('byauthorselectopus','RetrievalController@byAuthorSelectOpus');                           //第一作者查询
@@ -218,6 +221,7 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     /**
      * 获奖查询路由
      */
+    Route::get('combinationselectaward','RetrievalController@combinationSelectAward');                  //组合查询获奖信息
     Route::get('leaderselectallaward','RetrievalController@leaderSelectAllAward');                      //查询全部获奖信息
     Route::get('byfirstwinnerselectaward','RetrievalController@byFirstWinnerSelectAward');              //第一获奖人查询
     Route::get('byawardingunitselectaward','RetrievalController@byAwardingUnitSelectAward');            //授奖单位查询
@@ -230,6 +234,7 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     /**
      * 专利查询路由
      */
+    Route::get('combinationselectpatent','RetrievalController@combinationSelectPatent');                //组合查询专利信息
     Route::get('leaderselectallpatent','RetrievalController@leaderSelectAllPatent');                    //查询全部专利信息
     Route::get('byfirstinventorselectpatent','RetrievalController@byFirstInventorSelectPatent');        //第一发明人查询
     Route::get('bytypeselectpatent','RetrievalController@byTypeSelectPatent');                          //专利类型查询
@@ -240,6 +245,7 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     /**
      * 成果鉴定查询路由
      */
+    Route::get('combinationselectappraisal','RetrievalController@combinationSelectAppraisal');          //组合查询鉴定成果信息
     Route::get('leaderselectallappraisal','RetrievalController@leaderSelectAllAppraisal');              //查询全部鉴定成果信息
     Route::get('byhostselectappraisal','RetrievalController@byHostSelectAppraisal');                    //主持人查询
     Route::get('bynameselectappraisal','RetrievalController@byNameSelectAppraisal');                    //鉴定成果名称查询
@@ -251,6 +257,7 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     /**
      * 举办会议查询路由
      */
+    Route::get('combinationselectholdmeet','RetrievalController@combinationSelectHoldmeet');            //组合查询举行会议信息
     Route::get('leaderselectallholdmeet','RetrievalController@leaderSelectAllHoldmeet');                //查询全部举办会议信息
     Route::get('bynameselectholdmeet','RetrievalController@byNameSelectHoldmeet');                      //举办会议名称查询
     Route::get('bylevelselectholdmeet','RetrievalController@byLevelSelectHoldmeet');                    //举办会议级别查询
@@ -259,6 +266,7 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     /**
      * 参加会议查询路由
      */
+    Route::get('combinationselectjoinmeet','RetrievalController@combinationSelectJoinmeet');            //组合查询参加会议信息
     Route::get('leaderselectalljoinmeet','RetrievalController@leaderSelectAllJoinmeet');                //查询全部参加会议信息
     Route::get('bynameselectjoinmeet','RetrievalController@byNameSelectJoinmeet');                      //参加会议名称查询
     Route::get('bylevelselectjoinmeet','RetrievalController@byLevelSelectJoinmeet');                    //参加会议级别查询
@@ -267,6 +275,7 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     /**
      * 专家讲学路由
      */
+    Route::get('combinationselectlecture','RetrievalController@combinationSelectLecture');              //组合查询讲学信息
     Route::get('leaderselectalllecture','RetrievalController@leaderSelectAllLecture');                  //查询全部专家讲学信息
     Route::get('bynameselectlecture','RetrievalController@byNameSelectLecture');                        //专家名字查询
     Route::get('bylevelselectlecture','RetrievalController@byLevelSelectLecture');                      //专家级别查询
