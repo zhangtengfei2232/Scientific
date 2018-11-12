@@ -41,6 +41,11 @@
                             <span slot="title">担任学术团体职务</span>
                         </el-menu-item>
 
+                        <el-menu-item index="/Glverview" style="border-bottom:1px solid gray;">
+                            <i class="el-icon-view"></i>
+                            <span slot="title">全局总览</span>
+                        </el-menu-item>
+                        
                         <el-submenu index="1">
                             <template slot="title">
                                 <i class="el-icon-menu"></i>
@@ -52,7 +57,6 @@
                                 <el-menu-item index="/agreement" style="padding-left: 30px;">教学科研等合作协议</el-menu-item>
                             </el-menu-item-group>
                         </el-submenu>
-
 
                         <el-submenu index="2">
                             <template slot="title">
@@ -96,7 +100,7 @@
                     {icon:'el-icon-edit',name:'/book',navItem:'学术著作'},
                     {icon:'el-icon-star-off',name:'/award',navItem:'获奖成果'},
                     {icon:'el-icon-edit-outline',name:'/patent',navItem:'学术专利'},
-                    {icon:'el-icon-view',name:'/appraisal',navItem:'成果鉴定'},
+                    {icon:'el-icon-document',name:'/appraisal',navItem:'成果鉴定'},
                     {icon:'el-icon-time',name:'/holdmeet',navItem:'举办会议'},
                     {icon:'el-icon-edit-outline',name:'/joinmeet',navItem:'参加会议'},
                     {icon:'el-icon-date',name:'/lecture',navItem:'专家讲学'},
