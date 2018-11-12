@@ -241,6 +241,13 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allJoinmeet = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.jo_level.length;i++){
+                            if(data.datas[j].jo_level == i){  
+                                data.datas[j].jo_level = self.jo_level[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -261,6 +268,13 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allJoinmeet = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.jo_level.length;i++){
+                            if(data.datas[j].jo_level == i){  
+                                data.datas[j].jo_level = self.jo_level[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -280,6 +294,13 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allJoinmeet = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.jo_level.length;i++){
+                            if(data.datas[j].jo_level == i){  
+                                data.datas[j].jo_level = self.jo_level[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -291,14 +312,21 @@ export default {
         },
         onSubmit(form) {
             let self = this;
-            axios.get("bylevelselectjoinmeet",{
+            axios.get("combinationselectjoinmeet",{
                 params:{
-                    jo_level: form.jo_level,
+                    jo_level_datas: form.jo_level,
                 }
             }).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allHoldmeet = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.jo_level.length;i++){
+                            if(data.datas[j].jo_level == i){  
+                                data.datas[j].jo_level = self.jo_level[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',

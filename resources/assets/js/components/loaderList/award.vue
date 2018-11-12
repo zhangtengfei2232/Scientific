@@ -295,6 +295,23 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allAward = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.form_achievement.length;i++){
+                            if(data.datas[j].form_achievement == i){  
+                                data.datas[j].form_achievement = self.form_achievement[i];
+                            }
+                        }
+                        for(var i= 0;i<self.aw_grade.length;i++){
+                            if(data.datas[j].aw_grade == i){  
+                                data.datas[j].aw_grade = self.aw_grade[i];
+                            }
+                        }
+                        for(var i= 0;i<self.aw_level.length;i++){
+                            if(data.datas[j].aw_level == i){  
+                                data.datas[j].aw_level = self.aw_level[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -315,6 +332,23 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allAward = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.form_achievement.length;i++){
+                            if(data.datas[j].form_achievement == i){  
+                                data.datas[j].form_achievement = self.form_achievement[i];
+                            }
+                        }
+                        for(var i= 0;i<self.aw_grade.length;i++){
+                            if(data.datas[j].aw_grade == i){  
+                                data.datas[j].aw_grade = self.aw_grade[i];
+                            }
+                        }
+                        for(var i= 0;i<self.aw_level.length;i++){
+                            if(data.datas[j].aw_level == i){  
+                                data.datas[j].aw_level = self.aw_level[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -334,6 +368,23 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allAward = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.form_achievement.length;i++){
+                            if(data.datas[j].form_achievement == i){  
+                                data.datas[j].form_achievement = self.form_achievement[i];
+                            }
+                        }
+                        for(var i= 0;i<self.aw_grade.length;i++){
+                            if(data.datas[j].aw_grade == i){  
+                                data.datas[j].aw_grade = self.aw_grade[i];
+                            }
+                        }
+                        for(var i= 0;i<self.aw_level.length;i++){
+                            if(data.datas[j].aw_level == i){  
+                                data.datas[j].aw_level = self.aw_level[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -343,7 +394,7 @@ export default {
                 }
             });
         },
-         awNameSearch() {
+        awNameSearch() {
             let self = this;
             axios.get("bynameselectaward",{
                 params:{
@@ -353,6 +404,23 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allAward = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.form_achievement.length;i++){
+                            if(data.datas[j].form_achievement == i){  
+                                data.datas[j].form_achievement = self.form_achievement[i];
+                            }
+                        }
+                        for(var i= 0;i<self.aw_grade.length;i++){
+                            if(data.datas[j].aw_grade == i){  
+                                data.datas[j].aw_grade = self.aw_grade[i];
+                            }
+                        }
+                        for(var i= 0;i<self.aw_level.length;i++){
+                            if(data.datas[j].aw_level == i){  
+                                data.datas[j].aw_level = self.aw_level[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -363,7 +431,40 @@ export default {
             });
         },
         onSubmit() {
-            
+            let self = this;
+            axios.get("combinationselectaward",{
+                params:{
+                    aw_level_datas: form.aw_level,
+                }
+            }).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.allAward = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.form_achievement.length;i++){
+                            if(data.datas[j].form_achievement == i){  
+                                data.datas[j].form_achievement = self.form_achievement[i];
+                            }
+                        }
+                        for(var i= 0;i<self.aw_grade.length;i++){
+                            if(data.datas[j].aw_grade == i){  
+                                data.datas[j].aw_grade = self.aw_grade[i];
+                            }
+                        }
+                        for(var i= 0;i<self.aw_level.length;i++){
+                            if(data.datas[j].aw_level == i){  
+                                data.datas[j].aw_level = self.aw_level[i];
+                            }
+                        }
+                    }
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,         
+                    });
+                }
+            });
         }
     },
     mounted() {

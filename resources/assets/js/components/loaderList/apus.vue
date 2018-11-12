@@ -76,7 +76,7 @@
                             trigger="click">
                             <el-form ref="form" :model="form" label-width="80px">   
                                 <el-form-item label="著作类别">
-                                    <el-checkbox-group v-model="form.checkList">
+                                    <el-checkbox-group v-model="form.op_cate_work">
                                         <el-checkbox :label="0">专著</el-checkbox>
                                         <el-checkbox :label="1">教科书</el-checkbox>
                                         <el-checkbox :label="2">译注</el-checkbox>
@@ -85,7 +85,7 @@
                                     </el-checkbox-group>
                                 </el-form-item> 
                                 <el-form-item label="编著形式">
-                                    <el-checkbox-group v-model="form.checkList">
+                                    <el-checkbox-group v-model="form.op_form_write">
                                         <el-checkbox :label="0" name="type">主编</el-checkbox>
                                         <el-checkbox :label="1" name="type">副主编</el-checkbox>
                                         <el-checkbox :label="2" name="type">参编</el-checkbox>
@@ -94,7 +94,7 @@
                                     </el-checkbox-group>
                                 </el-form-item>
                                 <el-form-item label="研究类别">
-                                    <el-checkbox-group v-model="form.checkList">
+                                    <el-checkbox-group v-model="form.op_cate_research">
                                         <el-checkbox :label="0" name="type">基础研究</el-checkbox>
                                         <el-checkbox :label="1" name="type">应用研究</el-checkbox>
                                     </el-checkbox-group>
@@ -207,7 +207,7 @@
         border-right: 1px #d4d8d7 solid;
     }
     .cont{
-        width: 80%;
+        width: 85%;
         float: left;
         margin: 20px;
     }
@@ -234,8 +234,9 @@ export default {
             op_name:'',
             total:0,
             form: {
-                type:'',
-                checkList: [],
+                op_cate_work: [],
+                op_form_write: [],
+                op_cate_research: [],
             },
             op_form_write: [
                 '主编',
@@ -339,6 +340,28 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allOpus = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.op_form_write.length;i++){
+                            if(data.datas[j].op_form_write == i){  
+                                data.datas[j].op_form_write = self.op_form_write[i];
+                            }
+                        }
+                        for(var i= 0;i<self.op_cate_research.length;i++){
+                            if(data.datas[j].op_cate_research == i){  
+                                data.datas[j].op_cate_research = self.op_cate_research[i];
+                            }
+                        }
+                        for(var i= 0;i<self.op_cate_work.length;i++){
+                            if(data.datas[j].op_cate_work == i){  
+                                data.datas[j].op_cate_work = self.op_cate_work[i];
+                            }
+                        }
+                        for(var i= 0;i<self.op_sub_category.length;i++){
+                            if(data.datas[j].op_sub_category == i){  
+                                data.datas[j].op_sub_category = self.op_sub_category[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -359,6 +382,28 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allOpus = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.op_form_write.length;i++){
+                            if(data.datas[j].op_form_write == i){  
+                                data.datas[j].op_form_write = self.op_form_write[i];
+                            }
+                        }
+                        for(var i= 0;i<self.op_cate_research.length;i++){
+                            if(data.datas[j].op_cate_research == i){  
+                                data.datas[j].op_cate_research = self.op_cate_research[i];
+                            }
+                        }
+                        for(var i= 0;i<self.op_cate_work.length;i++){
+                            if(data.datas[j].op_cate_work == i){  
+                                data.datas[j].op_cate_work = self.op_cate_work[i];
+                            }
+                        }
+                        for(var i= 0;i<self.op_sub_category.length;i++){
+                            if(data.datas[j].op_sub_category == i){  
+                                data.datas[j].op_sub_category = self.op_sub_category[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -378,6 +423,28 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allOpus = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.op_form_write.length;i++){
+                            if(data.datas[j].op_form_write == i){  
+                                data.datas[j].op_form_write = self.op_form_write[i];
+                            }
+                        }
+                        for(var i= 0;i<self.op_cate_research.length;i++){
+                            if(data.datas[j].op_cate_research == i){  
+                                data.datas[j].op_cate_research = self.op_cate_research[i];
+                            }
+                        }
+                        for(var i= 0;i<self.op_cate_work.length;i++){
+                            if(data.datas[j].op_cate_work == i){  
+                                data.datas[j].op_cate_work = self.op_cate_work[i];
+                            }
+                        }
+                        for(var i= 0;i<self.op_sub_category.length;i++){
+                            if(data.datas[j].op_sub_category == i){  
+                                data.datas[j].op_sub_category = self.op_sub_category[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -397,6 +464,28 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allOpus = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.op_form_write.length;i++){
+                            if(data.datas[j].op_form_write == i){  
+                                data.datas[j].op_form_write = self.op_form_write[i];
+                            }
+                        }
+                        for(var i= 0;i<self.op_cate_research.length;i++){
+                            if(data.datas[j].op_cate_research == i){  
+                                data.datas[j].op_cate_research = self.op_cate_research[i];
+                            }
+                        }
+                        for(var i= 0;i<self.op_cate_work.length;i++){
+                            if(data.datas[j].op_cate_work == i){  
+                                data.datas[j].op_cate_work = self.op_cate_work[i];
+                            }
+                        }
+                        for(var i= 0;i<self.op_sub_category.length;i++){
+                            if(data.datas[j].op_sub_category == i){  
+                                data.datas[j].op_sub_category = self.op_sub_category[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -407,7 +496,47 @@ export default {
             });
         },
         onSubmit() {
-            
+            let self = this;
+            axios.get("combinationselectopus",{
+                params:{
+                    op_cate_work_datas: form.op_cate_work,
+                    op_form_write_datas: form.op_form_write,
+                    op_cate_research_datas:op_cate_research
+                }
+            }).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.allOpus = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.op_form_write.length;i++){
+                            if(data.datas[j].op_form_write == i){  
+                                data.datas[j].op_form_write = self.op_form_write[i];
+                            }
+                        }
+                        for(var i= 0;i<self.op_cate_research.length;i++){
+                            if(data.datas[j].op_cate_research == i){  
+                                data.datas[j].op_cate_research = self.op_cate_research[i];
+                            }
+                        }
+                        for(var i= 0;i<self.op_cate_work.length;i++){
+                            if(data.datas[j].op_cate_work == i){  
+                                data.datas[j].op_cate_work = self.op_cate_work[i];
+                            }
+                        }
+                        for(var i= 0;i<self.op_sub_category.length;i++){
+                            if(data.datas[j].op_sub_category == i){  
+                                data.datas[j].op_sub_category = self.op_sub_category[i];
+                            }
+                        }
+                    }
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,         
+                    });
+                }
+            });
         }
     },
     mounted() {

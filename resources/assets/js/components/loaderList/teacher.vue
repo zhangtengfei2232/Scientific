@@ -315,7 +315,7 @@
         background: #f4f5f5;
     }
     .art{
-        margin: 12px 17px;
+        margin: 12px 10px;
         padding-right: 24px;
         float: left;
         border-right: 1px #d4d8d7 solid;

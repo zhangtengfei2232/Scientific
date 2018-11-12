@@ -251,6 +251,13 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allAppraisal = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.ap_level.length;i++){
+                            if(data.datas[j].ap_level == i){  
+                                data.datas[j].ap_level = self.ap_level[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -270,6 +277,13 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allAppraisal = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.ap_level.length;i++){
+                            if(data.datas[j].ap_level == i){  
+                                data.datas[j].ap_level = self.ap_level[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -289,6 +303,13 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allAppraisal = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.ap_level.length;i++){
+                            if(data.datas[j].ap_level == i){  
+                                data.datas[j].ap_level = self.ap_level[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -321,6 +342,13 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allAppraisal = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.ap_level.length;i++){
+                            if(data.datas[j].ap_level == i){  
+                                data.datas[j].ap_level = self.ap_level[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -332,7 +360,7 @@ export default {
         },
         twoTimeSearch() {
            let self = this;
-            axios.get("bytimeselectappraisal",{
+            axios.get("combinationselectappraisal",{
                 params:{
                     start_time:self.data1[0],
                     end_time:self.data1[1],
@@ -341,6 +369,13 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allAppraisal = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.ap_level.length;i++){
+                            if(data.datas[j].ap_level == i){  
+                                data.datas[j].ap_level = self.ap_level[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -352,14 +387,21 @@ export default {
         },
         onSubmit() {
             let self = this;
-            axios.get("bylevelselectappraisal",{
+            axios.get("combinationselectappraisal",{
                 params:{
-                    ap_level:form.ap_level,
+                    ap_level_datas:form.ap_level,
                 }
             }).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allAppraisal = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.ap_level.length;i++){
+                            if(data.datas[j].ap_level == i){  
+                                data.datas[j].ap_level = self.ap_level[i];
+                            }
+                        }
+                    }
                 }else {
                     self.$notify({
                         type: 'error',

@@ -75,14 +75,14 @@
                             width="500"
                             trigger="click">
                             <el-form ref="form" :model="form" label-width="80px">   
-                                <el-form-item label="刊物级别">
+                                <el-form-item label="专利类型">
                                     <el-checkbox-group v-model="form.pa_type">
                                         <el-checkbox :label="0">发明专利</el-checkbox>
                                         <el-checkbox :label="1">实用新型专利</el-checkbox>
                                         <el-checkbox :label="2">外观设计专利</el-checkbox>
                                     </el-checkbox-group>
                                 </el-form-item> 
-                                <el-form-item label="研究类别">
+                                <el-form-item label="实施情况">
                                     <el-checkbox-group v-model="form.pa_imple_situ">
                                         <el-checkbox :label="0" name="type">授权</el-checkbox>
                                         <el-checkbox :label="1" name="type">受理</el-checkbox>
@@ -256,6 +256,18 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allPatent = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.pa_type.length;i++){
+                            if(data.datas[j].pa_type == i){  
+                                data.datas[j].pa_type = self.pa_type[i];
+                            }
+                        }
+                        for(var i= 0;i<self.pa_imple_situ.length;i++){
+                            if(data.datas[j].pa_imple_situ == i){  
+                                data.datas[j].pa_imple_situ = self.pa_imple_situ[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -275,6 +287,18 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allPatent = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.pa_type.length;i++){
+                            if(data.datas[j].pa_type == i){  
+                                data.datas[j].pa_type = self.pa_type[i];
+                            }
+                        }
+                        for(var i= 0;i<self.pa_imple_situ.length;i++){
+                            if(data.datas[j].pa_imple_situ == i){  
+                                data.datas[j].pa_imple_situ = self.pa_imple_situ[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -307,6 +331,18 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allPatent = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.pa_type.length;i++){
+                            if(data.datas[j].pa_type == i){  
+                                data.datas[j].pa_type = self.pa_type[i];
+                            }
+                        }
+                        for(var i= 0;i<self.pa_imple_situ.length;i++){
+                            if(data.datas[j].pa_imple_situ == i){  
+                                data.datas[j].pa_imple_situ = self.pa_imple_situ[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -327,6 +363,18 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allPatent = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.pa_type.length;i++){
+                            if(data.datas[j].pa_type == i){  
+                                data.datas[j].pa_type = self.pa_type[i];
+                            }
+                        }
+                        for(var i= 0;i<self.pa_imple_situ.length;i++){
+                            if(data.datas[j].pa_imple_situ == i){  
+                                data.datas[j].pa_imple_situ = self.pa_imple_situ[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -337,7 +385,36 @@ export default {
             });
         },
         onSubmit() {
-            
+            let self = this;
+            axios.get("combinationselectpatent",{
+                params:{
+                    pa_type_datas: form.pa_type,
+                    pa_imple_situ_datas:form.pa_imple_situ,
+                }
+            }).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.allPatent = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.pa_type.length;i++){
+                            if(data.datas[j].pa_type == i){  
+                                data.datas[j].pa_type = self.pa_type[i];
+                            }
+                        }
+                        for(var i= 0;i<self.pa_imple_situ.length;i++){
+                            if(data.datas[j].pa_imple_situ == i){  
+                                data.datas[j].pa_imple_situ = self.pa_imple_situ[i];
+                            }
+                        }
+                    }
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,         
+                    });
+                }
+            });
         }
     },
     mounted() {

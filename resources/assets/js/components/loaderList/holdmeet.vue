@@ -226,6 +226,13 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allHoldmeet = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.ho_level.length;i++){
+                            if(data.datas[j].ho_level == i){  
+                                data.datas[j].ho_level = self.ho_level[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -246,6 +253,13 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allHoldmeet = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.ho_level.length;i++){
+                            if(data.datas[j].ho_level == i){  
+                                data.datas[j].ho_level = self.ho_level[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -265,6 +279,13 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allHoldmeet = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.ho_level.length;i++){
+                            if(data.datas[j].ho_level == i){  
+                                data.datas[j].ho_level = self.ho_level[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -276,14 +297,21 @@ export default {
         },
         onSubmit(form) {
             let self = this;
-            axios.get("bylevelselectholdmeet",{
+            axios.get("combinationselectholdmeet",{
                 params:{
-                    ho_level: form.ho_level,
+                    ho_level_datas: form.ho_level,
                 }
             }).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allHoldmeet = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.ho_level.length;i++){
+                            if(data.datas[j].ho_level == i){  
+                                data.datas[j].ho_level = self.ho_level[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',

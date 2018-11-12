@@ -162,10 +162,8 @@ export default {
             this.$refs.ho_file.submit();
         },
         handleRemove(file, fileList) {
-            console.log(file, fileList);
-            this.dataFile.append('ho_file', file);
-            let id = this.ho_id;
-            this.dataFile.append('ho_id', id);
+            // console.log(file, fileList);
+            
         },
         handlePreview(file) {
             // console.log(file);
@@ -175,7 +173,11 @@ export default {
             return false;
         },
         fileProfils(files){
+            console.log(files);
             if(files  != ''){
+                this.dataFile.append('ho_file', files);
+                let id = this.ho_id;
+                this.dataFile.append('ho_id', id);
                 this.sendfile(this.dataFile);      
             }else{
                 this.$message.error('请先添加数据信息');
