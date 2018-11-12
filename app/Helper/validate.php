@@ -22,12 +22,12 @@
         if(strlen($datas['name']) > 15){
             return responseTojson(1,'你填写的老师姓名不合法',1);
         }elseif (strlen($datas['office_phone']) > 30
-            || !preg_match($isMob, $datas['office_phone'])
-            || !preg_match($isTel, $datas['office_phone'])){
+            || (!preg_match($isMob, $datas['office_phone'])
+            && !preg_match($isTel, $datas['office_phone']))){
             return responseTojson(1,'你填写的办公电话有误',1);
         }elseif (strlen($datas->home_phone) > 20
-            || !preg_match($isTel, $datas['home_phone'])
-            || !preg_match($isMob, $datas['home_phone'])){
+            || (!preg_match($isTel, $datas['home_phone'])
+            && !preg_match($isMob, $datas['home_phone']))){
             return responseTojson(1,'你填写的住宅电话有误',1);
         }elseif (strlen($datas['phone']) > 11
             || !preg_match($isMob, $datas['phone'])){
@@ -126,8 +126,6 @@
         }elseif (!preg_match("/^[0-9]*$/",$datas['pro_integral'])
             || strlen($datas['pro_integral']) > 9){
             return responseTojson(1,'你输入的积分必须全为数字且不超过9位',1);
-        }elseif (strlen($datas['pro_cate_research']) > 20){
-            return responseTojson(1,'你输入的研究类别名字过长',1);
         }elseif (strlen($datas['social_eco_goal']) > 50){
             return responseTojson(1,'你输入的社会经济目标过长',1);
         }else{

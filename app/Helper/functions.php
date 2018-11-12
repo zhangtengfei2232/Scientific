@@ -114,5 +114,8 @@ use setasign\Fpdi\Tcpdf\Fpdi;
         $pdf->closeParsers();
         return;
     }
+    function judgeReturnVolue($result){
+
+    }
 
 

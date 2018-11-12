@@ -4,10 +4,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//老师登录
+
 Route::group(['namespace' => 'Login'], function (){
+    //老师登录
     Route::post('login','LoginController@selectUserLogin');
+    //老师退出登录
+    Route::get('leavelogin','LoginController@leaveLogin');
 });
+
+
 /**
  * 导出Excel表格
  */
@@ -229,7 +234,7 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     Route::get('bynameselectaward','RetrievalController@byNameSelectAward');                            //奖励名称查询
     Route::get('byresultsnameselectaward','RetrievalController@byResultsNameSelectAward');              //获奖成果名称查询
     Route::get('bywinnergradeselectaward','RetrievalController@byWinnerGradeSelectAward');              //获奖级别查询
-    Route::get('byschoolrankselectaward','RetrievalController@bySchoolRankSelectAward');                //获奖级别查询
+    Route::get('byschoolrankselectaward','RetrievalController@bySchoolRankSelectAward');                //获奖校级级别查询
 
     /**
      * 专利查询路由
@@ -313,7 +318,6 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     Route::get('groupbyteachereducation','RetrievalController@groupByTeacherEducation');
     Route::get('groupbyteachertechnicaltitle','RetrievalController@byLevelSelectLecture');
     Route::get('groupbyteacheracademicmargin','RetrievalController@groupByTeacherAcademicMargin');
-
     /**
      * 论文数据路由
      */

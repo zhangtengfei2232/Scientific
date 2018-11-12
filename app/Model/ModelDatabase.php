@@ -16,6 +16,48 @@ class ModelDatabase  extends  Model
     public static function rollback(){
         return DB::rollback();
     }
+    //删除老师，根据老师工号去查询老师上传的文件路径
+    public static function byTeacherIdSelect($teacher_id,$id_field,$table_name,$first_field,$image_status = false,$second_field = ''){
+        $file_road      = [];
+        $id_datas       = [];
+        $image_id_datas = [];
+        if(empty($second_field)){
+            //查文件路径，如果是举行会议，参加会议，专家讲学是查ID
+            if(empty($id_field)){
+                $result = DB::table($table_name)->select($first_field)->where('teacher_id',$teacher_id)->get();
+            }else{
+                $result = DB::table($table_name)->select($first_field,$id_field)->where('teacher_id',$teacher_id)->get();
+            }
+            if($image_status){
+                foreach ($result as $id){
+                    $image_road_datas = DB::table('image')->select('image_road','im_id')->where('owner_id',$id->$first_field)->get();
+                    foreach ($image_road_datas as $datas){
+                        array_push($file_road,$datas->image_road);//举行会议，参加会议，专家讲学图片路径
+                        array_push($image_id_datas,$datas->im_id);//举行会议，参加会议，专家讲学图片ID
+                    }
+                    array_push($id_datas,$id->$first_field);       //举行会议，参加会议，专家讲学ID
+                }
+            }else{
+                foreach ($result as $datas){
+                    array_push($file_road,$datas->$first_field);
+                    array_push($id_datas,$datas->$id_field);
+                }
+            }
+        }else{
+           $road_result = DB::table($table_name)->select($first_field,$second_field)->where('teacher_id',$teacher_id)->get();
+           foreach($road_result as $road){
+               array_push($file_road,$road->$first_field);
+               array_push($file_road,$road->$second_field);
+               array_push($id_datas,$road->$id_field);
+           }
+        }
+        $data['file_road'] = $file_road;
+        $data['id_datas'] = $id_datas ;
+        if($image_status){
+            $data['image_id_datas'] = $image_id_datas;
+        }
+        return $data;
+    }
     //删除多个数据
     public static function deleteAllDatas($table_name,$id_field,$id_datas){
          $response = DB::table($table_name)->whereIn($id_field,$id_datas)->delete();
@@ -172,8 +214,26 @@ class ModelDatabase  extends  Model
      * @param $field
      * @return \Illuminate\Http\JsonResponse
      */
-    public static function groupByAndCountDatas($table_name,$field){
-        $result = DB::table($table_name)->select(DB::raw('COUNT('.$field.') as num'))->groupBy($field)->get();
-        return responseTojson(0,'查询成功','',$result);
+    public static function groupByAndCountDatas($table_name,$field,$time_datas,$number,$time_field){
+        $count_datas = [];
+        for($i = 0; $i < count($number); $i++){
+            $count = DB::table($table_name)->where($field,$i)->whereBetween($time_field,[$time_datas['start_time'],$time_datas['end_time']])->count();
+            $count_datas[$i] = $count;
+        }
+        return responseTojson(0,'查询成功','',$count_datas);
+    }
+    //查询某个表的最小时间和最大时间
+    public static function selectMinAndMaxTime($table_name,$time_field){
+        $min_time = DB::table($table_name)->select($time_field)->min();
+        $max_time = DB::table($table_name)->select($time_field)->max();
+        $time_datas['start_time'] = $min_time->$time_field - 5;
+        $time_datas['end_time']   = $max_time->$time_field + 5;
+        return $time_datas;
+    }
+    /**
+     *
+     */
+    public static function countEveryModularDatas($table_name){
+
     }
 }
