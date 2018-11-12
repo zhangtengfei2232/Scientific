@@ -134,9 +134,6 @@
         },
         handlePreview(file) {
             console.log(file);
-            this.dataFile.append('jo_image', files);
-            let id = this.form.jo_id;
-            this.dataFile.append('jo_id', id);
         },
         fileProfil(file){
             this.dataForm.append('jo_graph_inject', file);
@@ -144,9 +141,11 @@
         },
         fileProfils(files){
             if(this.Bcode == true){
+                this.dataFile.append('jo_image', files);
+                let id = this.form.jo_id;
+                this.dataFile.append('jo_id', id);
                 this.dataFile.append('is_add_joinmeet',this.Bcode);
                 this.sendfile(this.dataFile);
-                console.log(this.dataFile);
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
