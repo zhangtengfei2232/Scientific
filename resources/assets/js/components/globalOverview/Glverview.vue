@@ -6,66 +6,86 @@
             </div>
             <div class="list1">
                 <el-row :gutter="20">
-                    <el-col :span="3">
-                        <div class="grid-content bg-purple" style="background:rgb(92, 109, 133);margin-left:20px" >
-                            <span>论文</span>
-                            <p>21</p>
-                        </div>
-                    </el-col>
-                    <el-col :span="3">
-                        <div class="grid-content bg-purple" style="background:rgb(255, 135, 0)">
-                            <span>项目</span>
-                            <p>21</p>
-                        </div>
-                    </el-col>
-                    <el-col :span="3">
-                        <div class="grid-content bg-purple" style="background:rgb(0, 172, 255)">
-                            <span>著作</span>
-                            <p>21</p>
-                        </div>
-                    </el-col>
-                    <el-col :span="3">
-                        <div class="grid-content bg-purple" style="background:rgb(47, 101, 235)">
-                            <span>获奖</span>
-                            <p>21</p>
-                        </div>
-                    </el-col>
-                    <el-col :span="3">
-                        <div class="grid-content bg-purple" style="background:rgb(0, 142, 106)">
-                            <span>专利</span>
-                            <p>21</p>
-                        </div>
-                    </el-col>
-                    <el-col :span="3">
-                        <div class="grid-content bg-purple" style="background:rgb(3, 186, 0)">
-                            <span>成果鉴定</span>
-                            <p>21</p>
-                        </div>
-                    </el-col>
-                    <el-col :span="3">
-                        <div class="grid-content bg-purple" style="background:rgb(234, 75, 140)">
-                            <span>举办会议</span>
-                            <p>21</p>
-                        </div>
-                    </el-col>
-                    <el-col :span="3">
-                        <div class="grid-content bg-purple" style="background:rgb(255, 69, 48);">
-                            <span>参加会议</span>
-                            <p>21</p>
-                        </div>
-                    </el-col>
-                    <el-col :span="3">
-                        <div class="grid-content bg-purple" style="background:rgb(255, 189, 20);margin-left:20px">
-                            <span>专家讲学</span>
-                            <p>21</p>
-                        </div>
-                    </el-col>
-                    <el-col :span="3">
-                        <div class="grid-content bg-purple" style="background:rgb(0, 199, 209)">
-                            <span>担任学术团体职务</span>
-                            <p>21</p>
-                        </div>
-                    </el-col>
+                    <router-link to="/loaderList/article">
+                        <el-col :span="3">
+                            <div class="grid-content bg-purple" style="background:rgb(92, 109, 133);margin-left:20px" >
+                                <span>论文</span>
+                                <p>21</p>
+                            </div>
+                        </el-col>
+                    </router-link>
+                    <router-link to="/loaderList/project">
+                        <el-col :span="3">
+                            <div class="grid-content bg-purple" style="background:rgb(255, 135, 0)">
+                                <span>项目</span>
+                                <p>21</p>
+                            </div>
+                        </el-col>
+                    </router-link>
+                    <router-link to="/loaderList/project">
+                        <el-col :span="3">
+                            <div class="grid-content bg-purple" style="background:rgb(0, 172, 255)">
+                                <span>著作</span>
+                                <p>21</p>
+                            </div>
+                        </el-col>
+                    </router-link>
+                    <router-link to="/loaderList/award">
+                        <el-col :span="3">
+                            <div class="grid-content bg-purple" style="background:rgb(47, 101, 235)">
+                                <span>获奖</span>
+                                <p>21</p>
+                            </div>
+                        </el-col>
+                    </router-link>
+                    <router-link to="/loaderList/patent">
+                        <el-col :span="3">
+                            <div class="grid-content bg-purple" style="background:rgb(0, 142, 106)">
+                                <span>专利</span>
+                                <p>21</p>
+                            </div>
+                        </el-col>
+                    </router-link>
+                    <router-link to="/loaderList/appraisal">
+                        <el-col :span="3">
+                            <div class="grid-content bg-purple" style="background:rgb(3, 186, 0)">
+                                <span>成果鉴定</span>
+                                <p>21</p>
+                            </div>
+                        </el-col>
+                    </router-link>
+                    <router-link to="/loaderList/holdmeet">
+                        <el-col :span="3">
+                            <div class="grid-content bg-purple" style="background:rgb(234, 75, 140)">
+                                <span>举办会议</span>
+                                <p>21</p>
+                            </div>
+                        </el-col>
+                    </router-link>
+                    <router-link to="/loaderList/joinmeet">
+                        <el-col :span="3">
+                            <div class="grid-content bg-purple" style="background:rgb(255, 69, 48);">
+                                <span>参加会议</span>
+                                <p>21</p>
+                            </div>
+                        </el-col>
+                    </router-link>
+                    <router-link to="/loaderList/lecture">
+                        <el-col :span="3">
+                            <div class="grid-content bg-purple" style="background:rgb(255, 189, 20);margin-left:20px">
+                                <span>专家讲学</span>
+                                <p>21</p>
+                            </div>
+                        </el-col>
+                    </router-link>
+                    <router-link to="/loaderList/duties">
+                        <el-col :span="3">
+                            <div class="grid-content bg-purple" style="background:rgb(0, 199, 209)">
+                                <span>担任学术团体职务</span>
+                                <p>21</p>
+                            </div>
+                        </el-col>
+                    </router-link>
                 </el-row>
             </div>  
             <div class="char">
@@ -73,16 +93,43 @@
                         <p>图标概况</p>
                     </div>
                 <div class="list2">      
-                    <span>师资图</span>
-                    <div id="myChart" :style="{width: '300px', height: '300px'}"></div>
+                    <span class="span">师资图</span>
+                    <div id="myChart" :style="{width: '320px', height: '300px'}"></div>
+                    <el-button type="primary" size="mini" @click="getTeacherDate()">学历</el-button>
+                    <el-button type="danger" size="mini" @click="rank()">职称</el-button>
                 </div>  
                 <div class="list3">
-                    <span>师资图</span>
-                    <div id="myArticle" :style="{width: '300px', height: '300px'}"></div>
+                    <span class="span">论文图</span>
+                    <div id="myArticle" :style="{width: '320px', height: '300px'}"></div>
+                    <el-button type="primary" size="mini">刊物级别</el-button>
                 </div>
                 <div class="list4">
-                    <span>师资图</span>
-                    <div id="myAward" :style="{width: '300px', height: '300px'}"></div>
+                    <span class="span">项目图</span>
+                    <div id="myProject" :style="{width: '320px', height: '300px'}"></div>
+                    <el-button type="primary" size="mini" @click="getProjectDate()">学科门类</el-button>
+                    <el-button type="danger" size="mini" @click="ProType()">研究类别</el-button>
+                </div>
+                <div class="list5">
+                    <span class="span">著作图</span>
+                    <div id="myOpus" :style="{width: '320px', height: '300px'}"></div>
+                    <el-button type="primary" size="mini" @click="getOpusDate()">著作类别</el-button>
+                    <el-button type="danger" size="mini" @click="OpusType()">编著形式</el-button>
+                </div>
+                <div class="list6">
+                    <span class="span">获奖图</span>
+                    <div id="myAward" :style="{width: '320px', height: '300px'}"></div>
+                    <el-button type="primary" size="mini" @click="getAwardDate()">奖励级别</el-button>
+                    <el-button type="danger" size="mini" @click="AwardType()">成果形式</el-button>
+                </div>
+                <div class="list7">
+                    <span class="span">专利图</span>
+                    <div id="myPatent" :style="{width: '320px', height: '300px'}"></div>
+                    <el-button type="primary" size="mini">专利类型</el-button>
+                </div>
+                <div class="list8">
+                    <span class="span">成果鉴定图</span>
+                    <div id="myAppraisal" :style="{width: '320px', height: '300px'}"></div>
+                    <el-button type="primary" size="mini">鉴定级别</el-button>
                 </div>
             </div>
              
@@ -150,22 +197,15 @@
     .datas .navL p{
         line-height: 60px;
     }
-    .list2{
-        width: 40%;
+    .list2,.list3,.list4,.list5,.list6,.list7,.list8{
+        width: 30%;
+        height: 390px;
         float: left;
         margin: 0 0 0 10%;
     }
-    .list2 span,.list3 span,.list4{
+    .list2 .span,.list3 .span,.list4 .span,.list5 .span,.list6 .span,.list7 .span,.list8 .span{
         display: inline-block;
         padding: 10px 25px;
-    }
-    .list3{
-        width: 40%;
-        float: left;
-    }
-    .list4{
-        width: 40%;
-        float: left;
     }
 </style>
 
@@ -175,58 +215,394 @@ export default {
     name: 'eCharts',
     data () {
         return {
-            
+            teacherMicDate:[],
+            teacherRanDate:[],
+            ArticleDate:[],
+            ProjectDate:[],
+            OpusDate:[],
+            AwardDate:[],
+            PatentDate:[],
+            AppraisalDate:[]
         }
     },
-    mounted(){
-        this.drawLine();
-    },
     methods: {
-        drawLine(){
+        getTeacherDate() {
+            let self = this;
+            axios.get("groupbyteachereducation").then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.teacherMicDate = data.datas;
+                    self.drawLineArt(self.teacherMicDate);
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,
+                    });
+                }
+            });
+        },
+        drawLine(datas){
             var myChart = this.$echarts.init(document.getElementById('myChart'));
-            var myArticle = this.$echarts.init(document.getElementById('myArticle'));
-            var myAward = this.$echarts.init(document.getElementById('myAward'));
             myChart.setOption({
                 series: {
                     type: 'pie',
+                    radius : '55%',
                     data: [
-                        {name: 'A', value: 1212},
-                        {name: 'B', value: 2323},
-                        {name: 'C', value: 1919}
+                        {name: '博士'+'('+datas[0].num+')', value: datas[0].num},
+                        {name: '硕士'+'('+datas[1].num+')', value: datas[1].num},
+                        {name: '研究生'+'('+datas[2].num+')', value: datas[2].num}
                     ]
                 }
             });
+        },
+        rank() {
+            let self = this;
+            axios.get("groupbyteachertechnicaltitle").then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.teacherRanDate = data.datas;
+                    self.drawLineRank(self.teacherRanDate);
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,
+                    });
+                }
+            });
+        },
+        drawLineRank(datas) {
+            var myChart = this.$echarts.init(document.getElementById('myChart'));
+             myChart.setOption({
+                series: {
+                    type: 'pie',
+                    radius : '55%',
+                    data: [
+                        {name: '初级'+'('+datas[0].num+')', value: datas[0].num},
+                        {name: '中级'+'('+datas[1].num+')', value: datas[1].num},
+                        {name: '副高'+'('+datas[2].num+')', value: datas[2].num},
+                        {name: '正高'+'('+datas[3].num+')', value: datas[3].num}
+                    ]
+                }
+            });
+        },
+        getArticleDate() {
+            let self = this;
+            axios.get("groupbyarticaljournallevel").then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.ArticleDate = data.datas;
+                    self.drawLineArt(self.ArticleDate);
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,
+                    });
+                }
+            });
+        },
+        drawLineArt(datas) {
+            var myArticle = this.$echarts.init(document.getElementById('myArticle'));
             myArticle.setOption({
                 series: {
                     type: 'pie',
+                    radius : '55%',
                     data: [
-                        {name: 'A', value: 1212},
-                        {name: 'B', value: 2323},
-                        {name: 'C', value: 1919}
+                        {name: 'SCI一区'+'('+datas[0].num+')', value: datas[0].num},
+                        {name: 'SCI二区'+'('+datas[1].num+')', value: datas[1].num},
+                        {name: 'SCI三区'+'('+datas[2].num+')', value: datas[2].num},
+                        {name: 'SCI四区'+'('+datas[3].num+')', value: datas[3].num},
+                        {name: 'EI'+'('+datas[4].num+')', value: datas[4].num},
+                        {name: 'SSCI'+'('+datas[5].num+')', value: datas[5].num},
+                        {name: 'CN'+'('+datas[6].num+')', value: datas[6].num},
+                        {name: 'CSSCI核心库'+'('+datas[7].num+')', value: datas[7].num},
+                        {name: '中文核心'+'('+datas[8].num+')', value: datas[8].num},
+                        {name: 'CSCD核心库'+'('+datas[9].num+')', value: datas[9].num},
+                        {name: '河南科技学院期刊'+'('+datas[10].num+')', value: datas[10].num},
                     ]
                 }
             });
-            myAward.option = {
-                legend: {},
-                tooltip: {},
-                dataset: {
-                    source: [
-                        ['product', '2015', '2016', '2017'],
-                        ['Matcha Latte', 43.3, 85.8, 93.7],
-                        ['Milk Tea', 83.1, 73.4, 55.1],
-                        ['Cheese Cocoa', 86.4, 65.2, 82.5],
-                        ['Walnut Brownie', 72.4, 53.9, 39.1]
+        },
+        getProjectDate() {
+            let self = this;
+            axios.get("groupbyprojectcertificatelevel").then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.ProjectDate = data.datas;
+                    self.drawLinePro(self.ProjectDate);
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,
+                    });
+                }
+            });
+        },
+        drawLinePro(datas) {
+             var myProject = this.$echarts.init(document.getElementById('myProject'));
+             myProject.setOption({
+                series: {
+                    type: 'pie',
+                    radius : '55%',
+                    data: [
+                        {name: '理学'+'('+datas[0].num+')', value: datas[0].num},
+                        {name: '工学'+'('+datas[1].num+')', value: datas[1].num},
+                        {name: '农学'+'('+datas[2].num+')', value: datas[2].num},
+                        {name: '医学'+'('+datas[3].num+')', value: datas[3].num},
+                        {name: '管理学'+'('+datas[4].num+')', value: datas[4].num},
+                        {name: '马克思主义'+'('+datas[5].num+')', value: datas[5].num},
+                        {name: '哲学'+'('+datas[6].num+')', value: datas[6].num},
+                        {name: '逻辑学'+'('+datas[7].num+')', value: datas[7].num},
+                        {name: '宗教学'+'('+datas[8].num+')', value: datas[8].num},
+                        {name: '语言学'+'('+datas[9].num+')', value: datas[9].num},
+                        {name: '中国文学'+'('+datas[10].num+')', value: datas[10].num},
+                        {name: '外国文学'+'('+datas[11].num+')', value: datas[11].num},
+                        {name: '艺术学'+'('+datas[12].num+')', value: datas[12].num},
+                        {name: '历史学'+'('+datas[13].num+')', value: datas[13].num},
+                        {name: '考古学'+'('+datas[14].num+')', value: datas[14].num},
+                        {name: '经济学'+'('+datas[15].num+')', value: datas[15].num},
+                        {name: '政治学'+'('+datas[16].num+')', value: datas[16].num},
+                        {name: '法学'+'('+datas[17].num+')', value: datas[17].num},
                     ]
-                },
-                xAxis: {type: 'category'},
-                yAxis: {},
-                series: [
-                    {type: 'bar'},
-                    {type: 'bar'},
-                    {type: 'bar'}
-                ]
-            };
-        }
-    }
+                }
+            });
+        },
+        ProType() {
+            let self = this;
+            axios.get("").then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.ProjectDate = data.datas;
+                    self.drawLineTypePro(self.ProjectDate);
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,
+                    });
+                }
+            });
+        },
+        drawLineTypePro(datas) {
+            var myProject = this.$echarts.init(document.getElementById('myProject'));
+             myProject.setOption({
+                series: {
+                    type: 'pie',
+                    radius : '55%',
+                    data: [
+                        {name: '基础研究'+'('+datas[0].num+')', value: datas[0].num},
+                        {name: '实验与发展'+'('+datas[1].num+')', value: datas[1].num},
+                        {name: '应用研究'+'('+datas[2].num+')', value: datas[2].num},
+                    ]
+                }
+            });
+        },
+        getOpusDate() {
+            let self = this;
+            axios.get("groupbyprojectcertificatelevel").then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.OpusDate = data.datas;
+                    self.drawLineOpu(self.OpusDate);
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,
+                    });
+                }
+            });
+        },
+        drawLineOpu(datas) {
+            var myOpus = this.$echarts.init(document.getElementById('myOpus'));
+             myOpus.setOption({
+                series: {
+                    type: 'pie',
+                    radius : '55%',
+                    data: [
+                        {name: '专著'+'('+datas[0].num+')', value: datas[0].num},
+                        {name: '教科书'+'('+datas[1].num+')', value: datas[1].num},
+                        {name: '译著'+'('+datas[2].num+')', value: datas[2].num},
+                        {name: '编著'+'('+datas[3].num+')', value: datas[3].num},
+                        {name: '其他'+'('+datas[4].num+')', value: datas[4].num},              
+                    ]
+                }
+            });
+        },
+        OpusType() {
+             let self = this;
+            axios.get("").then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.OpusDate = data.datas;
+                    self.drawLineTypeOpu(self.OpusDate);
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,
+                    });
+                }
+            });
+        },
+        drawLineTypeOpu(datas) {
+             var myOpus = this.$echarts.init(document.getElementById('myOpus'));
+             myOpus.setOption({
+                series: {
+                    type: 'pie',
+                    radius : '55%',
+                    data: [
+                        {name: '主编'+'('+datas[0].num+')', value: datas[0].num},
+                        {name: '副主编'+'('+datas[1].num+')', value: datas[1].num},
+                        {name: '参编'+'('+datas[2].num+')', value: datas[2].num},
+                        {name: '编著'+'('+datas[3].num+')', value: datas[3].num},
+                        {name: '其他'+'('+datas[4].num+')', value: datas[4].num},              
+                    ]
+                }
+            });
+        },
+        getAwardDate() {
+            let self = this;
+            axios.get("groupbywinlevel").then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.AwardDate = data.datas;
+                    self.drawLineAwa(self.AwardDate);
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,
+                    });
+                }
+            });
+        },
+        drawLineAwa(datas) {
+            var myAward = this.$echarts.init(document.getElementById('myAward'));
+            myAward.setOption({
+                series: {
+                    type: 'pie',
+                    radius : '55%',
+                    data: [
+                        {name: '国家级'+'('+datas[0].num+')', value: datas[0].num},
+                        {name: '省部级'+'('+datas[1].num+')', value: datas[1].num},
+                        {name: '厅局级'+'('+datas[2].num+')', value: datas[2].num},
+                        {name: '校级'+'('+datas[3].num+')', value: datas[3].num},
+                        {name: '其他'+'('+datas[4].num+')', value: datas[4].num},              
+                    ]
+                }
+            });
+        },
+        AwardType() {
+             let self = this;
+            axios.get("").then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.AwardDate = data.datas;
+                    self.drawLineTypeAwa(self.AwardDate);
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,
+                    });
+                }
+            });
+        },
+        drawLineTypeAwa(datas) {
+            var myAward = this.$echarts.init(document.getElementById('myAward'));
+            myAward.setOption({
+                series: {
+                    type: 'pie',
+                    radius : '55%',
+                    data: [
+                        {name: '论文'+'('+datas[0].num+')', value: datas[0].num},
+                        {name: '研究报告'+'('+datas[1].num+')', value: datas[1].num},
+                        {name: '新技术'+'('+datas[2].num+')', value: datas[2].num},
+                        {name: '新工艺'+'('+datas[3].num+')', value: datas[3].num},
+                        {name: '课件'+'('+datas[4].num+')', value: datas[4].num},    
+                        {name: '专著'+'('+datas[5].num+')', value: datas[5].num},             
+                        {name: '编著'+'('+datas[6].num+')', value: datas[6].num},   
+                        {name: '计算机软件'+'('+datas[7].num+')', value: datas[7].num},   
+                        {name: '教材'+'('+datas[8].num+')', value: datas[8].num},   
+                        {name: '其他'+'('+datas[9].num+')', value: datas[9].num},   
+                    ]
+                }
+            });
+        },
+        getPatentDate() {
+            let self = this;
+            axios.get("").then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.PatentDate = data.datas;
+                    self.drawLinePat(self.PatentDate);
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,
+                    });
+                }
+            });
+        },
+        drawLinePat(datas) {
+            var myPatent = this.$echarts.init(document.getElementById('myPatent'));
+             myPatent.setOption({
+                series: {
+                    type: 'pie',
+                    radius : '55%',
+                    data: [
+                        {name: '发明专利'+'('+datas[0].num+')', value: datas[0].num},
+                        {name: '实用新型专利'+'('+datas[1].num+')', value: datas[1].num},
+                        {name: '外观设计专利'+'('+datas[2].num+')', value: datas[2].num},             
+                    ]
+                }
+            });
+        },
+        getAppraisalDate() {
+            let self = this;
+            axios.get("").then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.AppraisalDate = data.datas;
+                    self.drawLineApp(self.AppraisalDate);
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,
+                    });
+                }
+            });
+        },
+        drawLineApp(datas) {
+            var myAppraisal = this.$echarts.init(document.getElementById('myAppraisal'));
+             myAppraisal.setOption({
+                series: {
+                    type: 'pie',
+                    radius : '55%',
+                    data: [
+                        {name: '国家级'+'('+datas[0].num+')', value: datas[0].num},
+                        {name: '省级'+'('+datas[1].num+')', value: datas[1].num},
+                        {name: '厅级'+'('+datas[2].num+')', value: datas[2].num}, 
+                        {name: '校级'+'('+datas[3].num+')', value: datas[3].num},             
+                    ]
+                }
+            });
+        },
+    },
+    mounted(){
+        this.getTeacherDate();
+        this.getArticleDate();
+        this.getProjectDate();
+        this.getOpusDate();
+        this.getAwardDate();
+        this.getPatentDate();
+        this.getAppraisalDate();
+    },
 }
 </script>

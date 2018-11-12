@@ -312,7 +312,7 @@ export default {
                 }
             });
         },
-         timeSearch(time) {
+        timeSearch(time) {
             if(time == 8) {
                 this.newTime = '1514779200';
             }else if(time == 7) {
@@ -335,6 +335,23 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allProject = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.pro_cate_research.length;i++){
+                            if(data.datas[j].pro_cate_research == i){  
+                                data.datas[j].pro_cate_research = self.pro_cate_research[i];
+                            }
+                        }
+                        for(var i= 0;i<self.pro_sub_category.length;i++){
+                            if(data.datas[j].pro_sub_category == i){  
+                                data.datas[j].pro_sub_category = self.pro_sub_category[i];
+                            }
+                        }
+                        for(var i= 0;i<self.form_cooperate.length;i++){
+                            if(data.datas[j].form_cooperate == i){  
+                                data.datas[j].form_cooperate = self.form_cooperate[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -355,6 +372,23 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allProject = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.pro_cate_research.length;i++){
+                            if(data.datas[j].pro_cate_research == i){  
+                                data.datas[j].pro_cate_research = self.pro_cate_research[i];
+                            }
+                        }
+                        for(var i= 0;i<self.pro_sub_category.length;i++){
+                            if(data.datas[j].pro_sub_category == i){  
+                                data.datas[j].pro_sub_category = self.pro_sub_category[i];
+                            }
+                        }
+                        for(var i= 0;i<self.form_cooperate.length;i++){
+                            if(data.datas[j].form_cooperate == i){  
+                                data.datas[j].form_cooperate = self.form_cooperate[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -373,7 +407,24 @@ export default {
             }).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
-                    self.allArticle = data.datas;
+                    self.allProject = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.pro_cate_research.length;i++){
+                            if(data.datas[j].pro_cate_research == i){  
+                                data.datas[j].pro_cate_research = self.pro_cate_research[i];
+                            }
+                        }
+                        for(var i= 0;i<self.pro_sub_category.length;i++){
+                            if(data.datas[j].pro_sub_category == i){  
+                                data.datas[j].pro_sub_category = self.pro_sub_category[i];
+                            }
+                        }
+                        for(var i= 0;i<self.form_cooperate.length;i++){
+                            if(data.datas[j].form_cooperate == i){  
+                                data.datas[j].form_cooperate = self.form_cooperate[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -392,7 +443,24 @@ export default {
             }).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
-                    self.allArticle = data.datas;
+                    self.allProject = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.pro_cate_research.length;i++){
+                            if(data.datas[j].pro_cate_research == i){  
+                                data.datas[j].pro_cate_research = self.pro_cate_research[i];
+                            }
+                        }
+                        for(var i= 0;i<self.pro_sub_category.length;i++){
+                            if(data.datas[j].pro_sub_category == i){  
+                                data.datas[j].pro_sub_category = self.pro_sub_category[i];
+                            }
+                        }
+                        for(var i= 0;i<self.form_cooperate.length;i++){
+                            if(data.datas[j].form_cooperate == i){  
+                                data.datas[j].form_cooperate = self.form_cooperate[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -411,7 +479,24 @@ export default {
             }).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
-                    self.allArticle = data.datas;
+                    self.allProject = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.pro_cate_research.length;i++){
+                            if(data.datas[j].pro_cate_research == i){  
+                                data.datas[j].pro_cate_research = self.pro_cate_research[i];
+                            }
+                        }
+                        for(var i= 0;i<self.pro_sub_category.length;i++){
+                            if(data.datas[j].pro_sub_category == i){  
+                                data.datas[j].pro_sub_category = self.pro_sub_category[i];
+                            }
+                        }
+                        for(var i= 0;i<self.form_cooperate.length;i++){
+                            if(data.datas[j].form_cooperate == i){  
+                                data.datas[j].form_cooperate = self.form_cooperate[i];
+                            }
+                        }
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -422,7 +507,40 @@ export default {
             });
         },
         onSubmit() {
-            
+           let self = this;
+            axios.get("combinationselectproject",{
+                params:{
+                    pro_sub_category_datas: form.pro_sub_category,
+                }
+            }).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.allProject = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
+                        for(var i= 0;i<self.pro_cate_research.length;i++){
+                            if(data.datas[j].pro_cate_research == i){  
+                                data.datas[j].pro_cate_research = self.pro_cate_research[i];
+                            }
+                        }
+                        for(var i= 0;i<self.pro_sub_category.length;i++){
+                            if(data.datas[j].pro_sub_category == i){  
+                                data.datas[j].pro_sub_category = self.pro_sub_category[i];
+                            }
+                        }
+                        for(var i= 0;i<self.form_cooperate.length;i++){
+                            if(data.datas[j].form_cooperate == i){  
+                                data.datas[j].form_cooperate = self.form_cooperate[i];
+                            }
+                        }
+                    }
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,         
+                    });
+                }
+            }); 
         }
     },
     mounted() {
