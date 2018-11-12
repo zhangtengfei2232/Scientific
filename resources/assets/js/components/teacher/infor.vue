@@ -486,8 +486,6 @@
                     this.$message.error('政治面貌不能为空');
                 }else if(form.admin_duties == '') {
                     this.$message.error('行政职务不能为空');
-                }else if(form.native_place == '') {
-                    this.$message.error('籍贯不能为空');
                 }else if(form.admin_tenure_time == '') {
                     this.$message.error('任职时间不能为空');
                 }else if(form.job_level == '') {
