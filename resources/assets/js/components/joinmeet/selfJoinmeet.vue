@@ -182,9 +182,6 @@ export default {
         },
         handlePreview(file) {
             console.log(file);
-            this.dataFile.append('jo_image', files);
-            let id = this.form.jo_id;
-            this.dataFile.append('jo_id', id);
         },
         fileProfil(file){
             this.dataForm.append('jo_graph_inject', file);
@@ -192,6 +189,9 @@ export default {
         },
         fileProfils(files){
             if(file !== ''){
+                this.dataFile.append('jo_image', files);
+                let id = this.form.jo_id;
+                this.dataFile.append('jo_id', id);
                 this.sendfile(this.dataFile);
             }else{
                 this.$message.error('请先添加数据信息');

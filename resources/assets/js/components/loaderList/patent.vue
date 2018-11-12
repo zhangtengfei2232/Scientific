@@ -75,14 +75,14 @@
                             width="500"
                             trigger="click">
                             <el-form ref="form" :model="form" label-width="80px">   
-                                <el-form-item label="刊物级别">
+                                <el-form-item label="专利类型">
                                     <el-checkbox-group v-model="form.pa_type">
                                         <el-checkbox :label="0">发明专利</el-checkbox>
                                         <el-checkbox :label="1">实用新型专利</el-checkbox>
                                         <el-checkbox :label="2">外观设计专利</el-checkbox>
                                     </el-checkbox-group>
                                 </el-form-item> 
-                                <el-form-item label="研究类别">
+                                <el-form-item label="实施情况">
                                     <el-checkbox-group v-model="form.pa_imple_situ">
                                         <el-checkbox :label="0" name="type">授权</el-checkbox>
                                         <el-checkbox :label="1" name="type">受理</el-checkbox>
