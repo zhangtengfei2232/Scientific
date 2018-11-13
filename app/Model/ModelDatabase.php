@@ -217,12 +217,12 @@ class ModelDatabase  extends  Model
     public static function groupByAndCountDatas($table_name,$field,$number,$time_field,$time_datas = []){
         $count_datas = [];
         if(empty($time_datas)){
-            for($i = 0; $i < count($number); $i++){
+            for($i = 0; $i < $number; $i++){
                 $count = DB::table($table_name)->where($field,$i)->count();
                 $count_datas[$i] = $count;
             }
         }
-        for($i = 0; $i < count($number); $i++){
+        for($i = 0; $i < $number; $i++){
             $count = DB::table($table_name)->where($field,$i)
                     ->whereBetween($time_field,[$time_datas['start_time'],$time_datas['end_time']])
                     ->count();
