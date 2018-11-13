@@ -45,7 +45,7 @@
                             <i class="el-icon-view"></i>
                             <span slot="title">全局总览</span>
                         </el-menu-item>
-                        
+
                         <el-submenu index="1">
                             <template slot="title">
                                 <i class="el-icon-menu"></i>

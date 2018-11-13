@@ -2,7 +2,7 @@
     <div class="contents">
         <div class="add">
             <el-form ref="form" :model="form" label-width="200px"style="display: flex;">
-                <div class="contentLeft"style="width: 55%;">
+                <div class="contentLeft"style="width: 50%;">
                     <el-form-item label="老师所属部门" prop="teacher_department">
                         <el-select v-model="form.teacher_department" placeholder="请选择老师所属部门">
                             <el-option label="生工" value="0"></el-option>
@@ -52,7 +52,13 @@
                         <!--<el-input v-model="form.borth"></el-input>-->
                     </el-form-item>
                     <el-form-item label="政治面貌" prop="polit_outlook">
-                        <el-input v-model="form.polit_outlook"></el-input>
+                        <el-select v-model="form.polit_outlook" placeholder="请选择老师政治面貌">
+                            <el-option label="积极分子" value="0"></el-option>
+                            <el-option label="发展对象" value="1"></el-option>
+                            <el-option label="预备党员" value="2"></el-option>
+                            <el-option label="党员" value="3"></el-option>
+                        </el-select>
+                        <!--<el-input v-model="form.polit_outlook"></el-input>-->
                     </el-form-item>
                     <el-form-item label="籍贯" prop="native_place">
                         <el-input v-model="form.native_place"></el-input>
@@ -160,6 +166,9 @@
                     <el-form-item label="原工作单位" prop="origin_work_unit">
                         <el-input v-model="form.origin_work_unit"></el-input>
                     </el-form-item>
+                </div>
+                <div class="contentRight"style="width: 50%;">
+
                     <el-form-item label="教师资格证书编号" prop="certificate_num">
                         <el-input v-model="form.certificate_num"></el-input>
                     </el-form-item>
@@ -169,15 +178,18 @@
                     <el-form-item label="老师毕业院校" prop="edu_school">
                         <el-input v-model="form.edu_school"></el-input>
                     </el-form-item>
-                </div>
-            <div class="contentRight"style="width: 45%;">
+
                 <el-form-item label="第一学历：" style="font-weight:800 !important; font-size: 17px;"></el-form-item>
 
-                <el-form-item label="第一学历/学位" prop="first_graduate_school">
-                    <el-input v-model="form.first_graduate_school"></el-input>
+                <el-form-item label="第一学历/学位" prop="first_academic">
+                    <el-select v-model="form.first_academic" placeholder="请选择老师第一学历学位">
+                        <el-option label="大专" value="0"></el-option>
+                        <el-option label="本科" value="1"></el-option>
+                    </el-select>
+                    <!--<el-input v-model="form.first_graduate_school"></el-input>-->
                 </el-form-item>
-                <el-form-item label="第一毕业学校" prop="edu_school">
-                    <el-input v-model="form.edu_school"></el-input>
+                <el-form-item label="第一毕业学校" prop="first_graduate_school">
+                    <el-input v-model="form.first_graduate_school"></el-input>
                 </el-form-item>
                 <el-form-item label="第一所学专业" prop="first_study_major">
                     <el-input v-model="form.first_study_major"></el-input>
@@ -197,7 +209,11 @@
                 <el-form-item label="最高学历："style="font-weight:800 !important; font-size: 17px;" ></el-form-item>
 
                 <el-form-item label="最高学历/学位" prop="most_academic">
-                    <el-input v-model="form.most_academic"></el-input>
+                    <el-select v-model="form.most_academic" placeholder="请选择老师最高学历/学位">
+                        <el-option label="硕士" value="0"></el-option>
+                        <el-option label="博士" value="1"></el-option>
+                    </el-select>
+                    <!--<el-input v-model="form.most_academic"></el-input>-->
                 </el-form-item>
                 <el-form-item label="最高毕业学校" prop="most_graduate_school">
                     <el-input v-model="form.most_graduate_school"></el-input>
@@ -286,12 +302,19 @@
 </template>
 <style>
     .contents{
-        width: 75%;
+        width: 87%;
         float: left;
     }
     .add{
         width: 73%;
         margin: 35px 0 0 35px;
+    }
+    /*组件*/
+    .el-input {
+        width: 240px;
+    }
+    .el-date-editor.el-input, .el-date-editor.el-input__inner {
+        width: 240px;
     }
 </style>
 <script>
@@ -348,6 +371,12 @@
                     master_company:'',
                     master_time:'',
                 },
+                polit_outlook:[//政治面貌
+                    '积极分子',
+                    '发展对象',
+                    '预备党员',
+                    '党员',
+                ],
             }
         },
         methods:{
@@ -420,10 +449,10 @@
                 let vue = this;
                 if(form.name == '') {
                     this.$message.error('老师姓名不能为空');
-                }else if(form.teacher_id == '') {
+                }else if(form.sex == '') {
                     this.$message.error('老师性别不能为空');
                 }else if(form.teacher_department == '') {
-                    this.$message.error('老师分组不能为空');
+                    this.$message.error('老师所属部门不能为空');
                 }else if(form.teacher_id == '') {
                     this.$message.error('老师工号不能为空');
                 }else if(form.office_phone == '') {
@@ -448,9 +477,11 @@
                     this.$message.error('任职时间不能为空');
                 }else if(form.job_level == '') {
                     this.$message.error('职务级别不能为空');
-                }else if(form.admin_tenure_time == '') {
-                    this.$message.error('任职时间不能为空');
-                }else if(form.technical_position == '') {
+                }
+//                else if(form.academic_title == '') {
+//                    this.$message.error('老师职称不能为空');
+//                }
+                else if(form.technical_position == '') {
                     this.$message.error('专业技术职务不能为空');
                 }else if(form.review_time == '') {
                     this.$message.error('评审通过时间不能为空');
@@ -472,6 +503,16 @@
                     this.$message.error('教师资格证书编号不能为空');
                 }else if(form.identity_card == '') {
                     this.$message.error('身份证号不能为空');
+                }else if(form.edu_school == '') {
+                    this.$message.error('毕业院校不能为空');
+                }else if(form.first_academic == '') {
+                    this.$message.error('第一学历学位不能为空');
+                }else if(form.first_graduate_school == '') {
+                    this.$message.error('第一毕业学校不能为空');
+                }else if(form.first_study_major == '') {
+                    this.$message.error('第一所学专业不能为空');
+                }else if(form.first_graduation_time == '') {
+                    this.$message.error('第一毕业时间不能为空');
                 }else if(form.most_academic == '') {
                     this.$message.error('学历/学位不能为空');
                 }else if(form.most_graduate_school == '') {
@@ -486,8 +527,7 @@
                     this.$message.error('所属学科不能为空');
                 }else if(form.teach_course == '') {
                     this.$message.error('任教课程不能为空');
-                }else if(form.master_company == '')
- {
+                }else if(form.master_company == '') {
                     this.$message.error('授予单位不能为空');
                 }else if(form.master_time == '') {
                     this.$message.error('获得时间不能为空');

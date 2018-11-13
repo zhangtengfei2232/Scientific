@@ -297,7 +297,7 @@ class InformationController extends Controller
     }
     //修改证书图片
     public function updateCertificate(Request $request){
-        if(!$request->isMethod('PSOT')){
+        if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
         if(!$request->hasFile('gra_cert_road') || !$request->hasFile('edu_cert_road')){

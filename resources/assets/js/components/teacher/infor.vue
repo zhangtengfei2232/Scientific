@@ -15,10 +15,16 @@
                                 </el-form-item>
                                 <el-form-item label="老师所属部门" prop="teacher_department">
                                     <el-select v-model="form.teacher_department" placeholder="请选择老师所属部门">
-                                        <el-option label="生工" value="0"></el-option>
-                                        <el-option label="生物技术系" value="1"></el-option>
-                                        <el-option label="农学系" value="2"></el-option>
-                                        <el-option label="领导行政政工" value="3"></el-option>
+                                        <el-option
+                                                v-for="(value, key) in teacher_department"
+                                                :key="key"
+                                                :label="value"
+                                                :value="key">
+                                        </el-option>
+                                        <!--<el-option label="生工" value=0></el-option>-->
+                                        <!--<el-option label="生物技术系" value=1></el-option>-->
+                                        <!--<el-option label="农学系" value="2"></el-option>-->
+                                        <!--<el-option label="领导行政政工" value="3"></el-option>-->
                                     </el-select>
                                     <!--<el-input v-model="form.teacher_department"></el-input>-->
                                 </el-form-item>
@@ -61,7 +67,19 @@
                                     </el-col>
                                 </el-form-item>
                                 <el-form-item label="政治面貌" prop="polit_outlook">
-                                    <el-input v-model="form.polit_outlook"></el-input>
+                                    <el-select v-model="form.polit_outlook" placeholder="请选择老师政治面貌">
+                                        <el-option
+                                                v-for="(value, key) in polit_outlook"
+                                                :key="key"
+                                                :label="value"
+                                                :value="key">
+                                        </el-option>
+                                    <!--<el-option label="积极分子" value="0"></el-option>-->
+                                    <!--<el-option label="发展对象" value="1"></el-option>-->
+                                    <!--<el-option label="预备党员" value="2"></el-option>-->
+                                    <!--<el-option label="党员" value="3"></el-option>-->
+                                    </el-select>
+                                    <!--<el-input v-model="form.polit_outlook"></el-input>-->
                                 </el-form-item>
                                 <el-form-item label="籍贯" prop="native_place">
                                     <el-input v-model="form.native_place"></el-input>
@@ -82,30 +100,48 @@
                                 </el-form-item>
                                 <el-form-item label="职务级别" prop="job_level">
                                     <el-select v-model="form.job_level" placeholder="请选择老师级别">
-                                        <el-option label="正处" value="0"></el-option>
-                                        <el-option label="副处" value="1"></el-option>
-                                        <el-option label="正科" value="2"></el-option>
-                                        <el-option label="副科" value="3"></el-option>
-                                        <el-option label="其他" value="4"></el-option>
+                                        <el-option
+                                            v-for="(value, key) in job_level"
+                                            :key="key"
+                                            :label="value"
+                                            :value="key">
+                                        </el-option>
+                                        <!--<el-option label="正处" value="0"></el-option>-->
+                                        <!--<el-option label="副处" value="1"></el-option>-->
+                                        <!--<el-option label="正科" value="2"></el-option>-->
+                                        <!--<el-option label="副科" value="3"></el-option>-->
+                                        <!--<el-option label="其他" value="4"></el-option>-->
                                     </el-select>
                                 </el-form-item>
                                 <el-form-item label="专业技术职务" prop="technical_position">
                                     <el-select v-model="form.technical_position" placeholder="老师专业技术职务">
-                                        <el-option label="教授" value="0"></el-option>
-                                        <el-option label="副教授" value="1"></el-option>
-                                        <el-option label="讲师" value="2"></el-option>
-                                        <el-option label="助教" value="3"></el-option>
-                                        <el-option label="实验师" value="4"></el-option>
-                                        <el-option label="助理实验师" value="5"></el-option>
-                                        <el-option label="高级实验师" value="6"></el-option>
+                                        <el-option
+                                            v-for="(value, key) in technical_position"
+                                            :key="key"
+                                            :label="value"
+                                            :value="key">
+                                        </el-option>
+                                        <!--<el-option label="教授" value="0"></el-option>-->
+                                        <!--<el-option label="副教授" value="1"></el-option>-->
+                                        <!--<el-option label="讲师" value="2"></el-option>-->
+                                        <!--<el-option label="助教" value="3"></el-option>-->
+                                        <!--<el-option label="实验师" value="4"></el-option>-->
+                                        <!--<el-option label="助理实验师" value="5"></el-option>-->
+                                        <!--<el-option label="高级实验师" value="6"></el-option>-->
                                     </el-select>
                                 </el-form-item>
                                 <el-form-item label="老师职称" prop="academic_title">
                                     <el-select v-model="form.academic_title" placeholder="请选择老师职称">
-                                        <el-option label="初级" value="0"></el-option>
-                                        <el-option label="中级" value="1"></el-option>
-                                        <el-option label="副高" value="2"></el-option>
-                                        <el-option label="正高" value="3"></el-option>
+                                        <el-option
+                                                v-for="(value, key) in academic_title"
+                                                :key="key"
+                                                :label="value"
+                                                :value="key">
+                                        </el-option>
+                                        <!--<el-option label="初级" value="0"></el-option>-->
+                                        <!--<el-option label="中级" value="1"></el-option>-->
+                                        <!--<el-option label="副高" value="2"></el-option>-->
+                                        <!--<el-option label="正高" value="3"></el-option>-->
                                     </el-select>
                                 </el-form-item>
                                 <el-form-item label="评审通过时间" prop="review_time">
@@ -135,10 +171,16 @@
                                 </el-form-item>
                                 <el-form-item label="岗位类别" prop="post_category">
                                     <el-select v-model="form.post_category" placeholder="请选择老师岗位类别">
-                                        <el-option label="教学秘书" value="0"></el-option>
-                                        <el-option label="院长" value="1"></el-option>
-                                        <el-option label="办公室主任" value="2"></el-option>
-                                        <el-option label="副主任" value="3"></el-option>
+                                        <el-option
+                                                v-for="(value, key) in post_category"
+                                                :key="key"
+                                                :label="value"
+                                                :value="key">
+                                        </el-option>
+                                        <!--<el-option label="教学秘书" value="0"></el-option>-->
+                                        <!--<el-option label="院长" value="1"></el-option>-->
+                                        <!--<el-option label="办公室主任" value="2"></el-option>-->
+                                        <!--<el-option label="副主任" value="3"></el-option>-->
                                     </el-select>
                                 </el-form-item>
 
@@ -178,7 +220,17 @@
                                 <el-form-item label="第一学历："style="font-weight:800 !important; font-size: 17px;" ></el-form-item>
 
                                 <el-form-item label="第一学历/学位" prop="first_academic">
-                                    <el-input v-model="form.first_academic"></el-input>
+                                    <el-select v-model="form.first_academic" placeholder="请选择老师第一学历学位">
+                                        <el-option
+                                                v-for="(value, key) in first_academic"
+                                                :key="key"
+                                                :label="value"
+                                                :value="key">
+                                        </el-option>
+                                        <!--<el-option label="大专" value="0"></el-option>-->
+                                        <!--<el-option label="本科" value="1"></el-option>-->
+                                    </el-select>
+                                    <!--<el-input v-model="form.first_academic"></el-input>-->
                                 </el-form-item>
                                 <el-form-item label="第一毕业学校" prop="first_graduate_school">
                                     <el-input v-model="form.first_graduate_school"></el-input>
@@ -201,7 +253,17 @@
                                 <el-form-item label="最高学历：" style="font-weight: 800; font-size: 17px;"></el-form-item>
 
                                 <el-form-item label="最高学历/学位" prop="most_academic">
-                                    <el-input v-model="form.most_academic"></el-input>
+                                    <el-select v-model="form.most_academic" placeholder="请选择老师最高学历/学位">
+                                        <el-option
+                                                v-for="(value, key) in most_academic"
+                                                :key="key"
+                                                :label="value"
+                                                :value="key">
+                                        </el-option>
+                                        <!--<el-option label="硕士" value="0"></el-option>-->
+                                        <!--<el-option label="博士" value="1"></el-option>-->
+                                    </el-select>
+                                    <!--<el-input v-model="form.most_academic"></el-input>-->
                                 </el-form-item>
                                 <el-form-item label="最高毕业学校" prop="most_graduate_school">
                                     <el-input v-model="form.most_graduate_school"></el-input>
@@ -251,7 +313,7 @@
                                     <el-button>取消</el-button>
                                 </el-form-item>
                                 <div class="demo" v-show="type1">
-                                    <img :src="filelist" style="width:100px">
+                                    <img :src="filelist" alt="无法加载" style="width:100px">
                                 </div>
                                 <el-form-item label="毕业证书图片">
                                     <el-upload
@@ -328,6 +390,7 @@
                     number:'',
                     borth:'',
                     first_academic:'',
+                    job_level:'',
 
                     academic_title:'',
                     nation:'',
@@ -363,7 +426,60 @@
                     master_time:'',
 
                 },
+                teacher_department:[
+                    '生工',
+                    '生物技术系',
+                    '农学系',
+                    '领导行政政工',
+                ],
+                sex:[
+                    '男',
+                    '女',
+                ],
+                polit_outlook:[//政治面貌
+                    '积极分子',
+                    '发展对象',
+                    '预备党员',
+                    '党员',
+                ],
+                job_level:[//职务级别
+                    '正处',
+                    '副处',
+                    '正科',
+                    '副科',
+                    '其他',
+                ],
+                technical_position:[    //专业技术职务
+                    '教授',
+                    '副教授',
+                    '讲师',
+                    '助教',
+                    '实验师',
+                    '助理实验师',
+                    '高级实验师',
+                ],
+                academic_title:[    //老师职称
+                    '初级',
+                    '中级',
+                    '副高',
+                    '正高',
+                ],
+                post_category:[ //岗位类别
+                    '教学秘书',
+                    '院长',
+                    '办公室主任',
+                    '副主任',
+                ],
+                first_academic:[//第一学历学位
+                    '大专',
+                    '本科',
+                ],
+                most_academic:[//最高学历/学位
+                    '硕士',
+                    '博士',
+                ],
             }
+
         },
         methods: {
             getTeacherData(){
@@ -374,7 +490,6 @@
                     if(data.code == 0){
                         self.teacherDate = data.datas.information;
                         self.form = data.datas.information;
-
                         if(data.datas.information.gra_cert_road !== ''){
                             self.type1=true;
                             self.filelist = 'showfile?disk=teacher&subjection=' + data.datas.information.gra_cert_road;
@@ -409,7 +524,7 @@
             fileProfil(file){
                 if(file !== ''){
                     this.dataFile.append('gra_cert_road', file);
-                    this.dataFile.append('is_add_teacher',this.Bcode);
+//                    this.dataFile.append('is_add_teacher',this.Bcode);
                     this.sendfile(this.dataFile);
                 }else{
                     this.$message.error('请先添加文件');
@@ -419,7 +534,7 @@
             fileEdufil(files){
                 if(files !== ''){
                     this.dataFile.append('edu_cert_road', files);
-                    this.dataFile.append('is_add_teacher',this.Bcode);
+//                    this.dataFile.append('is_add_teacher',this.Bcode);
 //                    let id = this.form.id;
 //                    this.dataFile.append('id', id);
                     this.sendfile(this.dataFile);
@@ -429,7 +544,7 @@
                 }
             },
             sendfile(dataFile) {
-//                console.log(dataFile,'544554=-==--');
+                console.log(dataFile,'544554=-==--');
                 let vue = this;
                 this.addTeacherFile(dataFile).then(res => {
                     var data = res.data;
@@ -458,15 +573,17 @@
                 });
             },
             onSubmit(form) {
-                console.log(form,'0=-----00000');
+//                console.log(form,'0=-----00000');
 //                let vue = this;
                 if(form.name == '') {
                     this.$message.error('老师姓名不能为空');
                 }else if(form.sex == '') {
                     this.$message.error('老师性别不能为空');
-                }else if(form.teacher_department == '') {
-                    this.$message.error('老师所属部门不能为空');
-                }else if(form.teacher_id == '') {
+                }
+//                else if(form.teacher_department == '') {
+//                    this.$message.error('老师所属部门不能为空');
+//                }
+                else if(form.teacher_id == '') {
                     this.$message.error('老师工号不能为空');
                 }else if(form.office_phone == '') {
                     this.$message.error('办公电话不能为空');
@@ -482,29 +599,35 @@
                     this.$message.error('民族不能为空');
                 }else if(form.borth == '') {
                     this.$message.error('出生年月不能为空');
-                }else if(form.polit_outlook == '') {
-                    this.$message.error('政治面貌不能为空');
-                }else if(form.admin_duties == '') {
+                }
+//                else if(form.polit_outlook == '') {
+//                    this.$message.error('政治面貌不能为空');
+//                }
+                else if(form.admin_duties == '') {
                     this.$message.error('行政职务不能为空');
                 }else if(form.admin_tenure_time == '') {
                     this.$message.error('任职时间不能为空');
-                }else if(form.job_level == '') {
-                    this.$message.error('职务级别不能为空');
                 }
+//                else if(form.job_level == '') {
+//                    this.$message.error('职务级别不能为空');
+//                }
 //                else if(form.academic_title == '') {
 //                    this.$message.error('老师职称不能为空');
 //                }
-                else if(form.technical_position == '') {
-                    this.$message.error('专业技术职务不能为空');
-                }else if(form.review_time == '') {
+//                else if(form.technical_position == '') {
+//                    this.$message.error('专业技术职务不能为空');
+//                }
+                else if(form.review_time == '') {
                     this.$message.error('评审通过时间不能为空');
                 }else if(form.appointment_time == '') {
                     this.$message.error('聘任时间不能为空');
                 }else if(form.series == '') {
                     this.$message.error('老师系列不能为空');
-                }else if(form.post_category == '') {
-                    this.$message.error('岗位类别不能为空');
-                }else if(form.company == '') {
+                }
+//                else if(form.post_category == '') {
+//                    this.$message.error('岗位类别不能为空');
+//                }
+                else if(form.company == '') {
                     this.$message.error('所在单位不能为空');
                 }else if(form.te_re_department == '') {
                     this.$message.error('所属教研室和实验室不能为空');
@@ -518,17 +641,21 @@
                     this.$message.error('身份证号不能为空');
                 }else if(form.edu_school == '') {
                     this.$message.error('毕业院校不能为空');
-                }else if(form.first_academic == '') {
-                    this.$message.error('第一学历学位不能为空');
-                }else if(form.first_graduate_school == '') {
+                }
+//                else if(form.first_academic == '') {
+//                    this.$message.error('第一学历学位不能为空');
+//                }
+                else if(form.first_graduate_school == '') {
                     this.$message.error('第一毕业学校不能为空');
                 }else if(form.first_study_major == '') {
                     this.$message.error('第一所学专业不能为空');
                 }else if(form.first_graduation_time == '') {
                     this.$message.error('第一毕业时间不能为空');
-                }else if(form.most_academic == '') {
-                    this.$message.error('学历/学位不能为空');
-                }else if(form.most_graduate_school == '') {
+                }
+//                else if(form.most_academic == '') {
+//                    this.$message.error('学历/学位不能为空');
+//                }
+                else if(form.most_graduate_school == '') {
                     this.$message.error('毕业学校不能为空');
                 }else if(form.most_study_major == '') {
                     this.$message.error('所学专业不能为空');
@@ -554,7 +681,7 @@
 //                        console.log(vue.dataForm,'00000000000');
                         vue.addTeaDate(vue.dataForm).then(res => {
                             var data = res.data;
-
+                            console.log(data,'[]][[[[[[[[')
                             if (data.code == 0) {
                                 this.Bcode = true;
                                 vue.$message({
@@ -586,31 +713,27 @@
                     data: data
                 });
             },
-
-
-
-
-            checkFileExt(filename){
-                if(filename == '') {
-                    this.$message.error('上传文件不能为空');
-                }
-                var flag = false; //状态
-                var arr = ["pdf"];
-                //取出上传文件的扩展名
-                console.log(filename);
-                var index = filename.lastIndexOf(".");
-                var ext = filename.substr(index+1);
-                //循环比较
-                for(var i=0;i<arr.length;i++){
-                    if(ext == arr[i]){
-                        flag = true;
-                        break;
-                    }
-                }
-                if(!flag){
-                    this.$message.error('请上传PDF');
-                }
-            },
+//            checkFileExt(filename){
+//                if(filename == '') {
+//                    this.$message.error('上传文件不能为空');
+//                }
+//                var flag = false; //状态
+//                var arr = ["pdf"];
+//                //取出上传文件的扩展名
+//                console.log(filename);
+//                var index = filename.lastIndexOf(".");
+//                var ext = filename.substr(index+1);
+//                //循环比较
+//                for(var i=0;i<arr.length;i++){
+//                    if(ext == arr[i]){
+//                        flag = true;
+//                        break;
+//                    }
+//                }
+//                if(!flag){
+//                    this.$message.error('请上传PDF');
+//                }
+//            },
         },
         mounted() {
             this.getTeacherData();
