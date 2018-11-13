@@ -82,6 +82,7 @@
                     <el-button @click="toggleSelection([agreementDate[0],agreementDate[1], agreementDate[2]])">选中前三条</el-button>
                     <el-button @click="toggleSelection()">取消选择</el-button>
                     <el-button @click="BatchDelete()">删除</el-button>
+                    <el-button @click="ExcelSelection()">导出Excel</el-button>
                 </div>
             </template>
         </div>
@@ -150,6 +151,44 @@
             },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
+            },
+            ExcelSelection() {
+                var self = this;
+                var art_id_datas = [];//存放导出的数据
+                if(self.multipleSelection == undefined){
+                    this.$message({
+                        message: '请选择要导出论文',
+                        type: 'warning'
+                    });
+                }else{
+                    for (var i = 0; i < self.multipleSelection.length; i++) {
+                        art_id_datas.push(self.multipleSelection[i].agree_id);
+                    };
+                    this.ExcelArticleDatas(art_id_datas);
+                }
+            },
+            ExcelArticleDatas(art_id_datas) {
+                let self = this;
+                axios.get("",{
+                        params:{
+                        agree_id_datas:art_id_datas
+                    }
+                }).then(function (response) {
+                    var data = response.data;
+                    if (data.code == 0) {
+                            self.$message({
+                            showClose: true,
+                            message: '导出成功!',
+                            type: 'success'
+                        });
+                    } else {
+                        self.$notify({
+                            type: 'error',
+                            message: data.message,
+                            duration: 2000,
+                        });
+                    }
+                });
             },
             uploadAgreementData(agree_road) {
                 if(agree_road == 1) {

@@ -229,11 +229,12 @@ export default {
     methods: {
         getAllData() {
             let self = this;
-            axios.get("").then(function (response) {
+            axios.get("counteverymodular").then(function (response) {
                 var data = response.data;
+                 console.log(data.code);
                 if (data.code == 0) {
                     self.AllDate = data.datas;
-                    self.drawLineArt(self.AllDate);
+                    console.log(data.datas);
                 } else {
                     self.$notify({
                         type: 'error',
@@ -245,7 +246,7 @@ export default {
         },
         getTeacherDate() {
             let self = this;
-            axios.get("groupbyteachereducation").then(function (response) {
+            axios.get("groupbyteachertechnicaltitle").then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.teacherMicDate = data.datas;
@@ -275,7 +276,7 @@ export default {
         },
         rank() {
             let self = this;
-            axios.get("groupbyteachertechnicaltitle").then(function (response) {
+            axios.get("groupbyteachereducation").then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.teacherRanDate = data.datas;
@@ -389,7 +390,7 @@ export default {
         },
         ProType() {
             let self = this;
-            axios.get("").then(function (response) {
+            axios.get("groupbyprojetcateresearch").then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.ProjectDate = data.datas;
@@ -419,7 +420,7 @@ export default {
         },
         getOpusDate() {
             let self = this;
-            axios.get("groupbyprojectcertificatelevel").then(function (response) {
+            axios.get("gropubyopuscategory").then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.OpusDate = data.datas;
@@ -451,7 +452,7 @@ export default {
         },
         OpusType() {
              let self = this;
-            axios.get("").then(function (response) {
+            axios.get("groupbyopusformwrite").then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.OpusDate = data.datas;
@@ -514,8 +515,8 @@ export default {
             });
         },
         AwardType() {
-             let self = this;
-            axios.get("").then(function (response) {
+            let self = this;
+            axios.get("groupbyformachievement").then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.AwardDate = data.datas;
@@ -552,7 +553,7 @@ export default {
         },
         getPatentDate() {
             let self = this;
-            axios.get("").then(function (response) {
+            axios.get("groupbypatenttype").then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.PatentDate = data.datas;
@@ -582,7 +583,7 @@ export default {
         },
         getAppraisalDate() {
             let self = this;
-            axios.get("").then(function (response) {
+            axios.get("groupbyappraisallevel").then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.AppraisalDate = data.datas;
@@ -620,6 +621,7 @@ export default {
         this.getAwardDate();
         this.getPatentDate();
         this.getAppraisalDate();
+        this.getAllData();
     },
 }
 </script>
