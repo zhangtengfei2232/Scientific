@@ -231,10 +231,8 @@ export default {
             let self = this;
             axios.get("counteverymodular").then(function (response) {
                 var data = response.data;
-                 console.log(data.code);
                 if (data.code == 0) {
                     self.AllDate = data.datas;
-                    console.log(data.datas);
                 } else {
                     self.$notify({
                         type: 'error',
@@ -248,9 +246,11 @@ export default {
             let self = this;
             axios.get("groupbyteachertechnicaltitle").then(function (response) {
                 var data = response.data;
+                console.log(response.data);
                 if (data.code == 0) {
                     self.teacherMicDate = data.datas;
-                    self.drawLineArt(self.teacherMicDate);
+                    
+                    self.drawLine(self.teacherMicDate);
                 } else {
                     self.$notify({
                         type: 'error',
