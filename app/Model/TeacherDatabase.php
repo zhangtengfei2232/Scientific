@@ -83,10 +83,6 @@ class TeacherDatabase extends ModelDatabase
         return ($response) ? responseTojson(0,'添加老师信息成功')
                : responseTojson(1,'添加老师信息失败');
      }
-     //删除老师的信息
-     public static function deleteTeacherDatas(){
-
-     }
      //查询全部老师信息
      public static function selectAllTeacherDatas(){
          $result = DB::table('teacher')->orderBy('appointment_time','asc')->get();
@@ -136,6 +132,15 @@ class TeacherDatabase extends ModelDatabase
                       ->where('teacher_id',$teacher_id)
                       ->get();
              return $image->edu_cert_road;
+         }elseif($status == 3){
+             $teacher_image_road = [];
+             $image = DB::table('teacher')
+                 ->select('edu_cert_road','gra_cert_road')
+                 ->where('teacher_id',$teacher_id)
+                 ->get();
+             array_push($teacher_image_road,$image->edu_cert_road);
+             array_push($teacher_image_road,$image->gra_cert_road);
+             return $teacher_image_road;
          }
      }
      //修改老师的信息
