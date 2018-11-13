@@ -77,7 +77,7 @@
                     </el-table-column>
                 </el-table>
                 <div style="margin-top: 20px">
-                    <el-button @click="toggleSelection([AwardDate[1], AwardDate[2],AwardDate[3]])">切换第二、第三行的选中状态</el-button>
+                    <el-button @click="toggleSelection([AwardDate[1], AwardDate[2],AwardDate[0]])">选中前三行</el-button>
                     <el-button @click="toggleSelection()">取消选择</el-button>
                     <el-button @click="BatchDelete()">删除</el-button>
                 </div>
@@ -150,7 +150,7 @@
                 var aw_id_datas = [];//存放删除的数据
                 if(self.multipleSelection == undefined){
                     this.$message({
-                        message: '警告哦，这是一条警告消息',
+                        message: '请选择数据',
                         type: 'warning'
                     });
                 }else{

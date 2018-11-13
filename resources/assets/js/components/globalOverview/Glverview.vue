@@ -10,7 +10,7 @@
                         <el-col :span="3">
                             <div class="grid-content bg-purple" style="background:rgb(92, 109, 133);margin-left:20px" >
                                 <span>论文</span>
-                                <p>21</p>
+                                <p>{{ AllDate[0] }}</p>
                             </div>
                         </el-col>
                     </router-link>
@@ -18,7 +18,7 @@
                         <el-col :span="3">
                             <div class="grid-content bg-purple" style="background:rgb(255, 135, 0)">
                                 <span>项目</span>
-                                <p>21</p>
+                                <p>{{ AllDate[1] }}</p>
                             </div>
                         </el-col>
                     </router-link>
@@ -26,7 +26,7 @@
                         <el-col :span="3">
                             <div class="grid-content bg-purple" style="background:rgb(0, 172, 255)">
                                 <span>著作</span>
-                                <p>21</p>
+                                <p>{{ AllDate[2] }}</p>
                             </div>
                         </el-col>
                     </router-link>
@@ -34,7 +34,7 @@
                         <el-col :span="3">
                             <div class="grid-content bg-purple" style="background:rgb(47, 101, 235)">
                                 <span>获奖</span>
-                                <p>21</p>
+                                <p>{{ AllDate[3] }}</p>
                             </div>
                         </el-col>
                     </router-link>
@@ -42,7 +42,7 @@
                         <el-col :span="3">
                             <div class="grid-content bg-purple" style="background:rgb(0, 142, 106)">
                                 <span>专利</span>
-                                <p>21</p>
+                                <p>{{ AllDate[4] }}</p>
                             </div>
                         </el-col>
                     </router-link>
@@ -50,7 +50,7 @@
                         <el-col :span="3">
                             <div class="grid-content bg-purple" style="background:rgb(3, 186, 0)">
                                 <span>成果鉴定</span>
-                                <p>21</p>
+                                <p>{{ AllDate[5] }}</p>
                             </div>
                         </el-col>
                     </router-link>
@@ -58,7 +58,7 @@
                         <el-col :span="3">
                             <div class="grid-content bg-purple" style="background:rgb(234, 75, 140)">
                                 <span>举办会议</span>
-                                <p>21</p>
+                                <p>{{ AllDate[6] }}</p>
                             </div>
                         </el-col>
                     </router-link>
@@ -66,7 +66,7 @@
                         <el-col :span="3">
                             <div class="grid-content bg-purple" style="background:rgb(255, 69, 48);">
                                 <span>参加会议</span>
-                                <p>21</p>
+                                <p>{{ AllDate[7] }}</p>
                             </div>
                         </el-col>
                     </router-link>
@@ -74,7 +74,7 @@
                         <el-col :span="3">
                             <div class="grid-content bg-purple" style="background:rgb(255, 189, 20);margin-left:20px">
                                 <span>专家讲学</span>
-                                <p>21</p>
+                                <p>{{ AllDate[8] }}</p>
                             </div>
                         </el-col>
                     </router-link>
@@ -82,7 +82,7 @@
                         <el-col :span="3">
                             <div class="grid-content bg-purple" style="background:rgb(0, 199, 209)">
                                 <span>担任学术团体职务</span>
-                                <p>21</p>
+                                <p>{{ AllDate[9] }}</p>
                             </div>
                         </el-col>
                     </router-link>
@@ -215,6 +215,7 @@ export default {
     name: 'eCharts',
     data () {
         return {
+            AllDate:[],
             teacherMicDate:[],
             teacherRanDate:[],
             ArticleDate:[],
@@ -226,6 +227,22 @@ export default {
         }
     },
     methods: {
+        getAllData() {
+            let self = this;
+            axios.get("").then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.AllDate = data.datas;
+                    self.drawLineArt(self.AllDate);
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,
+                    });
+                }
+            });
+        },
         getTeacherDate() {
             let self = this;
             axios.get("groupbyteachereducation").then(function (response) {

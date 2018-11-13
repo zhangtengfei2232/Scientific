@@ -110,7 +110,12 @@
                 :data="allArticle"
                 style="width: 100%"
                 border
-                height="250">
+                height="250"
+                @selection-change="handleSelectionChange">
+                <el-table-column
+                type="selection"
+                width="55">
+                </el-table-column>
                 <el-table-column
                     fixed
                     prop="author"
@@ -183,6 +188,10 @@
                     width="140">
                 </el-table-column>
             </el-table>
+            <div style="margin-top: 20px">
+                <el-button @click="PDFSelection()">导出PDF</el-button>
+                <el-button @click="ExcelSelection()">导出Excel</el-button>
+            </div>
             <div class="page">
                 <el-pagination
                     background
@@ -231,6 +240,7 @@ export default {
             art_name:'',
             total: 0,
             newTime: '',
+            multipleSelection: [],
             form:{
                 art_cate_research: [],
                 percal_cate:[]
@@ -275,6 +285,85 @@ export default {
         }
     },
     methods: {
+        handleSelectionChange(val) {
+            this.multipleSelection = val;
+        },
+        PDFSelection() {
+            var self = this;
+            var art_id_datas = [];//存放导出的数据
+            if(self.multipleSelection == undefined){
+                this.$message({
+                    message: '请选择要导出论文',
+                    type: 'warning'
+                });
+            }else{
+                for (var i = 0; i < self.multipleSelection.length; i++) {
+                    art_id_datas.push(self.multipleSelection[i].art_id);
+                };
+                this.exportArticleDatas(art_id_datas);
+            }
+        },
+        exportArticleDatas() {
+            let self = this;
+            axios.get("",{
+                    params:{
+                    artical_id:art_id_datas
+                }
+            }).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                        self.$message({
+                        showClose: true,
+                        message: '导出成功!',
+                        type: 'success'
+                    });
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,
+                    });
+                }
+            });
+        },
+        ExcelSelection() {
+            var self = this;
+            var art_id_datas = [];//存放导出的数据
+            if(self.multipleSelection == undefined){
+                this.$message({
+                    message: '请选择要导出论文',
+                    type: 'warning'
+                });
+            }else{
+                for (var i = 0; i < self.multipleSelection.length; i++) {
+                    art_id_datas.push(self.multipleSelection[i].art_id);
+                };
+                this.ExcelArticleDatas(art_id_datas);
+            }
+        },
+        ExcelArticleDatas() {
+            let self = this;
+            axios.get("",{
+                    params:{
+                    artical_id:art_id_datas
+                }
+            }).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                        self.$message({
+                        showClose: true,
+                        message: '导出成功!',
+                        type: 'success'
+                    });
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,
+                    });
+                }
+            });
+        },
         getArticleData() {
             let self = this;
             axios.get("leaderselectallartical").then(function (response) {
