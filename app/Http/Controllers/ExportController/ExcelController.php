@@ -31,14 +31,13 @@ class ExcelController extends Controller
                 $datas->num_words,
                 $datas->percal_cate,
                 $datas->belong_project,
-                $datas->art_cate_research,
-                $datas->art_sub_category,
+                SearchMessageConfig::ART_CATE_RESEARCH_DATAS[$datas->art_cate_research],
+                SearchMessageConfig::ART_SUB_CATEGORY_DATAS[$datas->art_sub_category],
                 $datas->art_integral,
                 $datas->sch_percal_cate,
                 date('Y-m-d',$datas->art_time)
             ];
         }
-
         Excel::create('老师信息',function ($excel) use ($cell_datas){
             $excel->sheet('information',function ($sheet) use ($cell_datas){
                 $sheet->rows($cell_datas);

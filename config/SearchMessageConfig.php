@@ -130,9 +130,10 @@ class SearchMessageConfig
      * 导出EXCEL表格配置文件
      */
     //老师
-
     //论文
-//    const
-
+    const ARTI_PERCAL_CATE_DATAS  = ['SCI一区','SCI二区','SCI三区','SCI四区','EI','SSCI','CN','CSSCI核心库','中文核心','CSCD核心库','河南科技学院期刊'];
+    const ART_CATE_RESEARCH_DATAS = ['基础研究','应用研究'];
+    const ART_SUB_CATEGORY_DATAS  = ['理学','工学','农学','医学','管理学','马克思主义','哲学','逻辑学','宗教学','语言学',
+                                     '中国文学','外国文学','艺术学','历史学','考古学','经济学','政治学','法学'];
 
 }

@@ -29,7 +29,7 @@
             || (!preg_match($isMob, $datas['office_phone'])
             && !preg_match($isTel, $datas['office_phone']))){
             return responseTojson(1,'你填写的办公电话有误',1);
-        }elseif (strlen($datas->home_phone) > 20
+        }elseif (strlen($datas['home_phone']) > 20
             || (!preg_match($isTel, $datas['home_phone'])
             && !preg_match($isMob, $datas['home_phone']))){
             return responseTojson(1,'你填写的住宅电话有误',1);
