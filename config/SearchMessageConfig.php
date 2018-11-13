@@ -125,4 +125,14 @@ class SearchMessageConfig
     const AW_LEVEL_NUM            = 5;
     const PA_TYPE_NUM             = 3;
     const AP_LEVEL_NUM            = 4;
+
+    /**
+     * 导出EXCEL表格配置文件
+     */
+    //老师
+
+    //论文
+//    const
+
+
 }

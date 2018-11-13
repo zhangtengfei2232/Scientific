@@ -253,6 +253,14 @@ class ModelDatabase  extends  Model
         $count_datas[7] = DB::table('joinmeet')->count();
         $count_datas[8] = DB::table('lecture')->count();
         $count_datas[9] = DB::table('duties')->count();
-        return $count_datas;
+        return responseTojson(0,'查询成功','',$count_datas);
     }
+
+    /**
+     * 导出表格所需数据
+     */
+    public static function selectExportExcelDatas($table_name,$id_field,$art_id_datas){
+        return DB::table($table_name)->whereIn($id_field,$art_id_datas)->get();
+    }
+
 }
