@@ -174,13 +174,13 @@ export default {
         },
         fileProfils(files){
             console.log(files);
-            if(files  != ''){
+            if(files != ''){
                 this.dataFile.append('ho_file', files);
                 let id = this.ho_id;
                 this.dataFile.append('ho_id', id);
                 this.sendfile(this.dataFile);      
             }else{
-                this.$message.error('请先添加数据信息');
+                this.$message.error('请先添加图片');
                 return false
             }
         },

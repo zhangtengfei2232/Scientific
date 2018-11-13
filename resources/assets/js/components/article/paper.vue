@@ -33,7 +33,7 @@
                 </el-form>
             </span>
         </header>
-        <div class="table" v-show="cont">
+        <div class="table">
             <template>
                 <el-table
                     ref="multipleTable"
@@ -81,11 +81,9 @@
                     <el-button @click="toggleSelection([ArticleDate[0], ArticleDate[1],ArticleDate[2]])">选中前三条</el-button>
                     <el-button @click="toggleSelection()">取消选择</el-button>
                     <el-button @click="BatchDelete()">删除</el-button>
+                    <el-button @click="BatchExport()">导出</el-button>
                 </div>
             </template>
-        </div>
-        <div class="null" v-show="conts">
-            <img src="/dist/img/null.png" alt="">
         </div>
     </div>
 </template>
@@ -126,13 +124,12 @@
         data() {
             return {
                 id: [],
+                multipleSelection: [],
                 sortable:true,
                 ArticleDate: [],
                 checked: false,
                 checkAll: false,
                 isIndeterminate: true,
-                cont:true,
-                conts:false,
                 form: {
                     data1: '',
                     data2: '',
@@ -182,6 +179,44 @@
                 this.$router.push({
                     path: `/selfInfor/${art_id}`,
                 })
+            },
+            BatchExport() {
+                var self = this;
+                var art_id_datas = [];//存放导出的数据
+                if(self.multipleSelection == undefined){
+                    this.$message({
+                        message: '请选择要导出论文',
+                        type: 'warning'
+                    });
+                }else{
+                    for (var i = 0; i < self.multipleSelection.length; i++) {
+                        art_id_datas.push(self.multipleSelection[i].art_id);
+                    };
+                    this.exportArticleDatas(art_id_datas);
+                }
+            },
+            exportArticleDatas() {
+                let self = this;
+                    axios.get("exportallartical",{
+                         params:{
+                            artical_id:art_id_datas
+                        }
+                    }).then(function (response) {
+                    var data = response.data;
+                        if (data.code == 0) {
+                             self.$message({
+                                showClose: true,
+                                message: '导出成功!',
+                                type: 'success'
+                            });
+                        } else {
+                            self.$notify({
+                                type: 'error',
+                                message: data.message,
+                                duration: 2000,
+                            });
+                        }
+                    });
             },
             BatchDelete(){
 		    	var self = this;

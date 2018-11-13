@@ -194,7 +194,7 @@ export default {
                 this.dataFile.append('jo_id', id);
                 this.sendfile(this.dataFile);
             }else{
-                this.$message.error('请先添加数据信息');
+                this.$message.error('请先添加图片');
                 return false
             }
         },
