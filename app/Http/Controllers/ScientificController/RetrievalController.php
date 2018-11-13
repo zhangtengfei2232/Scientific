@@ -32,6 +32,7 @@ class RetrievalController extends Controller
     private $lecture_time_field   = SearchMessageConfig::LE_TIME;
     private $schfile_time_field   = SearchMessageConfig::SCHFILE_DOWN_TIME;
     private $agreement_time_field = SearchMessageConfig::AGREE_TIME;
+    private $is_new_time          = false;
     /**
      * 1.秘书、院长的特殊功能======>检索所有信息功能
      * 2.生成=======>师资组成(最高学历，职称，学缘)，论文(期刊级别)，
@@ -615,6 +616,8 @@ class RetrievalController extends Controller
         $teacher_name       = $request->teacher_name;
         return ModelDatabase::byNameSelectDatas($this->duties_table_name,$teacher_name_field,$teacher_name,'');
     }
+
+
     /**
      * 查询饼图数据
      */
@@ -643,10 +646,9 @@ class RetrievalController extends Controller
         if($request->has('start_time') && $request->has('end_time')){
             $time_datas['start_time'] = $request->start_time;
             $time_datas['end_time']   = $request->end_time;
-        }else{
-            $time_datas  = ModelDatabase::selectMinAndMaxTime($this->artical_table_name,$this->artical_time_field);
+            return ModelDatabase::groupByAndCountDatas($this->artical_table_name,$group_field,$percal_cate_num,$this->artical_time_field,$time_datas);
         }
-        return ModelDatabase::groupByAndCountDatas($this->artical_table_name,$group_field,$time_datas,$percal_cate_num,$this->artical_time_field);
+        return ModelDatabase::groupByAndCountDatas($this->artical_table_name,$group_field,$percal_cate_num,$this->artical_time_field);
     }
     /**
      * 项目饼图数据
@@ -658,45 +660,105 @@ class RetrievalController extends Controller
         if($request->has('start_time') && $request->has('end_time')){
             $time_datas['start_time'] = $request->start_time;
             $time_datas['end_time']   = $request->end_time;
-        }else{
-            $time_datas  = ModelDatabase::selectMinAndMaxTime($this->project_table_name,$this->project_time_field);
+            return ModelDatabase::groupByAndCountDatas($this->project_table_name,$group_field,$pro_sub_category_num,$this->project_time_field,$time_datas);
         }
-        return ModelDatabase::groupByAndCountDatas($this->project_table_name,$group_field,$time_datas,$pro_sub_category_num,$this->project_time_field);
+        return ModelDatabase::groupByAndCountDatas($this->project_table_name,$group_field,$pro_sub_category_num,$this->project_time_field);
     }
     //项目研究类别查询
     public function groupByProjetCateResearch(Request $request){
-        $group_field = SearchMessageConfig::PROJECT_PRO_CATE_RESEARCH;
+        $group_field           = SearchMessageConfig::PROJECT_PRO_CATE_RESEARCH;
         $pro_cate_research_num = SearchMessageConfig::PRO_CATE_RESEARCH_NUM;
         if($request->has('start_time') && $request->has('end_time')){
+            $this->is_new_time = true;
             $time_datas['start_time'] = $request->start_time;
             $time_datas['end_time']   = $request->end_time;
-        }else{
-            $time_datas  = ModelDatabase::selectMinAndMaxTime($this->project_table_name,$this->project_time_field);
+            return ModelDatabase::groupByAndCountDatas($this->project_table_name,$group_field,$pro_cate_research_num,$this->project_time_field,$time_datas);
         }
-        return ModelDatabase::groupByAndCountDatas($this->project_table_name,$group_field,$time_datas,$pro_cate_research_num,$this->project_time_field);
+        return ModelDatabase::groupByAndCountDatas($this->project_table_name,$group_field,$pro_cate_research_num,$this->project_time_field);
     }
-
     /**
      * 著作饼图数据
      */
     //著作类别查询
     public function gropuByOpusCategory(Request $request){
-         $group_field = SearchMessageConfig::OPUS_OP_CATE_WORK;
-         return ModelDatabase::groupByAndCountDatas($this->opus_table_name,$group_field);
+        $group_field      = SearchMessageConfig::OPUS_OP_CATE_WORK;
+        $op_cate_work_num = SearchMessageConfig::OP_CATE_WORK_NUM;
+        if($request->has('start_time') && $request->has('end_time')){
+            $this->is_new_time = true;
+            $time_datas['start_time'] = $request->start_time;
+            $time_datas['end_time']   = $request->end_time;
+            return ModelDatabase::groupByAndCountDatas($this->opus_table_name,$group_field,$op_cate_work_num,$this->opus_time_field,$time_datas);
+        }
+         return ModelDatabase::groupByAndCountDatas($this->opus_table_name,$group_field,$op_cate_work_num,$this->opus_time_field);
     }
-
+    //著作编著形式
+    public function groupByOpusFormWrite(Request $request){
+        $group_field       = SearchMessageConfig::OPUS_OP_FORM_WRITE;
+        $op_form_write_num = SearchMessageConfig::OP_FORM_WRITE_NUM;
+        if($request->has('start_time') && $request->has('end_time')){
+            $time_datas['start_time'] = $request->start_time;
+            $time_datas['end_time']   = $request->end_time;
+            return ModelDatabase::groupByAndCountDatas($this->opus_table_name,$group_field,$op_form_write_num,$this->opus_time_field,$time_datas);
+        }
+        return ModelDatabase::groupByAndCountDatas($this->opus_table_name,$group_field,$op_form_write_num,$this->opus_time_field);
+    }
     /**
      * 获奖饼图数据
      */
     //获奖级别查询
-    public function groupBywinLevel(){
-         $group_field = SearchMessageConfig::AWARD_AW_LEVEL;
-         return ModelDatabase::groupByAndCountDatas($this->award_table_name,$group_field);
+    public function groupBywinLevel(Request $request){
+        $group_field  = SearchMessageConfig::AWARD_AW_LEVEL;
+        $aw_level_num = SearchMessageConfig::AW_LEVEL_NUM;
+        if($request->has('start_time') && $request->has('end_time')){
+            $time_datas['start_time'] = $request->start_time;
+            $time_datas['end_time']   = $request->end_time;
+            return ModelDatabase::groupByAndCountDatas($this->award_table_name,$group_field,$aw_level_num,$this->award_time_field,$time_datas);
+        }
+         return ModelDatabase::groupByAndCountDatas($this->award_table_name,$group_field,$aw_level_num,$this->award_time_field);
+    }
+    //获奖成果形式查询
+    public function groupByFormAchievement(Request $request){
+        $group_field          = SearchMessageConfig::AW_FORM_ACHIEVEMENT;
+        $form_achievement_num = SearchMessageConfig::AW_FORM_ACHIEVEMENT_NUM;
+        if($request->has('start_time') && $request->has('end_time')){
+            $time_datas['start_time'] = $request->start_time;
+            $time_datas['end_time']   = $request->end_time;
+            return ModelDatabase::groupByAndCountDatas($this->award_table_name,$group_field,$form_achievement_num,$this->award_time_field,$time_datas);
+        }
+        return ModelDatabase::groupByAndCountDatas($this->award_table_name,$group_field,$form_achievement_num,$this->award_time_field);
+    }
+    /**
+     * 学术专利饼图数据
+     */
+    //专利类型查询
+    public function groupByPatentType(Request $request){
+        $group_field  = SearchMessageConfig::PATENT_PA_TYPE;
+        $pa_type_num  = SearchMessageConfig::PA_TYPE_NUM;
+        if($request->has('start_time') && $request->has('end_time')){
+            $time_datas['start_time'] = $request->start_time;
+            $time_datas['end_time']   = $request->end_time;
+            return ModelDatabase::groupByAndCountDatas($this->project_table_name,$group_field,$pa_type_num,$this->patent_time_field,$time_datas);
+        }
+        return ModelDatabase::groupByAndCountDatas($this->project_table_name,$group_field,$pa_type_num,$this->patent_time_field);
+    }
+    /**
+     * 成果鉴定饼图数据
+     */
+    //鉴定类别查询
+    public function groupByAppraisalLevel(Request $request){
+        $group_field = SearchMessageConfig::APPRAISAL_AP_LEVEL;
+        $ap_level_num = SearchMessageConfig::AP_LEVEL_NUM;
+        if($request->has('start_time') && $request->has('end_time')){
+            $time_datas['start_time'] = $request->start_time;
+            $time_datas['end_time']   = $request->end_time;
+            return ModelDatabase::groupByAndCountDatas($this->project_table_name,$group_field,$ap_level_num,$this->patent_time_field,$time_datas);
+        }
+        return ModelDatabase::groupByAndCountDatas($this->project_table_name,$group_field,$ap_level_num,$this->patent_time_field);
     }
     /**
      * 总览每个模块的所有数据总和
      */
     public function countEveryModular(){
-
+        return ModelDatabase::countEveryModularDatas();
     }
 }

@@ -2,7 +2,11 @@
     //循环遍历数组是否存在空值
     function emptyarray($datas){
         foreach ($datas as $key => $data){
-            if(empty($data)) return true;
+            if(is_numeric($data)){
+                if($data == "")  return true;
+            }else{
+                if(empty($data)) return true;
+            }
         }
         return false;
     }
@@ -36,8 +40,6 @@
             return responseTojson(1,'你输入的民族有误',1);
         }elseif (strlen($datas['admin_duties']) > 30){
             return responseTojson(1,'你输入的行政职务有误',1);
-        }elseif (strlen($datas['technical_position']) > 30){
-            return responseTojson(1,'你输入的专业技术职务有误',1);
         }elseif (strlen($datas['series']) > 20){
             return responseTojson(1,'你输入的系列有误',1);
         }elseif (strlen($datas['company']) > 20){

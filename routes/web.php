@@ -14,10 +14,21 @@ Route::group(['namespace' => 'Login'], function (){
 
 
 /**
- * 导出Excel表格
+ * 导出每个模块Excel表格
  */
 Route::group(['namespace' => 'ExportController'], function (){
-    Route::get('exportexcel','ExcelController@exportExcel');
+    Route::get('exportarticalexcel','ExcelController@exportArticalExcel');        //导出论文EXCEL表格
+    Route::get('exportprojectexcel','ExcelController@exportProjectExcel');        //导出项目Excel表格
+    Route::get('exportopusexcel','ExcelController@exportOpusExcel');              //导出著作Excel表格
+    Route::get('exportawardexcel','ExcelController@exportAwardExcel');            //导出获奖Excel表格
+    Route::get('exportpatentexcel','ExcelController@exportPatentExcel');          //导出专利Excel表格
+    Route::get('exportappraisalexcel','ExcelController@exportAppraisalExcel');    //导出成果鉴定Excel表格
+    Route::get('exportholdmeetexcel','ExcelController@exportHoldmeetExcel');      //导出举行会议Excel表格
+    Route::get('exportjoinmeetexcel','ExcelController@exportJoinmeetExcel');      //导出参加会议Excel表格
+    Route::get('exportlectureexcel','ExcelController@exportLectureExcel');        //导出讲学Excel表格
+    Route::get('exportdutiesexcel','ExcelController@exportDutiesExcel');          //导出担任团体职务Excel表格
+    Route::get('exportschoolfileexcel','ExcelController@exportSchoolFileExcel');  //导出校发文件Excel表格
+    Route::get('exportagreementexcel','ExcelController@exportAgreementExcel');    //导出合作协议Excel表格
 });
 
 Route::group(['namespace' => 'ScientificController','middleware'=>['validate']], function (){
@@ -42,6 +53,7 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
 
 
     //老师对论文的操作
+    Route::get('exportallartical', 'ArticalController@exportAllArtical');          //导出多个论文，取第一页,合成一个新的PDF
     Route::post('addartical', 'ArticalController@addArtical');                     //添加论文
     Route::get('deleteartical', 'ArticalController@deleteArtical');                //删除论文
     Route::get('selectartical', 'ArticalController@selectArtical');                //查询单个论文
@@ -50,9 +62,6 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     Route::get('dateSelectartical', 'ArticalController@dateSelectArtical');        //根据时间查找
     Route::get('dateselectartical', 'ArticalController@dateSelectArtical');        //根据日期查找论文
     Route::post('updateartical', 'ArticalController@updateArtical');               //修改论文
-    Route::get('exportartical', 'ArticalController@exportArtical');                //导出一篇论文
-    Route::get('exportallartical', 'ArticalController@exportAllArtical');          //导出多个论文，取第一页,合成一个新的PDF
-
 
 
     //老师对成果鉴定的操作
@@ -315,25 +324,42 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     /**
      * 师资组成数据路由
      */
-    Route::get('groupbyteachereducation','RetrievalController@groupByTeacherEducation');
-    Route::get('groupbyteachertechnicaltitle','RetrievalController@byLevelSelectLecture');
-    Route::get('groupbyteacheracademicmargin','RetrievalController@groupByTeacherAcademicMargin');
+    Route::get('groupbyteachereducation','RetrievalController@groupByTeacherEducation');    //按老师职称分组查询数据
+    Route::get('groupbyteachertechnicaltitle','RetrievalController@byLevelSelectLecture');  //按老师学历学位分组查询数据
     /**
      * 论文数据路由
      */
-    Route::get('groupbyarticaljournallevel','RetrievalController@groupByArticalJournalLevel');
+    Route::get('groupbyarticaljournallevel','RetrievalController@groupByArticalJournalLevel');//按照论文研究类别分组查询
 
     /**
      * 项目数据路由
      */
-    Route::get('groupbyprojectcertificatelevel','RetrievalController@groupByProjectCertificateLevel');
+    Route::get('groupbyprojectcertificatelevel','RetrievalController@groupByProjectCertificateLevel');//按照项目学科门类分组查询
+    Route::get('groupbyprojetcateresearch','RetrievalController@groupByProjetCateResearch');          //按照项目研究类别分组查询
     /**
      * 著作数据路由
      */
-    Route::get('gropubyopuscategory','RetrievalController@gropuByOpusCategory');
+    Route::get('gropubyopuscategory','RetrievalController@gropuByOpusCategory');                      //按照著作类别查询分组查询
+    Route::get('groupbyopusformwrite','RetrievalController@groupByOpusFormWrite');                    //按照著作编著形式分组查询
     /**
      * 获奖数据路由
      */
-    Route::get('groupbywinlevel','RetrievalController@groupBywinLevel');
+    Route::get('groupbywinlevel','RetrievalController@groupBywinLevel');                              //按照获奖级别分组查询
+    Route::get('groupbyformachievement','RetrievalController@groupByFormAchievement');                //按照获奖成果形式分组查询
+    /**
+     * 专利数据路由
+     */
+    Route::get('groupbypatenttype','RetrievalController@groupByPatentType');                          //按照专利类型分组查询
+    /**
+     * 成果鉴定
+     */
+    Route::get('groupbyappraisallevel','RetrievalController@groupByAppraisalLevel');                  //按照鉴定类别分组查询
+
+
+    /**
+     * 每个模块的数据总和
+     */
+    Route::get('counteverymodular','RetrievalController@countEveryModular');
+
 });
 

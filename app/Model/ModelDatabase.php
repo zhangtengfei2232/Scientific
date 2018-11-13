@@ -214,10 +214,18 @@ class ModelDatabase  extends  Model
      * @param $field
      * @return \Illuminate\Http\JsonResponse
      */
-    public static function groupByAndCountDatas($table_name,$field,$time_datas,$number,$time_field){
+    public static function groupByAndCountDatas($table_name,$field,$number,$time_field,$time_datas = []){
         $count_datas = [];
+        if(empty($time_datas)){
+            for($i = 0; $i < count($number); $i++){
+                $count = DB::table($table_name)->where($field,$i)->count();
+                $count_datas[$i] = $count;
+            }
+        }
         for($i = 0; $i < count($number); $i++){
-            $count = DB::table($table_name)->where($field,$i)->whereBetween($time_field,[$time_datas['start_time'],$time_datas['end_time']])->count();
+            $count = DB::table($table_name)->where($field,$i)
+                    ->whereBetween($time_field,[$time_datas['start_time'],$time_datas['end_time']])
+                    ->count();
             $count_datas[$i] = $count;
         }
         return responseTojson(0,'查询成功','',$count_datas);
@@ -231,9 +239,20 @@ class ModelDatabase  extends  Model
         return $time_datas;
     }
     /**
-     *
+     *统计每个模块的记录总条数
      */
-    public static function countEveryModularDatas($table_name){
-
+    public static function countEveryModularDatas(){
+        $count_datas = [];
+        $count_datas[0] = DB::table('artical')->count();
+        $count_datas[1] = DB::table('project')->count();
+        $count_datas[2] = DB::table('opus')->count();
+        $count_datas[3] = DB::table('award')->count();
+        $count_datas[4] = DB::table('patent')->count();
+        $count_datas[5] = DB::table('appraisal')->count();
+        $count_datas[6] = DB::table('holdmeet')->count();
+        $count_datas[7] = DB::table('joinmeet')->count();
+        $count_datas[8] = DB::table('lecture')->count();
+        $count_datas[9] = DB::table('duties')->count();
+        return $count_datas;
     }
 }

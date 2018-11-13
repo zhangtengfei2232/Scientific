@@ -51,7 +51,7 @@ class SearchMessageConfig
     const PROJECT_PROJECT_CATEGORY  = 'project_category';   //项目类别
     const PROJECT_PRO_CATE_RESEARCH = 'pro_cate_research';  //项目研究类别
     const PROJECT_PRO_SUB_CATEGORY  = 'pro_sub_category';   //项目学科门类
-    const PRO_ROAD                  = 'pro_road';
+    const PRO_ROAD                  = 'pro_road';           //项目图片路径
     const PROJECT_APPROVAL_UNIT     = 'approval_unit';      //项目批准单位
     const OPUS_OP_FIRST_AUTHOR      = 'op_first_author';    //著作第一作者
     const OPUS_OP_NAME              = 'op_name';            //著作名称
@@ -68,6 +68,7 @@ class SearchMessageConfig
     const AWARD_AW_LEVEL            = 'aw_level';           //获奖奖励级别
     const AWARD_AW_SCH_RANK         = 'aw_sch_rank';        //获奖校级名次
     const AW_ROAD                   = 'aw_road';            //获奖路径
+    const AW_FORM_ACHIEVEMENT       = 'form_achievement';   //获奖成果形式
     const PATEN_FIRST_INVENTOR      = 'first_inventor';     //专利第一发明人
     const PATENT_PA_TYPE            = 'pa_type';            //专利类型
     const PATENT_PA_IMPLE_SITU      = 'pa_imple_situ';      //专利实施情况

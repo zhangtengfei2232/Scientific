@@ -26,7 +26,6 @@ class InformationController extends Controller
         $teacher_id = trim($request->teacher_id);
         $datas  = [
             'teacher_id'            => $teacher_id,                          //老师工号
-            'teacher_department'    => trim($request->teacher_department),   //老师所属部门
             'name'                  => trim($request->name),                 //老师名字
             'office_phone'          => trim($request->office_phone),         //老师办公电话
             'home_phone'            => trim($request->home_phone),           //老师住宅电话
@@ -71,6 +70,7 @@ class InformationController extends Controller
         if($judge_datas['code'] == 1){                                        //没有字段通过验证
             return responseTojson(1,$judge_datas['message']);
         }
+        $datas['teacher_department'] = trim($request->teacher_department);    //老师所属部门
         return TeacherDatabase::addTeacherDatas($datas);
     }
     //添加老师证书信息
