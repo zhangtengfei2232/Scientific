@@ -195,7 +195,7 @@
                     this.exportArticleDatas(art_id_datas);
                 }
             },
-            exportArticleDatas() {
+            exportArticleDatas(art_id_datas) {
                 let self = this;
                     axios.get("exportallartical",{
                          params:{

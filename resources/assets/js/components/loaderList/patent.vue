@@ -102,7 +102,12 @@
                 :data="allPatent"
                 style="width: 100%"
                 border
-                height="250">
+                height="250"
+                @selection-change="handleSelectionChange">
+                <el-table-column
+                    type="selection"
+                    width="55">
+                </el-table-column>
                 <el-table-column
                     fixed
                     prop="patent_person"
@@ -155,6 +160,7 @@
                     width="120">
                 </el-table-column>
             </el-table>
+            <el-button @click="ExcelSelection()">导出Excel</el-button>
             <div class="page">
                 <el-pagination
                     background
@@ -198,6 +204,7 @@ export default {
             searchValue:'',
             border:true,
             allPatent:[],
+            multipleSelection: [],
             data1: '',
             first_inventor:'',
             pa_name:'',
@@ -218,6 +225,47 @@ export default {
         }
     },
     methods: {
+        handleSelectionChange(val) {
+            this.multipleSelection = val;
+        },
+        ExcelSelection() {
+            var self = this;
+            var art_id_datas = [];//存放导出的数据
+            if(self.multipleSelection == undefined){
+                this.$message({
+                    message: '请选择要导出专利',
+                    type: 'warning'
+                });
+            }else{
+                for (var i = 0; i < self.multipleSelection.length; i++) {
+                    art_id_datas.push(self.multipleSelection[i].pa_id);
+                };
+                this.ExcelArticleDatas(art_id_datas);
+            }
+        },
+        ExcelArticleDatas(art_id_datas) {
+            let self = this;
+            axios.get("",{
+                    params:{
+                    pa_id_datas:art_id_datas
+                }
+            }).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                        self.$message({
+                        showClose: true,
+                        message: '导出成功!',
+                        type: 'success'
+                    });
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,
+                    });
+                }
+            });
+        },
         getPatentData() {
             let self = this;
             axios.get("leaderselectallpatent").then(function (response) {
