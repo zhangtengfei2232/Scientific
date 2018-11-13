@@ -221,12 +221,13 @@ class ModelDatabase  extends  Model
                 $count = DB::table($table_name)->where($field,$i)->count();
                 $count_datas[$i] = $count;
             }
-        }
-        for($i = 0; $i < $number; $i++){
-            $count = DB::table($table_name)->where($field,$i)
+        }else{
+            for($i = 0; $i < $number; $i++){
+                $count = DB::table($table_name)->where($field,$i)
                     ->whereBetween($time_field,[$time_datas['start_time'],$time_datas['end_time']])
                     ->count();
-            $count_datas[$i] = $count;
+                $count_datas[$i] = $count;
+            }
         }
         return responseTojson(0,'查询成功','',$count_datas);
     }

@@ -669,7 +669,6 @@ class RetrievalController extends Controller
         $group_field           = SearchMessageConfig::PROJECT_PRO_CATE_RESEARCH;
         $pro_cate_research_num = SearchMessageConfig::PRO_CATE_RESEARCH_NUM;
         if($request->has('start_time') && $request->has('end_time')){
-            $this->is_new_time = true;
             $time_datas['start_time'] = $request->start_time;
             $time_datas['end_time']   = $request->end_time;
             return ModelDatabase::groupByAndCountDatas($this->project_table_name,$group_field,$pro_cate_research_num,$this->project_time_field,$time_datas);
@@ -684,7 +683,6 @@ class RetrievalController extends Controller
         $group_field      = SearchMessageConfig::OPUS_OP_CATE_WORK;
         $op_cate_work_num = SearchMessageConfig::OP_CATE_WORK_NUM;
         if($request->has('start_time') && $request->has('end_time')){
-            $this->is_new_time = true;
             $time_datas['start_time'] = $request->start_time;
             $time_datas['end_time']   = $request->end_time;
             return ModelDatabase::groupByAndCountDatas($this->opus_table_name,$group_field,$op_cate_work_num,$this->opus_time_field,$time_datas);
@@ -737,9 +735,9 @@ class RetrievalController extends Controller
         if($request->has('start_time') && $request->has('end_time')){
             $time_datas['start_time'] = $request->start_time;
             $time_datas['end_time']   = $request->end_time;
-            return ModelDatabase::groupByAndCountDatas($this->project_table_name,$group_field,$pa_type_num,$this->patent_time_field,$time_datas);
+            return ModelDatabase::groupByAndCountDatas($this->patent_table_name,$group_field,$pa_type_num,$this->patent_time_field,$time_datas);
         }
-        return ModelDatabase::groupByAndCountDatas($this->project_table_name,$group_field,$pa_type_num,$this->patent_time_field);
+        return ModelDatabase::groupByAndCountDatas($this->patent_table_name,$group_field,$pa_type_num,$this->patent_time_field);
     }
     /**
      * 成果鉴定饼图数据
@@ -751,9 +749,9 @@ class RetrievalController extends Controller
         if($request->has('start_time') && $request->has('end_time')){
             $time_datas['start_time'] = $request->start_time;
             $time_datas['end_time']   = $request->end_time;
-            return ModelDatabase::groupByAndCountDatas($this->project_table_name,$group_field,$ap_level_num,$this->patent_time_field,$time_datas);
+            return ModelDatabase::groupByAndCountDatas($this->appraisal_table_name,$group_field,$ap_level_num,$this->patent_time_field,$time_datas);
         }
-        return ModelDatabase::groupByAndCountDatas($this->project_table_name,$group_field,$ap_level_num,$this->patent_time_field);
+        return ModelDatabase::groupByAndCountDatas($this->appraisal_table_name,$group_field,$ap_level_num,$this->patent_time_field);
     }
     /**
      * 总览每个模块的所有数据总和
