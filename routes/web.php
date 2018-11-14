@@ -17,6 +17,7 @@ Route::group(['namespace' => 'Login'], function (){
  * 导出每个模块Excel表格
  */
 Route::group(['namespace' => 'ExportController'], function (){
+    Route::get('exportteacherexcel','ExcelController@exportTeacherExcel');        //导出老师EXCEL表格
     Route::get('exportarticalexcel','ExcelController@exportArticalExcel');        //导出论文EXCEL表格
     Route::get('exportprojectexcel','ExcelController@exportProjectExcel');        //导出项目Excel表格
     Route::get('exportopusexcel','ExcelController@exportOpusExcel');              //导出著作Excel表格
