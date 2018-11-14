@@ -113,7 +113,12 @@
                 :data="allOpus"
                 style="width: 100%"
                 border
-                height="250">
+                height="250"
+                @selection-change="handleSelectionChange">
+                <el-table-column
+                    type="selection"
+                    width="55">
+                </el-table-column>
                 <el-table-column
                     fixed
                     prop="op_first_author"
@@ -186,6 +191,7 @@
                     width="140">
                 </el-table-column>
             </el-table>
+            <el-button @click="ExcelSelection()">导出Excel</el-button>
             <div class="page">
                 <el-pagination
                     background
@@ -229,6 +235,7 @@ export default {
             searchValue:'',
             border:true,
             allOpus:[],
+            multipleSelection: [],
             data1: '',
             op_first_author:'',
             op_name:'',
@@ -279,6 +286,47 @@ export default {
         }
     },
     methods: {
+        handleSelectionChange(val) {
+            this.multipleSelection = val;
+        },
+        ExcelSelection() {
+            var self = this;
+            var art_id_datas = [];//存放导出的数据
+            if(self.multipleSelection == undefined){
+                this.$message({
+                    message: '请选择要导出著作',
+                    type: 'warning'
+                });
+            }else{
+                for (var i = 0; i < self.multipleSelection.length; i++) {
+                    art_id_datas.push(self.multipleSelection[i].op_id);
+                };
+                this.ExcelArticleDatas(art_id_datas);
+            }
+        },
+        ExcelArticleDatas(art_id_datas) {
+            let self = this;
+            axios.get("exportopusexcel",{
+                    params:{
+                    op_id_datas:art_id_datas
+                }
+            }).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                        self.$message({
+                        showClose: true,
+                        message: '导出成功!',
+                        type: 'success'
+                    });
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,
+                    });
+                }
+            });
+        },
         getOpusData() {
             let self = this;
             axios.get("leaderselecttallopus").then(function (response) {

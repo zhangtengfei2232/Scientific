@@ -175,8 +175,8 @@ export default {
             year3: '',
             year4: '',
             year5: '',
-            art_pdf: '',
-            art_sci: '',
+            art_road: '',
+            art_sci_road: '',
             filelists:[{url:''}],
             form: {
                 author: '',
@@ -200,12 +200,30 @@ export default {
 
     methods: {
         fileArtpdf(file){
-            this.dataForm.append('art_pdf', file);
-            return false;
+            if(file != true){
+                this.dataFile.append('art_road', file);
+                let id = this.art_id;
+                console.log(id);
+                this.dataFile.append('art_id', id);
+                this.dataFile.append('is_add_article',this.Bcode);
+                this.sendfile(this.dataFile);
+            }else{
+                this.$message.error('请先添加数据信息');
+                return false
+            } 
         },
         fileArtsci(file){
-            this.dataForm.append('art_sci', file);
-            return false;
+            if(file != true){
+                this.dataFile.append('art_sci_road', file);
+                let id = this.art_id;
+                console.log(id);
+                this.dataFile.append('art_id', id);
+                this.dataFile.append('is_add_article',this.Bcode);
+                this.sendfile(this.dataFile);
+            }else{
+                this.$message.error('请先添加数据信息');
+                return false
+            }
         },
         getArticleSelfData() {
             let self = this;

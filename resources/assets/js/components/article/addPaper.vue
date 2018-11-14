@@ -172,9 +172,11 @@
                 year3: '',
                 year4: '',
                 year5: '',
-                art_pdf: '',
-                art_sci: '',
+                art_road: '',
+                art_sci_road: '',
+                art_id:'',
                 dataForm: new FormData(),
+                Bcode:false,
                 form: {
                     author: '',
                     art_all_author: '',
@@ -196,12 +198,30 @@
         },
         methods: {
             fileArtpdf(file){
-                this.dataForm.append('art_pdf', file);
-                return false;
+                if(this.Bcode == true){
+                    this.dataFile.append('art_road', file);
+                    let id = this.art_id;
+                    console.log(id);
+                    this.dataFile.append('art_id', id);
+                    this.dataFile.append('is_add_article',this.Bcode);
+                    this.sendfile(this.dataFile);
+                }else{
+                    this.$message.error('请先添加数据信息');
+                    return false
+                } 
             },
             fileArtsci(file){
-                this.dataForm.append('art_sci', file);
-                return false;
+                if(this.Bcode == true){
+                    this.dataFile.append('art_sci_road', file);
+                    let id = this.art_id;
+                    console.log(id);
+                    this.dataFile.append('art_id', id);
+                    this.dataFile.append('is_add_article',this.Bcode);
+                    this.sendfile(this.dataFile);
+                }else{
+                    this.$message.error('请先添加数据信息');
+                    return false
+                }
             },
             onSubmit(form,year2,year3,year4,year5,year1) {
                 let vue = this;
@@ -270,6 +290,8 @@
                                     message: '添加成功',
                                     type: 'success'
                                 });
+                                this.Bcode = true;
+                                vue.art_id = res.data.datas;
                                 this.$router.push({path: '/paper'});
                             } else {
                                 vue.$notify({

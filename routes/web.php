@@ -324,12 +324,12 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     /**
      * 师资组成数据路由
      */
-    Route::get('groupbyteachereducation','RetrievalController@groupByTeacherEducation');    //按老师职称分组查询数据
-    Route::get('groupbyteachertechnicaltitle','RetrievalController@byLevelSelectLecture');  //按老师学历学位分组查询数据
+    Route::get('groupbyteachereducation','RetrievalController@groupByTeacherEducation');             //按老师职称分组查询数据
+    Route::get('groupbyteachertechnicaltitle','RetrievalController@byLevelSelectLecture');           //按老师学历学位分组查询数据
     /**
      * 论文数据路由
      */
-    Route::get('groupbyarticaljournallevel','RetrievalController@groupByArticalJournalLevel');//按照论文研究类别分组查询
+    Route::get('groupbyarticaljournallevel','RetrievalController@groupByArticalJournalLevel');       //按照论文期刊级别分组查询
 
     /**
      * 项目数据路由

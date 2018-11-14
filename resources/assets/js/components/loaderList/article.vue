@@ -288,7 +288,7 @@ export default {
         handleSelectionChange(val) {
             this.multipleSelection = val;
         },
-        PDFSelection() {
+        ExcelSelection() {
             var self = this;
             var art_id_datas = [];//存放导出的数据
             if(self.multipleSelection == undefined){
@@ -300,12 +300,12 @@ export default {
                 for (var i = 0; i < self.multipleSelection.length; i++) {
                     art_id_datas.push(self.multipleSelection[i].art_id);
                 };
-                this.exportArticleDatas(art_id_datas);
+                this.ExcelArticleDatas(art_id_datas);
             }
         },
-        exportArticleDatas() {
+        ExcelArticleDatas(art_id_datas) {
             let self = this;
-            axios.get("",{
+            axios.get("exportarticalexcel",{
                     params:{
                     artical_id:art_id_datas
                 }
@@ -326,7 +326,7 @@ export default {
                 }
             });
         },
-        ExcelSelection() {
+        PDFSelection() {
             var self = this;
             var art_id_datas = [];//存放导出的数据
             if(self.multipleSelection == undefined){
@@ -338,14 +338,14 @@ export default {
                 for (var i = 0; i < self.multipleSelection.length; i++) {
                     art_id_datas.push(self.multipleSelection[i].art_id);
                 };
-                this.ExcelArticleDatas(art_id_datas);
+                this.exportArticleDatas(art_id_datas);
             }
         },
-        ExcelArticleDatas() {
+        exportArticleDatas(art_id_datas) {
             let self = this;
-            axios.get("",{
+            axios.get("exportallartical",{
                     params:{
-                    artical_id:art_id_datas
+                    art_id_datas:art_id_datas
                 }
             }).then(function (response) {
                 var data = response.data;

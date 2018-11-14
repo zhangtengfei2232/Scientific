@@ -229,11 +229,10 @@ export default {
     methods: {
         getAllData() {
             let self = this;
-            axios.get("").then(function (response) {
+            axios.get("counteverymodular").then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.AllDate = data.datas;
-                    self.drawLineArt(self.AllDate);
                 } else {
                     self.$notify({
                         type: 'error',
@@ -245,11 +244,13 @@ export default {
         },
         getTeacherDate() {
             let self = this;
-            axios.get("groupbyteachereducation").then(function (response) {
+            axios.get("groupbyteachertechnicaltitle").then(function (response) {
                 var data = response.data;
+                console.log(response.data);
                 if (data.code == 0) {
                     self.teacherMicDate = data.datas;
-                    self.drawLineArt(self.teacherMicDate);
+                    
+                    self.drawLine(self.teacherMicDate);
                 } else {
                     self.$notify({
                         type: 'error',
@@ -266,16 +267,16 @@ export default {
                     type: 'pie',
                     radius : '55%',
                     data: [
-                        {name: '博士'+'('+datas[0].num+')', value: datas[0].num},
-                        {name: '硕士'+'('+datas[1].num+')', value: datas[1].num},
-                        {name: '研究生'+'('+datas[2].num+')', value: datas[2].num}
+                        {name: '博士'+'('+datas[0]+')', value: datas[0]},
+                        {name: '硕士'+'('+datas[1]+')', value: datas[1]},
+                        {name: '研究生'+'('+datas[2]+')', value: datas[2]}
                     ]
                 }
             });
         },
         rank() {
             let self = this;
-            axios.get("groupbyteachertechnicaltitle").then(function (response) {
+            axios.get("groupbyteachereducation").then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.teacherRanDate = data.datas;
@@ -296,10 +297,10 @@ export default {
                     type: 'pie',
                     radius : '55%',
                     data: [
-                        {name: '初级'+'('+datas[0].num+')', value: datas[0].num},
-                        {name: '中级'+'('+datas[1].num+')', value: datas[1].num},
-                        {name: '副高'+'('+datas[2].num+')', value: datas[2].num},
-                        {name: '正高'+'('+datas[3].num+')', value: datas[3].num}
+                        {name: '初级'+'('+datas[0]+')', value: datas[0]},
+                        {name: '中级'+'('+datas[1]+')', value: datas[1]},
+                        {name: '副高'+'('+datas[2]+')', value: datas[2]},
+                        {name: '正高'+'('+datas[3]+')', value: datas[3]}
                     ]
                 }
             });
@@ -327,17 +328,17 @@ export default {
                     type: 'pie',
                     radius : '55%',
                     data: [
-                        {name: 'SCI一区'+'('+datas[0].num+')', value: datas[0].num},
-                        {name: 'SCI二区'+'('+datas[1].num+')', value: datas[1].num},
-                        {name: 'SCI三区'+'('+datas[2].num+')', value: datas[2].num},
-                        {name: 'SCI四区'+'('+datas[3].num+')', value: datas[3].num},
-                        {name: 'EI'+'('+datas[4].num+')', value: datas[4].num},
-                        {name: 'SSCI'+'('+datas[5].num+')', value: datas[5].num},
-                        {name: 'CN'+'('+datas[6].num+')', value: datas[6].num},
-                        {name: 'CSSCI核心库'+'('+datas[7].num+')', value: datas[7].num},
-                        {name: '中文核心'+'('+datas[8].num+')', value: datas[8].num},
-                        {name: 'CSCD核心库'+'('+datas[9].num+')', value: datas[9].num},
-                        {name: '河南科技学院期刊'+'('+datas[10].num+')', value: datas[10].num},
+                        {name: 'SCI一区'+'('+datas[0]+')', value: datas[0]},
+                        {name: 'SCI二区'+'('+datas[1]+')', value: datas[1]},
+                        {name: 'SCI三区'+'('+datas[2]+')', value: datas[2]},
+                        {name: 'SCI四区'+'('+datas[3]+')', value: datas[3]},
+                        {name: 'EI'+'('+datas[4]+')', value: datas[4]},
+                        {name: 'SSCI'+'('+datas[5]+')', value: datas[5]},
+                        {name: 'CN'+'('+datas[6]+')', value: datas[6]},
+                        {name: 'CSSCI核心库'+'('+datas[7]+')', value: datas[7]},
+                        {name: '中文核心'+'('+datas[8]+')', value: datas[8]},
+                        {name: 'CSCD核心库'+'('+datas[9]+')', value: datas[9]},
+                        {name: '河南科技学院期刊'+'('+datas[10]+')', value: datas[10]},
                     ]
                 }
             });
@@ -365,31 +366,31 @@ export default {
                     type: 'pie',
                     radius : '55%',
                     data: [
-                        {name: '理学'+'('+datas[0].num+')', value: datas[0].num},
-                        {name: '工学'+'('+datas[1].num+')', value: datas[1].num},
-                        {name: '农学'+'('+datas[2].num+')', value: datas[2].num},
-                        {name: '医学'+'('+datas[3].num+')', value: datas[3].num},
-                        {name: '管理学'+'('+datas[4].num+')', value: datas[4].num},
-                        {name: '马克思主义'+'('+datas[5].num+')', value: datas[5].num},
-                        {name: '哲学'+'('+datas[6].num+')', value: datas[6].num},
-                        {name: '逻辑学'+'('+datas[7].num+')', value: datas[7].num},
-                        {name: '宗教学'+'('+datas[8].num+')', value: datas[8].num},
-                        {name: '语言学'+'('+datas[9].num+')', value: datas[9].num},
-                        {name: '中国文学'+'('+datas[10].num+')', value: datas[10].num},
-                        {name: '外国文学'+'('+datas[11].num+')', value: datas[11].num},
-                        {name: '艺术学'+'('+datas[12].num+')', value: datas[12].num},
-                        {name: '历史学'+'('+datas[13].num+')', value: datas[13].num},
-                        {name: '考古学'+'('+datas[14].num+')', value: datas[14].num},
-                        {name: '经济学'+'('+datas[15].num+')', value: datas[15].num},
-                        {name: '政治学'+'('+datas[16].num+')', value: datas[16].num},
-                        {name: '法学'+'('+datas[17].num+')', value: datas[17].num},
+                        {name: '理学'+'('+datas[0]+')', value: datas[0]},
+                        {name: '工学'+'('+datas[1]+')', value: datas[1]},
+                        {name: '农学'+'('+datas[2]+')', value: datas[2]},
+                        {name: '医学'+'('+datas[3]+')', value: datas[3]},
+                        {name: '管理学'+'('+datas[4]+')', value: datas[4]},
+                        {name: '马克思主义'+'('+datas[5]+')', value: datas[5]},
+                        {name: '哲学'+'('+datas[6]+')', value: datas[6]},
+                        {name: '逻辑学'+'('+datas[7]+')', value: datas[7]},
+                        {name: '宗教学'+'('+datas[8]+')', value: datas[8]},
+                        {name: '语言学'+'('+datas[9]+')', value: datas[9]},
+                        {name: '中国文学'+'('+datas[10]+')', value: datas[10]},
+                        {name: '外国文学'+'('+datas[11]+')', value: datas[11]},
+                        {name: '艺术学'+'('+datas[12]+')', value: datas[12]},
+                        {name: '历史学'+'('+datas[13]+')', value: datas[13]},
+                        {name: '考古学'+'('+datas[14]+')', value: datas[14]},
+                        {name: '经济学'+'('+datas[15]+')', value: datas[15]},
+                        {name: '政治学'+'('+datas[16]+')', value: datas[16]},
+                        {name: '法学'+'('+datas[17]+')', value: datas[17]},
                     ]
                 }
             });
         },
         ProType() {
             let self = this;
-            axios.get("").then(function (response) {
+            axios.get("groupbyprojetcateresearch").then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.ProjectDate = data.datas;
@@ -410,16 +411,16 @@ export default {
                     type: 'pie',
                     radius : '55%',
                     data: [
-                        {name: '基础研究'+'('+datas[0].num+')', value: datas[0].num},
-                        {name: '实验与发展'+'('+datas[1].num+')', value: datas[1].num},
-                        {name: '应用研究'+'('+datas[2].num+')', value: datas[2].num},
+                        {name: '基础研究'+'('+datas[0]+')', value: datas[0]},
+                        {name: '实验与发展'+'('+datas[1]+')', value: datas[1]},
+                        {name: '应用研究'+'('+datas[2]+')', value: datas[2]},
                     ]
                 }
             });
         },
         getOpusDate() {
             let self = this;
-            axios.get("groupbyprojectcertificatelevel").then(function (response) {
+            axios.get("gropubyopuscategory").then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.OpusDate = data.datas;
@@ -440,18 +441,18 @@ export default {
                     type: 'pie',
                     radius : '55%',
                     data: [
-                        {name: '专著'+'('+datas[0].num+')', value: datas[0].num},
-                        {name: '教科书'+'('+datas[1].num+')', value: datas[1].num},
-                        {name: '译著'+'('+datas[2].num+')', value: datas[2].num},
-                        {name: '编著'+'('+datas[3].num+')', value: datas[3].num},
-                        {name: '其他'+'('+datas[4].num+')', value: datas[4].num},              
+                        {name: '专著'+'('+datas[0]+')', value: datas[0]},
+                        {name: '教科书'+'('+datas[1]+')', value: datas[1]},
+                        {name: '译著'+'('+datas[2]+')', value: datas[2]},
+                        {name: '编著'+'('+datas[3]+')', value: datas[3]},
+                        {name: '其他'+'('+datas[4]+')', value: datas[4]},              
                     ]
                 }
             });
         },
         OpusType() {
              let self = this;
-            axios.get("").then(function (response) {
+            axios.get("groupbyopusformwrite").then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.OpusDate = data.datas;
@@ -472,11 +473,11 @@ export default {
                     type: 'pie',
                     radius : '55%',
                     data: [
-                        {name: '主编'+'('+datas[0].num+')', value: datas[0].num},
-                        {name: '副主编'+'('+datas[1].num+')', value: datas[1].num},
-                        {name: '参编'+'('+datas[2].num+')', value: datas[2].num},
-                        {name: '编著'+'('+datas[3].num+')', value: datas[3].num},
-                        {name: '其他'+'('+datas[4].num+')', value: datas[4].num},              
+                        {name: '主编'+'('+datas[0]+')', value: datas[0]},
+                        {name: '副主编'+'('+datas[1]+')', value: datas[1]},
+                        {name: '参编'+'('+datas[2]+')', value: datas[2]},
+                        {name: '编著'+'('+datas[3]+')', value: datas[3]},
+                        {name: '其他'+'('+datas[4]+')', value: datas[4]},              
                     ]
                 }
             });
@@ -504,18 +505,18 @@ export default {
                     type: 'pie',
                     radius : '55%',
                     data: [
-                        {name: '国家级'+'('+datas[0].num+')', value: datas[0].num},
-                        {name: '省部级'+'('+datas[1].num+')', value: datas[1].num},
-                        {name: '厅局级'+'('+datas[2].num+')', value: datas[2].num},
-                        {name: '校级'+'('+datas[3].num+')', value: datas[3].num},
-                        {name: '其他'+'('+datas[4].num+')', value: datas[4].num},              
+                        {name: '国家级'+'('+datas[0]+')', value: datas[0]},
+                        {name: '省部级'+'('+datas[1]+')', value: datas[1]},
+                        {name: '厅局级'+'('+datas[2]+')', value: datas[2]},
+                        {name: '校级'+'('+datas[3]+')', value: datas[3]},
+                        {name: '其他'+'('+datas[4]+')', value: datas[4]},              
                     ]
                 }
             });
         },
         AwardType() {
-             let self = this;
-            axios.get("").then(function (response) {
+            let self = this;
+            axios.get("groupbyformachievement").then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.AwardDate = data.datas;
@@ -536,23 +537,23 @@ export default {
                     type: 'pie',
                     radius : '55%',
                     data: [
-                        {name: '论文'+'('+datas[0].num+')', value: datas[0].num},
-                        {name: '研究报告'+'('+datas[1].num+')', value: datas[1].num},
-                        {name: '新技术'+'('+datas[2].num+')', value: datas[2].num},
-                        {name: '新工艺'+'('+datas[3].num+')', value: datas[3].num},
-                        {name: '课件'+'('+datas[4].num+')', value: datas[4].num},    
-                        {name: '专著'+'('+datas[5].num+')', value: datas[5].num},             
-                        {name: '编著'+'('+datas[6].num+')', value: datas[6].num},   
-                        {name: '计算机软件'+'('+datas[7].num+')', value: datas[7].num},   
-                        {name: '教材'+'('+datas[8].num+')', value: datas[8].num},   
-                        {name: '其他'+'('+datas[9].num+')', value: datas[9].num},   
+                        {name: '论文'+'('+datas[0]+')', value: datas[0]},
+                        {name: '研究报告'+'('+datas[1]+')', value: datas[1]},
+                        {name: '新技术'+'('+datas[2]+')', value: datas[2]},
+                        {name: '新工艺'+'('+datas[3]+')', value: datas[3]},
+                        {name: '课件'+'('+datas[4]+')', value: datas[4]},    
+                        {name: '专著'+'('+datas[5]+')', value: datas[5]},             
+                        {name: '编著'+'('+datas[6]+')', value: datas[6]},   
+                        {name: '计算机软件'+'('+datas[7]+')', value: datas[7]},   
+                        {name: '教材'+'('+datas[8]+')', value: datas[8]},   
+                        {name: '其他'+'('+datas[9]+')', value: datas[9]},   
                     ]
                 }
             });
         },
         getPatentDate() {
             let self = this;
-            axios.get("").then(function (response) {
+            axios.get("groupbypatenttype").then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.PatentDate = data.datas;
@@ -573,16 +574,16 @@ export default {
                     type: 'pie',
                     radius : '55%',
                     data: [
-                        {name: '发明专利'+'('+datas[0].num+')', value: datas[0].num},
-                        {name: '实用新型专利'+'('+datas[1].num+')', value: datas[1].num},
-                        {name: '外观设计专利'+'('+datas[2].num+')', value: datas[2].num},             
+                        {name: '发明专利'+'('+datas[0]+')', value: datas[0]},
+                        {name: '实用新型专利'+'('+datas[1]+')', value: datas[1]},
+                        {name: '外观设计专利'+'('+datas[2]+')', value: datas[2]},             
                     ]
                 }
             });
         },
         getAppraisalDate() {
             let self = this;
-            axios.get("").then(function (response) {
+            axios.get("groupbyappraisallevel").then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.AppraisalDate = data.datas;
@@ -603,10 +604,10 @@ export default {
                     type: 'pie',
                     radius : '55%',
                     data: [
-                        {name: '国家级'+'('+datas[0].num+')', value: datas[0].num},
-                        {name: '省级'+'('+datas[1].num+')', value: datas[1].num},
-                        {name: '厅级'+'('+datas[2].num+')', value: datas[2].num}, 
-                        {name: '校级'+'('+datas[3].num+')', value: datas[3].num},             
+                        {name: '国家级'+'('+datas[0]+')', value: datas[0]},
+                        {name: '省级'+'('+datas[1]+')', value: datas[1]},
+                        {name: '厅级'+'('+datas[2]+')', value: datas[2]}, 
+                        {name: '校级'+'('+datas[3]+')', value: datas[3]},             
                     ]
                 }
             });
@@ -620,6 +621,7 @@ export default {
         this.getAwardDate();
         this.getPatentDate();
         this.getAppraisalDate();
+        this.getAllData();
     },
 }
 </script>

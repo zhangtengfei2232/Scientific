@@ -124,7 +124,12 @@
                 :data="allProject"
                 style="width: 100%"
                 border
-                height="250">
+                height="250"
+                @selection-change="handleSelectionChange">
+                <el-table-column
+                    type="selection"
+                    width="55">
+                </el-table-column>
                 <el-table-column
                     fixed
                     prop="pro_host"
@@ -192,6 +197,7 @@
                     width="120">
                 </el-table-column>
             </el-table>
+            <el-button @click="ExcelSelection()">导出Excel</el-button>
             <div class="page">
                 <el-pagination
                     background
@@ -235,6 +241,7 @@ export default {
             searchValue:'',
             border:true,
             allProject:[],
+            multipleSelection: [],
             data1: '',
             pro_name:'',
             project_category:'',
@@ -279,6 +286,47 @@ export default {
         }
     },
     methods: {
+        handleSelectionChange(val) {
+            this.multipleSelection = val;
+        },
+        ExcelSelection() {
+            var self = this;
+            var art_id_datas = [];//存放导出的数据
+            if(self.multipleSelection == undefined){
+                this.$message({
+                    message: '请选择要导出项目',
+                    type: 'warning'
+                });
+            }else{
+                for (var i = 0; i < self.multipleSelection.length; i++) {
+                    art_id_datas.push(self.multipleSelection[i].pro_id);
+                };
+                this.ExcelProjectDatas(art_id_datas);
+            }
+        },
+        ExcelProjectDatas(art_id_datas) {
+            let self = this;
+            axios.get("exportprojectexcel",{
+                    params:{
+                    pro_id_datas:art_id_datas
+                }
+            }).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                        self.$message({
+                        showClose: true,
+                        message: '导出成功!',
+                        type: 'success'
+                    });
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,
+                    });
+                }
+            });
+        },
         getProjectData() {
             let self = this;
             axios.get("leaderselectallproject").then(function (response) {

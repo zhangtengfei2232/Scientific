@@ -116,6 +116,8 @@ class SearchMessageConfig
     /**
      * 分组查询，每个字段的情况个数
      */
+    const TEA_ACADEMIC_TITLE_NUM  = 7;
+    const TEA_MOST_ACADEMIC_NUM   = 3;
     const ARTICAL_PERCAL_CATE_NUM = 11;
     const PRO_CATE_RESEARCH_NUM   = 3;
     const PRO_SUB_CATEGORY_NUM    = 3;
@@ -129,10 +131,42 @@ class SearchMessageConfig
     /**
      * 导出EXCEL表格配置文件
      */
+    const SUB_CATEGORY_DATAS  = ['理学','工学','农学','医学','管理学','马克思主义','哲学','逻辑学','宗教学','语言学',
+        '中国文学','外国文学','艺术学','历史学','考古学','经济学','政治学','法学'];
+    const CATE_RESEARCH_DATAS = ['基础研究','应用研究'];
+    const MEETING_LEVEL_DATAS = ['省级','大区级','国家级','国际会议'];
+    const ACADEMIC_DATAS      = ['教授','副教授','讲师','助教','高级实验师','实验师','助理实验师'];
     //老师
-
+    const SEX_DATAS                = ['男','女'];
+    const TEA_POLIT_OUTLOOK_DATAS  = ['积极分子','发展对象','预备党员','党员'];
+    const TEA_JOB_LEVEL_DATAS      = ['正处','副处','正科','副科','其他'];
+    const TEA_ACADEMIC_TITLE_DATAS = ['初级','中级','副高','正高'];
+    const TEA_POST_CATEGORY_DATAS  = ['正处','副处','正科','副科','其他'];
     //论文
-//    const
-
-
+    const ARTI_PERCAL_CATE_DATAS  = ['SCI一区','SCI二区','SCI三区','SCI四区','EI','SSCI','CN','CSSCI核心库','中文核心','CSCD核心库','河南科技学院期刊'];
+    //项目
+    const PRO_PRO_CATE_RESEARCH_DATAS = ['基础研究','实验与发展','应用研究'];
+    const PRO_FORM_COOPERATE_DATAS    = ['与境外机构合作','与国内高校合作','与国内独立研究机构合作','与境外注册外商独资企业合作','与境内注册其他企业合作','其他'];
+    //著作
+    const OP_FORM_WRITE_DATAS         = ['主编','副主编','参编','编著','其他'];
+    const OP_CATE_WORK_DATAS          = ['专著','教科书','译著','编著','其他'];
+    //获奖
+    const AW_FORM_ACHIEVEMENT_DATAS   = ['论文','研究报告','新技术','新工艺','课件','新产品','专著','编著','计算机软件','教材','其他'];
+    const AW_GRADE_DATAS              = ['一等奖','二等奖','三等奖'];
+    const AW_LEVEL_DATAS              = ['国家级','省部级','厅局级','校级','其他'];
+    //专利
+    const PA_TYPE_DATAS               = ['发明专利','实用新型专利','外观设计专利'];
+    const PA_IMPLE_SITU_DATAS         = ['授权','受理'];
+    //成果鉴定
+    const AP_LEVEL_DATAS              = ['国家级','省级','厅级','校级'];
+    //举办会议
+    const HO_ART_STATUS_DATAS         = ['有','无'];
+    //参加会议
+    const JO_IS_INVITE                = ['是','否'];
+    //专家讲学
+    const LE_EXPERT_LEVEL_DATAS       = ['院士','博导','国务院学位委员会委员','教授','其他'];
+    const LE_INVITE_STATUS_DATAS      = ['邀请','未邀请'];
+    //担任团体职务
+    const DU_EDUCATION_DATAS          = ['大专','研究生','本科'];
+    const DU_DEGREE_DATAS             = ['硕士','博士','学士'];
 }

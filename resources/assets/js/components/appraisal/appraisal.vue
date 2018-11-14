@@ -81,6 +81,7 @@
                     <el-button @click="toggleSelection([AppraisalDate[1], AppraisalDate[2],AppraisalDate[0]])">选中前三行</el-button>
                     <el-button @click="toggleSelection()">取消选择</el-button>
                     <el-button @click="BatchDelete()">删除</el-button>
+                    <el-button @click="ExcelSelection()">导出Excel</el-button>
                 </div>
             </template>
         </div>
@@ -147,6 +148,44 @@
             },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
+            },
+            ExcelSelection() {
+                var self = this;
+                var art_id_datas = [];//存放导出的数据
+                if(self.multipleSelection == undefined){
+                    this.$message({
+                        message: '请选择要导出论文',
+                        type: 'warning'
+                    });
+                }else{
+                    for (var i = 0; i < self.multipleSelection.length; i++) {
+                        art_id_datas.push(self.multipleSelection[i].ap_id);
+                    };
+                    this.ExcelAppraisalDatas(art_id_datas);
+                }
+            },  
+            ExcelAppraisalDatas(art_id_datas) {
+                let self = this;
+                axios.get("exportappraisalexcel",{
+                        params:{
+                        ap_id_datas:art_id_datas
+                    }
+                }).then(function (response) {
+                    var data = response.data;
+                    if (data.code == 0) {
+                            self.$message({
+                            showClose: true,
+                            message: '导出成功!',
+                            type: 'success'
+                        });
+                    } else {
+                        self.$notify({
+                            type: 'error',
+                            message: data.message,
+                            duration: 2000,
+                        });
+                    }
+                });
             },
             getAppraisalDate() {
                 let self = this;
