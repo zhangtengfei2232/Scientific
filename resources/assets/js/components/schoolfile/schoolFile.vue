@@ -174,12 +174,12 @@
                     for (var i = 0; i < self.multipleSelection.length; i++) {
                         art_id_datas.push(self.multipleSelection[i].schfile_id);
                     };
-                    this.ExcelArticleDatas(art_id_datas);
+                    this.ExcelSchoolfileDatas(art_id_datas);
                 }
             },
-            ExcelArticleDatas(art_id_datas) {
+            ExcelSchoolfileDatas(art_id_datas) {
                 let self = this;
-                axios.get("",{
+                axios.get("exportschoolfileexcel",{
                         params:{
                         schfile_id_datas:art_id_datas
                     }

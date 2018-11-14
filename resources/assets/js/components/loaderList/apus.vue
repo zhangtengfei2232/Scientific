@@ -306,7 +306,7 @@ export default {
         },
         ExcelArticleDatas(art_id_datas) {
             let self = this;
-            axios.get("",{
+            axios.get("exportopusexcel",{
                     params:{
                     op_id_datas:art_id_datas
                 }
