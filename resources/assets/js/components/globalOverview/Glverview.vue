@@ -249,6 +249,7 @@ export default {
                 console.log(response.data);
                 if (data.code == 0) {
                     self.teacherMicDate = data.datas;
+                    
                     self.drawLine(self.teacherMicDate);
                 } else {
                     self.$notify({

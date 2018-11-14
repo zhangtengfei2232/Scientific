@@ -305,7 +305,7 @@ export default {
         },
         ExcelArticleDatas(art_id_datas) {
             let self = this;
-            axios.get("",{
+            axios.get("exportarticalexcel",{
                     params:{
                     artical_id:art_id_datas
                 }
@@ -345,7 +345,7 @@ export default {
             let self = this;
             axios.get("exportallartical",{
                     params:{
-                    artical_id:art_id_datas
+                    art_id_datas:art_id_datas
                 }
             }).then(function (response) {
                 var data = response.data;

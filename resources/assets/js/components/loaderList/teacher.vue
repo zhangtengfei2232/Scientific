@@ -301,11 +301,13 @@
                 <!--</el-table-column>-->
 
             </el-table>
-            <el-pagination
-                    background
-                    layout="prev, pager, next"
-                    :total="1000">
-            </el-pagination>
+            <div class="page">
+                <el-pagination
+                        background
+                        layout="prev, pager, next"
+                        :total="total">
+                </el-pagination>
+            </div>
         </div>
     </div>
 </template>
@@ -323,13 +325,17 @@
     .cont{
         width: 85%;
         float: left;
-        /*margin: 20px;*/
+        margin: 20px;
     }
     .search{
         float: left;
-        margin: 12px 17px;
+        margin: 12px 8px;
         padding-right: 24px;
         border-right: 1px #d4d8d7 solid;
+    }
+    .page{
+        width: 30%;
+        margin: 0 auto;
     }
 </style>
 
@@ -345,6 +351,7 @@
                 labinput:'',
                 dutiesinput:'',
                 majorinput:'',
+                total:0,
                 form: {
                     type:'',
                     checkList: [],
@@ -388,9 +395,14 @@
                 ],
                 post_category:[     //岗位类别
                     '教学秘书',
+                    '科研秘书',
+                    '研究生秘书',
                     '院长',
+                    '副院长',
+                    '副主任',
+                    '系主任',
                     '办公室主任',
-                    '副主任'
+                    '教研室主任',
                 ]
             }
         },
@@ -400,6 +412,7 @@
                 axios.get("leaderselectallteacher").then(function (response) {
                     var data = response.data;
                     self.form.num = data.datas.length;
+                    self.total = data.datas.length;
                     for(var i=0;i<data.datas.length;i++){
                         data.datas[i].sex = self.sex[data.datas[i].sex];
                         data.datas[i].teacher_department = self.teacher_department[data.datas[i].teacher_department];//所属部门

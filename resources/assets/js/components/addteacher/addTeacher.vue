@@ -94,9 +94,9 @@
                             <el-option label="副教授" value="1"></el-option>
                             <el-option label="讲师" value="2"></el-option>
                             <el-option label="助教" value="3"></el-option>
-                            <el-option label="实验师" value="4"></el-option>
-                            <el-option label="助理实验师" value="5"></el-option>
-                            <el-option label="高级实验师" value="6"></el-option>
+                            <el-option label="高级实验师" value="4"></el-option>
+                            <el-option label="实验师" value="5"></el-option>
+                            <el-option label="助理实验师" value="6"></el-option>
                         </el-select>
                         <!--<el-input v-model="form.technical_position"></el-input>-->
                     </el-form-item>
@@ -139,9 +139,14 @@
                     <el-form-item label="岗位类别" prop="post_category">
                         <el-select v-model="form.post_category" placeholder="请选择老师岗位类别">
                             <el-option label="教学秘书" value="0"></el-option>
-                            <el-option label="院长" value="1"></el-option>
-                            <el-option label="办公室主任" value="2"></el-option>
-                            <el-option label="副主任" value="3"></el-option>
+                            <el-option label="科研秘书" value="1"></el-option>
+                            <el-option label="研究生秘书" value="2"></el-option>
+                            <el-option label="院长" value="3"></el-option>
+                            <el-option label="副院长" value="4"></el-option>
+                            <el-option label="副主任" value="5"></el-option>
+                            <el-option label="系主任" value="6"></el-option>
+                            <el-option label="办公室主任" value="7"></el-option>
+                            <el-option label="教研室主任" value="8"></el-option>
                         </el-select>
                         <!--<el-input v-model="form.post_category"></el-input>-->
                     </el-form-item>

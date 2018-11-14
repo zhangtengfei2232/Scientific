@@ -240,12 +240,12 @@ export default {
                 for (var i = 0; i < self.multipleSelection.length; i++) {
                     art_id_datas.push(self.multipleSelection[i].pa_id);
                 };
-                this.ExcelArticleDatas(art_id_datas);
+                this.ExcelPatentDatas(art_id_datas);
             }
         },
-        ExcelArticleDatas(art_id_datas) {
+        ExcelPatentDatas(art_id_datas) {
             let self = this;
-            axios.get("",{
+            axios.get("exportpatentexcel",{
                     params:{
                     pa_id_datas:art_id_datas
                 }

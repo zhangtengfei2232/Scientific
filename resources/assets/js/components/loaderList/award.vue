@@ -261,12 +261,12 @@ export default {
                 for (var i = 0; i < self.multipleSelection.length; i++) {
                     art_id_datas.push(self.multipleSelection[i].aw_id);
                 };
-                this.ExcelArticleDatas(art_id_datas);
+                this.ExcelAwardDatas(art_id_datas);
             }
         },
-        ExcelArticleDatas(art_id_datas) {
+        ExcelAwardDatas(art_id_datas) {
             let self = this;
-            axios.get("",{
+            axios.get("exportawardexcel",{
                     params:{
                     aw_id_datas:art_id_datas
                 }

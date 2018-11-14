@@ -161,12 +161,12 @@
                     for (var i = 0; i < self.multipleSelection.length; i++) {
                         art_id_datas.push(self.multipleSelection[i].ho_id);
                     };
-                    this.ExcelArticleDatas(art_id_datas);
+                    this.ExcelHoldmeetDatas(art_id_datas);
                 }
             },
-            ExcelArticleDatas(art_id_datas) {
+            ExcelHoldmeetDatas(art_id_datas) {
                 let self = this;
-                axios.get("",{
+                axios.get("exportholdmeetexcel",{
                         params:{
                         ho_id_datas:art_id_datas
                     }

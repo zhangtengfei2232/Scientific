@@ -301,12 +301,12 @@ export default {
                 for (var i = 0; i < self.multipleSelection.length; i++) {
                     art_id_datas.push(self.multipleSelection[i].pro_id);
                 };
-                this.ExcelArticleDatas(art_id_datas);
+                this.ExcelProjectDatas(art_id_datas);
             }
         },
-        ExcelArticleDatas(art_id_datas) {
+        ExcelProjectDatas(art_id_datas) {
             let self = this;
-            axios.get("",{
+            axios.get("exportprojectexcel",{
                     params:{
                     pro_id_datas:art_id_datas
                 }

@@ -161,12 +161,12 @@
                     for (var i = 0; i < self.multipleSelection.length; i++) {
                         art_id_datas.push(self.multipleSelection[i].ap_id);
                     };
-                    this.ExcelArticleDatas(art_id_datas);
+                    this.ExcelAppraisalDatas(art_id_datas);
                 }
             },  
-            ExcelArticleDatas(art_id_datas) {
+            ExcelAppraisalDatas(art_id_datas) {
                 let self = this;
-                axios.get("",{
+                axios.get("exportappraisalexcel",{
                         params:{
                         ap_id_datas:art_id_datas
                     }
