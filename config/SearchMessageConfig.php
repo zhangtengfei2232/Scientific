@@ -116,8 +116,8 @@ class SearchMessageConfig
     /**
      * 分组查询，每个字段的情况个数
      */
-    const TEA_ACADEMIC_TITLE_NUM  = 7;
-    const TEA_MOST_ACADEMIC_NUM   = 3;
+    const TEA_ACADEMIC_TITLE_NUM  = 7;    //老师职称
+    const TEA_MOST_ACADEMIC_NUM   = 2;    //老师最高学历字段取值个数
     const ARTICAL_PERCAL_CATE_NUM = 11;
     const PRO_CATE_RESEARCH_NUM   = 3;
     const PRO_SUB_CATEGORY_NUM    = 3;
@@ -141,7 +141,8 @@ class SearchMessageConfig
             '行政职务','任职时间','职务级别','专业技术职务','职称','评审通过时间','聘任时间','系列','岗位类别',
             '所在单位','所属教研室和实验室','来校工作时间','原工作单位','教师资格证书编号','身份证号','第一学历','','','','',
             '最高学历学位','','','','','现从事专业','所属学科','任教课程','硕(博)导'],
-        ['学历/学位','毕业院校','所学专业','毕业时间','学历/学位','毕业院校','所学专业','毕业时间','','','',
+        ['','','','','','','','','','','','','','','','','','','','','','','','','','','','学历/学位','毕业院校','所学专业',
+            '毕业时间','学历/学位','毕业院校','所学专业','毕业时间','','','',
             '授予单位','获得时间']
     ];
     //论文
@@ -203,13 +204,16 @@ class SearchMessageConfig
     const CATE_RESEARCH_DATAS = ['基础研究','应用研究'];
     const MEETING_LEVEL_DATAS = ['省级','大区级','国家级','国际会议'];
     const ACADEMIC_DATAS      = ['教授','副教授','讲师','助教','高级实验师','实验师','助理实验师'];
-    //老师
     const SEX_DATAS                = ['男','女'];
+    //老师
     const TEA_POLIT_OUTLOOK_DATAS  = ['积极分子','发展对象','预备党员','党员'];
     const TEA_JOB_LEVEL_DATAS      = ['正处','副处','正科','副科','其他'];
     const TEA_ACADEMIC_TITLE_DATAS = ['初级','中级','副高','正高'];
     const TEA_POST_CATEGORY_DATAS  = ['正处','副处','正科','副科','其他'];
     const TEACHER_DEPARTMENT       = ['生工','生物技术系','农学系','领导行政政工'];
+    const TEA_MOST_ACADEMIC_DATAS  = ['硕士','博士',''];
+    const TEA_FIRST_ACADEMIC_DATAS = ['大专','本科',''];
+
     //论文
     const ARTI_PERCAL_CATE_DATAS  = ['SCI一区','SCI二区','SCI三区','SCI四区','EI','SSCI','CN','CSSCI核心库','中文核心','CSCD核心库','河南科技学院期刊'];
     //项目

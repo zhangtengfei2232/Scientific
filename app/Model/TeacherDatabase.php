@@ -124,20 +124,20 @@ class TeacherDatabase extends ModelDatabase
              $image = DB::table('teacher')
                       ->select('gra_cert_road')
                       ->where('teacher_id',$teacher_id)
-                      ->get();
+                      ->first();
              return $image->gra_cert_road;
          }elseif ($status == 2){
              $image = DB::table('teacher')
                       ->select('edu_cert_road')
                       ->where('teacher_id',$teacher_id)
-                      ->get();
+                      ->first();
              return $image->edu_cert_road;
-         }elseif($status == 3){
+         }elseif($status == 3){       //删除老师的时候，需要查出两个
              $teacher_image_road = [];
              $image = DB::table('teacher')
                  ->select('edu_cert_road','gra_cert_road')
                  ->where('teacher_id',$teacher_id)
-                 ->get();
+                 ->first();
              array_push($teacher_image_road,$image->edu_cert_road);
              array_push($teacher_image_road,$image->gra_cert_road);
              return $teacher_image_road;
@@ -215,7 +215,16 @@ class TeacherDatabase extends ModelDatabase
         }
         return ($response != 1) ? false : true;
     }
-
+    //判断新添加的工号是否存在
+    public static function isExistsTeacherDatas($new_teacher_id){
+        $response = DB::table('teacher')->where('teacher_id',$new_teacher_id)->count();
+        return ($response == 1) ? true : false;
+    }
+    //查看已经存在的老师工号
+    public static function selectAllTeacherIdDatas(){
+        $all_teacher_id = DB::table('teacher')->select('teacher_id')->get();
+        return responseTojson(0,'查询成功','',$all_teacher_id);
+    }
     /**把老师账号和身份验证信息存入session
      * @param $usercount
      * @return \Illuminate\Http\JsonResponse

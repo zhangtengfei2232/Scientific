@@ -45,15 +45,47 @@ class ExcelController extends Controller
                     ++$this->serial_number;   //序号
                     $teacher_cell_datas[] = [
                         $this->serial_number,
-                        $teacher_information[$i][$j]->author,
-                        $teacher_information[$i][$j]->art_all_author,
+                        SearchMessageConfig::TEACHER_DEPARTMENT[$teacher_information[$i][$j]->teacher_department],
+                        $teacher_information[$i][$j]->name,
+                        $teacher_information[$i][$j]->office_phone,
                         $teacher_information[$i][$j]->title,
-                        $teacher_information[$i][$j]->publication_name,
-                        $teacher_information[$i][$j]->publication_num,
-                        $teacher_information[$i][$j]->period,
-                        $teacher_information[$i][$j]->num_words,
-                        $teacher_information[$i][$j]->percal_cate,
-                        $teacher_information[$i][$j]->belong_project,
+                        $teacher_information[$i][$j]->home_phone,
+                        $teacher_information[$i][$j]->phone,
+                        $teacher_information[$i][$j]->number,
+                        SearchMessageConfig::SEX_DATAS[$teacher_information[$i][$j]->sex],
+                        $teacher_information[$i][$j]->nation,
+                        date('Y-m-d',$teacher_information[$i][$j]->borth),
+                        SearchMessageConfig::TEA_POLIT_OUTLOOK_DATAS[$teacher_information[$i][$j]->polit_outlook],
+                        $teacher_information[$i][$j]->native_place,
+                        $teacher_information[$i][$j]->admin_duties,
+                        date('Y-m-d',$teacher_information[$i][$j]->admin_tenure_time),
+                        SearchMessageConfig::TEA_JOB_LEVEL_DATAS[ $teacher_information[$i][$j]->job_level],
+                        SearchMessageConfig::ACADEMIC_DATAS[$teacher_information[$i][$j]->technical_position],
+                        $teacher_information[$i][$j]->academic_title,
+                        date('Y-m-d',$teacher_information[$i][$j]->review_time),
+                        date('Y-m-d',$teacher_information[$i][$j]->appointment_time),
+                        $teacher_information[$i][$j]->series,
+                        $teacher_information[$i][$j]->post_category,
+                        $teacher_information[$i][$j]->company,
+                        $teacher_information[$i][$j]->te_re_department,
+                        date('Y-m-d',$teacher_information[$i][$j]->working_hours),
+                        $teacher_information[$i][$j]->origin_work_unit,
+                        $teacher_information[$i][$j]->certificate_num,
+                        $teacher_information[$i][$j]->identity_card,
+                        $teacher_information[$i][$j]->edu_school,
+                        SearchMessageConfig::TEA_FIRST_ACADEMIC_DATAS[$teacher_information[$i][$j]->first_academic],
+                        $teacher_information[$i][$j]->first_graduate_school,
+                        $teacher_information[$i][$j]->first_study_major,
+                        date('Y-m-d',$teacher_information[$i][$j]->first_graduation_time),
+                        SearchMessageConfig::TEA_MOST_ACADEMIC_DATAS[$teacher_information[$i][$j]->most_academic],
+                        $teacher_information[$i][$j]->most_graduate_school,
+                        $teacher_information[$i][$j]->most_study_major,
+                        date('Y-m-d',$teacher_information[$i][$j]->working_hours),
+                        $teacher_information[$i][$j]->work_major,
+                        $teacher_information[$i][$j]->belong_subject,
+                        $teacher_information[$i][$j]->teach_course,
+                        $teacher_information[$i][$j]->master_company,
+                        date('Y-m-d',$teacher_information[$i][$j]->master_time)
                     ];
                 }
             }
@@ -82,9 +114,9 @@ class ExcelController extends Controller
                         $sheet->mergeCells('B'.$this->count_table_list.':B'.($this->count_table_list + $new_teacher_cell_datas[0][$k] - 1));
                     }else{
                         $sheet->mergeCells('B3:B'.($new_teacher_cell_datas[0][$k] + 2));
-                        $new_teacher_cell_datas[0][$k] = $new_teacher_cell_datas[0][$k] + 2;//第一次比较特殊，需要 + 2
+                        $new_teacher_cell_datas[0][$k] = $new_teacher_cell_datas[0][$k] + 3;//第一次比较特殊，需要 + 3
                     }
-                    $this->count_table_list += $new_teacher_cell_datas[0][$k] + 1; //从下一行开始，设置单元格格式
+                    $this->count_table_list += $new_teacher_cell_datas[0][$k]; //从下一行开始，设置单元格格式
                 }
             });
         })->export('xlsx');

@@ -45,6 +45,7 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
 
     //老师对信息的操作
     Route::get('indexpage', 'InformationController@showIndex');                   //查看老师信息页面
+    Route::get('selectAllTeacherId', 'InformationController@selectAllTeacherId'); //查看已经存在的老师工号
     Route::post('addteacher', 'InformationController@addTeacher');                //添加老师信息
     Route::get('deleteteacher', 'InformationController@deleteTeacher');           //删除老师信息
     Route::get('selectteacher', 'InformationController@selectTeacher');           //查询老师信息
