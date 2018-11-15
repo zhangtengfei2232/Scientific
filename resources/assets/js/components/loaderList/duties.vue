@@ -38,7 +38,12 @@
                     :data=" StudygroupDate"
                     style="width:81%"
                     border
-                    height="550">
+                    height="550"
+                    @selection-change="handleSelectionChange">
+                <el-table-column
+                        type="selection"
+                        width="55">
+                </el-table-column>
                 <el-table-column
                         fixed
                         header-align="center"
@@ -120,6 +125,10 @@
         width: 30%;
         margin: 0 auto;
     }
+    /*组件*/
+    .el-checkbox{
+        padding-left: 10px;
+    }
 </style>
 
 <script>
@@ -129,6 +138,7 @@
                 searchValue:'',
                 border:true,
                 StudygroupDate: [],
+                multipleSelection: [],
                 data1: '',
                 year1: '',
                 year2: '',
@@ -174,15 +184,6 @@
                         data.datas[i].du_education = self.du_education[data.datas[i].du_education];
                         data.datas[i].du_degree = self.du_degree[data.datas[i].du_degree];
                     }
-//                    var time = data.datas[0].du_year_num;
-//                    console.log(time,"**************");
-//                     self.checkYearExt(time);
-//                     var star = self.formatDate(parseInt(self.year1));
-//                    console.log(star,"**///////");
-//                    var end = self.formatDate(parseInt(self.year2));
-//                    console.log(end,"**///////");
-//                    self.du_year_num = star+"-"+end;
-//
                     if (data.code == 0) {
                         self.StudygroupDate = data.datas;
 
@@ -261,6 +262,47 @@
                     }
                     if (data.code == 0) {
                         self.StudygroupDate = data.datas;
+                    } else {
+                        self.$notify({
+                            type: 'error',
+                            message: data.message,
+                            duration: 2000,
+                        });
+                    }
+                });
+            },
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
+            },
+            ExcelSelection() {
+                var self = this;
+                var dut_id_datas = [];//存放导出的数据
+                if(self.multipleSelection == undefined){
+                    this.$message({
+                        message: '请选择要导出专家讲学',
+                        type: 'warning'
+                    });
+                }else{
+                    for (var i = 0; i < self.multipleSelection.length; i++) {
+                        dut_id_datas.push(self.multipleSelection[i].du_id);
+                    };
+                    this.ExcelHoldmeetDatas(dut_id_datas);
+                }
+            },
+            ExcelHoldmeetDatas(dut_id_datas) {
+                let self = this;
+                axios.get("exportdutiesexcel",{
+                    params:{
+                        du_id_datas:dut_id_datas
+                    }
+                }).then(function (response) {
+                    var data = response.data;
+                    if (data.code == 0) {
+                        self.$message({
+                            showClose: true,
+                            message: '导出成功!',
+                            type: 'success'
+                        });
                     } else {
                         self.$notify({
                             type: 'error',

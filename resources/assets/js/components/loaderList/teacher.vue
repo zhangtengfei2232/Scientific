@@ -110,7 +110,12 @@
                     :data="teacherDate"
                     style="width:100%"
                     border
-                    height="560">
+                    height="560"
+                    @selection-change="handleSelectionChange">
+                <el-table-column
+                    type="selection"
+                    width="55">
+                </el-table-column>
                 <el-table-column
                         fixed
                         prop="name"
@@ -301,6 +306,7 @@
                 <!--</el-table-column>-->
 
             </el-table>
+            <el-button @click="ExcelSelection()"style="margin-top: 20px;">导出Excel</el-button>
             <div class="page">
                 <el-pagination
                         background
@@ -317,7 +323,7 @@
         background: #f4f5f5;
     }
     .art{
-        margin: 12px 10px;
+        margin: 12px 17px;
         padding-right: 24px;
         float: left;
         border-right: 1px #d4d8d7 solid;
@@ -329,13 +335,17 @@
     }
     .search{
         float: left;
-        margin: 12px 8px;
-        padding-right: 24px;
+        margin: 12px 10px;
+        padding-right: 10px;
         border-right: 1px #d4d8d7 solid;
     }
     .page{
         width: 30%;
         margin: 0 auto;
+    }
+    /*组件*/
+    .el-checkbox{
+        padding-left: 10px;
     }
 </style>
 
@@ -622,6 +632,47 @@
                     }
                     if (data.code == 0) {
                         self.teacherDate = data.datas;
+                    } else {
+                        self.$notify({
+                            type: 'error',
+                            message: data.message,
+                            duration: 2000,
+                        });
+                    }
+                });
+            },
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
+            },
+            ExcelSelection() {
+                var self = this;
+                var tea_id_datas = [];//存放导出的数据
+                if(self.multipleSelection == undefined){
+                    this.$message({
+                        message: '请选择要导出的老师信息',
+                        type: 'warning'
+                    });
+                }else{
+                    for (var i = 0; i < self.multipleSelection.length; i++) {
+                        tea_id_datas.push(self.multipleSelection[i].teacher_id);
+                    };
+                    this.ExcelHoldmeetDatas(tea_id_datas);
+                }
+            },
+            ExcelHoldmeetDatas(tea_id_datas) {
+                let self = this;
+                axios.get("",{
+                    params:{
+                        te_id_datas:tea_id_datas
+                    }
+                }).then(function (response) {
+                    var data = response.data;
+                    if (data.code == 0) {
+                        self.$message({
+                            showClose: true,
+                            message: '导出成功!',
+                            type: 'success'
+                        });
                     } else {
                         self.$notify({
                             type: 'error',

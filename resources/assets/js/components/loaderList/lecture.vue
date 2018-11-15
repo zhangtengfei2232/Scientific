@@ -93,7 +93,12 @@
                     :data=" ExperspeakDate"
                     style="width:100%"
                     border
-                    height="550">
+                    height="550"
+                    @selection-change="handleSelectionChange">
+                <el-table-column
+                        type="selection"
+                        width="55">
+                </el-table-column>
                 <el-table-column
                         fixed
                         prop="le_expert_name"
@@ -126,6 +131,7 @@
                         header-align="center">
                 </el-table-column>
             </el-table>
+            <el-button @click="ExcelSelection()"style="margin-top: 20px;">导出Excel</el-button>
             <div class="page">
                 <el-pagination
                         background
@@ -162,6 +168,10 @@
         width: 30%;
         margin: 0 auto;
     }
+    /*组件*/
+    .el-checkbox{
+        padding-left: 10px;
+    }
 </style>
 
 <script>
@@ -171,6 +181,7 @@
                 searchValue:'',
                 border:true,
                 ExperspeakDate: [],
+                multipleSelection: [],
                 data1: '',
                 input:'',
                 total:0,
@@ -350,6 +361,47 @@
                     }
                     if (data.code == 0) {
                         self.ExperspeakDate = data.datas;
+                    } else {
+                        self.$notify({
+                            type: 'error',
+                            message: data.message,
+                            duration: 2000,
+                        });
+                    }
+                });
+            },
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
+            },
+            ExcelSelection() {
+                var self = this;
+                var lec_id_datas = [];//存放导出的数据
+                if(self.multipleSelection == undefined){
+                    this.$message({
+                        message: '请选择要导出专家讲学',
+                        type: 'warning'
+                    });
+                }else{
+                    for (var i = 0; i < self.multipleSelection.length; i++) {
+                        lec_id_datas.push(self.multipleSelection[i].le_id);
+                    };
+                    this.ExcelHoldmeetDatas(lec_id_datas);
+                }
+            },
+            ExcelHoldmeetDatas(lec_id_datas) {
+                let self = this;
+                axios.get("exportlectureexcel",{
+                    params:{
+                        le_id_datas:lec_id_datas
+                    }
+                }).then(function (response) {
+                    var data = response.data;
+                    if (data.code == 0) {
+                        self.$message({
+                            showClose: true,
+                            message: '导出成功!',
+                            type: 'success'
+                        });
                     } else {
                         self.$notify({
                             type: 'error',
