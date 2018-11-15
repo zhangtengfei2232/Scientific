@@ -200,20 +200,20 @@ class SearchMessageConfig
      * 每个excel表，数据库字段转化配置
      */
     const SUB_CATEGORY_DATAS  = ['理学','工学','农学','医学','管理学','马克思主义','哲学','逻辑学','宗教学','语言学',
-        '中国文学','外国文学','艺术学','历史学','考古学','经济学','政治学','法学'];
+                                '中国文学','外国文学','艺术学','历史学','考古学','经济学','政治学','法学'];
     const CATE_RESEARCH_DATAS = ['基础研究','应用研究'];
     const MEETING_LEVEL_DATAS = ['省级','大区级','国家级','国际会议'];
     const ACADEMIC_DATAS      = ['教授','副教授','讲师','助教','高级实验师','实验师','助理实验师'];
-    const SEX_DATAS                = ['男','女'];
+    const SEX_DATAS           = ['男','女'];
     //老师
-    const TEA_POLIT_OUTLOOK_DATAS  = ['积极分子','发展对象','预备党员','党员'];
-    const TEA_JOB_LEVEL_DATAS      = ['正处','副处','正科','副科','其他'];
-    const TEA_ACADEMIC_TITLE_DATAS = ['初级','中级','副高','正高'];
-    const TEA_POST_CATEGORY_DATAS  = ['正处','副处','正科','副科','其他'];
-    const TEACHER_DEPARTMENT       = ['生工','生物技术系','农学系','领导行政政工'];
-    const TEA_MOST_ACADEMIC_DATAS  = ['硕士','博士',''];
-    const TEA_FIRST_ACADEMIC_DATAS = ['大专','本科',''];
-
+    const TEA_POLIT_OUTLOOK_DATAS  = ['积极分子','发展对象','预备党员','党员'];    //政治面貌
+    const TEA_JOB_LEVEL_DATAS      = ['正处','副处','正科','副科','其他'];         //老师职务级别
+    const TEA_ACADEMIC_TITLE_DATAS = ['初级','中级','副高','正高'];               //老师职称
+    const TEA_POST_CATEGORY_DATAS  = ['正处','副处','正科','副科','其他'];         //老师岗位类别
+    const TEACHER_DEPARTMENT       = ['生工','生物技术系','农学系','领导行政政工']; //老师部门
+    const TEA_MOST_ACADEMIC_DATAS  = ['硕士','博士',''];                         //老师最高学历学位
+    const TEA_FIRST_ACADEMIC_DATAS = ['大专','本科',''];                         //老师第一学历学位
+    const TEA_TECHNICAL_POSITION   = [];                                        //老师专业技术职务
     //论文
     const ARTI_PERCAL_CATE_DATAS  = ['SCI一区','SCI二区','SCI三区','SCI四区','EI','SSCI','CN','CSSCI核心库','中文核心','CSCD核心库','河南科技学院期刊'];
     //项目
