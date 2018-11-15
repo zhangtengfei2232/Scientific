@@ -15,9 +15,12 @@
         if(emptyarray($datas)){
             return responseTojson(1,'你填写的个人信息不全',1);
         }
-        $isMob="/^1[3-5,8]{1}[0-9]{9}$/";
-        $isTel="/^([0-9]{3,4}-)?[0-9]{7,8}$/";
-        $preg_card='/^\d{15}$)|(^\d{17}([0-9]|X)$/isu';
+        $isMob = "/^1[3-5,8]{1}[0-9]{9}$/";
+        $isTel = "/^([0-9]{3,4}-)?[0-9]{7,8}$/";
+        //15位身份证号
+        $fiveting_preg_card = "/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$/";
+        //18位身份证号
+        $eighting_preg_card = "/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{4}$/";
         if(array_key_exists('teacher_id',$datas)){
             if(strlen($datas['teacher_id']) > 7){
                 return responseTojson(1,'你输入的工号有误',1);
@@ -51,7 +54,9 @@
         }elseif (strlen($datas['certificate_num']) > 20){
             return responseTojson(1,'你输入的教师资格证编号有误',1);
         }elseif (strlen($datas['identity_card']) > 18
-            || !preg_match($preg_card, $datas['identity_card'])){
+                || (!preg_match($eighting_preg_card, $datas['identity_card']) &&
+                !preg_match($fiveting_preg_card,$datas['identity_card'])
+                )){
             return responseTojson(1,'你输入的身份证号有误',1);
         }elseif (strlen($datas['edu_school']) > 30){
             return responseTojson(1,'你输入的毕业院校有误',1);
@@ -364,4 +369,33 @@
             return responseTojson(0,'验证通过',1,$success_image);
         }
         return responseTojson(1,'验证存在错误',1);
+    }
+    //验证身份证号
+    function checkIdCard($idcard){
+        // 仅仅能是18位
+        if(strlen($idcard)!=18){
+            return false;
+        }
+        // 取出本体码
+        $idcard_base = substr($idcard, 0, 17);
+        // 取出校验码
+        $verify_code = substr($idcard, 17, 1);
+        // 加权因子
+        $factor = array(7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2);
+        // 校验码相应值
+        $verify_code_list = array('1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2');
+        // 依据前17位计算校验码
+        $total = 0;
+        for($i=0; $i<17; $i++){
+            $total += substr($idcard_base, $i, 1)*$factor[$i];
+        }
+        // 取模
+        $mod = $total % 11;
+        // 比較校验码
+        if($verify_code == $verify_code_list[$mod]){
+            return true;
+        }else{
+            return false;
+        }
+
     }

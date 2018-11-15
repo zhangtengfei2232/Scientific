@@ -201,9 +201,10 @@ class ModelDatabase  extends  Model
     public static function changeDutiesTimeDatas($result){
         $result = json_decode(json_encode($result));
         for($i = 0; $i < count($result); $i++){
-            $duties_time_datas        = explode(',',$result[$i]->du_year_num);
-            $result[$i]['start_time'] = date('Y-m-d',$duties_time_datas[0]);
-            $result[$i]['end_time']   = date('Y-m-d',$duties_time_datas[1]);
+            $result[$i] = (array)$result[$i];  //把数据强制转化为数组
+            $duties_time_datas        = explode(',',$result[$i]['du_year_num']);
+            $result[$i]['start_time'] = date('Y-m-d',$duties_time_datas[0]/1000);
+            $result[$i]['end_time']   = date('Y-m-d',$duties_time_datas[1]/1000);
         }
         return responseTojson(0,'查询成功','',$result);
     }
