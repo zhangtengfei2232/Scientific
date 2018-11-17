@@ -54,6 +54,7 @@ class HoldmeetController extends Controller
     public function deleteHoldmeet(Request $request){
         $delete_image    = true;
         $ho_id_datas     = $request->ho_id_datas;
+        dd($ho_id_datas);
         $table_name      = SearchMessageConfig::HOLD_MEET_TABLE;
         $id_field        = SearchMessageConfig::HOLDMEET_ID;
         $old_inject_road = HoldmeetDatas::selectHoldmeetInjectRoad($ho_id_datas);
@@ -142,7 +143,6 @@ class HoldmeetController extends Controller
     }
     //添加举行会议图片
     public function addHoldmeetImages(Request $request){
-        dd($request);
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
