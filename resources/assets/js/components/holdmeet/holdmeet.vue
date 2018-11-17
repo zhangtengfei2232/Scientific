@@ -282,7 +282,7 @@
                 });
             },
             deleteHoldmeetData(ho_id) {
-                let id = ho_id;
+                this.id.push(ho_id);
                 this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -291,7 +291,7 @@
                     let self = this;
                     axios.get("deleteholdmeet",{
                         params:{
-                            ho_id_datas:id
+                            ho_id_datas:self.id
                         }
                     }).then(function (response) {
                     var data = response.data;
