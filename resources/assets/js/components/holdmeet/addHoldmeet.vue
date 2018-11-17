@@ -111,14 +111,16 @@
     },
     methods: {
         change(file) {
+            console.log(this.ho_id);
             this.dataFile.append(this.index, file.raw);
             this.index++;
         },
         submitUploads() {
             if(this.Bcode == true){
                 let id = this.ho_id;
+                
                 this.dataFile.append('ho_id', id);
-                this.dataFile.append('is_add_joinmeet',this.Bcode);
+                this.dataFile.append('is_add_holdmeet',this.Bcode);
                 this.sendfile(this.dataFile);
             }else{
                 this.$message.error('请先添加数据信息');
@@ -187,6 +189,7 @@
                         vue.addHoldmeetData(vue.dataForm).then(res => {
                             var data = res.data;
                             self.ho_id = res.data.datas;
+                            console.log(self.ho_id);
                             if (data.code == 0) {
                                 this.Bcode = true;
                                 vue.$message({
