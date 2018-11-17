@@ -154,6 +154,8 @@ export default {
                     if (data.code == 0) {
                         self.JoinmeetSelfData = data.datas;
                         self.form = data.datas.information;
+                        console.log(data.datas)
+                        console.log(data.datas.information.jo_graph_inject);
                         if(data.datas.information.jo_graph_inject == ''){
                             self.picType=false;
                         }else{
