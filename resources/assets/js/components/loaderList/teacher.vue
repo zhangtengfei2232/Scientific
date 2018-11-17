@@ -3,7 +3,7 @@
         <div class="cont">
             <div class="header">
                 <el-header style="height: 45px;">
-                    <div class="art">所有成员({{form.num}})</div>
+                    <div class="art">所有成员({{total}})</div>
                     <div class="search">
                         <el-popover
                                 placement="top-start"
@@ -404,11 +404,12 @@
                     '正高'
                 ],
                 post_category:[     //岗位类别
+                    '普通老师',
+                    '院长',
+                    '副院长',
                     '教学秘书',
                     '科研秘书',
                     '研究生秘书',
-                    '院长',
-                    '副院长',
                     '副主任',
                     '系主任',
                     '办公室主任',
@@ -421,7 +422,7 @@
                 let self = this;
                 axios.get("leaderselectallteacher").then(function (response) {
                     var data = response.data;
-                    self.form.num = data.datas.length;
+//                    self.form.num = data.datas.length;
                     self.total = data.datas.length;
                     for(var i=0;i<data.datas.length;i++){
                         data.datas[i].sex = self.sex[data.datas[i].sex];

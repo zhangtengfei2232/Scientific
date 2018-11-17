@@ -3,7 +3,7 @@
         <div class="cont">
             <div class="header">
                 <el-header style="height: 45px;">
-                    <div class="art">专家讲学({{form.num}})</div>
+                    <div class="art">专家讲学({{total}})</div>
                     <div class="search">
                         <el-row>
                             <el-col :span="12">
@@ -64,9 +64,7 @@
                                 trigger="click">
                             <el-input
                                     placeholder="请输入邀请单位"
-                                    prefix-icon="el-icon-search"
-
-                            >
+                                    prefix-icon="el-icon-search">
                             </el-input>
                             <div slot="reference">邀请单位<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
@@ -221,7 +219,7 @@
                 axios.get("leaderselectalllecture").then(function (response) {
                     var data = response.data;
 //                    console.log(data,'////*******');
-                    self.form.num = data.datas.length;
+//                    self.form.num = data.datas.length;
                     self.total = data.datas.length;
                     for(var i=0;i<data.datas.length;i++){
                         data.datas[i].le_invite_status = self.le_invite_status[data.datas[i].le_invite_status];

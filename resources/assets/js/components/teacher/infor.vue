@@ -465,11 +465,12 @@
                     '正高',
                 ],
                 post_category:[ //岗位类别
+                    '普通老师',
+                    '院长',
+                    '副院长',
                     '教学秘书',
                     '科研秘书',
                     '研究生秘书',
-                    '院长',
-                    '副院长',
                     '副主任',
                     '系主任',
                     '办公室主任',
@@ -559,6 +560,7 @@
                             message: '修改成功',
                             type: 'success'
                         });
+                        location. reload();
                     } else {
                         vue.$notify({
                             type: 'error',
@@ -761,6 +763,9 @@
         height: 50px;
         line-height: 52px;
         border-bottom: 1px solid gray;
+    }
+    .demo{
+        margin: 10px 0 10px 30%;
     }
     .body{
         Font-size:25%

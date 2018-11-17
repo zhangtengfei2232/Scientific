@@ -138,15 +138,16 @@
                     </el-form-item>
                     <el-form-item label="岗位类别" prop="post_category">
                         <el-select v-model="form.post_category" placeholder="请选择老师岗位类别">
-                            <el-option label="教学秘书" value="0"></el-option>
-                            <el-option label="科研秘书" value="1"></el-option>
-                            <el-option label="研究生秘书" value="2"></el-option>
-                            <el-option label="院长" value="3"></el-option>
-                            <el-option label="副院长" value="4"></el-option>
-                            <el-option label="副主任" value="5"></el-option>
-                            <el-option label="系主任" value="6"></el-option>
-                            <el-option label="办公室主任" value="7"></el-option>
-                            <el-option label="教研室主任" value="8"></el-option>
+                            <el-option label="普通老师" value="0"></el-option>
+                            <el-option label="院长" value="1"></el-option>
+                            <el-option label="副院长" value="2"></el-option>
+                            <el-option label="教学秘书" value="3"></el-option>
+                            <el-option label="科研秘书" value="4"></el-option>
+                            <el-option label="研究生秘书" value="5"></el-option>
+                            <el-option label="副主任" value="6"></el-option>
+                            <el-option label="系主任" value="7"></el-option>
+                            <el-option label="办公室主任" value="8"></el-option>
+                            <el-option label="教研室主任" value="9"></el-option>
                         </el-select>
                         <!--<el-input v-model="form.post_category"></el-input>-->
                     </el-form-item>
@@ -401,9 +402,9 @@
             fileProfil(file){
                 if(this.Bcode == true){
                     this.dataFile.append('gra_cert_road', file);
-                    let id = this.form.teacher_id;
-                    console.log(id);
-                    this.dataFile.append('teacher_id', id);
+//                    let id = this.form.teacher_id;
+//                    console.log(id);
+//                    this.dataFile.append('teacher_id', id);
                     this.dataFile.append('is_add_teacher',this.Bcode);
                     this.sendfile(this.dataFile);
                 }else{
@@ -414,8 +415,8 @@
             fileEdufil(files){
                 if(this.Bcode == true){
                     this.dataFile.append('edu_cert_road', files);
-                    let id = this.form.teacher_id;
-                    this.dataFile.append('teacher_id', id);
+//                    let id = this.form.teacher_id;
+//                    this.dataFile.append('teacher_id', id);
                     this.dataFile.append('is_add_teacher',this.Bcode);
                     this.sendfile(this.dataFile);
                 }else{
@@ -428,7 +429,7 @@
                     var data = res.data;
                     if (data.code == 0) {
                         vue.$message({
-                            message: '修改成功',
+                            message: '添加成功',
                             type: 'success'
                         });
                     } else {
@@ -450,11 +451,14 @@
                 });
             },
             onSubmit(form) {
-//                console.log(form,'00000000000');
                 let vue = this;
+//                console.log(form.sex,'/*******/*');
+//                console.log(typeof(form.sex),'/*******/*');
+                return;
                 if(form.name == '') {
                     this.$message.error('老师姓名不能为空');
-                }else if(form.sex == '') {
+                }
+                else if(form.sex == '') {
                     this.$message.error('老师性别不能为空');
                 }else if(form.teacher_department == '') {
                     this.$message.error('老师所属部门不能为空');
@@ -548,7 +552,7 @@
                                 this.Bcode=true;
                                 vue.form.teacher_id =  res.data.datas;
                                 vue.$message({
-                                    message: '修改成功',
+                                    message: '添加成功',
                                     type: 'success'
                                 });
 //                                this.$router.push({path: '/paper'});

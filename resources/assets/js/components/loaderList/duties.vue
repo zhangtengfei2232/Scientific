@@ -3,7 +3,7 @@
         <div class="cont">
             <div class="header">
                 <el-header style="height: 45px;">
-                    <div class="art">学生团体任职({{form.num}})</div>
+                    <div class="art">学生团体任职({{total}})</div>
                     <div class="search">
                         <el-popover
                                 placement="top-start"
@@ -12,8 +12,8 @@
                             <el-input
                                     placeholder="请输入老师姓名"
                                     prefix-icon="el-icon-search"
-                                    v-model="form.name"
-                                    @keyup.enter.native="byNameSearch(form)">
+                                    v-model="teacher_name"
+                                    @keyup.enter.native="byNameSearch()">
                             </el-input>
                             <div slot="reference">老师：姓名<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
@@ -26,8 +26,8 @@
                             <el-input
                                     placeholder="请输入担任的学术团体名称"
                                     prefix-icon="el-icon-search"
-                                    v-model="form.groupname"
-                                    @keyup.enter.native="byGroupNameSearch(form)">
+                                    v-model="du_name"
+                                    @keyup.enter.native="byGroupNameSearch()">
                             </el-input>
                             <div slot="reference">担任学术团体名称<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
@@ -36,7 +36,7 @@
             </div>
             <el-table
                     :data=" StudygroupDate"
-                    style="width:81%"
+                    style="width:100%"
                     border
                     height="550"
                     @selection-change="handleSelectionChange">
@@ -80,14 +80,32 @@
                         label="所任职务"
                         header-align="center">
                 </el-table-column>
+
                 <el-table-column
-                        prop="du_year_num"
                         label="担任职务年限"
-                        format="yyyy 年 MM 月 dd 日"
-                        value-format="timestamp"
-                        type="date"
-                        header-align="center">
+                        header-align="center"
+                        width="200">
+                    <el-table-column
+                            prop="start_time"
+                            label="开始时间"
+                            header-align="center"
+                            width="100">
+                    </el-table-column>
+                    <el-table-column
+                            prop="end_time"
+                            label="截止时间"
+                            header-align="center"
+                            width="100">
+                    </el-table-column>
                 </el-table-column>
+                <!--<el-table-column-->
+                        <!--prop="du_year_num"-->
+                        <!--label="担任职务年限"-->
+                        <!--format="yyyy 年 MM 月 dd 日"-->
+                        <!--value-format="timestamp"-->
+                        <!--type="date"-->
+                        <!--header-align="center">-->
+                <!--</el-table-column>-->
             </el-table>
             <div class="page">
                 <el-pagination
@@ -144,12 +162,12 @@
                 year2: '',
                 input:'',
                 total:0,
+                du_name:'',
+                teacher_name:'',
                 form: {
                     type:'',
                     checkList: [],
                     num:'',
-                    name:'',
-                    groupname:''
                 },
                 du_academic:[   //职称
                     '教授',
@@ -177,7 +195,6 @@
                 let self = this;
                 axios.get("leaderselectallduties").then(function (response) {
                     var data = response.data;
-                    self.form.num = data.datas.length;
                     self.total = data.datas.length;
                     for(var i=0;i<data.datas.length;i++){
                         data.datas[i].du_academic = self.du_academic[data.datas[i].du_academic];
@@ -186,7 +203,6 @@
                     }
                     if (data.code == 0) {
                         self.StudygroupDate = data.datas;
-
                     } else {
                         self.$notify({
                             type: 'error',
@@ -196,36 +212,18 @@
                     }
                 });
             },
-            checkYearExt(time){
-                let a = time.split(',');
-                this.year1 = a[0];
-                this.year2 = a[1];
-//                console.log( this.year1,'...........');
-//                console.log(this.year2,'-0----8888888');
-            },
-//            formatDate(timestamp) {
-//                var date = new Date(timestamp);
-//                var year = date.getFullYear();
-//                var month = date.getMonth() + 1;
-//                var day = date.getDate();
-//                if (month < 10) {
-//                   month = "0" + month;
-//                }
-//                if (day < 10) {
-//                   day = "0" + day;
-//                }
-//
-////        var hours = addZero(date.getHours());
-////        var minutes = addZero(date.getMinutes());
-////        var seconds = addZero(date.getSeconds());
-//        // return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
-//        return year + '-' + month + '-' + day;
-//    },
-            byNameSearch(form) {                //老师姓名
+//            checkYearExt(time){
+//                let a = time.split(',');
+//                this.year1 = a[0];
+//                this.year2 = a[1];
+////                console.log( this.year1,'...........');
+////                console.log(this.year2,'-0----8888888');
+//            },
+            byNameSearch() {                //老师姓名
                 let self = this;
                 axios.get("byteachernameselectduties",{
                     params:{
-                        teacher_name: form.name,
+                        teacher_name: self.teacher_name,
                     }
                 }).then(function (response) {
                     var data = response.data;
@@ -246,11 +244,11 @@
                     }
                 });
             },
-            byGroupNameSearch(form) {                //担任学术团体名称
+            byGroupNameSearch() {                //担任学术团体名称
                 let self = this;
                 axios.get("bynameselectduties",{
                     params:{
-                        du_name: form.groupname,
+                        du_name: self.du_name,
                     }
                 }).then(function (response) {
                     var data = response.data;
