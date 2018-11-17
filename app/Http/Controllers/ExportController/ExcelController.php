@@ -12,6 +12,8 @@ class ExcelController extends Controller
     private $serial_number = 0;
     //设置老师所在部门单元格,累加器
     private $count_table_list = 0;
+
+
     //导出老师信息EXCEL表格
     public function exportTeacherExcel(Request $request){
         $teacher_information = [[]];
@@ -60,12 +62,12 @@ class ExcelController extends Controller
                         $teacher_information[$i][$j]->admin_duties,
                         date('Y-m-d',$teacher_information[$i][$j]->admin_tenure_time),
                         SearchMessageConfig::TEA_JOB_LEVEL_DATAS[ $teacher_information[$i][$j]->job_level],
-                        SearchMessageConfig::ACADEMIC_DATAS[$teacher_information[$i][$j]->technical_position],
-                        $teacher_information[$i][$j]->academic_title,
+                        SearchMessageConfig::TEA_TECHNICAL_POSITION[$teacher_information[$i][$j]->technical_position],
+                        SearchMessageConfig::ACADEMIC_DATAS[$teacher_information[$i][$j]->academic_title],
                         date('Y-m-d',$teacher_information[$i][$j]->review_time),
                         date('Y-m-d',$teacher_information[$i][$j]->appointment_time),
                         $teacher_information[$i][$j]->series,
-                        $teacher_information[$i][$j]->post_category,
+                        SearchMessageConfig::TEA_POST_CATEGORY_DATAS[$teacher_information[$i][$j]->post_category],
                         $teacher_information[$i][$j]->company,
                         $teacher_information[$i][$j]->te_re_department,
                         date('Y-m-d',$teacher_information[$i][$j]->working_hours),
@@ -477,5 +479,4 @@ class ExcelController extends Controller
         })->export('xlsx');
         return responseTojson(0,'导出成功');
     }
-
 }

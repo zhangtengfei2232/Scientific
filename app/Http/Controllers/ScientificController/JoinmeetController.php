@@ -56,8 +56,8 @@ class JoinmeetController  extends Controller
     //删除参加会议信息
     public function deleteJoinmeet(Request $request){
         $jo_id_datas     = $request->jo_id_datas;
-        $table_name          = SearchMessageConfig::JOIN_MEET_TABLE;
-        $id_field            = SearchMessageConfig::JOINMEET_ID;
+        $table_name      = SearchMessageConfig::JOIN_MEET_TABLE;
+        $id_field        = SearchMessageConfig::JOINMEET_ID;
         $old_inject_road = JoinmeetDatas::selectJoinmeetInjectRoad($jo_id_datas);
         $status          = UploadSubjectionConfig::JOIN_IMG_STATUS;
         $old_image_road  = ImageDatas::selectAllOwnerImage($jo_id_datas,$status);
@@ -102,7 +102,7 @@ class JoinmeetController  extends Controller
         if(!$request->isMethod('POST')){
             return responseTojson(1,'请求的方式不对');
         }
-        $jo_id[0]          = trim($request->jo_id);
+        $jo_id[0] = trim($request->jo_id);
         $datas = [
             'jo_id'        => $jo_id[0],
             'join_people'  => trim($request->join_people),
@@ -171,14 +171,14 @@ class JoinmeetController  extends Controller
     }
     //删除参加会议图片
     public function deleteJoinmeetImage(Request $request){
-        $delete_im_id = $request->im_id_datas;
+        $delete_im_id = $request->im_id;
         //先去查询所有删除的图片路径
-        $all_images_road = ImageDatas::selectAllImageRoadDatas($delete_im_id);
+        $images_road  = ImageDatas::selectAllImageRoadDatas($delete_im_id);
         ImageDatas::beginTraction();                                  //开启事务处理
         $delete_images = ImageDatas::deleteImagesDatas($delete_im_id);//删除数据库图片路径
         if($delete_images){
             ImageDatas::commit();
-            deleteAllFiles(uploadSubjectionConfig::LECTURE,$all_images_road);
+            deletefiles(uploadSubjectionConfig::LECTURE,$images_road);
             return responseTojson(0,'删除讲学图片成功');
         }
         ImageDatas::rollback();

@@ -52,8 +52,8 @@ class LectureController extends Controller
      //删除专家讲学信息
      public function deleteLecture(Request $request){
          $le_id_datas     = $request->le_id_datas;
-         $table_name          = SearchMessageConfig::LECTURE_TABLE;
-         $id_field            = SearchMessageConfig::LECTURE_ID;
+         $table_name      = SearchMessageConfig::LECTURE_TABLE;
+         $id_field        = SearchMessageConfig::LECTURE_ID;
          $old_inject_road = LectureDatabase::selectLectureInject($le_id_datas);
          $owner_status    = UploadSubjectionConfig::LECTURE_IMG_STATUS;
          $old_image_road  = ImageDatas::selectAllOwnerImage($le_id_datas,$owner_status);
@@ -164,14 +164,14 @@ class LectureController extends Controller
     }
     //删除专家讲学图片
     public function deleteLectureImages(Request $request){
-         $delete_im_id = $request->im_id_datas;
+         $delete_im_id = $request->im_id;
          //先去查询所有删除的图片路径
-         $all_images_road = ImageDatas::selectAllImageRoadDatas($delete_im_id);
+         $images_road   = ImageDatas::selectAllImageRoadDatas($delete_im_id);
          ImageDatas::beginTraction();                                   //开启事务处理
          $delete_images = ImageDatas::deleteImagesDatas($delete_im_id); //删除数据库图片路径
          if($delete_images){
             ImageDatas::commit();
-            deleteAllFiles(UploadSubjectionConfig::HOLD_MEET,$all_images_road);
+             deletefiles(UploadSubjectionConfig::HOLD_MEET,$images_road);
             return responseTojson(0,'删除举办会议图片成功');
          }
          ImageDatas::rollback();                                        //回滚，回复数据库数据
