@@ -450,6 +450,12 @@
                     '其他',
                 ],
                 technical_position:[    //专业技术职务
+                    '初级',
+                    '中级',
+                    '副高',
+                    '正高',
+                ],
+                academic_title:[    //老师职称
                     '教授',
                     '副教授',
                     '讲师',
@@ -458,30 +464,29 @@
                     '实验师',
                     '助理实验师',
                 ],
-                academic_title:[    //老师职称
-                    '初级',
-                    '中级',
-                    '副高',
-                    '正高',
-                ],
                 post_category:[ //岗位类别
+                    '普通老师',
+                    '院长',
+                    '副院长',
                     '教学秘书',
                     '科研秘书',
                     '研究生秘书',
-                    '院长',
-                    '副院长',
                     '副主任',
                     '系主任',
                     '办公室主任',
                     '教研室主任',
+                    '党委书记',
+                    '党委副书记',
                 ],
                 first_academic:[//第一学历学位
                     '大专',
                     '本科',
+                    '其他',
                 ],
                 most_academic:[//最高学历/学位
                     '硕士',
                     '博士',
+                    '其他',
                 ],
             }
 
@@ -559,6 +564,7 @@
                             message: '修改成功',
                             type: 'success'
                         });
+                        location. reload();
                     } else {
                         vue.$notify({
                             type: 'error',
@@ -761,6 +767,9 @@
         height: 50px;
         line-height: 52px;
         border-bottom: 1px solid gray;
+    }
+    .demo{
+        margin: 10px 0 10px 30%;
     }
     .body{
         Font-size:25%

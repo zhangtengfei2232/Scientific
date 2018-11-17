@@ -107,7 +107,8 @@
                 </el-header>
             </div>
             <el-table
-                :data="allArticle"
+                :data="allArticle.slice((currentPage-1)*pagesize,currentPage*pagesize)"
+                stripe
                 style="width: 100%"
                 border
                 height="250"
@@ -193,9 +194,18 @@
                 <el-button @click="ExcelSelection()">导出Excel</el-button>
             </div>
             <div class="page">
-                <el-pagination
+                <!-- <el-pagination
                     background
                     layout="prev, pager, next"
+                    :total="total">
+                </el-pagination> -->
+                <el-pagination
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="currentPage"
+                    :page-sizes="[10, 20, 50, 100]"
+                    :page-size="pagesize"
+                    layout="total, sizes, prev, pager, next, jumper"
                     :total="total">
                 </el-pagination>
             </div> 
@@ -236,6 +246,8 @@ export default {
             art_rank: '',
             border:true,
             allArticle:[],
+            currentPage:1,
+            pagesize:20,
             data1: '',
             art_name:'',
             total: 0,
@@ -285,6 +297,12 @@ export default {
         }
     },
     methods: {
+        handleSizeChange: function (size) {
+            this.pagesize = size;
+        },
+        handleCurrentChange: function(currentPage){
+            this.currentPage = currentPage;
+        },
         handleSelectionChange(val) {
             this.multipleSelection = val;
         },

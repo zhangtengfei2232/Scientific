@@ -90,6 +90,15 @@
                     </el-form-item>
                     <el-form-item label="专业技术职务" prop="technical_position">
                         <el-select v-model="form.technical_position" placeholder="老师专业技术职务">
+                            <el-option label="初级" value="0"></el-option>
+                            <el-option label="中级" value="1"></el-option>
+                            <el-option label="副高" value="2"></el-option>
+                            <el-option label="正高" value="3"></el-option>
+                        </el-select>
+                        <!--<el-input v-model="form.technical_position"></el-input>-->
+                    </el-form-item>
+                    <el-form-item label="老师职称">
+                        <el-select v-model="form.academic_title" placeholder="请选择老师职称">
                             <el-option label="教授" value="0"></el-option>
                             <el-option label="副教授" value="1"></el-option>
                             <el-option label="讲师" value="2"></el-option>
@@ -97,15 +106,6 @@
                             <el-option label="高级实验师" value="4"></el-option>
                             <el-option label="实验师" value="5"></el-option>
                             <el-option label="助理实验师" value="6"></el-option>
-                        </el-select>
-                        <!--<el-input v-model="form.technical_position"></el-input>-->
-                    </el-form-item>
-                    <el-form-item label="老师职称">
-                        <el-select v-model="form.academic_title" placeholder="请选择老师职称">
-                            <el-option label="初级" value="0"></el-option>
-                            <el-option label="中级" value="1"></el-option>
-                            <el-option label="副高" value="2"></el-option>
-                            <el-option label="正高" value="3"></el-option>
                         </el-select>
                         <!--<el-input v-model="form.academic_title"></el-input>-->
                     </el-form-item>
@@ -138,15 +138,18 @@
                     </el-form-item>
                     <el-form-item label="岗位类别" prop="post_category">
                         <el-select v-model="form.post_category" placeholder="请选择老师岗位类别">
-                            <el-option label="教学秘书" value="0"></el-option>
-                            <el-option label="科研秘书" value="1"></el-option>
-                            <el-option label="研究生秘书" value="2"></el-option>
-                            <el-option label="院长" value="3"></el-option>
-                            <el-option label="副院长" value="4"></el-option>
-                            <el-option label="副主任" value="5"></el-option>
-                            <el-option label="系主任" value="6"></el-option>
-                            <el-option label="办公室主任" value="7"></el-option>
-                            <el-option label="教研室主任" value="8"></el-option>
+                            <el-option label="普通老师" value="0"></el-option>
+                            <el-option label="院长" value="1"></el-option>
+                            <el-option label="副院长" value="2"></el-option>
+                            <el-option label="教学秘书" value="3"></el-option>
+                            <el-option label="科研秘书" value="4"></el-option>
+                            <el-option label="研究生秘书" value="5"></el-option>
+                            <el-option label="副主任" value="6"></el-option>
+                            <el-option label="系主任" value="7"></el-option>
+                            <el-option label="办公室主任" value="8"></el-option>
+                            <el-option label="教研室主任" value="9"></el-option>
+                            <el-option label="党委书记" value="10"></el-option>
+                            <el-option label="党委副书记" value="11"></el-option>
                         </el-select>
                         <!--<el-input v-model="form.post_category"></el-input>-->
                     </el-form-item>
@@ -190,6 +193,7 @@
                     <el-select v-model="form.first_academic" placeholder="请选择老师第一学历学位">
                         <el-option label="大专" value="0"></el-option>
                         <el-option label="本科" value="1"></el-option>
+                        <el-option label="其他" value="2"></el-option>
                     </el-select>
                     <!--<el-input v-model="form.first_graduate_school"></el-input>-->
                 </el-form-item>
@@ -217,6 +221,7 @@
                     <el-select v-model="form.most_academic" placeholder="请选择老师最高学历/学位">
                         <el-option label="硕士" value="0"></el-option>
                         <el-option label="博士" value="1"></el-option>
+                        <el-option label="其他" value="2"></el-option>
                     </el-select>
                     <!--<el-input v-model="form.most_academic"></el-input>-->
                 </el-form-item>
@@ -401,9 +406,9 @@
             fileProfil(file){
                 if(this.Bcode == true){
                     this.dataFile.append('gra_cert_road', file);
-                    let id = this.form.teacher_id;
-                    console.log(id);
-                    this.dataFile.append('teacher_id', id);
+//                    let id = this.form.teacher_id;
+//                    console.log(id);
+//                    this.dataFile.append('teacher_id', id);
                     this.dataFile.append('is_add_teacher',this.Bcode);
                     this.sendfile(this.dataFile);
                 }else{
@@ -414,8 +419,8 @@
             fileEdufil(files){
                 if(this.Bcode == true){
                     this.dataFile.append('edu_cert_road', files);
-                    let id = this.form.teacher_id;
-                    this.dataFile.append('teacher_id', id);
+//                    let id = this.form.teacher_id;
+//                    this.dataFile.append('teacher_id', id);
                     this.dataFile.append('is_add_teacher',this.Bcode);
                     this.sendfile(this.dataFile);
                 }else{
@@ -428,7 +433,7 @@
                     var data = res.data;
                     if (data.code == 0) {
                         vue.$message({
-                            message: '修改成功',
+                            message: '添加成功',
                             type: 'success'
                         });
                     } else {
@@ -450,11 +455,14 @@
                 });
             },
             onSubmit(form) {
-//                console.log(form,'00000000000');
                 let vue = this;
+//                console.log(form.sex,'/*******/*');
+//                console.log(typeof(form.sex),'/*******/*');
+                return;
                 if(form.name == '') {
                     this.$message.error('老师姓名不能为空');
-                }else if(form.sex == '') {
+                }
+                else if(form.sex == '') {
                     this.$message.error('老师性别不能为空');
                 }else if(form.teacher_department == '') {
                     this.$message.error('老师所属部门不能为空');
@@ -548,7 +556,7 @@
                                 this.Bcode=true;
                                 vue.form.teacher_id =  res.data.datas;
                                 vue.$message({
-                                    message: '修改成功',
+                                    message: '添加成功',
                                     type: 'success'
                                 });
 //                                this.$router.push({path: '/paper'});
