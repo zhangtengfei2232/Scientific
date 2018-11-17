@@ -53,8 +53,8 @@ class HoldmeetController extends Controller
     //删除举行会议信息
     public function deleteHoldmeet(Request $request){
         $ho_id_datas     = $request->ho_id_datas;
-        $table_name          = SearchMessageConfig::HOLD_MEET_TABLE;
-        $id_field            = SearchMessageConfig::HOLDMEET_ID;
+        $table_name      = SearchMessageConfig::HOLD_MEET_TABLE;
+        $id_field        = SearchMessageConfig::HOLDMEET_ID;
         $old_inject_road = HoldmeetDatas::selectHoldmeetInjectRoad($ho_id_datas);
         $owner_status    = UploadSubjectionConfig::HOLD_IMG_STATUS;
         $old_image_road  = ImageDatas::selectAllOwnerImage($ho_id_datas,$owner_status);
@@ -98,7 +98,7 @@ class HoldmeetController extends Controller
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
-        $ho_id[0]          = trim($request->ho_id);
+        $ho_id[0] = trim($request->ho_id);
         $datas = [
             'ho_id'           => $ho_id[0],
             'ho_name'         => trim($request->ho_name),
@@ -139,6 +139,7 @@ class HoldmeetController extends Controller
     }
     //添加举行会议图片
     public function addHoldmeetImages(Request $request){
+        dd($request);
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
@@ -165,14 +166,13 @@ class HoldmeetController extends Controller
     }
     //删除举行会议的图片
     public function deleteHoldImages(Request $request){
-        $delete_im_id = $request->im_id_datas;
-        //先去查询所有删除的图片路径
-        $all_images_road = ImageDatas::selectAllImageRoadDatas($delete_im_id);
+        $delete_im_id = $request->im_id;
+        $images_road  = ImageDatas::selectAllImageRoadDatas($delete_im_id); //先去查询所有删除的图片路径
         ImageDatas::beginTraction();                                   //开启事务处理
         $delete_images = ImageDatas::deleteImagesDatas($delete_im_id); //删除数据库图片路径
         if($delete_images){
             ImageDatas::commit();
-            deleteAllFiles(UploadSubjectionConfig::HOLD_MEET,$all_images_road);
+            deletefiles(UploadSubjectionConfig::HOLD_MEET,$images_road);
             return responseTojson(0,'删除举办会议图片成功');
         }
         ImageDatas::rollback();                                        //回滚，回复数据库数据

@@ -208,12 +208,12 @@ class SearchMessageConfig
     //老师
     const TEA_POLIT_OUTLOOK_DATAS  = ['积极分子','发展对象','预备党员','党员'];    //政治面貌
     const TEA_JOB_LEVEL_DATAS      = ['正处','副处','正科','副科','其他'];         //老师职务级别
-    const TEA_ACADEMIC_TITLE_DATAS = ['初级','中级','副高','正高'];               //老师职称
-    const TEA_POST_CATEGORY_DATAS  = ['正处','副处','正科','副科','其他'];         //老师岗位类别
+    const TEA_POST_CATEGORY_DATAS  = ['教学秘书','科研秘书','研究生秘书','院长','副院长','副主任','系主任',
+        '办公室主任','教研室主任','党委书记','党委副书记'];                          //老师岗位类别
     const TEACHER_DEPARTMENT       = ['生工','生物技术系','农学系','领导行政政工']; //老师部门
-    const TEA_MOST_ACADEMIC_DATAS  = ['硕士','博士',''];                         //老师最高学历学位
-    const TEA_FIRST_ACADEMIC_DATAS = ['大专','本科',''];                         //老师第一学历学位
-    const TEA_TECHNICAL_POSITION   = [];                                        //老师专业技术职务
+    const TEA_MOST_ACADEMIC_DATAS  = ['硕士','博士','其他'];                      //老师最高学历学位
+    const TEA_FIRST_ACADEMIC_DATAS = ['大专','本科','其他'];                      //老师第一学历学位
+    const TEA_TECHNICAL_POSITION   = ['初级','中级','副高','正高'];               //老师专业技术职务
     //论文
     const ARTI_PERCAL_CATE_DATAS  = ['SCI一区','SCI二区','SCI三区','SCI四区','EI','SSCI','CN','CSSCI核心库','中文核心','CSCD核心库','河南科技学院期刊'];
     //项目
