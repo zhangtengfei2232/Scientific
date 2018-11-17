@@ -84,7 +84,8 @@
                         ref="jo_image"
                         action="#"
                         :on-change="change"
-                        :auto-upload="false">
+                        :auto-upload="false"
+                        list-type="picture">
                         <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
                         <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUploads">上传</el-button>
                         <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
@@ -178,14 +179,9 @@ export default {
             this.index++;
         },
         submitUploads() {
-            if(this.Bcode == true){
-                let id = this.form.jo_id;
-                this.dataFile.append('jo_id', id);
-                this.sendfile(this.dataFile);
-            }else{
-                this.$message.error('请先添加数据信息');
-                return false
-            }
+            let id = this.form.jo_id;
+            this.dataFile.append('jo_id', id);
+            this.sendfile(this.dataFile);
         },
         fileProfil(file){
             this.dataForm.append('jo_graph_inject', file);
