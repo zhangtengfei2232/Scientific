@@ -170,18 +170,19 @@
                                     <el-input v-model="form.series"></el-input>
                                 </el-form-item>
                                 <el-form-item label="岗位类别" prop="post_category">
-                                    <el-select v-model="form.post_category" placeholder="请选择老师岗位类别">
-                                        <el-option
-                                                v-for="(value, key) in post_category"
-                                                :key="key"
-                                                :label="value"
-                                                :value="key">
-                                        </el-option>
+                                    <el-input v-model="form.post_category" :disabled="true"></el-input>
+                                    <!--<el-select v-model="form.post_category" placeholder="请选择老师岗位类别">-->
+                                        <!--<el-option-->
+                                                <!--v-for="(value, key) in post_category"-->
+                                                <!--:key="key"-->
+                                                <!--:label="value"-->
+                                                <!--:value="key">-->
+                                        <!--</el-option>-->
                                         <!--<el-option label="教学秘书" value="0"></el-option>-->
                                         <!--<el-option label="院长" value="1"></el-option>-->
                                         <!--<el-option label="办公室主任" value="2"></el-option>-->
                                         <!--<el-option label="副主任" value="3"></el-option>-->
-                                    </el-select>
+                                    <!--</el-select>-->
                                 </el-form-item>
 
                                 <el-form-item label="所在单位" prop="company">
@@ -204,12 +205,12 @@
                                 <el-form-item label="原工作单位" prop="origin_work_unit">
                                     <el-input v-model="form.origin_work_unit"></el-input>
                                 </el-form-item>
-                            </div>
-                            <div class="contentRight"style="width: 50%;">
+
                                 <el-form-item label="教师资格证书编号" prop="certificate_num">
                                     <el-input v-model="form.certificate_num"></el-input>
                                 </el-form-item>
-
+                            </div>
+                            <div class="contentRight"style="width: 50%;">
                                     <el-form-item label="身份证号" prop="identity_card">
                                         <el-input v-model="form.identity_card"></el-input>
                                     </el-form-item>
@@ -313,7 +314,7 @@
                                     <el-button>取消</el-button>
                                 </el-form-item>
                                 <div class="demo" v-show="type1">
-                                    <img :src="filelist" alt="无法加载" style="width:100px">
+                                    <img :src="filelist" alt="无法加载" style="width:150px">
                                 </div>
                                 <el-form-item label="毕业证书图片">
                                     <el-upload
@@ -332,7 +333,7 @@
                                     </el-upload>
                                 </el-form-item>
                                 <div class="demo" v-show="type2">
-                                    <img :src="filelists" alt="无法加载" style="width:100px">
+                                    <img :src="filelists" alt="无法加载" style="width:150px">
                                 </div>
                                 <el-form-item label="学历证书图片">
                                     <el-upload
@@ -426,7 +427,7 @@
                     master_time:'',
 
                 },
-                teacher_department:[
+                teacher_department:[//老师所属部门
                     '生工',
                     '生物技术系',
                     '农学系',
@@ -500,6 +501,7 @@
                     if(data.code == 0){
                         self.teacherDate = data.datas.information;
                         self.form = data.datas.information;
+                        data.datas.information.post_category = self.post_category[data.datas.information.post_category];
                         if(data.datas.information.gra_cert_road !== ''){
                             self.type1=true;
                             self.filelist = 'showfile?disk=teacher&subjection=' + data.datas.information.gra_cert_road;
@@ -584,7 +586,6 @@
                 });
             },
             onSubmit(form) {
-//                console.log(form,'0=-----00000');
 //                let vue = this;
                 if(form.name == '') {
                     this.$message.error('老师姓名不能为空');
