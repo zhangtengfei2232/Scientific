@@ -63,8 +63,8 @@
                 <div class="demo" v-show="picTypes">
                     <thead>
                         <li v-for="(index,items) in filelists" v-bind:key="items">
-                            <img :src="index" alt="无法加载" style="width:100px">
-                            <el-button type="primary" size="mini"  @click="deletePic(items.im_id)">删除</el-button>
+                            <img :src="index.image_road" alt="无法加载" style="width:100px">
+                            <el-button type="primary" size="mini"  @click="deletePic(index.im_id)">删除</el-button>
                         </li>
                     </thead>
                 </div>
@@ -116,7 +116,6 @@ export default {
             ho_file: '',
             ho_graph_inject: '',
             filelists:[],
-            ETfileList:[],
             ho_id:'',
             index:0,
             form: {
@@ -147,8 +146,9 @@ export default {
                     let image = data.datas.hold_images;
                     if(image.length !== 0){
                         self.picTypes = true;
-                        for(var i =0;i<image.length;i++){
-                            self.filelists[i] = 'showfile?disk=holdmeet&subjection=' + image[i].image_road;
+                        self.filelists =  image;
+                        for(var i =0;i<self.filelists.length;i++){
+                            self.filelists[i].image_road = 'showfile?disk=holdmeet&subjection=' + image[i].image_road;
                         }
                     }   
                 } else {
@@ -261,8 +261,9 @@ export default {
                 data: data
             });
         },
-         deletePic(id) {
+        deletePic(id) {
             let self = this;
+            console.log(id);
             axios.get("deleteholdmeetimage",{
                 params:{
                     id:id
