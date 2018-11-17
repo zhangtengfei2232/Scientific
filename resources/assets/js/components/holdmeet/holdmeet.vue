@@ -67,7 +67,6 @@
                         width="200">
                         <template slot-scope="scope">
                             <el-button
-                            @click.native.prevent="deleteRow(scope.$index, HoldmeetlDate)"
                             type="text"
                             size="small">
                             <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentHoldmeetSelfData(HoldmeetlDate[scope.$index].ho_id)"></el-button>
@@ -134,9 +133,6 @@
             }
         },
         methods: {
-             deleteRow(index, rows) {
-                rows.splice(index, 1);
-            },
             toggleSelection(rows) {
                 if (rows) {
                 rows.forEach(row => {
@@ -286,7 +282,7 @@
                 });
             },
             deleteHoldmeetData(ho_id) {
-                let id = ho_id;
+                this.id.push(ho_id);
                 this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -295,7 +291,7 @@
                     let self = this;
                     axios.get("deleteholdmeet",{
                         params:{
-                            ho_id_datas:id
+                            ho_id_datas:self.id
                         }
                     }).then(function (response) {
                     var data = response.data;

@@ -382,15 +382,21 @@
                     major:'',
                     num:''
                 },
-                sex:[
-                    '男',
-                    '女',
-                ],
                 teacher_department:[//所属部门
                     '生工',
                     '生物技术系',
                     '农学系',
                     '领导行政政工',
+                ],
+                sex:[
+                    '男',
+                    '女',
+                ],
+                polit_outlook:[//政治面貌
+                    '积极分子',
+                    '发展对象',
+                    '预备党员',
+                    '党员',
                 ],
                 job_level:[ //职务级别
                     '正处',
@@ -427,7 +433,17 @@
                     '教研室主任',
                     '党委书记',
                     '党委副书记',
-                ]
+                ],
+                first_academic:[//第一学历学位
+                    '大专',
+                    '本科',
+                    '其他',
+                ],
+                most_academic:[//最高学历/学位
+                    '硕士',
+                    '博士',
+                    '其他',
+                ],
             }
         },
         methods: {
@@ -439,6 +455,9 @@
                     self.total = data.datas.length;
                     for(var i=0;i<data.datas.length;i++){
                         data.datas[i].sex = self.sex[data.datas[i].sex];
+                        data.datas[i].first_academic = self.first_academic[data.datas[i].first_academic];//第一学历学位
+                        data.datas[i].most_academic = self.most_academic[data.datas[i].most_academic];//最高学历/学位
+                        data.datas[i].polit_outlook = self.polit_outlook[data.datas[i].polit_outlook];//政治面貌
                         data.datas[i].teacher_department = self.teacher_department[data.datas[i].teacher_department];//所属部门
                         data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
                         data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
@@ -470,6 +489,9 @@
                     self.form.num = data.datas.length;
                     for(var i=0;i<data.datas.length;i++){
                         data.datas[i].sex = self.sex[data.datas[i].sex];
+                        data.datas[i].first_academic = self.first_academic[data.datas[i].first_academic];//第一学历学位
+                        data.datas[i].most_academic = self.most_academic[data.datas[i].most_academic];//最高学历/学位
+                        data.datas[i].polit_outlook = self.polit_outlook[data.datas[i].polit_outlook];//政治面貌
                         data.datas[i].teacher_department = self.teacher_department[data.datas[i].teacher_department];//所属部门
                         data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
                         data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
@@ -498,6 +520,9 @@
                     self.form.num = data.datas.length;
                     for(var i=0;i<data.datas.length;i++){
                         data.datas[i].sex = self.sex[data.datas[i].sex];
+                        data.datas[i].first_academic = self.first_academic[data.datas[i].first_academic];//第一学历学位
+                        data.datas[i].most_academic = self.most_academic[data.datas[i].most_academic];//最高学历/学位
+                        data.datas[i].polit_outlook = self.polit_outlook[data.datas[i].polit_outlook];//政治面貌
                         data.datas[i].teacher_department = self.teacher_department[data.datas[i].teacher_department];//所属部门
                         data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
                         data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
@@ -526,6 +551,9 @@
                     self.form.num = data.datas.length;
                     for(var i=0;i<data.datas.length;i++){
                         data.datas[i].sex = self.sex[data.datas[i].sex];
+                        data.datas[i].first_academic = self.first_academic[data.datas[i].first_academic];//第一学历学位
+                        data.datas[i].most_academic = self.most_academic[data.datas[i].most_academic];//最高学历/学位
+                        data.datas[i].polit_outlook = self.polit_outlook[data.datas[i].polit_outlook];//政治面貌
                         data.datas[i].teacher_department = self.teacher_department[data.datas[i].teacher_department];//所属部门
                         data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
                         data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
@@ -554,6 +582,9 @@
                     self.form.num = data.datas.length;
                     for(var i=0;i<data.datas.length;i++){
                         data.datas[i].sex = self.sex[data.datas[i].sex];
+                        data.datas[i].first_academic = self.first_academic[data.datas[i].first_academic];//第一学历学位
+                        data.datas[i].most_academic = self.most_academic[data.datas[i].most_academic];//最高学历/学位
+                        data.datas[i].polit_outlook = self.polit_outlook[data.datas[i].polit_outlook];//政治面貌
                         data.datas[i].teacher_department = self.teacher_department[data.datas[i].teacher_department];//所属部门
                         data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
                         data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
@@ -582,6 +613,9 @@
                     self.form.num = data.datas.length;
                     for(var i=0;i<data.datas.length;i++){
                         data.datas[i].sex = self.sex[data.datas[i].sex];
+                        data.datas[i].first_academic = self.first_academic[data.datas[i].first_academic];//第一学历学位
+                        data.datas[i].most_academic = self.most_academic[data.datas[i].most_academic];//最高学历/学位
+                        data.datas[i].polit_outlook = self.polit_outlook[data.datas[i].polit_outlook];//政治面貌
                         data.datas[i].teacher_department = self.teacher_department[data.datas[i].teacher_department];//所属部门
                         data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
                         data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
@@ -610,6 +644,9 @@
                     self.form.num = data.datas.length;
                     for(var i=0;i<data.datas.length;i++){
                         data.datas[i].sex = self.sex[data.datas[i].sex];
+                        data.datas[i].first_academic = self.first_academic[data.datas[i].first_academic];//第一学历学位
+                        data.datas[i].most_academic = self.most_academic[data.datas[i].most_academic];//最高学历/学位
+                        data.datas[i].polit_outlook = self.polit_outlook[data.datas[i].polit_outlook];//政治面貌
                         data.datas[i].teacher_department = self.teacher_department[data.datas[i].teacher_department];//所属部门
                         data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
                         data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
@@ -638,6 +675,9 @@
                     self.form.num = data.datas.length;
                     for(var i=0;i<data.datas.length;i++){
                         data.datas[i].sex = self.sex[data.datas[i].sex];
+                        data.datas[i].first_academic = self.first_academic[data.datas[i].first_academic];//第一学历学位
+                        data.datas[i].most_academic = self.most_academic[data.datas[i].most_academic];//最高学历/学位
+                        data.datas[i].polit_outlook = self.polit_outlook[data.datas[i].polit_outlook];//政治面貌
                         data.datas[i].teacher_department = self.teacher_department[data.datas[i].teacher_department];//所属部门
                         data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
                         data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
@@ -696,12 +736,6 @@
                     }
                 });
             },
-//            onSubmitPost() {
-//
-//            },
-//            onSubmitLevel(){
-//
-//            },
         },
         mounted() {
             this.getArticleData();

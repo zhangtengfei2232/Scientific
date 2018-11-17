@@ -146,9 +146,6 @@
             }
         },
         methods: {
-            deleteRow(index, rows) {
-                rows.splice(index, 1);
-            },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
             },

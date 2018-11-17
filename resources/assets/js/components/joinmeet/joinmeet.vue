@@ -67,7 +67,6 @@
                         width="200">
                         <template slot-scope="scope">
                             <el-button
-                            @click.native.prevent="deleteRow(scope.$index, JoinmeetDate)"
                             type="text"
                             size="small">
                             <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentJoinmeetSelfData(JoinmeetDate[scope.$index].jo_id)"></el-button>
@@ -134,9 +133,6 @@
             }
         },
         methods: {
-            deleteRow(index, rows) {
-                rows.splice(index, 1);
-            },
             toggleSelection(rows) {
                 if (rows) {
                 rows.forEach(row => {
@@ -261,12 +257,12 @@
                     let self = this;
                     axios.get("deletejoinmeet",{
                         params:{
-                            jo_id_datas:this.id
+                            jo_id_datas:self.id
                         }
                     }).then(function (response) {
                     var data = response.data;
                         if (data.code == 0) {
-                             this.$message({
+                             self.$message({
                                 type: 'success',
                                 message: '删除成功!'
                             });
