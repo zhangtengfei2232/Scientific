@@ -362,7 +362,7 @@
                 $validate = false;
                 break;
             }else{
-                array_push($files_images[$i],$success_image);
+                array_push($success_image,$files_images[$i]);
             }
         }
         if($validate){
