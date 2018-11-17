@@ -63,7 +63,8 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     Route::get('timeselectattical', 'ArticalController@timeSelectAttical');        //根据时间区间查询信息
     Route::get('dateSelectartical', 'ArticalController@dateSelectArtical');        //根据时间查找
     Route::get('dateselectartical', 'ArticalController@dateSelectArtical');        //根据日期查找论文
-    Route::post('updateartical', 'ArticalController@updateArtical');               //修改论文
+    Route::post('updatearticalinformation', 'ArticalController@updateArticalInformation');//修改论文信息
+    Route::post('updatearticalself', 'ArticalController@updateArticalSelf');       //修改论文
 
 
     //老师对成果鉴定的操作
