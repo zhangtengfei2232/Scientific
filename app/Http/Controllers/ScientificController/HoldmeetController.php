@@ -45,7 +45,9 @@ class HoldmeetController extends Controller
         $datas['ho_graph_inject'] = $new_inject_road;
         $add_holdmeet = HoldmeetDatas::addHoldmeetDatas($datas);
         if($add_holdmeet > 0){
-            return responseTojson(0,'添加会议信息成功','',$add_holdmeet);
+            $datas['holdmeet_inject_road'] = $new_inject_road;
+            $datas['ho_id'] = $add_holdmeet;
+            return responseTojson(0,'添加会议信息成功','',$datas);
         }
         deletefiles($disk,$new_inject_road);
         return responseTojson(1,'添加会议信息失败');
@@ -139,6 +141,7 @@ class HoldmeetController extends Controller
     }
     //添加举行会议图片
     public function addHoldmeetImages(Request $request){
+        dd($request);
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
@@ -164,7 +167,6 @@ class HoldmeetController extends Controller
     }
     //删除举行会议的图片
     public function deleteHoldmeetImage(Request $request){
-        dd($request->im_id);
         $delete_im_id = $request->im_id;
         $images_road  = ImageDatas::selectAllImageRoadDatas($delete_im_id); //先去查询所有删除的图片路径
         ImageDatas::beginTraction();                                        //开启事务处理

@@ -44,7 +44,9 @@ class LectureController extends Controller
          $datas['le_img_road'] = $new_inject_road;
          $add_lecture          = LectureDatabase::addLectureDatas($datas);
          if($add_lecture > 0){
-             return responseTojson(0,'添加讲学信息成功','',$add_lecture);
+             $datas['lecture_inject_rod'] = $new_inject_road;
+             $datas['le_id'] = $add_lecture;
+             return responseTojson(0,'添加讲学信息成功','',$datas);
          }
          deletefiles(UploadSubjectionConfig::LECTURE,$new_inject_road);
          return responseTojson(1,'添加讲学信息失败');

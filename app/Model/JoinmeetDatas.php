@@ -8,7 +8,7 @@ class JoinmeetDatas extends ModelDatabase
     //添加参加会议信息
     public static function addJoinmeetDatas($datas){
         $jo_graph_inject = $datas['jo_graph_inject'];
-        $response = DB::table('joinmeet')
+        $jo_id = DB::table('joinmeet')
                     ->insertGetId([
                         'teacher_id'      => $datas['teacher_id'],
                         'join_people'     => $datas['join_people'],
@@ -24,10 +24,10 @@ class JoinmeetDatas extends ModelDatabase
                         'jo_graph_inject' => $jo_graph_inject
                     ]);
         if(empty($jo_graph_inject)){
-            return ($response > 0) ? responseTojson(0,'添加参加会议信息成功','',$response)
+            return ($jo_id > 0) ? responseTojson(0,'添加参加会议信息成功','',$response)
                    : responseTojson(1,'添加参加会议信息失败');
         }
-        return $response;
+        return $jo_id;
     }
     //修改参加会议信息
     public static function updateJoinmeetDatas($datas,$reset_inject_status){
