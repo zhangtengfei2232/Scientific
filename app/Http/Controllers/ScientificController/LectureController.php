@@ -60,8 +60,8 @@ class LectureController extends Controller
          $old_image_road  = ImageDatas::selectAllOwnerImage($le_id_datas,$owner_status);
          LectureDatabase::beginTraction();
          $delete_lecture  = ModelDatabase::deleteAllDatas($table_name,$id_field,$le_id_datas);
-         if(count($old_image_road) > 1){
-             $delete_image    = ImageDatas::byOwnerdeleteImagesDatas($le_id_datas);
+         if(count($old_image_road) > 1){//只有专家讲学有图片的时候，才去数据库删除数据
+             $delete_image = ImageDatas::byOwnerdeleteImagesDatas($le_id_datas);
          }
          if($delete_image && $delete_lecture){
              LectureDatabase::commit();
