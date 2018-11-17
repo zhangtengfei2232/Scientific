@@ -12,13 +12,13 @@ class TeacherDatabase extends ModelDatabase
      */
      public static function selectLogin($usercount,$userpassword){
          if(strlen($usercount) == 0){
-             return responseTojson(1,'账号不能为空');
+             return responseTojson(1,"账号不能为空");
          }else if(strlen($usercount ) > 10){
              return responseTojson(1,"你输入的账号过长");
          }else if(strlen($userpassword) == 0){
              return responseTojson(1,"密码不能为空");
          }else if(strlen($userpassword) > 30){
-             return responseTojson(1,'你输入的密码过长');
+             return responseTojson(1,"你输入的密码过长");
          }
          $result = DB::table('teacher')
                    ->where('teacher_id', $usercount)
@@ -102,17 +102,12 @@ class TeacherDatabase extends ModelDatabase
      * @return \Illuminate\Http\JsonResponse
      */
      public static function selectTeacherDatas($teacher_id){
-         $buffer             = DB::table('teacher')->where('teacher_id', $teacher_id)->first();
-         $usercount          = session('usercount');
-         $juris_diction = config('Jurisdiction');
-         foreach ($juris_diction as $juris){
-             if(!in_array($usercount,$juris['jurisdiction'])){
-                 unset($juris[0]);
-             }
-         }
-         $message['juris_diction']       = $juris_diction;
-         $message['information']         = $buffer;
-         return $message;
+         $buffer     = DB::table('teacher')->where('teacher_id', $teacher_id)->first();
+         $buffer     = json_decode(json_encode($buffer));
+         $buffer     = (array)$buffer;
+         $message['role_status'] = $buffer['post_category'];
+         $message['information'] = $buffer;
+         return responseTojson(0,'查询成功','',$message);
      }
     /**查找老师证书图片路径
      * @param $teacher_id
