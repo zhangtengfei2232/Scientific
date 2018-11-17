@@ -61,16 +61,18 @@ class HoldmeetController extends Controller
         $old_image_road  = ImageDatas::selectAllOwnerImage($ho_id_datas,$owner_status);
         ModelDatabase::beginTraction();
         $delete_holdmeet = ModelDatabase::deleteAllDatas($table_name,$id_field,$ho_id_datas);
-        if(count($old_image_road) > 1){
-            $delete_image    = ImageDatas::byOwnerdeleteImagesDatas($ho_id_datas);
+        if(count($old_image_road) > 1){//只有举行会议有图片的时候，才去数据库删除数据
+            $delete_image = ImageDatas::byOwnerdeleteImagesDatas($ho_id_datas);
+            ($delete_image == count($old_image_road)) ? $delete_image = true : $delete_image = false;
         }
         if($delete_image && $delete_holdmeet){
             ModelDatabase::commit();
             $image_road  = array_merge($old_inject_road,$old_image_road);     //举行会议图片和图注合并
-            deleteAllFiles(UploadSubjectionConfig::HOLD_IMG,$image_road);
+            deleteAllFiles(UploadSubjectionConfig::HOLD_MEET,$image_road);
+            return responseTojson(0,'举行会议删除成功');
         }
         ModelDatabase::rollback();
-        return responseTojson(0,'举行会议删除成功');
+        return responseTojson(1,'举行会议删除失败');
     }
     //查看单个举行会议信息
     public function selectHoldmeet(Request $request){
@@ -142,7 +144,6 @@ class HoldmeetController extends Controller
     }
     //添加举行会议图片
     public function addHoldmeetImages(Request $request){
-        dd($request);
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
