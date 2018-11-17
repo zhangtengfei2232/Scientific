@@ -40,25 +40,25 @@ class ArticalController extends Controller
          if(!$request->hasFile('art_road')){
              return responseTojson(1,'请你上传PDF格式的论文');
          }
-         if(!$request->hasFile('art_sci_road')){
-             return responseTojson(1,'请你上传PDF格式的SCI索引报告');
+         $disk               = UploadSubjectionConfig::ARTICAL;
+         $artical_sci_road   = '';
+         if($request->hasFile('art_sci_road')){
+             $artical_sci   = $request->file('art_sci_road');             //接收sci索引报告
+             $judge_sci = judgeReceiveFiles($artical_sci);                     //验证论文SCI
+             if($judge_sci['code'] == 1){
+                 return responseTojson(1,'论文SCI索引报告'.$judge_sci['message']);
+             }
+             $subjection_sci     = UploadSubjectionConfig::ARTICAL_SCI;
+             $artical_sci_road   = uploadFiles($subjection_sci,$artical_sci,$disk);
          }
          $artical_file  = $request->file('art_road');                     //接论文文件
-         $artical_sci   = $request->file('art_sci_road');                 //接收sci索引报告
          $judge_artical = judgeReceiveFiles($artical_file);                   //验证论文
          if($judge_artical['code'] == 1){
              return responseTojson(1,'论文'.$judge_artical['message']);
          }
-         $judge_sci = judgeReceiveFiles($artical_sci);                       //验证论文SCI
-         if($judge_sci['code'] == 1){
-             return responseTojson(1,'论文SCI索引报告'.$judge_sci['message']);
-         }
-         $disk               = UploadSubjectionConfig::ARTICAL;
          ArticalDatabase::beginTraction();
-         $subjection_artical = UploadSubjectionConfig::ARTICAL_PDF;
-         $subjection_sci     = UploadSubjectionConfig::ARTICAL_SCI;
-         $artical_road       = uploadFiles($subjection_artical,$artical_file,$disk);
-         $artical_sci_road   = uploadFiles($subjection_sci,$artical_sci,$disk);
+         $subjection_artical      = UploadSubjectionConfig::ARTICAL_PDF;
+         $artical_road            = uploadFiles($subjection_artical,$artical_file,$disk);
          $datas['art_road']       = $artical_road;
          $datas['art_sci_road']   = $artical_sci_road;
          $datas['art_remarks']    = trim($request->art_remarks);
@@ -69,14 +69,14 @@ class ArticalController extends Controller
          }
          ArticalDatabase::rollback();
          deletefiles($disk,$artical_road);
-         deletefiles($disk,$artical_sci_road);
+         if(!empty($artical_sci_road)) deletefiles($disk,$artical_sci_road);
          return responseTojson(1,'添加论文失败');
      }
      //删除论文
      public function deleteArtical(Request $request){
          $art_id_datas        = $request->art_id_datas;
          $disk                = UploadSubjectionConfig::ARTICAL;
-         $select_artical_road = ArticalDatabase::selectArticalRoad($art_id_datas);
+         $select_artical_road = ArticalDatabase::selectArticalRoad($art_id_datas,0);
          $delete_artical      = ArticalDatabase::deleteArticalDatas($art_id_datas);
          if(!$delete_artical){
              return responseTojson(0,'删除文章失败');
@@ -105,8 +105,8 @@ class ArticalController extends Controller
         $time_field = SearchMessageConfig::ART_TIME;
         return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field,$teacher_id);
     }
-     //修改论文
-     public function updateArtical(Request $request){
+     //修改论文信息
+     public function updateArticalInformation(Request $request){
          if(!$request->isMethod('POST')) {
              return responseTojson(1,'你请求的方式不对');
          }
@@ -126,58 +126,64 @@ class ArticalController extends Controller
              'art_sub_category'  => trim($request->art_sub_category),         //学科门类
              'art_integral'      => trim($request->art_integral),             //学科积分
              'sch_percal_cate'   => trim($request->sch_percal_cate),          //学校认证期刊级别
-             'art_remarks'       => trim($request->art_remarks),              //论文备注
              'art_time'          => trim($request->art_time),                 //发表时间
          ];
-         $judge_datas = judgeArticalField($datas);                  //判断论文字段是否合法
+         $judge_datas = judgeArticalField($datas);                            //判断论文字段是否合法
          if($judge_datas['code'] == 1){
              return responseTojson(1,$judge_datas['message']);
          }
-         if(!$request->is_change_artical){                                    //判断老师是否修改论文
-             return ArticalDatabase::updateArticalImage($datas);              //直接修改数据库论文信息
+         $datas['art_remarks'] = trim($request->art_remarks);                 //论文备注
+         return ArticalDatabase::updateArticalDatas($datas);
+     }
+     //修改论文本身和论文sci索引报告
+     public function updateArticalSelf(Request $request){
+         if(!$request->isMethod('POST')){
+             return responseTojson(1,'你请求的方式不对');
          }
-         $artical_file  = $request->file('pdf');                          //接论文文件
-         $artical_sci   = $request->file('sci');
-         $judge_artical = judgeReceiveFiles($artical_file);     //验证论文
+         if(!$request->hasFile('art_road') && !$request->hasFile('art_sci_road')){                                    //判断老师是否修改论文
+             return responseTojson(1,'请你上传你要修改的PDF格式的论文或SCI索引报告');
+         }
+         $artical_id = trim($request->artical_id);
+         if($request->hasFile('art_road')){
+             $update_artical_status = 1;
+             $artical_file   = $request->file('art_road');                          //接论文文件
+             $subjection_pdf = uploadSubjectionConfig::ARTICAL_PDF;
+         }else{
+             $update_artical_status = 2;
+             $artical_file   = $request->file('art_sci_road');
+             $subjection_pdf = uploadSubjectionConfig::ARTICAL_SCI;
+         }
+         $judge_artical = judgeReceiveFiles($artical_file);           //验证论文
          if($judge_artical['code'] == 1){
-             return responseTojson(1,'论文'.$judge_artical);
+             return responseTojson(1,$judge_artical['messgae']);
          }
-         $judge_sci     = judgeReceiveFiles($artical_sci);      //验证论文SCI
-         if($judge_sci['code'] == 1){
-             return responseTojson(1,'论文SCI索引'.$judge_sci);
-         }
-         $old_artical_road      = ArticalDatabase::selectArticalRoad($artical_id);
-         $disk                  = UploadSubjectionConfig::ARTICAL;
-         $subjection_pdf        = uploadSubjectionConfig::ARTICAL_PDF;
-         $subjection_sci        = uploadSubjectionConfig::ARTICAL_SCI;
+         $old_artical_road   = ArticalDatabase::selectArticalRoad($artical_id,$update_artical_status);
+         $disk               = UploadSubjectionConfig::ARTICAL;
          ArticalDatabase::beginTraction();
-         $reset_artical_road      = uploadfiles($subjection_pdf,$artical_file,$disk);
-         $reset_sci_road          = uploadFiles($subjection_sci,$artical_sci,$disk);
-         $datas['art_road']       = $reset_artical_road;
-         $datas['art_sci_road']   = $reset_sci_road;
-         $retUpdate  = ArticalDatabase::updateArticalImage($datas);
-         if (!$retUpdate){
-             ArticalDatabase::rollback();
-             deletefiles($disk,$reset_artical_road);
-             deletefiles($disk,$reset_sci_road);
-             return responseTojson(1,'修改文章失败');
+         $reset_artical_road = uploadfiles($subjection_pdf,$artical_file,$disk);
+         $retset_artical     = ArticalDatabase::updateArticalSelfDatas($reset_artical_road,$update_artical_status,$artical_id);
+         if ($retset_artical){
+             ArticalDatabase::commit();
+             deletefiles($disk,$old_artical_road);                    //删除原来的论文
+             return responseTojson(0,'修改论文信息成功');
          }
-         ArticalDatabase::commit();
-         deletefiles($disk,$old_artical_road->art_road);            //删除原来的首页
-         deletefiles($disk,$old_artical_road->art_sci_road);        //删除原来的论文SCI
-         return responseTojson(0,'修改论文信息成功');
+         ArticalDatabase::rollback();
+         deletefiles($disk,$reset_artical_road);
+         return responseTojson(1,'修改论文失败');
      }
      //根据时间查询论文
      public function dateSelectArtical(Request $request){
+         $teacher_id = session('usercount');
          $start_time = $request->start_time;
          $end_time   = $request->end_time;
-
-
+         $table_name = SearchMessageConfig::ARTICAL_TABLE;
+         $time_field = SearchMessageConfig::ART_TIME;
+         return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field,$teacher_id);
      }
      //同时导出多个论文，取每个论文的第一页，形成一个新的PDF论文
      public function exportAllArtical(Request $request){
          $art_id_datas = $request->art_id_datas;
-         $art_road_datas = ArticalDatabase::selectArticalRoad($art_id_datas);
+         $art_road_datas = ArticalDatabase::selectArticalRoad($art_id_datas,0);
          $disk = UploadSubjectionConfig::ARTICAL;
          selectionFirstPageToNewPdf($disk,$art_road_datas);
          return responseTojson(0,'导出成功');

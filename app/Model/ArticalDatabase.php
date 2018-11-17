@@ -50,7 +50,7 @@ class ArticalDatabase  extends ModelDatabase
          return ($response != 1) ? false :true;
     }
      //修改论文信息和论文照片信息
-    public static function updateArticalImage($datas){
+    public static function updateArticalDatas($datas){
         $response = DB::table('artical')
             ->where('art_id',$datas->artical_id)
             ->update([
@@ -68,21 +68,46 @@ class ArticalDatabase  extends ModelDatabase
                 'art_integral'      => $datas['art_integral'],
                 'sch_percal_cate'   => $datas['sch_percal_cate'],
                 'art_road'          => $datas['art_road'],
-                'art_sci_road'      => $datas['art_sci_road'],
+                ''      => $datas['art_sci_road'],
                 'art_time'          => $datas['art_time'],
                 'art_remarks'       => $datas['art_remarks']
              ]);
-        return ($response != 1) ? false : true;
+        return ($response != 1) ? responseTojson(1,'修改论文信息失败')
+               : responseTojson(1,'修改论文信息成功');
     }
-    //查找论文、首页原始、SCI索引报告路径
-    public static function selectArticalRoad($art_id_datas){
-         $artical_road = [];
-         for($i = 0; $i < count($art_id_datas); $i++){
-             $road =  DB::table('artical')
-                     ->select('art_road','art_sci_road')
-                     ->where('art_id',$art_id_datas[$i])
-                     ->get();
-             array_push($artical_road,$road->art_road);
+    //修改论文本身和论文SCI索引报告
+    public static function updateArticalSelfDatas($reset_artical_road,$update_artical_status,$artical_id){
+         if($update_artical_status == 1){
+             $reset_response = DB::table('artical')
+                 ->where('art_id',$artical_id)
+                 ->update(['art_road' => $reset_artical_road]);
+         }else{
+             $reset_response = DB::table('artical')
+                 ->where('art_id',$artical_id)
+                 ->update(['art_sci_road' => $reset_artical_road]);
+         }
+         return ($reset_response != 1) ? false : true;
+    }
+    //查找多个论文、SCI索引报告路径
+    public static function selectArticalRoad($art_id_datas,$select_status){
+         switch ($select_status){
+             case 0:
+                 $artical_road = [];
+                 for($i = 0; $i < count($art_id_datas); $i++){
+                     $road = DB::table('artical')->select('art_road','art_sci_road')
+                             ->where('art_id',$art_id_datas[$i])
+                             ->get();
+                     array_push($artical_road,$road->art_road);
+                 }
+                 break;
+             case 1:
+                 $road = DB::table('artical')->select('art_road')->where('art_id',$art_id_datas)->first();
+                 $artical_road = $road->art_road;
+                 break;
+             case 2:
+                 $road = DB::table('artical')->select('art_sci_road')->where('art_id',$art_id_datas)->first();
+                 $artical_road = $road->art_sci_road;
+                 break;
          }
          return $artical_road;
     }

@@ -14,11 +14,11 @@ class TeacherDatabase extends ModelDatabase
          if(strlen($usercount) == 0){
              return responseTojson(1,'账号不能为空');
          }else if(strlen($usercount ) > 10){
-             return responseTojson(1,"账号不存在");
+             return responseTojson(1,"你输入的账号过长");
          }else if(strlen($userpassword) == 0){
              return responseTojson(1,"密码不能为空");
          }else if(strlen($userpassword) > 30){
-             return responseTojson(1,'密码错误');
+             return responseTojson(1,'你输入的密码过长');
          }
          $result = DB::table('teacher')
                    ->where('teacher_id', $usercount)
