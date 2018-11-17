@@ -299,7 +299,7 @@ class InformationController extends Controller
             'master_time'           => trim($request->master_time)           //老师硕博导授予时间
         ];
         $judge_datas = judgeTeacherField($datas);
-        if($judge_datas['code'] == 1){                                         //没有字段通过验证
+        if($judge_datas['code'] == 1){                                       //没有字段通过验证
             return responseTojson(1,$judge_datas['message']);
         }
         $teacher_id = session('usercount');

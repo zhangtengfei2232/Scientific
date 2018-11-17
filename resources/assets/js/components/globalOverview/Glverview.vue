@@ -202,6 +202,7 @@
         height: 390px;
         float: left;
         margin: 0 0 0 10%;
+        border-bottom: #eee solid 1px;
     }
     .list2 .span,.list3 .span,.list4 .span,.list5 .span,.list6 .span,.list7 .span,.list8 .span{
         display: inline-block;
@@ -249,7 +250,6 @@ export default {
                 console.log(response.data);
                 if (data.code == 0) {
                     self.teacherMicDate = data.datas;
-                    
                     self.drawLine(self.teacherMicDate);
                 } else {
                     self.$notify({

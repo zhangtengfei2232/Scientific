@@ -52,8 +52,8 @@ class LectureController extends Controller
      //删除专家讲学信息
      public function deleteLecture(Request $request){
          $le_id_datas     = $request->le_id_datas;
-         $table_name          = SearchMessageConfig::LECTURE_TABLE;
-         $id_field            = SearchMessageConfig::LECTURE_ID;
+         $table_name      = SearchMessageConfig::LECTURE_TABLE;
+         $id_field        = SearchMessageConfig::LECTURE_ID;
          $old_inject_road = LectureDatabase::selectLectureInject($le_id_datas);
          $owner_status    = UploadSubjectionConfig::LECTURE_IMG_STATUS;
          $old_image_road  = ImageDatas::selectAllOwnerImage($le_id_datas,$owner_status);
@@ -147,31 +147,31 @@ class LectureController extends Controller
                  return responseTojson(1,'请你先添加讲学信息');
              }
          }
-         if(!$request->hasFile('le_image')){
+         if(count($request->file()) < 1){
             return responseTojson(1,'请你上传专家讲学图片');
          }
-         $lecture_images = $request->file('le_image');
-         $judge_images = judgeFileImage($lecture_images);
+         $lecture_images = $request->file();
+         $judge_images = judgeAllFileImage($lecture_images);
          if($judge_images['code'] == 1){
             return responseTojson(1,'图片上传失败');
          }
          $disk = UploadSubjectionConfig::LECTURE;
          $subjection      = UploadSubjectionConfig::LECTURE_IMG;
          $le_id           = $request->le_id;
-         $all_images_road = uploadFiles($subjection,$lecture_images,$disk);
+         $all_images_road = uploadAllImgs($subjection,$lecture_images,$disk);
          $images_status   = UploadSubjectionConfig::LECTURE_IMG_STATUS;
          return ImageDatas::addImagesDatas($all_images_road,$le_id,$images_status);
     }
     //删除专家讲学图片
     public function deleteLectureImages(Request $request){
-         $delete_im_id = $request->im_id_datas;
+         $delete_im_id = $request->im_id;
          //先去查询所有删除的图片路径
-         $all_images_road = ImageDatas::selectAllImageRoadDatas($delete_im_id);
+         $images_road   = ImageDatas::selectAllImageRoadDatas($delete_im_id);
          ImageDatas::beginTraction();                                   //开启事务处理
          $delete_images = ImageDatas::deleteImagesDatas($delete_im_id); //删除数据库图片路径
          if($delete_images){
             ImageDatas::commit();
-            deleteAllFiles(UploadSubjectionConfig::HOLD_MEET,$all_images_road);
+             deletefiles(UploadSubjectionConfig::HOLD_MEET,$images_road);
             return responseTojson(0,'删除举办会议图片成功');
          }
          ImageDatas::rollback();                                        //回滚，回复数据库数据

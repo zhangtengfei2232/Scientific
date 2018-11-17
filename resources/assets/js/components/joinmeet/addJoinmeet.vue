@@ -73,9 +73,7 @@
                         ref="jo_image"
                         action="#"
                         multiple
-                        :before-upload="fileProfils"
-                        :on-preview="handlePreview"
-                        :on-remove="handleRemove"
+                        :on-change="change"
                         :auto-upload="false"
                         list-type="picture">
                         <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
@@ -111,6 +109,7 @@
             Bcode:false,
             multiple:true,
             jo_id:'',
+            index:0,
             form: {
                 join_people: '',
                 jo_name: '',
@@ -127,21 +126,7 @@
     },
     methods: {
         submitUploads() {
-            this.$refs.jo_image.submit();
-        },
-        handleRemove(file, fileList) {
-            console.log(file, fileList);
-        },
-        handlePreview(file) {
-            console.log(file);
-        },
-        fileProfil(file){
-            this.dataForm.append('jo_graph_inject', file);
-            return false;
-        },
-        fileProfils(files){
             if(this.Bcode == true){
-                this.dataFile.append('jo_image', files);
                 let id = this.form.jo_id;
                 this.dataFile.append('jo_id', id);
                 this.dataFile.append('is_add_joinmeet',this.Bcode);
@@ -150,6 +135,14 @@
                 this.$message.error('请先添加数据信息');
                 return false
             }
+        },
+        fileProfil(file){
+            this.dataForm.append('jo_graph_inject', file);
+            return false;
+        },
+        change(files){
+            this.dataFile.append(this.index, files);
+            this.index++;
         },
         sendfile(dataFile) {
             this.addBookFile(dataFile).then(res => {

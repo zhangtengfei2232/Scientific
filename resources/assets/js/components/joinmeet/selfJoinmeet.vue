@@ -73,8 +73,8 @@
                 <div class="demo" v-show="picTypes">
                     <thead>
                         <li v-for="(index,items) in filelists" v-bind:key="items">
-                            <img :src="items.url" alt="无法加载">
-                            <el-button type="primary" @click="deletePic(items)">保存修改</el-button>
+                            <img :src="index.image_road" alt="无法加载">
+                            <el-button type="primary" @click="deletePic(index.im_id)">删除</el-button>
                         </li>
                     </thead>
                 </div>
@@ -83,10 +83,9 @@
                         class="upload-demo"
                         ref="jo_image"
                         action="#"
-                        :before-upload="fileProfils"
-                        :on-preview="handlePreview"
-                        :on-remove="handleRemove"
-                        :auto-upload="false">
+                        :on-change="change"
+                        :auto-upload="false"
+                        list-type="picture">
                         <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
                         <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUploads">上传</el-button>
                         <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
@@ -126,6 +125,7 @@ export default {
             dataFile: new FormData(),
             Bcode:false,
             jo_image: '',
+            index:0,
             jo_graph_inject: '',
             JoinmeetSelfData: {},
             filelists:[],
@@ -161,9 +161,12 @@ export default {
                             self.filelist = 'showfile?disk=joinmeet&subjection=' + data.datas.information.jo_graph_inject;
                         }
                         let image = data.datas.image;
+                        self.filelists = image;
                         if(image.length !== 0){
                             self.picTypes = true;
-                            self.filelists = 'showfile?disk=holdmeet&subjection=' + image;
+                            for(var i =0;i<image.length;i++){
+                                self.filelists[i].image_road = 'showfile?disk=holdmeet&subjection=' + image[i].image_road;
+                            }
                         } 
                     } else {
                         self.$notify({
@@ -174,29 +177,18 @@ export default {
                     }
                 });
         },
+        change(files){
+            this.dataFile.append(this.index, files.raw);
+            this.index++;
+        },
         submitUploads() {
-            this.$refs.jo_image.submit();
-        },
-        handleRemove(file, fileList) {
-            console.log(file, fileList);
-        },
-        handlePreview(file) {
-            console.log(file);
+            let id = this.form.jo_id;
+            this.dataFile.append('jo_id', id);
+            this.sendfile(this.dataFile);
         },
         fileProfil(file){
             this.dataForm.append('jo_graph_inject', file);
             return false;
-        },
-        fileProfils(files){
-            if(file !== ''){
-                this.dataFile.append('jo_image', files);
-                let id = this.form.jo_id;
-                this.dataFile.append('jo_id', id);
-                this.sendfile(this.dataFile);
-            }else{
-                this.$message.error('请先添加图片');
-                return false
-            }
         },
         sendfile(dataFile) {
             this.addBookFile(dataFile).then(res => {
@@ -206,6 +198,7 @@ export default {
                         message: '修改成功',
                         type: 'success'
                     });
+                    location. reload();
                 } else {
                     this.$notify({
                         type: 'error',
@@ -296,6 +289,7 @@ export default {
         },
         deletePic(id) {
             let self = this;
+            console.log(id);
             axios.get("deletejoinmeetimage",{
                 params:{
                     id:id

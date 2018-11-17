@@ -433,7 +433,7 @@ export default {
                 }
             });
         },
-        onSubmit() {
+        onSubmit(form) {
             let self = this;
             axios.get("combinationselectappraisal",{
                 params:{

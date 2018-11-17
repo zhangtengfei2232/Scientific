@@ -63,8 +63,8 @@
                 <div class="demo" v-show="picTypes">
                     <thead>
                         <li v-for="(index,items) in filelists" v-bind:key="items">
-                            <img :src="items" alt="无法加载" style="width:50px">
-                            <el-button type="primary" size="mini"  @click="deletePic(items.im_id)">删除</el-button>
+                            <img :src="index.image_road" alt="无法加载" style="width:100px">
+                            <el-button type="primary" size="mini"  @click="deletePic(index.im_id)">删除</el-button>
                         </li>
                     </thead>
                 </div>
@@ -72,10 +72,8 @@
                     <el-upload
                         ref="ho_file"
                         action="#"
-                        :before-upload="fileProfils"
-                        :on-preview="handlePreview"
-                        :on-remove="handleRemove"
                         :auto-upload="false"
+                        :on-change="change"
                         list-type="picture">
                         <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
                         <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUploads">上传</el-button>
@@ -119,6 +117,7 @@ export default {
             ho_graph_inject: '',
             filelists:[],
             ho_id:'',
+            index:0,
             form: {
                 ho_name: '',
                 ho_art_status: '',
@@ -147,7 +146,10 @@ export default {
                     let image = data.datas.hold_images;
                     if(image.length !== 0){
                         self.picTypes = true;
-                        self.filelists = 'showfile?disk=holdmeet&subjection=' + image;
+                        self.filelists =  image;
+                        for(var i =0;i<self.filelists.length;i++){
+                            self.filelists[i].image_road = 'showfile?disk=holdmeet&subjection=' + image[i].image_road;
+                        }
                     }   
                 } else {
                     self.$notify({
@@ -158,31 +160,18 @@ export default {
                 }
             });
         },
-        submitUploads() {
-            this.$refs.ho_file.submit();
-        },
-        handleRemove(file, fileList) {
-            // console.log(file, fileList);
-            
-        },
-        handlePreview(file) {
-            // console.log(file);
-        },
         fileProfil(file){
             this.dataForm.append('ho_graph_inject', file);
             return false;
         },
-        fileProfils(files){
-            console.log(files);
-            if(files != ''){
-                this.dataFile.append('ho_file', files);
-                let id = this.ho_id;
-                this.dataFile.append('ho_id', id);
-                this.sendfile(this.dataFile);      
-            }else{
-                this.$message.error('请先添加图片');
-                return false
-            }
+        change(file) {
+            this.dataFile.append(this.index, file.raw);
+            this.index++;
+        },
+        submitUploads() {
+            let id = this.ho_id;
+            this.dataFile.append('ho_id', id);
+            this.sendfile(this.dataFile);
         },
         sendfile(dataFile) {
             this.addBookFile(dataFile).then(res => {
@@ -192,6 +181,7 @@ export default {
                         message: '修改成功',
                         type: 'success'
                     });
+                    location. reload();
                 } else {
                     this.$notify({
                         type: 'error',
@@ -271,9 +261,10 @@ export default {
                 data: data
             });
         },
-         deletePic(id) {
+        deletePic(id) {
             let self = this;
-            axios.get("deletejoinmeetimage",{
+            console.log(id);
+            axios.get("deleteholdmeetimage",{
                 params:{
                     id:id
                 }
