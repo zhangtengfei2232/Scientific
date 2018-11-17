@@ -24,10 +24,13 @@
                             老师职称<i class="el-icon-arrow-down el-icon--right"></i>
                             </span>
                             <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item command="0">初级</el-dropdown-item>
-                                <el-dropdown-item command="1">中级</el-dropdown-item>
-                                <el-dropdown-item command="2">副高</el-dropdown-item>
-                                <el-dropdown-item command="3">正高</el-dropdown-item>
+                                <el-dropdown-item command="0">教授</el-dropdown-item>
+                                <el-dropdown-item command="1">副教授</el-dropdown-item>
+                                <el-dropdown-item command="2">讲师</el-dropdown-item>
+                                <el-dropdown-item command="3">助教</el-dropdown-item>
+                                <el-dropdown-item command="4">高级实验师</el-dropdown-item>
+                                <el-dropdown-item command="5">实验师</el-dropdown-item>
+                                <el-dropdown-item command="6">助理实验师</el-dropdown-item>
                             </el-dropdown-menu>
                         </el-dropdown>
                     </div>
@@ -96,10 +99,18 @@
                                     岗位类别<i class="el-icon-arrow-down el-icon--right"></i>
                                     </span>
                                     <el-dropdown-menu slot="dropdown">
-                                        <el-dropdown-item command="0">教学秘书</el-dropdown-item>
+                                        <el-dropdown-item command="0">普通老师</el-dropdown-item>
                                         <el-dropdown-item command="1">院长</el-dropdown-item>
-                                        <el-dropdown-item command="2">办公室主任</el-dropdown-item>
-                                        <el-dropdown-item command="3">副主任</el-dropdown-item>
+                                        <el-dropdown-item command="2">副院长</el-dropdown-item>
+                                        <el-dropdown-item command="3">教学秘书</el-dropdown-item>
+                                        <el-dropdown-item command="4">科研秘书</el-dropdown-item>
+                                        <el-dropdown-item command="5">研究生秘书</el-dropdown-item>
+                                        <el-dropdown-item command="6">副主任</el-dropdown-item>
+                                        <el-dropdown-item command="7">系主任</el-dropdown-item>
+                                        <el-dropdown-item command="8">办公室主任</el-dropdown-item>
+                                        <el-dropdown-item command="9">教研室主任</el-dropdown-item>
+                                        <el-dropdown-item command="10">党委书记</el-dropdown-item>
+                                        <el-dropdown-item command="11">党委副书记</el-dropdown-item>
                                     </el-dropdown-menu>
                                 </el-dropdown>
                             </el-form>
@@ -389,19 +400,19 @@
                     '其他'
                 ],
                 technical_position:[//专业技术职务
-                    '教授',
-                    '副教授',
-                    '讲师',
-                    '助教',
-                    '实验师',
-                    '助理实验师',
-                    '高级实验师'
-                ],
-                academic_title:[    //老师职称
                     '初级',
                     '中级',
                     '副高',
                     '正高'
+                ],
+                academic_title:[    //老师职称
+                    '教授',
+                    '副教授',
+                    '讲师',
+                    '助教',
+                    '高级实验师',
+                    '实验师',
+                    '助理实验师',
                 ],
                 post_category:[     //岗位类别
                     '普通老师',
@@ -414,6 +425,8 @@
                     '系主任',
                     '办公室主任',
                     '教研室主任',
+                    '党委书记',
+                    '党委副书记',
                 ]
             }
         },

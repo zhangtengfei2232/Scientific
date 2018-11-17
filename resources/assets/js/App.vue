@@ -26,7 +26,7 @@
                             @open="handleOpen"
                             @close="handleClose"
                             router>
-                        <div v-show="navJudgment">
+                        <!--<div v-show="navJudgment">-->
                             <el-menu-item index="/" class="signIn" style="height:70px;border-bottom:1px solid gray;font-size:17px;text-align: center">
                             <img src="/dist/img/wang_light.png" alt="未加载">
                             <span>{{teacherDate.name}}</span>
@@ -41,7 +41,7 @@
                                 <i class="el-icon-message"></i>
                                 <span slot="title">担任学术团体职务</span>
                             </el-menu-item>
-                        </div>
+                        <!--</div>-->
                         <div v-show="navGlobleview">
                             <el-menu-item index="/Glverview" style="border-bottom:1px solid gray;">
                                 <i class="el-icon-view"></i>
@@ -98,10 +98,11 @@
             return {
                 teacherDate:[] ,
                 show: false,
-                navJudgment:true,
-                navGlobleview:true,
-                navSpecial:true,
-                resultCollect:true,
+//                navJudgment:false,
+                navGlobleview:false,
+                navSpecial:false,
+                resultCollect:false,
+                status:'',
                 navList:[
 //                    {icon:'el-icon-picture',name:'/',navItem:'ft'},
                     {icon:'el-icon-bell',name:'/paper',navItem:'学术论文'},
@@ -116,37 +117,41 @@
 
                 ]
             }
-//            if(teacherDate.role_status = 0){
+//            if(status == 0){
+//                console.log(status,'///////99');
+//                navJudgment:true;
+//            }
+//            else if(status == 1){
+//                navJudgment:true;
+//                navGlobleview:true;
+//                navSpecial:true;
+//                resultCollect:true;
+//            }
+//            else if(status == 2){
 //                navJudgment:true;
 //                navGlobleview:false;
 //                navSpecial:false;
 //                resultCollect:false;
 //            }
-//            else if(teacherDate.role_status = 1){
+//            else if(status == 3){
 //
 //            }
-//            else if(teacherDate.role_status = 2){
+//            else if(status == 4){
 //
 //            }
-//            else if(teacherDate.role_status = 3){
+//            else if(status == 5){
 //
 //            }
-//            else if(teacherDate.role_status = 4){
+//            else if(status == 6){
 //
 //            }
-//            else if(teacherDate.role_status = 5){
+//            else if(status == 7){
 //
 //            }
-//            else if(teacherDate.role_status = 6){
+//            else if(status == 8){
 //
 //            }
-//            else if(teacherDate.role_status = 7){
-//
-//            }
-//            else if(teacherDate.role_status = 8){
-//
-//            }
-//            else if(teacherDate.role_status = 9){
+//            else if(status == 9){
 //
 //            }
 
@@ -163,6 +168,40 @@
                 let self = this;
                 axios.get("selectteacher").then(function (response) {
                     var data = response.data;
+                    status = data.datas.role_status;
+//                    console.log(status,'/----/-');
+                    if(status == 1){    //院长
+                        self.navGlobleview=true;
+                        self.navSpecial=true;
+                        self.resultCollect=true;
+                    }
+                    else if(status == 2){   //副院长
+                        self.navGlobleview=true;
+                        self.navSpecial=true;
+                        self.resultCollect=true;
+                    }
+                    else if(status == 3){  //教学秘书
+
+                    }
+                    else if(status == 4){  //科研秘书
+
+                    }
+                    else if(status == 5){  //研究生秘书
+
+                    }
+                    else if(status == 6){  //副主任
+
+                    }
+                    else if(status == 7){  //系主任
+
+                    }
+                    else if(status == 8){  //办公室主任
+
+                    }
+                    else if(status == 9){  //教研室主任
+
+                    }
+
                     if(data.code == 0){
                         self.teacherDate = data.datas.information;
                     }else{
