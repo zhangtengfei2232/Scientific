@@ -52,6 +52,7 @@ class HoldmeetController extends Controller
     }
     //删除举行会议信息
     public function deleteHoldmeet(Request $request){
+        $delete_image    = true;
         $ho_id_datas     = $request->ho_id_datas;
         $table_name      = SearchMessageConfig::HOLD_MEET_TABLE;
         $id_field        = SearchMessageConfig::HOLDMEET_ID;
@@ -60,7 +61,9 @@ class HoldmeetController extends Controller
         $old_image_road  = ImageDatas::selectAllOwnerImage($ho_id_datas,$owner_status);
         ModelDatabase::beginTraction();
         $delete_holdmeet = ModelDatabase::deleteAllDatas($table_name,$id_field,$ho_id_datas);
-        $delete_image    = ImageDatas::byOwnerdeleteImagesDatas($ho_id_datas);
+        if(count($old_image_road) > 1){
+            $delete_image    = ImageDatas::byOwnerdeleteImagesDatas($ho_id_datas);
+        }
         if($delete_image && $delete_holdmeet){
             ModelDatabase::commit();
             $image_road  = array_merge($old_inject_road,$old_image_road);     //举行会议图片和图注合并
@@ -139,6 +142,7 @@ class HoldmeetController extends Controller
     }
     //添加举行会议图片
     public function addHoldmeetImages(Request $request){
+        dd($request);
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
@@ -164,11 +168,10 @@ class HoldmeetController extends Controller
     }
     //删除举行会议的图片
     public function deleteHoldmeetImage(Request $request){
-        dd($request->im_id);
         $delete_im_id = $request->im_id;
         $images_road  = ImageDatas::selectAllImageRoadDatas($delete_im_id); //先去查询所有删除的图片路径
-        ImageDatas::beginTraction();                                   //开启事务处理
-        $delete_images = ImageDatas::deleteImagesDatas($delete_im_id); //删除数据库图片路径
+        ImageDatas::beginTraction();                                        //开启事务处理
+        $delete_images = ImageDatas::deleteImagesDatas($delete_im_id);     //删除数据库图片路径
         if($delete_images){
             ImageDatas::commit();
             deletefiles(UploadSubjectionConfig::HOLD_MEET,$images_road);

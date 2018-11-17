@@ -68,7 +68,6 @@
                             width="250">
                         <template slot-scope="scope">
                             <el-button
-                                    @click.native.prevent="deleteRow(scope.$index, shoolFileDate)"
                                     type="text"
                                     size="small">
                                 <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentshoolFileDate(shoolFileDate[scope.$index].schfile_id)"></el-button>
@@ -149,9 +148,6 @@
         methods: {
             handleSelectionChange(val) {
                 this.multipleSelection = val;
-            },
-            deleteRow(index, rows) {
-                rows.splice(index, 1);
             },
             toggleSelection(rows) {
                 if (rows) {

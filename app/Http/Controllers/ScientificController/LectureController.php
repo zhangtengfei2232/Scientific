@@ -51,6 +51,7 @@ class LectureController extends Controller
      }
      //删除专家讲学信息
      public function deleteLecture(Request $request){
+         $delete_image    = true;
          $le_id_datas     = $request->le_id_datas;
          $table_name      = SearchMessageConfig::LECTURE_TABLE;
          $id_field        = SearchMessageConfig::LECTURE_ID;
@@ -59,7 +60,9 @@ class LectureController extends Controller
          $old_image_road  = ImageDatas::selectAllOwnerImage($le_id_datas,$owner_status);
          LectureDatabase::beginTraction();
          $delete_lecture  = ModelDatabase::deleteAllDatas($table_name,$id_field,$le_id_datas);
-         $delete_image    = ImageDatas::byOwnerdeleteImagesDatas($le_id_datas);
+         if(count($old_image_road) > 1){
+             $delete_image    = ImageDatas::byOwnerdeleteImagesDatas($le_id_datas);
+         }
          if($delete_image && $delete_lecture){
              LectureDatabase::commit();
              $image_road      = array_merge($old_inject_road,$old_image_road);  //讲学图片和图注合并

@@ -55,6 +55,7 @@ class JoinmeetController  extends Controller
     }
     //删除参加会议信息
     public function deleteJoinmeet(Request $request){
+        $delete_image    = true;
         $jo_id_datas     = $request->jo_id_datas;
         $table_name      = SearchMessageConfig::JOIN_MEET_TABLE;
         $id_field        = SearchMessageConfig::JOINMEET_ID;
@@ -63,7 +64,9 @@ class JoinmeetController  extends Controller
         $old_image_road  = ImageDatas::selectAllOwnerImage($jo_id_datas,$status);
         ModelDatabase::beginTraction();
         $delete_joinmeet = ModelDatabase::deleteAllDatas($table_name,$id_field,$jo_id_datas);
-        $delete_image    = ImageDatas::byOwnerdeleteImagesDatas($jo_id_datas);
+        if(count($old_image_road) > 1){
+            $delete_image    = ImageDatas::byOwnerdeleteImagesDatas($jo_id_datas);
+        }
         if($delete_image && $delete_joinmeet){
             ModelDatabase::commit();
             $image_road      = array_merge($old_inject_road,$old_image_road);     //参加会议图片和图注合并

@@ -210,7 +210,7 @@
                         });
                         vue.addJoinmeetData(vue.dataForm).then(res => {
                             var data = res.data;
-                            self.jo_id = res.data.datas;
+                            vue.jo_id = res.data.datas;
                             if (data.code == 0) {
                                 this.Bcode = true;
                                 vue.$message({
