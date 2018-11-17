@@ -48,7 +48,9 @@ class JoinmeetController  extends Controller
         $datas['jo_graph_inject'] = $new_inject_road;
         $add_joinmeet = JoinmeetDatas::addJoinmeetDatas($datas);
         if($add_joinmeet > 0){
-            return responseTojson(0,'添加参加会议成功','',$add_joinmeet);
+            $datas['joinmeet_inject_road'] = $new_inject_road;
+            $datas['jo_id'] = $add_joinmeet;
+            return responseTojson(0,'添加参加会议成功','',$datas);
         }
         deletefiles($disk,$new_inject_road);
         return responseTojson(1,'添加参加会议信息失败');

@@ -63,7 +63,7 @@ class AppraisalController extends Controller
          $new_image_road = uploadFiles($subjection,$appraisal_image,$disk);
          $add_image = AppraisalDatabase::updateAppraisalImageDatas($new_image_road,$add_image_status,$ap_id);
          if($add_image){
-             return responseTojson(0,'上传图片成功');
+             return responseTojson(0,'上传图片成功','',$new_image_road);
          }
          deletefiles($disk,$new_image_road);
          return responseTojson(1,'上传图片失败');

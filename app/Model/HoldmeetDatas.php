@@ -9,7 +9,7 @@ class HoldmeetDatas extends ModelDatabase
     //添加会议信息
     public static function addHoldmeetDatas($datas){
         $ho_graph_inject = $datas['ho_graph_inject'];
-        $response = DB::table('holdmeet')
+        $ho_id = DB::table('holdmeet')
                     ->insertGetId([
                         'teacher_id'      => $datas['teacher_id'],
                         'ho_name'         => $datas['ho_name'],
@@ -22,10 +22,10 @@ class HoldmeetDatas extends ModelDatabase
                         'ho_graph_inject' => $ho_graph_inject
                     ]);
          if(empty($ho_graph_inject)){
-             return ($response > 0) ? responseTojson(0,'添加会议信息成功','',$response)
+             return ($ho_id > 0) ? responseTojson(0,'添加会议信息成功','',$ho_id)
                   : responseTojson(1,'添加信息失败');
          }
-         return $response;
+         return $ho_id;
     }
     //查看所有会议信息
     public static function selectAllHoldmeetDatas($teacher_id){

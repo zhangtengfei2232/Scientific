@@ -9,7 +9,7 @@ class LectureDatabase  extends ModelDatabase
     //添加讲学信息
     public static function addLectureDatas($datas){
         $le_img_road = $datas['le_img_road'];
-        $response = DB::table('lecture')
+        $le_id = DB::table('lecture')
                     ->insertGetId([
                         'teacher_id'       => $datas['teacher_id'],
                         'le_expert_name'   => $datas['le_expert_name'],
@@ -21,10 +21,10 @@ class LectureDatabase  extends ModelDatabase
                         'le_img_road'      => $le_img_road
                     ]);
         if(empty($le_img_road)){
-            return ($response > 0) ? responseTojson(0,'添加讲学信息成功','',$response)
+            return ($le_id > 0) ? responseTojson(0,'添加讲学信息成功','',$response)
                 : responseTojson(1,'添加讲学失败');
         }
-        return $response;
+        return $le_id;
     }
     //修改讲学信息
     public static function updateLectureDatas($datas,$reset_inject_status){
