@@ -57,6 +57,7 @@
                     <el-button @click="toggleSelection([StudygroupDate[0], StudygroupDate[1],StudygroupDate[2]])">选中前三条</el-button>
                     <el-button @click="toggleSelection()">取消选择</el-button>
                     <el-button @click="BatchDelete()">删除</el-button>
+                    <el-button @click="ExcelSelection()">导出Excel</el-button>
                 </div>
             </template>
         </div>
@@ -190,6 +191,44 @@
             },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
+            },
+            ExcelSelection() {
+                var self = this;
+                var dut_id_datas = [];//存放导出的数据
+                if(self.multipleSelection == undefined){
+                    this.$message({
+                        message: '请选择要导出的担任学术团体职务',
+                        type: 'warning'
+                    });
+                }else{
+                    for (var i = 0; i < self.multipleSelection.length; i++) {
+                        dut_id_datas.push(self.multipleSelection[i].du_id);
+                    };
+                    this.ExcelJoinmeetDatas(dut_id_datas);
+                }
+            },
+            ExcelJoinmeetDatas(dut_id_datas) {
+                let self = this;
+                axios.get("exportdutiesexcel",{
+                    params:{
+                        du_id_datas:dut_id_datas
+                    }
+                }).then(function (response) {
+                    var data = response.data;
+                    if (data.code == 0) {
+                        self.$message({
+                            showClose: true,
+                            message: '导出成功!',
+                            type: 'success'
+                        });
+                    } else {
+                        self.$notify({
+                            type: 'error',
+                            message: data.message,
+                            duration: 2000,
+                        });
+                    }
+                });
             },
             BatchDelete(){
                 var self = this;

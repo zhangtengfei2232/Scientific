@@ -73,7 +73,7 @@
                 <div class="demo" v-show="picTypes">
                     <thead>
                         <li v-for="(index,items) in filelists" v-bind:key="items">
-                            <img :src="index.image_road" alt="无法加载">
+                            <img :src="index.image_road" alt="无法加载" height="100px">
                             <el-button type="primary" @click="deletePic(index.im_id)">删除</el-button>
                         </li>
                     </thead>
@@ -281,7 +281,7 @@ export default {
         addJoinmeetData(data) {
             return axios({
                 method: 'post',
-                url: 'addjoinmeet',
+                url: 'updatejoinmeet',
                 headers: {'Content-Type': 'multipart/form-data'},
                 timeout: 20000,
                 data: data
@@ -289,10 +289,9 @@ export default {
         },
         deletePic(id) {
             let self = this;
-            console.log(id);
             axios.get("deletejoinmeetimage",{
                 params:{
-                    id:id
+                    im_id:id
                 }
             }).then(function (response) {
             var data = response.data;

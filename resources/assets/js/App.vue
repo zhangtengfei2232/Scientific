@@ -146,7 +146,7 @@
                     var data = response.data;
                     status = data.datas.role_status;
                     if(status == 1){    //院长
-                        
+
                         self.navGlobleview=true;//全局总览
                         self.navSpecial=true;//特殊功能
                         self.navSchoolFile=true;//校发文件

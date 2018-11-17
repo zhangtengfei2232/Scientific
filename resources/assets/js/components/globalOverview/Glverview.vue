@@ -94,13 +94,13 @@
                     </div>
                 <div class="list2">      
                     <span class="span">师资图</span>
-                    <div id="myChart" :style="{width: '320px', height: '300px'}"></div>
+                    <div id="myChart" :style="{width: '350px', height: '350px'}"></div>
                     <el-button type="primary" size="mini" @click="getTeacherDate()">学历</el-button>
                     <el-button type="danger" size="mini" @click="rank()">职称</el-button>
                 </div>  
                 <div class="list3">
                     <span class="span">论文图</span>
-                    <div id="myArticle" :style="{width: '320px', height: '300px'}"></div>
+                    <div id="myArticle" :style="{width: '350px', height: '350px'}"></div>
                     <el-button type="primary" size="mini">刊物级别</el-button>
                 </div>
                 <div class="list4">
@@ -326,7 +326,7 @@ export default {
             myArticle.setOption({
                 series: {
                     type: 'pie',
-                    radius : '55%',
+                    radius : '40%',
                     data: [
                         {name: 'SCI一区'+'('+datas[0]+')', value: datas[0]},
                         {name: 'SCI二区'+'('+datas[1]+')', value: datas[1]},
