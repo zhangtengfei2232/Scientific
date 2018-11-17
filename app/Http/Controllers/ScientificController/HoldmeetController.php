@@ -139,7 +139,6 @@ class HoldmeetController extends Controller
     }
     //添加举行会议图片
     public function addHoldmeetImages(Request $request){
-        dd($request);
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
@@ -148,24 +147,24 @@ class HoldmeetController extends Controller
                 return responseTojson(1,'请你先添加会议信息');
             }
         }
-        if(!$request->hasFile('ho_file')){
+        if(count($request->file()) < 1){
             return responseTojson(1,'请你上传举行会议图片');
         }
-        $holdmeet_images = $request->file('ho_file');              //接收数组形式的图片文件
-        $judge_images    = judgeFileImage($holdmeet_images);
+        $holdmeet_images = $request->file();              //接收数组形式的图片文件
+        $judge_images    = judgeAllFileImage($holdmeet_images);
         if($judge_images['code'] == 1){
            return responseTojson(1,'图片上传失败');
         }
         $disk = UploadSubjectionConfig::HOLD_MEET;
         $subjection      = UploadSubjectionConfig::HOLD_IMG;
         $ho_id           = $request->ho_id;
-        $all_images_road = uploadFiles($subjection,$holdmeet_images,$disk);
-//        dd($all_images_road);
+        $all_images_road = uploadAllImgs($subjection,$holdmeet_images,$disk);
         $image_status    = UploadSubjectionConfig::HOLD_IMG_STATUS;
         return ImageDatas::addImagesDatas($all_images_road,$ho_id,$image_status);
     }
     //删除举行会议的图片
     public function deleteHoldImages(Request $request){
+        dd($request);
         $delete_im_id = $request->im_id;
         $images_road  = ImageDatas::selectAllImageRoadDatas($delete_im_id); //先去查询所有删除的图片路径
         ImageDatas::beginTraction();                                   //开启事务处理

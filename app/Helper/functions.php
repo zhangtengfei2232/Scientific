@@ -36,19 +36,16 @@ use setasign\Fpdi\Tcpdf\Fpdi;
 
     //上传文件
     function uploadFiles($subjection,$files,$disk){
-        $redisLock = new \Illuminate\Cache\RedisLock();
         $fileTypes = array('jpg','png','jpeg','JPG','PNG','JPEG');
         $extension = $files->getClientOriginalExtension();
         $isInFileType = in_array($extension,$fileTypes);
-        while($redisLock->lock());
         if($isInFileType){
-            $originalName = time().'.'.$extension;
+            $originalName = uniqid().time().'.'.$extension;
         }else{
             $originalName = time().'-'.$files->getClientOriginalName();
         }
         $files->storeAs($subjection,$originalName,$disk);
         $certificate_road = $subjection.'/'.$originalName;
-        $redisLock->unlock();
         return $certificate_road;
     }
     //删除文件
@@ -78,7 +75,7 @@ use setasign\Fpdi\Tcpdf\Fpdi;
     function pdfToPngUpload($disk,$artical_road,$subjection,$artical_name,$page){
         $pdf  = $disk.'/'.$artical_road;
         if(!file_exists($pdf)){
-            return showMsg(1,'没有找到PDF文件');
+            return responseTojson(1,'没有找到PDF文件');
         }
         $path = $subjection.'/'.$artical_name.'首页.png';
         $im   = new Imagick();
