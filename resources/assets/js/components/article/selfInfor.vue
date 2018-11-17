@@ -214,7 +214,7 @@ export default {
         sendfile(data) {
             return axios({
                 method: 'post',
-                url: '',
+                url: 'updatearticalself',
                 headers: {'Content-Type': 'multipart/form-data'},
                 timeout: 20000,
                 data: data
@@ -225,21 +225,11 @@ export default {
                 this.dataFile.append('art_sci_road', file);
                 let id = this.art_id;
                 this.dataFile.append('art_id', id);
-                this.dataFile.append('is_add_article',this.Bcode);
-                this.sendfiles(this.dataFile);
+                this.sendfile(this.dataFile);
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
             }
-        },
-        sendfiles(data) {
-            return axios({
-                method: 'post',
-                url: '',
-                headers: {'Content-Type': 'multipart/form-data'},
-                timeout: 20000,
-                data: data
-            });
         },
         getArticleSelfData() {
             let self = this;
@@ -348,7 +338,7 @@ export default {
         updateArtical(data) {
             return axios({
                 method: 'post',
-                url: 'updateartical',
+                url: 'updatearticalinformation',
                 headers: {'Content-Type': 'multipart/form-data'},
                 timeout: 20000,
                 data: data

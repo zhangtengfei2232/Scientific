@@ -61,9 +61,7 @@
                     <el-upload
                         ref="ho_file"
                         action="#"
-                        :before-upload="fileProfils"
-                        :on-preview="handlePreview"
-                        :on-remove="handleRemove"
+                        :on-change="change"
                         :auto-upload="false"
                         list-type="picture">
                         <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
@@ -94,9 +92,11 @@
       return {
             dataForm: new FormData(),
             dataFile: new FormData(),
+            ETfileList:[],
             Bcode:false,
             ho_file: '',
             ho_id:'',
+            index: 0,
             ho_graph_inject: '',
             form: {
                 ho_name: '',
@@ -110,23 +110,12 @@
         }
     },
     methods: {
+        change(file) {
+            this.dataFile.append(this.index, file.raw);
+            this.index++;
+        },
         submitUploads() {
-            this.$refs.ho_file.submit();
-        },
-        handleRemove(file, fileList) {
-            // console.log(file, fileList);  
-        },
-        handlePreview(file) {
-            // console.log(file);
-        },
-        fileProfil(file){
-            this.dataForm.append('ho_graph_inject', file);
-            return false;
-        },
-        fileProfils(files){
-            console.log(files);
             if(this.Bcode == true){
-                 this.dataFile.append('ho_file', files);
                 let id = this.ho_id;
                 this.dataFile.append('ho_id', id);
                 this.dataFile.append('is_add_joinmeet',this.Bcode);
@@ -135,6 +124,10 @@
                 this.$message.error('请先添加数据信息');
                 return false
             }
+        },
+        fileProfil(file){
+            this.dataForm.append('ho_graph_inject', file);
+            return false;
         },
         sendfile(dataFile) {
             this.addBookFile(dataFile).then(res => {
