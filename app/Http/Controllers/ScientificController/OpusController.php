@@ -67,7 +67,7 @@ class OpusController  extends Controller
         $new_image_road = uploadFiles($subjection,$opus_image,$disk);
         $add_image      = OpusDatabase::updateImageDatas($new_image_road,$add_image_status,$op_id);
         if($add_image){
-            return responseTojson(0,'上传图片成功','',$new_image_road);
+            return responseTojson(0,'上传图片成功');
         }
         deletefiles($disk,$new_image_road);
         return responseTojson(1,'上传图片失败');

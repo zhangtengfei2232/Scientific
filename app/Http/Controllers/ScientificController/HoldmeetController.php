@@ -45,15 +45,14 @@ class HoldmeetController extends Controller
         $datas['ho_graph_inject'] = $new_inject_road;
         $add_holdmeet = HoldmeetDatas::addHoldmeetDatas($datas);
         if($add_holdmeet > 0){
-            $datas['holdmeet_inject_road'] = $new_inject_road;
-            $datas['ho_id'] = $add_holdmeet;
-            return responseTojson(0,'添加会议信息成功','',$datas);
+            return responseTojson(0,'添加会议信息成功','',$add_holdmeet);
         }
         deletefiles($disk,$new_inject_road);
         return responseTojson(1,'添加会议信息失败');
     }
     //删除举行会议信息
     public function deleteHoldmeet(Request $request){
+        $delete_image    = true;
         $ho_id_datas     = $request->ho_id_datas;
         $table_name      = SearchMessageConfig::HOLD_MEET_TABLE;
         $id_field        = SearchMessageConfig::HOLDMEET_ID;
@@ -62,7 +61,9 @@ class HoldmeetController extends Controller
         $old_image_road  = ImageDatas::selectAllOwnerImage($ho_id_datas,$owner_status);
         ModelDatabase::beginTraction();
         $delete_holdmeet = ModelDatabase::deleteAllDatas($table_name,$id_field,$ho_id_datas);
-        $delete_image    = ImageDatas::byOwnerdeleteImagesDatas($ho_id_datas);
+        if(count($old_image_road) > 1){
+            $delete_image    = ImageDatas::byOwnerdeleteImagesDatas($ho_id_datas);
+        }
         if($delete_image && $delete_holdmeet){
             ModelDatabase::commit();
             $image_road  = array_merge($old_inject_road,$old_image_road);     //举行会议图片和图注合并

@@ -48,15 +48,14 @@ class JoinmeetController  extends Controller
         $datas['jo_graph_inject'] = $new_inject_road;
         $add_joinmeet = JoinmeetDatas::addJoinmeetDatas($datas);
         if($add_joinmeet > 0){
-            $datas['joinmeet_inject_road'] = $new_inject_road;
-            $datas['jo_id'] = $add_joinmeet;
-            return responseTojson(0,'添加参加会议成功','',$datas);
+            return responseTojson(0,'添加参加会议成功','',$add_joinmeet);
         }
         deletefiles($disk,$new_inject_road);
         return responseTojson(1,'添加参加会议信息失败');
     }
     //删除参加会议信息
     public function deleteJoinmeet(Request $request){
+        $delete_image    = true;
         $jo_id_datas     = $request->jo_id_datas;
         $table_name      = SearchMessageConfig::JOIN_MEET_TABLE;
         $id_field        = SearchMessageConfig::JOINMEET_ID;
@@ -65,7 +64,9 @@ class JoinmeetController  extends Controller
         $old_image_road  = ImageDatas::selectAllOwnerImage($jo_id_datas,$status);
         ModelDatabase::beginTraction();
         $delete_joinmeet = ModelDatabase::deleteAllDatas($table_name,$id_field,$jo_id_datas);
-        $delete_image    = ImageDatas::byOwnerdeleteImagesDatas($jo_id_datas);
+        if(count($old_image_road) > 1){
+            $delete_image    = ImageDatas::byOwnerdeleteImagesDatas($jo_id_datas);
+        }
         if($delete_image && $delete_joinmeet){
             ModelDatabase::commit();
             $image_road      = array_merge($old_inject_road,$old_image_road);     //参加会议图片和图注合并
