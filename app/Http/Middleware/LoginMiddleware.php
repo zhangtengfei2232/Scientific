@@ -8,7 +8,7 @@ class LoginMiddleware
     public function handle($request, Closure $next)
     {
 
-        if (empty(session('usercount'))){
+        if (empty(Session('usercount'))){
             return redirect('/');
         }
         return $next($request);

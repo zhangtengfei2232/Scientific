@@ -203,7 +203,6 @@
                             jQuery.each(vue.form,function(i,val){
                                 vue.dataForm.append(i,val);
                             });
-//                            console.log(form,'+++++++++++ott');
                             vue.addDutiesData(vue.dataForm).then(res => {
                                 var data = res.data;
                                 if (data.code == 0) {

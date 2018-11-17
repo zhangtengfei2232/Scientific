@@ -9,7 +9,7 @@
                 <div class="loginName">
                     <i class="el-icon-view"></i>
                     <span style="margin-right: 15px;">{{ teacherDate.name }}</span>
-                    <span style="margin-left: 10px;">退出系统</span><i class="el-icon-caret-right"></i>
+                    <a style="margin-left: 10px;color: white"href="leavelogin">退出系统</a><i class="el-icon-caret-right"></i>
                 </div>
             </div>
         </div>
@@ -55,34 +55,44 @@
                                     <span>特殊功能</span>
                                 </template>
                                 <el-menu-item-group>
-                                    <el-menu-item index="/schoolfile" style="padding-left: 30px;">校发文件</el-menu-item>
-                                    <el-menu-item index="/addteacher" style="padding-left: 30px;">添加老师</el-menu-item>
-                                    <el-menu-item index="/agreement" style="padding-left: 30px;">教学科研等合作协议</el-menu-item>
+                                    <div v-show="navSchoolFile">
+                                        <el-menu-item index="/schoolfile" style="padding-left: 30px;">校发文件</el-menu-item>
+                                    </div>
+                                    <div v-show="navAddtea">
+                                        <el-menu-item index="/addteacher" style="padding-left: 30px;">添加老师</el-menu-item>
+                                    </div>
+                                    <div v-show="navAgrement">
+                                        <el-menu-item index="/agreement" style="padding-left: 30px;">教学科研等合作协议</el-menu-item>
+                                    </div>
                                 </el-menu-item-group>
                             </el-submenu>
                         </div>
-                        <div v-show="resultCollect">
+                        <div v-show="allResult">
                             <el-submenu index="2">
-                            <template slot="title">
-                                <i class="el-icon-setting"></i>
-                                <span>成果汇总</span>
-                            </template>
-                            <el-menu-item-group style="background-color: plum !important;">
-                                <el-menu-item index="/loaderList/teacher">老师管理</el-menu-item>
-                                <el-menu-item index="/loaderList/article">论文信息</el-menu-item>
-                                <el-menu-item index="/loaderList/project">项目信息</el-menu-item>
-                                <el-menu-item index="/loaderList/apus">著作信息</el-menu-item>
-                                <el-menu-item index="/loaderList/award">获奖信息</el-menu-item>
-                                <el-menu-item index="/loaderList/patent">专利信息</el-menu-item>
-                                <el-menu-item index="/loaderList/appraisal">成果鉴定</el-menu-item>
-                                <el-menu-item index="/loaderList/holdmeet">举办会议</el-menu-item>
-                                <el-menu-item index="/loaderList/joinmeet">参加会议</el-menu-item>
-                                <el-menu-item index="/loaderList/lecture">专家讲学</el-menu-item>
-                                <el-menu-item index="/loaderList/duties">担任学术团体</el-menu-item>
-                                <el-menu-item index="/loaderList/schoolfile">校发文件</el-menu-item>
-                                <el-menu-item index="/loaderList/agreement">科研合作协议</el-menu-item>
-                            </el-menu-item-group>
-                        </el-submenu>
+                                <template slot="title">
+                                    <i class="el-icon-setting"></i>
+                                    <span>成果汇总</span>
+                                </template>
+                                <el-menu-item-group style="background-color: plum !important;">
+                                    <div v-show="navTeacherInfo">
+                                        <el-menu-item index="/loaderList/teacher">老师管理</el-menu-item>
+                                    </div>
+                                <div v-show="resultCollect">
+                                    <el-menu-item index="/loaderList/article">论文信息</el-menu-item>
+                                    <el-menu-item index="/loaderList/project">项目信息</el-menu-item>
+                                    <el-menu-item index="/loaderList/apus">著作信息</el-menu-item>
+                                    <el-menu-item index="/loaderList/award">获奖信息</el-menu-item>
+                                    <el-menu-item index="/loaderList/patent">专利信息</el-menu-item>
+                                    <el-menu-item index="/loaderList/appraisal">成果鉴定</el-menu-item>
+                                    <el-menu-item index="/loaderList/holdmeet">举办会议</el-menu-item>
+                                    <el-menu-item index="/loaderList/joinmeet">参加会议</el-menu-item>
+                                    <el-menu-item index="/loaderList/lecture">专家讲学</el-menu-item>
+                                    <el-menu-item index="/loaderList/duties">担任学术团体</el-menu-item>
+                                    <el-menu-item index="/loaderList/schoolfile">校发文件</el-menu-item>
+                                    <el-menu-item index="/loaderList/agreement">科研合作协议</el-menu-item>
+                                </div>
+                                </el-menu-item-group>
+                            </el-submenu>
                         </div>
 
                     </el-menu>
@@ -99,8 +109,13 @@
                 teacherDate:[] ,
                 show: false,
 //                navJudgment:false,
-                navGlobleview:false,
+                navGlobleview:false,//全局总览
+                navSchoolFile:false,
+                navAddtea:false,
+                navAgrement:false,
+                navTeacherInfo:false,
                 navSpecial:false,
+                allResult:false,
                 resultCollect:false,
                 status:'',
                 navList:[
@@ -117,44 +132,6 @@
 
                 ]
             }
-//            if(status == 0){
-//                console.log(status,'///////99');
-//                navJudgment:true;
-//            }
-//            else if(status == 1){
-//                navJudgment:true;
-//                navGlobleview:true;
-//                navSpecial:true;
-//                resultCollect:true;
-//            }
-//            else if(status == 2){
-//                navJudgment:true;
-//                navGlobleview:false;
-//                navSpecial:false;
-//                resultCollect:false;
-//            }
-//            else if(status == 3){
-//
-//            }
-//            else if(status == 4){
-//
-//            }
-//            else if(status == 5){
-//
-//            }
-//            else if(status == 6){
-//
-//            }
-//            else if(status == 7){
-//
-//            }
-//            else if(status == 8){
-//
-//            }
-//            else if(status == 9){
-//
-//            }
-
         },
         methods: {
             handleOpen() {
@@ -163,31 +140,52 @@
             handleClose () {
 
             },
-
             getTeacherData(){
                 let self = this;
                 axios.get("selectteacher").then(function (response) {
                     var data = response.data;
                     status = data.datas.role_status;
-//                    console.log(status,'/----/-');
                     if(status == 1){    //院长
-                        self.navGlobleview=true;
-                        self.navSpecial=true;
-                        self.resultCollect=true;
+                        
+                        self.navGlobleview=true;//全局总览
+                        self.navSpecial=true;//特殊功能
+                        self.navSchoolFile=true;//校发文件
+//                        self.navAddtea=true;//添加老师
+//                        self.navAgrement=true;//教学科研等合作协议
+                        self.navTeacherInfo=true;//老师管理
+                        self.allResult=true;//成果汇总
+                        self.resultCollect=true;//各项统计
                     }
                     else if(status == 2){   //副院长
-                        self.navGlobleview=true;
-                        self.navSpecial=true;
-                        self.resultCollect=true;
+
+                        self.navSpecial=true;//特殊功能
+                        self.navSchoolFile=true;//校发文件
+                        self.allResult=true;//成果汇总
+                        self.resultCollect=true;//成果汇总
                     }
                     else if(status == 3){  //教学秘书
 
+                        self.navSpecial=true;//特殊功能
+                        self.navSchoolFile=true;//校发文件
+                        self.navAgrement=true;//教学科研等合作协议
+                        self.allResult=true;//成果汇总
+                        self.resultCollect=true;//成果汇总
                     }
                     else if(status == 4){  //科研秘书
 
+                        self.navSpecial=true;//特殊功能
+                        self.navSchoolFile=true;//校发文件
+                        self.navAgrement=true;//教学科研等合作协议
+                        self.allResult=true;//成果汇总
+                        self.resultCollect=true;//成果汇总
                     }
                     else if(status == 5){  //研究生秘书
 
+                        self.navSpecial=true;//特殊功能
+                        self.navSchoolFile=true;//校发文件
+                        self.navAgrement=true;//教学科研等合作协议
+                        self.allResult=true;//成果汇总
+                        self.resultCollect=true;//成果汇总
                     }
                     else if(status == 6){  //副主任
 
@@ -197,6 +195,12 @@
                     }
                     else if(status == 8){  //办公室主任
 
+                        self.navSpecial=true;//特殊功能
+                        self.navAddtea=true;//添加老师
+                        self.navSchoolFile=true;//校发文件
+                        self.allResult=true;//成果汇总
+                        self.navTeacherInfo=true;//老师管理
+                        self.navAgrement=true;//教学科研等合作协议
                     }
                     else if(status == 9){  //教研室主任
 

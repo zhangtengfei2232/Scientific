@@ -215,9 +215,9 @@ class ModelDatabase  extends  Model
      * @param $field
      * @return \Illuminate\Http\JsonResponse
      */
-    public static function groupByAndCountDatas($table_name,$field,$number,$time_field,$time_datas = []){
+    public static function groupByAndCountDatas($table_name,$field,$number,$time_field = '',$time_datas = []){
         $count_datas = [];
-        if(empty($time_datas)){
+        if(empty($time_field)){
             for($i = 0; $i < $number; $i++){
                 $count = DB::table($table_name)->where($field,$i)->count();
                 $count_datas[$i] = $count;

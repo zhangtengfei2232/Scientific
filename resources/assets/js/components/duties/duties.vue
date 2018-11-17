@@ -122,21 +122,6 @@
     .lists img{
         width: 35px;
     }
-    /*.numbers{*/
-        /*margin: 20px 2% 0 3.5%;*/
-    /*}*/
-    /*.check{*/
-        /*margin: 25px 2% 0 3%;*/
-    /*}*/
-    /*.checks{*/
-        /*margin: 0 2% 0 3%;*/
-    /*}*/
-    /*.picture{*/
-        /*margin: 20px 5px 0 1%;*/
-    /*}*/
-    /*.infos{*/
-        /*margin: 10px 2% 0 0;*/
-    /*}*/
     .infos h5{
         font-size: 14px;
         font-weight: lighter;

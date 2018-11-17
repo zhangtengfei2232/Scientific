@@ -225,6 +225,7 @@ class TeacherDatabase extends ModelDatabase
      * @return \Illuminate\Http\JsonResponse
      */
      public static function saveAccount($usercount){
+         if(!empty(Session('usercount'))) return responseTojson(1,'你已经登录过了');
          Session::put('usercount', $usercount);     //把用户的信息存入session
          Session::save();
          return responseTojson(0,"登录成功");
@@ -233,6 +234,7 @@ class TeacherDatabase extends ModelDatabase
      *
      */
      public static function emptyAccount(){
+        Session::forget('usercount');
         Session::flush();
      }
 }

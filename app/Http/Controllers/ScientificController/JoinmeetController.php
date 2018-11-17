@@ -164,13 +164,14 @@ class JoinmeetController  extends Controller
         }
         $disk = UploadSubjectionConfig::JOIN_MEET;
         $subjection     = UploadSubjectionConfig::JOIN_IMG;
-        $ho_id          = $request->ho_id;
+        $jo_id          = $request->jo_id;
         $all_image_road = uploadAllImgs($subjection,$join_images,$disk);
         $image_status   = UploadSubjectionConfig::JOIN_IMG_STATUS;
-        return ImageDatas::addImagesDatas($all_image_road,$ho_id,$image_status);
+        return ImageDatas::addImagesDatas($all_image_road,$jo_id,$image_status);
     }
     //删除参加会议图片
     public function deleteJoinmeetImage(Request $request){
+        dd($request);
         $delete_im_id = $request->im_id;
         //先去查询所有删除的图片路径
         $images_road  = ImageDatas::selectAllImageRoadDatas($delete_im_id);
