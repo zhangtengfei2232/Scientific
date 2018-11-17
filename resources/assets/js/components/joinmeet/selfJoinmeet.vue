@@ -73,8 +73,8 @@
                 <div class="demo" v-show="picTypes">
                     <thead>
                         <li v-for="(index,items) in filelists" v-bind:key="items">
-                            <img :src="index" alt="无法加载">
-                            <el-button type="primary" @click="deletePic(items.im_id)">删除</el-button>
+                            <img :src="index.image_road" alt="无法加载">
+                            <el-button type="primary" @click="deletePic(index.im_id)">删除</el-button>
                         </li>
                     </thead>
                 </div>
@@ -161,10 +161,11 @@ export default {
                             self.filelist = 'showfile?disk=joinmeet&subjection=' + data.datas.information.jo_graph_inject;
                         }
                         let image = data.datas.image;
+                        self.filelists = image;
                         if(image.length !== 0){
                             self.picTypes = true;
                             for(var i =0;i<image.length;i++){
-                                self.filelists[i] = 'showfile?disk=holdmeet&subjection=' + image[i];
+                                self.filelists[i].image_road = 'showfile?disk=holdmeet&subjection=' + image[i].image_road;
                             }
                         } 
                     } else {
@@ -177,7 +178,7 @@ export default {
                 });
         },
         change(files){
-            this.dataFile.append(this.index, files);
+            this.dataFile.append(this.index, files.raw);
             this.index++;
         },
         submitUploads() {
@@ -288,6 +289,7 @@ export default {
         },
         deletePic(id) {
             let self = this;
+            console.log(id);
             axios.get("deletejoinmeetimage",{
                 params:{
                     id:id
