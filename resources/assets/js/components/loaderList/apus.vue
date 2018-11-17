@@ -543,13 +543,13 @@ export default {
                 }
             });
         },
-        onSubmit() {
+        onSubmit(form) {
             let self = this;
             axios.get("combinationselectopus",{
                 params:{
                     op_cate_work_datas: form.op_cate_work,
                     op_form_write_datas: form.op_form_write,
-                    op_cate_research_datas:op_cate_research
+                    op_cate_research_datas: form.op_cate_research
                 }
             }).then(function (response) {
                 var data = response.data;

@@ -432,7 +432,7 @@ export default {
                 }
             });
         },
-        onSubmit() {
+        onSubmit(form) {
             let self = this;
             axios.get("combinationselectpatent",{
                 params:{
