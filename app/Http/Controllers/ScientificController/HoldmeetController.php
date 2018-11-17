@@ -163,8 +163,8 @@ class HoldmeetController extends Controller
         return ImageDatas::addImagesDatas($all_images_road,$ho_id,$image_status);
     }
     //删除举行会议的图片
-    public function deleteHoldImages(Request $request){
-        dd($request);
+    public function deleteHoldmeetImage(Request $request){
+        dd($request->im_id);
         $delete_im_id = $request->im_id;
         $images_road  = ImageDatas::selectAllImageRoadDatas($delete_im_id); //先去查询所有删除的图片路径
         ImageDatas::beginTraction();                                   //开启事务处理

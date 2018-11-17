@@ -163,7 +163,7 @@ class LectureController extends Controller
          return ImageDatas::addImagesDatas($all_images_road,$le_id,$images_status);
     }
     //删除专家讲学图片
-    public function deleteLectureImages(Request $request){
+    public function deleteLectureImage(Request $request){
          $delete_im_id = $request->im_id;
          //先去查询所有删除的图片路径
          $images_road   = ImageDatas::selectAllImageRoadDatas($delete_im_id);
