@@ -257,12 +257,12 @@
                     let self = this;
                     axios.get("deletejoinmeet",{
                         params:{
-                            jo_id_datas:this.id
+                            jo_id_datas:self.id
                         }
                     }).then(function (response) {
                     var data = response.data;
                         if (data.code == 0) {
-                             this.$message({
+                             self.$message({
                                 type: 'success',
                                 message: '删除成功!'
                             });
