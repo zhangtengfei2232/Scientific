@@ -95,7 +95,7 @@
             ETfileList:[],
             Bcode:false,
             ho_file: '',
-            ho_id:'',
+            ho_id:0,
             index: 0,
             ho_graph_inject: '',
             form: {
@@ -118,7 +118,6 @@
         submitUploads() {
             if(this.Bcode == true){
                 let id = this.ho_id;
-                
                 this.dataFile.append('ho_id', id);
                 this.dataFile.append('is_add_holdmeet',this.Bcode);
                 this.sendfile(this.dataFile);
@@ -188,8 +187,7 @@
                         });
                         vue.addHoldmeetData(vue.dataForm).then(res => {
                             var data = res.data;
-                            self.ho_id = res.data.datas;
-                            console.log(self.ho_id);
+                            vue.ho_id = res.data.datas;
                             if (data.code == 0) {
                                 this.Bcode = true;
                                 vue.$message({
