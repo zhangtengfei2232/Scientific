@@ -73,8 +73,8 @@
                 <div class="demo" v-show="picTypes">
                     <thead>
                         <li v-for="(index,items) in filelists" v-bind:key="items">
-                            <img :src="items.url" alt="无法加载">
-                            <el-button type="primary" @click="deletePic(items)">保存修改</el-button>
+                            <img :src="index" alt="无法加载">
+                            <el-button type="primary" @click="deletePic(items.im_id)">删除</el-button>
                         </li>
                     </thead>
                 </div>
@@ -163,7 +163,9 @@ export default {
                         let image = data.datas.image;
                         if(image.length !== 0){
                             self.picTypes = true;
-                            self.filelists = 'showfile?disk=holdmeet&subjection=' + image;
+                            for(var i =0;i<image.length;i++){
+                                self.filelists[i] = 'showfile?disk=holdmeet&subjection=' + image[i];
+                            }
                         } 
                     } else {
                         self.$notify({
@@ -195,6 +197,7 @@ export default {
                         message: '修改成功',
                         type: 'success'
                     });
+                    location. reload();
                 } else {
                     this.$notify({
                         type: 'error',

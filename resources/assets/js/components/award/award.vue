@@ -299,7 +299,6 @@
                     }
                 }).then(function (response) {
                     var data = response.data;
-                    console.log(response.data);
                     if (data.code == 0) {
                         self.AwardDate = data.datas;
                     } else {

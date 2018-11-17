@@ -146,7 +146,6 @@ export default {
                     }
                     let image = data.datas.hold_images;
                     if(image.length !== 0){
-                        
                         self.picTypes = true;
                         for(var i =0;i<image.length;i++){
                             self.filelists[i] = 'showfile?disk=holdmeet&subjection=' + image[i].image_road;
@@ -182,6 +181,7 @@ export default {
                         message: '修改成功',
                         type: 'success'
                     });
+                    location. reload();
                 } else {
                     this.$notify({
                         type: 'error',
@@ -263,7 +263,7 @@ export default {
         },
          deletePic(id) {
             let self = this;
-            axios.get("deletejoinmeetimage",{
+            axios.get("deleteholdmeetimage",{
                 params:{
                     id:id
                 }
