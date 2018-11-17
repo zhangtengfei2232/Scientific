@@ -44,15 +44,14 @@ class LectureController extends Controller
          $datas['le_img_road'] = $new_inject_road;
          $add_lecture          = LectureDatabase::addLectureDatas($datas);
          if($add_lecture > 0){
-             $datas['lecture_inject_rod'] = $new_inject_road;
-             $datas['le_id'] = $add_lecture;
-             return responseTojson(0,'添加讲学信息成功','',$datas);
+             return responseTojson(0,'添加讲学信息成功','',$add_lecture);
          }
          deletefiles(UploadSubjectionConfig::LECTURE,$new_inject_road);
          return responseTojson(1,'添加讲学信息失败');
      }
      //删除专家讲学信息
      public function deleteLecture(Request $request){
+         $delete_image    = true;
          $le_id_datas     = $request->le_id_datas;
          $table_name      = SearchMessageConfig::LECTURE_TABLE;
          $id_field        = SearchMessageConfig::LECTURE_ID;
@@ -61,7 +60,9 @@ class LectureController extends Controller
          $old_image_road  = ImageDatas::selectAllOwnerImage($le_id_datas,$owner_status);
          LectureDatabase::beginTraction();
          $delete_lecture  = ModelDatabase::deleteAllDatas($table_name,$id_field,$le_id_datas);
-         $delete_image    = ImageDatas::byOwnerdeleteImagesDatas($le_id_datas);
+         if(count($old_image_road) > 1){
+             $delete_image    = ImageDatas::byOwnerdeleteImagesDatas($le_id_datas);
+         }
          if($delete_image && $delete_lecture){
              LectureDatabase::commit();
              $image_road      = array_merge($old_inject_road,$old_image_road);  //讲学图片和图注合并

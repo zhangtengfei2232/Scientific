@@ -31,7 +31,7 @@ class ImageDatas extends ModelDatabase
     //根据owner_id删除图片
     public static function byOwnerdeleteImagesDatas($owner_id_datas){
         $response = DB::table('image')->whereIn('owner_id',$owner_id_datas)->delete();
-        return ($response > 0) ? true : false;
+        return ($response == count($owner_id_datas)) ? true : false;
     }
     //查看所有图片路径====>删除图片时候需要路径
     public static function selectAllImageRoadDatas($im_id){
