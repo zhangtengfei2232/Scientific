@@ -167,8 +167,8 @@ class HoldmeetController extends Controller
         dd($request->im_id);
         $delete_im_id = $request->im_id;
         $images_road  = ImageDatas::selectAllImageRoadDatas($delete_im_id); //先去查询所有删除的图片路径
-        ImageDatas::beginTraction();                                   //开启事务处理
-        $delete_images = ImageDatas::deleteImagesDatas($delete_im_id); //删除数据库图片路径
+        ImageDatas::beginTraction();                                        //开启事务处理
+        $delete_images = ImageDatas::deleteImagesDatas($delete_im_id);     //删除数据库图片路径
         if($delete_images){
             ImageDatas::commit();
             deletefiles(UploadSubjectionConfig::HOLD_MEET,$images_road);
