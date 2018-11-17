@@ -119,7 +119,6 @@ class InformationController extends Controller
         return responseTojson(0,'证书图片修改成功');
     }
     /**删除老师的所有信息
-     *
      */
     public function deleteTeacher(Request $request){
         $teacher_id           = trim($request->teacher_id);
@@ -250,11 +249,7 @@ class InformationController extends Controller
      */
     public function selectTeacher(){
         $teacher_id = session('usercount');
-        $result     = TeacherDatabase::selectTeacherDatas($teacher_id);
-        $result     = json_decode(json_encode($result));
-        $result     = (array)$result;
-        $result['role_status'] = $result['post_category'];
-        return responseTojson(0,'查询成功','',$result);
+        return TeacherDatabase::selectTeacherDatas($teacher_id);
     }
     //修改老师信息
     public function updateTeacher(Request $request){

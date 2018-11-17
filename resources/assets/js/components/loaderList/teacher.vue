@@ -3,7 +3,7 @@
         <div class="cont">
             <div class="header">
                 <el-header style="height: 45px;">
-                    <div class="art">所有成员({{form.num}})</div>
+                    <div class="art">所有成员({{total}})</div>
                     <div class="search">
                         <el-popover
                                 placement="top-start"
@@ -24,10 +24,13 @@
                             老师职称<i class="el-icon-arrow-down el-icon--right"></i>
                             </span>
                             <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item command="0">初级</el-dropdown-item>
-                                <el-dropdown-item command="1">中级</el-dropdown-item>
-                                <el-dropdown-item command="2">副高</el-dropdown-item>
-                                <el-dropdown-item command="3">正高</el-dropdown-item>
+                                <el-dropdown-item command="0">教授</el-dropdown-item>
+                                <el-dropdown-item command="1">副教授</el-dropdown-item>
+                                <el-dropdown-item command="2">讲师</el-dropdown-item>
+                                <el-dropdown-item command="3">助教</el-dropdown-item>
+                                <el-dropdown-item command="4">高级实验师</el-dropdown-item>
+                                <el-dropdown-item command="5">实验师</el-dropdown-item>
+                                <el-dropdown-item command="6">助理实验师</el-dropdown-item>
                             </el-dropdown-menu>
                         </el-dropdown>
                     </div>
@@ -96,10 +99,18 @@
                                     岗位类别<i class="el-icon-arrow-down el-icon--right"></i>
                                     </span>
                                     <el-dropdown-menu slot="dropdown">
-                                        <el-dropdown-item command="0">教学秘书</el-dropdown-item>
+                                        <el-dropdown-item command="0">普通老师</el-dropdown-item>
                                         <el-dropdown-item command="1">院长</el-dropdown-item>
-                                        <el-dropdown-item command="2">办公室主任</el-dropdown-item>
-                                        <el-dropdown-item command="3">副主任</el-dropdown-item>
+                                        <el-dropdown-item command="2">副院长</el-dropdown-item>
+                                        <el-dropdown-item command="3">教学秘书</el-dropdown-item>
+                                        <el-dropdown-item command="4">科研秘书</el-dropdown-item>
+                                        <el-dropdown-item command="5">研究生秘书</el-dropdown-item>
+                                        <el-dropdown-item command="6">副主任</el-dropdown-item>
+                                        <el-dropdown-item command="7">系主任</el-dropdown-item>
+                                        <el-dropdown-item command="8">办公室主任</el-dropdown-item>
+                                        <el-dropdown-item command="9">教研室主任</el-dropdown-item>
+                                        <el-dropdown-item command="10">党委书记</el-dropdown-item>
+                                        <el-dropdown-item command="11">党委副书记</el-dropdown-item>
                                     </el-dropdown-menu>
                                 </el-dropdown>
                             </el-form>
@@ -110,7 +121,12 @@
                     :data="teacherDate"
                     style="width:100%"
                     border
-                    height="560">
+                    height="560"
+                    @selection-change="handleSelectionChange">
+                <el-table-column
+                    type="selection"
+                    width="55">
+                </el-table-column>
                 <el-table-column
                         fixed
                         prop="name"
@@ -301,6 +317,7 @@
                 <!--</el-table-column>-->
 
             </el-table>
+            <el-button @click="ExcelSelection()"style="margin-top: 20px;">导出Excel</el-button>
             <div class="page">
                 <el-pagination
                         background
@@ -317,7 +334,7 @@
         background: #f4f5f5;
     }
     .art{
-        margin: 12px 10px;
+        margin: 12px 17px;
         padding-right: 24px;
         float: left;
         border-right: 1px #d4d8d7 solid;
@@ -329,13 +346,17 @@
     }
     .search{
         float: left;
-        margin: 12px 8px;
-        padding-right: 24px;
+        margin: 12px 10px;
+        padding-right: 10px;
         border-right: 1px #d4d8d7 solid;
     }
     .page{
         width: 30%;
         margin: 0 auto;
+    }
+    /*组件*/
+    .el-checkbox{
+        padding-left: 10px;
     }
 </style>
 
@@ -379,30 +400,33 @@
                     '其他'
                 ],
                 technical_position:[//专业技术职务
-                    '教授',
-                    '副教授',
-                    '讲师',
-                    '助教',
-                    '实验师',
-                    '助理实验师',
-                    '高级实验师'
-                ],
-                academic_title:[    //老师职称
                     '初级',
                     '中级',
                     '副高',
                     '正高'
                 ],
+                academic_title:[    //老师职称
+                    '教授',
+                    '副教授',
+                    '讲师',
+                    '助教',
+                    '高级实验师',
+                    '实验师',
+                    '助理实验师',
+                ],
                 post_category:[     //岗位类别
+                    '普通老师',
+                    '院长',
+                    '副院长',
                     '教学秘书',
                     '科研秘书',
                     '研究生秘书',
-                    '院长',
-                    '副院长',
                     '副主任',
                     '系主任',
                     '办公室主任',
                     '教研室主任',
+                    '党委书记',
+                    '党委副书记',
                 ]
             }
         },
@@ -411,7 +435,7 @@
                 let self = this;
                 axios.get("leaderselectallteacher").then(function (response) {
                     var data = response.data;
-                    self.form.num = data.datas.length;
+//                    self.form.num = data.datas.length;
                     self.total = data.datas.length;
                     for(var i=0;i<data.datas.length;i++){
                         data.datas[i].sex = self.sex[data.datas[i].sex];
@@ -622,6 +646,47 @@
                     }
                     if (data.code == 0) {
                         self.teacherDate = data.datas;
+                    } else {
+                        self.$notify({
+                            type: 'error',
+                            message: data.message,
+                            duration: 2000,
+                        });
+                    }
+                });
+            },
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
+            },
+            ExcelSelection() {
+                var self = this;
+                var tea_id_datas = [];//存放导出的数据
+                if(self.multipleSelection == undefined){
+                    this.$message({
+                        message: '请选择要导出的老师信息',
+                        type: 'warning'
+                    });
+                }else{
+                    for (var i = 0; i < self.multipleSelection.length; i++) {
+                        tea_id_datas.push(self.multipleSelection[i].teacher_id);
+                    };
+                    this.ExcelHoldmeetDatas(tea_id_datas);
+                }
+            },
+            ExcelHoldmeetDatas(tea_id_datas) {
+                let self = this;
+                axios.get("",{
+                    params:{
+                        te_id_datas:tea_id_datas
+                    }
+                }).then(function (response) {
+                    var data = response.data;
+                    if (data.code == 0) {
+                        self.$message({
+                            showClose: true,
+                            message: '导出成功!',
+                            type: 'success'
+                        });
                     } else {
                         self.$notify({
                             type: 'error',

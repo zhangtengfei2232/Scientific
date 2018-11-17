@@ -111,6 +111,9 @@
         margin-top: 40px;
         margin-left: 150px;
     }
+    .el-date-editor.el-input, .el-date-editor.el-input__inner {
+        width: 200px;
+    }
 </style>
 <script>
     export default {
