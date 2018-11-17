@@ -188,6 +188,7 @@ export default {
             allJoinmeet:[],
             multipleSelection: [],
             data1: '',
+            jo_name:'',
             input:'',
             total:0,
             form: {

@@ -132,7 +132,7 @@ class HoldmeetController extends Controller
         $reset_holdmeet           = HoldmeetDatas::updateHoldmeetDatas($datas,$reset_inject_status);
         if($reset_holdmeet){
             deletefiles($disk,$old_inject_road[0]);
-            responseTojson(0,'修改会议信息成功');
+            return responseTojson(0,'修改会议信息成功');
         }
         deletefiles($disk,$new_inject_road);
         return responseTojson(1,'修改会议信息失败');
@@ -159,6 +159,7 @@ class HoldmeetController extends Controller
         $subjection      = UploadSubjectionConfig::HOLD_IMG;
         $ho_id           = $request->ho_id;
         $all_images_road = uploadFiles($subjection,$holdmeet_images,$disk);
+//        dd($all_images_road);
         $image_status    = UploadSubjectionConfig::HOLD_IMG_STATUS;
         return ImageDatas::addImagesDatas($all_images_road,$ho_id,$image_status);
     }

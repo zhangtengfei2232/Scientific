@@ -32,6 +32,10 @@ class InformationController extends Controller
         if($is_exists_teacher){
             return responseTojson(1,'老师工号已经存在');
         }
+        $judge_teacherid = "/^smkj[0-9]+$/";
+        if(!preg_match($judge_teacherid,$teacher_id)){
+            return responseTojson(1,"老师的工号必须以'smkj'开头，且后面为数字");
+        }
         $datas  = [
             'teacher_id'            => $teacher_id,                          //老师工号
             'name'                  => trim($request->name),                 //老师名字
@@ -115,7 +119,6 @@ class InformationController extends Controller
         return responseTojson(0,'证书图片修改成功');
     }
     /**删除老师的所有信息
-     *
      */
     public function deleteTeacher(Request $request){
         $teacher_id           = trim($request->teacher_id);
@@ -246,8 +249,7 @@ class InformationController extends Controller
      */
     public function selectTeacher(){
         $teacher_id = session('usercount');
-        $result = TeacherDatabase::selectTeacherDatas($teacher_id);
-        return responseTojson(0,'查询成功','',$result);
+        return TeacherDatabase::selectTeacherDatas($teacher_id);
     }
     //修改老师信息
     public function updateTeacher(Request $request){

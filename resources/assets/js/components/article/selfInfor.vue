@@ -170,6 +170,7 @@ export default {
         return {
             ArticleSelfData: {},
             dataForm: new FormData(),
+            dataFile: new FormData(),
             year1: '',
             year2: '',
             year3: '',
@@ -203,27 +204,42 @@ export default {
             if(file != true){
                 this.dataFile.append('art_road', file);
                 let id = this.art_id;
-                console.log(id);
                 this.dataFile.append('art_id', id);
-                this.dataFile.append('is_add_article',this.Bcode);
-                this.sendfile(this.dataFile);
-            }else{
-                this.$message.error('请先添加数据信息');
-                return false
-            } 
-        },
-        fileArtsci(file){
-            if(file != true){
-                this.dataFile.append('art_sci_road', file);
-                let id = this.art_id;
-                console.log(id);
-                this.dataFile.append('art_id', id);
-                this.dataFile.append('is_add_article',this.Bcode);
                 this.sendfile(this.dataFile);
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
             }
+        },
+        sendfile(data) {
+            return axios({
+                method: 'post',
+                url: '',
+                headers: {'Content-Type': 'multipart/form-data'},
+                timeout: 20000,
+                data: data
+            });
+        },
+        fileArtsci(file){
+            if(file != true){
+                this.dataFile.append('art_sci_road', file);
+                let id = this.art_id;
+                this.dataFile.append('art_id', id);
+                this.dataFile.append('is_add_article',this.Bcode);
+                this.sendfiles(this.dataFile);
+            }else{
+                this.$message.error('请先添加数据信息');
+                return false
+            }
+        },
+        sendfiles(data) {
+            return axios({
+                method: 'post',
+                url: '',
+                headers: {'Content-Type': 'multipart/form-data'},
+                timeout: 20000,
+                data: data
+            });
         },
         getArticleSelfData() {
             let self = this;

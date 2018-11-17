@@ -36,9 +36,11 @@ use setasign\Fpdi\Tcpdf\Fpdi;
 
     //上传文件
     function uploadFiles($subjection,$files,$disk){
+        $redisLock = new \Illuminate\Cache\RedisLock();
         $fileTypes = array('jpg','png','jpeg','JPG','PNG','JPEG');
         $extension = $files->getClientOriginalExtension();
         $isInFileType = in_array($extension,$fileTypes);
+        while($redisLock->lock());
         if($isInFileType){
             $originalName = time().'.'.$extension;
         }else{
@@ -46,6 +48,7 @@ use setasign\Fpdi\Tcpdf\Fpdi;
         }
         $files->storeAs($subjection,$originalName,$disk);
         $certificate_road = $subjection.'/'.$originalName;
+        $redisLock->unlock();
         return $certificate_road;
     }
     //删除文件

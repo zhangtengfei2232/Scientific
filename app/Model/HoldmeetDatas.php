@@ -44,7 +44,7 @@ class HoldmeetDatas extends ModelDatabase
         $ho_image_road = [];
         for($i = 0; $i < count($ho_id_datas); $i++){
             $road = DB::table('holdmeet')->select('ho_graph_inject')->where('ho_id',$ho_id_datas[$i])->first();
-            $ho_image_road[$i] = $road['ho_graph_inject'];
+            $ho_image_road[$i] = $road->ho_graph_inject;
          }
          return $ho_image_road;
     }
