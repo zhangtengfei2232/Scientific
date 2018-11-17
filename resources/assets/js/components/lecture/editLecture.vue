@@ -41,20 +41,17 @@
                 <!--<div class="demo" v-show="picType">-->
                     <!--<img :src="filelist" alt="无法加载" style="width:100px">-->
                 <!--</div>-->
-                <div class="demo" v-show="type1">
+                <div class="demo" v-show="picType">
                     <img :src="filelist" alt="无法加载" style="width:100px">
                 </div>
             <el-form-item label="图注">
                 <el-upload
-                        class="upload-demo"
                         drag
                         action="#"
-                        multiple
                         ref="le_img_road"
-                        :auto-upload="false"
                         :before-upload="fileZufil"
-                        :on-preview="handlePreview"
-                        :on-remove="handleRemove"
+                        :auto-upload="false"
+                        :limit="1"
                         list-type="picture">
                     <i class="el-icon-upload"></i>
                     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -67,8 +64,8 @@
                 <div class="demo" v-show="picTypes">
                     <thead>
                     <li v-for="(index,items) in filelists" v-bind:key="items">
-                        <img :src="items.url" alt="无法加载">
-                        <el-button type="primary" @click="deletePic(items)">保存修改</el-button>
+                        <img :src="index.image_road" alt="无法加载">
+                        <el-button type="primary" @click="deletePic(index.im_id)">保存修改</el-button>
                     </li>
                     </thead>
                 </div>
@@ -76,10 +73,8 @@
                     <el-upload
                             ref="le_image"
                             action="#"
-                            :before-upload="filePicfil"
-                            :on-preview="handlePreview"
-                            :on-remove="handleRemove"
                             :auto-upload="false"
+                            :on-change="change"
                             list-type="picture">
                         <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
                         <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUploads">上传</el-button>
@@ -115,8 +110,16 @@
     export default {
         data() {
             return {
-                image:[],
-                le_id:'',
+
+
+                HoldmeetSelfData: {},
+                ho_file: '',
+                ho_graph_inject: '',
+                ho_id:'',
+                index:0,
+
+//                image:[],
+//                le_id:'',
                 le_image:'',
                 le_img_road:'',
                 type1:false,
@@ -157,10 +160,12 @@
                             self.filelist = 'showfile?disk=lecture&subjection=' + data.datas.lecture_information.le_img_road;
                         }
                         self.image = data.datas.lecture_images;
-                        console.log(data.datas,'/*/*/*/');
                         if(self.image.length !== 0){
                             self.picTypes = true;
-                            self.filelists = 'showfile?disk=lecture&subjection=' + image;
+                            self.filelists =  image;
+                            for(var i =0;i<self.filelists.length;i++){
+                                self.filelists[i].image_road = 'showfile?disk=lecture&subjection=' + image[i].image_road;
+                            }
                         }
                     } else {
                         self.$notify({
@@ -171,38 +176,19 @@
                     }
                 });
             },
-            submitUploads() {
-                this.$refs.le_image.submit();
-            },
-            handleRemove(file, fileList) {
-                console.log(file, fileList);
-            },
-            handlePreview(files) {
-                console.log(file);
-                this.dataFile.append('le_image', files);
-                let id = this.le_id;
-                this.dataFile.append('le_id', id);
-            },
             fileZufil(file){
                 this.dataForm.append('le_img_road', file);
                 return false;
             },
-            filePicfil(files){
-                if(files  != ''){
-                    this.sendfile(this.dataFile);
-                }else{
-                    this.$message.error('请先添加数据信息');
-                    return false
-                }
-//                if(this.Bcode == true){
-//                    this.dataFile.append('le_image', files);
-//                    let id = this.form.le_id;
-//                    this.sendfile(this.dataFile);
-//                    this.$refs.le_image.submit();
-//                }else{
-//                    this.$message.error('请先添加数据信息');
-//                    return false
-//                }
+            change(file) {
+                this.dataFile.append(this.index, file.raw);
+                this.index++;
+            },
+            submitUploads() {
+                let id = this.le_id;
+                this.dataFile.append('le_id', id);
+                this.sendfile(this.dataFile);
+//                this.$refs.le_image.submit();
             },
             sendfile(dataFile) {
                 this.addBookFile(dataFile).then(res => {
@@ -212,6 +198,7 @@
                             message: '修改成功',
                             type: 'success'
                         });
+                        location. reload();
                     } else {
                         vue.$notify({
                             type: 'error',
@@ -221,19 +208,37 @@
                     }
                 })
             },
-            addBookFile(data,id){
+
+//            filePicfil(files){
+//                if(files  != ''){
+//                    this.sendfile(this.dataFile);
+//                }else{
+//                    this.$message.error('请先添加数据信息');
+//                    return false
+//                }
+//                if(this.Bcode == true){
+//                    this.dataFile.append('le_image', files);
+//                    let id = this.form.le_id;
+//                    this.sendfile(this.dataFile);
+//                    this.$refs.le_image.submit();
+//                }else{
+//                    this.$message.error('请先添加数据信息');
+//                    return false
+//                }
+//            },
+
+            addBookFile(data){
                 return axios({
                     method: 'post',
                     url: 'addLectureImages',
                     headers: {'Content-Type': 'multipart/form-data'},
                     timeout: 20000,
                     data: data,
-                    le_id:id
+//                    le_id:id
                 });
             },
 
             onSubmit(form) {
-//                console.log(form,"修改成功啦+++++++++++++");
                 if(form.le_expert_name == '') {
                     this.$message.error('专家姓名不能为空');
                     return
@@ -258,7 +263,6 @@
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);
                         });
-                        console.log(vue.form,"修改+++++++++++++");
                         vue.addLectureData(vue.dataForm).then(res => {
                             var data = res.data;
                             if (data.code == 0) {
@@ -271,7 +275,7 @@
                             } else {
                                 vue.$notify({
                                     type: 'error',
-                                    message: data.msg,
+                                    message: data.message,
                                     duration: 2000,
                                 });
                             }
@@ -287,10 +291,32 @@
             addLectureData(data) {
                 return axios({
                     method: 'post',
-                    url: 'addLecture',
+                    url: 'updatelecture',
                     headers: {'Content-Type': 'multipart/form-data'},
                     timeout: 20000,
                     data: data
+                });
+            },
+            deletePic(id) {
+                let self = this;
+                axios.get("deletelectureimages",{
+                    params:{
+                        im_id:id
+                    }
+                }).then(function (response) {
+                    var data = response.data;
+                    if (data.code == 0) {
+                        self.$message({
+                            type: 'success',
+                            message: '删除成功!'
+                        });
+                    } else {
+                        self.$notify({
+                            type: 'error',
+                            message: data.message,
+                            duration: 2000,
+                        });
+                    }
                 });
             },
         },
