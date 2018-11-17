@@ -15,6 +15,10 @@ class InformationController extends Controller
     public function showIndex(){
         return view('index');
     }
+    //查看已经存在的老师工号
+    public function selectAllTeacherId(){
+        return TeacherDatabase::selectAllTeacherIdDatas();
+    }
     /**添加老师信息
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
@@ -24,6 +28,10 @@ class InformationController extends Controller
             return responseTojson(1,'你请求的方式不对');
         }
         $teacher_id = trim($request->teacher_id);
+        $is_exists_teacher = TeacherDatabase::isExistsTeacherDatas($teacher_id);
+        if($is_exists_teacher){
+            return responseTojson(1,'老师工号已经存在');
+        }
         $datas  = [
             'teacher_id'            => $teacher_id,                          //老师工号
             'name'                  => trim($request->name),                 //老师名字
@@ -47,7 +55,7 @@ class InformationController extends Controller
             'post_category'         => trim($request->post_category),        //老师岗位类别
             'company'               => trim($request->company),              //老师所在单位
             'te_re_department'      => trim($request->te_re_department),     //老师所属教研室或实验室
-            'working_hourse'        => trim($request->working_hours),        //老师来校工作时间
+            'working_hours'         => trim($request->working_hours),        //老师来校工作时间
             'origin_work_unit'      => trim($request->origin_work_unit),     //老师原工作单位
             'certificate_num'       => trim($request->certificate_num),      //老师教师资格证编号
             'identity_card'         => trim($request->identity_card),        //老师身份证号
@@ -64,7 +72,7 @@ class InformationController extends Controller
             'belong_subject'        => trim($request->belong_subject),       //老师从事专业所属学科
             'teach_course'          => trim($request->teach_course),         //老师任教课程
             'master_company'        => trim($request->master_company),       //老师硕博导授予单位
-            'master_time '          => trim($request->master_time)           //老师硕博导授予时间
+            'master_time'           => trim($request->master_time)           //老师硕博导授予时间
         ];
         $judge_datas = judgeTeacherField($datas);
         if($judge_datas['code'] == 1){                                        //没有字段通过验证
@@ -269,7 +277,7 @@ class InformationController extends Controller
             'post_category'         => trim($request->post_category),        //老师岗位类别
             'company'               => trim($request->company),              //老师所在单位
             'te_re_department'      => trim($request->te_re_department),     //老师所属教研室或实验室
-            'working_hourse'        => trim($request->working_hours),        //老师来校工作时间
+            'working_hours'         => trim($request->working_hours),        //老师来校工作时间
             'origin_work_unit'      => trim($request->origin_work_unit),     //老师原工作单位
             'certificate_num'       => trim($request->certificate_num),      //老师教师资格证编号
             'identity_card'         => trim($request->identity_card),        //老师身份证号
@@ -286,7 +294,7 @@ class InformationController extends Controller
             'belong_subject'        => trim($request->belong_subject),       //老师从事专业所属学科
             'teach_course'          => trim($request->teach_course),         //老师任教课程
             'master_company'        => trim($request->master_company),       //老师硕博导授予单位
-            'master_time '          => trim($request->master_time)           //老师硕博导授予时间
+            'master_time'           => trim($request->master_time)           //老师硕博导授予时间
         ];
         $judge_datas = judgeTeacherField($datas);
         if($judge_datas['code'] == 1){                                         //没有字段通过验证
@@ -300,7 +308,7 @@ class InformationController extends Controller
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
-        if(!$request->hasFile('gra_cert_road') || !$request->hasFile('edu_cert_road')){
+        if(!$request->hasFile('gra_cert_road') && !$request->hasFile('edu_cert_road')){
             return responseTojson(1,'请你上传证书图片');
         }
         if($request->hasFile('gra_cert_road')){
@@ -331,5 +339,4 @@ class InformationController extends Controller
         deletefiles($disk,$new_certificate_road);
         return responseTojson(1,'上传证书图片失败');
     }
-
 }

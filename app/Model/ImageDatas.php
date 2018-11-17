@@ -7,20 +7,20 @@ class ImageDatas extends ModelDatabase
         //添加图片
         public static function addImagesDatas($all_images_road,$owner_id,$image_status){
             $validate = true;
-            for($i = 0; $i < count($all_images_road); $i++){
+//            for($i = 0; $i < count($all_images_road); $i++){
                  $result = DB::table('image')
                      ->insert([
-                         'owner_id'      => $owner_id,
-                         'meet_img_road' => $all_images_road[$i],
-                         'create_time'   => time(),
-                         'image_status'  => $image_status
+                         'owner_id'     => $owner_id,
+                         'image_road'   => $all_images_road,
+                         'create_time'  => time(),
+                         'image_status' => $image_status
                      ]);
-                 if(!$result){
-                     $validate = false;
-                     break;
-                 }
-            }
-            return ($validate) ? responseTojson(0,'添加会议图片成功')
+//                 if(!$result){
+//                     $validate = false;
+//                     break;
+//                 }
+//            }
+            return ($result) ? responseTojson(0,'添加会议图片成功')
                    :responseTojson(1,'添加会议图片失败');
         }
         //删除图片

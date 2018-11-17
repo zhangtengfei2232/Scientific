@@ -117,5 +117,13 @@ use setasign\Fpdi\Tcpdf\Fpdi;
     function judgeReturnVolue($result){
 
     }
+    //导出EXCEL表格，单元格设置，数字转excel字母
+    function intToChr($index, $start = 65) {
+        $str = '';
+        if (floor($index / 26) > 0) {
+            $str .= intToChr(floor($index / 26)-1);
+        }
+        return $str . chr($index % 26 + $start);
+    }
 
 

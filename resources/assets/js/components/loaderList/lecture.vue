@@ -12,29 +12,29 @@
                                     讲学时间<i class="el-icon-arrow-down el-icon--right"></i>
                                 </span>
                                     <el-dropdown-menu slot="dropdown">
-                                        <!--<el-dropdown-item>全部</el-dropdown-item>-->
-                                        <!--<el-dropdown-item>18年-今天</el-dropdown-item>-->
-                                        <!--<el-dropdown-item>17年-今天</el-dropdown-item>-->
-                                        <!--<el-dropdown-item>16年-今天</el-dropdown-item>-->
-                                        <!--<el-dropdown-item>15年-今天</el-dropdown-item>-->
-                                        <!--<el-dropdown-item>14年-今天</el-dropdown-item>-->
+                                        <el-dropdown-item>全部</el-dropdown-item>
+                                        <el-dropdown-item @click="timeSearch(8)">18年-今天</el-dropdown-item>
+                                        <el-dropdown-item @click="timeSearch(7)">17年-今天</el-dropdown-item>
+                                        <el-dropdown-item @click="timeSearch(6)">16年-今天</el-dropdown-item>
+                                        <el-dropdown-item @click="timeSearch(5)">15年-今天</el-dropdown-item>
+                                        <el-dropdown-item @click="timeSearch(4)">14年-今天</el-dropdown-item>
                                         <el-dropdown-item>
                                             <el-popover
                                                     placement="top-start"
                                                     width="400"
-                                                    trigger="click">
+                                                    trigger="click"
+                                                    style="width:450px !important">
+                                            <span style="float:left;width: 87%;">
                                                 <el-date-picker
                                                         v-model="data1"
-                                                        type="date"
-                                                        placeholder="选择日期">
+                                                        type="daterange"
+                                                        range-separator="至"
+                                                        start-placeholder="开始日期"
+                                                        end-placeholder="结束日期"
+                                                        value-format="timestamp">
                                                 </el-date-picker>
-                                                <!--<el-date-picker-->
-                                                        <!--v-model="data1"-->
-                                                        <!--type="daterange"-->
-                                                        <!--range-separator="至"-->
-                                                        <!--start-placeholder="开始日期"-->
-                                                        <!--end-placeholder="结束日期">-->
-                                                <!--</el-date-picker>-->
+                                            </span>
+                                                <span style="float:left"><el-button type="primary" icon="el-icon-search" @click="twoTimeSearch()" style="width:25px;margin: 0 5px;"></el-button></span>
                                                 <div slot="reference">自定义时段<i class="el-icon-arrow-down el-icon--right"></i></div>
                                             </el-popover>
                                         </el-dropdown-item>
@@ -126,11 +126,13 @@
                         header-align="center">
                 </el-table-column>
             </el-table>
-            <el-pagination
-                    background
-                    layout="prev, pager, next"
-                    :total="1000">
-            </el-pagination>
+            <div class="page">
+                <el-pagination
+                        background
+                        layout="prev, pager, next"
+                        :total="total">
+                </el-pagination>
+            </div>
         </div>
     </div>
 </template>
@@ -148,13 +150,17 @@
     .cont{
         width: 85%;
         float: left;
-        /*margin: 20px;*/
+        margin: 20px;
     }
     .search{
         float: left;
         margin: 12px 17px;
         padding-right: 24px;
         border-right: 1px #d4d8d7 solid;
+    }
+    .page{
+        width: 30%;
+        margin: 0 auto;
     }
 </style>
 
@@ -167,6 +173,8 @@
                 ExperspeakDate: [],
                 data1: '',
                 input:'',
+                total:0,
+//                pagesize:9,
                 form: {
                     type:'',
                     name:'',
@@ -203,12 +211,73 @@
                     var data = response.data;
 //                    console.log(data,'////*******');
                     self.form.num = data.datas.length;
+                    self.total = data.datas.length;
                     for(var i=0;i<data.datas.length;i++){
                         data.datas[i].le_invite_status = self.le_invite_status[data.datas[i].le_invite_status];
                         data.datas[i].le_expert_level = self.le_expert_level[data.datas[i].le_expert_level];
                     }
                     if (data.code == 0) {
                         self.ExperspeakDate = data.datas;
+                    } else {
+                        self.$notify({
+                            type: 'error',
+                            message: data.message,
+                            duration: 2000,
+                        });
+                    }
+                });
+            },
+            timeSearch(time) {
+                if(time == 8) {
+                    this.newTime = '1514779200';
+                }else if(time == 7) {
+                    this.newTime = '1483243200';
+                }else if(time == 6) {
+                    this.newTime = '1451620800';
+                }else if(time == 5) {
+                    this.newTime = '1420084800';
+                }else if(time == 4) {
+                    this.newTime = '1388548800';
+                }
+                var timestamp = Date.parse(new Date());
+                let self = this;
+                axios.get("byinvitetimeselectlecture",{
+                    params:{
+                        start_time:newTime,
+                        end_time:timestamp
+                    }
+                }).then(function (response) {
+                    var data = response.data;
+                    if (data.code == 0) {
+                        self.ExperspeakDate = data.datas;
+                        for(var i=0;i<data.datas.length;i++){
+                            data.datas[i].le_invite_status = self.le_invite_status[data.datas[i].le_invite_status];
+                            data.datas[i].le_expert_level = self.le_expert_level[data.datas[i].le_expert_level];
+                        }
+                    } else {
+                        self.$notify({
+                            type: 'error',
+                            message: data.message,
+                            duration: 2000,
+                        });
+                    }
+                });
+            },
+            twoTimeSearch() {
+                let self = this;
+                axios.get("byinvitetimeselectlecture",{
+                    params:{
+                        start_time:self.data1[0],
+                        end_time:self.data1[1],
+                    }
+                }).then(function (response) {
+                    var data = response.data;
+                    if (data.code == 0) {
+                        self.ExperspeakDate = data.datas;
+                        for(var i=0;i<data.datas.length;i++){
+                            data.datas[i].le_invite_status = self.le_invite_status[data.datas[i].le_invite_status];
+                            data.datas[i].le_expert_level = self.le_expert_level[data.datas[i].le_expert_level];
+                        }
                     } else {
                         self.$notify({
                             type: 'error',

@@ -84,11 +84,13 @@
                         header-align="center">
                 </el-table-column>
             </el-table>
-            <el-pagination
-                    background
-                    layout="prev, pager, next"
-                    :total="1000">
-            </el-pagination>
+            <div class="page">
+                <el-pagination
+                        background
+                        layout="prev, pager, next"
+                        :total="total">
+                </el-pagination>
+            </div>
         </div>
     </div>
 </template>
@@ -106,13 +108,17 @@
     .cont{
         width: 85%;
         float: left;
-        /*margin: 20px;*/
+        margin: 20px;
     }
     .search{
         float: left;
         margin: 12px 17px;
         padding-right: 24px;
         border-right: 1px #d4d8d7 solid;
+    }
+    .page{
+        width: 30%;
+        margin: 0 auto;
     }
 </style>
 
@@ -127,6 +133,7 @@
                 year1: '',
                 year2: '',
                 input:'',
+                total:0,
                 form: {
                     type:'',
                     checkList: [],
@@ -161,6 +168,7 @@
                 axios.get("leaderselectallduties").then(function (response) {
                     var data = response.data;
                     self.form.num = data.datas.length;
+                    self.total = data.datas.length;
                     for(var i=0;i<data.datas.length;i++){
                         data.datas[i].du_academic = self.du_academic[data.datas[i].du_academic];
                         data.datas[i].du_education = self.du_education[data.datas[i].du_education];
