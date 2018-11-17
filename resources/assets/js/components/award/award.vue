@@ -134,9 +134,6 @@
             }
         },
         methods: {
-            deleteRow(index, rows) {
-                rows.splice(index, 1);
-            },
             toggleSelection(rows) {
                 if (rows) {
                 rows.forEach(row => {

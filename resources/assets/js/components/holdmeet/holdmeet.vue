@@ -67,7 +67,6 @@
                         width="200">
                         <template slot-scope="scope">
                             <el-button
-                            @click.native.prevent="deleteRow(scope.$index, HoldmeetlDate)"
                             type="text"
                             size="small">
                             <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentHoldmeetSelfData(HoldmeetlDate[scope.$index].ho_id)"></el-button>
@@ -134,9 +133,6 @@
             }
         },
         methods: {
-             deleteRow(index, rows) {
-                rows.splice(index, 1);
-            },
             toggleSelection(rows) {
                 if (rows) {
                 rows.forEach(row => {

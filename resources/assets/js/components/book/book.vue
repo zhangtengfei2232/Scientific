@@ -68,7 +68,6 @@
                         width="200">
                         <template slot-scope="scope">
                             <el-button
-                            
                             type="text"
                             size="small">
                             <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentBookSelfData(BookDate[scope.$index].op_id)"></el-button>
@@ -146,9 +145,6 @@
             }
         },
         methods: {
-            deleteRow(index, rows) {
-                rows.splice(index, 1);
-            },
             toggleSelection(rows) {
                 if (rows) {
                 rows.forEach(row => {
