@@ -198,30 +198,15 @@
         },
         methods: {
             fileArtpdf(file){
-                if(this.Bcode == true){
-                    this.dataFile.append('art_road', file);
-                    let id = this.art_id;
-                    console.log(id);
-                    this.dataFile.append('art_id', id);
-                    this.dataFile.append('is_add_article',this.Bcode);
-                    this.sendfile(this.dataFile);
+                if(file !== ''){
+                    this.dataForm.append('art_road', file);
                 }else{
-                    this.$message.error('请先添加数据信息');
+                    this.$message.error('请先添加pdf信息');
                     return false
                 } 
             },
             fileArtsci(file){
-                if(this.Bcode == true){
-                    this.dataFile.append('art_sci_road', file);
-                    let id = this.art_id;
-                    console.log(id);
-                    this.dataFile.append('art_id', id);
-                    this.dataFile.append('is_add_article',this.Bcode);
-                    this.sendfile(this.dataFile);
-                }else{
-                    this.$message.error('请先添加数据信息');
-                    return false
-                }
+                this.dataForm.append('art_sci_road', file);
             },
             onSubmit(form,year2,year3,year4,year5,year1) {
                 let vue = this;
