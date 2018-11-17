@@ -60,9 +60,7 @@ class ModelDatabase  extends  Model
     }
     //删除多个数据
     public static function deleteAllDatas($table_name,$id_field,$id_datas){
-        dd($id_field .'dssdsd'.$id_datas);
          $response = DB::table($table_name)->whereIn($id_field,$id_datas)->delete();
-         dd(5);
          return ($response == count($id_datas)) ? true : false;
     }
     //根据字段组合查询数据

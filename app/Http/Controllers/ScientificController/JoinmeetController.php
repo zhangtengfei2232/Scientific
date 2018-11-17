@@ -66,6 +66,7 @@ class JoinmeetController  extends Controller
         $delete_joinmeet = ModelDatabase::deleteAllDatas($table_name,$id_field,$jo_id_datas);
         if(count($old_image_road) > 1){  //只有参加会议有图片的时候，才去数据库删除数据
             $delete_image = ImageDatas::byOwnerdeleteImagesDatas($jo_id_datas);
+            ($delete_image == count($old_image_road)) ? $delete_image = true : $delete_image = false;
         }
         if($delete_image && $delete_joinmeet){
             ModelDatabase::commit();
