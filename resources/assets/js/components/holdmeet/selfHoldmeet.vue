@@ -266,7 +266,7 @@ export default {
             console.log(id);
             axios.get("deleteholdmeetimage",{
                 params:{
-                    id:id
+                    im_id:id
                 }
             }).then(function (response) {
             var data = response.data;

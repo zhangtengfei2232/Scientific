@@ -100,7 +100,7 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     Route::post('addholdmeet', 'HoldmeetController@addHoldmeet');                  //添加举行会议信息
     Route::post('addholdmeetimages', 'HoldmeetController@addHoldmeetImages');      //添加举行会议图片
     Route::get('deleteholdmeet', 'HoldmeetController@deleteHoldmeet');             //删除举行会议会议
-    Route::get('deleteholdimages', 'HoldmeetController@deleteHoldImages');         //删除举行会议图片
+    Route::get('deleteholdmeetimage', 'HoldmeetController@deleteHoldmeetImage');   //删除举行会议图片
     Route::get('selectholdmeet', 'HoldmeetController@selectHoldmeet');             //查询单个举行会议信息
     Route::get('selectallholdmeet', 'HoldmeetController@selectAllHoldmeet');       //查询全部举行会议信息
     Route::get('timeselectholdmeet', 'HoldmeetController@timeSelectHoldmeet');     //根据时间区间查询信息
