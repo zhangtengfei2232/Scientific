@@ -85,7 +85,7 @@
         if(emptyarray($datas)){
             return responseTojson(1,'你填写的的论文信息不全',1);
         }
-        if(strlen($datas->title) > 90){
+        if(strlen($datas['title']) > 90){
             return responseTojson(1,'你输入的论文题目不合法',1);
         }elseif (strlen($datas['author']) > 12){
             return responseTojson(1,'你输入作者姓名不合法',1);
@@ -96,7 +96,7 @@
         }elseif (!preg_match("/^[0-9]*$/",$datas['num_words'])
             || strlen($datas['num_words']) > 9){
             return responseTojson(1,'你输入的论文字数必须为数字，且不能超过9位',1);
-        }elseif (strlen($datas['periodical_cate']) > 10){
+        }elseif (strlen($datas['percal_cate']) > 10){
             return responseTojson(1,'你输入的期刊类别不合法',1);
         }elseif (strlen($datas['belong_project']) > 20){
             return responseTojson(1,'你输入的所属项目名称不合法',1);
@@ -108,7 +108,7 @@
         }elseif (strlen($datas['sch_percal_cate']) > 20){
             return responseTojson(1,'你输入的学校认证期刊级别有误',1);
         }else{
-            return responseTojson(0,'验证通过');
+            return responseTojson(0,'验证通过',1);
         }
     }
     //验证项目字段

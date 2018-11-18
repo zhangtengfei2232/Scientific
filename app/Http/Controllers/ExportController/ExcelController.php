@@ -299,20 +299,20 @@ class ExcelController extends Controller
         $appraisal_table_name = SearchMessageConfig::APPRAISAL_TABLE;
         $appraisal_id_field   = SearchMessageConfig::APPRAISAL_ID;
         $appraisal_datas      = ModelDatabase::selectExportExcelDatas($appraisal_table_name,$appraisal_id_field,$ap_id_datas);
-        foreach ($appraisal_datas as $datas){
+        for($i = 0; $i < count($appraisal_datas); $i++){
             ++$this->serial_number;//序号
             $appraisal_cell_datas[] = [
                 $this->serial_number,
-                $datas->ap_first_author,
-                $datas->ap_all_author,
-                $datas->ap_res_name,
-                $datas->ap_form,
-                $datas->ap_num,
-                $datas->ap_conclusion,
-                date('Y-m-d',$datas->ap_time),
-                SearchMessageConfig::AP_LEVEL_DATAS[$datas->ap_level],
-                $datas->ap_integral,
-                $datas->ap_remarks
+                $appraisal_datas[$i]->ap_first_author,
+                $appraisal_datas[$i]->ap_all_author,
+                $appraisal_datas[$i]->ap_res_name,
+                $appraisal_datas[$i]->ap_form,
+                $appraisal_datas[$i]->ap_num,
+                $appraisal_datas[$i]->ap_conclusion,
+                date('Y-m-d',$appraisal_datas[$i]->ap_time),
+                SearchMessageConfig::AP_LEVEL_DATAS[$appraisal_datas[$i]->ap_level],
+                $appraisal_datas[$i]->ap_integral,
+                $appraisal_datas[$i]->ap_remarks
             ];
         }
         Excel::create('成果鉴定信息数据',function ($excel) use ($appraisal_cell_datas){
@@ -329,17 +329,17 @@ class ExcelController extends Controller
         $holdmeet_table_name = SearchMessageConfig::HOLD_MEET_TABLE;
         $holdmeet_id_field   = SearchMessageConfig::HOLDMEET_ID;
         $holdmeet_datas      = ModelDatabase::selectExportExcelDatas($holdmeet_table_name,$holdmeet_id_field,$ho_id_datas);
-        foreach ($holdmeet_datas as $datas){
+        for ($i = 0; $i < count($holdmeet_datas); $i++){
             ++$this->serial_number;//序号
             $holdmeet_cell_datas[] = [
                 $this->serial_number,
-                $datas->ho_name,
-                SearchMessageConfig::HO_ART_STATUS_DATAS[$datas->ho_art_status],
-                $datas->people_num,
-                $datas->ho_unit,
-                $datas->undertake_unit,
-                SearchMessageConfig::MEETING_LEVEL_DATAS[$datas->ho_level],
-                date('Y-m-d',$datas->ho_time),
+                $holdmeet_datas[$i]->ho_name,
+                SearchMessageConfig::HO_ART_STATUS_DATAS[$holdmeet_datas[$i]->ho_art_status],
+                $holdmeet_datas[$i]->people_num,
+                $holdmeet_datas[$i]->ho_unit,
+                $holdmeet_datas[$i]->undertake_unit,
+                SearchMessageConfig::MEETING_LEVEL_DATAS[$holdmeet_datas[$i]->ho_level],
+                date('Y-m-d',$holdmeet_datas[$i]->ho_time),
             ];
         }
         Excel::create('举办会议信息数据',function ($excel) use ($holdmeet_cell_datas){
@@ -356,20 +356,20 @@ class ExcelController extends Controller
         $joinmeet_table_name = SearchMessageConfig::JOIN_MEET_TABLE;
         $joinmeet_id_field   = SearchMessageConfig::JOINMEET_ID;
         $joinmeet_datas      = ModelDatabase::selectExportExcelDatas($joinmeet_table_name,$joinmeet_id_field,$jo_id_datas);
-        foreach ($joinmeet_datas as $datas){
+        for($i = 0; $i < count($joinmeet_datas); $i++){
             ++$this->serial_number;//序号
             $joinmeet_cell_datas[] = [
                 $this->serial_number,
-                $datas->join_people,
-                $datas->jo_name,
-                $datas->jo_hold_unit,
-                $datas->jo_take_unit,
-                SearchMessageConfig::MEETING_LEVEL_DATAS[$datas->jo_level],
-                date('Y-m-d',$datas->jo_time),
-                $datas->jo_place,
-                $datas->jo_art_num,
-                $datas->jo_is_invite,
-                $datas->jo_title
+                $joinmeet_datas[$i]->join_people,
+                $joinmeet_datas[$i]->jo_name,
+                $joinmeet_datas[$i]->jo_hold_unit,
+                $joinmeet_datas[$i]->jo_take_unit,
+                SearchMessageConfig::MEETING_LEVEL_DATAS[$joinmeet_datas[$i]->jo_level],
+                date('Y-m-d',$joinmeet_datas[$i]->jo_time),
+                $joinmeet_datas[$i]->jo_place,
+                $joinmeet_datas[$i]->jo_art_num,
+                $joinmeet_datas[$i]->jo_is_invite,
+                $joinmeet_datas[$i]->jo_title
             ];
         }
         Excel::create('参加会议信息数据',function ($excel) use ($joinmeet_cell_datas){
@@ -386,16 +386,16 @@ class ExcelController extends Controller
         $lecture_table_name = SearchMessageConfig::LECTURE_TABLE;
         $lecture_id_field   = SearchMessageConfig::LECTURE_ID;
         $lecture_datas      = ModelDatabase::selectExportExcelDatas($lecture_table_name,$lecture_id_field,$le_id_datas);
-        foreach ($lecture_datas as $datas){
+        for ($i = 0; $i < count($lecture_datas); $i++){
             ++$this->serial_number;//序号
             $lecture_cell_datas[] = [
                 $this->serial_number,
-                $datas->le_expert_name,
-                SearchMessageConfig::LE_EXPERT_LEVEL_DATAS[$datas->le_expert_level],
-                $datas->le_report_name,
-                SearchMessageConfig::LE_INVITE_STATUS_DATAS[$datas->le_invite_status],
-                $datas->le_invite_unit,
-                date('Y-m-d',$datas->le_time)
+                $lecture_datas[$i]->le_expert_name,
+                SearchMessageConfig::LE_EXPERT_LEVEL_DATAS[$lecture_datas[$i]->le_expert_level],
+                $lecture_datas[$i]->le_report_name,
+                SearchMessageConfig::LE_INVITE_STATUS_DATAS[$lecture_datas[$i]->le_invite_status],
+                $lecture_datas[$i]->le_invite_unit,
+                date('Y-m-d',$lecture_datas[$i]->le_time)
             ];
         }
         Excel::create('专家讲学信息数据',function ($excel) use ($lecture_cell_datas){
@@ -414,16 +414,16 @@ class ExcelController extends Controller
         $duties_table_name = SearchMessageConfig::LECTURE_TABLE;
         $duties_id_field   = SearchMessageConfig::LECTURE_ID;
         $duties_datas      = ModelDatabase::selectExportExcelDatas($duties_table_name,$duties_id_field,$du_id_datas);
-        foreach ($duties_datas as $datas){
+        for($i = 0; $i < count($duties_datas); $i++){
             ++$this->serial_number;//序号
             $cell_datas[] = [
                 $this->serial_number,
-                $datas->teacher_name,
-                SearchMessageConfig::ACADEMIC_DATAS[$datas->du_academic],
-                $datas->le_report_name,
-                SearchMessageConfig::LE_INVITE_STATUS_DATAS[$datas->le_invite_status],
-                $datas->le_invite_unit,
-                date('Y-m-d',$datas->le_time)
+                $duties_datas[$i]->teacher_name,
+                SearchMessageConfig::ACADEMIC_DATAS[$duties_datas[$i]->du_academic],
+                $duties_datas[$i]->le_report_name,
+                SearchMessageConfig::LE_INVITE_STATUS_DATAS[$duties_datas[$i]->le_invite_status],
+                $duties_datas[$i]->le_invite_unit,
+                date('Y-m-d',$duties_datas[$i]->le_time)
             ];
         }
         Excel::create('专家讲学信息数据',function ($excel) use ($cell_datas){
@@ -440,13 +440,13 @@ class ExcelController extends Controller
         $school_file_table_name = SearchMessageConfig::SCHOOL_FILE_TABLE;
         $school_file_id_field   = SearchMessageConfig::SCHOOLFILE_ID;
         $school_file_datas      = ModelDatabase::selectExportExcelDatas($school_file_table_name,$school_file_id_field,$schfile_id_datas);
-        foreach ($school_file_datas as $datas){
+        for($i = 0; $i < count($school_file_datas); $i++){
             ++$this->serial_number;//序号
             $school_file_cell_datas[] = [
                 $this->serial_number,
-                $datas->schfile_name,
-                $datas->schfile_num,
-                date('Y-m-d',$datas->schfile_down_time)
+                $school_file_datas[$i]->schfile_name,
+                $school_file_datas[$i]->schfile_num,
+                date('Y-m-d',$school_file_datas[$i]->schfile_down_time)
             ];
         }
         Excel::create('校发文件信息数据',function ($excel) use ($school_file_cell_datas){
@@ -463,13 +463,13 @@ class ExcelController extends Controller
         $agreement_table_name = SearchMessageConfig::AGREEMENT_TABLE;
         $agreement_id_field   = SearchMessageConfig::AGREEMENT_ID;
         $agreement_datas      = ModelDatabase::selectExportExcelDatas($agreement_table_name,$agreement_id_field,$agree_id_id_datas);
-        foreach ($agreement_datas as $datas){
+        for($i = 0; $i < count($agreement_datas); $i++){
             ++$this->serial_number;//序号
             $agreement_cell_datas[] = [
                 $this->serial_number,
-                $datas->agree_name,
-                $datas->agree_cooperate_unit,
-                date('Y-m-d',$datas->agree_time)
+                $agreement_datas[$i]->agree_name,
+                $agreement_datas[$i]->agree_cooperate_unit,
+                date('Y-m-d',$agreement_datas[$i]->agree_time)
             ];
         }
         Excel::create('教学科研等合作协议信息数据',function ($excel) use ($agreement_cell_datas){
