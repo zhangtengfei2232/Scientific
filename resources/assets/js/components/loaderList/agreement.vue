@@ -133,6 +133,7 @@ export default {
             searchValue:'',
             border:true,
             allAgreement:[],
+            pagesize:20,
             multipleSelection: [],
             currentPage:1,
             data1: '',

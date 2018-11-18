@@ -138,6 +138,7 @@ export default {
             currentPage:1,
             schfile_name:'',
             total:0,
+            pagesize:20,
         }
     },
     methods: {

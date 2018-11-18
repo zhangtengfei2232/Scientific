@@ -179,6 +179,7 @@ export default {
             data1: '',
             currentPage:1,
             ho_name:'',
+            pagesize:20,
             total:0,
             form: {
                 ho_level: [],

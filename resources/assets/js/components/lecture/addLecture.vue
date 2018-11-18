@@ -45,6 +45,7 @@
                         ref="le_img_road"
                         :before-upload="filePicfil"
                         :auto-upload="false"
+                        :limit="1"
                         multiple
                         list-type="picture">
                     <i class="el-icon-upload"></i>
@@ -57,12 +58,9 @@
             </el-form-item>
             <el-form-item label="图片">
                 <el-upload
-                        class="upload-demo"
                         ref="le_image"
                         action="#"
-                        :before-upload="fileZufil"
-                        :on-preview="handlePreview"
-                        :on-remove="handleRemove"
+                        :on-change="change"
                         :auto-upload="false"
                         list-type="picture">
                     <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
@@ -101,7 +99,8 @@
                 multiple:true,
                 le_img_road: '',
                 le_image: '',
-                le_id:'',
+                le_id:0,
+                index:0,
                 form: {
                     le_expert_name:'',
                     le_expert_level:'',
@@ -115,48 +114,35 @@
             }
         },
         methods: {
+            change(file) {
+                this.dataFile.append(this.index, file.raw);
+                this.index++;
+            },
             submitUploads() {
-                this.$refs.le_image.submit();
-            },
-            handleRemove(file, fileList) {
-                console.log(file, fileList);
-            },
-            handlePreview(file) {
-                console.log(file);
-                this.dataFile.append('le_image', files);
-                let id = this.form.le_id;
-                this.dataFile.append('le_id', id);
-            },
-            filePicfil(file){
-                this.dataForm.append('le_img_road', file);
-                return false;
-            },
-            fileZufil(files){
                 if(this.Bcode == true){
-//                    this.dataFile.append('le_image', files);
-//                    let id = this.form.le_id;
-//                    this.dataFile.append('le_id', id);
+                    let id = this.le_id;
+                    this.dataFile.append('le_id', id);
                     this.dataFile.append('is_add_lecture',this.Bcode);
                     this.sendfile(this.dataFile);
-                    console.log(this.dataFile);
-//                    this.sendfile(files);
-//                    this.$refs.le_image.submit();
                 }else{
                     this.$message.error('请先添加数据信息');
                     return false
                 }
             },
+            filePicfil(file){
+                this.dataForm.append('le_img_road', file);
+                return false;
+            },
             sendfile(dataFile) {
                 this.addBookFile(dataFile).then(res => {
                     var data = res.data;
                     if (data.code == 0) {
-//                        this.Bcode = true;
-                        vue.$message({
+                        this.$message({
                             message: '添加成功',
                             type: 'success'
                         });
                     } else {
-                        vue.$notify({
+                        this.$notify({
                             type: 'error',
                             message: data.message,
                             duration: 2000,
@@ -171,7 +157,6 @@
                     headers: {'Content-Type': 'multipart/form-data'},
                     timeout: 20000,
                     data: data,
-//                    le_id:id
                 });
             },
             onSubmit(form) {
@@ -185,10 +170,12 @@
                 }else if(form.le_report_name == '') {
                     this.$message.error('报告名称不能为空');
                     return
-                }else if(form.le_invite_status == '') {
-                    this.$message.error('邀请状态不能为空');
-                    return
-                }else if(form.le_invite_unit == '') {
+                }
+//                else if(!isNaN(form.le_invite_status)) {
+//                    this.$message.error('邀请状态不能为空');
+//                    return
+//                }
+                else if(form.le_invite_unit == '') {
                     this.$message.error('邀请单位不能为空');
                     return
                 }else if(form.le_time == '') {
@@ -200,10 +187,9 @@
                         jQuery.each(form,function(i,val){
                             vue.dataForm.append(i,val);
                         });
-                       console.log(form,'+++++++++++ott');
                         vue.addLectureData(vue.dataForm).then(res => {
                             var data = res.data;
-                            self.le_id = res.data.datas;
+                            vue.le_id = res.data.datas;
                             if (data.code == 0) {
                                 this.Bcode = true;
                                 vue.$message({

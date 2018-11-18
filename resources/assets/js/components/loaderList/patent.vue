@@ -214,6 +214,7 @@ export default {
             pa_name:'',
             currentPage:1,
             total:0,
+            pagesize:20,
             form: {
                 pa_type:[],
                 pa_imple_situ: [],
