@@ -109,7 +109,7 @@ class LectureController extends Controller
              'le_expert_level'  => trim($request->le_expert_level),
              'le_report_name'   => trim($request->le_report_name),
              'le_invite_status' => trim($request->le_invite_status),
-             'le_invite_unit'   => trim($request->le_invite_unite),
+             'le_invite_unit'   => trim($request->le_invite_unit),
              'le_time'          => trim($request->le_time)
          ];
          $judge_datas = judgeLectureField($datas);
