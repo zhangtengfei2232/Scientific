@@ -150,6 +150,7 @@ class JoinmeetController  extends Controller
     }
     //添加会议图片
     public function addJoinmeetImage(Request $request){
+        dd($request);
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }

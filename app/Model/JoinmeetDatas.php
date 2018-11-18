@@ -24,7 +24,7 @@ class JoinmeetDatas extends ModelDatabase
                         'jo_graph_inject' => $jo_graph_inject
                     ]);
         if(empty($jo_graph_inject)){
-            return ($jo_id > 0) ? responseTojson(0,'添加参加会议信息成功','',$response)
+            return ($jo_id > 0) ? responseTojson(0,'添加参加会议信息成功','',$jo_id)
                    : responseTojson(1,'添加参加会议信息失败');
         }
         return $jo_id;
