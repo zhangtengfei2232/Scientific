@@ -21,7 +21,7 @@ class LectureDatabase  extends ModelDatabase
                         'le_img_road'      => $le_img_road
                     ]);
         if(empty($le_img_road)){
-            return ($le_id > 0) ? responseTojson(0,'添加讲学信息成功','',$response)
+            return ($le_id > 0) ? responseTojson(0,'添加讲学信息成功','',$le_id)
                 : responseTojson(1,'添加讲学失败');
         }
         return $le_id;
