@@ -127,7 +127,7 @@
     methods: {
         submitUploads() {
             if(this.Bcode == true){
-                let id = this.form.jo_id;
+                let id = this.jo_id;
                 this.dataFile.append('jo_id', id);
                 this.dataFile.append('is_add_joinmeet',this.Bcode);
                 this.sendfile(this.dataFile);
