@@ -194,11 +194,6 @@
                 <el-button @click="ExcelSelection()">导出Excel</el-button>
             </div>
             <div class="page">
-                <!-- <el-pagination
-                    background
-                    layout="prev, pager, next"
-                    :total="total">
-                </el-pagination> -->
                 <el-pagination
                     @size-change="handleSizeChange"
                     @current-change="handleCurrentChange"
@@ -297,6 +292,12 @@ export default {
         }
     },
     methods: {
+        handleSizeChange: function (size) {
+            this.pagesize = size;
+        },
+        handleCurrentChange: function(currentPage){
+            this.currentPage = currentPage;
+        },
         handleSizeChange: function (size) {
             this.pagesize = size;
         },
