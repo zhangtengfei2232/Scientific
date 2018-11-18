@@ -250,6 +250,7 @@ export default {
             pro_name:'',
             project_category:'',
             total:0,
+            pagesize:20,
             currentPage:1,
             approval_unit:'',
             form: {

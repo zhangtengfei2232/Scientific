@@ -27,7 +27,7 @@
                 <el-form-item label="刊号">
                     <el-input v-model="form.publication_num"></el-input>
                 </el-form-item>
-                <el-form-item label="年，卷，期">
+                <el-form-item label="年，卷，期" v-model="form.period">
                     <el-col :span="1" style="width:50px;margin:0 10px 0 0">
                         <el-date-picker v-model="year1" type="year" placeholder="选择年份" style="width: 90px;"></el-date-picker>
                     </el-col>
@@ -193,6 +193,7 @@
                     percal_cate: '',
                     year: '',
                     art_remarks: "",
+                    period:''
                 }
             }
         },
@@ -210,7 +211,7 @@
             },
             onSubmit(form,year2,year3,year4,year5,year1) {
                 let vue = this;
-                form.year = year1+","+year2+","+year3+","+year4+","+year5;
+                form.period = year1+","+year2+","+year3+","+year4+","+year5;
                 if(form.author == '') {
                     this.$message.error('第一作者不能为空');
                     return

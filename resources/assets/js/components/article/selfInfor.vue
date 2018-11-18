@@ -195,6 +195,7 @@ export default {
                 percal_cate: '',
                 sch_percal_cate:'',
                 art_time: '',
+                period:''
             },
         }
     },
@@ -239,7 +240,7 @@ export default {
                 if (data.code == 0) {
                     self.ArticleSelfData = data.datas;
                     let time = data.datas.period;
-                    // checkYearExt(time);
+                    self.checkYearExt(time);
                     self.form = data.datas;
                     self.filelists.url = 'showfile?disk=article&subjection=' + data.datas.home_page_road; 
                 } else {

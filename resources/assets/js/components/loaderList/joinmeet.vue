@@ -195,6 +195,7 @@ export default {
             jo_name:'',
             input:'',
             currentPage:1,
+            pagesize:20,
             total:0,
             form: {
                 jo_level: [],

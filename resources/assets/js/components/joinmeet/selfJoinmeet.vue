@@ -58,7 +58,7 @@
                         drag
                         action="#"
                         ref="jo_graph_inject"
-                        :before-upload="fileProfil"
+                        :on-change="fileProfil"
                         :auto-upload="false"                        
                         list-type="picture">
                         <i class="el-icon-upload"
@@ -187,7 +187,7 @@ export default {
             this.sendfile(this.dataFile);
         },
         fileProfil(file){
-            this.dataForm.append('jo_graph_inject', file);
+            this.dataForm.append('jo_graph_inject', file.raw);
             return false;
         },
         sendfile(dataFile) {

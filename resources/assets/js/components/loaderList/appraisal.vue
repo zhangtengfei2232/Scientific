@@ -214,6 +214,7 @@ export default {
             multipleSelection: [],
             data1: '',
             ap_first_author:'',
+            pagesize:20,
             ap_res_name:'',
             ap_form:'',
             currentPage:1,

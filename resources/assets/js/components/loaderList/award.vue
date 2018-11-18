@@ -218,6 +218,7 @@ export default {
             data1: '',
             aw_first_author:'',
             award_name:'',
+            pagesize:20,
             currentPage:1,
             total:0,
             form: {
