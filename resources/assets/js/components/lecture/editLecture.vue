@@ -5,13 +5,19 @@
             <el-form-item label="专家姓名">
                 <el-input v-model="form.le_expert_name" placeholder="请输入专家姓名"></el-input>
             </el-form-item>
-            <el-form-item label="专家级别">
+            <el-form-item label="专家级别" prop="le_expert_level">
                 <el-select v-model="form.le_expert_level" placeholder="请选择专家级别">
-                    <el-option label="院士" value="0"></el-option>
-                    <el-option label="博导" value="1"></el-option>
-                    <el-option label="国务院学位委员会委员" value="2"></el-option>
-                    <el-option label="教授" value="3"></el-option>
-                    <el-option label="其他" value="4"></el-option>
+                    <el-option
+                            v-for="(value, key) in le_expert_level"
+                            :key="key"
+                            :label="value"
+                            :value="key">
+                    </el-option>
+                    <!--<el-option label="院士" value="0"></el-option>-->
+                    <!--<el-option label="博导" value="1"></el-option>-->
+                    <!--<el-option label="国务院学位委员会委员" value="2"></el-option>-->
+                    <!--<el-option label="教授" value="3"></el-option>-->
+                    <!--<el-option label="其他" value="4"></el-option>-->
                 </el-select>
             </el-form-item>
             <el-form-item label="报告名称">
@@ -38,9 +44,6 @@
                     </el-date-picker>
                 </el-col>
             </el-form-item>
-                <!--<div class="demo" v-show="picType">-->
-                    <!--<img :src="filelist" alt="无法加载" style="width:100px">-->
-                <!--</div>-->
                 <div class="demo" v-show="picType">
                     <img :src="filelist" alt="无法加载" style="width:100px">
                 </div>
@@ -63,10 +66,10 @@
                 </el-form-item>
                 <div class="demo" v-show="picTypes">
                     <thead>
-                    <li v-for="(index,items) in filelists" v-bind:key="items">
-                        <img :src="index.image_road" alt="无法加载" style="width:100px">
-                        <el-button type="primary" size="mini"  @click="deletePic(index.im_id)">删除</el-button>
-                    </li>
+                        <li v-for="(index,items) in filelists" v-bind:key="items">
+                            <img :src="index.image_road" alt="无法加载" style="width:100px">
+                            <el-button type="primary" size="mini" @click="deletePic(index.im_id)">删除</el-button>
+                        </li>
                     </thead>
                 </div>
                 <el-form-item label="图片">
@@ -114,20 +117,20 @@
     export default {
         data() {
             return {
+                picType:false,
+                picTypes:false,
+                filelist: '',
+                EditLectureData: {},
+                dataForm: new FormData(),
+                dataFile: new FormData(),
                 index:0,
                 le_id:'',
                 le_image:'',
                 le_img_road:'',
                 type1:false,
-                picType:false,
-                picTypes:false,
 //                Bcode:false,
-                multiple: true,
-                dataForm: new FormData(),
-                dataFile: new FormData(),
-                EditLectureData: {},
+//                multiple: true,
                 filelists:[],
-                filelist: '',
                 form: {
                     le_id:'',
                     le_expert_name:'',
@@ -158,7 +161,6 @@
                         self.EditLectureData = data.datas.lecture_information;
                         self.form = data.datas.lecture_information;
                         self.le_id = data.datas.lecture_information.le_id;
-                        data.datas.lecture_information.le_expert_level = self.le_expert_level[data.datas.lecture_information.le_expert_level];
                         if(data.datas.lecture_information.le_img_road !== ''){
                             self.type1=true;
                             self.filelist = 'showfile?disk=lecture&subjection=' + data.datas.lecture_information.le_img_road;
@@ -192,19 +194,18 @@
                 let id = this.le_id;
                 this.dataFile.append('le_id', id);
                 this.sendfile(this.dataFile);
-//                this.$refs.le_image.submit();
             },
             sendfile(dataFile) {
                 this.addBookFile(dataFile).then(res => {
                     var data = res.data;
                     if (data.code == 0) {
-                        vue.$message({
+                        this.$message({
                             message: '修改成功',
                             type: 'success'
                         });
                         location. reload();
                     } else {
-                        vue.$notify({
+                        this.$notify({
                             type: 'error',
                             message: data.message,
                             duration: 2000,
@@ -212,25 +213,6 @@
                     }
                 })
             },
-
-//            filePicfil(files){
-//                if(files  != ''){
-//                    this.sendfile(this.dataFile);
-//                }else{
-//                    this.$message.error('请先添加数据信息');
-//                    return false
-//                }
-//                if(this.Bcode == true){
-//                    this.dataFile.append('le_image', files);
-//                    let id = this.form.le_id;
-//                    this.sendfile(this.dataFile);
-//                    this.$refs.le_image.submit();
-//                }else{
-//                    this.$message.error('请先添加数据信息');
-//                    return false
-//                }
-//            },
-
             addBookFile(data){
                 return axios({
                     method: 'post',
@@ -238,10 +220,8 @@
                     headers: {'Content-Type': 'multipart/form-data'},
                     timeout: 20000,
                     data: data,
-//                    le_id:id
                 });
             },
-
             onSubmit(form) {
                 if(form.le_expert_name == '') {
                     this.$message.error('专家姓名不能为空');
@@ -252,10 +232,12 @@
                 }else if(form.le_report_name == '') {
                     this.$message.error('报告名称不能为空');
                     return
-                }else if(form.le_invite_status == '') {
-                    this.$message.error('邀请状态不能为空');
-                    return
-                }else if(form.le_invite_unit == '') {
+                }
+//                else if(form.le_invite_status == '') {
+//                    this.$message.error('邀请状态不能为空');
+//                    return
+//                }
+                else if(form.le_invite_unit == '') {
                     this.$message.error('邀请单位不能为空');
                     return
                 }else if(form.le_time == '') {

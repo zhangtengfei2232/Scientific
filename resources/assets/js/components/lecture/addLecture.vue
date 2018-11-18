@@ -39,7 +39,6 @@
             </el-form-item>
             <el-form-item label="图注">
                 <el-upload
-                        class="upload-demo"
                         drag
                         action="#"
                         ref="le_img_road"
