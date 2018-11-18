@@ -25,7 +25,7 @@ class ArticalController extends Controller
              'publication_num'   => trim($request->publication_num),          //刊号
              'period'            => trim($request->period),                   //年卷期
              'num_words'         => trim($request->num_words),                //论文字数
-             'periodical_cate'   => trim($request->periodical_cate),          //期刊级别
+             'percal_cate'       => trim($request->percal_cate),              //期刊级别
              'belong_project'    => trim($request->belong_project),           //所属项目
              'art_cate_research' => trim($request->art_cate_research),        //研究类别
              'art_sub_category'  => trim($request->art_sub_category),         //学科门类
