@@ -141,7 +141,7 @@
             return false;
         },
         change(files){
-            this.dataFile.append(this.index, files);
+            this.dataFile.append(this.index, files.raw);
             this.index++;
         },
         sendfile(dataFile) {
