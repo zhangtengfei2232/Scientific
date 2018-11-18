@@ -64,8 +64,8 @@
                 <div class="demo" v-show="picTypes">
                     <thead>
                     <li v-for="(index,items) in filelists" v-bind:key="items">
-                        <img :src="index.image_road" alt="无法加载">
-                        <el-button type="primary" @click="deletePic(index.im_id)">保存修改</el-button>
+                        <img :src="index.image_road" alt="无法加载" style="width:100px">
+                        <el-button type="primary" size="mini"  @click="deletePic(index.im_id)">删除</el-button>
                     </li>
                     </thead>
                 </div>
@@ -99,6 +99,10 @@
     .demo{
         margin: 10px 0 10px 30%;
     }
+    thead li{
+        float: left;
+        margin: 20px;
+    }
     /*组件*/
     .el-form{
         width:62%;
@@ -110,22 +114,14 @@
     export default {
         data() {
             return {
-
-
-                HoldmeetSelfData: {},
-                ho_file: '',
-                ho_graph_inject: '',
-                ho_id:'',
                 index:0,
-
-//                image:[],
-//                le_id:'',
+                le_id:'',
                 le_image:'',
                 le_img_road:'',
                 type1:false,
                 picType:false,
                 picTypes:false,
-                Bcode:false,
+//                Bcode:false,
                 multiple: true,
                 dataForm: new FormData(),
                 dataFile: new FormData(),
@@ -142,7 +138,14 @@
                     le_time: '',
                     delivery: false,
                     type: [],
-                }
+                },
+                le_expert_level:[
+                    '院士',
+                    '博导',
+                    '国务院学位委员会委员',
+                    '教授',
+                    '其他'
+                ],
             }
         },
         methods: {
@@ -155,12 +158,13 @@
                         self.EditLectureData = data.datas.lecture_information;
                         self.form = data.datas.lecture_information;
                         self.le_id = data.datas.lecture_information.le_id;
+                        data.datas.lecture_information.le_expert_level = self.le_expert_level[data.datas.lecture_information.le_expert_level];
                         if(data.datas.lecture_information.le_img_road !== ''){
                             self.type1=true;
                             self.filelist = 'showfile?disk=lecture&subjection=' + data.datas.lecture_information.le_img_road;
                         }
-                        self.image = data.datas.lecture_images;
-                        if(self.image.length !== 0){
+                        let image = data.datas.lecture_images;
+                        if(image.length !== 0){
                             self.picTypes = true;
                             self.filelists =  image;
                             for(var i =0;i<self.filelists.length;i++){
