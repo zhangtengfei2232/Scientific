@@ -33,18 +33,18 @@ class JoinmeetController  extends Controller
         if($judge_datas['code'] == 1){
             return responseTojson(1,$judge_datas['message']);
         }
-        if(!$request->hasFile('joinmeet_inject')){
+        if(!$request->hasFile('jo_graph_inject')){
             $datas['jo_graph_inject'] = '';
             return JoinmeetDatas::addJoinmeetDatas($datas);
         }
-        $joinmeet_inject = $request->file('joinmeet_inject');
+        $joinmeet_inject = $request->file('jo_graph_inject');
         $judge_inject    = judgeFileImage($joinmeet_inject);
         if($judge_inject['code'] == 1){
             return responseTojson(1,$judge_inject['message']);
         }
         $disk                = UploadSubjectionConfig::JOIN_MEET;
         $subjection_joinmeet = UploadSubjectionConfig::JOIN_INJECTION;
-        $new_inject_road     = uploadFiles($subjection_joinmeet,$judge_inject,$disk);
+        $new_inject_road     = uploadFiles($subjection_joinmeet,$joinmeet_inject,$disk);
         $datas['jo_graph_inject'] = $new_inject_road;
         $add_joinmeet = JoinmeetDatas::addJoinmeetDatas($datas);
         if($add_joinmeet > 0){
@@ -125,12 +125,12 @@ class JoinmeetController  extends Controller
             return responseTojson(1,$judge_datas['message']);
         }
         $reset_inject_status = false;
-        if(!$request->hasFile('joinmeet_inject')){
+        if(!$request->hasFile('jo_graph_inject')){
             $datas['jo_graph_inject'] = trim($request->jo_graph_inject);
             return JoinmeetDatas::updateJoinmeetDatas($datas,$reset_inject_status);
         }
         $reset_inject_status = true;
-        $update_inject = $request->file('joinmeet_inject');
+        $update_inject = $request->file('jo_graph_inject');
         $judge_inject  = judgeFileImage($update_inject);
         if($judge_inject['code'] == 1){
             return responseTojson(1,$judge_inject['message']);
@@ -150,7 +150,6 @@ class JoinmeetController  extends Controller
     }
     //添加会议图片
     public function addJoinmeetImage(Request $request){
-        dd($request);
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
@@ -176,7 +175,6 @@ class JoinmeetController  extends Controller
     }
     //删除参加会议图片
     public function deleteJoinmeetImage(Request $request){
-        dd($request);
         $delete_im_id = $request->im_id;
         //先去查询所有删除的图片路径
         $images_road  = ImageDatas::selectAllImageRoadDatas($delete_im_id);
