@@ -130,8 +130,12 @@
             <el-button @click="ExcelSelection()">导出Excel</el-button>
             <div class="page">
                 <el-pagination
-                    background
-                    layout="prev, pager, next"
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="currentPage"
+                    :page-sizes="[10, 20, 50, 100]"
+                    :page-size="pagesize"
+                    layout="total, sizes, prev, pager, next, jumper"
                     :total="total">
                 </el-pagination>
             </div> 
@@ -173,6 +177,7 @@ export default {
             allHoldmeet:[],
             multipleSelection: [],
             data1: '',
+            currentPage:1,
             ho_name:'',
             total:0,
             form: {
@@ -187,6 +192,12 @@ export default {
         }
     },
     methods: {
+        handleSizeChange: function (size) {
+            this.pagesize = size;
+        },
+        handleCurrentChange: function(currentPage){
+            this.currentPage = currentPage;
+        },
         handleSelectionChange(val) {
             this.multipleSelection = val;
         },
