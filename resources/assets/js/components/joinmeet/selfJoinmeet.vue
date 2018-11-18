@@ -154,6 +154,7 @@ export default {
                     if (data.code == 0) {
                         self.JoinmeetSelfData = data.datas;
                         self.form = data.datas.information;
+                        console.log(data.datas.information);
                         if(data.datas.information.jo_graph_inject == ''){
                             self.picType=false;
                         }else{
@@ -165,7 +166,7 @@ export default {
                         if(image.length !== 0){
                             self.picTypes = true;
                             for(var i =0;i<image.length;i++){
-                                self.filelists[i].image_road = 'showfile?disk=holdmeet&subjection=' + image[i].image_road;
+                                self.filelists[i].image_road = 'showfile?disk=joinmeet&subjection=' + image[i].image_road;
                             }
                         } 
                     } else {
