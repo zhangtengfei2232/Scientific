@@ -124,34 +124,35 @@
                         <el-form-item label="学校认定刊物级别">
                             <el-input v-model="form.sch_percal_cate"></el-input>
                         </el-form-item>
+                        <el-form-item>
+                            <el-button type="primary" @click="onSubmit(form,year2,year3,year4,year5,year1)">保存修改</el-button>
+                        </el-form-item>
+
                         <el-form-item label="论文全文PDF上传">
                             <el-upload
                                 class="upload-demo"
-                                drag
                                 action="#"
                                 multiple
                                 ref="art_pdf"
                                 :on-change="fileArtpdf"
-                                :auto-upload="false">
-                                <i class="el-icon-upload"></i>
-                                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                                :auto-upload="false"
+                                :limit="1">
+                                <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                                <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传</el-button>
                             </el-upload>
                         </el-form-item>
                         <el-form-item label="SCI索引检索报告">
                             <el-upload
                                 class="upload-demo"
-                                drag
-                                action=""
+                                action="#"
                                 multiple
                                 ref="art_sci"
-                                :before-upload="fileArtsci"
-                                :auto-upload="false">
-                                <i class="el-icon-upload"></i>
-                                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                                :on-change="fileArtsci"
+                                :auto-upload="false"
+                                :limit="1">
+                                <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                                <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传</el-button>
                             </el-upload>
-                        </el-form-item>
-                        <el-form-item>
-                            <el-button type="primary" @click="onSubmit(form,year2,year3,year4,year5,year1)">保存修改</el-button>
                         </el-form-item>
                     </el-form>
                 </div>
@@ -184,6 +185,7 @@ export default {
             year4: '',
             year5: '',
             art_road: '',
+            art_id:'',
             art_sci_road: '',
             filelists:[{url:''}],
             form: {
@@ -208,16 +210,34 @@ export default {
     },
 
     methods: {
-        fileArtpdf(file){
-            console.log(file);
-            if(file !== ''){
-                this.dataForm.append('art_road', file.raw);
-            }else{
-                this.$message.error('请先添加pdf信息');
-                return false
-            } 
+        submitUpload() {
+            let id = this.art_id;
+            this.dataFile.append('art_id', id);
+            console.log(id);
+            this.sendfile(this.dataFile);
         },
-        sendfile(data) {
+        fileArtpdf(file){
+            this.dataFile.append('art_road', file.raw);
+            console.log(file.raw);
+        },
+        sendfile(dataFile) {
+            this.addBookFile(this.dataFile).then(res => {
+                var data = res.data;
+                if (data.code == 0) {
+                    this.$message({
+                        message: '修改成功',
+                        type: 'success'
+                    });
+                } else {
+                    this.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,
+                    });
+                }
+            })  
+        },
+        addBookFile(data) {
             return axios({
                 method: 'post',
                 url: 'updatearticalself',
@@ -227,20 +247,12 @@ export default {
             });
         },
         fileArtsci(file){
-            if(file != true){
-                this.dataFile.append('art_sci_road', file);
-                let id = this.art_id;
-                this.dataFile.append('art_id', id);
-                this.sendfile(this.dataFile);
-            }else{
-                this.$message.error('请先添加数据信息');
-                return false
-            }
+            this.dataFile.append('art_sci_road', file.raw);
         },
         getArticleSelfData() {
             let self = this;
-            let art_id = self.$route.params.art_id;
-            axios.get("selectartical?art_id="+art_id).then(function (response) {
+            self.art_id = self.$route.params.art_id;
+            axios.get("selectartical?art_id="+self.art_id).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.ArticleSelfData = data.datas;
