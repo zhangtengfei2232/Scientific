@@ -3,7 +3,25 @@
         <div class="main">
             <!--{{ $route.params.art_id }}-->
             <div class="content">
-                <div class="perInfo"><span style="margin-left: 15px;">个人信息</span></div>
+                <div class="perInfo">
+                    <span style="margin-left: 15px;">个人信息</span>
+                    <span style="float: right;margin-right:40px;"><el-button type="text" @click="dialogFormVisible  = true">修改密码</el-button></span>
+
+                    <el-dialog title="修改密码" :visible.sync="dialogFormVisible" center>
+                        <el-form :model="form" style="padding: 11px 20px;">
+                            <el-form-item label="原密码" :label-width="formLabelWidth">
+                                <el-input v-model="old_password" autocomplete="off"></el-input>
+                            </el-form-item>
+                            <el-form-item label="新密码" :label-width="formLabelWidth">
+                                <el-input v-model="new_password" autocomplete="off"></el-input>
+                            </el-form-item>
+                        </el-form>
+                        <div slot="footer" class="dialog-footer">
+                            <el-button @click="dialogFormVisible = false">取 消</el-button>
+                            <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+                        </div>
+                    </el-dialog>
+                </div>
                 <!--<el-form ref="form" :model="form" label-width="200px">-->
                 <div class="detial">
                     <div class="detialRight">
@@ -367,6 +385,11 @@
         data() {
             return {
 //                id:[],
+                dialogFormVisible: false,
+                formLabelWidth: '120px',
+                old_password:'',
+                new_password:'',
+
                 type1:false,
                 type2:false,
                 Bcode:false,
@@ -427,6 +450,14 @@
                     master_time:'',
 
                 },
+//                rules: {
+//                    old_password: [
+//                        {required: true, message: '请输入账号', trigger: 'blur'},
+//                    ],
+//                    new_password: [
+//                        {required: true, message: '请输入密码', trigger: 'blur'},
+//                    ]
+//                },
                 teacher_department:[//老师所属部门
                     '生工',
                     '生物技术系',
@@ -491,8 +522,10 @@
                 ],
             }
 
+
         },
         methods: {
+
             getTeacherData(){
                 let self = this;
 //                this.form.Bcode = self.$route.params.Bcode;
@@ -556,7 +589,7 @@
                 }
             },
             sendfile(dataFile) {
-                console.log(dataFile,'544554=-==--');
+//                console.log(dataFile,'544554=-==--');
                 let vue = this;
                 this.addTeacherFile(dataFile).then(res => {
                     var data = res.data;
@@ -725,27 +758,6 @@
                     data: data
                 });
             },
-//            checkFileExt(filename){
-//                if(filename == '') {
-//                    this.$message.error('上传文件不能为空');
-//                }
-//                var flag = false; //状态
-//                var arr = ["pdf"];
-//                //取出上传文件的扩展名
-//                console.log(filename);
-//                var index = filename.lastIndexOf(".");
-//                var ext = filename.substr(index+1);
-//                //循环比较
-//                for(var i=0;i<arr.length;i++){
-//                    if(ext == arr[i]){
-//                        flag = true;
-//                        break;
-//                    }
-//                }
-//                if(!flag){
-//                    this.$message.error('请上传PDF');
-//                }
-//            },
         },
         mounted() {
             this.getTeacherData();
@@ -822,5 +834,11 @@
     }
     .el-input{
         width: 240px;
+    }
+    .el-dialog{
+        width: 33%;
+    }
+    .el-dialog--center .el-dialog__body {
+        padding: 25px 25px 0px;
     }
 </style>

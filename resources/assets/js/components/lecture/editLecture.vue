@@ -7,17 +7,17 @@
             </el-form-item>
             <el-form-item label="专家级别" prop="le_expert_level">
                 <el-select v-model="form.le_expert_level" placeholder="请选择专家级别">
-                    <el-option
-                            v-for="(value, key) in le_expert_level"
-                            :key="key"
-                            :label="value"
-                            :value="key">
-                    </el-option>
-                    <!--<el-option label="院士" value="0"></el-option>-->
-                    <!--<el-option label="博导" value="1"></el-option>-->
-                    <!--<el-option label="国务院学位委员会委员" value="2"></el-option>-->
-                    <!--<el-option label="教授" value="3"></el-option>-->
-                    <!--<el-option label="其他" value="4"></el-option>-->
+                    <!--<el-option-->
+                            <!--v-for="(value, key) in le_expert_level"-->
+                            <!--:key="key"-->
+                            <!--:label="value"-->
+                            <!--:value="key">-->
+                    <!--</el-option>-->
+                    <el-option label="院士" value="0"></el-option>
+                    <el-option label="博导" value="1"></el-option>
+                    <el-option label="国务院学位委员会委员" value="2"></el-option>
+                    <el-option label="教授" value="3"></el-option>
+                    <el-option label="其他" value="4"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="报告名称">
@@ -100,7 +100,7 @@
         margin: 35px 0 0 35px;
     }
     .demo{
-        margin: 10px 0 10px 30%;
+        margin: 10px 0 10px 12%;
     }
     thead li{
         float: left;
@@ -142,13 +142,13 @@
                     delivery: false,
                     type: [],
                 },
-                le_expert_level:[
-                    '院士',
-                    '博导',
-                    '国务院学位委员会委员',
-                    '教授',
-                    '其他'
-                ],
+//                le_expert_level:[
+//                    '院士',
+//                    '博导',
+//                    '国务院学位委员会委员',
+//                    '教授',
+//                    '其他'
+//                ],
             }
         },
         methods: {
@@ -160,6 +160,7 @@
                     if (data.code == 0) {
                         self.EditLectureData = data.datas.lecture_information;
                         self.form = data.datas.lecture_information;
+//                        self.form.le_expert_level = string(data.datas.lecture_information.le_expert_level)
                         self.le_id = data.datas.lecture_information.le_id;
                         if(data.datas.lecture_information.le_img_road !== ''){
                             self.type1=true;
