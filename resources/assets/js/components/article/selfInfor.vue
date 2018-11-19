@@ -13,9 +13,16 @@
                         <el-form-item label="论文题目">
                             <el-input v-model="form.title"></el-input>
                         </el-form-item>
-                        <el-form-item label="发表时间">
+                        <el-form-item label="发表时间" >
                             <el-col :span="15">
-                            <el-date-picker type="date" placeholder="选择日期" v-model="form.art_time" style="width: 100%;"></el-date-picker>
+                            <el-date-picker
+                                v-model="form.art_time"
+                                type="date"
+                                placeholder="选择日期" 
+                                format="yyyy 年 MM 月 dd 日"
+                                value-format="timestamp"
+                                style="width: 100%;">
+                            </el-date-picker>
                             </el-col>
                         </el-form-item>
                         <el-form-item label="发表刊物名称">
@@ -91,7 +98,7 @@
                         </el-form-item>
                         <el-form-item label="学科门类">
                             <el-select v-model="form.art_sub_category" placeholder="请选择学科门类">
-                                 <el-option label="理学" value="0"></el-option>
+                                <el-option label="理学" value="0"></el-option>
                                 <el-option label="工学" value="1"></el-option>
                                 <el-option label="农学" value="2"></el-option>
                                 <el-option label="医学" value="3"></el-option>
@@ -237,7 +244,8 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.ArticleSelfData = data.datas;
-                    // console.log()
+                    self.ArticleSelfData.art_cate_research = String(data.datas.art_cate_research);
+                    self.ArticleSelfData.art_sub_category = String(data.datas.art_sub_category);
                     let time = data.datas.period;
                     self.checkYearExt(time);
                     self.form = data.datas;
@@ -305,6 +313,7 @@ export default {
                 this.$message.error('学校认定刊物级别不能为空');
                 return
             }
+            console.log(form.art_cate_research);
             this.$refs['form'].validate((valid) => {
                 let vue = this;
                 if (valid) {
@@ -315,7 +324,7 @@ export default {
                         var data = res.data;
                         if (data.code == 0) {
                             vue.$message({
-                                message: '添加成功',
+                                message: '修改成功',
                                 type: 'success'
                             });
                             this.$router.push({path: '/paper'});

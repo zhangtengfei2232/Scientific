@@ -327,27 +327,6 @@ export default {
             let self = this;
             let urls =  `exportarticalexcel?art_id_datas=${art_id_datas}`;
             window.location.href = urls;
-            // axios.get("exportarticalexcel",{
-            //         params:{
-            //         art_id_datas:art_id_datas
-            //     }
-            // })
-            // .then(function () {
-            //     var data = response.data;
-            //     if (data.code == 0) {
-            //             self.$message({
-            //             showClose: true,
-            //             message: '导出成功!',
-            //             type: 'success'
-            //         });
-            //     } else {
-            //         self.$notify({
-            //             type: 'error',
-            //             message: data.message,
-            //             duration: 2000,
-            //         });
-            //     }
-            // });
         },
         PDFSelection() {
             var self = this;

@@ -14,12 +14,12 @@
                 <el-form-item label="发表时间">
                     <el-col :span="15">
                         <el-date-picker type="date" 
-                        placeholder="选择日期" 
-                        v-model="form.art_time" 
-                        style="width: 100%;"
-                        format="yyyy 年 MM 月 dd 日"
-                        value-format="timestamp"></el-date-picker>
-                    </el-col>
+                            placeholder="选择日期" 
+                            v-model="form.art_time" 
+                            style="width: 100%;"
+                            format="yyyy 年 MM 月 dd 日"
+                            value-format="timestamp"></el-date-picker>
+                        </el-col>
                 </el-form-item>
                 <el-form-item label="发表刊物名称">
                     <el-input v-model="form.publication_name"></el-input>
@@ -264,6 +264,7 @@
                     this.$message.error('学校认定刊物级别不能为空');
                     return
                 }
+                return;
                 this.$refs['form'].validate((valid) => {
                     if (valid) {
                         jQuery.each(vue.form,function(i,val){

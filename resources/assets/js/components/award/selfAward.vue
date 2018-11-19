@@ -143,6 +143,9 @@ export default {
                     if (data.code == 0) {
                         self.AwardSelfData = data.datas;
                         self.form = data.datas;
+                        self.form.form_achievement = String(data.datas.form_achievement);
+                        self.form.aw_grade = String(data.datas.aw_grade);
+                        self.form.aw_level = String(data.datas.aw_level);
                         if(data.datas.aw_road !== ''){
                             self.type1=true;
                             self.filelist.url = 'showfile?disk=award&subjection=' + data.datas.aw_road; 

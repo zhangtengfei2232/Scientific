@@ -189,6 +189,9 @@ export default {
                 if (data.code == 0) {
                     self.BookSelfData = data.datas;
                     self.form = data.datas; 
+                    self.form.op_form_write = String(data.datas.op_form_write);
+                    self.form.op_cate_work = String(data.datas.op_cate_work);
+                    self.form.op_sub_category = String(data.datas.op_sub_category);
                     if(data.datas.op_cover_road !== ''){
                         self.type1=true;
                         self.filelist = 'showfile?disk=opus&subjection=' + data.datas.op_cover_road;

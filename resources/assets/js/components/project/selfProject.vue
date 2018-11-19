@@ -169,6 +169,9 @@
                 if (data.code == 0) {
                     self.ProjectSelfData = data.datas;
                     self.form = data.datas;
+                    self.form.pro_cate_research = String(data.datas.pro_cate_research);
+                    self.form.pro_sub_category = String(data.datas.pro_sub_category);
+                    self.form.form_cooperate = String(data.datas.form_cooperate);
                     if(data.datas.pro_road !== ''){ 
                         let road = 'showfile?disk=project&subjection=' + data.datas.pro_road;
                         self.type1=true;
