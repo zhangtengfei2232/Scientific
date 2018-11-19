@@ -13,7 +13,6 @@ class ArticalController extends Controller
      public function addArtical(Request $request){
          if(!$request->isMethod('POST')){
               return responseTojson(1,'你请求的方式不对',1);
-
          }
          $teacher_id = session('usercount');
          $datas = [

@@ -109,7 +109,7 @@ class LectureController extends Controller
              'le_expert_level'  => trim($request->le_expert_level),
              'le_report_name'   => trim($request->le_report_name),
              'le_invite_status' => trim($request->le_invite_status),
-             'le_invite_unit'   => trim($request->le_invite_unite),
+             'le_invite_unit'   => trim($request->le_invite_unit),
              'le_time'          => trim($request->le_time)
          ];
          $judge_datas = judgeLectureField($datas);
@@ -125,7 +125,7 @@ class LectureController extends Controller
          $update_inject = $request->file('le_img_road');
          $judge_inject  = judgeFileImage($update_inject);
 
-         if($judge_inject->code == 1){
+         if($judge_inject['code'] == 1){
              return responseTojson(1,$judge_inject['message']);
          }
          $old_inject_road      = LectureDatabase::selectLectureInject($le_id);
