@@ -51,7 +51,8 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     Route::get('selectteacher', 'InformationController@selectTeacher');           //查询老师信息
     Route::post('updateteacher', 'InformationController@updateTeacher');          //修改老师信息
     Route::post('updateCertificate', 'InformationController@updateCertificate');  //修改老师证书信息
-
+    Route::post('updateteacherpassword', 'InformationController@updateTeacherPassword');//修改老师密码
+    Route::post('initializeteacherpassword', 'InformationController@initializeTeacherPassword');//重置老师密码
 
 
     //老师对论文的操作

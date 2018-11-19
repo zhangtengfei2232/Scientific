@@ -1,6 +1,7 @@
 <?php
 namespace App\Model;
 
+use config\SearchMessageConfig;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 class TeacherDatabase extends ModelDatabase
@@ -230,6 +231,24 @@ class TeacherDatabase extends ModelDatabase
          Session::save();
          return responseTojson(0,"登录成功");
      }
+     //根据老师密码去查看是否有这个老师，并修改密码
+     public static function byOldPasswordSelectDatas($old_password,$new_password){
+         $count = DB::tbale('teacher_id')->where('password',$old_password)->count();
+         if($count == 1){
+             $reset_password = DB::table('teacher')->where('password',$old_password)
+                               ->update(['password' => $new_password]);
+             return ($reset_password != 1) ? responseTojson(1,'修改密码失败')
+                    : responseTojson(0,'修改密码成功');
+         }
+         return responseTojson(1,'旧密码输入错误');
+     }
+     //重置老师密码
+    public static function initializeTeacherPasswordDatas($teacher_id){
+        $initialize = DB::table('teacher')->where('teacher_id',$teacher_id)
+                      ->update(['password' => md5(SearchMessageConfig::TEACHER_INITLIZE_PASSWORD)]);
+        return ($initialize != 1) ? responseTojson(1,'密码重置失败')
+               : responseTojson(0,'密码重置成功');
+    }
     /**把session里的用户信息清空
      *
      */

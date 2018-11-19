@@ -109,9 +109,9 @@ class ArticalController extends Controller
          if(!$request->isMethod('POST')) {
              return responseTojson(1,'你请求的方式不对');
          }
-         $artical_id        = trim($request->artical_id);
+         $artical_id        = trim($request->art_id);
          $datas = [
-             'artical_id'        => $artical_id,                              //论文ID
+             'art_id'            => $artical_id,                              //论文ID
              'author'            => trim($request->author),                   //作者
              'art_all_author'    => trim($request->art_all_author),           //全部作者
              'title'             => trim($request->title),                    //题目
@@ -119,7 +119,7 @@ class ArticalController extends Controller
              'publication_num'   => trim($request->publication_num),          //刊号
              'period'            => trim($request->period),                   //年卷期
              'num_words'         => trim($request->num_words),                //论文字数
-             'periodical_cate'   => trim($request->periodical_cate),          //期刊级别
+             'percal_cate'       => trim($request->percal_cate),              //期刊级别
              'belong_project'    => trim($request->belong_project),           //所属项目
              'art_cate_research' => trim($request->art_cate_research),        //研究类别
              'art_sub_category'  => trim($request->art_sub_category),         //学科门类
@@ -142,7 +142,7 @@ class ArticalController extends Controller
          if(!$request->hasFile('art_road') && !$request->hasFile('art_sci_road')){                                    //判断老师是否修改论文
              return responseTojson(1,'请你上传你要修改的PDF格式的论文或SCI索引报告');
          }
-         $artical_id = trim($request->artical_id);
+         $artical_id = trim($request->art_id);
          if($request->hasFile('art_road')){
              $update_artical_status = 1;
              $artical_file   = $request->file('art_road');                          //接论文文件
@@ -181,10 +181,9 @@ class ArticalController extends Controller
      }
      //同时导出多个论文，取每个论文的第一页，形成一个新的PDF论文
      public function exportAllArtical(Request $request){
-         $art_id_datas = $request->art_id_datas;
+         $art_id_datas = explode(',',$request->art_id_datas);
          $art_road_datas = ArticalDatabase::selectArticalRoad($art_id_datas,0);
          $disk = UploadSubjectionConfig::ARTICAL;
          selectionFirstPageToNewPdf($disk,$art_road_datas);
-         return responseTojson(0,'导出成功');
      }
 }

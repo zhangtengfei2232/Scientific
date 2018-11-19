@@ -241,4 +241,6 @@ class SearchMessageConfig
     //担任团体职务
     const DU_EDUCATION_DATAS          = ['大专','研究生','本科'];
     const DU_DEGREE_DATAS             = ['硕士','博士','学士'];
+    //老师初始密码
+    const TEACHER_INITLIZE_PASSWORD   = 123456;
 }

@@ -52,7 +52,7 @@ class ArticalDatabase  extends ModelDatabase
      //修改论文信息和论文照片信息
     public static function updateArticalDatas($datas){
         $response = DB::table('artical')
-            ->where('art_id',$datas->artical_id)
+            ->where('art_id',$datas['art_id'])
             ->update([
                 'author'            => $datas['author'],
                 'art_all_author'    => $datas['art_all_author'],
@@ -67,13 +67,11 @@ class ArticalDatabase  extends ModelDatabase
                 'art_sub_category'  => $datas['art_sub_category'],
                 'art_integral'      => $datas['art_integral'],
                 'sch_percal_cate'   => $datas['sch_percal_cate'],
-                'art_road'          => $datas['art_road'],
-                ''      => $datas['art_sci_road'],
                 'art_time'          => $datas['art_time'],
                 'art_remarks'       => $datas['art_remarks']
              ]);
         return ($response != 1) ? responseTojson(1,'修改论文信息失败')
-               : responseTojson(1,'修改论文信息成功');
+               : responseTojson(0,'修改论文信息成功');
     }
     //修改论文本身和论文SCI索引报告
     public static function updateArticalSelfDatas($reset_artical_road,$update_artical_status,$artical_id){
