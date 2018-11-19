@@ -13,9 +13,16 @@
                         <el-form-item label="论文题目">
                             <el-input v-model="form.title"></el-input>
                         </el-form-item>
-                        <el-form-item label="发表时间">
+                        <el-form-item label="发表时间" >
                             <el-col :span="15">
-                            <el-date-picker type="date" placeholder="选择日期" v-model="form.art_time" style="width: 100%;"></el-date-picker>
+                            <el-date-picker
+                                v-model="form.art_time"
+                                type="date"
+                                placeholder="选择日期" 
+                                format="yyyy 年 MM 月 dd 日"
+                                value-format="timestamp"
+                                style="width: 100%;">
+                            </el-date-picker>
                             </el-col>
                         </el-form-item>
                         <el-form-item label="发表刊物名称">
@@ -85,13 +92,13 @@
                         </el-form-item>
                         <el-form-item label="研究类别">
                             <el-select v-model="form.art_cate_research" placeholder="请选择类别">
-                                <el-option label="基础研究" value="1"></el-option>
-                                <el-option label="应用研究" value="2"></el-option>
+                                <el-option label="基础研究" value="0"></el-option>
+                                <el-option label="应用研究" value="1"></el-option>
                             </el-select>
                         </el-form-item>
                         <el-form-item label="学科门类">
                             <el-select v-model="form.art_sub_category" placeholder="请选择学科门类">
-                                 <el-option label="理学" value="0"></el-option>
+                                <el-option label="理学" value="0"></el-option>
                                 <el-option label="工学" value="1"></el-option>
                                 <el-option label="农学" value="2"></el-option>
                                 <el-option label="医学" value="3"></el-option>
@@ -117,34 +124,35 @@
                         <el-form-item label="学校认定刊物级别">
                             <el-input v-model="form.sch_percal_cate"></el-input>
                         </el-form-item>
+                        <el-form-item>
+                            <el-button type="primary" @click="onSubmit(form,year2,year3,year4,year5,year1)">保存修改</el-button>
+                        </el-form-item>
+
                         <el-form-item label="论文全文PDF上传">
                             <el-upload
                                 class="upload-demo"
-                                drag
-                                action=""
+                                action="#"
                                 multiple
                                 ref="art_pdf"
-                                :before-upload="fileArtpdf"
-                                :auto-upload="false">
-                                <i class="el-icon-upload"></i>
-                                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                                :on-change="fileArtpdf"
+                                :auto-upload="false"
+                                :limit="1">
+                                <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                                <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传</el-button>
                             </el-upload>
                         </el-form-item>
                         <el-form-item label="SCI索引检索报告">
                             <el-upload
                                 class="upload-demo"
-                                drag
-                                action=""
+                                action="#"
                                 multiple
                                 ref="art_sci"
-                                :before-upload="fileArtsci"
-                                :auto-upload="false">
-                                <i class="el-icon-upload"></i>
-                                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                                :on-change="fileArtsci"
+                                :auto-upload="false"
+                                :limit="1">
+                                <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                                <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传</el-button>
                             </el-upload>
-                        </el-form-item>
-                        <el-form-item>
-                            <el-button type="primary" @click="onSubmit(form,year2,year3,year4,year5,year1)">保存修改</el-button>
                         </el-form-item>
                     </el-form>
                 </div>
@@ -177,6 +185,7 @@ export default {
             year4: '',
             year5: '',
             art_road: '',
+            art_id:'',
             art_sci_road: '',
             filelists:[{url:''}],
             form: {
@@ -185,14 +194,14 @@ export default {
                 title: '',
                 publication_name: '',
                 publication_num : '',
-                num_words: '',
+                num_words: 0,
                 periodical_cate: '',
                 belong_project: '',
-                art_cate_research: '',
+                art_cate_research: 0,
                 art_sub_category: '',
-                art_integral: '',
+                art_integral: 0,
                 period: '',
-                percal_cate: '',
+                percal_cate: 0,
                 sch_percal_cate:'',
                 art_time: '',
                 period:''
@@ -201,18 +210,34 @@ export default {
     },
 
     methods: {
-        fileArtpdf(file){
-            if(file != true){
-                this.dataFile.append('art_road', file);
-                let id = this.art_id;
-                this.dataFile.append('art_id', id);
-                this.sendfile(this.dataFile);
-            }else{
-                this.$message.error('请先添加数据信息');
-                return false
-            }
+        submitUpload() {
+            let id = this.art_id;
+            this.dataFile.append('art_id', id);
+            console.log(id);
+            this.sendfile(this.dataFile);
         },
-        sendfile(data) {
+        fileArtpdf(file){
+            this.dataFile.append('art_road', file.raw);
+            console.log(file.raw);
+        },
+        sendfile(dataFile) {
+            this.addBookFile(this.dataFile).then(res => {
+                var data = res.data;
+                if (data.code == 0) {
+                    this.$message({
+                        message: '修改成功',
+                        type: 'success'
+                    });
+                } else {
+                    this.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,
+                    });
+                }
+            })  
+        },
+        addBookFile(data) {
             return axios({
                 method: 'post',
                 url: 'updatearticalself',
@@ -222,23 +247,17 @@ export default {
             });
         },
         fileArtsci(file){
-            if(file != true){
-                this.dataFile.append('art_sci_road', file);
-                let id = this.art_id;
-                this.dataFile.append('art_id', id);
-                this.sendfile(this.dataFile);
-            }else{
-                this.$message.error('请先添加数据信息');
-                return false
-            }
+            this.dataFile.append('art_sci_road', file.raw);
         },
         getArticleSelfData() {
             let self = this;
-            let art_id = self.$route.params.art_id;
-            axios.get("selectartical?art_id="+art_id).then(function (response) {
+            self.art_id = self.$route.params.art_id;
+            axios.get("selectartical?art_id="+self.art_id).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.ArticleSelfData = data.datas;
+                    self.ArticleSelfData.art_cate_research = String(data.datas.art_cate_research);
+                    self.ArticleSelfData.art_sub_category = String(data.datas.art_sub_category);
                     let time = data.datas.period;
                     self.checkYearExt(time);
                     self.form = data.datas;
@@ -306,6 +325,7 @@ export default {
                 this.$message.error('学校认定刊物级别不能为空');
                 return
             }
+            console.log(form.art_cate_research);
             this.$refs['form'].validate((valid) => {
                 let vue = this;
                 if (valid) {
@@ -316,7 +336,7 @@ export default {
                         var data = res.data;
                         if (data.code == 0) {
                             vue.$message({
-                                message: '添加成功',
+                                message: '修改成功',
                                 type: 'success'
                             });
                             this.$router.push({path: '/paper'});
@@ -329,7 +349,6 @@ export default {
                         }
                     })
                     vue.$refs.art_pdf.submit()
-                    vue.$refs.art_sci.submit()
                 } else {
                     console.log('error submit!!')
                     return false

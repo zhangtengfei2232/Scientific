@@ -139,6 +139,7 @@ export default {
                     self.HoldmeetSelfData = data.datas.information;
                     self.form = data.datas.information;
                     self.ho_id = data.datas.information.ho_id;
+                    self.form.ho_level = String(data.datas.information.ho_level);
                     if(data.datas.information.ho_graph_inject !== ''){
                         self.picType = true;
                         self.filelist = 'showfile?disk=holdmeet&subjection=' + data.datas.information.ho_graph_inject;

@@ -14,12 +14,12 @@
                 <el-form-item label="发表时间">
                     <el-col :span="15">
                         <el-date-picker type="date" 
-                        placeholder="选择日期" 
-                        v-model="form.art_time" 
-                        style="width: 100%;"
-                        format="yyyy 年 MM 月 dd 日"
-                        value-format="timestamp"></el-date-picker>
-                    </el-col>
+                            placeholder="选择日期" 
+                            v-model="form.art_time" 
+                            style="width: 100%;"
+                            format="yyyy 年 MM 月 dd 日"
+                            value-format="timestamp"></el-date-picker>
+                        </el-col>
                 </el-form-item>
                 <el-form-item label="发表刊物名称">
                     <el-input v-model="form.publication_name"></el-input>
@@ -82,8 +82,8 @@
                 </el-form-item>
                 <el-form-item label="研究类别">
                     <el-select v-model="form.art_cate_research" placeholder="请选择类别">
-                        <el-option label="基础研究" value="1"></el-option>
-                        <el-option label="应用研究" value="2"></el-option>
+                        <el-option label="基础研究" value="0"></el-option>
+                        <el-option label="应用研究" value="1"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="学科门类">
@@ -124,7 +124,7 @@
                             action=""
                             multiple
                             ref="art_pdf"
-                            :before-upload="fileArtpdf"
+                            :on-change="fileArtpdf"
                             :auto-upload="false">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -184,7 +184,7 @@
                     art_time: '',
                     publication_name: '',
                     publication_num : '',
-                    num_words: '',
+                    num_words: 0,
                     sch_percal_cate: '',
                     belong_project: '',
                     art_cate_research: '',
@@ -200,7 +200,7 @@
         methods: {
             fileArtpdf(file){
                 if(file !== ''){
-                    this.dataForm.append('art_road', file);
+                    this.dataForm.append('art_road', file.raw);
                 }else{
                     this.$message.error('请先添加pdf信息');
                     return false
@@ -264,6 +264,7 @@
                     this.$message.error('学校认定刊物级别不能为空');
                     return
                 }
+                return;
                 this.$refs['form'].validate((valid) => {
                     if (valid) {
                         jQuery.each(vue.form,function(i,val){
