@@ -161,6 +161,7 @@
                 }
             },
             ExcelJoinmeetDatas(art_id_datas) {
+                console.log(art_id_datas);
                 let self = this;
                 axios.get("exportjoinmeetexcel",{
                         params:{

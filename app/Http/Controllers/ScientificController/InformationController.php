@@ -19,6 +19,17 @@ class InformationController extends Controller
     public function selectAllTeacherId(){
         return TeacherDatabase::selectAllTeacherIdDatas();
     }
+    //修改老师密码
+    public function updateTeacherPassword(Request $request){
+        $old_password = $request->old_password;
+        $new_password = $request->new_password;
+        return TeacherDatabase::byOldPasswordSelectDatas($old_password,$new_password);
+    }
+    //重置老师密码
+    public function initializeTeacherPassword(Request $request){
+        $teacher_id = $request->teacher_id;
+        return TeacherDatabase::initializeTeacherPasswordDatas($teacher_id);
+    }
     /**添加老师信息
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse

@@ -50,7 +50,9 @@ class AwardDatabase extends ModelDatabase
         $aw_road_datas = [];
         for($i = 0; $i < count($aw_id_datas); $i++){
             $road = DB::table('award')->select('aw_road')->where('aw_id',$aw_id_datas[$i])->first();
-            $aw_road_datas[$i] = $road->aw_road;
+            if(!empty($road->aw_road)){
+                $aw_road_datas[$i] = $road->aw_road;
+            }
         }
        return $aw_road_datas;
     }
