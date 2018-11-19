@@ -112,6 +112,7 @@ class LectureController extends Controller
              'le_invite_unit'   => trim($request->le_invite_unit),
              'le_time'          => trim($request->le_time)
          ];
+         dd($datas);
          $judge_datas = judgeLectureField($datas);
          if($judge_datas['code'] == 1){
              return responseTojson(1,$judge_datas['message']);

@@ -12,14 +12,14 @@ class ExcelController extends Controller
     private $serial_number = 0;
     //设置老师所在部门单元格,累加器
     private $count_table_list = 0;
-
+    private $date_formate = 'Y年-m月-d日';
 
     //导出老师信息EXCEL表格
     public function exportTeacherExcel(Request $request){
         $teacher_information = [[]];
         $department_count = [];
         $teacher_cell_datas = SearchMessageConfig::TEACHER_CELL_DATAS;
-        $tea_id_datas       = $request->tea_id_datas;
+        $tea_id_datas       = explode(',',$request->tea_id_datas);
         $teacher_table_name = SearchMessageConfig::TEACHER_TABLE;
         $teacher_id_field   = SearchMessageConfig::TEACHER_ID;
         $teacher_datas      = ModelDatabase::selectExportExcelDatas($teacher_table_name,$teacher_id_field,$tea_id_datas);
@@ -56,21 +56,21 @@ class ExcelController extends Controller
                         $teacher_information[$i][$j]->number,
                         SearchMessageConfig::SEX_DATAS[$teacher_information[$i][$j]->sex],
                         $teacher_information[$i][$j]->nation,
-                        date('Y-m-d',$teacher_information[$i][$j]->borth).'年',
+                        date($this->date_formate,$teacher_information[$i][$j]->borth),
                         SearchMessageConfig::TEA_POLIT_OUTLOOK_DATAS[$teacher_information[$i][$j]->polit_outlook],
                         $teacher_information[$i][$j]->native_place,
                         $teacher_information[$i][$j]->admin_duties,
-                        date('Y-m-d',$teacher_information[$i][$j]->admin_tenure_time).'年',
+                        date($this->date_formate,$teacher_information[$i][$j]->admin_tenure_time),
                         SearchMessageConfig::TEA_JOB_LEVEL_DATAS[ $teacher_information[$i][$j]->job_level],
                         SearchMessageConfig::TEA_TECHNICAL_POSITION[$teacher_information[$i][$j]->technical_position],
                         SearchMessageConfig::ACADEMIC_DATAS[$teacher_information[$i][$j]->academic_title],
-                        date('Y-m-d',$teacher_information[$i][$j]->review_time).'年',
-                        date('Y-m-d',$teacher_information[$i][$j]->appointment_time).'年',
+                        date($this->date_formate,$teacher_information[$i][$j]->review_time),
+                        date($this->date_formate,$teacher_information[$i][$j]->appointment_time),
                         $teacher_information[$i][$j]->series,
                         SearchMessageConfig::TEA_POST_CATEGORY_DATAS[$teacher_information[$i][$j]->post_category],
                         $teacher_information[$i][$j]->company,
                         $teacher_information[$i][$j]->te_re_department,
-                        date('Y-m-d',$teacher_information[$i][$j]->working_hours).'年',
+                        date($this->date_formate,$teacher_information[$i][$j]->working_hours),
                         $teacher_information[$i][$j]->origin_work_unit,
                         $teacher_information[$i][$j]->certificate_num,
                         $teacher_information[$i][$j]->identity_card,
@@ -78,16 +78,16 @@ class ExcelController extends Controller
                         SearchMessageConfig::TEA_FIRST_ACADEMIC_DATAS[$teacher_information[$i][$j]->first_academic],
                         $teacher_information[$i][$j]->first_graduate_school,
                         $teacher_information[$i][$j]->first_study_major,
-                        date('Y-m-d',$teacher_information[$i][$j]->first_graduation_time).'年',
+                        date($this->date_formate,$teacher_information[$i][$j]->first_graduation_time),
                         SearchMessageConfig::TEA_MOST_ACADEMIC_DATAS[$teacher_information[$i][$j]->most_academic],
                         $teacher_information[$i][$j]->most_graduate_school,
                         $teacher_information[$i][$j]->most_study_major,
-                        date('Y-m-d',$teacher_information[$i][$j]->working_hours).'年',
+                        date($this->date_formate,$teacher_information[$i][$j]->working_hours),
                         $teacher_information[$i][$j]->work_major,
                         $teacher_information[$i][$j]->belong_subject,
                         $teacher_information[$i][$j]->teach_course,
                         $teacher_information[$i][$j]->master_company,
-                        date('Y-m-d',$teacher_information[$i][$j]->master_time).'年'
+                        date($this->date_formate,$teacher_information[$i][$j]->master_time)
                     ];
                 }
             }
@@ -127,7 +127,7 @@ class ExcelController extends Controller
     //导出论文Excel表格
     public function exportArticalExcel(Request $request){
         $artical_cell_datas = SearchMessageConfig::ARTICAL_CELL_DATAS;
-        $art_id_datas       = $request->art_id_datas;
+        $art_id_datas       = explode(',',$request->art_id_datas);
         $artical_table_name = SearchMessageConfig::ARTICAL_TABLE;
         $artical_id_field   = SearchMessageConfig::ARTICAL_ID;
         $artical_datas      = ModelDatabase::selectExportExcelDatas($artical_table_name,$artical_id_field,$art_id_datas);
@@ -148,7 +148,7 @@ class ExcelController extends Controller
                 SearchMessageConfig::SUB_CATEGORY_DATAS[$datas->art_sub_category],
                 $datas->art_integral,
                 $datas->sch_percal_cate,
-                date('Y-m-d',$datas->art_time).'年',
+                date($this->date_formate,$datas->art_time),
                 $datas->art_remarks
             ];
         }
@@ -162,7 +162,7 @@ class ExcelController extends Controller
     //导出项目Excel表格
     public function exportProjectExcel(Request $request){
         $project_cell_datas = SearchMessageConfig::PROJECT_CELL_DATAS;
-        $pro_id_datas       = $request->pro_id_datas;
+        $pro_id_datas       = explode(',',$request->pro_id_datas);
         $project_table_name = SearchMessageConfig::PROJECT_TABLE;
         $project_id_field   = SearchMessageConfig::PROJECT_ID;
         $project_datas      = ModelDatabase::selectExportExcelDatas($project_table_name,$project_id_field,$pro_id_datas);
@@ -184,7 +184,7 @@ class ExcelController extends Controller
                 $datas->social_eco_goal,
                 $datas->na_eco_industry,
                 $datas->pro_integral,
-                date('Y-m-d',$datas->project_year).'年',
+                date($this->date_formate,$datas->project_year),
                 $datas->pro_remarks
             ];
         }
@@ -198,7 +198,7 @@ class ExcelController extends Controller
     //导出著作Excel表格
     public function exportOpusExcel(Request $request){
         $opus_cell_datas = SearchMessageConfig::OPUS_CELL_DATAS;
-        $op_id_datas     = $request->op_id_datas;
+        $op_id_datas     = explode(',',$request->op_id_datas);
         $opus_table_name = SearchMessageConfig::OPUS_TABLE;
         $opus_id_field   = SearchMessageConfig::OPUS_ID;
         $opus_datas      = ModelDatabase::selectExportExcelDatas($opus_table_name,$opus_id_field,$op_id_datas);
@@ -211,7 +211,7 @@ class ExcelController extends Controller
                 $datas->op_name,
                 $datas->op_form_write,
                 $datas->op_publish,
-                date('Y-m-d',$datas->op_publish_time).'年',
+                date($this->date_formate,$datas->op_publish_time),
                 $datas->op_number,
                 $datas->op_total_words,
                 $datas->op_self_words,
@@ -232,7 +232,7 @@ class ExcelController extends Controller
     //导出获奖Excel表格
     public function exportAwardExcel(Request $request){
         $award_cell_datas = SearchMessageConfig::AWARD_CELL_DATAS;
-        $aw_id_datas      = $request->aw_id_datas;
+        $aw_id_datas      = explode(',',$request->aw_id_datas);
         $award_table_name = SearchMessageConfig::AWARD_TABLE;
         $award_id_field   = SearchMessageConfig::AWARD_ID;
         $award_datas      = ModelDatabase::selectExportExcelDatas($award_table_name,$award_id_field,$aw_id_datas);
@@ -248,7 +248,7 @@ class ExcelController extends Controller
                 SearchMessageConfig::AW_LEVEL_DATAS[$datas->aw_level],
                 SearchMessageConfig::AW_GRADE_DATAS[$datas->aw_grade],
                 $datas->aw_grant_unit,
-                date('Y-m-d',$datas->aw_grant_time).'年',
+                date($this->date_formate,$datas->aw_grant_time),
                 $datas->aw_certi_number,
                 $datas->aw_sch_rank,
                 $datas->aw_integral,
@@ -264,7 +264,7 @@ class ExcelController extends Controller
     //导出专利Excel表格
     public function exportPatentExcel(Request $request){
         $patent_cell_datas  = SearchMessageConfig::PATENT_CELL_DATAS;
-        $pa_id_datas        = $request->pa_id_datas;
+        $pa_id_datas        = explode(',',$request->pa_id_datas);
         $patent_table_name  = SearchMessageConfig::PATENT_TABLE;
         $patent_id_field    = SearchMessageConfig::PATENT;
         $patent_datas       = ModelDatabase::selectExportExcelDatas($patent_table_name,$patent_id_field,$pa_id_datas);
@@ -280,7 +280,7 @@ class ExcelController extends Controller
                 SearchMessageConfig::PA_IMPLE_SITU_DATAS[$datas->pa_imple_situ],
                 $datas->author_num,
                 $datas->author_cert_num,
-                date('Y-m-d',$datas->author_notic_day).'年',
+                date($this->date_formate,$datas->author_notic_day),
                 $datas->pa_integral,
                 $datas->pa_remarks,
             ];
@@ -295,7 +295,7 @@ class ExcelController extends Controller
     //导出成果鉴定Excel表格
     public function exportAppraisalExcel(Request $request){
         $appraisal_cell_datas = SearchMessageConfig::APPRAISAL_CELL_DATAS;
-        $ap_id_datas          = $request->ap_id_datas;
+        $ap_id_datas          = explode(',',$request->ap_id_datas);
         $appraisal_table_name = SearchMessageConfig::APPRAISAL_TABLE;
         $appraisal_id_field   = SearchMessageConfig::APPRAISAL_ID;
         $appraisal_datas      = ModelDatabase::selectExportExcelDatas($appraisal_table_name,$appraisal_id_field,$ap_id_datas);
@@ -309,7 +309,7 @@ class ExcelController extends Controller
                 $datas->ap_form,
                 $datas->ap_num,
                 $datas->ap_conclusion,
-                date('Y-m-d',$datas->ap_time).'年',
+                date($this->date_formate,$datas->ap_time),
                 SearchMessageConfig::AP_LEVEL_DATAS[$datas->ap_level],
                 $datas->ap_integral,
                 $datas->ap_remarks
@@ -325,7 +325,7 @@ class ExcelController extends Controller
     //导出举行会议Excel表格
     public function exportHoldmeetExcel(Request $request){
         $holdmeet_cell_datas = SearchMessageConfig::HOLDMEET_CELL_DATAS;
-        $ho_id_datas         = $request->ap_id_datas;
+        $ho_id_datas         = explode(',',$request->ap_id_datas);
         $holdmeet_table_name = SearchMessageConfig::HOLD_MEET_TABLE;
         $holdmeet_id_field   = SearchMessageConfig::HOLDMEET_ID;
         $holdmeet_datas      = ModelDatabase::selectExportExcelDatas($holdmeet_table_name,$holdmeet_id_field,$ho_id_datas);
@@ -339,7 +339,7 @@ class ExcelController extends Controller
                 $datas->ho_unit,
                 $datas->undertake_unit,
                 SearchMessageConfig::MEETING_LEVEL_DATAS[$datas->ho_level],
-                date('Y-m-d',$datas->ho_time).'年'
+                date($this->date_formate,$datas->ho_time),
             ];
         }
         Excel::create('举办会议信息数据',function ($excel) use ($holdmeet_cell_datas){
@@ -352,7 +352,7 @@ class ExcelController extends Controller
     //导出参加会议Excel表格
     public function exportJoinmeetExcel(Request $request){
         $joinmeet_cell_datas = SearchMessageConfig::JOINMEET_CELL_DATAS;
-        $jo_id_datas         = $request->ap_id_datas;
+        $jo_id_datas         = explode(',',$request->ap_id_datas);
         $joinmeet_table_name = SearchMessageConfig::JOIN_MEET_TABLE;
         $joinmeet_id_field   = SearchMessageConfig::JOINMEET_ID;
         $joinmeet_datas      = ModelDatabase::selectExportExcelDatas($joinmeet_table_name,$joinmeet_id_field,$jo_id_datas);
@@ -365,7 +365,7 @@ class ExcelController extends Controller
                 $datas->jo_hold_unit,
                 $datas->jo_take_unit,
                 SearchMessageConfig::MEETING_LEVEL_DATAS[$joinmeet_datas->jo_level],
-                date('Y-m-d',$datas->jo_time).'年',
+                date($this->date_formate,$datas->jo_time),
                 $datas->jo_place,
                 $datas->jo_art_num,
                 $datas->jo_is_invite,
@@ -382,7 +382,7 @@ class ExcelController extends Controller
     //导出讲学Excel表格
     public function exportLectureExcel(Request $request){
         $lecture_cell_datas = SearchMessageConfig::LECTURE_CELL_DATAS;
-        $le_id_datas        = $request->le_id_datas;
+        $le_id_datas        = explode('.',$request->le_id_datas);
         $lecture_table_name = SearchMessageConfig::LECTURE_TABLE;
         $lecture_id_field   = SearchMessageConfig::LECTURE_ID;
         $lecture_datas      = ModelDatabase::selectExportExcelDatas($lecture_table_name,$lecture_id_field,$le_id_datas);
@@ -395,7 +395,7 @@ class ExcelController extends Controller
                 $datas->le_report_name,
                 SearchMessageConfig::LE_INVITE_STATUS_DATAS[$datas->le_invite_status],
                 $datas->le_invite_unit,
-                date('Y-m-d',$datas->le_time).'年'
+                date($this->date_formate,$datas->le_time)
             ];
         }
         Excel::create('专家讲学信息数据',function ($excel) use ($lecture_cell_datas){
@@ -410,7 +410,7 @@ class ExcelController extends Controller
         $cell_datas = [
             ['序号','姓名','职称','学历','学位','年龄','担任学术团体名称','所任职务','担任职务年限','备注']
         ];
-        $du_id_datas       = $request->du_id_datas;
+        $du_id_datas       = explode(',',$request->du_id_datas);
         $duties_table_name = SearchMessageConfig::DUTIES_TABLE;
         $duties_id_field   = SearchMessageConfig::DUTIES_ID;
         $duties_datas      = ModelDatabase::selectExportExcelDatas($duties_table_name,$duties_id_field,$du_id_datas);
@@ -426,7 +426,7 @@ class ExcelController extends Controller
                 $datas->du_age,
                 $datas->du_name,
                 $datas->du_duty,
-                date('Y-m-d',$duties_time[0]/1000).'年 —— '.date('Y-m-d',$duties_time[1]/1000).'年',
+                date($this->date_formate,$duties_time[0]/1000).'——'.date($this->date_formate,$duties_time[1]/1000),
                 $datas->du_remark
             ];
         }
@@ -440,7 +440,7 @@ class ExcelController extends Controller
     //导出校发文件Excel表格
     public function exportSchoolFileExcel(Request $request){
         $school_file_cell_datas = SearchMessageConfig::SCHOOL_FILE_CELL_DATAS;
-        $schfile_id_datas       = $request->schfile__id_datas;
+        $schfile_id_datas       = explode(',',$request->schfile__id_datas);
         $school_file_table_name = SearchMessageConfig::SCHOOL_FILE_TABLE;
         $school_file_id_field   = SearchMessageConfig::SCHOOLFILE_ID;
         $school_file_datas      = ModelDatabase::selectExportExcelDatas($school_file_table_name,$school_file_id_field,$schfile_id_datas);
@@ -450,7 +450,7 @@ class ExcelController extends Controller
                 $this->serial_number,
                 $datas->schfile_name,
                 $datas->schfile_num,
-                date('Y-m-d',$datas->schfile_down_time).'年'
+                date($this->date_formate,$datas->schfile_down_time)
             ];
         }
         Excel::create('校发文件信息数据',function ($excel) use ($school_file_cell_datas){
@@ -463,7 +463,7 @@ class ExcelController extends Controller
     //导出合作协议Excel表格
     public function exportAgreementExcel(Request $request){
         $agreement_cell_datas = SearchMessageConfig::AGREEMENT_CELL_DATAS;
-        $agree_id_id_datas    = $request->agree_id__id_datas;
+        $agree_id_id_datas    = explode(',',$request->agree_id_datas);
         $agreement_table_name = SearchMessageConfig::AGREEMENT_TABLE;
         $agreement_id_field   = SearchMessageConfig::AGREEMENT_ID;
         $agreement_datas      = ModelDatabase::selectExportExcelDatas($agreement_table_name,$agreement_id_field,$agree_id_id_datas);
@@ -473,7 +473,7 @@ class ExcelController extends Controller
                 $this->serial_number,
                 $datas->agree_name,
                 $datas->agree_cooperate_unit,
-                date('Y-m-d',$datas->agree_time).'年'
+                date($this->date_formate,$datas->agree_time)
             ];
         }
         Excel::create('教学科研等合作协议信息数据',function ($excel) use ($agreement_cell_datas){
