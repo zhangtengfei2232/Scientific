@@ -127,6 +127,7 @@ class ArticalController extends Controller
              'sch_percal_cate'   => trim($request->sch_percal_cate),          //学校认证期刊级别
              'art_time'          => trim($request->art_time),                 //发表时间
          ];
+         dd($datas);
          $judge_datas = judgeArticalField($datas);                            //判断论文字段是否合法
          if($judge_datas['code'] == 1){
              return responseTojson(1,$judge_datas['message']);

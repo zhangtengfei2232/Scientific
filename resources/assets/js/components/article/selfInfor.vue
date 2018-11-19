@@ -85,8 +85,8 @@
                         </el-form-item>
                         <el-form-item label="研究类别">
                             <el-select v-model="form.art_cate_research" placeholder="请选择类别">
-                                <el-option label="基础研究" value="1"></el-option>
-                                <el-option label="应用研究" value="2"></el-option>
+                                <el-option label="基础研究" value="0"></el-option>
+                                <el-option label="应用研究" value="1"></el-option>
                             </el-select>
                         </el-form-item>
                         <el-form-item label="学科门类">
@@ -121,10 +121,10 @@
                             <el-upload
                                 class="upload-demo"
                                 drag
-                                action=""
+                                action="#"
                                 multiple
                                 ref="art_pdf"
-                                :before-upload="fileArtpdf"
+                                :on-change="fileArtpdf"
                                 :auto-upload="false">
                                 <i class="el-icon-upload"></i>
                                 <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -185,14 +185,14 @@ export default {
                 title: '',
                 publication_name: '',
                 publication_num : '',
-                num_words: '',
+                num_words: 0,
                 periodical_cate: '',
                 belong_project: '',
-                art_cate_research: '',
+                art_cate_research: 0,
                 art_sub_category: '',
-                art_integral: '',
+                art_integral: 0,
                 period: '',
-                percal_cate: '',
+                percal_cate: 0,
                 sch_percal_cate:'',
                 art_time: '',
                 period:''
@@ -202,15 +202,13 @@ export default {
 
     methods: {
         fileArtpdf(file){
-            if(file != true){
-                this.dataFile.append('art_road', file);
-                let id = this.art_id;
-                this.dataFile.append('art_id', id);
-                this.sendfile(this.dataFile);
+            console.log(file);
+            if(file !== ''){
+                this.dataForm.append('art_road', file.raw);
             }else{
-                this.$message.error('请先添加数据信息');
+                this.$message.error('请先添加pdf信息');
                 return false
-            }
+            } 
         },
         sendfile(data) {
             return axios({
@@ -239,6 +237,7 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.ArticleSelfData = data.datas;
+                    // console.log()
                     let time = data.datas.period;
                     self.checkYearExt(time);
                     self.form = data.datas;
@@ -329,7 +328,6 @@ export default {
                         }
                     })
                     vue.$refs.art_pdf.submit()
-                    vue.$refs.art_sci.submit()
                 } else {
                     console.log('error submit!!')
                     return false

@@ -325,13 +325,13 @@ export default {
         },
         ExcelArticleDatas(art_id_datas) {
             let self = this;
-            // let urls =  `exportarticalexcel/${art_id_datas}`;
-            // window.location.href = urls;
-            axios.get("exportarticalexcel",{
-                    params:{
-                    artical_id:art_id_datas
-                }
-            })
+            let urls =  `exportarticalexcel?art_id_datas=${art_id_datas}`;
+            window.location.href = urls;
+            // axios.get("exportarticalexcel",{
+            //         params:{
+            //         art_id_datas:art_id_datas
+            //     }
+            // })
             // .then(function () {
             //     var data = response.data;
             //     if (data.code == 0) {
