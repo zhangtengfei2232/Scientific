@@ -51,8 +51,9 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     Route::get('selectteacher', 'InformationController@selectTeacher');           //查询老师信息
     Route::post('updateteacher', 'InformationController@updateTeacher');          //修改老师信息
     Route::post('updateCertificate', 'InformationController@updateCertificate');  //修改老师证书信息
-    Route::post('updateteacherpassword', 'InformationController@updateTeacherPassword');//修改老师密码
-    Route::post('initializeteacherpassword', 'InformationController@initializeTeacherPassword');//重置老师密码
+    Route::post('updateteacherpostcategory', 'InformationController@updateTeacherPostCategory');  //修改老师岗位类别
+    Route::post('updateteacherpassword', 'InformationController@updateTeacherPassword');          //修改老师密码
+    Route::post('initializeteacherpassword', 'InformationController@initializeTeacherPassword');  //重置老师密码
 
 
     //老师对论文的操作
@@ -60,10 +61,8 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     Route::post('addartical', 'ArticalController@addArtical');                     //添加论文
     Route::get('deleteartical', 'ArticalController@deleteArtical');                //删除论文
     Route::get('selectartical', 'ArticalController@selectArtical');                //查询单个论文
-    Route::get('selectallattical', 'ArticalController@selectAllAttical');          //查询全部论文
-    Route::get('timeselectattical', 'ArticalController@timeSelectAttical');        //根据时间区间查询信息
-    Route::get('dateSelectartical', 'ArticalController@dateSelectArtical');        //根据时间查找
-    Route::get('dateselectartical', 'ArticalController@dateSelectArtical');        //根据日期查找论文
+    Route::get('selectallattical', 'ArticalController@selectAllArtical');          //查询全部论文
+    Route::get('timeselectattical', 'ArticalController@timeSelectArtical');        //根据时间区间查询信息
     Route::post('updatearticalinformation', 'ArticalController@updateArticalInformation');//修改论文信息
     Route::post('updatearticalself', 'ArticalController@updateArticalSelf');       //修改论文
 

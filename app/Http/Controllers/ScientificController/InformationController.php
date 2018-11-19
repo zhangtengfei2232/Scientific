@@ -21,14 +21,19 @@ class InformationController extends Controller
     }
     //修改老师密码
     public function updateTeacherPassword(Request $request){
-        $old_password = $request->old_password;
-        $new_password = $request->new_password;
+        $old_password = trim($request->old_password);
+        $new_password = trim($request->new_password);
         return TeacherDatabase::byOldPasswordSelectDatas($old_password,$new_password);
     }
     //重置老师密码
     public function initializeTeacherPassword(Request $request){
-        $teacher_id = $request->teacher_id;
+        $teacher_id = trim($request->teacher_id);
         return TeacherDatabase::initializeTeacherPasswordDatas($teacher_id);
+    }
+    //修改老师的岗位类别
+    public function updateTeacherPostCategory(Request $request){
+        $new_post_category = trim($request->post_category);
+        return TeacherDatabase::updateTeacherPostCategoryDatas($request->teacher_id,$new_post_category);
     }
     /**添加老师信息
      * @param Request $request
