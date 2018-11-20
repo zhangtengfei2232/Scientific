@@ -123,7 +123,7 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     Route::post('addLecture', 'LectureController@addLecture');                     //添加专家讲学信息
     Route::post('addLectureImages', 'LectureController@addLectureImages');         //添加专家讲学图片
     Route::get('deletelecture', 'LectureController@deleteLecture');                //删除专家讲学信息
-    Route::get('deletelectureimages', 'LectureController@deleteLectureImages');    //删除专家讲学图片
+    Route::get('deletelectureimage', 'LectureController@deleteLectureImage');      //删除专家讲学图片
     Route::get('selectlecture', 'LectureController@selectLecture');                //查询单个专家讲学信息
     Route::get('selectalllecture', 'LectureController@selectAllLecture');          //查询多个专家讲学信息
     Route::get('timeselectlecture', 'LectureController@timeSelectLecture');        //根据时间区间查询信息
