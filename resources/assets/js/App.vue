@@ -554,6 +554,8 @@
     .el-submenu .el-menu-item{
         min-width: 160px;
     }
+</style>
+=======
     .el-dialog {
         width: 28%;
     }

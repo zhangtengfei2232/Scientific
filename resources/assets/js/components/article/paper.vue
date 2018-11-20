@@ -97,7 +97,7 @@
         float: left;
         width: 80%;
         margin: 20px 0 0 5%;
-    } 
+    }
     .paper{
         font-size: 18px;
         color: #090909;
@@ -170,12 +170,8 @@
                 window.location.href = urls;
             },
             uploadArticleData(art_road) {
-                if(art_road == 1) {
-                    this.$message.error('pdf文件为空');
-                }else{
-                    let urls =  `downloadfile?file=article/${art_road}`;
-                    window.location.href = urls;
-                }
+                let urls =  `downloadfile?file=artical/${art_road}`;
+                window.location.href = urls;
             },
             getArticleData() {
                 let self = this;
@@ -213,27 +209,8 @@
                 }
             },
             exportArticleDatas(art_id_datas) {
-                let self = this;
-                axios.get("exportallartical",{
-                        params:{
-                        artical_id:art_id_datas
-                    }
-                }).then(function (response) {
-                var data = response.data;
-                    if (data.code == 0) {
-                        self.$message({
-                            showClose: true,
-                            message: '导出成功!',
-                            type: 'success'
-                        });
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.message,
-                            duration: 2000,
-                        });
-                    }
-                });
+                let urls =  `exportallartical?art_id_datas=${art_id_datas}`;
+                window.location.href = urls;
             },
             BatchDelete(){
 		    	var self = this;
@@ -250,12 +227,12 @@
                     this.deleteArticleDatas(art_id_datas);
                 }
             },
-             deleteArticleDatas(art_id_datas) {
+            deleteArticleDatas(art_id_datas) {
                 this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
-                }).then(() => { 
+                }).then(() => {
                     let self = this;
                     axios.get("deleteartical",{
                          params:{
@@ -282,7 +259,7 @@
                     this.$message({
                         type: 'info',
                         message: '已取消删除'
-                    });          
+                    });
                 });
             },
             deleteArticleData(art_id) {
@@ -317,7 +294,7 @@
                     this.$message({
                         type: 'info',
                         message: '已取消删除'
-                    });          
+                    });
                 });
             },
             byTimeSearch(form) {
@@ -335,7 +312,7 @@
                         self.$notify({
                             type: 'error',
                             message: data.message,
-                            duration: 2000,         
+                            duration: 2000,
                         });
                     }
                 });
