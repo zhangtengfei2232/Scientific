@@ -274,7 +274,7 @@
             },
             ExcelSelection() {
                 var self = this;
-                var dut_id_datas = [];//存放导出的数据
+                var du_id_datas = [];//存放导出的数据
                 if(self.multipleSelection == undefined){
                     this.$message({
                         message: '请选择要导出专家讲学',
@@ -282,33 +282,15 @@
                     });
                 }else{
                     for (var i = 0; i < self.multipleSelection.length; i++) {
-                        dut_id_datas.push(self.multipleSelection[i].du_id);
+                        du_id_datas.push(self.multipleSelection[i].du_id);
                     };
-                    this.ExcelHoldmeetDatas(dut_id_datas);
+                    this.ExcelHoldmeetDatas(du_id_datas);
                 }
             },
-            ExcelHoldmeetDatas(dut_id_datas) {
+            ExcelHoldmeetDatas(du_id_datas) {
                 let self = this;
-                axios.get("exportdutiesexcel",{
-                    params:{
-                        du_id_datas:dut_id_datas
-                    }
-                }).then(function (response) {
-                    var data = response.data;
-                    if (data.code == 0) {
-                        self.$message({
-                            showClose: true,
-                            message: '导出成功!',
-                            type: 'success'
-                        });
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.message,
-                            duration: 2000,
-                        });
-                    }
-                });
+                let urls =  `exportdutiesexcel?du_id_datas=${du_id_datas}`;
+                window.location.href = urls;
             },
             onSubmit() {
 

@@ -715,26 +715,8 @@
             },
             ExcelHoldmeetDatas(tea_id_datas) {
                 let self = this;
-                axios.get("",{
-                    params:{
-                        te_id_datas:tea_id_datas
-                    }
-                }).then(function (response) {
-                    var data = response.data;
-                    if (data.code == 0) {
-                        self.$message({
-                            showClose: true,
-                            message: '导出成功!',
-                            type: 'success'
-                        });
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.message,
-                            duration: 2000,
-                        });
-                    }
-                });
+                let urls =  `exportteacherexcel?tea_id_datas=${tea_id_datas}`;
+                window.location.href = urls;
             },
         },
         mounted() {
