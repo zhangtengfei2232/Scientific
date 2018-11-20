@@ -9,6 +9,41 @@
                 <div class="loginName">
                     <i class="el-icon-view"></i>
                     <span style="margin-right: 15px;">{{ teacherDate.name }}</span>
+                    <div v-show="changeTeapsw" style="display: inline-block;">
+                        <el-button type="text" @click="dialogFormVisible  = true" style="color:rgb(255,152,41)">重置老师密码</el-button>
+                        <el-dialog title="重置密码"
+                                   :visible.sync="dialogFormVisible"
+                                   :close-on-click-modal="false"
+                                   @close="closeDialog"
+                                   center>
+                            <el-form :model="changeform" style="padding: 11px 20px;" ref="changeform">
+                                <el-form-item label="老师工号">
+                                    <el-input type="text" v-model="changeform.old_password" placeholder="请输入需重置密码老师工号" maxlength="10" id="oldpsw"></el-input>
+                                </el-form-item>
+                                <el-form-item label="重置密码">
+                                    <el-input v-model="" value="123456" :disabled="true"></el-input>
+                                </el-form-item>
+                                <!--<el-form-item v-if="visible" label="新密码">-->
+                                    <!--<el-input type="password" v-model="changeform.new_password" placeholder="请输入新密码" maxlength="10" id="newpsw">-->
+                                        <!--<i slot="suffix" title="显示密码" @click="changePass('show')" style="cursor:pointer;"-->
+                                           <!--class="el-icon-view"></i>-->
+                                    <!--</el-input>-->
+                                <!--</el-form-item>-->
+                                <!--<el-form-item v-else label="新密码">-->
+                                    <!--<el-input type="text" v-model="changeform.new_password" placeholder="请输入新密码" maxlength="10" class="newpsw">-->
+                                        <!--<i slot="suffix" title="隐藏密码" @click="changePass('hide')" style="cursor:pointer;"-->
+                                           <!--class="el-icon-view"></i>-->
+                                    <!--</el-input>-->
+                                <!--</el-form-item>-->
+                            </el-form>
+                            <div slot="footer" class="dialog-footer">
+                                <el-button @click="dialogFormVisible = false">取 消</el-button>
+                                <el-button type="primary" @click.native="changepsw()">重 置</el-button>
+                            </div>
+                        </el-dialog>
+
+                    </div>
+
                     <a style="margin-left: 10px;color: white"href="leavelogin">退出系统</a><i class="el-icon-caret-right"></i>
                 </div>
             </div>
@@ -106,6 +141,13 @@
     export default {
         data() {
             return {
+                dialogFormVisible: false,
+                changeform:{
+                    old_password:'',
+                    new_password:''
+                },
+                visible: true,
+
                 teacherDate:[] ,
                 show: false,
 //                navJudgment:false,
@@ -117,6 +159,7 @@
                 navSpecial:false,
                 allResult:false,
                 resultCollect:false,
+                changeTeapsw:false,//修改老师密码
                 status:'',
                 navList:[
 //                    {icon:'el-icon-picture',name:'/',navItem:'ft'},
@@ -134,6 +177,11 @@
             }
         },
         methods: {
+            closeDialog:function(){
+//                this.$refs[changeform].resetFields();
+//                this.changeform.old_password = '';
+//                this.changeform.new_password = '';
+            },
             handleOpen() {
 
             },
@@ -170,6 +218,8 @@
                         self.navAgrement=true;//教学科研等合作协议
                         self.allResult=true;//成果汇总
                         self.resultCollect=true;//成果汇总
+
+                        self.changeTeapsw=true;//修改老师密码
                     }
                     else if(status == 4){  //科研秘书
 
@@ -178,6 +228,8 @@
                         self.navAgrement=true;//教学科研等合作协议
                         self.allResult=true;//成果汇总
                         self.resultCollect=true;//成果汇总
+
+
                     }
                     else if(status == 5){  //研究生秘书
 
@@ -289,7 +341,7 @@
         margin-top: 5px;
     }
     .loginName{
-        width:17%;
+        width:24%;
         float: right;
     }
     .loginName img{
@@ -341,5 +393,8 @@
     }
     .el-submenu .el-menu-item{
         min-width: 160px;
+    }
+    .el-dialog {
+        width: 28%;
     }
 </style>
