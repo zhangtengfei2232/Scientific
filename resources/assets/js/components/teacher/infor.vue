@@ -5,7 +5,7 @@
             <div class="content">
                 <div class="perInfo">
                     <span style="margin-left: 15px;">个人信息</span>
-                    <span style="float: right;margin-right:100px;"><el-button type="text" @click="dialogFormVisible  = true">修改密码</el-button></span>
+                    <span style="float: right;margin-right:60px;"><el-button type="text" @click="dialogFormVisible  = true">修改密码</el-button></span>
 
                     <el-dialog title="修改密码"
                         :visible.sync="dialogFormVisible"
@@ -196,18 +196,19 @@
                                     <el-input v-model="form.series"></el-input>
                                 </el-form-item>
                                 <el-form-item label="岗位类别" prop="post_category">
-                                    <!--<el-input v-model="form.post_category" :disabled="true"></el-input>-->
                                     <el-select v-model="form.post_category" disabled placeholder="请选择老师岗位类别">
-                                        <!--<el-option-->
-                                                <!--v-for="(value, key) in post_category"-->
-                                                <!--:key="key"-->
-                                                <!--:label="value"-->
-                                                <!--:value="key">-->
-                                        <!--</el-option>-->
-                                        <el-option label="教学秘书" value="0"></el-option>
+                                        <el-option label="普通老师" value="0"></el-option>
                                         <el-option label="院长" value="1"></el-option>
-                                        <el-option label="办公室主任" value="2"></el-option>
-                                        <el-option label="副主任" value="3"></el-option>
+                                        <el-option label="副院长" value="2"></el-option>
+                                        <el-option label="教学秘书" value="3"></el-option>
+                                        <el-option label="科研秘书" value="4"></el-option>
+                                        <el-option label="研究生秘书" value="5"></el-option>
+                                        <el-option label="副主任" value="6"></el-option>
+                                        <el-option label="系主任" value="7"></el-option>
+                                        <el-option label="办公室主任" value="8"></el-option>
+                                        <el-option label="教研室主任" value="9"></el-option>
+                                        <el-option label="党委书记" value="10"></el-option>
+                                        <el-option label="党委副书记" value="11"></el-option>
                                     </el-select>
                                 </el-form-item>
 
@@ -476,6 +477,7 @@
                     var data = response.data;
                     if(data.code == 0){
                         self.teacherDate = data.datas.information;
+//                        self.teacherDate.sex = String(data.datas.information.sex);
                         self.teacherDate.teacher_department = String(data.datas.information.teacher_department);
                         self.teacherDate.polit_outlook = String(data.datas.information.polit_outlook);
                         self.teacherDate.job_level = String(data.datas.information.job_level);
@@ -721,7 +723,7 @@
             addTeaPsw(data) {
                 return axios({
                     method: 'post',
-                    url: 'updateTeacherPassword',
+                    url: 'updateteacherpassword',
                     headers: {'Content-Type': 'multipart/form-data'},
                     timeout: 20000,
                     data: data
