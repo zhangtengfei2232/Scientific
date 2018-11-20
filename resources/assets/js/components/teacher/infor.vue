@@ -5,7 +5,7 @@
             <div class="content">
                 <div class="perInfo">
                     <span style="margin-left: 15px;">个人信息</span>
-                    <span style="float: right;margin-right:100px;"><el-button type="text" @click="dialogFormVisible  = true">修改密码</el-button></span>
+                    <span style="float: right;margin-right:60px;"><el-button type="text" @click="dialogFormVisible  = true">修改密码</el-button></span>
 
                     <el-dialog title="修改密码"
                         :visible.sync="dialogFormVisible"
@@ -196,14 +196,7 @@
                                     <el-input v-model="form.series"></el-input>
                                 </el-form-item>
                                 <el-form-item label="岗位类别" prop="post_category">
-                                    <!--<el-input v-model="form.post_category" :disabled="true"></el-input>-->
                                     <el-select v-model="form.post_category" disabled placeholder="请选择老师岗位类别">
-                                        <!--<el-option-->
-                                                <!--v-for="(value, key) in post_category"-->
-                                                <!--:key="key"-->
-                                                <!--:label="value"-->
-                                                <!--:value="key">-->
-                                        <!--</el-option>-->
                                         <el-option label="教学秘书" value="0"></el-option>
                                         <el-option label="院长" value="1"></el-option>
                                         <el-option label="办公室主任" value="2"></el-option>
@@ -721,7 +714,7 @@
             addTeaPsw(data) {
                 return axios({
                     method: 'post',
-                    url: 'updateTeacherPassword',
+                    url: 'updateteacherpassword',
                     headers: {'Content-Type': 'multipart/form-data'},
                     timeout: 20000,
                     data: data
