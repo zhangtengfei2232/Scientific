@@ -197,10 +197,18 @@
                                 </el-form-item>
                                 <el-form-item label="岗位类别" prop="post_category">
                                     <el-select v-model="form.post_category" disabled placeholder="请选择老师岗位类别">
-                                        <el-option label="教学秘书" value="0"></el-option>
+                                        <el-option label="普通老师" value="0"></el-option>
                                         <el-option label="院长" value="1"></el-option>
-                                        <el-option label="办公室主任" value="2"></el-option>
-                                        <el-option label="副主任" value="3"></el-option>
+                                        <el-option label="副院长" value="2"></el-option>
+                                        <el-option label="教学秘书" value="3"></el-option>
+                                        <el-option label="科研秘书" value="4"></el-option>
+                                        <el-option label="研究生秘书" value="5"></el-option>
+                                        <el-option label="副主任" value="6"></el-option>
+                                        <el-option label="系主任" value="7"></el-option>
+                                        <el-option label="办公室主任" value="8"></el-option>
+                                        <el-option label="教研室主任" value="9"></el-option>
+                                        <el-option label="党委书记" value="10"></el-option>
+                                        <el-option label="党委副书记" value="11"></el-option>
                                     </el-select>
                                 </el-form-item>
 
@@ -469,6 +477,7 @@
                     var data = response.data;
                     if(data.code == 0){
                         self.teacherDate = data.datas.information;
+//                        self.teacherDate.sex = String(data.datas.information.sex);
                         self.teacherDate.teacher_department = String(data.datas.information.teacher_department);
                         self.teacherDate.polit_outlook = String(data.datas.information.polit_outlook);
                         self.teacherDate.job_level = String(data.datas.information.job_level);

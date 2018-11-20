@@ -28,7 +28,7 @@
                         <!--<el-button type="text" @click="dialogFormVisible  = true" style="color:rgb(255,152,41)">重置老师密码</el-button>-->
                     <!--</div>-->
                     <el-dropdown>
-                      <span class="el-dropdown-link" style="color:rgb(255,152,41)">
+                      <span class="el-dropdown-link" style="color:rgb(255,152,41)" v-show="changeTeapsw">
                         修 改<i class="el-icon-arrow-down el-icon--right"></i>
                       </span>
                         <el-dropdown-menu slot="dropdown">
@@ -64,10 +64,18 @@
                             </el-form-item>
                             <el-form-item label="岗位类别" prop="post_category">
                                 <el-select v-model="changework.post_category" placeholder="请选择老师岗位类别" id="teaPost">
-                                    <el-option label="教学秘书" value="0"></el-option>
+                                    <el-option label="普通老师" value="0"></el-option>
                                     <el-option label="院长" value="1"></el-option>
-                                    <el-option label="办公室主任" value="2"></el-option>
-                                    <el-option label="副主任" value="3"></el-option>
+                                    <el-option label="副院长" value="2"></el-option>
+                                    <el-option label="教学秘书" value="3"></el-option>
+                                    <el-option label="科研秘书" value="4"></el-option>
+                                    <el-option label="研究生秘书" value="5"></el-option>
+                                    <el-option label="副主任" value="6"></el-option>
+                                    <el-option label="系主任" value="7"></el-option>
+                                    <el-option label="办公室主任" value="8"></el-option>
+                                    <el-option label="教研室主任" value="9"></el-option>
+                                    <el-option label="党委书记" value="10"></el-option>
+                                    <el-option label="党委副书记" value="11"></el-option>
                                 </el-select>
                             </el-form-item>
                         </el-form>
