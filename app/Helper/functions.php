@@ -95,8 +95,9 @@ use setasign\Fpdi\Tcpdf\Fpdi;
     function  selectionFirstPageToNewPdf($disk,$pdf_road_datas){
         $complete_pdf_road_datas = [];
         //拼接PDF的完整路径
+        $storage_path = str_replace('\\','/',storage_path());
         for($i = 0; $i < count($pdf_road_datas); $i++){
-            $complete_pdf_road_datas[$i] = storage_path().'/'.$disk.'/'.$pdf_road_datas[$i];
+            $complete_pdf_road_datas[$i] = $storage_path.'/app/data/'.$disk.'/'.$pdf_road_datas[$i];
         }
         $pdf = new Fpdi();
         // 載入現在 PDF 檔案
@@ -107,9 +108,11 @@ use setasign\Fpdi\Tcpdf\Fpdi;
             $pdf->useTemplate($tpl);                            // 在新增的頁面上使用匯入的第一頁
             // 輸出成本地端 PDF 檔案
         }
-        //默认是I：在浏览器中打开，D：下载，F：在服务器生成pdf
-        //S：只返回pdf的字符串，个人感觉无实在意义
-        $pdf->output("合并论文首页.pdf", "D");
+        /**
+         * 默认是I：在浏览器中打开，D：下载，F：在服务器生成pdf
+         * S：只返回pdf的字符串，个人感觉无实在意义
+         */
+        $pdf->output("merge-articals.pdf", "D");
         // 結束 FPDI 剖析器
         $pdf->closeParsers();
         return;
