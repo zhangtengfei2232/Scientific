@@ -196,7 +196,7 @@
             BatchExport() {
                 var self = this;
                 var art_id_datas = [];//存放导出的数据
-                if(self.multipleSelection == undefined){
+                if(self.multipleSelection == ''){
                     this.$message({
                         message: '请选择要导出论文',
                         type: 'warning'
@@ -215,7 +215,7 @@
             BatchDelete(){
 		    	var self = this;
                 var art_id_datas = [];//存放删除的数据
-                if(self.multipleSelection == undefined){
+                if(self.multipleSelection == ''){
                     this.$message({
                         message: '请选择要删除论文',
                         type: 'warning'

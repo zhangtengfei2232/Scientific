@@ -118,7 +118,7 @@
     }
     .demonstration{
         font-weight: lighter;
-    } 
+    }
     @media screen and (max-width: 1400px){
         .paper{
             font-size: 16px;
@@ -161,7 +161,7 @@
             ExcelSelection() {
                 var self = this;
                 var art_id_datas = [];//存放导出的数据
-                if(self.multipleSelection == undefined){
+                if(self.multipleSelection == ''){
                     this.$message({
                         message: '请选择要导出数据',
                         type: 'warning'
@@ -178,17 +178,13 @@
                 window.location.href = urls;
             },
             uploadshoolFileData(schfile_road) {
-                if(schfile_road == 1) {
-                    this.$message.error('pdf文件为空');
-                }else{
-                    let urls =  `downloadfile?file=article/${art_road}`;
+                    let urls =  `downloadfile?file=schoolfile/${schfile_road}`;
                     window.location.href = urls;
-                }
             },
             BatchDelete(){
 		    	var self = this;
                 var pro_id_datas = [];//存放删除的数据
-                if(self.multipleSelection == undefined){
+                if(self.multipleSelection == ''){
                     this.$message({
                         message: '请选择要删除的数据',
                         type: 'warning'

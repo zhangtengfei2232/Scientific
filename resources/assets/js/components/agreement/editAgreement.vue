@@ -10,14 +10,17 @@
                 </el-form-item>
                 <el-form-item label="协议时间">
                     <el-col :span="15">
-                        <el-date-picker 
+                        <el-date-picker
                         type="date"
-                        placeholder="选择日期" 
-                        v-model="form.agree_time" 
+                        placeholder="选择日期"
+                        v-model="form.agree_time"
                         style="width: 100%;"
                         format="yyyy 年 MM 月 dd 日"
                         value-format="timestamp"></el-date-picker>
                     </el-col>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="warning" size="mini" @click="watchPDF()">查看论文</el-button>
                 </el-form-item>
                 <el-form-item label="协议附件pdf">
                     <el-upload
@@ -59,7 +62,6 @@
         data() {
             return {
                 AgreementeDitData: {},
-                filelists: [],
                 agree_road:'',
                 school:false,
                 dataForm: new FormData(),
@@ -71,6 +73,10 @@
             }
         },
         methods: {
+            watchPDF() {
+                let urls =  `showfile?disk=agreement&subjection=${this.agree_road}`;
+                window.open(urls, '_blank');
+            },
             getAgreementeDitData() {
                 let self = this;
                 let agree_id = self.$route.params.agree_id;
@@ -79,8 +85,7 @@
                     if (data.code == 0) {
                         self.AgreementeDitData = data.datas;
                         self.form = data.datas;
-                        console.log(self.form);
-                        self.filelists = 'showfile?disk=agreement&subjection=' + data.datas.agree_road;
+                        self.agree_road = data.datas.agree_road;
                     } else {
                         self.$notify({
                             type: 'error',
@@ -120,7 +125,7 @@
                                 var data = res.data;
                                 if(vue.school == false){
                                     vue.$message.error('pdf文件不能为空');
-                                    return 
+                                    return
                                 }
                                 if (data.code == 0) {
                                     vue.$message({
@@ -128,7 +133,7 @@
                                         type: 'success'
                                     });
                                     this.$router.push({path: '/agreement'});
-                                } else { 
+                                } else {
                                     vue.$notify({
                                         type: 'error',
                                         message: '修改失败',

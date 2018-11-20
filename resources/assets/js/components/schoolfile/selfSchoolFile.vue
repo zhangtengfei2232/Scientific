@@ -10,22 +10,25 @@
                 </el-form-item>
                 <el-form-item label="文件下发时间">
                     <el-col :span="15">
-                        <el-date-picker 
-                            type="date" 
-                            placeholder="选择日期" 
-                            v-model="form.schfile_down_time" 
+                        <el-date-picker
+                            type="date"
+                            placeholder="选择日期"
+                            v-model="form.schfile_down_time"
                             format="yyyy 年 MM 月 dd 日"
                             value-format="timestamp"
                             style="width: 100%;">
                         </el-date-picker>
                     </el-col>
                 </el-form-item>
+                <el-form-item>
+                    <el-button type="warning" size="mini" @click="watchPDF()">查看论文</el-button>
+                </el-form-item>
                 <el-form-item label="上传文件pdf">
                     <el-upload
                             :auto-upload="false"
                             drag
                             action="#"
-                            ref="schfile_file"
+                            ref="schfile_road"
                             :before-upload="fileProfil"
                             :limit="1"
                             multiple>
@@ -34,7 +37,7 @@
                     </el-upload>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="onSubmit(form)">立即创建</el-button>
+                    <el-button type="primary" @click="onSubmit(form)">立即修改</el-button>
                     <el-button>取消</el-button>
                 </el-form-item>
             </el-form>
@@ -59,9 +62,9 @@
             return {
                 school:false,
                 schoolFleData:{},
-                filelists: [{url:''}],
                 schfile_file:'',
                 dataForm: new FormData(),
+                schfile_road:'',
                 form: {
                     schfile_name: '',
                     schfile_num: '',
@@ -70,6 +73,10 @@
             }
         },
         methods: {
+            watchPDF() {
+                let urls =  `showfile?disk=schoolfile&subjection=${this.schfile_road}`;
+                window.open(urls, '_blank');
+            },
             getSchoolFileData() {
                 let self = this;
                 let schfile_id = self.$route.params.schfile_id;
@@ -78,7 +85,7 @@
                     if (data.code == 0) {
                         self.schoolFleData = data.datas;
                         self.form = data.datas;
-                        self.schfile_road = 'showfile?disk=project&subjection=' + data.datas.schfile_road;
+                        self.schfile_road = data.datas.schfile_road;
                     } else {
                         self.$notify({
                             type: 'error',
@@ -95,7 +102,7 @@
                     this.dataForm.append('schfile_road', file);
                     return false;
                 }else{
-                    this.$message.error('文件不能为空');                    
+                    this.$message.error('文件不能为空');
                 }
             },
             checkFileExt(filename){
@@ -111,7 +118,7 @@
                 //循环比较
                 for(var i=0;i<arr.length;i++){
                     if(ext == arr[i]){
-                        flag = true; 
+                        flag = true;
                         break;
                     }
                 }
@@ -137,14 +144,14 @@
                                 vue.dataForm.append(i,val);
                             });
                             vue.addSchoolFileData(vue.dataForm).then(res => {
-                                var data = res.data; 
+                                var data = res.data;
                                 if (data.code == 0) {
                                     vue.$message({
                                         message: '修改成功',
                                         type: 'success'
                                     });
                                     this.$router.push({path: '/schoolfile'});
-                                } else { 
+                                } else {
                                     vue.$notify({
                                         type: 'error',
                                         message: data.message,
