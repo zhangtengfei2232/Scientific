@@ -3,28 +3,28 @@
         <div class="add">
             <el-form ref="form" :model="form" label-width="200px">
                 <el-form-item label="鉴定第一作者">
-                    <el-input v-model="form.ap_first_author"></el-input>
+                    <el-input v-model="form.ap_first_author" maxlength="100"></el-input>
                 </el-form-item>
                 <el-form-item label="全部完成（参与）人">
-                    <el-input v-model="form.ap_all_author"></el-input>
+                    <el-input v-model="form.ap_all_author" maxlength="200"></el-input>
                 </el-form-item>
                 <el-form-item label="鉴定成果名称">
-                    <el-input v-model="form.ap_res_name"></el-input>
+                    <el-input v-model="form.ap_res_name" maxlength="100"></el-input>
                 </el-form-item>
                 <el-form-item label="鉴定形式">
-                    <el-input v-model="form.ap_form"></el-input>
-                </el-form-item> 
+                    <el-input v-model="form.ap_form" maxlength="100"></el-input>
+                </el-form-item>
                 <el-form-item label="鉴定编号">
-                    <el-input v-model="form.ap_num"></el-input>
+                    <el-input v-model="form.ap_num" maxlength="100"></el-input>
                 </el-form-item>
                 <el-form-item label="鉴定结论">
-                    <el-input v-model="form.ap_conclusion"></el-input>
+                    <el-input v-model="form.ap_conclusion" maxlength="200"></el-input>
                 </el-form-item>
                  <el-form-item label="鉴定时间">
                     <el-col :span="15">
                         <el-date-picker
                             type="date"
-                            placeholder="选择日期" 
+                            placeholder="选择日期"
                             v-model="form.ap_time"
                             format="yyyy 年 MM 月 dd 日"
                             value-format="timestamp"
@@ -41,7 +41,7 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="积分">
-                    <el-input v-model="form.ap_integral"></el-input>
+                    <el-input v-model="form.ap_integral" maxlength="50"></el-input>
                 </el-form-item>
                 <el-form-item label="备注">
                     <el-input type="textarea" v-model="form.ap_remarks"></el-input>
@@ -146,7 +146,7 @@
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
-            }  
+            }
         },
         fileProfils(files){
             if(this.Bcode == true){
@@ -175,7 +175,7 @@
                         duration: 2000,
                     });
                 }
-            })  
+            })
         },
         addBookFile(data){
              return axios({

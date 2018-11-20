@@ -87,20 +87,20 @@
                         </el-col>
                     </router-link>
                 </el-row>
-            </div>  
+            </div>
             <div class="char">
                 <div class="navL">
                         <p>图标概况</p>
                     </div>
-                <div class="list2">      
+                <div class="list2">
                     <span class="span">师资图</span>
-                    <div id="myChart" :style="{width: '350px', height: '350px'}"></div>
+                    <div id="myChart" :style="{width: '320px', height: '300px'}"></div>
                     <el-button type="primary" size="mini" @click="getTeacherDate()">学历</el-button>
                     <el-button type="danger" size="mini" @click="rank()">职称</el-button>
-                </div>  
+                </div>
                 <div class="list3">
                     <span class="span">论文图</span>
-                    <div id="myArticle" :style="{width: '350px', height: '350px'}"></div>
+                    <div id="myArticle" :style="{width: '320px', height: '300px'}"></div>
                     <el-button type="primary" size="mini">刊物级别</el-button>
                 </div>
                 <div class="list4">
@@ -132,15 +132,15 @@
                     <el-button type="primary" size="mini">鉴定级别</el-button>
                 </div>
             </div>
-             
+
         </div>
     </div>
 </template>
 
 <style>
     body{
-        background: #f9fafc;  
-        overflow-x: hidden; 
+        background: #f9fafc;
+        overflow-x: hidden;
     }
     .datas{
         width:85%;
@@ -265,7 +265,7 @@ export default {
             myChart.setOption({
                 series: {
                     type: 'pie',
-                    radius : '55%',
+                    radius : '50%',
                     data: [
                         {name: '博士'+'('+datas[0]+')', value: datas[0]},
                         {name: '硕士'+'('+datas[1]+')', value: datas[1]},
@@ -326,7 +326,7 @@ export default {
             myArticle.setOption({
                 series: {
                     type: 'pie',
-                    radius : '40%',
+                    radius : '35%',
                     data: [
                         {name: 'SCI一区'+'('+datas[0]+')', value: datas[0]},
                         {name: 'SCI二区'+'('+datas[1]+')', value: datas[1]},
@@ -445,7 +445,7 @@ export default {
                         {name: '教科书'+'('+datas[1]+')', value: datas[1]},
                         {name: '译著'+'('+datas[2]+')', value: datas[2]},
                         {name: '编著'+'('+datas[3]+')', value: datas[3]},
-                        {name: '其他'+'('+datas[4]+')', value: datas[4]},              
+                        {name: '其他'+'('+datas[4]+')', value: datas[4]},
                     ]
                 }
             });
@@ -477,7 +477,7 @@ export default {
                         {name: '副主编'+'('+datas[1]+')', value: datas[1]},
                         {name: '参编'+'('+datas[2]+')', value: datas[2]},
                         {name: '编著'+'('+datas[3]+')', value: datas[3]},
-                        {name: '其他'+'('+datas[4]+')', value: datas[4]},              
+                        {name: '其他'+'('+datas[4]+')', value: datas[4]},
                     ]
                 }
             });
@@ -509,7 +509,7 @@ export default {
                         {name: '省部级'+'('+datas[1]+')', value: datas[1]},
                         {name: '厅局级'+'('+datas[2]+')', value: datas[2]},
                         {name: '校级'+'('+datas[3]+')', value: datas[3]},
-                        {name: '其他'+'('+datas[4]+')', value: datas[4]},              
+                        {name: '其他'+'('+datas[4]+')', value: datas[4]},
                     ]
                 }
             });
@@ -541,12 +541,12 @@ export default {
                         {name: '研究报告'+'('+datas[1]+')', value: datas[1]},
                         {name: '新技术'+'('+datas[2]+')', value: datas[2]},
                         {name: '新工艺'+'('+datas[3]+')', value: datas[3]},
-                        {name: '课件'+'('+datas[4]+')', value: datas[4]},    
-                        {name: '专著'+'('+datas[5]+')', value: datas[5]},             
-                        {name: '编著'+'('+datas[6]+')', value: datas[6]},   
-                        {name: '计算机软件'+'('+datas[7]+')', value: datas[7]},   
-                        {name: '教材'+'('+datas[8]+')', value: datas[8]},   
-                        {name: '其他'+'('+datas[9]+')', value: datas[9]},   
+                        {name: '课件'+'('+datas[4]+')', value: datas[4]},
+                        {name: '专著'+'('+datas[5]+')', value: datas[5]},
+                        {name: '编著'+'('+datas[6]+')', value: datas[6]},
+                        {name: '计算机软件'+'('+datas[7]+')', value: datas[7]},
+                        {name: '教材'+'('+datas[8]+')', value: datas[8]},
+                        {name: '其他'+'('+datas[9]+')', value: datas[9]},
                     ]
                 }
             });
@@ -576,7 +576,7 @@ export default {
                     data: [
                         {name: '发明专利'+'('+datas[0]+')', value: datas[0]},
                         {name: '实用新型专利'+'('+datas[1]+')', value: datas[1]},
-                        {name: '外观设计专利'+'('+datas[2]+')', value: datas[2]},             
+                        {name: '外观设计专利'+'('+datas[2]+')', value: datas[2]},
                     ]
                 }
             });
@@ -606,8 +606,8 @@ export default {
                     data: [
                         {name: '国家级'+'('+datas[0]+')', value: datas[0]},
                         {name: '省级'+'('+datas[1]+')', value: datas[1]},
-                        {name: '厅级'+'('+datas[2]+')', value: datas[2]}, 
-                        {name: '校级'+'('+datas[3]+')', value: datas[3]},             
+                        {name: '厅级'+'('+datas[2]+')', value: datas[2]},
+                        {name: '校级'+'('+datas[3]+')', value: datas[3]},
                     ]
                 }
             });

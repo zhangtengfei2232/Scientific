@@ -5,20 +5,20 @@
                 <div class="add">
                     <el-form ref="form" :model="form" label-width="200px">
                         <el-form-item label="第一作者（通讯录作者）">
-                            <el-input v-model="form.author"></el-input>
+                            <el-input v-model="form.author" maxlength="100"></el-input>
                         </el-form-item>
                         <el-form-item label="全部作者">
-                            <el-input v-model="form.art_all_author"></el-input>
+                            <el-input v-model="form.art_all_author" maxlength="200"></el-input>
                         </el-form-item>
                         <el-form-item label="论文题目">
-                            <el-input v-model="form.title"></el-input>
+                            <el-input v-model="form.title" maxlength="150"></el-input>
                         </el-form-item>
                         <el-form-item label="发表时间" >
                             <el-col :span="15">
                             <el-date-picker
                                 v-model="form.art_time"
                                 type="date"
-                                placeholder="选择日期" 
+                                placeholder="选择日期"
                                 format="yyyy 年 MM 月 dd 日"
                                 value-format="timestamp"
                                 style="width: 100%;">
@@ -26,17 +26,17 @@
                             </el-col>
                         </el-form-item>
                         <el-form-item label="发表刊物名称">
-                            <el-input v-model="form.publication_name"></el-input>
+                            <el-input v-model="form.publication_name" maxlength="150"></el-input>
                         </el-form-item>
                         <el-form-item label="刊号">
-                            <el-input v-model="form.publication_num"></el-input>
+                            <el-input v-model="form.publication_num" maxlength="20"></el-input>
                         </el-form-item>
                         <el-form-item label="年，卷，期">
                             <el-col :span="1" style="width:50px;margin:0 10px 0 0">
-                               <el-date-picker 
-                               v-model="year1" 
-                               type="year" 
-                               placeholder="选择年份" 
+                               <el-date-picker
+                               v-model="year1"
+                               type="year"
+                               placeholder="选择年份"
                                style="width: 100px;"
                                format="yyyy 年 MM 月 dd 日"
                                value-format="timestamp"></el-date-picker>
@@ -70,7 +70,7 @@
                             </el-col>
                         </el-form-item>
                         <el-form-item label="字数">
-                            <el-input v-model="form.num_words"></el-input>
+                            <el-input v-model="form.num_words" maxlength="20"></el-input>
                         </el-form-item>
                         <el-form-item label="期刊级别">
                             <el-radio-group v-model="form.percal_cate">
@@ -88,7 +88,7 @@
                             </el-radio-group>
                         </el-form-item>
                         <el-form-item label="所属项目">
-                            <el-input v-model="form.belong_project"></el-input>
+                            <el-input v-model="form.belong_project" maxlength="100"></el-input>
                         </el-form-item>
                         <el-form-item label="研究类别">
                             <el-select v-model="form.art_cate_research" placeholder="请选择类别">
@@ -119,10 +119,10 @@
                             </el-select>
                         </el-form-item>
                         <el-form-item label="积分">
-                            <el-input v-model="form.art_integral"></el-input>
+                            <el-input v-model="form.art_integral" maxlength="20"></el-input>
                         </el-form-item>
                         <el-form-item label="学校认定刊物级别">
-                            <el-input v-model="form.sch_percal_cate"></el-input>
+                            <el-input v-model="form.sch_percal_cate" maxlength="100"></el-input>
                         </el-form-item>
                         <el-form-item>
                             <el-button type="primary" @click="onSubmit(form,year2,year3,year4,year5,year1)">保存修改</el-button>
@@ -157,7 +157,7 @@
                     </el-form>
                 </div>
             </div>
-        </div>  
+        </div>
     </div>
 </template>
 
@@ -235,7 +235,7 @@ export default {
                         duration: 2000,
                     });
                 }
-            })  
+            })
         },
         addBookFile(data) {
             return axios({
@@ -261,12 +261,12 @@ export default {
                     let time = data.datas.period;
                     self.checkYearExt(time);
                     self.form = data.datas;
-                    self.filelists.url = 'showfile?disk=article&subjection=' + data.datas.home_page_road; 
+                    self.filelists.url = 'showfile?disk=article&subjection=' + data.datas.home_page_road;
                 } else {
                     self.$notify({
                         type: 'error',
                         message: data.message,
-                        duration: 2000,         
+                        duration: 2000,
                     });
                 }
             });
@@ -377,7 +377,7 @@ export default {
             //循环比较
             for(var i=0;i<arr.length;i++){
                 if(ext == arr[i]){
-                    flag = true; 
+                    flag = true;
                     break;
                 }
             }
@@ -391,7 +391,7 @@ export default {
             this.year2 = a[1];
             this.year3 = a[2];
             this.year4 = a[3];
-            this.year5 = a[4];   
+            this.year5 = a[4];
         },
     },
     mounted() {

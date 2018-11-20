@@ -13,7 +13,7 @@
                 </el-form-item>
                 <el-form-item label="承办单位">
                     <el-input v-model="form.jo_take_unit"></el-input>
-                </el-form-item> 
+                </el-form-item>
                 <el-form-item label="会议级别">
                     <el-select v-model="form.jo_level" placeholder="请选择类别">
                         <el-option label="省级" value="1"></el-option>
@@ -26,7 +26,7 @@
                     <el-col :span="15">
                         <el-date-picker
                             type="date"
-                            placeholder="选择日期" 
+                            placeholder="选择日期"
                              v-model="form.jo_time"
                             format="yyyy 年 MM 月 dd 日"
                             value-format="timestamp"
@@ -41,10 +41,7 @@
                     <el-input v-model="form.jo_art_num"></el-input>
                 </el-form-item>
                 <el-form-item label="是否被邀大会或分会场报告">
-                    <el-radio-group v-model="form.jo_is_invite">
-                        <el-radio :label="1" style="margin:10px">是</el-radio>
-                        <el-radio :label="2" style="margin:10px">否</el-radio>
-                    </el-radio-group>
+                    <el-input v-model="form.jo_is_invite"></el-input>
                 </el-form-item>
                 <el-form-item label="报告题目">
                     <el-input v-model="form.jo_title"></el-input>
@@ -56,7 +53,7 @@
                         action="#"
                         ref="jo_graph_inject"
                         :before-upload="fileProfil"
-                        :auto-upload="false"                        
+                        :auto-upload="false"
                         list-type="picture">
                         <i class="el-icon-upload"
                         show-file-list='true'></i>
@@ -160,7 +157,7 @@
                         duration: 2000,
                     });
                 }
-            })  
+            })
         },
         addBookFile(data){
              return axios({
@@ -195,8 +192,8 @@
                 this.$message.error('会议地点不能为空');
                 return
              }else if(form.jo_art_num == '') {
-                this.$message.error('论文提交数量不能为空'); 
-                return  
+                this.$message.error('论文提交数量不能为空');
+                return
             }else if(form.jo_is_invit == '') {
                 this.$message.error('是否被邀请不能为空');
                 return

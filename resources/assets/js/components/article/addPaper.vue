@@ -3,29 +3,29 @@
         <div class="add">
             <el-form ref="form" :model="form" label-width="200px">
                 <el-form-item label="第一作者（通讯录作者）">
-                    <el-input v-model="form.author"></el-input>
+                    <el-input v-model="form.author" maxlength="100"></el-input>
                 </el-form-item>
                 <el-form-item label="全部作者">
-                    <el-input v-model="form.art_all_author"></el-input>
+                    <el-input v-model="form.art_all_author" maxlength="200"></el-input>
                 </el-form-item>
                 <el-form-item label="论文题目">
-                    <el-input v-model="form.title"></el-input>
+                    <el-input v-model="form.title" maxlength="150"></el-input>
                 </el-form-item>
                 <el-form-item label="发表时间">
                     <el-col :span="15">
-                        <el-date-picker type="date" 
-                            placeholder="选择日期" 
-                            v-model="form.art_time" 
+                        <el-date-picker type="date"
+                            placeholder="选择日期"
+                            v-model="form.art_time"
                             style="width: 100%;"
                             format="yyyy 年 MM 月 dd 日"
                             value-format="timestamp"></el-date-picker>
                         </el-col>
                 </el-form-item>
                 <el-form-item label="发表刊物名称">
-                    <el-input v-model="form.publication_name"></el-input>
+                    <el-input v-model="form.publication_name" maxlength="100"></el-input>
                 </el-form-item>
                 <el-form-item label="刊号">
-                    <el-input v-model="form.publication_num"></el-input>
+                    <el-input v-model="form.publication_num" maxlength="50"></el-input>
                 </el-form-item>
                 <el-form-item label="年，卷，期" v-model="form.period">
                     <el-col :span="1" style="width:50px;margin:0 10px 0 0">
@@ -78,7 +78,7 @@
                     </el-radio-group>
                 </el-form-item>
                 <el-form-item label="所属项目">
-                    <el-input v-model="form.belong_project"></el-input>
+                    <el-input v-model="form.belong_project" maxlength="100"></el-input>
                 </el-form-item>
                 <el-form-item label="研究类别">
                     <el-select v-model="form.art_cate_research" placeholder="请选择类别">
@@ -109,10 +109,10 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="积分">
-                    <el-input v-model="form.art_integral"></el-input>
+                    <el-input v-model="form.art_integral" maxlength="20"></el-input>
                 </el-form-item>
                 <el-form-item label="学校认定刊物级别">
-                    <el-input v-model="form.sch_percal_cate"></el-input>
+                    <el-input v-model="form.sch_percal_cate" maxlength="100"></el-input>
                 </el-form-item>
                 <el-form-item label="备注">
                     <el-input type="textarea" v-model="form.art_remarks"></el-input>
@@ -204,7 +204,7 @@
                 }else{
                     this.$message.error('请先添加pdf信息');
                     return false
-                } 
+                }
             },
             fileArtsci(file){
                 this.dataForm.append('art_sci_road', file);
@@ -264,7 +264,6 @@
                     this.$message.error('学校认定刊物级别不能为空');
                     return
                 }
-                return;
                 this.$refs['form'].validate((valid) => {
                     if (valid) {
                         jQuery.each(vue.form,function(i,val){
