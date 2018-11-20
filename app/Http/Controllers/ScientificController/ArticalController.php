@@ -42,7 +42,7 @@ class ArticalController extends Controller
          $disk               = UploadSubjectionConfig::ARTICAL;
          $artical_sci_road   = '';
          if($request->hasFile('art_sci_road')){
-             $artical_sci   = $request->file('art_sci_road');             //接收sci索引报告
+             $artical_sci   = $request->file('art_sci_road');              //接收sci索引报告
              $judge_sci = judgeReceiveFiles($artical_sci);                     //验证论文SCI
              if($judge_sci['code'] == 1){
                  return responseTojson(1,'论文SCI索引报告'.$judge_sci['message']);
@@ -172,9 +172,8 @@ class ArticalController extends Controller
      }
      //同时导出多个论文，取每个论文的第一页，形成一个新的PDF论文
      public function exportAllArtical(Request $request){
-//         dd($request);
-//         $art_id_datas = explode(',',$request->art_id_datas);
-         $art_road_datas = ArticalDatabase::selectArticalRoad($request->art_id_datas,0);
+         $art_id_datas = explode(',',$request->art_id_datas);
+         $art_road_datas = ArticalDatabase::selectArticalRoad($art_id_datas,0);
          $disk = UploadSubjectionConfig::ARTICAL;
          selectionFirstPageToNewPdf($disk,$art_road_datas);
      }
