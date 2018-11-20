@@ -21,14 +21,36 @@ class InformationController extends Controller
     }
     //修改老师密码
     public function updateTeacherPassword(Request $request){
-        $old_password = $request->old_password;
-        $new_password = $request->new_password;
+        $old_password = trim($request->old_password);
+        $new_password = trim($request->new_password);
         return TeacherDatabase::byOldPasswordSelectDatas($old_password,$new_password);
     }
     //重置老师密码
     public function initializeTeacherPassword(Request $request){
-        $teacher_id = $request->teacher_id;
+        $teacher_id = trim($request->teacher_id);
+        $judge_teacher_id = judgeTeacherIdField($teacher_id);
+        if($judge_teacher_id['code'] == 1){
+            return responseTojson(1,$judge_teacher_id['message']);
+        }
+        $is_exists_teacher = TeacherDatabase::isExistsTeacherDatas($teacher_id);
+        if(!$is_exists_teacher){
+            return responseTojson(1,'你输入的老师工号不存在');
+        }
         return TeacherDatabase::initializeTeacherPasswordDatas($teacher_id);
+    }
+    //修改老师的岗位类别
+    public function updateTeacherPostCategory(Request $request){
+        $teacher_id = $request->teacher_id;
+        $judge_teacher_id = judgeTeacherIdField($teacher_id);
+        if($judge_teacher_id['code'] == 1){
+            return responseTojson(1,$judge_teacher_id['message']);
+        }
+        $is_exists_teacher = TeacherDatabase::isExistsTeacherDatas($teacher_id);
+        if(!$is_exists_teacher){
+            return responseTojson(1,'你输入的老师工号不存在');
+        }
+        $new_post_category = trim($request->post_category);
+        return TeacherDatabase::updateTeacherPostCategoryDatas($teacher_id,$new_post_category);
     }
     /**添加老师信息
      * @param Request $request
@@ -39,13 +61,13 @@ class InformationController extends Controller
             return responseTojson(1,'你请求的方式不对');
         }
         $teacher_id = trim($request->teacher_id);
+        $judge_teacher_id = judgeTeacherIdField($teacher_id);
+        if($judge_teacher_id['code'] == 1){
+            return responseTojson(1,$judge_teacher_id['message']);
+        }
         $is_exists_teacher = TeacherDatabase::isExistsTeacherDatas($teacher_id);
         if($is_exists_teacher){
             return responseTojson(1,'老师工号已经存在');
-        }
-        $judge_teacherid = "/^smkj[0-9]+$/";
-        if(!preg_match($judge_teacherid,$teacher_id)){
-            return responseTojson(1,"老师的工号必须以'smkj'开头，且后面为数字");
         }
         $datas  = [
             'teacher_id'            => $teacher_id,                          //老师工号
