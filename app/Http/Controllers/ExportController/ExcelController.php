@@ -172,19 +172,18 @@ class ExcelController extends Controller
                 $this->serial_number,
                 $datas->pro_host,
                 $datas->pro_all_author,
-                $datas->title,
                 $datas->entry_name,
                 $datas->project_category,
                 $datas->approval_unit,
                 $datas->approval_funds,
                 $datas->account_outlay,
-                SearchMessageConfig::PROJECT_PRO_CATE_RESEARCH[$datas->pro_cate_research],
+                SearchMessageConfig::PRO_PRO_CATE_RESEARCH_DATAS[$datas->pro_cate_research],
                 SearchMessageConfig::SUB_CATEGORY_DATAS[$datas->pro_sub_category],
                 SearchMessageConfig::PRO_FORM_COOPERATE_DATAS[$datas->form_cooperate],
                 $datas->social_eco_goal,
                 $datas->na_eco_industry,
                 $datas->pro_integral,
-                date($this->date_formate,$datas->project_year),
+                date($this->date_formate,$datas->project_year/1000),
                 $datas->pro_remarks
             ];
         }
@@ -209,9 +208,9 @@ class ExcelController extends Controller
                 $datas->op_first_author,
                 $datas->op_all_author,
                 $datas->op_name,
-                $datas->op_form_write,
+                SearchMessageConfig::OP_FORM_WRITE_DATAS[$datas->op_form_write],
                 $datas->op_publish,
-                date($this->date_formate,$datas->op_publish_time),
+                date($this->date_formate,$datas->op_publish_time/1000),
                 $datas->op_number,
                 $datas->op_total_words,
                 $datas->op_self_words,
@@ -248,7 +247,7 @@ class ExcelController extends Controller
                 SearchMessageConfig::AW_LEVEL_DATAS[$datas->aw_level],
                 SearchMessageConfig::AW_GRADE_DATAS[$datas->aw_grade],
                 $datas->aw_grant_unit,
-                date($this->date_formate,$datas->aw_grant_time),
+                date($this->date_formate,$datas->aw_grant_time/1000),
                 $datas->aw_certi_number,
                 $datas->aw_sch_rank,
                 $datas->aw_integral,
@@ -280,9 +279,9 @@ class ExcelController extends Controller
                 SearchMessageConfig::PA_IMPLE_SITU_DATAS[$datas->pa_imple_situ],
                 $datas->author_num,
                 $datas->author_cert_num,
-                date($this->date_formate,$datas->author_notic_day),
+                date($this->date_formate,$datas->author_notic_day/1000),
                 $datas->pa_integral,
-                $datas->pa_remarks,
+                $datas->pa_remarks
             ];
         }
         Excel::create('专利信息数据',function ($excel) use ($patent_cell_datas){
@@ -309,7 +308,7 @@ class ExcelController extends Controller
                 $datas->ap_form,
                 $datas->ap_num,
                 $datas->ap_conclusion,
-                date($this->date_formate,$datas->ap_time),
+                date($this->date_formate,$datas->ap_time/1000),
                 SearchMessageConfig::AP_LEVEL_DATAS[$datas->ap_level],
                 $datas->ap_integral,
                 $datas->ap_remarks
@@ -325,7 +324,7 @@ class ExcelController extends Controller
     //导出举行会议Excel表格
     public function exportHoldmeetExcel(Request $request){
         $holdmeet_cell_datas = SearchMessageConfig::HOLDMEET_CELL_DATAS;
-        $ho_id_datas         = explode(',',$request->ap_id_datas);
+        $ho_id_datas         = explode(',',$request->ho_id_datas);
         $holdmeet_table_name = SearchMessageConfig::HOLD_MEET_TABLE;
         $holdmeet_id_field   = SearchMessageConfig::HOLDMEET_ID;
         $holdmeet_datas      = ModelDatabase::selectExportExcelDatas($holdmeet_table_name,$holdmeet_id_field,$ho_id_datas);
@@ -339,7 +338,7 @@ class ExcelController extends Controller
                 $datas->ho_unit,
                 $datas->undertake_unit,
                 SearchMessageConfig::MEETING_LEVEL_DATAS[$datas->ho_level],
-                date($this->date_formate,$datas->ho_time),
+                date($this->date_formate,$datas->ho_time/1000),
             ];
         }
         Excel::create('举办会议信息数据',function ($excel) use ($holdmeet_cell_datas){
@@ -352,7 +351,7 @@ class ExcelController extends Controller
     //导出参加会议Excel表格
     public function exportJoinmeetExcel(Request $request){
         $joinmeet_cell_datas = SearchMessageConfig::JOINMEET_CELL_DATAS;
-        $jo_id_datas         = explode(',',$request->ap_id_datas);
+        $jo_id_datas         = explode(',',$request->jo_id_datas);
         $joinmeet_table_name = SearchMessageConfig::JOIN_MEET_TABLE;
         $joinmeet_id_field   = SearchMessageConfig::JOINMEET_ID;
         $joinmeet_datas      = ModelDatabase::selectExportExcelDatas($joinmeet_table_name,$joinmeet_id_field,$jo_id_datas);
@@ -364,8 +363,8 @@ class ExcelController extends Controller
                 $datas->jo_name,
                 $datas->jo_hold_unit,
                 $datas->jo_take_unit,
-                SearchMessageConfig::MEETING_LEVEL_DATAS[$joinmeet_datas->jo_level],
-                date($this->date_formate,$datas->jo_time),
+                SearchMessageConfig::MEETING_LEVEL_DATAS[$datas->jo_level],
+                date($this->date_formate,$datas->jo_time/1000),
                 $datas->jo_place,
                 $datas->jo_art_num,
                 $datas->jo_is_invite,
@@ -395,7 +394,7 @@ class ExcelController extends Controller
                 $datas->le_report_name,
                 SearchMessageConfig::LE_INVITE_STATUS_DATAS[$datas->le_invite_status],
                 $datas->le_invite_unit,
-                date($this->date_formate,$datas->le_time)
+                date($this->date_formate,$datas->le_time/1000)
             ];
         }
         Excel::create('专家讲学信息数据',function ($excel) use ($lecture_cell_datas){
@@ -440,7 +439,7 @@ class ExcelController extends Controller
     //导出校发文件Excel表格
     public function exportSchoolFileExcel(Request $request){
         $school_file_cell_datas = SearchMessageConfig::SCHOOL_FILE_CELL_DATAS;
-        $schfile_id_datas       = explode(',',$request->schfile__id_datas);
+        $schfile_id_datas       = explode(',',$request->schfile_id_datas);
         $school_file_table_name = SearchMessageConfig::SCHOOL_FILE_TABLE;
         $school_file_id_field   = SearchMessageConfig::SCHOOLFILE_ID;
         $school_file_datas      = ModelDatabase::selectExportExcelDatas($school_file_table_name,$school_file_id_field,$schfile_id_datas);
@@ -450,7 +449,7 @@ class ExcelController extends Controller
                 $this->serial_number,
                 $datas->schfile_name,
                 $datas->schfile_num,
-                date($this->date_formate,$datas->schfile_down_time)
+                date($this->date_formate,$datas->schfile_down_time/1000)
             ];
         }
         Excel::create('校发文件信息数据',function ($excel) use ($school_file_cell_datas){
@@ -473,7 +472,7 @@ class ExcelController extends Controller
                 $this->serial_number,
                 $datas->agree_name,
                 $datas->agree_cooperate_unit,
-                date($this->date_formate,$datas->agree_time)
+                date($this->date_formate,$datas->agree_time/1000)
             ];
         }
         Excel::create('教学科研等合作协议信息数据',function ($excel) use ($agreement_cell_datas){

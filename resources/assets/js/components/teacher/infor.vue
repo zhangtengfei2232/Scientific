@@ -3,7 +3,39 @@
         <div class="main">
             <!--{{ $route.params.art_id }}-->
             <div class="content">
-                <div class="perInfo"><span style="margin-left: 15px;">个人信息</span></div>
+                <div class="perInfo">
+                    <span style="margin-left: 15px;">个人信息</span>
+                    <span style="float: right;margin-right:60px;"><el-button type="text" @click="dialogFormVisible  = true">修改密码</el-button></span>
+
+                    <el-dialog title="修改密码"
+                        :visible.sync="dialogFormVisible"
+                        :close-on-click-modal="false"
+                        @close="closeDialog"
+                        center>
+                        <el-form :model="changeform" style="padding: 11px 20px;" ref="changeform">
+                            <el-form-item label="旧密码">
+                                <el-input type="password" v-model="changeform.old_password" placeholder="请输入旧密码" maxlength="10" id="oldpsw"></el-input>
+                            </el-form-item>
+                            <el-form-item v-if="visible" label="新密码">
+                                <el-input type="password" v-model="changeform.new_password" placeholder="请输入新密码" maxlength="10" id="newpsw">
+                                    <i slot="suffix" title="显示密码" @click="changePass('show')" style="cursor:pointer;"
+                                       class="el-icon-view"></i>
+                                </el-input>
+                            </el-form-item>
+                            <el-form-item v-else label="新密码">
+                                <el-input type="text" v-model="changeform.new_password" placeholder="请输入新密码" maxlength="10" class="newpsw">
+                                    <i slot="suffix" title="隐藏密码" @click="changePass('hide')" style="cursor:pointer;"
+                                       class="el-icon-view"></i>
+                                </el-input>
+                            </el-form-item>
+                        </el-form>
+                        <div slot="footer" class="dialog-footer">
+                            <el-button @click="dialogFormVisible = false">取 消</el-button>
+                            <el-button type="primary" @click.native="changepsw()">修 改</el-button>
+                        </div>
+                    </el-dialog>
+                </div>
+
                 <!--<el-form ref="form" :model="form" label-width="200px">-->
                 <div class="detial">
                     <div class="detialRight">
@@ -15,16 +47,10 @@
                                 </el-form-item>
                                 <el-form-item label="老师所属部门" prop="teacher_department">
                                     <el-select v-model="form.teacher_department" placeholder="请选择老师所属部门">
-                                        <el-option
-                                                v-for="(value, key) in teacher_department"
-                                                :key="key"
-                                                :label="value"
-                                                :value="key">
-                                        </el-option>
-                                        <!--<el-option label="生工" value=0></el-option>-->
-                                        <!--<el-option label="生物技术系" value=1></el-option>-->
-                                        <!--<el-option label="农学系" value="2"></el-option>-->
-                                        <!--<el-option label="领导行政政工" value="3"></el-option>-->
+                                        <el-option label="生工" value=0></el-option>
+                                        <el-option label="生物技术系" value=1></el-option>
+                                        <el-option label="农学系" value="2"></el-option>
+                                        <el-option label="领导行政政工" value="3"></el-option>
                                     </el-select>
                                     <!--<el-input v-model="form.teacher_department"></el-input>-->
                                 </el-form-item>
@@ -68,16 +94,16 @@
                                 </el-form-item>
                                 <el-form-item label="政治面貌" prop="polit_outlook">
                                     <el-select v-model="form.polit_outlook" placeholder="请选择老师政治面貌">
-                                        <el-option
-                                                v-for="(value, key) in polit_outlook"
-                                                :key="key"
-                                                :label="value"
-                                                :value="key">
-                                        </el-option>
-                                    <!--<el-option label="积极分子" value="0"></el-option>-->
-                                    <!--<el-option label="发展对象" value="1"></el-option>-->
-                                    <!--<el-option label="预备党员" value="2"></el-option>-->
-                                    <!--<el-option label="党员" value="3"></el-option>-->
+                                        <!--<el-option-->
+                                                <!--v-for="(value, key) in polit_outlook"-->
+                                                <!--:key="key"-->
+                                                <!--:label="value"-->
+                                                <!--:value="key">-->
+                                        <!--</el-option>-->
+                                    <el-option label="积极分子" value="0"></el-option>
+                                    <el-option label="发展对象" value="1"></el-option>
+                                    <el-option label="预备党员" value="2"></el-option>
+                                    <el-option label="党员" value="3"></el-option>
                                     </el-select>
                                     <!--<el-input v-model="form.polit_outlook"></el-input>-->
                                 </el-form-item>
@@ -100,48 +126,48 @@
                                 </el-form-item>
                                 <el-form-item label="职务级别" prop="job_level">
                                     <el-select v-model="form.job_level" placeholder="请选择老师级别">
-                                        <el-option
-                                            v-for="(value, key) in job_level"
-                                            :key="key"
-                                            :label="value"
-                                            :value="key">
-                                        </el-option>
-                                        <!--<el-option label="正处" value="0"></el-option>-->
-                                        <!--<el-option label="副处" value="1"></el-option>-->
-                                        <!--<el-option label="正科" value="2"></el-option>-->
-                                        <!--<el-option label="副科" value="3"></el-option>-->
-                                        <!--<el-option label="其他" value="4"></el-option>-->
+                                        <!--<el-option-->
+                                            <!--v-for="(value, key) in job_level"-->
+                                            <!--:key="key"-->
+                                            <!--:label="value"-->
+                                            <!--:value="key">-->
+                                        <!--</el-option>-->
+                                        <el-option label="正处" value="0"></el-option>
+                                        <el-option label="副处" value="1"></el-option>
+                                        <el-option label="正科" value="2"></el-option>
+                                        <el-option label="副科" value="3"></el-option>
+                                        <el-option label="其他" value="4"></el-option>
                                     </el-select>
                                 </el-form-item>
                                 <el-form-item label="专业技术职务" prop="technical_position">
                                     <el-select v-model="form.technical_position" placeholder="老师专业技术职务">
-                                        <el-option
-                                            v-for="(value, key) in technical_position"
-                                            :key="key"
-                                            :label="value"
-                                            :value="key">
-                                        </el-option>
-                                        <!--<el-option label="教授" value="0"></el-option>-->
-                                        <!--<el-option label="副教授" value="1"></el-option>-->
-                                        <!--<el-option label="讲师" value="2"></el-option>-->
-                                        <!--<el-option label="助教" value="3"></el-option>-->
-                                        <!--<el-option label="实验师" value="4"></el-option>-->
-                                        <!--<el-option label="助理实验师" value="5"></el-option>-->
-                                        <!--<el-option label="高级实验师" value="6"></el-option>-->
+                                        <!--<el-option-->
+                                            <!--v-for="(value, key) in technical_position"-->
+                                            <!--:key="key"-->
+                                            <!--:label="value"-->
+                                            <!--:value="key">-->
+                                        <!--</el-option>-->
+                                        <el-option label="教授" value="0"></el-option>
+                                        <el-option label="副教授" value="1"></el-option>
+                                        <el-option label="讲师" value="2"></el-option>
+                                        <el-option label="助教" value="3"></el-option>
+                                        <el-option label="实验师" value="4"></el-option>
+                                        <el-option label="助理实验师" value="5"></el-option>
+                                        <el-option label="高级实验师" value="6"></el-option>
                                     </el-select>
                                 </el-form-item>
                                 <el-form-item label="老师职称" prop="academic_title">
                                     <el-select v-model="form.academic_title" placeholder="请选择老师职称">
-                                        <el-option
-                                                v-for="(value, key) in academic_title"
-                                                :key="key"
-                                                :label="value"
-                                                :value="key">
-                                        </el-option>
-                                        <!--<el-option label="初级" value="0"></el-option>-->
-                                        <!--<el-option label="中级" value="1"></el-option>-->
-                                        <!--<el-option label="副高" value="2"></el-option>-->
-                                        <!--<el-option label="正高" value="3"></el-option>-->
+                                        <!--<el-option-->
+                                                <!--v-for="(value, key) in academic_title"-->
+                                                <!--:key="key"-->
+                                                <!--:label="value"-->
+                                                <!--:value="key">-->
+                                        <!--</el-option>-->
+                                        <el-option label="初级" value="0"></el-option>
+                                        <el-option label="中级" value="1"></el-option>
+                                        <el-option label="副高" value="2"></el-option>
+                                        <el-option label="正高" value="3"></el-option>
                                     </el-select>
                                 </el-form-item>
                                 <el-form-item label="评审通过时间" prop="review_time">
@@ -170,19 +196,20 @@
                                     <el-input v-model="form.series"></el-input>
                                 </el-form-item>
                                 <el-form-item label="岗位类别" prop="post_category">
-                                    <el-input v-model="form.post_category" :disabled="true"></el-input>
-                                    <!--<el-select v-model="form.post_category" placeholder="请选择老师岗位类别">-->
-                                        <!--<el-option-->
-                                                <!--v-for="(value, key) in post_category"-->
-                                                <!--:key="key"-->
-                                                <!--:label="value"-->
-                                                <!--:value="key">-->
-                                        <!--</el-option>-->
-                                        <!--<el-option label="教学秘书" value="0"></el-option>-->
-                                        <!--<el-option label="院长" value="1"></el-option>-->
-                                        <!--<el-option label="办公室主任" value="2"></el-option>-->
-                                        <!--<el-option label="副主任" value="3"></el-option>-->
-                                    <!--</el-select>-->
+                                    <el-select v-model="form.post_category" disabled placeholder="请选择老师岗位类别">
+                                        <el-option label="普通老师" value="0"></el-option>
+                                        <el-option label="院长" value="1"></el-option>
+                                        <el-option label="副院长" value="2"></el-option>
+                                        <el-option label="教学秘书" value="3"></el-option>
+                                        <el-option label="科研秘书" value="4"></el-option>
+                                        <el-option label="研究生秘书" value="5"></el-option>
+                                        <el-option label="副主任" value="6"></el-option>
+                                        <el-option label="系主任" value="7"></el-option>
+                                        <el-option label="办公室主任" value="8"></el-option>
+                                        <el-option label="教研室主任" value="9"></el-option>
+                                        <el-option label="党委书记" value="10"></el-option>
+                                        <el-option label="党委副书记" value="11"></el-option>
+                                    </el-select>
                                 </el-form-item>
 
                                 <el-form-item label="所在单位" prop="company">
@@ -222,14 +249,15 @@
 
                                 <el-form-item label="第一学历/学位" prop="first_academic">
                                     <el-select v-model="form.first_academic" placeholder="请选择老师第一学历学位">
-                                        <el-option
-                                                v-for="(value, key) in first_academic"
-                                                :key="key"
-                                                :label="value"
-                                                :value="key">
-                                        </el-option>
-                                        <!--<el-option label="大专" value="0"></el-option>-->
-                                        <!--<el-option label="本科" value="1"></el-option>-->
+                                        <!--<el-option-->
+                                                <!--v-for="(value, key) in first_academic"-->
+                                                <!--:key="key"-->
+                                                <!--:label="value"-->
+                                                <!--:value="key">-->
+                                        <!--</el-option>-->
+                                        <el-option label="大专" value="0"></el-option>
+                                        <el-option label="本科" value="1"></el-option>
+                                        <el-option label="其他" value="2"></el-option>
                                     </el-select>
                                     <!--<el-input v-model="form.first_academic"></el-input>-->
                                 </el-form-item>
@@ -255,14 +283,9 @@
 
                                 <el-form-item label="最高学历/学位" prop="most_academic">
                                     <el-select v-model="form.most_academic" placeholder="请选择老师最高学历/学位">
-                                        <el-option
-                                                v-for="(value, key) in most_academic"
-                                                :key="key"
-                                                :label="value"
-                                                :value="key">
-                                        </el-option>
-                                        <!--<el-option label="硕士" value="0"></el-option>-->
-                                        <!--<el-option label="博士" value="1"></el-option>-->
+                                        <el-option label="硕士" value="0"></el-option>
+                                        <el-option label="博士" value="1"></el-option>
+                                        <el-option label="其他" value="2"></el-option>
                                     </el-select>
                                     <!--<el-input v-model="form.most_academic"></el-input>-->
                                 </el-form-item>
@@ -367,6 +390,15 @@
         data() {
             return {
 //                id:[],
+                dialogFormVisible: false,
+                formLabelWidth: '120px',
+//                old_password:'',
+//                new_password:'',
+                changeform:{
+                    old_password:'',
+                    new_password:''
+                },
+                visible: true,
                 type1:false,
                 type2:false,
                 Bcode:false,
@@ -427,72 +459,17 @@
                     master_time:'',
 
                 },
-                teacher_department:[//老师所属部门
-                    '生工',
-                    '生物技术系',
-                    '农学系',
-                    '领导行政政工',
-                ],
-                sex:[
-                    '男',
-                    '女',
-                ],
-                polit_outlook:[//政治面貌
-                    '积极分子',
-                    '发展对象',
-                    '预备党员',
-                    '党员',
-                ],
-                job_level:[//职务级别
-                    '正处',
-                    '副处',
-                    '正科',
-                    '副科',
-                    '其他',
-                ],
-                technical_position:[    //专业技术职务
-                    '初级',
-                    '中级',
-                    '副高',
-                    '正高',
-                ],
-                academic_title:[    //老师职称
-                    '教授',
-                    '副教授',
-                    '讲师',
-                    '助教',
-                    '高级实验师',
-                    '实验师',
-                    '助理实验师',
-                ],
-                post_category:[ //岗位类别
-                    '普通老师',
-                    '院长',
-                    '副院长',
-                    '教学秘书',
-                    '科研秘书',
-                    '研究生秘书',
-                    '副主任',
-                    '系主任',
-                    '办公室主任',
-                    '教研室主任',
-                    '党委书记',
-                    '党委副书记',
-                ],
-                first_academic:[//第一学历学位
-                    '大专',
-                    '本科',
-                    '其他',
-                ],
-                most_academic:[//最高学历/学位
-                    '硕士',
-                    '博士',
-                    '其他',
-                ],
             }
-
         },
         methods: {
+//            getTeacherData(){
+//                let self = this;
+////                this.form.Bcode = self.$route.params.Bcode;
+//                axios.get("selectteacher").then(function (response) {
+//                    var data = response.data;
+//
+//                });
+//            },
             getTeacherData(){
                 let self = this;
 //                this.form.Bcode = self.$route.params.Bcode;
@@ -500,17 +477,28 @@
                     var data = response.data;
                     if(data.code == 0){
                         self.teacherDate = data.datas.information;
+//                        self.teacherDate.sex = String(data.datas.information.sex);
+                        self.teacherDate.teacher_department = String(data.datas.information.teacher_department);
+                        self.teacherDate.polit_outlook = String(data.datas.information.polit_outlook);
+                        self.teacherDate.job_level = String(data.datas.information.job_level);
+                        self.teacherDate.technical_position = String(data.datas.information.technical_position);
+                        self.teacherDate.academic_title = String(data.datas.information.academic_title);
+                        self.teacherDate.post_category = String(data.datas.information.post_category);
+                        self.teacherDate.first_academic = String(data.datas.information.first_academic);
+                        self.teacherDate.most_academic = String(data.datas.information.most_academic);
+
                         self.form = data.datas.information;
-                        data.datas.information.post_category = self.post_category[data.datas.information.post_category];
+                        self.changeform = data.datas.information;
+
+//                        data.datas.information.post_category = self.post_category[data.datas.information.post_category];
+
                         if(data.datas.information.gra_cert_road !== ''){
                             self.type1=true;
                             self.filelist = 'showfile?disk=teacher&subjection=' + data.datas.information.gra_cert_road;
-//                            console.log(self.filelist.url,'===]][[[[[[[[[[[[[')
                         }
                         if(data.datas.information.edu_cert_road !== ''){
                             self.type2=true;
                             self.filelists = 'showfile?disk=teacher&subjection=' + data.datas.information.edu_cert_road;
-//                            console.log(self.filelists.url,'===]][[[[[[[[[[[[[')
                         }
                     }else{
                         self.$notify({
@@ -556,7 +544,7 @@
                 }
             },
             sendfile(dataFile) {
-                console.log(dataFile,'544554=-==--');
+//                console.log(dataFile,'544554=-==--');
                 let vue = this;
                 this.addTeacherFile(dataFile).then(res => {
                     var data = res.data;
@@ -693,7 +681,6 @@
 //                        console.log(vue.dataForm,'00000000000');
                         vue.addTeaDate(vue.dataForm).then(res => {
                             var data = res.data;
-                            console.log(data,'[]][[[[[[[[')
                             if (data.code == 0) {
                                 this.Bcode = true;
                                 vue.$message({
@@ -725,27 +712,65 @@
                     data: data
                 });
             },
-//            checkFileExt(filename){
-//                if(filename == '') {
-//                    this.$message.error('上传文件不能为空');
-//                }
-//                var flag = false; //状态
-//                var arr = ["pdf"];
-//                //取出上传文件的扩展名
-//                console.log(filename);
-//                var index = filename.lastIndexOf(".");
-//                var ext = filename.substr(index+1);
-//                //循环比较
-//                for(var i=0;i<arr.length;i++){
-//                    if(ext == arr[i]){
-//                        flag = true;
-//                        break;
-//                    }
-//                }
-//                if(!flag){
-//                    this.$message.error('请上传PDF');
-//                }
-//            },
+            changePass(value) {
+                this.visible = !(value === 'show');
+            },
+            closeDialog:function(){
+//                this.$refs[changeform].resetFields();
+                this.changeform.old_password = '';
+                this.changeform.new_password = '';
+            },
+            addTeaPsw(data) {
+                return axios({
+                    method: 'post',
+                    url: 'updateteacherpassword',
+                    headers: {'Content-Type': 'multipart/form-data'},
+                    timeout: 20000,
+                    data: data
+                });
+            },
+            changepsw(changeform){
+//                self.old_password = document.getElementById("oldpsw").value;
+//                new_password = document.getElementsByClassName("newpsw").value;
+//                console.log($(" #oldpsw ").val(),'*******');
+//                console.log($(" #newpsw ").val(),'*******');
+
+                if($(" #oldpsw ").val() == '') {
+                    this.$message.error('原密码不能为空');
+                }else if($("#newpsw ").val() == '') {
+                    this.$message.error('新密码不能为空');
+                }
+                this.$refs['changeform'].validate((valid) => {
+                    let vue = this;
+                    if (valid) {
+                        jQuery.each(vue.changeform,function(i,val){
+                            vue.dataForm.append(i,val);
+                        });
+                        vue.addTeaPsw(vue.dataForm).then(res => {
+                            var data = res.data;
+                            if (data.code == 0) {
+                                vue.$message({
+                                    message: data.message,
+                                    type: 'success'
+                                });
+                            } else {
+                                vue.$notify({
+                                    type: 'error',
+                                    message: data.message,
+                                    duration: 2000,
+                                });
+                            }
+                        });
+                    }
+                    else {
+                        console.log('error submit!!');
+                        return false
+                    }
+                })
+
+
+            },
+
         },
         mounted() {
             this.getTeacherData();
@@ -822,5 +847,11 @@
     }
     .el-input{
         width: 240px;
+    }
+    .el-dialog{
+        width: 33%;
+    }
+    .el-dialog--center .el-dialog__body {
+        padding: 25px 25px 0px;
     }
 </style>

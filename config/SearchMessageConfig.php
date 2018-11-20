@@ -3,6 +3,9 @@
 namespace config;
 class SearchMessageConfig
 {
+    /**
+     * 每个表的表名
+     */
     const TEACHER_TABLE     = 'teacher';               //老师表
     const PATENT_TABLE      = 'patent';                //专利表
     const OPUS_TABLE        = 'opus';                  //著作表
@@ -17,6 +20,10 @@ class SearchMessageConfig
     const AGREEMENT_TABLE   = 'agreement';             //合作协议表
     const PROJECT_TABLE     = 'project';               //项目表
     const IMAGE_TABLE       = 'image';                 //图片表
+
+    /**
+     * 每个表的时间字段
+     */
     const AGREE_TIME        = 'agree_time';            //合作协议时间字段
     const AP_TIME           = 'ap_time';               //成果鉴定时间字段
     const ART_TIME          = 'art_time';              //文章的时间字段
@@ -29,6 +36,9 @@ class SearchMessageConfig
     const PROJECT_YEAR      = 'project_year';          //项目年份字段
     const SCHFILE_DOWN_TIME = 'schfile_down_time';     //校发文件日期字段
 
+    /**
+     * 每个表的搜索=======>配置字段
+     */
     const TEACHER_NAME              = 'name';               //老师姓名
     const TEACHER_ADMIN_DUTIES      = 'admin_duties';       //老师行政职务
     const TEACHER_TE_RE_DEPARTMENT  = 'te_re_department';   //老师所属教研室和实验室
@@ -116,17 +126,17 @@ class SearchMessageConfig
     /**
      * 分组查询，每个字段的情况个数
      */
-    const TEA_ACADEMIC_TITLE_NUM  = 7;    //老师职称
+    const TEA_ACADEMIC_TITLE_NUM  = 7;    //老师职称字段取值个数
     const TEA_MOST_ACADEMIC_NUM   = 2;    //老师最高学历字段取值个数
-    const ARTICAL_PERCAL_CATE_NUM = 11;
-    const PRO_CATE_RESEARCH_NUM   = 3;
-    const PRO_SUB_CATEGORY_NUM    = 3;
-    const OP_FORM_WRITE_NUM       = 5;
-    const OP_CATE_WORK_NUM        = 5;
-    const AW_FORM_ACHIEVEMENT_NUM = 11;
-    const AW_LEVEL_NUM            = 5;
-    const PA_TYPE_NUM             = 3;
-    const AP_LEVEL_NUM            = 4;
+    const ARTICAL_PERCAL_CATE_NUM = 11;   //文章期刊类别字段取值个数
+    const PRO_CATE_RESEARCH_NUM   = 3;    //项目研究类别字段取值个数
+    const PRO_SUB_CATEGORY_NUM    = 3;    //项目学科门类字段取值个数
+    const OP_FORM_WRITE_NUM       = 5;    //著作编著形式字段取值个数
+    const OP_CATE_WORK_NUM        = 5;    //著作著作类别字段取值个数
+    const AW_FORM_ACHIEVEMENT_NUM = 11;   //获奖成果形式字段取值个数
+    const AW_LEVEL_NUM            = 5;    //获奖奖励级别字段取值个数
+    const PA_TYPE_NUM             = 3;    //专利专利类型字段取值个数
+    const AP_LEVEL_NUM            = 4;    //鉴定鉴定级别字段取值个数
 
     /**
      * 导出EXCEL表格配置文件
@@ -153,7 +163,7 @@ class SearchMessageConfig
     //项目
     const PROJECT_CELL_DATAS = [
         ['序号','主持人','所有参加人','项目名称','项目类别','批准单位','批准经费','当年到账经费','研究类别',
-            '学科门类','合作形式','社会经济目标','服务的国民经济行业','积分','备注']
+            '学科门类','合作形式','社会经济目标','服务的国民经济行业','积分','时间','备注']
     ];
     //著作
     const OPUS_CELL_DATAS    = [
@@ -241,6 +251,4 @@ class SearchMessageConfig
     //担任团体职务
     const DU_EDUCATION_DATAS          = ['大专','研究生','本科'];
     const DU_DEGREE_DATAS             = ['硕士','博士','学士'];
-    //老师初始密码
-    const TEACHER_INITLIZE_PASSWORD   = 123456;
 }

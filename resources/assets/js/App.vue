@@ -9,6 +9,104 @@
                 <div class="loginName">
                     <i class="el-icon-view"></i>
                     <span style="margin-right: 15px;">{{ teacherDate.name }}</span>
+                    <!--<el-dialog title="重置密码"-->
+                    <!--:visible.sync="dialogFormVisible"-->
+                    <!--:close-on-click-modal="false"-->
+                    <!--@close="closeDialog"-->
+                    <!--center>-->
+                    <!--<el-form :model="changeform" style="padding: 11px 20px;" ref="changeform">-->
+                    <!--<el-form-item label="老师工号">-->
+                    <!--<el-input type="text" v-model="changeform.teacher_id" placeholder="请输入需重置密码老师工号" maxlength="10" id="teacherNum"></el-input>-->
+                    <!--</el-form-item>-->
+                    <!--</el-form>-->
+                    <!--<div slot="footer" class="dialog-footer">-->
+                    <!--<el-button @click="dialogFormVisible = false">取 消</el-button>-->
+                    <!--<el-button type="primary" @click.native="changepsw()">重 置</el-button>-->
+                    <!--</div>-->
+                    <!--</el-dialog>-->
+                    <!--<div v-show="changeTeapsw" style="display: inline-block;">-->
+                        <!--<el-button type="text" @click="dialogFormVisible  = true" style="color:rgb(255,152,41)">重置老师密码</el-button>-->
+                    <!--</div>-->
+                    <el-dropdown>
+                      <span class="el-dropdown-link" style="color:rgb(255,152,41)" v-show="changeTeapsw">
+                        修 改<i class="el-icon-arrow-down el-icon--right"></i>
+                      </span>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item command="a" @click.native="dialogFormVisible  = true">重置密码</el-dropdown-item>
+                            <el-dropdown-item command="b" @click.native="dialogWorkVisible  = true">岗位类别</el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
+
+                    <el-dialog title="重置密码"
+                        :visible.sync="dialogFormVisible"
+                        :close-on-click-modal="false"
+                        @close="closeDialog"
+                        center>
+                    <el-form :model="changeform" style="padding: 11px 20px;" ref="changeform">
+                        <el-form-item label="老师工号">
+                            <el-input type="text" v-model="changeform.teacher_id" placeholder="请输入需重置密码老师工号" maxlength="10" id="teacherNum"></el-input>
+                        </el-form-item>
+                    </el-form>
+                    <div slot="footer" class="dialog-footer">
+                        <el-button @click="dialogFormVisible = false">取 消</el-button>
+                        <el-button type="primary" @click.native="changepsw(changeform)">重 置</el-button>
+                    </div>
+                    </el-dialog>
+
+                    <el-dialog title="修改老师岗位类别"
+                               :visible.sync="dialogWorkVisible"
+                               :close-on-click-modal="false"
+                               @close="closeWorkDialog"
+                               center>
+                        <el-form :model="changework" style="padding: 11px 20px;" ref="changework">
+                            <el-form-item label="老师工号">
+                                <el-input type="text" v-model="changework.teacher_id" placeholder="请输入需重置密码老师工号" maxlength="10" id="teacherId"></el-input>
+                            </el-form-item>
+                            <el-form-item label="岗位类别" prop="post_category">
+                                <el-select v-model="changework.post_category" placeholder="请选择老师岗位类别" id="teaPost">
+                                    <el-option label="普通老师" value="0"></el-option>
+                                    <el-option label="院长" value="1"></el-option>
+                                    <el-option label="副院长" value="2"></el-option>
+                                    <el-option label="教学秘书" value="3"></el-option>
+                                    <el-option label="科研秘书" value="4"></el-option>
+                                    <el-option label="研究生秘书" value="5"></el-option>
+                                    <el-option label="副主任" value="6"></el-option>
+                                    <el-option label="系主任" value="7"></el-option>
+                                    <el-option label="办公室主任" value="8"></el-option>
+                                    <el-option label="教研室主任" value="9"></el-option>
+                                    <el-option label="党委书记" value="10"></el-option>
+                                    <el-option label="党委副书记" value="11"></el-option>
+                                </el-select>
+                            </el-form-item>
+                        </el-form>
+                        <div slot="footer" class="dialog-footer">
+                            <el-button @click="dialogWorkVisible = false">取 消</el-button>
+                            <el-button type="primary" @click.native="changeWork(changework)">重 置</el-button>
+                        </div>
+                    </el-dialog>
+
+
+                    <!--<div v-show="changeTeapsw" style="display: inline-block;">-->
+                        <!--<el-button type="text" @click="dialogFormVisible  = true" style="color:rgb(255,152,41)">重置老师密码</el-button>-->
+                    <!--</div>-->
+                        <!--<el-dialog title="重置密码"-->
+                                   <!--:visible.sync="dialogFormVisible"-->
+                                   <!--:close-on-click-modal="false"-->
+                                   <!--@close="closeDialog"-->
+                                   <!--center>-->
+                            <!--<el-form :model="changeform" style="padding: 11px 20px;" ref="changeform">-->
+                                <!--<el-form-item label="老师工号">-->
+                                    <!--<el-input type="text" v-model="changeform.teacher_id" placeholder="请输入需重置密码老师工号" maxlength="10" id="teacherNum"></el-input>-->
+                                <!--</el-form-item>-->
+                            <!--</el-form>-->
+                            <!--<div slot="footer" class="dialog-footer">-->
+                                <!--<el-button @click="dialogFormVisible = false">取 消</el-button>-->
+                                <!--<el-button type="primary" @click.native="changepsw()">重 置</el-button>-->
+                            <!--</div>-->
+                        <!--</el-dialog>-->
+
+
+
                     <a style="margin-left: 10px;color: white"href="leavelogin">退出系统</a><i class="el-icon-caret-right"></i>
                 </div>
             </div>
@@ -106,6 +204,18 @@
     export default {
         data() {
             return {
+                dialogFormVisible: false,
+                dialogWorkVisible:false,
+                changeform:{
+                    teacher_id:'',
+                },
+                changework:{
+                    teacher_id:'',
+                    post_category:'',
+                },
+                visible: true,
+                dataForm: new FormData(),
+
                 teacherDate:[] ,
                 show: false,
 //                navJudgment:false,
@@ -117,6 +227,7 @@
                 navSpecial:false,
                 allResult:false,
                 resultCollect:false,
+                changeTeapsw:false,//修改老师密码
                 status:'',
                 navList:[
 //                    {icon:'el-icon-picture',name:'/',navItem:'ft'},
@@ -134,6 +245,103 @@
             }
         },
         methods: {
+//            handleCommand(command) {
+//
+//            },
+            closeDialog:function(){
+                this.changeform.teacher_id = '';
+            },
+            closeWorkDialog:function(){
+                this.changework.post_category = '';
+                this.changeform.teacher_id = '';
+            },
+            changepsw(changeform){  // 重置老师密码
+                if($(" #teacherNum ").val() == '') {
+                    this.$message.error('老师工号不能为空');
+                }
+                this.$refs['changeform'].validate((valid) => {
+                    let vue = this;
+                    if (valid) {
+                        jQuery.each(vue.changeform,function(i,val){
+                            vue.dataForm.append(i,val);
+                        });
+                        vue.restetTeaPsw(vue.dataForm).then(res => {
+                            var data = res.data;
+                            console.log(data,'\\\\密码\\\\');
+                            if (data.code == 0) {
+                                vue.$message({
+                                    message: data.message,
+                                    type: 'success'
+                                });
+                            } else {
+                                vue.$notify({
+                                    type: 'error',
+                                    message: data.message,
+                                    duration: 2000,
+                                });
+                            }
+                        });
+                    }
+                    else {
+                        console.log('error submit!!');
+                        return false
+                    }
+                })
+            },
+            changeWork(changework){  // 修改老师岗位类别
+                if($(" #teacherId ").val() == '') {
+                    this.$message.error('老师工号不能为空');
+                }else if($(" #teaPost ").val() == '') {
+                    this.$message.error('岗位类别不能为空');
+                }
+                this.$refs['changework'].validate((valid) => {
+                    let vue = this;
+                    if (valid) {
+                        jQuery.each(vue.changework,function(i,val){
+                            vue.dataForm.append(i,val);
+                        });
+                        vue.changeTeaWork(vue.dataForm).then(res => {
+                            var data = res.data;
+//                            console.log(data,'\\\\密码\\\\');
+                            if (data.code == 0) {
+                                vue.$message({
+                                    message: data.message,
+                                    type: 'success'
+                                });
+                            } else {
+                                vue.$notify({
+                                    type: 'error',
+                                    message: data.message,
+                                    duration: 2000,
+                                });
+                            }
+                        });
+                    }
+                    else {
+                        console.log('error submit!!');
+                        return false
+                    }
+                })
+            },
+            restetTeaPsw(data) { //重置密码
+                return axios({
+                    method: 'post',
+                    url: 'initializeteacherpassword',
+                    headers: {'Content-Type': 'multipart/form-data'},
+                    timeout: 20000,
+                    data: data
+                });
+            },
+            changeTeaWork(data) { //修改岗位类别
+                return axios({
+                    method: 'post',
+                    url: 'updateteacherpostcategory',
+                    headers: {'Content-Type': 'multipart/form-data'},
+                    timeout: 20000,
+                    data: data
+                });
+            },
+
             handleOpen() {
 
             },
@@ -170,6 +378,8 @@
                         self.navAgrement=true;//教学科研等合作协议
                         self.allResult=true;//成果汇总
                         self.resultCollect=true;//成果汇总
+
+                        self.changeTeapsw=true;//修改老师密码
                     }
                     else if(status == 4){  //科研秘书
 
@@ -178,6 +388,8 @@
                         self.navAgrement=true;//教学科研等合作协议
                         self.allResult=true;//成果汇总
                         self.resultCollect=true;//成果汇总
+
+
                     }
                     else if(status == 5){  //研究生秘书
 
@@ -289,7 +501,7 @@
         margin-top: 5px;
     }
     .loginName{
-        width:17%;
+        width:24%;
         float: right;
     }
     .loginName img{
@@ -341,5 +553,17 @@
     }
     .el-submenu .el-menu-item{
         min-width: 160px;
+    }
+</style>
+=======
+    .el-dialog {
+        width: 28%;
+    }
+    .el-dropdown-link {
+        cursor: pointer;
+        color: #409EFF;
+    }
+    .el-icon-arrow-down {
+        font-size: 12px;
     }
 </style>

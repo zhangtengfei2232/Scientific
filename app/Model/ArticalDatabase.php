@@ -95,7 +95,9 @@ class ArticalDatabase  extends ModelDatabase
                      $road = DB::table('artical')->select('art_road','art_sci_road')
                              ->where('art_id',$art_id_datas[$i])
                              ->get();
-                     array_push($artical_road,$road->art_road);
+                     if(!empty($road->art_road)){
+                         array_push($artical_road,$road->art_road);
+                     }
                  }
                  break;
              case 1:

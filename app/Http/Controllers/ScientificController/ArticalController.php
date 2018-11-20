@@ -42,7 +42,7 @@ class ArticalController extends Controller
          $disk               = UploadSubjectionConfig::ARTICAL;
          $artical_sci_road   = '';
          if($request->hasFile('art_sci_road')){
-             $artical_sci   = $request->file('art_sci_road');             //接收sci索引报告
+             $artical_sci   = $request->file('art_sci_road');              //接收sci索引报告
              $judge_sci = judgeReceiveFiles($artical_sci);                     //验证论文SCI
              if($judge_sci['code'] == 1){
                  return responseTojson(1,'论文SCI索引报告'.$judge_sci['message']);
@@ -90,20 +90,20 @@ class ArticalController extends Controller
          return responseTojson(0,'查询成功','',$result);
      }
      //查找个人全部论文信息
-     public function selectAllAttical(){
+     public function selectAllArtical(){
          $teacher_id = session('usercount');
          $result     = ArticalDatabase::selectAllArticalDatas($teacher_id);
          return responseTojson(0,'查询成功','',$result);
      }
     //根据时间区间搜索文章信息
-    public function timeSelectArtical(Request $request){
-        $teacher_id = session('usercount');
-        $start_time = $request->start_time;
-        $end_time   = $request->end_time;
-        $table_name = SearchMessageConfig::ARTICAL_TABLE;
-        $time_field = SearchMessageConfig::ART_TIME;
-        return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field,$teacher_id);
-    }
+     public function timeSelectArtical(Request $request){
+         $teacher_id = session('usercount');
+         $start_time = $request->start_time;
+         $end_time   = $request->end_time;
+         $table_name = SearchMessageConfig::ARTICAL_TABLE;
+         $time_field = SearchMessageConfig::ART_TIME;
+         return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field,$teacher_id);
+     }
      //修改论文信息
      public function updateArticalInformation(Request $request){
          if(!$request->isMethod('POST')) {
@@ -169,15 +169,6 @@ class ArticalController extends Controller
          ArticalDatabase::rollback();
          deletefiles($disk,$reset_artical_road);
          return responseTojson(1,'修改论文失败');
-     }
-     //根据时间查询论文
-     public function dateSelectArtical(Request $request){
-         $teacher_id = session('usercount');
-         $start_time = $request->start_time;
-         $end_time   = $request->end_time;
-         $table_name = SearchMessageConfig::ARTICAL_TABLE;
-         $time_field = SearchMessageConfig::ART_TIME;
-         return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field,$teacher_id);
      }
      //同时导出多个论文，取每个论文的第一页，形成一个新的PDF论文
      public function exportAllArtical(Request $request){

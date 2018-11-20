@@ -109,7 +109,7 @@ use setasign\Fpdi\Tcpdf\Fpdi;
         }
         //默认是I：在浏览器中打开，D：下载，F：在服务器生成pdf
         //S：只返回pdf的字符串，个人感觉无实在意义
-        $pdf->output("test.pdf", "D");
+        $pdf->output("合并论文首页.pdf", "D");
         // 結束 FPDI 剖析器
         $pdf->closeParsers();
         return;
@@ -125,5 +125,6 @@ use setasign\Fpdi\Tcpdf\Fpdi;
         }
         return $str . chr($index % 26 + $start);
     }
+
 
 

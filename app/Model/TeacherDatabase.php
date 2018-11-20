@@ -1,7 +1,6 @@
 <?php
 namespace App\Model;
 
-use config\SearchMessageConfig;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 class TeacherDatabase extends ModelDatabase
@@ -23,22 +22,22 @@ class TeacherDatabase extends ModelDatabase
          }
          $result = DB::table('teacher')
                    ->where('teacher_id', $usercount)
-                   ->where('password', $userpassword)
+                   ->where('password', md5($userpassword))
                    ->count();
          if($result != 1){
              return responseTojson(1,"账号或密码输入错误");
          }
-        return self::saveAccount($usercount);
+         return self::saveAccount($usercount);
      }
     /**添加老师的信息
      * @param $datas
      * @return \Illuminate\Http\JsonResponse
      */
      public static function addTeacherDatas($datas){
-        $response =  DB::table('teacher')
+         $response =  DB::table('teacher')
                      ->insert([
                          'teacher_id'            => $datas['teacher_id'],
-                         'password'              => $datas['teacher_id'],       //初始密码设置为工号
+                         'password'              => md5($datas['teacher_id']),       //初始密码设置为工号
                          'teacher_department'    => $datas['teacher_department'],
                          'name'                  => $datas['name'],
                          'office_phone'          => $datas['office_phone'],
@@ -81,7 +80,7 @@ class TeacherDatabase extends ModelDatabase
                          'master_time'           => $datas['master_time'],
                          'create_time'           => time()
                      ]);
-        return ($response) ? responseTojson(0,'添加老师信息成功')
+         return ($response) ? responseTojson(0,'添加老师信息成功')
                : responseTojson(1,'添加老师信息失败');
      }
      //查询全部老师信息
@@ -106,6 +105,7 @@ class TeacherDatabase extends ModelDatabase
          $buffer     = DB::table('teacher')->where('teacher_id', $teacher_id)->first();
          $buffer     = json_decode(json_encode($buffer));
          $buffer     = (array)$buffer;
+         unset($buffer['password']);   //去除老师的密码信息
          $message['role_status'] = $buffer['post_category'];
          $message['information'] = $buffer;
          return responseTojson(0,'查询成功','',$message);
@@ -216,7 +216,7 @@ class TeacherDatabase extends ModelDatabase
         $response = DB::table('teacher')->where('teacher_id',$new_teacher_id)->count();
         return ($response == 1) ? true : false;
     }
-    //查看已经存在的老师工号
+    //查看已经存在的所有老师工号
     public static function selectAllTeacherIdDatas(){
         $all_teacher_id = DB::table('teacher')->select('teacher_id')->get();
         return responseTojson(0,'查询成功','',$all_teacher_id);
@@ -233,10 +233,11 @@ class TeacherDatabase extends ModelDatabase
      }
      //根据老师密码去查看是否有这个老师，并修改密码
      public static function byOldPasswordSelectDatas($old_password,$new_password){
-         $count = DB::tbale('teacher_id')->where('password',$old_password)->count();
+         $mdfive_old_password = md5($old_password);
+         $count = DB::table('teacher_id')->where('password',$mdfive_old_password)->count();
          if($count == 1){
-             $reset_password = DB::table('teacher')->where('password',$old_password)
-                               ->update(['password' => $new_password]);
+             $reset_password = DB::table('teacher')->where('password',$mdfive_old_password)
+                               ->update(['password' => md5($new_password)]);
              return ($reset_password != 1) ? responseTojson(1,'修改密码失败')
                     : responseTojson(0,'修改密码成功');
          }
@@ -245,9 +246,16 @@ class TeacherDatabase extends ModelDatabase
      //重置老师密码
     public static function initializeTeacherPasswordDatas($teacher_id){
         $initialize = DB::table('teacher')->where('teacher_id',$teacher_id)
-                      ->update(['password' => md5(SearchMessageConfig::TEACHER_INITLIZE_PASSWORD)]);
+                      ->update(['password' => md5($teacher_id)]);
         return ($initialize != 1) ? responseTojson(1,'密码重置失败')
                : responseTojson(0,'密码重置成功');
+    }
+    //修改老师岗位类别
+    public static function updateTeacherPostCategoryDatas($teacher_id,$new_post_category){
+         $reset_post_category = DB::table('teacher')->where('teacher_id',$teacher_id)
+                                ->update(['post_category' => $new_post_category]);
+         return ($reset_post_category != 1) ? responseTojson(1,'修改老师岗位类别成功')
+                : responseTojson(1,'修改老师岗位类别失败');
     }
     /**把session里的用户信息清空
      *

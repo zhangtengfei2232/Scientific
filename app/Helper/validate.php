@@ -399,3 +399,12 @@
         }
 
     }
+    function judgeTeacherIdField($teacher_id){
+        $judge_teacherid = "/^smkj[0-9]+$/";
+        if(!preg_match($judge_teacherid,$teacher_id)){
+            return responseTojson(1,"老师的工号必须以'smkj'开头，且后面为数字",1);
+        }
+        if(strlen($teacher_id) > 10){
+            return responseTojson(1,"老师的工号过长",1);
+        }
+    }
