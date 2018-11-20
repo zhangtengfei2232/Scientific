@@ -7,12 +7,6 @@
             </el-form-item>
             <el-form-item label="专家级别" prop="le_expert_level">
                 <el-select v-model="form.le_expert_level" placeholder="请选择专家级别">
-                    <!--<el-option-->
-                            <!--v-for="(value, key) in le_expert_level"-->
-                            <!--:key="key"-->
-                            <!--:label="value"-->
-                            <!--:value="key">-->
-                    <!--</el-option>-->
                     <el-option label="院士" value="0"></el-option>
                     <el-option label="博导" value="1"></el-option>
                     <el-option label="国务院学位委员会委员" value="2"></el-option>
@@ -44,9 +38,9 @@
                     </el-date-picker>
                 </el-col>
             </el-form-item>
-                <div class="demo" v-show="picType">
-                    <img :src="filelist" alt="无法加载" style="width:100px">
-                </div>
+            <div class="demo" v-show="picType">
+                <img :src="filelist" alt="无法加载" style="width:100px">
+            </div>
             <el-form-item label="图注">
                 <el-upload
                         drag
@@ -134,7 +128,7 @@
                 form: {
                     le_id:'',
                     le_expert_name:'',
-                    le_expert_level:'',
+                    le_expert_level:0,
                     le_report_name:'',
                     le_invite_status:'',
                     le_invite_unit:'',
@@ -142,13 +136,6 @@
                     delivery: false,
                     type: [],
                 },
-//                le_expert_level:[
-//                    '院士',
-//                    '博导',
-//                    '国务院学位委员会委员',
-//                    '教授',
-//                    '其他'
-//                ],
             }
         },
         methods: {
@@ -160,10 +147,10 @@
                     if (data.code == 0) {
                         self.EditLectureData = data.datas.lecture_information;
                         self.form = data.datas.lecture_information;
-//                        self.form.le_expert_level = string(data.datas.lecture_information.le_expert_level)
+                        self.EditLectureData.le_expert_level = String(data.datas.lecture_information.le_expert_level);
                         self.le_id = data.datas.lecture_information.le_id;
                         if(data.datas.lecture_information.le_img_road !== ''){
-                            self.type1=true;
+                            self.picType=true;
                             self.filelist = 'showfile?disk=lecture&subjection=' + data.datas.lecture_information.le_img_road;
                         }
                         let image = data.datas.lecture_images;
@@ -255,7 +242,7 @@
                             if (data.code == 0) {
                                 this.Bcode = true;
                                 vue.$message({
-                                    message: '添加成功',
+                                    message: data.message,
                                     type: 'success'
                                 });
 

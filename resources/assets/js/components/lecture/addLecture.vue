@@ -42,7 +42,7 @@
                         drag
                         action="#"
                         ref="le_img_road"
-                        :before-upload="filePicfil"
+                        :before-upload="fileZufil"
                         :auto-upload="false"
                         :limit="1"
                         multiple
@@ -128,7 +128,7 @@
                     return false
                 }
             },
-            filePicfil(file){
+            fileZufil(file){
                 this.dataForm.append('le_img_road', file);
                 return false;
             },

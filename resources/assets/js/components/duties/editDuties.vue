@@ -7,45 +7,45 @@
             </el-form-item>
             <el-form-item label="职称" prop="du_academic">
                 <el-select v-model="form.du_academic" placeholder="请选择职称">
-                    <el-option
-                            v-for="(value, key) in du_academic"
-                            :key="key"
-                            :label="value"
-                            :value="key">
-                    </el-option>
-                    <!--<el-option label="教授" value="0"></el-option>-->
-                    <!--<el-option label="副教授" value="1"></el-option>-->
-                    <!--<el-option label="讲师" value="2"></el-option>-->
-                    <!--<el-option label="助教" value="3"></el-option>-->
-                    <!--<el-option label="高级实验师" value="4"></el-option>-->
-                    <!--<el-option label="实验师" value="5"></el-option>-->
-                    <!--<el-option label="助理实验师" value="6"></el-option>-->
+                    <!--<el-option-->
+                            <!--v-for="(value, key) in du_academic"-->
+                            <!--:key="key"-->
+                            <!--:label="value"-->
+                            <!--:value="key">-->
+                    <!--</el-option>-->
+                    <el-option label="教授" value="0"></el-option>
+                    <el-option label="副教授" value="1"></el-option>
+                    <el-option label="讲师" value="2"></el-option>
+                    <el-option label="助教" value="3"></el-option>
+                    <el-option label="高级实验师" value="4"></el-option>
+                    <el-option label="实验师" value="5"></el-option>
+                    <el-option label="助理实验师" value="6"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="学历" prop="du_education">
                 <el-select v-model="form.du_education" placeholder="请选择学历">
-                    <el-option
-                            v-for="(value, key) in du_education"
-                            :key="key"
-                            :label="value"
-                            :value="key">
-                    </el-option>
-                    <!--<el-option label="大专" value="0"></el-option>-->
-                    <!--<el-option label="研究生" value="1"></el-option>-->
-                    <!--<el-option label="本科" value="2"></el-option>-->
+                    <!--<el-option-->
+                            <!--v-for="(value, key) in du_education"-->
+                            <!--:key="key"-->
+                            <!--:label="value"-->
+                            <!--:value="key">-->
+                    <!--</el-option>-->
+                    <el-option label="大专" value="0"></el-option>
+                    <el-option label="研究生" value="1"></el-option>
+                    <el-option label="本科" value="2"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="学位" prop="du_degree">
                 <el-select v-model="form.du_degree" placeholder="请选择学位">
-                    <el-option
-                            v-for="(value, key) in du_degree"
-                            :key="key"
-                            :label="value"
-                            :value="key">
-                    </el-option>
-                    <!--<el-option label="硕士" value="0"></el-option>-->
-                    <!--<el-option label="博士" value="1"></el-option>-->
-                    <!--<el-option label="学士" value="2"></el-option>-->
+                    <!--<el-option-->
+                            <!--v-for="(value, key) in du_degree"-->
+                            <!--:key="key"-->
+                            <!--:label="value"-->
+                            <!--:value="key">-->
+                    <!--</el-option>-->
+                    <el-option label="硕士" value="0"></el-option>
+                    <el-option label="博士" value="1"></el-option>
+                    <el-option label="学士" value="2"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="年龄">
@@ -163,25 +163,25 @@
                     du_remark: '',
                     du_road:'',
                 },
-                du_academic:[   //职称
-                    '教授',
-                    '副教授',
-                    '讲师',
-                    '助教',
-                    '高级实验师',
-                    '实验师',
-                    '助理实验师'
-                ],
-                du_education:[  //学历
-                    '大专',
-                    '研究生',
-                    '本科',
-                ],
-                du_degree:[     //学位
-                    '硕士',
-                    '博士',
-                    '学士',
-                ],
+//                du_academic:[   //职称
+//                    '教授',
+//                    '副教授',
+//                    '讲师',
+//                    '助教',
+//                    '高级实验师',
+//                    '实验师',
+//                    '助理实验师'
+//                ],
+//                du_education:[  //学历
+//                    '大专',
+//                    '研究生',
+//                    '本科',
+//                ],
+//                du_degree:[     //学位
+//                    '硕士',
+//                    '博士',
+//                    '学士',
+//                ],
             }
         },
         methods: {
@@ -196,6 +196,9 @@
                     var data = response.data;
                     if (data.code == 0) {
                         self.DutiesData = data.datas;
+                        self.DutiesData.du_academic = String(data.datas.du_academic);
+                        self.DutiesData.du_education = String(data.datas.du_education);
+                        self.DutiesData.du_degree = String(data.datas.du_degree);
                         let time = data.datas.du_year_num;
                         self.checkYearExt(time);
                         self.form = data.datas;
