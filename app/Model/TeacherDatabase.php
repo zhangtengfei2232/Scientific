@@ -216,7 +216,7 @@ class TeacherDatabase extends ModelDatabase
         $response = DB::table('teacher')->where('teacher_id',$new_teacher_id)->count();
         return ($response == 1) ? true : false;
     }
-    //查看已经存在的老师工号
+    //查看已经存在的所有老师工号
     public static function selectAllTeacherIdDatas(){
         $all_teacher_id = DB::table('teacher')->select('teacher_id')->get();
         return responseTojson(0,'查询成功','',$all_teacher_id);
@@ -234,7 +234,7 @@ class TeacherDatabase extends ModelDatabase
      //根据老师密码去查看是否有这个老师，并修改密码
      public static function byOldPasswordSelectDatas($old_password,$new_password){
          $mdfive_old_password = md5($old_password);
-         $count = DB::tbale('teacher_id')->where('password',$mdfive_old_password)->count();
+         $count = DB::table('teacher_id')->where('password',$mdfive_old_password)->count();
          if($count == 1){
              $reset_password = DB::table('teacher')->where('password',$mdfive_old_password)
                                ->update(['password' => md5($new_password)]);
