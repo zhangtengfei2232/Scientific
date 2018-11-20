@@ -166,27 +166,8 @@
                 }
             },
             ExcelArticleDatas(art_id_datas) {
-                let self = this;
-                axios.get("exportarticalexcel",{
-                        params:{
-                        art_id_datas:art_id_datas
-                    }
-                }).then(function (response) {
-                    var data = response.data;
-                    if (data.code == 0) {
-                            self.$message({
-                            showClose: true,
-                            message: '导出成功!',
-                            type: 'success'
-                        });
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.message,
-                            duration: 2000,
-                        });
-                    }
-                });
+                let urls =  `exportarticalexcel?art_id_datas=${art_id_datas}`;
+                window.location.href = urls;
             },
             uploadArticleData(art_road) {
                 if(art_road == 1) {

@@ -146,6 +146,7 @@ export default {
                     self.AppraisalSelfData = data.datas;
                     self.form = data.datas;
                     self.ap_id = data.datas.ap_id;
+                    self.form.ap_level = String(data.datas.ap_level);
                     if(data.datas.ap_cover_road !== ''){
                         self.type1=true;
                         self.filelist.url = 'showfile?disk=appraisal&subjection=' + data.datas.ap_cover_road;

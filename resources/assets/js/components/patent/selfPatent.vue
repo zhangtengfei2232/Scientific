@@ -132,6 +132,8 @@ export default {
                     if (data.code == 0) {
                         self.PatentSelfData = data.datas;
                         self.form = data.datas;
+                        self.form.pa_type = String(data.datas.pa_type);
+                        self.form.pa_imple_situ = String(data.datas.pa_imple_situ);
                         if(data.datas.pa_road !== ''){
                             self.type1=true;
                             self.filelist= 'showfile?disk=joinmeet&subjection=' + data.datas.pa_road; 
