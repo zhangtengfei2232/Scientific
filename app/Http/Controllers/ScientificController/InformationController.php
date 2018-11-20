@@ -21,12 +21,18 @@ class InformationController extends Controller
     }
     //修改老师密码
     public function updateTeacherPassword(Request $request){
+        if(!$request->isMethod('POST')){
+            return responseTojson(1,'你请求的方式不对');
+        }
         $old_password = trim($request->old_password);
         $new_password = trim($request->new_password);
         return TeacherDatabase::byOldPasswordSelectDatas($old_password,$new_password);
     }
     //重置老师密码
     public function initializeTeacherPassword(Request $request){
+        if(!$request->isMethod('POST')){
+            return responseTojson(1,'你请求的方式不对');
+        }
         $teacher_id = trim($request->teacher_id);
         $judge_teacher_id = judgeTeacherIdField($teacher_id);
         if($judge_teacher_id['code'] == 1){
@@ -40,6 +46,9 @@ class InformationController extends Controller
     }
     //修改老师的岗位类别
     public function updateTeacherPostCategory(Request $request){
+        if(!$request->isMethod('POST')){
+            return responseTojson(1,'你请求的方式不对');
+        }
         $teacher_id = $request->teacher_id;
         $judge_teacher_id = judgeTeacherIdField($teacher_id);
         if($judge_teacher_id['code'] == 1){
@@ -59,6 +68,7 @@ class InformationController extends Controller
     public function addTeacher(Request $request){
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
+
         }
         $teacher_id = trim($request->teacher_id);
         $judge_teacher_id = judgeTeacherIdField($teacher_id);
