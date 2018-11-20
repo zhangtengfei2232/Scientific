@@ -170,12 +170,8 @@
                 window.location.href = urls;
             },
             uploadArticleData(art_road) {
-                if(art_road == 1) {
-                    this.$message.error('pdf文件为空');
-                }else{
-                    let urls =  `downloadfile?file=article/${art_road}`;
-                    window.location.href = urls;
-                }
+                let urls =  `downloadfile?file=artical/${art_road}`;
+                window.location.href = urls;
             },
             getArticleData() {
                 let self = this;

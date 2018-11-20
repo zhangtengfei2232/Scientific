@@ -127,7 +127,9 @@
                         <el-form-item>
                             <el-button type="primary" @click="onSubmit(form,year2,year3,year4,year5,year1)">保存修改</el-button>
                         </el-form-item>
-
+                        <el-form-item>
+                            <el-button type="warning" size="mini" @click="watchPDF()">查看论文</el-button>
+                        </el-form-item>
                         <el-form-item label="论文全文PDF上传">
                             <el-upload
                                 class="upload-demo"
@@ -140,6 +142,9 @@
                                 <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
                                 <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传</el-button>
                             </el-upload>
+                        </el-form-item>
+                        <el-form-item v-show="pdfType">
+                            <el-button type="warning" size="mini" @click="watchSCI()">查看SCI</el-button>
                         </el-form-item>
                         <el-form-item label="SCI索引检索报告">
                             <el-upload
@@ -187,7 +192,7 @@ export default {
             art_road: '',
             art_id:'',
             art_sci_road: '',
-            filelists:[{url:''}],
+            pdfType:false,
             form: {
                 author: '',
                 art_all_author: '',
@@ -210,6 +215,14 @@ export default {
     },
 
     methods: {
+        watchPDF() {
+            let urls =  `showfile?disk=artical&subjection=${this.art_road}`;
+            window.open(urls, '_blank');
+        },
+        watchSCI() {
+            let urls =  `showfile?disk=artical&subjection=${this.art_sci_road}`;
+            window.open(urls, '_blank');
+        },
         submitUpload() {
             let id = this.art_id;
             this.dataFile.append('art_id', id);
@@ -218,7 +231,6 @@ export default {
         },
         fileArtpdf(file){
             this.dataFile.append('art_road', file.raw);
-            console.log(file.raw);
         },
         sendfile(dataFile) {
             this.addBookFile(this.dataFile).then(res => {
@@ -228,6 +240,7 @@ export default {
                         message: '修改成功',
                         type: 'success'
                     });
+                    location. reload();
                 } else {
                     this.$notify({
                         type: 'error',
@@ -256,12 +269,16 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.ArticleSelfData = data.datas;
+                    self.art_road = data.datas.art_road;
+                    if(data.datas.art_sci_road != ''){
+                        self.pdfType = true;
+                        self.art_sci_road = data.datas.art_sci_road;
+                    }
                     self.ArticleSelfData.art_cate_research = String(data.datas.art_cate_research);
                     self.ArticleSelfData.art_sub_category = String(data.datas.art_sub_category);
                     let time = data.datas.period;
                     self.checkYearExt(time);
                     self.form = data.datas;
-                    self.filelists.url = 'showfile?disk=article&subjection=' + data.datas.home_page_road;
                 } else {
                     self.$notify({
                         type: 'error',
@@ -325,7 +342,6 @@ export default {
                 this.$message.error('学校认定刊物级别不能为空');
                 return
             }
-            console.log(form.art_cate_research);
             this.$refs['form'].validate((valid) => {
                 let vue = this;
                 if (valid) {
