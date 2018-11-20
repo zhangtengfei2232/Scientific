@@ -74,14 +74,14 @@
                             placement="top-start"
                             width="500"
                             trigger="click">
-                            <el-form ref="form" :model="form" label-width="80px">   
+                            <el-form ref="form" :model="form" label-width="80px">
                                 <el-form-item label="专利类型">
                                     <el-checkbox-group v-model="form.pa_type">
                                         <el-checkbox :label="0">发明专利</el-checkbox>
                                         <el-checkbox :label="1">实用新型专利</el-checkbox>
                                         <el-checkbox :label="2">外观设计专利</el-checkbox>
                                     </el-checkbox-group>
-                                </el-form-item> 
+                                </el-form-item>
                                 <el-form-item label="实施情况">
                                     <el-checkbox-group v-model="form.pa_imple_situ">
                                         <el-checkbox :label="0" name="type">授权</el-checkbox>
@@ -171,7 +171,7 @@
                     layout="total, sizes, prev, pager, next, jumper"
                     :total="total">
                 </el-pagination>
-            </div> 
+            </div>
         </div>
     </div>
 </template>
@@ -243,7 +243,7 @@ export default {
         ExcelSelection() {
             var self = this;
             var art_id_datas = [];//存放导出的数据
-            if(self.multipleSelection == undefined){
+            if(self.multipleSelection == ''){
                 this.$message({
                     message: '请选择要导出专利',
                     type: 'warning'
@@ -269,12 +269,12 @@ export default {
                     self.total = data.datas.length;
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.pa_type.length;i++){
-                            if(data.datas[j].pa_type == i){  
+                            if(data.datas[j].pa_type == i){
                                 data.datas[j].pa_type = self.pa_type[i];
                             }
                         }
                         for(var i= 0;i<self.pa_imple_situ.length;i++){
-                            if(data.datas[j].pa_imple_situ == i){  
+                            if(data.datas[j].pa_imple_situ == i){
                                 data.datas[j].pa_imple_situ = self.pa_imple_situ[i];
                             }
                         }
@@ -300,12 +300,12 @@ export default {
                     self.allPatent = data.datas;
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.pa_type.length;i++){
-                            if(data.datas[j].pa_type == i){  
+                            if(data.datas[j].pa_type == i){
                                 data.datas[j].pa_type = self.pa_type[i];
                             }
                         }
                         for(var i= 0;i<self.pa_imple_situ.length;i++){
-                            if(data.datas[j].pa_imple_situ == i){  
+                            if(data.datas[j].pa_imple_situ == i){
                                 data.datas[j].pa_imple_situ = self.pa_imple_situ[i];
                             }
                         }
@@ -314,7 +314,7 @@ export default {
                     self.$notify({
                         type: 'error',
                         message: data.message,
-                        duration: 2000,         
+                        duration: 2000,
                     });
                 }
             });
@@ -331,12 +331,12 @@ export default {
                     self.allPatent = data.datas;
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.pa_type.length;i++){
-                            if(data.datas[j].pa_type == i){  
+                            if(data.datas[j].pa_type == i){
                                 data.datas[j].pa_type = self.pa_type[i];
                             }
                         }
                         for(var i= 0;i<self.pa_imple_situ.length;i++){
-                            if(data.datas[j].pa_imple_situ == i){  
+                            if(data.datas[j].pa_imple_situ == i){
                                 data.datas[j].pa_imple_situ = self.pa_imple_situ[i];
                             }
                         }
@@ -345,7 +345,7 @@ export default {
                     self.$notify({
                         type: 'error',
                         message: data.message,
-                        duration: 2000,         
+                        duration: 2000,
                     });
                 }
             });
@@ -375,12 +375,12 @@ export default {
                     self.allPatent = data.datas;
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.pa_type.length;i++){
-                            if(data.datas[j].pa_type == i){  
+                            if(data.datas[j].pa_type == i){
                                 data.datas[j].pa_type = self.pa_type[i];
                             }
                         }
                         for(var i= 0;i<self.pa_imple_situ.length;i++){
-                            if(data.datas[j].pa_imple_situ == i){  
+                            if(data.datas[j].pa_imple_situ == i){
                                 data.datas[j].pa_imple_situ = self.pa_imple_situ[i];
                             }
                         }
@@ -407,12 +407,12 @@ export default {
                     self.allPatent = data.datas;
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.pa_type.length;i++){
-                            if(data.datas[j].pa_type == i){  
+                            if(data.datas[j].pa_type == i){
                                 data.datas[j].pa_type = self.pa_type[i];
                             }
                         }
                         for(var i= 0;i<self.pa_imple_situ.length;i++){
-                            if(data.datas[j].pa_imple_situ == i){  
+                            if(data.datas[j].pa_imple_situ == i){
                                 data.datas[j].pa_imple_situ = self.pa_imple_situ[i];
                             }
                         }
@@ -421,7 +421,7 @@ export default {
                     self.$notify({
                         type: 'error',
                         message: data.message,
-                        duration: 2000,         
+                        duration: 2000,
                     });
                 }
             });
@@ -439,12 +439,12 @@ export default {
                     self.allPatent = data.datas;
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.pa_type.length;i++){
-                            if(data.datas[j].pa_type == i){  
+                            if(data.datas[j].pa_type == i){
                                 data.datas[j].pa_type = self.pa_type[i];
                             }
                         }
                         for(var i= 0;i<self.pa_imple_situ.length;i++){
-                            if(data.datas[j].pa_imple_situ == i){  
+                            if(data.datas[j].pa_imple_situ == i){
                                 data.datas[j].pa_imple_situ = self.pa_imple_situ[i];
                             }
                         }
@@ -453,7 +453,7 @@ export default {
                     self.$notify({
                         type: 'error',
                         message: data.message,
-                        duration: 2000,         
+                        duration: 2000,
                     });
                 }
             });

@@ -152,7 +152,7 @@
             ExcelSelection() {
                 var self = this;
                 var art_id_datas = [];//存放导出的数据
-                if(self.multipleSelection == undefined){
+                if(self.multipleSelection == ''){
                     this.$message({
                         message: '请选择要导出论文',
                         type: 'warning'
@@ -169,12 +169,8 @@
                 window.location.href = urls;
             },
             uploadAgreementData(agree_road) {
-                if(agree_road == 1) {
-                    this.$message.error('pdf文件为空');
-                }else{
-                    let urls =  `downloadfile?file=article/${agree_road}`;
-                    window.location.href = urls;
-                }
+                let urls =  `downloadfile?file=agreement/${agree_road}`;
+                window.location.href = urls;
             },
             toggleSelection(rows) {
                 if (rows) {
@@ -188,7 +184,7 @@
              BatchDelete(){
 		    	var self = this;
                 var pro_id_datas = [];//存放删除的数据
-                if(self.multipleSelection == undefined){
+                if(self.multipleSelection == ''){
                     this.$message({
                         message: '请选择要删除的数据',
                         type: 'warning'

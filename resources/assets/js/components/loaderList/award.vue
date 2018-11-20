@@ -177,7 +177,7 @@
                     layout="total, sizes, prev, pager, next, jumper"
                     :total="total">
                 </el-pagination>
-            </div> 
+            </div>
         </div>
     </div>
 </template>
@@ -264,7 +264,7 @@ export default {
         ExcelSelection() {
             var self = this;
             var art_id_datas = [];//存放导出的数据
-            if(self.multipleSelection == undefined){
+            if(self.multipleSelection == ''){
                 this.$message({
                     message: '请选择要导出获奖',
                     type: 'warning'
@@ -290,17 +290,17 @@ export default {
                     self.total = data.datas.length;
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.form_achievement.length;i++){
-                            if(data.datas[j].form_achievement == i){  
+                            if(data.datas[j].form_achievement == i){
                                 data.datas[j].form_achievement = self.form_achievement[i];
                             }
                         }
                         for(var i= 0;i<self.aw_grade.length;i++){
-                            if(data.datas[j].aw_grade == i){  
+                            if(data.datas[j].aw_grade == i){
                                 data.datas[j].aw_grade = self.aw_grade[i];
                             }
                         }
                         for(var i= 0;i<self.aw_level.length;i++){
-                            if(data.datas[j].aw_level == i){  
+                            if(data.datas[j].aw_level == i){
                                 data.datas[j].aw_level = self.aw_level[i];
                             }
                         }
@@ -339,17 +339,17 @@ export default {
                     self.allAward = data.datas;
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.form_achievement.length;i++){
-                            if(data.datas[j].form_achievement == i){  
+                            if(data.datas[j].form_achievement == i){
                                 data.datas[j].form_achievement = self.form_achievement[i];
                             }
                         }
                         for(var i= 0;i<self.aw_grade.length;i++){
-                            if(data.datas[j].aw_grade == i){  
+                            if(data.datas[j].aw_grade == i){
                                 data.datas[j].aw_grade = self.aw_grade[i];
                             }
                         }
                         for(var i= 0;i<self.aw_level.length;i++){
-                            if(data.datas[j].aw_level == i){  
+                            if(data.datas[j].aw_level == i){
                                 data.datas[j].aw_level = self.aw_level[i];
                             }
                         }
@@ -358,7 +358,7 @@ export default {
                     self.$notify({
                         type: 'error',
                         message: data.message,
-                        duration: 2000,         
+                        duration: 2000,
                     });
                 }
             });
@@ -376,17 +376,17 @@ export default {
                     self.allAward = data.datas;
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.form_achievement.length;i++){
-                            if(data.datas[j].form_achievement == i){  
+                            if(data.datas[j].form_achievement == i){
                                 data.datas[j].form_achievement = self.form_achievement[i];
                             }
                         }
                         for(var i= 0;i<self.aw_grade.length;i++){
-                            if(data.datas[j].aw_grade == i){  
+                            if(data.datas[j].aw_grade == i){
                                 data.datas[j].aw_grade = self.aw_grade[i];
                             }
                         }
                         for(var i= 0;i<self.aw_level.length;i++){
-                            if(data.datas[j].aw_level == i){  
+                            if(data.datas[j].aw_level == i){
                                 data.datas[j].aw_level = self.aw_level[i];
                             }
                         }
@@ -395,7 +395,7 @@ export default {
                     self.$notify({
                         type: 'error',
                         message: data.message,
-                        duration: 2000,         
+                        duration: 2000,
                     });
                 }
             });
@@ -412,17 +412,17 @@ export default {
                     self.allAward = data.datas;
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.form_achievement.length;i++){
-                            if(data.datas[j].form_achievement == i){  
+                            if(data.datas[j].form_achievement == i){
                                 data.datas[j].form_achievement = self.form_achievement[i];
                             }
                         }
                         for(var i= 0;i<self.aw_grade.length;i++){
-                            if(data.datas[j].aw_grade == i){  
+                            if(data.datas[j].aw_grade == i){
                                 data.datas[j].aw_grade = self.aw_grade[i];
                             }
                         }
                         for(var i= 0;i<self.aw_level.length;i++){
-                            if(data.datas[j].aw_level == i){  
+                            if(data.datas[j].aw_level == i){
                                 data.datas[j].aw_level = self.aw_level[i];
                             }
                         }
@@ -431,7 +431,7 @@ export default {
                     self.$notify({
                         type: 'error',
                         message: data.message,
-                        duration: 2000,         
+                        duration: 2000,
                     });
                 }
             });
@@ -448,17 +448,17 @@ export default {
                     self.allAward = data.datas;
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.form_achievement.length;i++){
-                            if(data.datas[j].form_achievement == i){  
+                            if(data.datas[j].form_achievement == i){
                                 data.datas[j].form_achievement = self.form_achievement[i];
                             }
                         }
                         for(var i= 0;i<self.aw_grade.length;i++){
-                            if(data.datas[j].aw_grade == i){  
+                            if(data.datas[j].aw_grade == i){
                                 data.datas[j].aw_grade = self.aw_grade[i];
                             }
                         }
                         for(var i= 0;i<self.aw_level.length;i++){
-                            if(data.datas[j].aw_level == i){  
+                            if(data.datas[j].aw_level == i){
                                 data.datas[j].aw_level = self.aw_level[i];
                             }
                         }
@@ -467,7 +467,7 @@ export default {
                     self.$notify({
                         type: 'error',
                         message: data.message,
-                        duration: 2000,         
+                        duration: 2000,
                     });
                 }
             });
@@ -484,17 +484,17 @@ export default {
                     self.allAward = data.datas;
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.form_achievement.length;i++){
-                            if(data.datas[j].form_achievement == i){  
+                            if(data.datas[j].form_achievement == i){
                                 data.datas[j].form_achievement = self.form_achievement[i];
                             }
                         }
                         for(var i= 0;i<self.aw_grade.length;i++){
-                            if(data.datas[j].aw_grade == i){  
+                            if(data.datas[j].aw_grade == i){
                                 data.datas[j].aw_grade = self.aw_grade[i];
                             }
                         }
                         for(var i= 0;i<self.aw_level.length;i++){
-                            if(data.datas[j].aw_level == i){  
+                            if(data.datas[j].aw_level == i){
                                 data.datas[j].aw_level = self.aw_level[i];
                             }
                         }
@@ -503,7 +503,7 @@ export default {
                     self.$notify({
                         type: 'error',
                         message: data.message,
-                        duration: 2000,         
+                        duration: 2000,
                     });
                 }
             });

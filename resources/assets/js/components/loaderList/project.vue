@@ -87,7 +87,7 @@
                             placement="top-start"
                             width="500"
                             trigger="click">
-                            <el-form ref="form" :model="form" label-width="80px">   
+                            <el-form ref="form" :model="form" label-width="80px">
                                 <el-form-item label="学科门类">
                                     <el-checkbox-group v-model="form.pro_sub_category">
                                         <el-checkbox :label="0">理学</el-checkbox>
@@ -100,16 +100,16 @@
                                         <el-checkbox :label="7">逻辑学</el-checkbox>
                                         <el-checkbox :label="8">宗教学</el-checkbox>
                                         <el-checkbox :label="9">语言学</el-checkbox>
-                                        <el-checkbox :label="10">中国文学</el-checkbox> 
+                                        <el-checkbox :label="10">中国文学</el-checkbox>
                                         <el-checkbox :label="11">外国文学</el-checkbox>
                                         <el-checkbox :label="12">艺术学</el-checkbox>
                                         <el-checkbox :label="13">历史学</el-checkbox>
                                         <el-checkbox :label="14">考古学</el-checkbox>
                                         <el-checkbox :label="15">经济学</el-checkbox>
-                                        <el-checkbox :label="16">政治学</el-checkbox>  
-                                        <el-checkbox :label="17">法学</el-checkbox>  
+                                        <el-checkbox :label="16">政治学</el-checkbox>
+                                        <el-checkbox :label="17">法学</el-checkbox>
                                     </el-checkbox-group>
-                                </el-form-item> 
+                                </el-form-item>
                                 <el-form-item>
                                     <el-button type="primary" @click="onSubmit(form)">确定</el-button>
                                     <el-button>取消</el-button>
@@ -263,7 +263,7 @@ export default {
             ],
             pro_sub_category: [
                 '理学',
-                '工学',   
+                '工学',
                 '农学',
                 '医学',
                 '管理学',
@@ -283,7 +283,7 @@ export default {
             ],
             form_cooperate: [
                 '与境外机构合作',
-                '与国内高校合作',   
+                '与国内高校合作',
                 '与国内独立研究机构合作',
                 '与境内注册外商独资企业合作',
                 '与境内注册其他企业合作',
@@ -304,7 +304,7 @@ export default {
         ExcelSelection() {
             var self = this;
             var art_id_datas = [];//存放导出的数据
-            if(self.multipleSelection == undefined){
+            if(self.multipleSelection == ''){
                 this.$message({
                     message: '请选择要导出项目',
                     type: 'warning'
@@ -330,17 +330,17 @@ export default {
                     self.total = data.datas.length;
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.pro_cate_research.length;i++){
-                            if(data.datas[j].pro_cate_research == i){  
+                            if(data.datas[j].pro_cate_research == i){
                                 data.datas[j].pro_cate_research = self.pro_cate_research[i];
                             }
                         }
                         for(var i= 0;i<self.pro_sub_category.length;i++){
-                            if(data.datas[j].pro_sub_category == i){  
+                            if(data.datas[j].pro_sub_category == i){
                                 data.datas[j].pro_sub_category = self.pro_sub_category[i];
                             }
                         }
                         for(var i= 0;i<self.form_cooperate.length;i++){
-                            if(data.datas[j].form_cooperate == i){  
+                            if(data.datas[j].form_cooperate == i){
                                 data.datas[j].form_cooperate = self.form_cooperate[i];
                             }
                         }
@@ -379,17 +379,17 @@ export default {
                     self.allProject = data.datas;
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.pro_cate_research.length;i++){
-                            if(data.datas[j].pro_cate_research == i){  
+                            if(data.datas[j].pro_cate_research == i){
                                 data.datas[j].pro_cate_research = self.pro_cate_research[i];
                             }
                         }
                         for(var i= 0;i<self.pro_sub_category.length;i++){
-                            if(data.datas[j].pro_sub_category == i){  
+                            if(data.datas[j].pro_sub_category == i){
                                 data.datas[j].pro_sub_category = self.pro_sub_category[i];
                             }
                         }
                         for(var i= 0;i<self.form_cooperate.length;i++){
-                            if(data.datas[j].form_cooperate == i){  
+                            if(data.datas[j].form_cooperate == i){
                                 data.datas[j].form_cooperate = self.form_cooperate[i];
                             }
                         }
@@ -398,7 +398,7 @@ export default {
                     self.$notify({
                         type: 'error',
                         message: data.message,
-                        duration: 2000,         
+                        duration: 2000,
                     });
                 }
             });
@@ -416,17 +416,17 @@ export default {
                     self.allProject = data.datas;
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.pro_cate_research.length;i++){
-                            if(data.datas[j].pro_cate_research == i){  
+                            if(data.datas[j].pro_cate_research == i){
                                 data.datas[j].pro_cate_research = self.pro_cate_research[i];
                             }
                         }
                         for(var i= 0;i<self.pro_sub_category.length;i++){
-                            if(data.datas[j].pro_sub_category == i){  
+                            if(data.datas[j].pro_sub_category == i){
                                 data.datas[j].pro_sub_category = self.pro_sub_category[i];
                             }
                         }
                         for(var i= 0;i<self.form_cooperate.length;i++){
-                            if(data.datas[j].form_cooperate == i){  
+                            if(data.datas[j].form_cooperate == i){
                                 data.datas[j].form_cooperate = self.form_cooperate[i];
                             }
                         }
@@ -435,7 +435,7 @@ export default {
                     self.$notify({
                         type: 'error',
                         message: data.message,
-                        duration: 2000,         
+                        duration: 2000,
                     });
                 }
             });
@@ -452,17 +452,17 @@ export default {
                     self.allProject = data.datas;
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.pro_cate_research.length;i++){
-                            if(data.datas[j].pro_cate_research == i){  
+                            if(data.datas[j].pro_cate_research == i){
                                 data.datas[j].pro_cate_research = self.pro_cate_research[i];
                             }
                         }
                         for(var i= 0;i<self.pro_sub_category.length;i++){
-                            if(data.datas[j].pro_sub_category == i){  
+                            if(data.datas[j].pro_sub_category == i){
                                 data.datas[j].pro_sub_category = self.pro_sub_category[i];
                             }
                         }
                         for(var i= 0;i<self.form_cooperate.length;i++){
-                            if(data.datas[j].form_cooperate == i){  
+                            if(data.datas[j].form_cooperate == i){
                                 data.datas[j].form_cooperate = self.form_cooperate[i];
                             }
                         }
@@ -471,7 +471,7 @@ export default {
                     self.$notify({
                         type: 'error',
                         message: data.message,
-                        duration: 2000,         
+                        duration: 2000,
                     });
                 }
             });
@@ -488,17 +488,17 @@ export default {
                     self.allProject = data.datas;
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.pro_cate_research.length;i++){
-                            if(data.datas[j].pro_cate_research == i){  
+                            if(data.datas[j].pro_cate_research == i){
                                 data.datas[j].pro_cate_research = self.pro_cate_research[i];
                             }
                         }
                         for(var i= 0;i<self.pro_sub_category.length;i++){
-                            if(data.datas[j].pro_sub_category == i){  
+                            if(data.datas[j].pro_sub_category == i){
                                 data.datas[j].pro_sub_category = self.pro_sub_category[i];
                             }
                         }
                         for(var i= 0;i<self.form_cooperate.length;i++){
-                            if(data.datas[j].form_cooperate == i){  
+                            if(data.datas[j].form_cooperate == i){
                                 data.datas[j].form_cooperate = self.form_cooperate[i];
                             }
                         }
@@ -507,7 +507,7 @@ export default {
                     self.$notify({
                         type: 'error',
                         message: data.message,
-                        duration: 2000,         
+                        duration: 2000,
                     });
                 }
             });
@@ -524,17 +524,17 @@ export default {
                     self.allProject = data.datas;
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.pro_cate_research.length;i++){
-                            if(data.datas[j].pro_cate_research == i){  
+                            if(data.datas[j].pro_cate_research == i){
                                 data.datas[j].pro_cate_research = self.pro_cate_research[i];
                             }
                         }
                         for(var i= 0;i<self.pro_sub_category.length;i++){
-                            if(data.datas[j].pro_sub_category == i){  
+                            if(data.datas[j].pro_sub_category == i){
                                 data.datas[j].pro_sub_category = self.pro_sub_category[i];
                             }
                         }
                         for(var i= 0;i<self.form_cooperate.length;i++){
-                            if(data.datas[j].form_cooperate == i){  
+                            if(data.datas[j].form_cooperate == i){
                                 data.datas[j].form_cooperate = self.form_cooperate[i];
                             }
                         }
@@ -543,7 +543,7 @@ export default {
                     self.$notify({
                         type: 'error',
                         message: data.message,
-                        duration: 2000,         
+                        duration: 2000,
                     });
                 }
             });
@@ -560,17 +560,17 @@ export default {
                     self.allProject = data.datas;
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.pro_cate_research.length;i++){
-                            if(data.datas[j].pro_cate_research == i){  
+                            if(data.datas[j].pro_cate_research == i){
                                 data.datas[j].pro_cate_research = self.pro_cate_research[i];
                             }
                         }
                         for(var i= 0;i<self.pro_sub_category.length;i++){
-                            if(data.datas[j].pro_sub_category == i){  
+                            if(data.datas[j].pro_sub_category == i){
                                 data.datas[j].pro_sub_category = self.pro_sub_category[i];
                             }
                         }
                         for(var i= 0;i<self.form_cooperate.length;i++){
-                            if(data.datas[j].form_cooperate == i){  
+                            if(data.datas[j].form_cooperate == i){
                                 data.datas[j].form_cooperate = self.form_cooperate[i];
                             }
                         }
@@ -579,10 +579,10 @@ export default {
                     self.$notify({
                         type: 'error',
                         message: data.message,
-                        duration: 2000,         
+                        duration: 2000,
                     });
                 }
-            }); 
+            });
         }
     },
     mounted() {

@@ -61,7 +61,7 @@
                             placement="top-start"
                             width="500"
                             trigger="click">
-                            <el-form ref="form" :model="form" label-width="80px">   
+                            <el-form ref="form" :model="form" label-width="80px">
                                 <el-form-item label="会议级别">
                                     <el-checkbox-group v-model="form.ho_level">
                                         <el-checkbox :label="0">省级</el-checkbox>
@@ -69,7 +69,7 @@
                                         <el-checkbox :label="2">国家级</el-checkbox>
                                         <el-checkbox :label="3">国际会议</el-checkbox>
                                     </el-checkbox-group>
-                                </el-form-item> 
+                                </el-form-item>
                                 <el-form-item>
                                     <el-button type="primary" @click="onSubmit(form)">确定</el-button>
                                     <el-button>取消</el-button>
@@ -138,7 +138,7 @@
                     layout="total, sizes, prev, pager, next, jumper"
                     :total="total">
                 </el-pagination>
-            </div> 
+            </div>
         </div>
     </div>
 </template>
@@ -205,7 +205,7 @@ export default {
         ExcelSelection() {
             var self = this;
             var art_id_datas = [];//存放导出的数据
-            if(self.multipleSelection == undefined){
+            if(self.multipleSelection == ''){
                 this.$message({
                     message: '请选择要导出举办会议',
                     type: 'warning'
@@ -231,7 +231,7 @@ export default {
                     self.total = data.datas.length;
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.ho_level.length;i++){
-                            if(data.datas[j].ho_level == i){  
+                            if(data.datas[j].ho_level == i){
                                 data.datas[j].ho_level = self.ho_level[i];
                             }
                         }
@@ -270,7 +270,7 @@ export default {
                     self.allHoldmeet = data.datas;
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.ho_level.length;i++){
-                            if(data.datas[j].ho_level == i){  
+                            if(data.datas[j].ho_level == i){
                                 data.datas[j].ho_level = self.ho_level[i];
                             }
                         }
@@ -279,7 +279,7 @@ export default {
                     self.$notify({
                         type: 'error',
                         message: data.message,
-                        duration: 2000,         
+                        duration: 2000,
                     });
                 }
             });
@@ -297,7 +297,7 @@ export default {
                     self.allHoldmeet = data.datas;
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.ho_level.length;i++){
-                            if(data.datas[j].ho_level == i){  
+                            if(data.datas[j].ho_level == i){
                                 data.datas[j].ho_level = self.ho_level[i];
                             }
                         }
@@ -306,7 +306,7 @@ export default {
                     self.$notify({
                         type: 'error',
                         message: data.message,
-                        duration: 2000,         
+                        duration: 2000,
                     });
                 }
             });
@@ -323,7 +323,7 @@ export default {
                     self.allHoldmeet = data.datas;
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.ho_level.length;i++){
-                            if(data.datas[j].ho_level == i){  
+                            if(data.datas[j].ho_level == i){
                                 data.datas[j].ho_level = self.ho_level[i];
                             }
                         }
@@ -332,7 +332,7 @@ export default {
                     self.$notify({
                         type: 'error',
                         message: data.message,
-                        duration: 2000,         
+                        duration: 2000,
                     });
                 }
             });
@@ -349,7 +349,7 @@ export default {
                     self.allHoldmeet = data.datas;
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.ho_level.length;i++){
-                            if(data.datas[j].ho_level == i){  
+                            if(data.datas[j].ho_level == i){
                                 data.datas[j].ho_level = self.ho_level[i];
                             }
                         }
@@ -358,7 +358,7 @@ export default {
                     self.$notify({
                         type: 'error',
                         message: data.message,
-                        duration: 2000,         
+                        duration: 2000,
                     });
                 }
             });
