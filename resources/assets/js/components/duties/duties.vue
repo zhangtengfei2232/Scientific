@@ -194,7 +194,7 @@
             },
             ExcelSelection() {
                 var self = this;
-                var dut_id_datas = [];//存放导出的数据
+                var du_id_datas = [];//存放导出的数据
                 if(self.multipleSelection == undefined){
                     this.$message({
                         message: '请选择要导出的担任学术团体职务',
@@ -202,33 +202,14 @@
                     });
                 }else{
                     for (var i = 0; i < self.multipleSelection.length; i++) {
-                        dut_id_datas.push(self.multipleSelection[i].du_id);
+                        du_id_datas.push(self.multipleSelection[i].du_id);
                     };
-                    this.ExcelJoinmeetDatas(dut_id_datas);
+                    this.ExcelJoinmeetDatas(du_id_datas);
                 }
             },
-            ExcelJoinmeetDatas(dut_id_datas) {
-                let self = this;
-                axios.get("exportdutiesexcel",{
-                    params:{
-                        du_id_datas:dut_id_datas
-                    }
-                }).then(function (response) {
-                    var data = response.data;
-                    if (data.code == 0) {
-                        self.$message({
-                            showClose: true,
-                            message: '导出成功!',
-                            type: 'success'
-                        });
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.message,
-                            duration: 2000,
-                        });
-                    }
-                });
+            ExcelJoinmeetDatas(du_id_datas) {
+                let urls =  `exportlectureexcel?du_id_datas=${du_id_datas}`;
+                window.location.href = urls;
             },
             BatchDelete(){
                 var self = this;
