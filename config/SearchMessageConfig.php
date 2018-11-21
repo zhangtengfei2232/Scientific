@@ -4,6 +4,21 @@ namespace config;
 class SearchMessageConfig
 {
     /**
+     * 角色区分
+     */
+    const TEACHER                          = 0;      //普通老师
+    const PRESIDENT                        = 1;      //院长
+    const VICE_PRESIDENT                   = 2;      //副院长
+    const TEACH_SECRETARY                  = 3;      //教学秘书
+    const RESEARCH_SECRETARY               = 4;      //科研秘书
+    const GRADUATE_SECRETARY               = 5;      //研究生秘书
+    const DEPUTY_DIRECTOR                  = 6;      //副主任
+    const DEPARTMENT_HEAD                  = 7;      //系主任
+    const OFFICE_DIRECTOR                  = 8;      //办公室主任
+    const TEACH_RESEARCH_HEAD              = 9;      //教研室主任
+    const PARTY_COMMITTEE_SECRETARY        = 10;     //党委书记
+    const PARTY_COMMITTEE_DEPUTY_SECRETARY = 11;     //党委副书记
+    /**
      * 每个表的表名
      */
     const TEACHER_TABLE     = 'teacher';               //老师表
@@ -57,6 +72,8 @@ class SearchMessageConfig
     const ARTICAL_ART_CATE_RESEARCH = 'art_cate_research';  //论文研究类别
     const ARTICAL_ART_SUB_CATEGORY  = 'art_sub_category';   //论文学科门类
     const ARTICAL_SCH_PERCAL_CATE   = 'sch_percal_cate';    //论文学校认证期刊级别
+    const ARTICAL_ROAD              = 'art_road';           //论文文件路径
+    const ARTICAL_SCI_ROAD          = 'art_sci_road';       //论文SCI路径
     const PROJECT_PRO_HOST          = 'pro_host';           //项目主持人
     const PROJECT_PROJECT_CATEGORY  = 'project_category';   //项目类别
     const PROJECT_PRO_CATE_RESEARCH = 'pro_cate_research';  //项目研究类别
@@ -93,10 +110,13 @@ class SearchMessageConfig
     const AP_COVER_ROAD             = 'ap_cover_road';      //鉴定封面路径
     const HOLDMEET_HO_NAME          = 'ho_name';            //举行会议名称
     const HOLDMEET_HO_LEVEL         = 'ho_level';           //举行会议级别
+    const HOLDMEET_INJECTION        = 'ho_graph_inject';    //举行会议图注
     const JOINMEET_JO_NAME          = 'jo_name';            //参加会议名称
     const JOINMEET_JO_LEVEL         = 'jo_level';           //参加会议等级
+    const JOINMEET_INJECTION        = 'jo_graph_inject';    //参加会议图注
     const LECTURE_LE_EXPERT_NAME    = 'le_expert_name';     //专家讲学名字
     const LECTURE_LE_EXPERT_LEVEL   = 'le_expert_level';    //专家讲学级别
+    const LECTURE_INJECTION         = 'le_img_road';        //专家讲学图注
     const LECTURE_LE_INVITE_UNIT    = 'le_invite_unit';     //邀请单位
     const SCHOOLFILE_SCHFILE_NAME   = 'schfile_name';       //校发文件名称
     const AGREEMENT_AGREE_NAME      = 'agree_name';         //合作协议名称
