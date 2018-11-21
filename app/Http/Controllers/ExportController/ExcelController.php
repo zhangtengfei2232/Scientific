@@ -23,7 +23,6 @@ class ExcelController extends Controller
         $teacher_table_name = SearchMessageConfig::TEACHER_TABLE;
         $teacher_id_field   = SearchMessageConfig::TEACHER_ID;
         $teacher_datas      = ModelDatabase::selectExportExcelDatas($teacher_table_name,$teacher_id_field,$tea_id_datas);
-//        dd($teacher_datas);
         foreach ($teacher_datas as $information){
             switch ($information->teacher_department){
                 case 0:
@@ -381,7 +380,7 @@ class ExcelController extends Controller
     //导出讲学Excel表格
     public function exportLectureExcel(Request $request){
         $lecture_cell_datas = SearchMessageConfig::LECTURE_CELL_DATAS;
-        $le_id_datas        = explode('.',$request->le_id_datas);
+        $le_id_datas        = explode(',',$request->le_id_datas);
         $lecture_table_name = SearchMessageConfig::LECTURE_TABLE;
         $lecture_id_field   = SearchMessageConfig::LECTURE_ID;
         $lecture_datas      = ModelDatabase::selectExportExcelDatas($lecture_table_name,$lecture_id_field,$le_id_datas);
@@ -410,7 +409,6 @@ class ExcelController extends Controller
             ['序号','姓名','职称','学历','学位','年龄','担任学术团体名称','所任职务','担任职务年限','备注']
         ];
         $du_id_datas       = explode(',',$request->du_id_datas);
-        dd($du_id_datas);
         $duties_table_name = SearchMessageConfig::DUTIES_TABLE;
         $duties_id_field   = SearchMessageConfig::DUTIES_ID;
         $duties_datas      = ModelDatabase::selectExportExcelDatas($duties_table_name,$duties_id_field,$du_id_datas);
@@ -430,8 +428,8 @@ class ExcelController extends Controller
                 $datas->du_remark
             ];
         }
-        Excel::create('专家讲学信息数据',function ($excel) use ($cell_datas){
-            $excel->sheet('专家讲学',function ($sheet) use ($cell_datas){
+        Excel::create('担任学术团体信息数据',function ($excel) use ($cell_datas){
+            $excel->sheet('担任学术团体',function ($sheet) use ($cell_datas){
                 $sheet->rows($cell_datas);
             });
         })->export('xlsx');

@@ -105,7 +105,7 @@
         border-right: 1px solid #eee;
     }
     .searchtime{
-         width: 45%;
+         width: 60%;
          display: inline-block;
          margin: 15px 0 0 7%;
     }
@@ -127,6 +127,7 @@
                 AwardDate: [],
                 checkAll: false,
                 checked: false,
+                multipleSelection:[],
                 form: {
                     data1: '',
                     data2: '',
@@ -134,6 +135,9 @@
             }
         },
         methods: {
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
+            },
             toggleSelection(rows) {
                 if (rows) {
                 rows.forEach(row => {

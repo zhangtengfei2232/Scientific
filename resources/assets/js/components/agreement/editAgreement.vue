@@ -3,10 +3,10 @@
         <div class="add">
             <el-form ref="form" :model="form" label-width="200px">
                 <el-form-item label="协议名称">
-                    <el-input v-model="form.agree_name"></el-input>
+                    <el-input v-model="form.agree_name" maxlength="100"></el-input>
                 </el-form-item>
                 <el-form-item label="合作单位">
-                    <el-input v-model="form.agree_cooperate_unit"></el-input>
+                    <el-input v-model="form.agree_cooperate_unit" maxlength="200"></el-input>
                 </el-form-item>
                 <el-form-item label="协议时间">
                     <el-col :span="15">

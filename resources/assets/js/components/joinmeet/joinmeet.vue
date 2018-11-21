@@ -105,7 +105,7 @@
         border-right: 1px solid #eee;
     }
     .searchtime{
-         width: 45%;
+         width: 60%;
          display: inline-block;
          margin: 15px 0 0 7%;
     }
@@ -125,6 +125,7 @@
                 id:[],
                 sortable:true,
                 JoinmeetDate: [],
+                multipleSelection:[],
                 checked: false,
                 form: {
                     data1: '',

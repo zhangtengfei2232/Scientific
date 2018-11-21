@@ -193,6 +193,7 @@ export default {
             art_id:'',
             art_sci_road: '',
             pdfType:false,
+            id_nav:false,
             form: {
                 author: '',
                 art_all_author: '',
@@ -223,14 +224,18 @@ export default {
             let urls =  `showfile?disk=artical&subjection=${this.art_sci_road}`;
             window.open(urls, '_blank');
         },
-        submitUpload() {
+        submitUpload(){
             let id = this.art_id;
             this.dataFile.append('art_id', id);
-            console.log(id);
-            this.sendfile(this.dataFile);
+            if (this.id_nav = true) {
+                this.sendfile(this.dataFile);
+            }else{
+                this.$message.error('文件不能为空');
+            }
         },
         fileArtpdf(file){
             this.dataFile.append('art_road', file.raw);
+            this.id_nav = true;
         },
         sendfile(dataFile) {
             this.addBookFile(this.dataFile).then(res => {

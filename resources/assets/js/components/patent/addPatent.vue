@@ -3,13 +3,13 @@
         <div class="add">
             <el-form ref="form" :model="form" label-width="200px">
                 <el-form-item label="专利权人">
-                    <el-input v-model="form.patent_person"></el-input>
+                    <el-input v-model="form.patent_person" maxlength="100"></el-input>
                 </el-form-item>
                 <el-form-item label="第一发明人">
-                    <el-input v-model="form.first_inventor"></el-input>
+                    <el-input v-model="form.first_inventor" maxlength="100"></el-input>
                 </el-form-item>
                 <el-form-item label="全部发明人">
-                    <el-input v-model="form.pa_all_author"></el-input>
+                    <el-input v-model="form.pa_all_author" maxlength="200"></el-input>
                 </el-form-item>
                  <el-form-item label="专利类型">
                     <el-select v-model="form.pa_type" placeholder="请选择类别">
@@ -19,8 +19,8 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="专利名称">
-                    <el-input v-model="form.pa_name"></el-input>
-                </el-form-item>  
+                    <el-input v-model="form.pa_name" maxlength="200"></el-input>
+                </el-form-item>
                 <el-form-item label="实施情况">
                     <el-select v-model="form.pa_imple_situ" placeholder="请选择类别">
                         <el-option label="授权" value="0"></el-option>
@@ -28,17 +28,17 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="授权编号或申请号">
-                    <el-input v-model="form.author_num"></el-input>
+                    <el-input v-model="form.author_num" maxlength="200"></el-input>
                 </el-form-item>
                 <el-form-item label="授权证书编号">
-                    <el-input v-model="form.author_cert_num"></el-input>
+                    <el-input v-model="form.author_cert_num" maxlength="200"></el-input>
                 </el-form-item>
                 <el-form-item label="授权公告日或受理日期">
                     <el-col :span="15">
-                        <el-date-picker 
-                            type="date" 
-                            placeholder="选择日期" 
-                            v-model="form.author_notic_day" 
+                        <el-date-picker
+                            type="date"
+                            placeholder="选择日期"
+                            v-model="form.author_notic_day"
                             format="yyyy 年 MM 月 dd 日"
                             value-format="timestamp"
                             style="width: 100%;">
@@ -46,7 +46,7 @@
                     </el-col>
                 </el-form-item>
                 <el-form-item label="积分">
-                    <el-input v-model="form.pa_integral"></el-input>
+                    <el-input v-model="form.pa_integral" maxlength="100"></el-input>
                 </el-form-item>
                 <el-form-item label="备注">
                     <el-input type="textarea" v-model="form.pa_remarks"></el-input>

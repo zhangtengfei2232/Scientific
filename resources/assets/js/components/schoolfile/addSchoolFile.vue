@@ -3,17 +3,17 @@
         <div class="add">
             <el-form ref="form" :model="form" label-width="200px">
                 <el-form-item label="校发文件名称">
-                    <el-input v-model="form.schfile_name"></el-input>
+                    <el-input v-model="form.schfile_name" maxlength="200"></el-input>
                 </el-form-item>
                 <el-form-item label="校发文件编号">
-                    <el-input v-model="form.schfile_num"></el-input>
+                    <el-input v-model="form.schfile_num" maxlength="200"></el-input>
                 </el-form-item>
                 <el-form-item label="文件下发时间">
                     <el-col :span="15">
-                        <el-date-picker 
-                            type="date" 
-                            placeholder="选择日期" 
-                            v-model="form.schfile_down_time" 
+                        <el-date-picker
+                            type="date"
+                            placeholder="选择日期"
+                            v-model="form.schfile_down_time"
                             format="yyyy 年 MM 月 dd 日"
                             value-format="timestamp"
                             style="width: 100%;">
@@ -79,7 +79,7 @@
                     return false;
                 }else{
                     this.$message.error('pdf文件不能为空');
-                    return                    
+                    return
                 }
             },
             handlePreview(file) {
@@ -99,7 +99,7 @@
                 //循环比较
                 for(var i=0;i<arr.length;i++){
                     if(ext == arr[i]){
-                        flag = true; 
+                        flag = true;
                         break;
                     }
                 }
@@ -128,7 +128,7 @@
                                 var data = res.data;
                                 if(this.school == false){
                                     this.$message.error('pdf文件不能为空');
-                                    return 
+                                    return
                                 }
                                 if (data.code == 0) {
                                     vue.$message({
@@ -136,7 +136,7 @@
                                         type: 'success'
                                     });
                                     this.$router.push({path: '/schoolfile'});
-                                } else { 
+                                } else {
                                     vue.$notify({
                                         type: 'error',
                                         message: data.message,

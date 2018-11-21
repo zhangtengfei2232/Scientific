@@ -112,7 +112,7 @@
         border-right: 1px solid #eee;
     }
     .searchtime{
-         width: 45%;
+         width: 60%;
          display: inline-block;
          margin: 15px 0 0 7%;
     }
@@ -153,7 +153,7 @@
             ExcelSelection() {
                 var self = this;
                 var art_id_datas = [];//存放导出的数据
-                if(self.multipleSelection == undefined){
+                if(self.multipleSelection == ''){
                     this.$message({
                         message: '请选择要导出论文',
                         type: 'warning'
@@ -198,7 +198,7 @@
                 var art_id_datas = [];//存放导出的数据
                 if(self.multipleSelection == ''){
                     this.$message({
-                        message: '请选择要导出论文',
+                        message: '请选择要导出数据',
                         type: 'warning'
                     });
                 }else{

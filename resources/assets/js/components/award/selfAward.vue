@@ -3,17 +3,17 @@
         <div class="add">
             <el-form ref="form" :model="form" label-width="200px">
                 <el-form-item label="第一获奖人">
-                    <el-input v-model="form.aw_first_author"></el-input>
+                    <el-input v-model="form.aw_first_author" maxlength="100"></el-input>
                 </el-form-item>
                 <el-form-item label="全部获奖人">
-                    <el-input v-model="form.aw_all_author"></el-input>
+                    <el-input v-model="form.aw_all_author" maxlength="200"></el-input>
                 </el-form-item>
                 <el-form-item label="获奖成果名称">
-                    <el-input v-model="form.prize_win_name"></el-input>
+                    <el-input v-model="form.prize_win_name" maxlength="100"></el-input>
                 </el-form-item>
                 <el-form-item label="奖励名称">
-                    <el-input v-model="form.award_name"></el-input>
-                </el-form-item>  
+                    <el-input v-model="form.award_name" maxlength="100"></el-input>
+                </el-form-item>
                 <el-form-item label="成果形式">
                     <el-select v-model="form.form_achievement" placeholder="请选择类别">
                         <el-option label="论文" value="0"></el-option>
@@ -46,28 +46,28 @@
                     </el-select>
                 </el-form-item>
                  <el-form-item label="授奖单位">
-                    <el-input v-model="form.aw_grant_unit"></el-input>
+                    <el-input v-model="form.aw_grant_unit" maxlength="100"></el-input>
                 </el-form-item>
                 <el-form-item label="授奖时间">
                     <el-col :span="15">
                         <el-date-picker
                             type="date"
-                            placeholder="选择日期" 
-                            v-model="form.aw_grant_time" 
+                            placeholder="选择日期"
+                            v-model="form.aw_grant_time"
                             format="yyyy 年 MM 月 dd 日"
                             value-format="timestamp"
                             style="width: 100%;">
                         </el-date-picker>
                     </el-col>
-                </el-form-item>  
+                </el-form-item>
                 <el-form-item label="证书编号">
-                    <el-input v-model="form.aw_certi_number"></el-input>
+                    <el-input v-model="form.aw_certi_number" maxlength="200"></el-input>
                 </el-form-item>
                 <el-form-item label="我校名次">
-                    <el-input v-model="form.aw_sch_rank"></el-input>
+                    <el-input v-model="form.aw_sch_rank" maxlength="100"></el-input>
                 </el-form-item>
                 <el-form-item label="积分">
-                    <el-input v-model="form.aw_integral"></el-input>
+                    <el-input v-model="form.aw_integral" maxlength="100"></el-input>
                 </el-form-item>
                 <div class="demo" v-show="type1">
                     <img :src="filelist.url" alt="无法加载" style="width:100px">
@@ -129,7 +129,7 @@ export default {
                 aw_grant_unit: '',
                 aw_grant_time: '',
                 aw_certi_number: '',
-                aw_sch_rank: '',  
+                aw_sch_rank: '',
                 aw_integral: '',
             },
         }
@@ -148,13 +148,13 @@ export default {
                         self.form.aw_level = String(data.datas.aw_level);
                         if(data.datas.aw_road !== ''){
                             self.type1=true;
-                            self.filelist.url = 'showfile?disk=award&subjection=' + data.datas.aw_road; 
+                            self.filelist.url = 'showfile?disk=award&subjection=' + data.datas.aw_road;
                         }
                     } else {
                         self.$notify({
                             type: 'error',
                             message: data.message,
-                            duration: 2000,         
+                            duration: 2000,
                         });
                     }
                 });
