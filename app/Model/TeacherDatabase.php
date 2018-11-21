@@ -254,8 +254,8 @@ class TeacherDatabase extends ModelDatabase
     public static function updateTeacherPostCategoryDatas($teacher_id,$new_post_category){
          $reset_post_category = DB::table('teacher')->where('teacher_id',$teacher_id)
                                 ->update(['post_category' => $new_post_category]);
-         return ($reset_post_category != 1) ? responseTojson(1,'修改老师岗位类别成功')
-                : responseTojson(1,'修改老师岗位类别失败');
+         return ($reset_post_category != 1) ? responseTojson(1,'修改老师岗位类别失败')
+                : responseTojson(0,'修改老师岗位类别成功');
     }
     /**把session里的用户信息清空
      *
