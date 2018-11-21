@@ -273,7 +273,7 @@
             },
             deletePic(id) {
                 let self = this;
-                axios.get("deletelectureimages",{
+                axios.get("deletelectureimage",{
                     params:{
                         im_id:id
                     }

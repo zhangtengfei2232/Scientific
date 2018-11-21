@@ -86,7 +86,7 @@
         border-right: 1px solid #eee;
     }
     .searchtime{
-        width: 45%;
+        /*width: 45%;*/
         display: inline-block;
         margin: 15px 0 0 12%;
     }
@@ -156,7 +156,7 @@
     }
     @media screen and (max-width: 1400px){
         .searchtime{
-        width: 34%;
+        /*width: 34%;*/
         }
     }
 </style>
@@ -194,7 +194,7 @@
             },
             ExcelSelection() {
                 var self = this;
-                var du_id_datas = [];//存放导出的数据
+                var art_id_datas = [];//存放导出的数据
                 if(self.multipleSelection == undefined){
                     this.$message({
                         message: '请选择要导出的担任学术团体职务',
@@ -202,13 +202,13 @@
                     });
                 }else{
                     for (var i = 0; i < self.multipleSelection.length; i++) {
-                        du_id_datas.push(self.multipleSelection[i].du_id);
+                        art_id_datas.push(self.multipleSelection[i].du_id);
                     };
-                    this.ExcelJoinmeetDatas(du_id_datas);
+                    this.ExcelJoinmeetDatas(art_id_datas);
                 }
             },
-            ExcelJoinmeetDatas(du_id_datas) {
-                let urls =  `exportlectureexcel?du_id_datas=${du_id_datas}`;
+            ExcelJoinmeetDatas(art_id_datas) {
+                let urls =  `exportdutiesexcel?du_id_datas=${art_id_datas}`;
                 window.location.href = urls;
             },
             BatchDelete(){

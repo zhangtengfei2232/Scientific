@@ -9,48 +9,48 @@
                 <div class="loginName">
                     <i class="el-icon-view"></i>
                     <span style="margin-right: 15px;">{{ teacherDate.name }}</span>
-                    <!--<el-dialog title="重置密码"-->
-                    <!--:visible.sync="dialogFormVisible"-->
-                    <!--:close-on-click-modal="false"-->
-                    <!--@close="closeDialog"-->
-                    <!--center>-->
-                    <!--<el-form :model="changeform" style="padding: 11px 20px;" ref="changeform">-->
-                    <!--<el-form-item label="老师工号">-->
-                    <!--<el-input type="text" v-model="changeform.teacher_id" placeholder="请输入需重置密码老师工号" maxlength="10" id="teacherNum"></el-input>-->
-                    <!--</el-form-item>-->
-                    <!--</el-form>-->
-                    <!--<div slot="footer" class="dialog-footer">-->
-                    <!--<el-button @click="dialogFormVisible = false">取 消</el-button>-->
-                    <!--<el-button type="primary" @click.native="changepsw()">重 置</el-button>-->
-                    <!--</div>-->
-                    <!--</el-dialog>-->
-                    <!--<div v-show="changeTeapsw" style="display: inline-block;">-->
-                        <!--<el-button type="text" @click="dialogFormVisible  = true" style="color:rgb(255,152,41)">重置老师密码</el-button>-->
-                    <!--</div>-->
                     <el-dropdown>
                       <span class="el-dropdown-link" style="color:rgb(255,152,41)" v-show="changeTeapsw">
-                        修 改<i class="el-icon-arrow-down el-icon--right"></i>
+                        功能列表<i class="el-icon-arrow-down el-icon--right"></i>
                       </span>
                         <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item command="a" @click.native="dialogFormVisible  = true">重置密码</el-dropdown-item>
-                            <el-dropdown-item command="b" @click.native="dialogWorkVisible  = true">岗位类别</el-dropdown-item>
+                            <el-dropdown-item command="b" @click.native="dialogdeleVisible  = true">删除老师</el-dropdown-item>
+                            <el-dropdown-item command="c" @click.native="dialogWorkVisible  = true">岗位类别</el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
 
                     <el-dialog title="重置密码"
-                        :visible.sync="dialogFormVisible"
-                        :close-on-click-modal="false"
-                        @close="closeDialog"
-                        center>
-                    <el-form :model="changeform" style="padding: 11px 20px;" ref="changeform">
-                        <el-form-item label="老师工号">
-                            <el-input type="text" v-model="changeform.teacher_id" placeholder="请输入需重置密码老师工号" maxlength="10" id="teacherNum"></el-input>
-                        </el-form-item>
-                    </el-form>
-                    <div slot="footer" class="dialog-footer">
-                        <el-button @click="dialogFormVisible = false">取 消</el-button>
-                        <el-button type="primary" @click.native="changepsw(changeform)">重 置</el-button>
-                    </div>
+                               :visible.sync="dialogFormVisible"
+                               :close-on-click-modal="false"
+                               @close="closeDialog"
+                               center>
+                        <el-form :model="changeform" style="padding: 11px 55px;" ref="changeform">
+                            <el-form-item label="老师工号">
+                                <el-input type="text" v-model="changeform.teacher_id" placeholder="请输入需重置密码老师工号" maxlength="10" id="teacherNum"></el-input>
+                            </el-form-item>
+                        </el-form>
+                        <div slot="footer" class="dialog-footer">
+                            <el-button @click="dialogFormVisible = false">取 消</el-button>
+                            <el-button type="primary" @click.native="changepsw(changeform)">重 置</el-button>
+                        </div>
+                    </el-dialog>
+
+                    <el-dialog title="删除老师"
+                               :visible.sync="dialogdeleVisible"
+                               :close-on-click-modal="false"
+                               @close="closeDeleDialog"
+                               center>
+                        <el-form :model="deleTeaform" style="padding: 11px 55px;" ref="deleTeaform">
+                            <el-form-item label="老师工号">
+                                <el-input type="text" v-model="deleTeaform.teacher_id" placeholder="请输入需重置密码老师工号" maxlength="10" id="deleteacherNum"></el-input>
+                                <p id='errorMsg' style="margin-left: 70px;"></p>
+                            </el-form-item>
+                        </el-form>
+                        <div slot="footer" class="dialog-footer">
+                            <el-button @click="dialogdeleVisible = false">取 消</el-button>
+                            <el-button type="primary" @click.native="deletea(deleTeaform)">删 除</el-button>
+                        </div>
                     </el-dialog>
 
                     <el-dialog title="修改老师岗位类别"
@@ -58,7 +58,7 @@
                                :close-on-click-modal="false"
                                @close="closeWorkDialog"
                                center>
-                        <el-form :model="changework" style="padding: 11px 20px;" ref="changework">
+                        <el-form :model="changework" style="padding: 11px 55px;" ref="changework">
                             <el-form-item label="老师工号">
                                 <el-input type="text" v-model="changework.teacher_id" placeholder="请输入需重置密码老师工号" maxlength="10" id="teacherId"></el-input>
                             </el-form-item>
@@ -84,35 +84,12 @@
                             <el-button type="primary" @click.native="changeWork(changework)">重 置</el-button>
                         </div>
                     </el-dialog>
-
-
-                    <!--<div v-show="changeTeapsw" style="display: inline-block;">-->
-                        <!--<el-button type="text" @click="dialogFormVisible  = true" style="color:rgb(255,152,41)">重置老师密码</el-button>-->
-                    <!--</div>-->
-                        <!--<el-dialog title="重置密码"-->
-                                   <!--:visible.sync="dialogFormVisible"-->
-                                   <!--:close-on-click-modal="false"-->
-                                   <!--@close="closeDialog"-->
-                                   <!--center>-->
-                            <!--<el-form :model="changeform" style="padding: 11px 20px;" ref="changeform">-->
-                                <!--<el-form-item label="老师工号">-->
-                                    <!--<el-input type="text" v-model="changeform.teacher_id" placeholder="请输入需重置密码老师工号" maxlength="10" id="teacherNum"></el-input>-->
-                                <!--</el-form-item>-->
-                            <!--</el-form>-->
-                            <!--<div slot="footer" class="dialog-footer">-->
-                                <!--<el-button @click="dialogFormVisible = false">取 消</el-button>-->
-                                <!--<el-button type="primary" @click.native="changepsw()">重 置</el-button>-->
-                            <!--</div>-->
-                        <!--</el-dialog>-->
-
-
-
                     <a style="margin-left: 10px;color: white"href="leavelogin">退出系统</a><i class="el-icon-caret-right"></i>
                 </div>
             </div>
         </div>
-        <div class="aside">
-            <el-row class="tac">
+        <div class="aside" style="max-height:720px;overflow-y:auto;overflow-x: hidden;">
+            <el-row id="tac">
                 <el-col :span="12">
                     <el-menu
                             :default-active="this.$router.path"
@@ -125,20 +102,20 @@
                             @close="handleClose"
                             router>
                         <!--<div v-show="navJudgment">-->
-                            <el-menu-item index="/" class="signIn" style="height:70px;border-bottom:1px solid gray;font-size:17px;text-align: center">
+                        <el-menu-item index="/" class="signIn" style="height:70px;border-bottom:1px solid gray;font-size:17px;text-align: center">
                             <img src="/dist/img/wang_light.png" alt="未加载">
                             <span>{{teacherDate.name}}</span>
-                            </el-menu-item>
+                        </el-menu-item>
 
-                            <el-menu-item v-for="(item,i) in navList" :key="i" :index="item.name">
-                                <i :class="item.icon"></i>
-                                <span slot="title">{{ item.navItem }}</span>
-                            </el-menu-item>
+                        <el-menu-item v-for="(item,i) in navList" :key="i" :index="item.name">
+                            <i :class="item.icon"></i>
+                            <span slot="title">{{ item.navItem }}</span>
+                        </el-menu-item>
 
-                            <el-menu-item index="/duties" style="border-bottom:1px solid gray;">
-                                <i class="el-icon-message"></i>
-                                <span slot="title">担任学术团体职务</span>
-                            </el-menu-item>
+                        <el-menu-item index="/duties" style="border-bottom:1px solid gray;">
+                            <i class="el-icon-message"></i>
+                            <span slot="title">担任学术团体职务</span>
+                        </el-menu-item>
                         <!--</div>-->
                         <div v-show="navGlobleview">
                             <el-menu-item index="/Glverview" style="border-bottom:1px solid gray;">
@@ -175,20 +152,20 @@
                                     <div v-show="navTeacherInfo">
                                         <el-menu-item index="/loaderList/teacher">老师管理</el-menu-item>
                                     </div>
-                                <div v-show="resultCollect">
-                                    <el-menu-item index="/loaderList/article">论文信息</el-menu-item>
-                                    <el-menu-item index="/loaderList/project">项目信息</el-menu-item>
-                                    <el-menu-item index="/loaderList/apus">著作信息</el-menu-item>
-                                    <el-menu-item index="/loaderList/award">获奖信息</el-menu-item>
-                                    <el-menu-item index="/loaderList/patent">专利信息</el-menu-item>
-                                    <el-menu-item index="/loaderList/appraisal">成果鉴定</el-menu-item>
-                                    <el-menu-item index="/loaderList/holdmeet">举办会议</el-menu-item>
-                                    <el-menu-item index="/loaderList/joinmeet">参加会议</el-menu-item>
-                                    <el-menu-item index="/loaderList/lecture">专家讲学</el-menu-item>
-                                    <el-menu-item index="/loaderList/duties">担任学术团体</el-menu-item>
-                                    <el-menu-item index="/loaderList/schoolfile">校发文件</el-menu-item>
-                                    <el-menu-item index="/loaderList/agreement">科研合作协议</el-menu-item>
-                                </div>
+                                    <div v-show="resultCollect">
+                                        <el-menu-item index="/loaderList/article">论文信息</el-menu-item>
+                                        <el-menu-item index="/loaderList/project">项目信息</el-menu-item>
+                                        <el-menu-item index="/loaderList/apus">著作信息</el-menu-item>
+                                        <el-menu-item index="/loaderList/award">获奖信息</el-menu-item>
+                                        <el-menu-item index="/loaderList/patent">专利信息</el-menu-item>
+                                        <el-menu-item index="/loaderList/appraisal">成果鉴定</el-menu-item>
+                                        <el-menu-item index="/loaderList/holdmeet">举办会议</el-menu-item>
+                                        <el-menu-item index="/loaderList/joinmeet">参加会议</el-menu-item>
+                                        <el-menu-item index="/loaderList/lecture">专家讲学</el-menu-item>
+                                        <el-menu-item index="/loaderList/duties">担任学术团体</el-menu-item>
+                                        <el-menu-item index="/loaderList/schoolfile">校发文件</el-menu-item>
+                                        <el-menu-item index="/loaderList/agreement">科研合作协议</el-menu-item>
+                                    </div>
                                 </el-menu-item-group>
                             </el-submenu>
                         </div>
@@ -197,21 +174,46 @@
                 </el-col>
             </el-row>
         </div>
-        <router-view></router-view>
+        <div id="main">
+            <div id="con">
+                <router-view></router-view>
+            </div>
+        </div>
+
     </div>
 </template>
 <script>
+    /*使用JavaScript来实现*/
+
+//    var  menuHeight = document.getElementsByClassName('aside');
+//
+//    var  screenHeight = window.innerHeight ; //浏览器窗口的内部高度
+//    /* var  screenHeight =  document.documentElement.clientHeight; */
+//    menuHeight.style.height=screenHeight-80+"px";
+
+    /*使用jQuery来实现*/
+
+//    /****方法一****/
+    $('#tac').height($(window).height()-80);
+
+//    /****方法二****/
+//    $('.aside').css("height",$(window).height()-80);
+
     export default {
         data() {
             return {
                 dialogFormVisible: false,
                 dialogWorkVisible:false,
+                dialogdeleVisible:false,
                 changeform:{
                     teacher_id:'',
                 },
                 changework:{
                     teacher_id:'',
                     post_category:'',
+                },
+                deleTeaform:{
+                    teacher_id:'',
                 },
                 visible: true,
                 dataForm: new FormData(),
@@ -251,6 +253,9 @@
             closeDialog:function(){
                 this.changeform.teacher_id = '';
             },
+            closeDeleDialog:function(){
+                this.deleTeaform.teacher_id = '';
+            },
             closeWorkDialog:function(){
                 this.changework.post_category = '';
                 this.changeform.teacher_id = '';
@@ -288,6 +293,76 @@
                     }
                 })
             },
+
+
+//            deletea(deleTeaform){  // 删除老师
+//                if($(" #deleteacherNum ").val() == '') {
+//                    this.$message.error('老师工号不能为空');
+//                }
+//                this.$refs['deleTeaform'].validate((valid) => {
+//                    let vue = this;
+//                    if (valid) {
+//                        jQuery.each(vue.deleTeaform,function(i,val){
+//                            vue.dataForm.append(i,val);
+//                        });
+//                        vue.deleTeaInfo(vue.dataForm).then(res => {
+//                            var data = res.data;
+//                            console.log(data,'\\\\密码\\\\');
+//                            if (data.code == 0) {
+//                                vue.$message({
+//                                    message: data.message,
+//                                    type: 'success'
+//                                });
+//                            } else {
+//                                vue.$notify({
+//                                    type: 'error',
+//                                    message: data.message,
+//                                    duration: 2000,
+//                                });
+//                            }
+//                        });
+//                    }
+//                    else {
+//                        console.log('error submit!!');
+//                        return false
+//                    }
+//                })
+//            },
+            deletea(deleTeaform) {
+                this.$confirm('确定删除该老师吗, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    let self = this;
+                    axios.get("deleteteacher",{
+                        params:{
+                            teacher_id:deleTeaform.teacher_id
+                        }
+                    }).then(function (response) {
+                        var data = response.data;
+                        if (data.code == 0) {
+                            self.$message({
+                                showClose: true,
+                                message: data.message,
+                                type: 'success'
+                            });
+                        } else {
+                            self.$notify({
+                                type: 'error',
+                                message: data.message,
+                                duration: 2000,
+                            });
+                        }
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },
+
             changeWork(changework){  // 修改老师岗位类别
                 if($(" #teacherId ").val() == '') {
                     this.$message.error('老师工号不能为空');
@@ -332,6 +407,15 @@
                     data: data
                 });
             },
+//            deleTeaInfo(data) { //删除老师
+//                return axios({
+//                    method: 'get',
+//                    url: 'deleteteacher',
+//                    headers: {'Content-Type': 'multipart/form-data'},
+//                    timeout: 20000,
+//                    data: data
+//                });
+//            },
             changeTeaWork(data) { //修改岗位类别
                 return axios({
                     method: 'post',
@@ -413,6 +497,8 @@
                         self.allResult=true;//成果汇总
                         self.navTeacherInfo=true;//老师管理
                         self.navAgrement=true;//教学科研等合作协议
+
+                        self.changeTeapsw=true;//修改老师密码
                     }
                     else if(status == 9){  //教研室主任
 
@@ -456,8 +542,14 @@
         height: 100%;
     }
     .nav{
-        width: 100%;
+        width:100%;
         height:35px;
+        position:absolute;
+        top:0;
+        left:0;
+        right:0;
+        background-color:#123;
+        color:#fff;
     }
 
     .navLeft{
@@ -479,6 +571,14 @@
         }
         .aside{
             width: 12% !important;
+            color: white;
+            /*float: left;*/
+            background-color:rgb(34,45,50);
+
+            position:absolute;
+            top:35px;
+            left:0;
+            bottom:0;
         }
         .el-menu-item{
             font-size: 12px !important;
@@ -487,7 +587,7 @@
             min-width: 160px !important;
         }
     }
-        .navRight{
+    .navRight{
         width: 89%;
         height: 100%;
         float: right;
@@ -509,11 +609,41 @@
         vertical-align:middle;
     }
     .aside{
-        width: 11%;
+        width: 12%;
+        /*height: 300px;*/
         color: white;
-        float: left;
+        /*float: left;*/
         background-color:rgb(34,45,50);
+
+        position:absolute;
+        top:35px;
+        left:0;
+        bottom:0;
     }
+
+    #main{
+        position: absolute;
+        left: 170px;
+        top: 40px;
+        right: 0;
+        bottom: 0;
+        overflow: hidden;
+    }
+    #con{
+        height:100%;
+        overflow:auto;
+
+        /*或者
+        *overflow-x:hidden;
+        *overflow-y:scroll;
+        */
+
+        /*background-color:#789;*/
+        /*color:#fff;*/
+    }
+
+
+
     .aside li{
         width: 100%;
     }
@@ -536,9 +666,9 @@
     .el-col-12 {
         width: 100%;
     }
-   .aside .is-active{
-      background-color: black !important;
-   }
+    .aside .is-active{
+        background-color: black !important;
+    }
     .el-menu-item-group__title{
         display: none;
     }
@@ -563,5 +693,9 @@
     }
     .el-icon-arrow-down {
         font-size: 12px;
+    }
+
+    .el-form-item{
+        /*margin-left: 35px;*/
     }
 </style>
