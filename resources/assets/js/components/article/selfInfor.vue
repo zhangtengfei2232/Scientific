@@ -193,7 +193,7 @@ export default {
             art_id:'',
             art_sci_road: '',
             pdfType:false,
-            id_nav:false;
+            id_nav:false,
             form: {
                 author: '',
                 art_all_author: '',
@@ -227,7 +227,7 @@ export default {
         submitUpload(){
             let id = this.art_id;
             this.dataFile.append('art_id', id);
-            if (this.id_nav = true;) {
+            if (this.id_nav = true) {
                 this.sendfile(this.dataFile);
             }else{
                 this.$message.error('文件不能为空');
