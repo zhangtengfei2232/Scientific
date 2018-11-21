@@ -134,6 +134,7 @@
                 id:[],
                 BookDate: [],
                 checked: false,
+                multipleSelection:[],
                 checkAll: false,
                 sortable:true,
                 cont:true,

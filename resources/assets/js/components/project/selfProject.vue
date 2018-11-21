@@ -3,25 +3,25 @@
         <div class="add">
             <el-form ref="form" :model="form" label-width="200px">
                 <el-form-item label="主持人">
-                    <el-input v-model="form.pro_host"></el-input>
+                    <el-input v-model="form.pro_host" maxlength="100"></el-input>
                 </el-form-item>
                 <el-form-item label="所有参加人">
-                    <el-input v-model="form.pro_all_author"></el-input>
+                    <el-input v-model="form.pro_all_author" maxlength="100"></el-input>
                 </el-form-item>
                 <el-form-item label="项目名称">
-                    <el-input v-model="form.entry_name"></el-input>
+                    <el-input v-model="form.entry_name" maxlength="200"></el-input>
                 </el-form-item>
                 <el-form-item label="项目类别">
-                    <el-input v-model="form.project_category"></el-input>
+                    <el-input v-model="form.project_category" maxlength="100"></el-input>
                 </el-form-item>
                 <el-form-item label="批准单位">
-                    <el-input v-model="form.approval_unit"></el-input>
+                    <el-input v-model="form.approval_unit" maxlength="100"></el-input>
                 </el-form-item>
                 <el-form-item label="批准经费">
-                    <el-input v-model="form.approval_funds"></el-input>
+                    <el-input v-model="form.approval_funds" maxlength="100"></el-input>
                 </el-form-item>
                 <el-form-item label="当年到账经费">
-                    <el-input v-model="form.account_outlay"></el-input>
+                    <el-input v-model="form.account_outlay" maxlength="100"></el-input>
                 </el-form-item>
                 <el-form-item label="研究类别">
                     <el-select v-model="form.pro_cate_research" placeholder="请选择类别">
@@ -58,18 +58,18 @@
                         <el-option label="与国内高校合作" value="1"></el-option>
                         <el-option label="与国内独立研究机构合作" value="2"></el-option>
                         <el-option label="与境内注册外商独资企业合作" value="3"></el-option>
-                        <el-option label="与境内注册其他企业合作" value="4"></el-option>               
+                        <el-option label="与境内注册其他企业合作" value="4"></el-option>
                         <el-option label="其他" value="5"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="社会经济目标">
-                    <el-input v-model="form.social_eco_goal"></el-input>
+                    <el-input v-model="form.social_eco_goal" maxlength="300"></el-input>
                 </el-form-item>
                 <el-form-item label="服务的国民经济行业">
-                    <el-input v-model="form.na_eco_industry"></el-input>
+                    <el-input v-model="form.na_eco_industry" maxlength="300"></el-input>
                 </el-form-item>
                 <el-form-item label="积分">
-                    <el-input v-model="form.pro_integral"></el-input>
+                    <el-input v-model="form.pro_integral" maxlength="100"></el-input>
                 </el-form-item>
                 <el-form-item label="备注">
                     <el-input type="textarea" v-model="form.pro_remarks"></el-input>
@@ -78,7 +78,7 @@
                     <el-col :span="15">
                         <el-date-picker
                             type="date"
-                            placeholder="选择日期" 
+                            placeholder="选择日期"
                             v-model="form.project_year"
                             format="yyyy 年 MM 月 dd 日"
                             value-format="timestamp"
@@ -147,7 +147,7 @@
                 pro_cate_research: '',
                 pro_sub_category: '',
                 form_cooperate: '',
-                social_eco_goal: '',  
+                social_eco_goal: '',
                 na_eco_industry: '',
                 pro_integral: '',
                 pro_remarks: '',
@@ -172,16 +172,16 @@
                     self.form.pro_cate_research = String(data.datas.pro_cate_research);
                     self.form.pro_sub_category = String(data.datas.pro_sub_category);
                     self.form.form_cooperate = String(data.datas.form_cooperate);
-                    if(data.datas.pro_road !== ''){ 
+                    if(data.datas.pro_road !== ''){
                         let road = 'showfile?disk=project&subjection=' + data.datas.pro_road;
                         self.type1=true;
                         self.filelists = road;
-                    }       
+                    }
                 }else {
                     self.$notify({
                         type: 'error',
                         message: data.message,
-                        duration: 2000,         
+                        duration: 2000,
                     });
                 }
             });
@@ -246,7 +246,7 @@
                                 type: 'success'
                             });
                             this.$router.push({path: '/project'});
-                        } else { 
+                        } else {
                             vue.$notify({
                                 type: 'error',
                                 message: data.message,

@@ -127,6 +127,7 @@
                 AwardDate: [],
                 checkAll: false,
                 checked: false,
+                multipleSelection:[],
                 form: {
                     data1: '',
                     data2: '',
@@ -134,6 +135,9 @@
             }
         },
         methods: {
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
+            },
             toggleSelection(rows) {
                 if (rows) {
                 rows.forEach(row => {

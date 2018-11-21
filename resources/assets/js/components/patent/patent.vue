@@ -126,6 +126,7 @@
                 sortable:true,
                 PatentDate: [],
                 checked: false,
+                multipleSelection:[],
                 form: {
                     data1: '',
                     data2: '',

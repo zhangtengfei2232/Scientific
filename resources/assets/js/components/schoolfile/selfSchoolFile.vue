@@ -3,10 +3,10 @@
         <div class="add">
             <el-form ref="form" :model="form" label-width="200px">
                 <el-form-item label="校发文件名称">
-                    <el-input v-model="form.schfile_name"></el-input>
+                    <el-input v-model="form.schfile_name" maxlength="200"></el-input>
                 </el-form-item>
                 <el-form-item label="校发文件编号">
-                    <el-input v-model="form.schfile_num"></el-input>
+                    <el-input v-model="form.schfile_num" maxlength="200"></el-input>
                 </el-form-item>
                 <el-form-item label="文件下发时间">
                     <el-col :span="15">

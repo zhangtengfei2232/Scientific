@@ -125,6 +125,7 @@
                 id: [],
                 sortable:true,
                 ProjectDate: [],
+                multipleSelection:[],
                 checked: false,
                 checkAll: '',
                 form: {

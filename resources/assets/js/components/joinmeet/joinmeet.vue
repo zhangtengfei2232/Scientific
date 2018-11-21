@@ -125,6 +125,7 @@
                 id:[],
                 sortable:true,
                 JoinmeetDate: [],
+                multipleSelection:[],
                 checked: false,
                 form: {
                     data1: '',
