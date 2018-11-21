@@ -3,7 +3,7 @@
         <div class="add">
             <el-form ref="form" :model="form" label-width="90px">
             <el-form-item label="专家姓名">
-                <el-input v-model="form.le_expert_name" placeholder="请输入专家姓名"></el-input>
+                <el-input v-model="form.le_expert_name" placeholder="请输入专家姓名" maxlength="15"></el-input>
             </el-form-item>
             <el-form-item label="专家级别" prop="le_expert_level">
                 <el-select v-model="form.le_expert_level" placeholder="请选择专家级别">
@@ -15,7 +15,7 @@
                 </el-select>
             </el-form-item>
             <el-form-item label="报告名称">
-                <el-input v-model="form.le_report_name" placeholder="请输入报告名称"></el-input>
+                <el-input v-model="form.le_report_name" placeholder="请输入报告名称" maxlength="30"></el-input>
             </el-form-item>
             <el-form-item label="邀请/未邀请">
                 <el-radio-group v-model="form.le_invite_status">
@@ -24,7 +24,7 @@
                 </el-radio-group>
             </el-form-item>
             <el-form-item label="邀请单位">
-                <el-input v-model="form.le_invite_unit" placeholder="请输入邀请单位">
+                <el-input v-model="form.le_invite_unit" placeholder="请输入邀请单位" maxlength="20">
                 </el-input>
             </el-form-item>
             <el-form-item label="讲学时间">

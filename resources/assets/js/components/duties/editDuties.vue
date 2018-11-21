@@ -3,16 +3,10 @@
         <div class="add">
             <el-form ref="form" :model="form" label-width="125px">
             <el-form-item label="姓名">
-                <el-input v-model="form.teacher_name" placeholder="请输入姓名"></el-input>
+                <el-input v-model="form.teacher_name" placeholder="请输入姓名" maxlength="15"></el-input>
             </el-form-item>
             <el-form-item label="职称" prop="du_academic">
                 <el-select v-model="form.du_academic" placeholder="请选择职称">
-                    <!--<el-option-->
-                            <!--v-for="(value, key) in du_academic"-->
-                            <!--:key="key"-->
-                            <!--:label="value"-->
-                            <!--:value="key">-->
-                    <!--</el-option>-->
                     <el-option label="教授" value="0"></el-option>
                     <el-option label="副教授" value="1"></el-option>
                     <el-option label="讲师" value="2"></el-option>
@@ -24,12 +18,6 @@
             </el-form-item>
             <el-form-item label="学历" prop="du_education">
                 <el-select v-model="form.du_education" placeholder="请选择学历">
-                    <!--<el-option-->
-                            <!--v-for="(value, key) in du_education"-->
-                            <!--:key="key"-->
-                            <!--:label="value"-->
-                            <!--:value="key">-->
-                    <!--</el-option>-->
                     <el-option label="大专" value="0"></el-option>
                     <el-option label="研究生" value="1"></el-option>
                     <el-option label="本科" value="2"></el-option>
@@ -37,23 +25,17 @@
             </el-form-item>
             <el-form-item label="学位" prop="du_degree">
                 <el-select v-model="form.du_degree" placeholder="请选择学位">
-                    <!--<el-option-->
-                            <!--v-for="(value, key) in du_degree"-->
-                            <!--:key="key"-->
-                            <!--:label="value"-->
-                            <!--:value="key">-->
-                    <!--</el-option>-->
                     <el-option label="硕士" value="0"></el-option>
                     <el-option label="博士" value="1"></el-option>
                     <el-option label="学士" value="2"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="年龄">
-                <el-input v-model="form.du_age" placeholder="请输入您的年龄(数字)"></el-input>
+                <el-input v-model="form.du_age" maxlength="3" placeholder="请输入您的年龄(数字)"></el-input>
             </el-form-item>
 
             <el-form-item label="担任学术团体名称">
-                <el-input v-model="form.du_name" placeholder="请输入担任学术团体名称"style="width: 370px;"></el-input>
+                <el-input v-model="form.du_name" placeholder="请输入担任学术团体名称" maxlength="50" style="width: 370px;"></el-input>
                 <!--<el-select v-model="form.level" placeholder="担任学术团体级别" style="width: 200px;">-->
                     <!--<el-option label="省级" value="0"></el-option>-->
                     <!--<el-option label="国家级" value="1"></el-option>-->
@@ -62,7 +44,7 @@
             </el-form-item>
 
             <el-form-item label="所任职务">
-                <el-input v-model="form.du_duty" placeholder="请输入所任职务"></el-input>
+                <el-input v-model="form.du_duty" placeholder="请输入所任职务" maxlength="20"></el-input>
             </el-form-item>
             <el-form-item label="担任职务年限">
                 <el-date-picker

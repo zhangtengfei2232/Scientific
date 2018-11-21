@@ -38,3 +38,10 @@ const app = new Vue({
     router,
     render: h => h(App),
 });
+
+// const router = new VueRouter({
+//   mode: 'history',
+//   routes: [
+//     { path: '*', component: NotFoundComponent }
+//   ]
+// })

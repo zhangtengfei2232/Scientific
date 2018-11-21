@@ -5,12 +5,21 @@ Vue.use(VueRouter);
 export default new VueRouter({
       saveScrollPosition: true,
       routes: [
+            {
+                path: "/404",
+                name: "notFound",
+                component: resolve => void(require(['../components/notFound.vue'], resolve))
+            },
+            {
+                path: "*", // 此处需特别注意置于最底部
+                redirect: "/404"
+            },
             /*个人信息*/
             {
                 name: 'infor',
                 path: '/',
                 component: resolve => void(require(['../components/teacher/infor.vue'], resolve))
-            },                
+            },
             {
                 name: 'teacher',
                 path: '/teacher',
