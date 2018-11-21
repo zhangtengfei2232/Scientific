@@ -148,9 +148,9 @@
             ExcelSelection() {
                 var self = this;
                 var art_id_datas = [];//存放导出的数据
-                if(self.multipleSelection == undefined){
+                if(self.multipleSelection == ''){
                     this.$message({
-                        message: '请选择要导出论文',
+                        message: '请选择要导出数据',
                         type: 'warning'
                     });
                 }else{
@@ -159,7 +159,7 @@
                     };
                     this.ExcelAppraisalDatas(art_id_datas);
                 }
-            },  
+            },
             ExcelAppraisalDatas(art_id_datas) {
                 let urls =  `exportappraisalexcel?ap_id_datas=${art_id_datas}`;
                 window.location.href = urls;
@@ -182,7 +182,7 @@
             BatchDelete(){
 		    	var self = this;
                 var pro_id_datas = [];//存放删除的数据
-                if(self.multipleSelection == undefined){
+                if(self.multipleSelection == ''){
                     this.$message({
                         message: '警告哦，这是一条警告消息',
                         type: 'warning'
@@ -225,7 +225,7 @@
                     this.$message({
                         type: 'info',
                         message: '已取消删除'
-                    });          
+                    });
                 });
             },
             deleteAppraisalData(ap_id) {
@@ -260,7 +260,7 @@
                     this.$message({
                         type: 'info',
                         message: '已取消删除'
-                    });          
+                    });
                 });
             },
             sentAppraisalSelfData(ap_id) {
@@ -283,7 +283,7 @@
                         self.$notify({
                             type: 'error',
                             message: data.message,
-                            duration: 2000,         
+                            duration: 2000,
                         });
                     }
                 });

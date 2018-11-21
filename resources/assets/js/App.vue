@@ -684,6 +684,8 @@
     .el-submenu .el-menu-item{
         min-width: 160px;
     }
+</style>
+=======
     .el-dialog {
         width: 28%;
     }
@@ -694,8 +696,12 @@
     .el-icon-arrow-down {
         font-size: 12px;
     }
+<<<<<<< HEAD
 
     .el-form-item{
         /*margin-left: 35px;*/
     }
 </style>
+=======
+</style>
+>>>>>>> 6ed77330c38c38f588b3386ac1e117b666c7e5e6

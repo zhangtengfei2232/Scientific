@@ -95,7 +95,7 @@
         float: left;
         width: 80%;
         margin: 20px 0 0 5%;
-    } 
+    }
     .paper{
         font-size: 18px;
         color: #090909;
@@ -149,7 +149,7 @@
             ExcelSelection() {
                 var self = this;
                 var art_id_datas = [];//存放导出的数据
-                if(self.multipleSelection == undefined){
+                if(self.multipleSelection == ''){
                     this.$message({
                         message: '请选择要导出项目',
                         type: 'warning'
@@ -168,7 +168,7 @@
             BatchDelete(){
 		    	var self = this;
                 var pro_id_datas = [];//存放删除的数据
-                if(self.multipleSelection == undefined){
+                if(self.multipleSelection == ''){
                     this.$message({
                         message: '请选择要删除的数据',
                         type: 'warning'
@@ -226,7 +226,7 @@
                     this.$message({
                         type: 'info',
                         message: '已取消删除'
-                    });          
+                    });
                 });
             },
             deleteProjectData(pro_id) {
@@ -261,7 +261,7 @@
                     this.$message({
                         type: 'info',
                         message: '已取消删除'
-                    });          
+                    });
                 });
             },
             byTimeSearch(form) {
@@ -279,7 +279,7 @@
                         self.$notify({
                             type: 'error',
                             message: data.message,
-                            duration: 2000,         
+                            duration: 2000,
                         });
                     }
                 });

@@ -96,7 +96,7 @@
                     layout="total, sizes, prev, pager, next, jumper"
                     :total="total">
                 </el-pagination>
-            </div> 
+            </div>
         </div>
     </div>
 </template>
@@ -154,7 +154,7 @@ export default {
         ExcelSelection() {
             var self = this;
             var art_id_datas = [];//存放导出的数据
-            if(self.multipleSelection == undefined){
+            if(self.multipleSelection == ''){
                 this.$message({
                     message: '请选择要导出数据',
                     type: 'warning'
@@ -167,7 +167,6 @@ export default {
             }
         },
         ExcelSchoolfileDatas(art_id_datas) {
-            let self = this;
             let urls =  `exportschoolfileexcel?schfile_id_datas=${art_id_datas}`;
             window.location.href = urls;
         },
@@ -214,7 +213,7 @@ export default {
                     self.$notify({
                         type: 'error',
                         message: data.message,
-                        duration: 2000,         
+                        duration: 2000,
                     });
                 }
             });
@@ -234,7 +233,7 @@ export default {
                     self.$notify({
                         type: 'error',
                         message: data.message,
-                        duration: 2000,         
+                        duration: 2000,
                     });
                 }
             });
@@ -253,7 +252,7 @@ export default {
                     self.$notify({
                         type: 'error',
                         message: data.message,
-                        duration: 2000,         
+                        duration: 2000,
                     });
                 }
             });

@@ -74,7 +74,7 @@
                             placement="top-start"
                             width="500"
                             trigger="click">
-                            <el-form ref="form" :model="form" label-width="80px">   
+                            <el-form ref="form" :model="form" label-width="80px">
                                 <el-form-item label="刊物级别">
                                     <el-checkbox-group v-model="form.percal_cate">
                                         <el-checkbox :label="0">SCI一区</el-checkbox>
@@ -87,9 +87,9 @@
                                         <el-checkbox :label="7">CSSCI核心库</el-checkbox>
                                         <el-checkbox :label="8">中文核心</el-checkbox>
                                         <el-checkbox :label="9">CSCD核心库</el-checkbox>
-                                        <el-checkbox :label="10">河南科技学院期刊</el-checkbox>  
+                                        <el-checkbox :label="10">河南科技学院期刊</el-checkbox>
                                     </el-checkbox-group>
-                                </el-form-item> 
+                                </el-form-item>
                                 <el-form-item label="研究类别">
                                     <el-checkbox-group v-model="form.art_cate_research">
                                         <el-checkbox :label="0" name="type">基础研究</el-checkbox>
@@ -203,7 +203,7 @@
                     layout="total, sizes, prev, pager, next, jumper"
                     :total="total">
                 </el-pagination>
-            </div> 
+            </div>
         </div>
     </div>
 </template>
@@ -271,7 +271,7 @@ export default {
             ],
             art_sub_category:[
                 '理学',
-                '工学',   
+                '工学',
                 '农学',
                 '医学',
                 '管理学',
@@ -310,7 +310,7 @@ export default {
         ExcelSelection() {
             var self = this;
             var art_id_datas = [];//存放导出的数据
-            if(self.multipleSelection == undefined){
+            if(self.multipleSelection == ''){
                 this.$message({
                     message: '请选择要导出论文',
                     type: 'warning'
@@ -331,7 +331,7 @@ export default {
         PDFSelection() {
             var self = this;
             var art_id_datas = [];//存放导出的数据
-            if(self.multipleSelection == undefined){
+            if(self.multipleSelection == ''){
                 this.$message({
                     message: '请选择要导出论文',
                     type: 'warning'
@@ -344,27 +344,8 @@ export default {
             }
         },
         exportArticleDatas(art_id_datas) {
-            let self = this;
-            axios.get("exportallartical",{
-                    params:{
-                    art_id_datas:art_id_datas
-                }
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                        self.$message({
-                        showClose: true,
-                        message: '导出成功!',
-                        type: 'success'
-                    });
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+            let urls =  `exportallartical?art_id_datas=${art_id_datas}`;
+            window.location.href = urls;
         },
         getArticleData() {
             let self = this;
@@ -375,17 +356,17 @@ export default {
                     self.total = data.datas.length;
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.percal_cate.length;i++){
-                            if(data.datas[j].percal_cate == i){  
+                            if(data.datas[j].percal_cate == i){
                                 data.datas[j].percal_cate = self.percal_cate[i];
                             }
                         }
                         for(var i= 0;i<self.art_sub_category.length;i++){
-                            if(data.datas[j].art_sub_category == i){  
+                            if(data.datas[j].art_sub_category == i){
                                 data.datas[j].art_sub_category = self.art_sub_category[i];
                             }
                         }
                         for(var i= 0;i<self.art_cate_research.length;i++){
-                            if(data.datas[j].art_cate_research == i){  
+                            if(data.datas[j].art_cate_research == i){
                                 data.datas[j].art_cate_research = self.art_cate_research[i];
                             }
                         }
@@ -424,17 +405,17 @@ export default {
                     self.allArticle = data.datas;
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.percal_cate.length;i++){
-                            if(data.datas[j].percal_cate == i){  
+                            if(data.datas[j].percal_cate == i){
                                 data.datas[j].percal_cate = self.percal_cate[i];
                             }
                         }
                         for(var i= 0;i<self.art_sub_category.length;i++){
-                            if(data.datas[j].art_sub_category == i){  
+                            if(data.datas[j].art_sub_category == i){
                                 data.datas[j].art_sub_category = self.art_sub_category[i];
                             }
                         }
                         for(var i= 0;i<self.art_cate_research.length;i++){
-                            if(data.datas[j].art_cate_research == i){  
+                            if(data.datas[j].art_cate_research == i){
                                 data.datas[j].art_cate_research = self.art_cate_research[i];
                             }
                         }
@@ -443,7 +424,7 @@ export default {
                     self.$notify({
                         type: 'error',
                         message: data.message,
-                        duration: 2000,         
+                        duration: 2000,
                     });
                 }
             });
@@ -461,17 +442,17 @@ export default {
                     self.allArticle = data.datas;
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.percal_cate.length;i++){
-                            if(data.datas[j].percal_cate == i){  
+                            if(data.datas[j].percal_cate == i){
                                 data.datas[j].percal_cate = self.percal_cate[i];
                             }
                         }
                         for(var i= 0;i<self.art_sub_category.length;i++){
-                            if(data.datas[j].art_sub_category == i){  
+                            if(data.datas[j].art_sub_category == i){
                                 data.datas[j].art_sub_category = self.art_sub_category[i];
                             }
                         }
                         for(var i= 0;i<self.art_cate_research.length;i++){
-                            if(data.datas[j].art_cate_research == i){  
+                            if(data.datas[j].art_cate_research == i){
                                 data.datas[j].art_cate_research = self.art_cate_research[i];
                             }
                         }
@@ -480,7 +461,7 @@ export default {
                     self.$notify({
                         type: 'error',
                         message: data.message,
-                        duration: 2000,         
+                        duration: 2000,
                     });
                 }
             });
@@ -497,17 +478,17 @@ export default {
                     self.allArticle = data.datas;
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.percal_cate.length;i++){
-                            if(data.datas[j].percal_cate == i){  
+                            if(data.datas[j].percal_cate == i){
                                 data.datas[j].percal_cate = self.percal_cate[i];
                             }
                         }
                         for(var i= 0;i<self.art_sub_category.length;i++){
-                            if(data.datas[j].art_sub_category == i){  
+                            if(data.datas[j].art_sub_category == i){
                                 data.datas[j].art_sub_category = self.art_sub_category[i];
                             }
                         }
                         for(var i= 0;i<self.art_cate_research.length;i++){
-                            if(data.datas[j].art_cate_research == i){  
+                            if(data.datas[j].art_cate_research == i){
                                 data.datas[j].art_cate_research = self.art_cate_research[i];
                             }
                         }
@@ -516,7 +497,7 @@ export default {
                     self.$notify({
                         type: 'error',
                         message: data.message,
-                        duration: 2000,         
+                        duration: 2000,
                     });
                 }
             });
@@ -533,17 +514,17 @@ export default {
                     self.allArticle = data.datas;
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.percal_cate.length;i++){
-                            if(data.datas[j].percal_cate == i){  
+                            if(data.datas[j].percal_cate == i){
                                 data.datas[j].percal_cate = self.percal_cate[i];
                             }
                         }
                         for(var i= 0;i<self.art_sub_category.length;i++){
-                            if(data.datas[j].art_sub_category == i){  
+                            if(data.datas[j].art_sub_category == i){
                                 data.datas[j].art_sub_category = self.art_sub_category[i];
                             }
                         }
                         for(var i= 0;i<self.art_cate_research.length;i++){
-                            if(data.datas[j].art_cate_research == i){  
+                            if(data.datas[j].art_cate_research == i){
                                 data.datas[j].art_cate_research = self.art_cate_research[i];
                             }
                         }
@@ -552,7 +533,7 @@ export default {
                     self.$notify({
                         type: 'error',
                         message: data.message,
-                        duration: 2000,         
+                        duration: 2000,
                     });
                 }
             });
@@ -570,17 +551,17 @@ export default {
                     self.allArticle = data.datas;
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.percal_cate.length;i++){
-                            if(data.datas[j].percal_cate == i){  
+                            if(data.datas[j].percal_cate == i){
                                 data.datas[j].percal_cate = self.percal_cate[i];
                             }
                         }
                         for(var i= 0;i<self.art_sub_category.length;i++){
-                            if(data.datas[j].art_sub_category == i){  
+                            if(data.datas[j].art_sub_category == i){
                                 data.datas[j].art_sub_category = self.art_sub_category[i];
                             }
                         }
                         for(var i= 0;i<self.art_cate_research.length;i++){
-                            if(data.datas[j].art_cate_research == i){  
+                            if(data.datas[j].art_cate_research == i){
                                 data.datas[j].art_cate_research = self.art_cate_research[i];
                             }
                         }
@@ -589,7 +570,7 @@ export default {
                     self.$notify({
                         type: 'error',
                         message: data.message,
-                        duration: 2000,         
+                        duration: 2000,
                     });
                 }
             });

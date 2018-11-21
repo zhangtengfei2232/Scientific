@@ -116,7 +116,7 @@
         float: left;
         width: 80%;
         margin: 20px 0 0 5%;
-    } 
+    }
 </style>
 <script>
     export default {
@@ -148,7 +148,7 @@
             ExcelSelection() {
                 var self = this;
                 var art_id_datas = [];//存放导出的数据
-                if(self.multipleSelection == undefined){
+                if(self.multipleSelection == ''){
                     this.$message({
                         message: '请选择要导出专利',
                         type: 'warning'
@@ -182,7 +182,7 @@
             BatchDelete(){
 		    	var self = this;
                 var pa_id_datas = [];//存放删除的数据
-                if(self.multipleSelection == undefined){
+                if(self.multipleSelection == ''){
                     this.$message({
                         message: '警告哦，这是一条警告消息',
                         type: 'warning'
@@ -225,7 +225,7 @@
                     this.$message({
                         type: 'info',
                         message: '已取消删除'
-                    });          
+                    });
                 });
             },
             deletePatentData(pa_id) {
@@ -261,7 +261,7 @@
                     this.$message({
                         type: 'info',
                         message: '已取消删除'
-                    });          
+                    });
                 });
             },
             sentPatentSelfData(pa_id) {
@@ -283,7 +283,7 @@
                         this.$notify({
                             type: 'error',
                             message: data.message,
-                            duration: 2000,         
+                            duration: 2000,
                         });
                     }
                 });

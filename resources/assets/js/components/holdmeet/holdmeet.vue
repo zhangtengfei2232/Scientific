@@ -148,7 +148,7 @@
             ExcelSelection() {
                 var self = this;
                 var art_id_datas = [];//存放导出的数据
-                if(self.multipleSelection == undefined){
+                if(self.multipleSelection == ''){
                     this.$message({
                         message: '请选择要导出举办会议',
                         type: 'warning'
@@ -183,7 +183,7 @@
 		    	var self = this;
                 var pro_id_datas = [];//存放删除的数据
                 console.log(self.multipleSelection);
-                if(self.multipleSelection == undefined){
+                if(self.multipleSelection == ''){
                     this.$message({
                         message: '警告哦，这是一条警告消息',
                         type: 'warning'
@@ -200,7 +200,7 @@
                 path: `/selfHoldmeet/${ho_id}`,
                 })
             },
-            
+
             byTimeSearch(form) {
                 if(form.data1 == '' || form.data2 == ''){
                     this.$message.error("不能输入空");
@@ -223,7 +223,7 @@
                         self.$notify({
                             type: 'error',
                             message: data.message,
-                            duration: 2000,         
+                            duration: 2000,
                         });
                     }
                 });
@@ -259,7 +259,7 @@
                     this.$message({
                         type: 'info',
                         message: '已取消删除'
-                    });          
+                    });
                 });
             },
             deleteHoldmeetData(ho_id) {
@@ -294,7 +294,7 @@
                     this.$message({
                         type: 'info',
                         message: '已取消删除'
-                    });          
+                    });
                 });
             },
         },

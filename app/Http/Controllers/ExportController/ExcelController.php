@@ -16,13 +16,14 @@ class ExcelController extends Controller
 
     //导出老师信息EXCEL表格
     public function exportTeacherExcel(Request $request){
-        $teacher_information = [[]];
+        $teacher_information = [[],[],[],[]];
         $department_count = [];
         $teacher_cell_datas = SearchMessageConfig::TEACHER_CELL_DATAS;
         $tea_id_datas       = explode(',',$request->tea_id_datas);
         $teacher_table_name = SearchMessageConfig::TEACHER_TABLE;
         $teacher_id_field   = SearchMessageConfig::TEACHER_ID;
         $teacher_datas      = ModelDatabase::selectExportExcelDatas($teacher_table_name,$teacher_id_field,$tea_id_datas);
+//        dd($teacher_datas);
         foreach ($teacher_datas as $information){
             switch ($information->teacher_department){
                 case 0:
@@ -50,27 +51,26 @@ class ExcelController extends Controller
                         SearchMessageConfig::TEACHER_DEPARTMENT[$teacher_information[$i][$j]->teacher_department],
                         $teacher_information[$i][$j]->name,
                         $teacher_information[$i][$j]->office_phone,
-                        $teacher_information[$i][$j]->title,
                         $teacher_information[$i][$j]->home_phone,
                         $teacher_information[$i][$j]->phone,
                         $teacher_information[$i][$j]->number,
                         SearchMessageConfig::SEX_DATAS[$teacher_information[$i][$j]->sex],
                         $teacher_information[$i][$j]->nation,
-                        date($this->date_formate,$teacher_information[$i][$j]->borth),
+                        date($this->date_formate,$teacher_information[$i][$j]->borth/1000),
                         SearchMessageConfig::TEA_POLIT_OUTLOOK_DATAS[$teacher_information[$i][$j]->polit_outlook],
                         $teacher_information[$i][$j]->native_place,
                         $teacher_information[$i][$j]->admin_duties,
-                        date($this->date_formate,$teacher_information[$i][$j]->admin_tenure_time),
+                        date($this->date_formate,$teacher_information[$i][$j]->admin_tenure_time/1000),
                         SearchMessageConfig::TEA_JOB_LEVEL_DATAS[ $teacher_information[$i][$j]->job_level],
                         SearchMessageConfig::TEA_TECHNICAL_POSITION[$teacher_information[$i][$j]->technical_position],
                         SearchMessageConfig::ACADEMIC_DATAS[$teacher_information[$i][$j]->academic_title],
-                        date($this->date_formate,$teacher_information[$i][$j]->review_time),
-                        date($this->date_formate,$teacher_information[$i][$j]->appointment_time),
+                        date($this->date_formate,$teacher_information[$i][$j]->review_time/1000),
+                        date($this->date_formate,$teacher_information[$i][$j]->appointment_time/1000),
                         $teacher_information[$i][$j]->series,
                         SearchMessageConfig::TEA_POST_CATEGORY_DATAS[$teacher_information[$i][$j]->post_category],
                         $teacher_information[$i][$j]->company,
                         $teacher_information[$i][$j]->te_re_department,
-                        date($this->date_formate,$teacher_information[$i][$j]->working_hours),
+                        date($this->date_formate,$teacher_information[$i][$j]->working_hours/1000),
                         $teacher_information[$i][$j]->origin_work_unit,
                         $teacher_information[$i][$j]->certificate_num,
                         $teacher_information[$i][$j]->identity_card,
@@ -78,16 +78,16 @@ class ExcelController extends Controller
                         SearchMessageConfig::TEA_FIRST_ACADEMIC_DATAS[$teacher_information[$i][$j]->first_academic],
                         $teacher_information[$i][$j]->first_graduate_school,
                         $teacher_information[$i][$j]->first_study_major,
-                        date($this->date_formate,$teacher_information[$i][$j]->first_graduation_time),
+                        date($this->date_formate,$teacher_information[$i][$j]->first_graduation_time/1000),
                         SearchMessageConfig::TEA_MOST_ACADEMIC_DATAS[$teacher_information[$i][$j]->most_academic],
                         $teacher_information[$i][$j]->most_graduate_school,
                         $teacher_information[$i][$j]->most_study_major,
-                        date($this->date_formate,$teacher_information[$i][$j]->working_hours),
+                        date($this->date_formate,$teacher_information[$i][$j]->working_hours/1000),
                         $teacher_information[$i][$j]->work_major,
                         $teacher_information[$i][$j]->belong_subject,
                         $teacher_information[$i][$j]->teach_course,
                         $teacher_information[$i][$j]->master_company,
-                        date($this->date_formate,$teacher_information[$i][$j]->master_time)
+                        date($this->date_formate,$teacher_information[$i][$j]->master_time/1000)
                     ];
                 }
             }
@@ -96,16 +96,16 @@ class ExcelController extends Controller
         Excel::create('老师信息',function ($excel) use ($new_teacher_cell_datas){
             $excel->sheet('生命科技学院教工信息表',function ($sheet) use ($new_teacher_cell_datas){
                 $sheet->rows($new_teacher_cell_datas[1]);
-                for($i = 1; $i < 40;$i++){
-                    if($i < 27){
+                for($i = 0; $i < 41;$i++){
+                    if($i < 28 || ($i > 35 && $i < 39)){
                         //前26个表格单元格格式，合并每一列的前两行
                         $table_list = intToChr($i);
                         $sheet->mergeCells($table_list.'1:'.$table_list.'2');
-                    }elseif ($i == 27){
+                    }elseif ($i == 28){
                         //设置老师的第一学历和最高学历单元格格式
                         $sheet->mergeCells(intToChr($i).'1:'.intToChr($i + 3).'1');
-                        $i += 10;//跳格
-                    }elseif($i == 38){
+                        $sheet->mergeCells(intToChr($i + 4).'1:'.intToChr($i + 7).'1');
+                    }elseif($i == 39){
                         //设置老师的硕(博)导的单元格格式
                         $sheet->mergeCells(intToChr($i).'1:'.intToChr($i + 1).'1');
                     }
@@ -410,6 +410,7 @@ class ExcelController extends Controller
             ['序号','姓名','职称','学历','学位','年龄','担任学术团体名称','所任职务','担任职务年限','备注']
         ];
         $du_id_datas       = explode(',',$request->du_id_datas);
+        dd($du_id_datas);
         $duties_table_name = SearchMessageConfig::DUTIES_TABLE;
         $duties_id_field   = SearchMessageConfig::DUTIES_ID;
         $duties_datas      = ModelDatabase::selectExportExcelDatas($duties_table_name,$duties_id_field,$du_id_datas);
