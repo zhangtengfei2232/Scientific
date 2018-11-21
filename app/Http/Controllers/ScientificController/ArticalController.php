@@ -174,8 +174,6 @@ class ArticalController extends Controller
      public function exportAllArtical(Request $request){
          $art_id_datas = explode(',',$request->art_id_datas);
          $art_road_datas = ArticalDatabase::selectArticalToPdfRoadDatas($art_id_datas);
-         if(empty($art_id_datas)) return ;
-//         dd($art_road_datas);
          $disk = UploadSubjectionConfig::ARTICAL;
          selectionFirstPageToNewPdf($disk,$art_road_datas);
      }
