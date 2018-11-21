@@ -17,14 +17,14 @@ class ModelDatabase  extends  Model
         return DB::rollback();
     }
     //删除老师，根据老师工号去查询老师上传的文件路径
-    public static function byTeacherIdSelect($teacher_id,$id_field,$table_name,$first_field,$second_field = '',$image_status = 0){
+    public static function byTeacherIdSelect($teacher_id,$id_field,$table_name,$first_field,$second_field = '',$image_status = 0,$injection_field = ''){
         $file_road      = [];
         $id_datas       = [];
         $image_id_datas = [];
         if(empty($second_field)){
             //查文件路径，如果是举行会议，参加会议，专家讲学是查ID
             if(empty($id_field)){
-                $result = DB::table($table_name)->select($first_field)->where('teacher_id',$teacher_id)->get();
+                $result = DB::table($table_name)->select($first_field,$injection_field)->where('teacher_id',$teacher_id)->get();
                 foreach ($result as $id){
                     $image_road_datas = DB::table('image')->select('image_road','im_id')
                         ->where([['owner_id',$id->$first_field],['image_status',$image_status]])->get();
@@ -33,6 +33,7 @@ class ModelDatabase  extends  Model
                         if(!empty($datas->image_road)) array_push($file_road,$datas->image_road);
                         array_push($image_id_datas,$datas->im_id);//举行会议，参加会议，专家讲学图片ID
                     }
+                    if(!empty($id->$injection_field)) array_push($file_road,$id->$injection_field);
                     array_push($id_datas,$id->$first_field);       //举行会议，参加会议，专家讲学ID
                 }
             }else{

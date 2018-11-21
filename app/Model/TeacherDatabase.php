@@ -1,6 +1,7 @@
 <?php
 namespace App\Model;
 
+use config\SearchMessageConfig;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 class TeacherDatabase extends ModelDatabase
@@ -233,7 +234,7 @@ class TeacherDatabase extends ModelDatabase
      //根据老师密码去查看是否有这个老师，并修改密码
      public static function byOldPasswordSelectDatas($old_password,$new_password){
          $mdfive_old_password = md5($old_password);
-         $count = DB::table('teacher_id')->where('password',$mdfive_old_password)->count();
+         $count = DB::table('teacher')->where('password',$mdfive_old_password)->count();
          if($count == 1){
              $reset_password = DB::table('teacher')->where('password',$mdfive_old_password)
                                ->update(['password' => md5($new_password)]);
@@ -262,6 +263,17 @@ class TeacherDatabase extends ModelDatabase
      public static function emptyAccount(){
         Session::forget('usercount');
         Session::flush();
+     }
+     //查看数据库是否有两个办公室主任
+     public static function countDirectorOfficeNum($teacher_id){
+         $post_category = DB::table('teacher')->select('post_category')->where('teacher_id',$teacher_id)->first();
+         if($post_category->post_category == SearchMessageConfig::OFFICE_DIRECTOR){  //是办公室主任
+             $count_director_office = DB::table('teacher')
+                                      ->where('post_category',$post_category->post_category)->count();
+             return ($count_director_office > 1) ? responseTojson(0,'验证通过',1)
+                    : responseTojson(1,'验证失败',1);
+         }
+         return responseTojson(0,'验证通过',1);
      }
 }
 

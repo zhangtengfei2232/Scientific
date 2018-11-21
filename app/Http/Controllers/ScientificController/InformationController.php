@@ -136,20 +136,24 @@ class InformationController extends Controller
         if(!$request->is_add_teacher){
             return responseTojson(1,'请你先添加老师信息');
         }
-        $status         = trim($request->reset_image_status);                  //老师修改证书的状态
-        if($status == 1){
+        if(!$request->hasFile('gra_cert_road') && !$request->hasFile('edu_cert_road')){
+            return responseTojson(1,'请你上传证书图片');
+        }
+        if($request->file('gra_cert_road')){
+            $status         = 1;
             $subjection     = UploadSubjectionConfig::GRADUCETION_IMG;
-            $certificate    = $request->file('gra_cert_road');            //接收证书图片
+            $certificate    = $request->file('gra_cert_road');            //接收毕业证书图片
         }else{
+            $status         = 2;
             $subjection     = UploadSubjectionConfig::EDUCATION_IMG;
-            $certificate    = $request->file('edu_cert_road');            //接收证书图片
+            $certificate    = $request->file('edu_cert_road');             //接收学历证书图片
         }
         $judge_certificate  = judgeFileImage($certificate);                    //判断文件是否合法
         if($judge_certificate['code'] == 1){
             return responseTojson(1,$judge_certificate['message']);
         }
         $disk       = UploadSubjectionConfig::TEACHER;
-        $teacher_id = session('usercount');
+        $teacher_id = $request->teacher_id;
         $new_certificate_road = uploadFiles($subjection,$certificate,$disk);
         $add_certificate  = TeacherDatabase::updateCertificate($teacher_id,$new_certificate_road,$status);
         TeacherDatabase::beginTraction();
@@ -165,6 +169,14 @@ class InformationController extends Controller
      */
     public function deleteTeacher(Request $request){
         $teacher_id           = trim($request->teacher_id);
+        /**
+         * 删除前，做一个判断，看数据库里是否有两个办公室主任，
+         * 否则会出现，从此无法添加老师和修改老师角色
+         */
+        $judge_director_office_num = TeacherDatabase::countDirectorOfficeNum($teacher_id);
+        if($judge_director_office_num['code'] == 1){
+            return responseTojson(1,'你必须先添加一个办公室主任，才能删除这个办公室主任');
+        }
         //老师论文
         $artical_table_name   = SearchMessageConfig::ARTICAL_TABLE;
         $art_road             = SearchMessageConfig::ARTICAL_ROAD;
@@ -173,7 +185,6 @@ class InformationController extends Controller
         $artical_datas        = ModelDatabase::byTeacherIdSelect($teacher_id,$art_id_field,$artical_table_name,$art_road,$art_sci_road);
         $artical_road_datas   = $artical_datas['file_road'];
         $artical_id_datas     = $artical_datas['id_datas'];
-//        dd($artical_datas);
         //老师成果鉴定
         $appraisal_table_name = SearchMessageConfig::APPRAISAL_TABLE;
         $ap_road              = SearchMessageConfig::AP_ROAD;
@@ -182,7 +193,6 @@ class InformationController extends Controller
         $appraisal_datas      = ModelDatabase::byTeacherIdSelect($teacher_id,$ap_id_field,$appraisal_table_name,$ap_road,$ap_cover_road);//合作协议
         $appraisal_road_datas = $appraisal_datas['file_road'];
         $appraisal_id_datas   = $appraisal_datas['id_datas'];
-//        dd($appraisal_datas);
         //老师著作
         $opus_table_name      = SearchMessageConfig::OPUS_TABLE;
         $op_id_filed          = SearchMessageConfig::OPUS_ID;
@@ -191,7 +201,6 @@ class InformationController extends Controller
         $opus_datas           = ModelDatabase::byTeacherIdSelect($teacher_id,$op_id_filed,$opus_table_name,$op_cover_road,$op_coright_road);
         $opus_road_datas      = $opus_datas['file_road'];
         $op_id_datas          = $opus_datas['id_datas'];
-//        dd($opus_datas);
         //老师获奖
         $award_table_name     = SearchMessageConfig::AWARD_TABLE;
         $aw_road              = SearchMessageConfig::AW_ROAD;
@@ -199,7 +208,6 @@ class InformationController extends Controller
         $aw_datas             = ModelDatabase::byTeacherIdSelect($teacher_id,$aw_id_field,$award_table_name,$aw_road);
         $aw_road_datas        = $aw_datas['file_road'];
         $aw_id_datas          = $aw_datas['id_datas'];
-//        dd($aw_datas);
         //老师担任团体职务
         $duties_table_name    = SearchMessageConfig::DUTIES_TABLE;
         $du_road              = SearchMessageConfig::DU_ROAD;
@@ -207,7 +215,6 @@ class InformationController extends Controller
         $duties_datas         = ModelDatabase::byTeacherIdSelect($teacher_id,$du_id_field,$duties_table_name,$du_road);
         $du_road_datas        = $duties_datas['file_road'];
         $du_id_datas          = $duties_datas['id_datas'];
-//        dd($duties_datas);
         //老师专利
         $patent_table_name    = SearchMessageConfig::PATENT_TABLE;
         $pa_id_field          = SearchMessageConfig::PATENT;
@@ -215,7 +222,6 @@ class InformationController extends Controller
         $patent_datas         = ModelDatabase::byTeacherIdSelect($teacher_id,$pa_id_field,$patent_table_name,$pa_road);
         $pa_road_datas        = $patent_datas['file_road'];
         $pa_id_datas          = $patent_datas['id_datas'];
-//        dd($patent_datas);
         //老师项目
         $project_table_name   = SearchMessageConfig::PROJECT_TABLE;
         $project_road         = SearchMessageConfig::PRO_ROAD;
@@ -223,37 +229,35 @@ class InformationController extends Controller
         $proejct_datas        = ModelDatabase::byTeacherIdSelect($teacher_id,$pro_id_field,$project_table_name,$project_road);
         $project_road_datas   = $proejct_datas['file_road'];
         $project_id_datas     = $proejct_datas['id_datas'];
-//        dd($proejct_datas);
         //老师举行会议
         $holdmeet_table_name  = SearchMessageConfig::HOLD_MEET_TABLE;
         $ho_id_field          = SearchMessageConfig::HOLDMEET_ID;
         $ho_image_status      = UploadSubjectionConfig::HOLD_IMG_STATUS;
-        $holdmeet_datas       = ModelDatabase::byTeacherIdSelect($teacher_id,'',$holdmeet_table_name,$ho_id_field,'',$ho_image_status);
+        $hold_injection_field = SearchMessageConfig::HOLDMEET_INJECTION;
+        $holdmeet_datas       = ModelDatabase::byTeacherIdSelect($teacher_id,'',$holdmeet_table_name,$ho_id_field,'',$ho_image_status,$hold_injection_field);
         $ho_image_road_datas  = $holdmeet_datas['file_road'];
         $ho_id_datas          = $holdmeet_datas['id_datas'];
         $ho_image_id_datas    = $holdmeet_datas['image_id_datas'];
-//        dd($holdmeet_datas);
         //老师参加会议
         $joinmeet_table_name  = SearchMessageConfig::JOIN_MEET_TABLE;
         $jo_id_field          = SearchMessageConfig::JOINMEET_ID;
         $jo_image_status      = UploadSubjectionConfig::JOIN_IMG_STATUS;
-        $joinmeet_datas       = ModelDatabase::byTeacherIdSelect($teacher_id,'',$joinmeet_table_name,$jo_id_field,'',$jo_image_status);
+        $join_injection_field = SearchMessageConfig::JOINMEET_INJECTION;
+        $joinmeet_datas       = ModelDatabase::byTeacherIdSelect($teacher_id,'',$joinmeet_table_name,$jo_id_field,'',$jo_image_status,$join_injection_field);
         $jo_image_road_datas  = $joinmeet_datas['file_road'];
         $jo_id_datas          = $joinmeet_datas['id_datas'];
         $jo_image_id_datas    = $joinmeet_datas['image_id_datas'];
-//        dd($joinmeet_datas);
         //老师讲学
         $lecture_table_name   = SearchMessageConfig::LECTURE_TABLE;
         $le_id_field          = SearchMessageConfig::LECTURE_ID;
         $le_image_status      = UploadSubjectionConfig::LECTURE_IMG_STATUS;
-        $lecture_datas        = ModelDatabase::byTeacherIdSelect($teacher_id,'',$lecture_table_name,$le_id_field,'',$le_image_status);
+        $le_injection_field   = SearchMessageConfig::LECTURE_INJECTION;
+        $lecture_datas        = ModelDatabase::byTeacherIdSelect($teacher_id,'',$lecture_table_name,$le_id_field,'',$le_image_status,$le_injection_field);
         $le_image_road_datas  = $lecture_datas['file_road'];
         $le_id_datas          = $lecture_datas['id_datas'];
         $le_image_id_datas    = $lecture_datas['image_id_datas'];
-//        dd($lecture_datas);
         //老师本人信息
         $teacher_road_datas   = TeacherDatabase::selectCertificateRoad($teacher_id,3);
-//        dd($teacher_road_datas);
         $teacher_disk         = UploadSubjectionConfig::TEACHER;
         $artical_disk         = UploadSubjectionConfig::ARTICAL;
         $appraisal_disk       = UploadSubjectionConfig::APPRAISAL;
