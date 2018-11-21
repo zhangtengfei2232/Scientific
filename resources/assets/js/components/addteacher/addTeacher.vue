@@ -29,7 +29,7 @@
                         <el-input v-model="form.phone" maxlength="11"></el-input>
                     </el-form-item>
                     <el-form-item label="编号" prop="number">
-                        <el-input v-model="form.number"maxlength="20"></el-input>
+                        <el-input v-model="form.number" maxlength="10"></el-input>
                     </el-form-item>
                     <el-form-item label="性别">
                         <el-radio-group v-model="form.sex">
@@ -495,9 +495,9 @@
             fileProfil(file){
                 if(this.Bcode == true){
                     this.dataFile.append('gra_cert_road', file);
-//                    let id = this.form.teacher_id;
-//                    console.log(id);
-//                    this.dataFile.append('teacher_id', id);
+                    let id = this.form.teacher_id;
+                    console.log(id,'=-=-=-=-=-==-=-');
+                    this.dataFile.append('teacher_id', id);
                     this.dataFile.append('is_add_teacher',this.Bcode);
                     this.sendfile(this.dataFile);
                 }else{
@@ -508,8 +508,8 @@
             fileEdufil(files){
                 if(this.Bcode == true){
                     this.dataFile.append('edu_cert_road', files);
-//                    let id = this.form.teacher_id;
-//                    this.dataFile.append('teacher_id', id);
+                    let id = this.form.teacher_id;
+                    this.dataFile.append('teacher_id', id);
                     this.dataFile.append('is_add_teacher',this.Bcode);
                     this.sendfile(this.dataFile);
                 }else{
@@ -518,8 +518,10 @@
                 }
             },
             sendfile(dataFile) {
+                console.log(dataFile,'/*89====----');
                 this.addTeacherFile(dataFile).then(res => {
                     var data = res.data;
+                    console.log(data,'=-=-=-=-=-==-=-');
                     if (data.code == 0) {
                         this.$message({
                             message: data.message,
@@ -537,7 +539,7 @@
             addTeacherFile(data){
                 return axios({
                     method: 'post',
-                    url: 'addteacher',
+                    url: 'updateCertificate',
                     headers: {'Content-Type': 'multipart/form-data'},
                     timeout: 20000,
                     data: data
@@ -680,9 +682,9 @@
                             var data = res.data;
                             if (data.code == 0) {
                                 this.Bcode=true;
-                                vue.form.teacher_id =  res.data.datas;
+//                                vue.form.teacher_id =  res.data.datas;
                                 vue.$message({
-                                    message: '添加成功',
+                                    message:  data.message,
                                     type: 'success'
                                 });
 //                                this.$router.push({path: '/paper'});
