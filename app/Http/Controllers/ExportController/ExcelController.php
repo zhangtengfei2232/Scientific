@@ -23,7 +23,6 @@ class ExcelController extends Controller
         $teacher_table_name = SearchMessageConfig::TEACHER_TABLE;
         $teacher_id_field   = SearchMessageConfig::TEACHER_ID;
         $teacher_datas      = ModelDatabase::selectExportExcelDatas($teacher_table_name,$teacher_id_field,$tea_id_datas);
-//        dd($teacher_datas);
         foreach ($teacher_datas as $information){
             switch ($information->teacher_department){
                 case 0:
