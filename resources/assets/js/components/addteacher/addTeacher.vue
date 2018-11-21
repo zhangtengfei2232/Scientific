@@ -12,8 +12,10 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label="老师工号" prop="teacher_id">
-                        <el-input v-model="form.teacher_id"></el-input>
+                        <el-input v-model="form.teacher_id" id='name'></el-input>
+                        <span id='errorMsg'></span>
                     </el-form-item>
+
                     <el-form-item label="姓名" prop="name">
                         <el-input v-model="form.name"></el-input>
                     </el-form-item>
@@ -270,7 +272,7 @@
                     <!--<el-input v-model="form.master_time"></el-input>-->
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="onSubmit(form)">保存修改</el-button>
+                    <el-button type="primary" @click="onSubmit(form)">添 加</el-button>
                     <el-button>取消</el-button>
                 </el-form-item>
                     <el-form-item label="毕业证书图片">
@@ -325,6 +327,10 @@
     }
     .el-date-editor.el-input, .el-date-editor.el-input__inner {
         width: 240px;
+    }
+    .el-form-item__content {
+        width: 290px;
+        color: red;
     }
 </style>
 <script>
@@ -390,6 +396,44 @@
             }
         },
         methods:{
+            listenFocus(){
+                $("#name").focusout(function() {
+                    var name = $("#name").val();
+                    if(name != null && name != ''){
+                        this.checkName(name);
+                    }
+                });
+            },
+//            $(function(){
+//                $("#txtUserName").focus(function() {
+//                        $(this).addClass("focus");
+//                    }).blur(function(){
+//                }
+
+
+                    checkName(name){
+                return axios({
+                    method: 'post',
+                    url: 'selectAllTeacherId',
+                    headers: {'Content-Type': 'multipart/form-data'},
+                    timeout: 20000,
+                    data: name,
+//                    data : {name:name},
+//                    method: 'post',
+//                    url : servletUrl,
+//                    type : "post",
+//                    dataType : 'JSON',
+//                    data : {name:name},
+                    success : function(result) {
+                        //已经存在该名字提示用户
+                        if(result == true){
+                            $("#errorMsg").html("已存在");
+                        }else{
+                            $("#errorMsg").html("可用");
+                        }
+                    }
+                });
+            },
             submitUpload() {
                 this.$refs.gra_cert_road.submit();
             },
@@ -456,15 +500,13 @@
             },
             onSubmit(form) {
                 let vue = this;
-//                console.log(form.sex,'/*******/*');
-//                console.log(typeof(form.sex),'/*******/*');
-                return;
                 if(form.name == '') {
                     this.$message.error('老师姓名不能为空');
                 }
-                else if(form.sex == '') {
-                    this.$message.error('老师性别不能为空');
-                }else if(form.teacher_department == '') {
+//                else if(form.sex == '') {
+//                    this.$message.error('老师性别不能为空');
+//                }
+                else if(form.teacher_department == '') {
                     this.$message.error('老师所属部门不能为空');
                 }else if(form.teacher_id == '') {
                     this.$message.error('老师工号不能为空');
