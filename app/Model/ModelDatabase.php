@@ -17,7 +17,7 @@ class ModelDatabase  extends  Model
         return DB::rollback();
     }
     //删除老师，根据老师工号去查询老师上传的文件路径
-    public static function byTeacherIdSelect($teacher_id,$id_field,$table_name,$first_field,$image_status = false,$second_field = ''){
+    public static function byTeacherIdSelect($teacher_id,$id_field,$table_name,$first_field,$second_field = '',$image_status = 0){
         $file_road      = [];
         $id_datas       = [];
         $image_id_datas = [];
@@ -25,35 +25,34 @@ class ModelDatabase  extends  Model
             //查文件路径，如果是举行会议，参加会议，专家讲学是查ID
             if(empty($id_field)){
                 $result = DB::table($table_name)->select($first_field)->where('teacher_id',$teacher_id)->get();
-            }else{
-                $result = DB::table($table_name)->select($first_field,$id_field)->where('teacher_id',$teacher_id)->get();
-            }
-            if($image_status){
                 foreach ($result as $id){
-                    $image_road_datas = DB::table('image')->select('image_road','im_id')->where('owner_id',$id->$first_field)->get();
+                    $image_road_datas = DB::table('image')->select('image_road','im_id')
+                        ->where([['owner_id',$id->$first_field],['image_status',$image_status]])->get();
                     foreach ($image_road_datas as $datas){
-                        array_push($file_road,$datas->image_road);//举行会议，参加会议，专家讲学图片路径
+                        //举行会议，参加会议，专家讲学图片路径
+                        if(!empty($datas->image_road)) array_push($file_road,$datas->image_road);
                         array_push($image_id_datas,$datas->im_id);//举行会议，参加会议，专家讲学图片ID
                     }
                     array_push($id_datas,$id->$first_field);       //举行会议，参加会议，专家讲学ID
                 }
             }else{
+                $result = DB::table($table_name)->select($first_field,$id_field)->where('teacher_id',$teacher_id)->get();
                 foreach ($result as $datas){
-                    array_push($file_road,$datas->$first_field);
+                    if(!empty($datas->$first_field)) array_push($file_road,$datas->$first_field);
                     array_push($id_datas,$datas->$id_field);
                 }
             }
         }else{
-           $road_result = DB::table($table_name)->select($first_field,$second_field)->where('teacher_id',$teacher_id)->get();
+           $road_result = DB::table($table_name)->select($first_field,$second_field,$id_field)->where('teacher_id',$teacher_id)->get();
            foreach($road_result as $road){
-               array_push($file_road,$road->$first_field);
-               array_push($file_road,$road->$second_field);
+               if(!empty($road->$first_field))  array_push($file_road,$road->$first_field);
+               if(!empty($road->$second_field)) array_push($file_road,$road->$second_field);
                array_push($id_datas,$road->$id_field);
            }
         }
         $data['file_road'] = $file_road;
         $data['id_datas'] = $id_datas ;
-        if($image_status){
+        if(empty($id_field)){
             $data['image_id_datas'] = $image_id_datas;
         }
         return $data;

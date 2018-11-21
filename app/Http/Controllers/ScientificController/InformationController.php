@@ -170,7 +170,7 @@ class InformationController extends Controller
         $ap_road              = SearchMessageConfig::AP_ROAD;
         $ap_cover_road        = SearchMessageConfig::AP_COVER_ROAD;
         $ap_id_field          = SearchMessageConfig::APPRAISAL_ID;
-        $appraisal_datas      = ModelDatabase::byTeacherIdSelect($teacher_id,$ap_id_field,$appraisal_table_name,$ap_road,false,$ap_cover_road);//合作协议
+        $appraisal_datas      = ModelDatabase::byTeacherIdSelect($teacher_id,$ap_id_field,$appraisal_table_name,$ap_road,$ap_cover_road);//合作协议
         $appraisal_road_datas = $appraisal_datas['file_road'];
         $appraisal_id_datas   = $appraisal_datas['id_datas'];
         //老师著作
@@ -178,7 +178,7 @@ class InformationController extends Controller
         $op_id_filed          = SearchMessageConfig::OPUS_ID;
         $op_cover_road        = SearchMessageConfig::OP_COVER_ROAD;
         $op_coright_road      = SearchMessageConfig::OP_CORIGHT_ROAD;
-        $opus_datas           = ModelDatabase::byTeacherIdSelect($teacher_id,$op_id_filed,$opus_table_name,$op_cover_road,false,$op_coright_road);
+        $opus_datas           = ModelDatabase::byTeacherIdSelect($teacher_id,$op_id_filed,$opus_table_name,$op_cover_road,$op_coright_road);
         $opus_road_datas      = $opus_datas['file_road'];
         $op_id_datas          = $opus_datas['id_datas'];
         //老师获奖
@@ -212,21 +212,24 @@ class InformationController extends Controller
         //老师举行会议
         $holdmeet_table_name  = SearchMessageConfig::HOLD_MEET_TABLE;
         $ho_id_field          = SearchMessageConfig::HOLDMEET_ID;
-        $holdmeet_datas       = ModelDatabase::byTeacherIdSelect($teacher_id,'',$holdmeet_table_name,$ho_id_field,true);
+        $ho_image_status      = UploadSubjectionConfig::HOLD_IMG_STATUS;
+        $holdmeet_datas       = ModelDatabase::byTeacherIdSelect($teacher_id,'',$holdmeet_table_name,$ho_id_field,'',$ho_image_status);
         $ho_image_road_datas  = $holdmeet_datas['file_road'];
         $ho_id_datas          = $holdmeet_datas['id_datas'];
         $ho_image_id_datas    = $holdmeet_datas['image_id_datas'];
         //老师参加会议
         $joinmeet_table_name  = SearchMessageConfig::JOIN_MEET_TABLE;
         $jo_id_field          = SearchMessageConfig::JOINMEET_ID;
-        $joinmeet_datas       = ModelDatabase::byTeacherIdSelect($teacher_id,'',$joinmeet_table_name,$jo_id_field,true);
+        $jo_image_status      = UploadSubjectionConfig::JOIN_IMG_STATUS;
+        $joinmeet_datas       = ModelDatabase::byTeacherIdSelect($teacher_id,'',$joinmeet_table_name,$jo_id_field,'',$jo_image_status);
         $jo_image_road_datas  = $joinmeet_datas['file_road'];
         $jo_id_datas          = $joinmeet_datas['id_datas'];
         $jo_image_id_datas    = $joinmeet_datas['image_id_datas'];
         //老师讲学
         $lecture_table_name   = SearchMessageConfig::LECTURE_TABLE;
         $le_id_field          = SearchMessageConfig::LECTURE_ID;
-        $lecture_datas        = ModelDatabase::byTeacherIdSelect($teacher_id,'',$lecture_table_name,$le_id_field,true);
+        $le_image_status      = UploadSubjectionConfig::LECTURE_IMG_STATUS;
+        $lecture_datas        = ModelDatabase::byTeacherIdSelect($teacher_id,'',$lecture_table_name,$le_id_field,'',$le_image_status);
         $le_image_road_datas  = $lecture_datas['file_road'];
         $le_id_datas          = $lecture_datas['id_datas'];
         $le_image_id_datas    = $lecture_datas['image_id_datas'];
@@ -247,6 +250,9 @@ class InformationController extends Controller
         $teacher_id_datas[0]  = $teacher_id;
         $image_table_name     = SearchMessageConfig::IMAGE_TABLE;
         $im_id_field          = SearchMessageConfig::IMAGE_ID;
+        dd(5);
+        //把举行会议，参加会议，专家讲学的图片ID合并为一个数组
+        $image_id_datas = array_merge($ho_image_id_datas,$jo_image_id_datas,$le_image_id_datas);
         /**
          *删除一个老师的所有数据
          */
@@ -258,15 +264,12 @@ class InformationController extends Controller
         $delete_patent     = ModelDatabase::deleteAllDatas($patent_table_name,$pa_id_field,$pa_id_datas);
         $delete_project    = ModelDatabase::deleteAllDatas($project_table_name,$pro_id_field,$project_id_datas);
         $delete_holdmeet   = ModelDatabase::deleteAllDatas($holdmeet_table_name,$ho_id_field,$ho_id_datas);
-        $delete_hold_image = ModelDatabase::deleteAllDatas($image_table_name,$im_id_field,$ho_image_id_datas);
         $delete_joinmeet   = ModelDatabase::deleteAllDatas($joinmeet_table_name,$jo_id_field,$jo_id_datas);
-        $delete_join_image = ModelDatabase::deleteAllDatas($image_table_name,$im_id_field,$jo_image_id_datas);
         $delete_lecture    = ModelDatabase::deleteAllDatas($lecture_table_name,$le_id_field,$le_id_datas);
-        $delete_le_image   = ModelDatabase::deleteAllDatas($image_table_name,$im_id_field,$le_image_id_datas);
+        $delete_image      = ModelDatabase::deleteAllDatas($image_table_name,$im_id_field,$image_id_datas);
         $delete_teacher    = ModelDatabase::deleteAllDatas($teacher_table_name,$teacher_id_field,$teacher_id_datas);
-        if($delete_appraisal && $delete_opus && $delete_award && $delete_duties && $delete_patent
-            && $delete_project && $delete_holdmeet && $delete_joinmeet && $delete_lecture && $delete_teacher
-            && $delete_hold_image && $delete_join_image && $delete_le_image
+        if($delete_appraisal && $delete_opus && $delete_award && $delete_duties && $delete_patent && $delete_project
+            && $delete_holdmeet && $delete_joinmeet && $delete_lecture && $delete_teacher && $delete_image
         ){
             ModelDatabase::commit();
             /**
