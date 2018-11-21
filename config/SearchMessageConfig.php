@@ -57,6 +57,8 @@ class SearchMessageConfig
     const ARTICAL_ART_CATE_RESEARCH = 'art_cate_research';  //论文研究类别
     const ARTICAL_ART_SUB_CATEGORY  = 'art_sub_category';   //论文学科门类
     const ARTICAL_SCH_PERCAL_CATE   = 'sch_percal_cate';    //论文学校认证期刊级别
+    const ARTICAL_ROAD              = 'art_road';           //论文文件路径
+    const ARTICAL_SCI_ROAD          = 'art_sci_road';       //论文SCI路径
     const PROJECT_PRO_HOST          = 'pro_host';           //项目主持人
     const PROJECT_PROJECT_CATEGORY  = 'project_category';   //项目类别
     const PROJECT_PRO_CATE_RESEARCH = 'pro_cate_research';  //项目研究类别

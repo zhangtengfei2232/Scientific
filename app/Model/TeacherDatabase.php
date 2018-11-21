@@ -21,8 +21,7 @@ class TeacherDatabase extends ModelDatabase
              return responseTojson(1,"你输入的密码过长");
          }
          $result = DB::table('teacher')
-                   ->where('teacher_id', $usercount)
-                   ->where('password', md5($userpassword))
+                   ->where([['teacher_id', $usercount],['password',md5($userpassword)]])
                    ->count();
          if($result != 1){
              return responseTojson(1,"账号或密码输入错误");
