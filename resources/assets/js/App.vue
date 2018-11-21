@@ -24,15 +24,16 @@
                                :visible.sync="dialogFormVisible"
                                :close-on-click-modal="false"
                                @close="closeDialog"
+                               id="resetNumcer"
                                center>
                         <el-form :model="changeform" style="padding: 11px 55px;" ref="changeform">
                             <el-form-item label="老师工号">
-                                <el-input type="text" v-model="changeform.teacher_id" placeholder="请输入需重置密码老师工号" maxlength="10" id="teacherNum"></el-input>
+                                <el-input type="text" v-model="changeform.teacher_id"placeholder="请输入需重置密码老师工号" maxlength="10" id="teacherNum"></el-input>
                             </el-form-item>
                         </el-form>
                         <div slot="footer" class="dialog-footer">
                             <el-button @click="dialogFormVisible = false">取 消</el-button>
-                            <el-button type="primary" @click.native="changepsw(changeform)">重 置</el-button>
+                            <el-button type="primary" @click.native="changepsw(changeform)">修 改</el-button>
                         </div>
                     </el-dialog>
 
@@ -43,7 +44,7 @@
                                center>
                         <el-form :model="deleTeaform" style="padding: 11px 55px;" ref="deleTeaform">
                             <el-form-item label="老师工号">
-                                <el-input type="text" v-model="deleTeaform.teacher_id" placeholder="请输入需重置密码老师工号" maxlength="10" id="deleteacherNum"></el-input>
+                                <el-input type="text" v-model="deleTeaform.teacher_id"minlength="1" placeholder="请输入需重置密码老师工号" maxlength="10" id="deleteacherNum"></el-input>
                                 <p id='errorMsg' style="margin-left: 70px;"></p>
                             </el-form-item>
                         </el-form>
@@ -183,21 +184,11 @@
     </div>
 </template>
 <script>
-    /*使用JavaScript来实现*/
-
-//    var  menuHeight = document.getElementsByClassName('aside');
-//
-//    var  screenHeight = window.innerHeight ; //浏览器窗口的内部高度
-//    /* var  screenHeight =  document.documentElement.clientHeight; */
-//    menuHeight.style.height=screenHeight-80+"px";
-
     /*使用jQuery来实现*/
 
 //    /****方法一****/
     $('#tac').height($(window).height()-80);
 
-//    /****方法二****/
-//    $('.aside').css("height",$(window).height()-80);
 
     export default {
         data() {
@@ -250,15 +241,19 @@
 //            handleCommand(command) {
 //
 //            },
+
             closeDialog:function(){
                 this.changeform.teacher_id = '';
+                this.dialogFormVisible=false;
             },
             closeDeleDialog:function(){
                 this.deleTeaform.teacher_id = '';
+                this.dialogdeleVisible=false;
             },
             closeWorkDialog:function(){
                 this.changework.post_category = '';
                 this.changeform.teacher_id = '';
+                this.dialogWorkVisible=false;
             },
             changepsw(changeform){  // 重置老师密码
                 if($(" #teacherNum ").val() == '') {
@@ -272,12 +267,12 @@
                         });
                         vue.restetTeaPsw(vue.dataForm).then(res => {
                             var data = res.data;
-                            console.log(data,'\\\\密码\\\\');
                             if (data.code == 0) {
                                 vue.$message({
                                     message: data.message,
                                     type: 'success'
-                                });
+                                })
+                                this.closeDialog();
                             } else {
                                 vue.$notify({
                                     type: 'error',
@@ -293,42 +288,11 @@
                     }
                 })
             },
-
-
-//            deletea(deleTeaform){  // 删除老师
-//                if($(" #deleteacherNum ").val() == '') {
-//                    this.$message.error('老师工号不能为空');
-//                }
-//                this.$refs['deleTeaform'].validate((valid) => {
-//                    let vue = this;
-//                    if (valid) {
-//                        jQuery.each(vue.deleTeaform,function(i,val){
-//                            vue.dataForm.append(i,val);
-//                        });
-//                        vue.deleTeaInfo(vue.dataForm).then(res => {
-//                            var data = res.data;
-//                            console.log(data,'\\\\密码\\\\');
-//                            if (data.code == 0) {
-//                                vue.$message({
-//                                    message: data.message,
-//                                    type: 'success'
-//                                });
-//                            } else {
-//                                vue.$notify({
-//                                    type: 'error',
-//                                    message: data.message,
-//                                    duration: 2000,
-//                                });
-//                            }
-//                        });
-//                    }
-//                    else {
-//                        console.log('error submit!!');
-//                        return false
-//                    }
-//                })
-//            },
             deletea(deleTeaform) {
+                if($(" #deleteacherNum ").val() == '') {
+                    this.$message.error('老师工号不能为空');
+                    return;
+                }
                 this.$confirm('确定删除该老师吗, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -347,6 +311,7 @@
                                 message: data.message,
                                 type: 'success'
                             });
+                            self.closeDeleDialog();
                         } else {
                             self.$notify({
                                 type: 'error',
@@ -355,7 +320,8 @@
                             });
                         }
                     });
-                }).catch(() => {
+                }
+                ).catch(() => {
                     this.$message({
                         type: 'info',
                         message: '已取消删除'
@@ -364,10 +330,13 @@
             },
 
             changeWork(changework){  // 修改老师岗位类别
+                console.log(changework,'----*//*///');
                 if($(" #teacherId ").val() == '') {
                     this.$message.error('老师工号不能为空');
+                    return;
                 }else if($(" #teaPost ").val() == '') {
                     this.$message.error('岗位类别不能为空');
+                    return;
                 }
                 this.$refs['changework'].validate((valid) => {
                     let vue = this;
@@ -377,12 +346,13 @@
                         });
                         vue.changeTeaWork(vue.dataForm).then(res => {
                             var data = res.data;
-//                            console.log(data,'\\\\密码\\\\');
+                            console.log(data,'========/*/*///')
                             if (data.code == 0) {
                                 vue.$message({
                                     message: data.message,
                                     type: 'success'
                                 });
+                                this.closeWorkDialog();
                             } else {
                                 vue.$notify({
                                     type: 'error',
@@ -417,6 +387,7 @@
 //                });
 //            },
             changeTeaWork(data) { //修改岗位类别
+                console.log(data,'/*/*/**/*/*/*///')
                 return axios({
                     method: 'post',
                     url: 'updateteacherpostcategory',
@@ -509,18 +480,12 @@
                     }else{
                         self.$notify({
                             type: 'error',
-                            message: data.msg,
+                            message: data.message,
                             duration: 2000,
                         });
                     }
                 });
             },
-//            handleOpen(key, keyPath) {
-//                console.log(key, keyPath);
-//            },
-//            handleClose(key, keyPath) {
-//                console.log(key, keyPath);
-//            },
         },
         mounted() {
             this.getTeacherData();
@@ -685,23 +650,4 @@
         min-width: 160px;
     }
 </style>
-=======
-    .el-dialog {
-        width: 28%;
-    }
-    .el-dropdown-link {
-        cursor: pointer;
-        color: #409EFF;
-    }
-    .el-icon-arrow-down {
-        font-size: 12px;
-    }
-<<<<<<< HEAD
 
-    .el-form-item{
-        /*margin-left: 35px;*/
-    }
-</style>
-=======
-</style>
->>>>>>> 6ed77330c38c38f588b3386ac1e117b666c7e5e6

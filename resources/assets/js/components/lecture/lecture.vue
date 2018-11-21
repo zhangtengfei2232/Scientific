@@ -181,7 +181,7 @@
                 }else{
                     for (var i = 0; i < self.multipleSelection.length; i++) {
                         art_id_datas.push(self.multipleSelection[i].le_id);
-                    };
+                    }
                     this.ExcelJoinmeetDatas(art_id_datas);
                 }
             },
@@ -298,6 +298,7 @@
             byTimeSearch(form) {
                 if(form.data1 == ''||form.data2 == ''){
                     this.$message.error("搜索时间不能为空！");
+                    return;
                 }
                 let self = this;
                 axios.get("timeselectlecture",{

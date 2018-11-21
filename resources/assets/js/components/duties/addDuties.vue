@@ -6,7 +6,7 @@
                     <!--<el-input v-model="form.teacher_id" placeholder="请输入姓名"></el-input>-->
                 <!--</el-form-item>-->
                 <el-form-item label="老师姓名">
-                    <el-input v-model="form.teacher_name" placeholder="请输入姓名"></el-input>
+                    <el-input v-model="form.teacher_name" placeholder="请输入姓名" maxlength="15"></el-input>
                 </el-form-item>
                 <el-form-item label="职称">
                     <el-select v-model="form.du_academic" placeholder="请选择职称">
@@ -34,11 +34,11 @@
                 </el-select>
             </el-form-item>
             <el-form-item label="年龄">
-                <el-input v-model="form.du_age" placeholder="请输入您的年龄(数字)"></el-input>
+                <el-input v-model="form.du_age" placeholder="请输入您的年龄(数字)" maxlength="3"></el-input>
             </el-form-item>
 
             <el-form-item label="担任学术团体名称">
-                <el-input v-model="form.du_name" placeholder="请输入担任学术团体名称"style="width: 300px;"></el-input>
+                <el-input v-model="form.du_name" placeholder="请输入担任学术团体名称" maxlength="50" style="width: 300px;"></el-input>
                 <!--<el-select v-model="form.level" placeholder="担任学术团体级别" style="width: 200px;">-->
                     <!--<el-option label="省级" value="1"></el-option>-->
                     <!--<el-option label="国家级" value="2"></el-option>-->
@@ -47,7 +47,7 @@
             </el-form-item>
 
             <el-form-item label="所任职务">
-                <el-input v-model="form.du_duty" placeholder="请输入所任职务"></el-input>
+                <el-input v-model="form.du_duty" placeholder="请输入所任职务" maxlength="20"></el-input>
             </el-form-item>
             <el-form-item label="担任职务年限">
                 <el-date-picker
