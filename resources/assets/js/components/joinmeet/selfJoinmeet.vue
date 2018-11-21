@@ -3,16 +3,16 @@
         <div class="add">
             <el-form ref="form" :model="form" label-width="200px">
                 <el-form-item label="参会人">
-                    <el-input v-model="form.join_people"></el-input>
+                    <el-input v-model="form.join_people" maxlength="100"></el-input>
                 </el-form-item>
                 <el-form-item label="学术会议名称">
-                    <el-input v-model="form.jo_name"></el-input>
+                    <el-input v-model="form.jo_name" maxlength="200"></el-input>
                 </el-form-item>
                  <el-form-item label="主办单位">
-                    <el-input v-model="form.jo_hold_unit"></el-input>
+                    <el-input v-model="form.jo_hold_unit" maxlength="200"></el-input>
                 </el-form-item>
                 <el-form-item label="承办单位">
-                    <el-input v-model="form.jo_take_unit"></el-input>
+                    <el-input v-model="form.jo_take_unit" maxlength="200"></el-input>
                 </el-form-item>
                 <el-form-item label="会议级别">
                     <el-select v-model="form.jo_level" placeholder="请选择类别">
@@ -35,16 +35,16 @@
                     </el-col>
                 </el-form-item>
                 <el-form-item label="会议地点">
-                    <el-input v-model="form.jo_place"></el-input>
+                    <el-input v-model="form.jo_place" maxlength="200"></el-input>
                 </el-form-item>
                 <el-form-item label="提交论文数">
-                    <el-input v-model="form.jo_art_num"></el-input>
+                    <el-input v-model="form.jo_art_num" maxlength="100"></el-input>
                 </el-form-item>
                 <el-form-item label="是否被邀大会或分会场报告">
-                    <el-input v-model="form.jo_is_invite"></el-input>
+                    <el-input v-model="form.jo_is_invite" maxlength="400"></el-input>
                 </el-form-item>
                 <el-form-item label="报告题目">
-                    <el-input v-model="form.jo_title"></el-input>
+                    <el-input v-model="form.jo_title" maxlength="200"></el-input>
                 </el-form-item>
                 <div class="demo" v-show="picType">
                     <img :src="filelist" alt="无法加载" style="width:100px">

@@ -138,6 +138,7 @@
             return {
                 agreementDate: [],
                 checked: false,
+                multipleSelection:[],
                 id:[],
                 form: {
                     data1: '',

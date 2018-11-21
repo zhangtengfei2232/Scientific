@@ -3,7 +3,7 @@
         <div class="add">
             <el-form ref="form" :model="form" label-width="200px">
                 <el-form-item label="学术会议名称">
-                    <el-input v-model="form.ho_name"></el-input>
+                    <el-input v-model="form.ho_name" maxlength="100"></el-input>
                 </el-form-item>
                 <el-form-item label="有无论文集">
                     <el-radio-group v-model="form.ho_art_status">
@@ -11,15 +11,15 @@
                         <el-radio :label="2" style="margin:10px">无</el-radio>
                     </el-radio-group>
                 </el-form-item>
-                <el-form-item label="参与人数">
+                <el-form-item label="参与人数" maxlength="100">
                     <el-input v-model="form.people_num"></el-input>
                 </el-form-item>
                 <el-form-item label="主办单位">
-                    <el-input v-model="form.ho_unit"></el-input>
+                    <el-input v-model="form.ho_unit" maxlength="200"></el-input>
                 </el-form-item>
                 <el-form-item label="承办单位">
-                    <el-input v-model="form.undertake_unit"></el-input>
-                </el-form-item> 
+                    <el-input v-model="form.undertake_unit" maxlength="200"></el-input>
+                </el-form-item>
                 <el-form-item label="会议级别">
                     <el-select v-model="form.ho_level" placeholder="请选择类别">
                         <el-option label="省级" value="0"></el-option>
@@ -32,7 +32,7 @@
                     <el-col :span="15">
                         <el-date-picker
                             type="date"
-                            placeholder="选择日期" 
+                            placeholder="选择日期"
                             v-model="form.ho_time"
                             format="yyyy 年 MM 月 dd 日"
                             value-format="timestamp"
@@ -151,12 +151,12 @@ export default {
                         for(var i =0;i<self.filelists.length;i++){
                             self.filelists[i].image_road = 'showfile?disk=holdmeet&subjection=' + image[i].image_road;
                         }
-                    }   
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
                         message: data.message,
-                        duration: 2000,         
+                        duration: 2000,
                     });
                 }
             });
@@ -190,7 +190,7 @@ export default {
                         duration: 2000,
                     });
                 }
-            })  
+            })
         },
         addBookFile(data){
              return axios({

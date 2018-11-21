@@ -3,13 +3,13 @@
         <div class="add">
             <el-form ref="form" :model="form" label-width="200px">
                 <el-form-item label="第一作者（或主编）">
-                    <el-input v-model="form.op_first_author"></el-input>
+                    <el-input v-model="form.op_first_author" maxlength="100"></el-input>
                 </el-form-item>
                 <el-form-item label="全部作者">
-                    <el-input v-model="form.op_all_author"></el-input>
+                    <el-input v-model="form.op_all_author" maxlength="200"></el-input>
                 </el-form-item>
                 <el-form-item label="著作名称">
-                    <el-input v-model="form.op_name"></el-input>
+                    <el-input v-model="form.op_name" maxlength="150"></el-input>
                 </el-form-item>
                 <el-form-item label="编著形式">
                     <el-select v-model="form.op_form_write" placeholder="请选择类别">
@@ -21,13 +21,13 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="出版社">
-                    <el-input v-model="form.op_publish"></el-input>
+                    <el-input v-model="form.op_publish" maxlength="100"></el-input>
                 </el-form-item>
                 <el-form-item label="出版时间">
                     <el-col :span="15">
                         <el-date-picker
                             type="date"
-                            placeholder="选择日期" 
+                            placeholder="选择日期"
                             v-model="form.op_publish_time"
                             format="yyyy 年 MM 月 dd 日"
                             value-format="timestamp"
@@ -36,13 +36,13 @@
                     </el-col>
                 </el-form-item>
                 <el-form-item label="书号">
-                    <el-input v-model="form.op_number"></el-input>
+                    <el-input v-model="form.op_number" maxlength="200"></el-input>
                 </el-form-item>
                 <el-form-item label="总字数（千字）">
-                    <el-input v-model="form.op_total_words"></el-input>
+                    <el-input v-model="form.op_total_words" maxlength="100"></el-input>
                 </el-form-item>
                 <el-form-item label="本人字数（千字）">
-                    <el-input v-model="form.op_self_words"></el-input>
+                    <el-input v-model="form.op_self_words" maxlength="100"></el-input>
                 </el-form-item>
                 <el-form-item label="著作类别">
                     <el-select v-model="form.op_cate_work" placeholder="请选择类别">
@@ -54,7 +54,7 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="积分">
-                    <el-input v-model="form.op_integral"></el-input>
+                    <el-input v-model="form.op_integral" maxlength="100"></el-input>
                 </el-form-item>
                 <el-form-item label="研究类别">
                     <el-select v-model="form.op_cate_research" placeholder="请选择类别">
@@ -140,8 +140,8 @@
   export default {
     data() {
       return {
-            op_cover_road: "", 
-            op_coright_road: "", 
+            op_cover_road: "",
+            op_coright_road: "",
             dataForm: new FormData(),
             dataFile: new FormData(),
             Bcode:false,
@@ -157,7 +157,7 @@
                 op_total_words: '',
                 op_self_words: '',
                 op_cate_work: '',
-                op_integral: '',  
+                op_integral: '',
                 op_cate_research: '',
                 op_sub_category: '',
                 op_remarks: '',
@@ -217,7 +217,7 @@
                         duration: 2000,
                     });
                 }
-            })  
+            })
         },
         addBookFile(data){
              return axios({

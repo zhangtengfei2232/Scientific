@@ -3,17 +3,17 @@
         <div class="add">
             <el-form ref="form" :model="form" label-width="200px">
                 <el-form-item label="协议名称">
-                    <el-input v-model="form.agree_name"></el-input>
+                    <el-input v-model="form.agree_name" maxlength="100"></el-input>
                 </el-form-item>
-                <el-form-item label="合作单位">
+                <el-form-item label="合作单位" maxlength="200">
                     <el-input v-model="form.agree_cooperate_unit"></el-input>
                 </el-form-item>
                 <el-form-item label="协议时间">
                     <el-col :span="15">
-                        <el-date-picker 
+                        <el-date-picker
                         type="date"
-                         placeholder="选择日期" 
-                         v-model="form.agree_time" 
+                         placeholder="选择日期"
+                         v-model="form.agree_time"
                          style="width: 100%;"
                          format="yyyy 年 MM 月 dd 日"
                          value-format="timestamp"></el-date-picker>
@@ -96,7 +96,7 @@
                             vue.addAgreementData(vue.dataForm).then(res => {
                                 if(vue.school == false){
                                     vue.$message.error('pdf文件不能为空');
-                                    return 
+                                    return
                                 }
                                 var data = res.data;
                                 if (data.code == 0) {
@@ -105,7 +105,7 @@
                                         type: 'success'
                                     });
                                     this.$router.push({path: '/agreement'});
-                                } else { 
+                                } else {
                                     vue.$notify({
                                         type: 'error',
                                         message: data.message,

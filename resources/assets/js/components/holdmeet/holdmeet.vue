@@ -124,6 +124,7 @@
             return {
                 id:[],
                 HoldmeetlDate: [],
+                multipleSelection:[],
                 sortable:true,
                 checked: false,
                 form: {
