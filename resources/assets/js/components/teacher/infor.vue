@@ -12,7 +12,7 @@
                         :close-on-click-modal="false"
                         @close="closeDialog"
                         center>
-                        <el-form :model="changeform" style="padding: 11px 20px;" ref="changeform">
+                        <el-form :model="changeform" style="padding: 0px 64px;" ref="changeform">
                             <el-form-item label="旧密码">
                                 <el-input type="password" v-model="changeform.old_password" placeholder="请输入旧密码" maxlength="10" id="oldpsw"></el-input>
                             </el-form-item>
@@ -785,8 +785,8 @@
         margin:0 auto
     }
     .content{
-        width: 87%;
-        float: right;
+        width: 100%;
+        /*float: right;*/
     }
     .perInfo{
         width: 100%;

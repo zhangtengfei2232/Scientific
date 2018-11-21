@@ -68,7 +68,6 @@
                             width="200">
                         <template slot-scope="scope">
                             <el-button
-                                    @click.native.prevent="deleteRow(scope.$index, ExperspeakDate)"
                                     type="text"
                                     size="small">
                                 <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentExperspeakDate(ExperspeakDate[scope.$index].le_id)"></el-button>
@@ -111,7 +110,7 @@
         border-right: 1px solid #eee;
     }
     .searchtime{
-        width: 45%;
+        /*width: 45%;*/
         display: inline-block;
         margin: 15px 0 0 7%;
     }
@@ -142,7 +141,7 @@
     export default {
         data() {
             return {
-                id: [],
+                id:[],
                 sortable:true,
                 ExperspeakDate: [],
                 checked: false,
@@ -173,7 +172,7 @@
             },
             ExcelSelection() {
                 var self = this;
-                var lec_id_datas = [];//存放导出的数据
+                var art_id_datas = [];//存放导出的数据
                 if(self.multipleSelection == undefined){
                     this.$message({
                         message: '请选择要导出的专家讲学',
@@ -181,13 +180,13 @@
                     });
                 }else{
                     for (var i = 0; i < self.multipleSelection.length; i++) {
-                        lec_id_datas.push(self.multipleSelection[i].le_id);
+                        art_id_datas.push(self.multipleSelection[i].le_id);
                     };
-                    this.ExcelJoinmeetDatas(lec_id_datas);
+                    this.ExcelJoinmeetDatas(art_id_datas);
                 }
             },
-            ExcelJoinmeetDatas(lec_id_datas) {
-                let urls =  `exportdutiesexcel?lec_id_datas=${lec_id_datas}`;
+            ExcelJoinmeetDatas(art_id_datas) {
+                let urls =  `exportlectureexcel?le_id_datas=${art_id_datas}`;
                 window.location.href = urls;
             },
             BatchDelete(){

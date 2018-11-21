@@ -173,7 +173,7 @@ class ArticalController extends Controller
      //同时导出多个论文，取每个论文的第一页，形成一个新的PDF论文
      public function exportAllArtical(Request $request){
          $art_id_datas = explode(',',$request->art_id_datas);
-         $art_road_datas = ArticalDatabase::selectArticalRoad($art_id_datas,0);
+         $art_road_datas = ArticalDatabase::selectArticalToPdfRoadDatas($art_id_datas);
          $disk = UploadSubjectionConfig::ARTICAL;
          selectionFirstPageToNewPdf($disk,$art_road_datas);
      }
