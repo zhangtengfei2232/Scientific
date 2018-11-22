@@ -203,7 +203,7 @@
                 }else{
                     for (var i = 0; i < self.multipleSelection.length; i++) {
                         art_id_datas.push(self.multipleSelection[i].du_id);
-                    };
+                    }
                     this.ExcelJoinmeetDatas(art_id_datas);
                 }
             },
@@ -258,13 +258,13 @@
                         if (data.code == 0) {
                             self.$message({
                                 type: 'success',
-                                message: '删除成功!'
+                                message:data.message
                             });
                             location.reload();
                         } else {
                             self.$notify({
                                 type: 'error',
-                                message: data.msg,
+                                message: data.message,
                                 duration: 2000,
                             });
                         }
@@ -295,13 +295,13 @@
                         if (data.code == 0) {
                             self.$message({
                                 type: 'success',
-                                message: '删除成功!'
+                                message: data.message
                             });
                             location.reload();
                         }else{
                             self.$notify({
                                 type: 'error',
-                                message: data.msg,
+                                message: data.message,
                                 duration: 2000,
                                 });
                         }

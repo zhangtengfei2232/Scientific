@@ -14,16 +14,16 @@
                         center>
                         <el-form :model="changeform" style="padding: 0px 64px;" ref="changeform">
                             <el-form-item label="旧密码">
-                                <el-input type="password" v-model="changeform.old_password" placeholder="请输入旧密码" maxlength="10" id="oldpsw"></el-input>
+                                <el-input type="password" v-model="changeform.old_password" placeholder="请输入旧密码" maxlength="32" id="oldpsw"></el-input>
                             </el-form-item>
                             <el-form-item v-if="visible" label="新密码">
-                                <el-input type="password" v-model="changeform.new_password" placeholder="请输入新密码" maxlength="10" id="newpsw">
+                                <el-input type="password" v-model="changeform.new_password" placeholder="请输入新密码" maxlength="32" id="newpsw">
                                     <i slot="suffix" title="显示密码" @click="changePass('show')" style="cursor:pointer;"
                                        class="el-icon-view"></i>
                                 </el-input>
                             </el-form-item>
                             <el-form-item v-else label="新密码">
-                                <el-input type="text" v-model="changeform.new_password" placeholder="请输入新密码" maxlength="10" class="newpsw">
+                                <el-input type="text" v-model="changeform.new_password" placeholder="请输入新密码" maxlength="32" class="newpsw">
                                     <i slot="suffix" title="隐藏密码" @click="changePass('hide')" style="cursor:pointer;"
                                        class="el-icon-view"></i>
                                 </el-input>
@@ -31,15 +31,13 @@
                         </el-form>
                         <div slot="footer" class="dialog-footer">
                             <el-button @click="dialogFormVisible = false">取 消</el-button>
-                            <el-button type="primary" @click.native="changepsw()">修 改</el-button>
+                            <el-button type="primary" @click.native="changepsw(changeform)">修 改</el-button>
                         </div>
                     </el-dialog>
                 </div>
 
-                <!--<el-form ref="form" :model="form" label-width="200px">-->
                 <div class="detial">
                     <div class="detialRight">
-
                         <el-form ref="form" :model="form" label-width="200px" style="display: flex;">
                             <div class="contentLeft" style="width: 50%;">
                                 <el-form-item label="头像">
@@ -52,25 +50,24 @@
                                         <el-option label="农学系" value="2"></el-option>
                                         <el-option label="领导行政政工" value="3"></el-option>
                                     </el-select>
-                                    <!--<el-input v-model="form.teacher_department"></el-input>-->
                                 </el-form-item>
                                 <el-form-item label="老师工号" prop="teacher_id">
-                                    <el-input v-model="form.teacher_id":disabled="true"></el-input>
+                                    <el-input v-model="form.teacher_id":disabled="true" maxlength="7"></el-input>
                                 </el-form-item>
                                 <el-form-item label="姓名" prop="name">
-                                    <el-input v-model="form.name"></el-input>
+                                    <el-input v-model="form.name" maxlength="15"></el-input>
                                 </el-form-item>
                                 <el-form-item label="办公电话" prop="office_phone">
-                                    <el-input v-model="form.office_phone"></el-input>
+                                    <el-input v-model="form.office_phone" maxlength="30"></el-input>
                                 </el-form-item>
                                 <el-form-item label="住宅电话" prop="home_phone">
-                                    <el-input v-model="form.home_phone"></el-input>
+                                    <el-input v-model="form.home_phone" maxlength="30"></el-input>
                                 </el-form-item>
                                 <el-form-item label="手机号" prop="phone">
-                                    <el-input v-model="form.phone"></el-input>
+                                    <el-input v-model="form.phone" maxlength="30"></el-input>
                                 </el-form-item>
                                 <el-form-item label="编号" prop="number">
-                                    <el-input v-model="form.number"></el-input>
+                                    <el-input v-model="form.number" maxlength="10"></el-input>
                                 </el-form-item>
                                 <el-form-item label="性别" prop="sex">
                                     <el-radio-group v-model="form.sex">
@@ -79,7 +76,7 @@
                                     </el-radio-group>
                                 </el-form-item>
                                 <el-form-item label="民族" prop="nation">
-                                    <el-input v-model="form.nation"></el-input>
+                                    <el-input v-model="form.nation" maxlength="40"></el-input>
                                 </el-form-item>
                                 <el-form-item label="出生年月" prop="borth">
                                     <el-col :span="15">
@@ -94,12 +91,6 @@
                                 </el-form-item>
                                 <el-form-item label="政治面貌" prop="polit_outlook">
                                     <el-select v-model="form.polit_outlook" placeholder="请选择老师政治面貌">
-                                        <!--<el-option-->
-                                                <!--v-for="(value, key) in polit_outlook"-->
-                                                <!--:key="key"-->
-                                                <!--:label="value"-->
-                                                <!--:value="key">-->
-                                        <!--</el-option>-->
                                     <el-option label="积极分子" value="0"></el-option>
                                     <el-option label="发展对象" value="1"></el-option>
                                     <el-option label="预备党员" value="2"></el-option>
@@ -111,7 +102,7 @@
                                     <el-input v-model="form.native_place"></el-input>
                                 </el-form-item>
                                 <el-form-item label="行政职务" prop="admin_duties">
-                                    <el-input v-model="form.admin_duties"></el-input>
+                                    <el-input v-model="form.admin_duties" maxlength="30"></el-input>
                                 </el-form-item>
                                 <el-form-item label="任职时间" prop="admin_tenure_time">
                                     <el-col :span="15">
@@ -126,12 +117,6 @@
                                 </el-form-item>
                                 <el-form-item label="职务级别" prop="job_level">
                                     <el-select v-model="form.job_level" placeholder="请选择老师级别">
-                                        <!--<el-option-->
-                                            <!--v-for="(value, key) in job_level"-->
-                                            <!--:key="key"-->
-                                            <!--:label="value"-->
-                                            <!--:value="key">-->
-                                        <!--</el-option>-->
                                         <el-option label="正处" value="0"></el-option>
                                         <el-option label="副处" value="1"></el-option>
                                         <el-option label="正科" value="2"></el-option>
@@ -141,12 +126,6 @@
                                 </el-form-item>
                                 <el-form-item label="专业技术职务" prop="technical_position">
                                     <el-select v-model="form.technical_position" placeholder="老师专业技术职务">
-                                        <!--<el-option-->
-                                            <!--v-for="(value, key) in technical_position"-->
-                                            <!--:key="key"-->
-                                            <!--:label="value"-->
-                                            <!--:value="key">-->
-                                        <!--</el-option>-->
                                         <el-option label="教授" value="0"></el-option>
                                         <el-option label="副教授" value="1"></el-option>
                                         <el-option label="讲师" value="2"></el-option>
@@ -158,12 +137,6 @@
                                 </el-form-item>
                                 <el-form-item label="老师职称" prop="academic_title">
                                     <el-select v-model="form.academic_title" placeholder="请选择老师职称">
-                                        <!--<el-option-->
-                                                <!--v-for="(value, key) in academic_title"-->
-                                                <!--:key="key"-->
-                                                <!--:label="value"-->
-                                                <!--:value="key">-->
-                                        <!--</el-option>-->
                                         <el-option label="初级" value="0"></el-option>
                                         <el-option label="中级" value="1"></el-option>
                                         <el-option label="副高" value="2"></el-option>
@@ -193,7 +166,7 @@
                                     </el-col>
                                 </el-form-item>
                                 <el-form-item label="系列" prop="series">
-                                    <el-input v-model="form.series"></el-input>
+                                    <el-input v-model="form.series" maxlength="20"></el-input>
                                 </el-form-item>
                                 <el-form-item label="岗位类别" prop="post_category">
                                     <el-select v-model="form.post_category" disabled placeholder="请选择老师岗位类别">
@@ -213,10 +186,10 @@
                                 </el-form-item>
 
                                 <el-form-item label="所在单位" prop="company">
-                                    <el-input v-model="form.company"></el-input>
+                                    <el-input v-model="form.company" maxlength="20"></el-input>
                                 </el-form-item>
                                 <el-form-item label="所属教研室和实验室" prop="te_re_department">
-                                    <el-input v-model="form.te_re_department"></el-input>
+                                    <el-input v-model="form.te_re_department" maxlength="30"></el-input>
                                 </el-form-item>
                                 <el-form-item label="来校工作时间" prop="working_hours">
                                     <el-col :span="15">
@@ -230,31 +203,25 @@
                                     </el-col>
                                 </el-form-item>
                                 <el-form-item label="原工作单位" prop="origin_work_unit">
-                                    <el-input v-model="form.origin_work_unit"></el-input>
+                                    <el-input v-model="form.origin_work_unit" maxlength="20"></el-input>
                                 </el-form-item>
 
                                 <el-form-item label="教师资格证书编号" prop="certificate_num">
-                                    <el-input v-model="form.certificate_num"></el-input>
+                                    <el-input v-model="form.certificate_num" maxlength="20"></el-input>
                                 </el-form-item>
                             </div>
                             <div class="contentRight"style="width: 50%;">
                                     <el-form-item label="身份证号" prop="identity_card">
-                                        <el-input v-model="form.identity_card"></el-input>
+                                        <el-input v-model="form.identity_card" maxlength="18"></el-input>
                                     </el-form-item>
                                     <el-form-item label="老师毕业院校" prop="edu_school">
-                                        <el-input v-model="form.edu_school"></el-input>
+                                        <el-input v-model="form.edu_school" maxlength="30"></el-input>
                                     </el-form-item>
 
                                 <el-form-item label="第一学历："style="font-weight:800 !important; font-size: 17px;" ></el-form-item>
 
                                 <el-form-item label="第一学历/学位" prop="first_academic">
                                     <el-select v-model="form.first_academic" placeholder="请选择老师第一学历学位">
-                                        <!--<el-option-->
-                                                <!--v-for="(value, key) in first_academic"-->
-                                                <!--:key="key"-->
-                                                <!--:label="value"-->
-                                                <!--:value="key">-->
-                                        <!--</el-option>-->
                                         <el-option label="大专" value="0"></el-option>
                                         <el-option label="本科" value="1"></el-option>
                                         <el-option label="其他" value="2"></el-option>
@@ -262,10 +229,10 @@
                                     <!--<el-input v-model="form.first_academic"></el-input>-->
                                 </el-form-item>
                                 <el-form-item label="第一毕业学校" prop="first_graduate_school">
-                                    <el-input v-model="form.first_graduate_school"></el-input>
+                                    <el-input v-model="form.first_graduate_school" maxlength="30"></el-input>
                                 </el-form-item>
                                 <el-form-item label="第一所学专业" prop="first_study_major">
-                                    <el-input v-model="form.first_study_major"></el-input>
+                                    <el-input v-model="form.first_study_major" maxlength="20"></el-input>
                                 </el-form-item>
                                 <el-form-item label="第一毕业时间" prop="first_graduation_time">
                                     <el-col :span="15">
@@ -290,10 +257,10 @@
                                     <!--<el-input v-model="form.most_academic"></el-input>-->
                                 </el-form-item>
                                 <el-form-item label="最高毕业学校" prop="most_graduate_school">
-                                    <el-input v-model="form.most_graduate_school"></el-input>
+                                    <el-input v-model="form.most_graduate_school" maxlength="30"></el-input>
                                 </el-form-item>
                                 <el-form-item label="最高所学专业" prop="most_study_major">
-                                    <el-input v-model="form.most_study_major"></el-input>
+                                    <el-input v-model="form.most_study_major" maxlength="20"></el-input>
                                 </el-form-item>
                                 <el-form-item label="最高毕业时间" prop="most_graduation_time">
                                     <el-col :span="15">
@@ -308,18 +275,18 @@
                                 </el-form-item>
 
                                 <el-form-item label="现从事专业" prop="work_major">
-                                    <el-input v-model="form.work_major"></el-input>
+                                    <el-input v-model="form.work_major" maxlength="30"></el-input>
                                 </el-form-item>
                                 <el-form-item label="从事专业所属学科" prop="belong_subject">
-                                    <el-input v-model="form.belong_subject"></el-input>
+                                    <el-input v-model="form.belong_subject" maxlength="30"></el-input>
                                 </el-form-item>
                                 <el-form-item label="任教课程" prop="teach_course">
-                                    <el-input v-model="form.teach_course"></el-input>
+                                    <el-input v-model="form.teach_course" maxlength="20"></el-input>
                                 </el-form-item>
                                 <el-form-item label="硕(博)导：" style="font-weight: 800; font-size: 17px;" ></el-form-item>
 
                                 <el-form-item label="授予单位" prop="master_company">
-                                    <el-input v-model="form.master_company"></el-input>
+                                    <el-input v-model="form.master_company" maxlength="100"></el-input>
                                 </el-form-item>
                                 <el-form-item label="获得时间" prop="master_time">
                                     <el-col :span="15">
@@ -488,8 +455,8 @@
                         self.teacherDate.most_academic = String(data.datas.information.most_academic);
 
                         self.form = data.datas.information;
-                        self.changeform = data.datas.information;
-
+//                        self.changeform = data.datas.information;
+//
 //                        data.datas.information.post_category = self.post_category[data.datas.information.post_category];
 
                         if(data.datas.information.gra_cert_road !== ''){
@@ -577,48 +544,64 @@
 //                let vue = this;
                 if(form.name == '') {
                     this.$message.error('老师姓名不能为空');
-                }else if(form.sex == '') {
-                    this.$message.error('老师性别不能为空');
+                    return;
                 }
+//                else if(form.sex == '') {
+//                    this.$message.error('老师性别不能为空');
+//                }
 //                else if(form.teacher_department == '') {
 //                    this.$message.error('老师所属部门不能为空');
 //                }
                 else if(form.teacher_id == '') {
                     this.$message.error('老师工号不能为空');
+                    return;
                 }else if(form.office_phone == '') {
                     this.$message.error('办公电话不能为空');
+                    return;
                 }else if(form.home_phone == '') {
                     this.$message.error('住宅电话不能为空');
+                    return;
                 }else if(form.phone == '') {
                     this.$message.error('手机号不能为空');
+                    return;
                 }else if(form.native_place == '') {
                     this.$message.error('籍贯不能为空');
+                    return;
                 }else if(form.number == '') {
                     this.$message.error('老师编号不能为空');
+                    return;
                 }else if(form.nation == '') {
                     this.$message.error('民族不能为空');
+                    return;
                 }else if(form.borth == '') {
                     this.$message.error('出生年月不能为空');
+                    return;
                 }
 //                else if(form.polit_outlook == '') {
 //                    this.$message.error('政治面貌不能为空');
 //                }
                 else if(form.admin_duties == '') {
                     this.$message.error('行政职务不能为空');
+                    return;
                 }else if(form.admin_tenure_time == '') {
                     this.$message.error('任职时间不能为空');
+                    return;
                 }
 //                else if(form.job_level == '') {
-//                    this.$message.error('职务级别不能为空');
+//                    this.$message.error('职务级别不能');
+//                    return;
 //                }
 //                else if(form.academic_title == '') {
 //                    this.$message.error('老师职称不能为空');
+//                    return;
 //                }
 //                else if(form.technical_position == '') {
 //                    this.$message.error('专业技术职务不能为空');
+//                    return;
 //                }
                 else if(form.review_time == '') {
                     this.$message.error('评审通过时间不能为空');
+                    return;
                 }else if(form.appointment_time == '') {
                     this.$message.error('聘任时间不能为空');
                 }else if(form.series == '') {
@@ -629,48 +612,66 @@
 //                }
                 else if(form.company == '') {
                     this.$message.error('所在单位不能为空');
+                    return;
                 }else if(form.te_re_department == '') {
                     this.$message.error('所属教研室和实验室不能为空');
+                    return;
                 }else if(form.working_hours == '') {
                     this.$message.error('来校工作时间不能为空');
+                    return;
                 }else if(form.origin_work_unit == '') {
                     this.$message.error('原工作单位不能为空');
+                    return;
                 }else if(form.certificate_num == '') {
                     this.$message.error('教师资格证书编号不能为空');
+                    return;
                 }else if(form.identity_card == '') {
                     this.$message.error('身份证号不能为空');
+                    return;
                 }else if(form.edu_school == '') {
                     this.$message.error('毕业院校不能为空');
+                    return;
                 }
 //                else if(form.first_academic == '') {
 //                    this.$message.error('第一学历学位不能为空');
 //                }
                 else if(form.first_graduate_school == '') {
                     this.$message.error('第一毕业学校不能为空');
+                    return;
                 }else if(form.first_study_major == '') {
                     this.$message.error('第一所学专业不能为空');
+                    return;
                 }else if(form.first_graduation_time == '') {
                     this.$message.error('第一毕业时间不能为空');
+                    return;
                 }
 //                else if(form.most_academic == '') {
 //                    this.$message.error('学历/学位不能为空');
 //                }
                 else if(form.most_graduate_school == '') {
                     this.$message.error('毕业学校不能为空');
+                    return;
                 }else if(form.most_study_major == '') {
                     this.$message.error('所学专业不能为空');
+                    return;
                 }else if(form.most_graduation_time == '') {
                     this.$message.error('毕业时间不能为空');
+                    return;
                 }else if(form.work_major == '') {
                     this.$message.error('现从事专业不能为空');
+                    return;
                 }else if(form.belong_subject == '') {
                     this.$message.error('所属学科不能为空');
+                    return;
                 }else if(form.teach_course == '') {
                     this.$message.error('任教课程不能为空');
+                    return;
                 }else if(form.master_company == '') {
                     this.$message.error('授予单位不能为空');
+                    return;
                 }else if(form.master_time == '') {
                     this.$message.error('获得时间不能为空');
+                    return;
                 }
                 this.$refs['form'].validate((valid) => {
                     let vue = this;
@@ -684,7 +685,7 @@
                             if (data.code == 0) {
                                 this.Bcode = true;
                                 vue.$message({
-                                    message: '修改成功',
+                                    message:data.message,
                                     type: 'success'
                                 });
                             } else {
@@ -716,9 +717,9 @@
                 this.visible = !(value === 'show');
             },
             closeDialog:function(){
-//                this.$refs[changeform].resetFields();
                 this.changeform.old_password = '';
                 this.changeform.new_password = '';
+                this.dialogFormVisible=false;
             },
             addTeaPsw(data) {
                 return axios({
@@ -730,15 +731,12 @@
                 });
             },
             changepsw(changeform){
-//                self.old_password = document.getElementById("oldpsw").value;
-//                new_password = document.getElementsByClassName("newpsw").value;
-//                console.log($(" #oldpsw ").val(),'*******');
-//                console.log($(" #newpsw ").val(),'*******');
-
                 if($(" #oldpsw ").val() == '') {
                     this.$message.error('原密码不能为空');
+                    return;
                 }else if($("#newpsw ").val() == '') {
                     this.$message.error('新密码不能为空');
+                    return;
                 }
                 this.$refs['changeform'].validate((valid) => {
                     let vue = this;
@@ -753,6 +751,7 @@
                                     message: data.message,
                                     type: 'success'
                                 });
+                                this.closeDialog();
                             } else {
                                 vue.$notify({
                                     type: 'error',

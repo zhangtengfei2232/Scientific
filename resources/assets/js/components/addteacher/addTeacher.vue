@@ -12,24 +12,24 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label="老师工号" prop="teacher_id">
-                        <el-input v-model="form.teacher_id" id='name'></el-input>
-                        <span id='errorMsg'></span>
+                        <el-input v-model="form.teacher_id" id='name' @blur="checkName(form.teacher_id)" maxlength="7"></el-input>
+                        <span id='usernameWarn'></span>
                     </el-form-item>
 
                     <el-form-item label="姓名" prop="name">
-                        <el-input v-model="form.name"></el-input>
+                        <el-input v-model="form.name" maxlength="15"></el-input>
                     </el-form-item>
                     <el-form-item label="办公电话" prop="office_phone">
-                        <el-input v-model="form.office_phone"></el-input>
+                        <el-input v-model="form.office_phone" maxlength="11"></el-input>
                     </el-form-item>
                     <el-form-item label="住宅电话" prop="home_phone">
-                        <el-input v-model="form.home_phone"></el-input>
+                        <el-input v-model="form.home_phone" maxlength="11"></el-input>
                     </el-form-item>
                     <el-form-item label="手机号" prop="phone">
-                        <el-input v-model="form.phone"></el-input>
+                        <el-input v-model="form.phone" maxlength="11"></el-input>
                     </el-form-item>
                     <el-form-item label="编号" prop="number">
-                        <el-input v-model="form.number"></el-input>
+                        <el-input v-model="form.number" maxlength="10"></el-input>
                     </el-form-item>
                     <el-form-item label="性别">
                         <el-radio-group v-model="form.sex">
@@ -39,7 +39,7 @@
                         <!--<el-input v-model="form.sex"></el-input>-->
                     </el-form-item>
                     <el-form-item label="民族" prop="nation">
-                        <el-input v-model="form.nation"></el-input>
+                        <el-input v-model="form.nation" maxlength="20"></el-input>
                     </el-form-item>
                     <el-form-item label="出生年月" prop="borth">
                         <el-col :span="15">
@@ -66,7 +66,7 @@
                         <el-input v-model="form.native_place"></el-input>
                     </el-form-item>
                     <el-form-item label="行政职务" prop="admin_duties">
-                        <el-input v-model="form.admin_duties"></el-input>
+                        <el-input v-model="form.admin_duties" maxlength="30"></el-input>
                     </el-form-item>
                     <el-form-item label="任职时间">
                         <el-col :span="15">
@@ -136,7 +136,7 @@
                         <!--<el-input v-model="form.appointment_time"></el-input>-->
                     </el-form-item>
                     <el-form-item label="系列" prop="series">
-                        <el-input v-model="form.series"></el-input>
+                        <el-input v-model="form.series" maxlength="20"></el-input>
                     </el-form-item>
                     <el-form-item label="岗位类别" prop="post_category">
                         <el-select v-model="form.post_category" placeholder="请选择老师岗位类别">
@@ -156,10 +156,10 @@
                         <!--<el-input v-model="form.post_category"></el-input>-->
                     </el-form-item>
                     <el-form-item label="所在单位" prop="company">
-                        <el-input v-model="form.company"></el-input>
+                        <el-input v-model="form.company" maxlength="20"></el-input>
                     </el-form-item>
                     <el-form-item label="所属教研室和实验室" prop="te_re_department">
-                        <el-input v-model="form.te_re_department"></el-input>
+                        <el-input v-model="form.te_re_department" maxlength="30"></el-input>
                     </el-form-item>
                     <el-form-item label="来校工作时间" prop="working_hours">
                         <el-col :span="15">
@@ -174,19 +174,19 @@
                         <!--<el-input v-model="form.working_hours"></el-input>-->
                     </el-form-item>
                     <el-form-item label="原工作单位" prop="origin_work_unit">
-                        <el-input v-model="form.origin_work_unit"></el-input>
+                        <el-input v-model="form.origin_work_unit" maxlength="20"></el-input>
                     </el-form-item>
                 </div>
                 <div class="contentRight"style="width: 50%;">
 
                     <el-form-item label="教师资格证书编号" prop="certificate_num">
-                        <el-input v-model="form.certificate_num"></el-input>
+                        <el-input v-model="form.certificate_num" maxlength="20"></el-input>
                     </el-form-item>
                     <el-form-item label="身份证号" prop="identity_card">
-                        <el-input v-model="form.identity_card"></el-input>
+                        <el-input v-model="form.identity_card" maxlength="18"></el-input>
                     </el-form-item>
                     <el-form-item label="老师毕业院校" prop="edu_school">
-                        <el-input v-model="form.edu_school"></el-input>
+                        <el-input v-model="form.edu_school" maxlength="30"></el-input>
                     </el-form-item>
 
                 <el-form-item label="第一学历：" style="font-weight:800 !important; font-size: 17px;"></el-form-item>
@@ -200,10 +200,10 @@
                     <!--<el-input v-model="form.first_graduate_school"></el-input>-->
                 </el-form-item>
                 <el-form-item label="第一毕业学校" prop="first_graduate_school">
-                    <el-input v-model="form.first_graduate_school"></el-input>
+                    <el-input v-model="form.first_graduate_school" maxlength="30"></el-input>
                 </el-form-item>
                 <el-form-item label="第一所学专业" prop="first_study_major">
-                    <el-input v-model="form.first_study_major"></el-input>
+                    <el-input v-model="form.first_study_major" maxlength="20"></el-input>
                 </el-form-item>
                 <el-form-item label="第一毕业时间" prop="first_graduation_time">
                     <el-col :span="15">
@@ -228,10 +228,10 @@
                     <!--<el-input v-model="form.most_academic"></el-input>-->
                 </el-form-item>
                 <el-form-item label="最高毕业学校" prop="most_graduate_school">
-                    <el-input v-model="form.most_graduate_school"></el-input>
+                    <el-input v-model="form.most_graduate_school" maxlength="30"></el-input>
                 </el-form-item>
                 <el-form-item label="最高所学专业" prop="most_study_major">
-                    <el-input v-model="form.most_study_major"></el-input>
+                    <el-input v-model="form.most_study_major" maxlength="20"></el-input>
                 </el-form-item>
                 <el-form-item label="最高毕业时间" prop="most_graduation_time">
                     <el-col :span="15">
@@ -245,19 +245,19 @@
                     </el-col>
                 </el-form-item>
 
-                <el-form-item label="* 现从事专业" prop="work_major">
-                    <el-input v-model="form.work_major"></el-input>
+                <el-form-item label="现从事专业" prop="work_major">
+                    <el-input v-model="form.work_major" maxlength="30"></el-input>
                 </el-form-item>
-                <el-form-item label="* 从事专业所属学科" prop="belong_subject">
-                    <el-input v-model="form.belong_subject"></el-input>
+                <el-form-item label="从事专业所属学科" prop="belong_subject">
+                    <el-input v-model="form.belong_subject" maxlength="30"></el-input>
                 </el-form-item>
                 <el-form-item label="任教课程" prop="teach_course">
-                    <el-input v-model="form.teach_course"></el-input>
+                    <el-input v-model="form.teach_course" maxlength="20"></el-input>
                 </el-form-item>
                 <el-form-item label="硕(博)导："style="font-weight:800 !important; font-size: 17px;" ></el-form-item>
 
                 <el-form-item label="授予单位" prop="master_company">
-                    <el-input v-model="form.master_company"></el-input>
+                    <el-input v-model="form.master_company" maxlength="100"></el-input>
                 </el-form-item>
                 <el-form-item label="获得时间" prop="master_time">
                     <el-col :span="15">
@@ -314,11 +314,14 @@
 </template>
 <style>
     .contents{
-        width: 87%;
-        float: left;
+        /*width: 87%;*/
+        /*float: left;*/
+    }
+    #usernameWarn{
+        color: red;
     }
     .add{
-        width: 73%;
+        /*width: 73%;*/
         margin: 35px 0 0 35px;
     }
     /*组件*/
@@ -396,42 +399,52 @@
             }
         },
         methods:{
-            listenFocus(){
-                $("#name").focusout(function() {
-                    var name = $("#name").val();
-                    if(name != null && name != ''){
-                        this.checkName(name);
-                    }
-                });
-            },
-//            $(function(){
-//                $("#txtUserName").focus(function() {
-//                        $(this).addClass("focus");
-//                    }).blur(function(){
+            checkName(form) {
+//                if($(" #usernameWarn ").val() == '') {
+//                    this.$message.error('老师工号不能为空');
+//                    return;
 //                }
+                        let self = this;
+                        axios.get("selectAllTeacherId",{
+                            params:{
+                                teacher_id:form.teacher_id
+                            }
+                        }).then(function (response) {
+                            var data = response.data;
+                            for(var i=0;i<data.datas.length;i++){
+                                var k = data.datas[i].teacher_id;
+
+                                if($("#name ").val() == k) {
+                                    $("#usernameWarn").append(" 已存在肯尼啃");
+                                    return;
+                                }else{
+////                                    $("#name ").val() !='smkj'
+////                                    $("#usernameWarn").append("不符规则");
+                                    $("#usernameWarn").css('display','none');
+                                }
 
 
-                    checkName(name){
-                return axios({
-                    method: 'post',
-                    url: 'selectAllTeacherId',
-                    headers: {'Content-Type': 'multipart/form-data'},
-                    timeout: 20000,
-                    data: name,
-//                    data : {name:name},
-//                    method: 'post',
-//                    url : servletUrl,
-//                    type : "post",
-//                    dataType : 'JSON',
-//                    data : {name:name},
-                    success : function(result) {
-                        //已经存在该名字提示用户
-                        if(result == true){
-                            $("#errorMsg").html("已存在");
-                        }else{
-                            $("#errorMsg").html("可用");
-                        }
-                    }
+                            }
+//                            if (data.code == 0) {
+//                                self.$message({
+//                                    showClose: true,
+//                                    message: data.message,
+//                                    type: 'success'
+//                                });
+//                            } else {
+//                                self.$notify({
+//                                    type: 'error',
+//                                    message: data.message,
+//                                    duration: 2000,
+//                                });
+//                            }
+//                        });
+//                    }
+//                ).catch(() => {
+//                    this.$message({
+//                        type: 'info',
+//                        message: '已取消删除'
+//                    });
                 });
             },
             submitUpload() {
@@ -450,9 +463,8 @@
             fileProfil(file){
                 if(this.Bcode == true){
                     this.dataFile.append('gra_cert_road', file);
-//                    let id = this.form.teacher_id;
-//                    console.log(id);
-//                    this.dataFile.append('teacher_id', id);
+                    let id = this.form.teacher_id;
+                    this.dataFile.append('teacher_id', id);
                     this.dataFile.append('is_add_teacher',this.Bcode);
                     this.sendfile(this.dataFile);
                 }else{
@@ -463,8 +475,8 @@
             fileEdufil(files){
                 if(this.Bcode == true){
                     this.dataFile.append('edu_cert_road', files);
-//                    let id = this.form.teacher_id;
-//                    this.dataFile.append('teacher_id', id);
+                    let id = this.form.teacher_id;
+                    this.dataFile.append('teacher_id', id);
                     this.dataFile.append('is_add_teacher',this.Bcode);
                     this.sendfile(this.dataFile);
                 }else{
@@ -476,12 +488,12 @@
                 this.addTeacherFile(dataFile).then(res => {
                     var data = res.data;
                     if (data.code == 0) {
-                        vue.$message({
-                            message: '添加成功',
+                        this.$message({
+                            message: data.message,
                             type: 'success'
                         });
                     } else {
-                        vue.$notify({
+                        this.$notify({
                             type: 'error',
                             message: data.message,
                             duration: 2000,
@@ -492,7 +504,7 @@
             addTeacherFile(data){
                 return axios({
                     method: 'post',
-                    url: 'addteacher',
+                    url: 'addcertificate',
                     headers: {'Content-Type': 'multipart/form-data'},
                     timeout: 20000,
                     data: data
@@ -502,90 +514,129 @@
                 let vue = this;
                 if(form.name == '') {
                     this.$message.error('老师姓名不能为空');
+                    return
                 }
 //                else if(form.sex == '') {
 //                    this.$message.error('老师性别不能为空');
 //                }
                 else if(form.teacher_department == '') {
                     this.$message.error('老师所属部门不能为空');
+                    return
                 }else if(form.teacher_id == '') {
                     this.$message.error('老师工号不能为空');
+                    return
                 }else if(form.office_phone == '') {
                     this.$message.error('办公电话不能为空');
+                    return
                 }else if(form.home_phone == '') {
                     this.$message.error('住宅电话不能为空');
+                    return
                 }else if(form.phone == '') {
                     this.$message.error('手机号不能为空');
+                    return
                 }else if(form.native_place == '') {
                     this.$message.error('籍贯不能为空');
+                    return
                 }else if(form.number == '') {
                     this.$message.error('老师编号不能为空');
+                    return
                 }else if(form.nation == '') {
                     this.$message.error('民族不能为空');
+                    return
                 }else if(form.borth == '') {
                     this.$message.error('出生年月不能为空');
+                    return
                 }else if(form.polit_outlook == '') {
                     this.$message.error('政治面貌不能为空');
+                    return
                 }else if(form.admin_duties == '') {
                     this.$message.error('行政职务不能为空');
+                    return
                 }else if(form.admin_tenure_time == '') {
                     this.$message.error('任职时间不能为空');
+                    return
                 }else if(form.job_level == '') {
                     this.$message.error('职务级别不能为空');
+                    return
                 }
 //                else if(form.academic_title == '') {
 //                    this.$message.error('老师职称不能为空');
 //                }
                 else if(form.technical_position == '') {
                     this.$message.error('专业技术职务不能为空');
+                    return
                 }else if(form.review_time == '') {
                     this.$message.error('评审通过时间不能为空');
+                    return
                 }else if(form.appointment_time == '') {
                     this.$message.error('聘任时间不能为空');
+                    return
                 }else if(form.series == '') {
                     this.$message.error('老师系列不能为空');
+                    return
                 }else if(form.post_category == '') {
                     this.$message.error('岗位类别不能为空');
+                    return
                 }else if(form.company == '') {
                     this.$message.error('所在单位不能为空');
+                    return
                 }else if(form.te_re_department == '') {
                     this.$message.error('所属教研室和实验室不能为空');
+                    return
                 }else if(form.working_hours == '') {
                     this.$message.error('来校工作时间不能为空');
+                    return
                 }else if(form.origin_work_unit == '') {
                     this.$message.error('原工作单位不能为空');
+                    return
                 }else if(form.certificate_num == '') {
                     this.$message.error('教师资格证书编号不能为空');
+                    return
                 }else if(form.identity_card == '') {
                     this.$message.error('身份证号不能为空');
+                    return
                 }else if(form.edu_school == '') {
                     this.$message.error('毕业院校不能为空');
+                    return
                 }else if(form.first_academic == '') {
                     this.$message.error('第一学历学位不能为空');
+                    return
                 }else if(form.first_graduate_school == '') {
                     this.$message.error('第一毕业学校不能为空');
+                    return
                 }else if(form.first_study_major == '') {
                     this.$message.error('第一所学专业不能为空');
+                    return
                 }else if(form.first_graduation_time == '') {
                     this.$message.error('第一毕业时间不能为空');
+                    return
                 }else if(form.most_academic == '') {
                     this.$message.error('学历/学位不能为空');
+                    return
                 }else if(form.most_graduate_school == '') {
                     this.$message.error('毕业学校不能为空');
+                    return
                 }else if(form.most_study_major == '') {
                     this.$message.error('所学专业不能为空');
+                    return
                 }else if(form.most_graduation_time == '') {
                     this.$message.error('毕业时间不能为空');
+                    return
                 }else if(form.work_major == '') {
                     this.$message.error('现从事专业不能为空');
+                    return
                 }else if(form.belong_subject == '') {
                     this.$message.error('所属学科不能为空');
+                    return
                 }else if(form.teach_course == '') {
                     this.$message.error('任教课程不能为空');
+                    return
                 }else if(form.master_company == '') {
                     this.$message.error('授予单位不能为空');
+                    return
                 }else if(form.master_time == '') {
                     this.$message.error('获得时间不能为空');
+                    return
                 }
                 vue.$refs['form'].validate((valid) => {
                     if (valid) {
@@ -596,9 +647,9 @@
                             var data = res.data;
                             if (data.code == 0) {
                                 this.Bcode=true;
-                                vue.form.teacher_id =  res.data.datas;
+//                                vue.form.teacher_id =  res.data.datas;
                                 vue.$message({
-                                    message: '添加成功',
+                                    message:  data.message,
                                     type: 'success'
                                 });
 //                                this.$router.push({path: '/paper'});
