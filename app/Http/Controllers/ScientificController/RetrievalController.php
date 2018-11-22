@@ -32,7 +32,6 @@ class RetrievalController extends Controller
     private $lecture_time_field   = SearchMessageConfig::LE_TIME;
     private $schfile_time_field   = SearchMessageConfig::SCHFILE_DOWN_TIME;
     private $agreement_time_field = SearchMessageConfig::AGREE_TIME;
-    private $is_new_time          = false;
     /**
      * 1.秘书、院长的特殊功能======>检索所有信息功能
      * 2.生成=======>师资组成(最高学历，职称，学缘)，论文(期刊级别)，
@@ -50,8 +49,11 @@ class RetrievalController extends Controller
     }
     //老师名字查询老师信息
     public function byNameSelectTeacher(Request $request){
-        $name_field   = SearchMessageConfig::TEACHER_NAME;
         $teacher_name = $request->teacher_name;
+        if(empty($teacher_name)) {
+            return responseTojson(1,'你输入的老师名字不能为空');
+        }
+        $name_field   = SearchMessageConfig::TEACHER_NAME;
         return ModelDatabase::byNameSelectDatas($this->teacher_table_name,$name_field,$teacher_name,'');
     }
     //老师职称查询
@@ -62,14 +64,20 @@ class RetrievalController extends Controller
     }
     //老师行政职务查询
     public function byAdminDutiesSelectTeacher(Request $request){
+        $admin_duties = $request->admin_duties;
+        if(empty($admin_duties)) {
+            return responseTojson(1,'你输入的老师行政职务不能为空');
+        }
         $admin_duties_field = SearchMessageConfig::TEACHER_ADMIN_DUTIES;
-        $admin_duties       = $request->admin_duties;
         return ModelDatabase::byNameSelectDatas($this->teacher_table_name,$admin_duties_field,$admin_duties,'');
     }
     //老师所属教研室和实验室查询
     public function byTeachResearchSelectTeacher(Request $request){
+        $te_re_department = $request->te_re_department;
+        if(empty($te_re_department)) {
+            return responseTojson(1,'你输入的老师所属教研室和实验室不能为空');
+        }
         $te_re_department_field = SearchMessageConfig::TEACHER_TE_RE_DEPARTMENT;
-        $te_re_department       = $request->te_re_department;
         return ModelDatabase::byNameSelectDatas($this->teacher_table_name,$te_re_department_field,$te_re_department,'');
     }
     //老师岗位类别查询
@@ -84,10 +92,13 @@ class RetrievalController extends Controller
         $job_level       = $request->job_level;
         return ModelDatabase::categorySelectInformation($this->teacher_table_name,$job_level_field,$job_level,'');
     }
-    //老师先从事专业查询
+    //老师从事专业查询
     public function byWorkMajorSelectTeacher(Request $request){
+        $work_major = $request->work_major;
+        if(empty($work_major)) {
+            return responseTojson(1,'你输入的老师从事专业不能为空');
+        }
         $work_major_filed = SearchMessageConfig::TEACHER_WORK_MAJOR;
-        $work_major       = $request->work_major;
         return ModelDatabase::byNameSelectDatas($this->teacher_table_name,$work_major_filed,$work_major,'');
     }
 
@@ -99,7 +110,7 @@ class RetrievalController extends Controller
         $condition_datas = [
             'table_name'  => $this->artical_table_name,
             'time_field'  => $this->artical_time_field,
-            'first_fied'  => SearchMessageConfig::ARTICAL_PERCAL_CATE,            //文章刊物级别字段
+            'first_field'  => SearchMessageConfig::ARTICAL_PERCAL_CATE,            //文章刊物级别字段
             'first_datas' => $request->percal_cate_datas
         ];
         $art_cate_research_field = SearchMessageConfig::ARTICAL_ART_CATE_RESEARCH;//文章研究类别字段
@@ -111,14 +122,20 @@ class RetrievalController extends Controller
     }
     //根据论文作者模糊查询
     public function byAuthorSelectArtical(Request $request){
+        $art_author = $request->author;
+        if(empty($art_author)) {
+            return responseTojson(1,'你输入的论文作者不能为空');
+        }
         $art_author_field = SearchMessageConfig::ARTICAL_AUTHOR;
-        $art_author       = $request->author;
         return ModelDatabase::byNameSelectDatas($this->artical_table_name,$art_author_field,$art_author,$this->artical_time_field);
     }
     //发表刊物名称查询
     public function byDatelineSelectArtical(Request $request){
+        $publication_name = $request->publication_name;
+        if(empty($publication_name)) {
+            return responseTojson(1,'你输入的论文作者不能为空');
+        }
         $publication_name_field = SearchMessageConfig::ARTICAL_PUBLICATION_NAME;
-        $publication_name       = $request->publication_name;
         return ModelDatabase::byNameSelectDatas($this->artical_table_name,$publication_name_field,$publication_name,$this->artical_time_field);
     }
     //发表日期查询
@@ -153,8 +170,11 @@ class RetrievalController extends Controller
     }
     //学校认定刊物级别查询
     public function bySchoolaffirmLevelSelectArtical(Request $request){
+        $sch_percal_cate = $request->sch_percal_cate;
+        if(empty($sch_percal_cate)) {
+            return responseTojson(1,'你输入的学校认定刊物级别不能为空');
+        }
         $sch_percal_cate_field  = SearchMessageConfig::ARTICAL_PERCAL_CATE;
-        $sch_percal_cate        = $request->sch_percal_cate;
         return ModelDatabase::categorySelectInformation($this->artical_table_name,$sch_percal_cate_field,$sch_percal_cate,$this->artical_time_field);
     }
 
@@ -166,7 +186,7 @@ class RetrievalController extends Controller
         $condition_datas = [
             'table_name'  => $this->project_table_name,
             'time_field'  => $this->project_time_field,
-            'first_fied'  => SearchMessageConfig::PROJECT_PRO_SUB_CATEGORY,  //文章刊物级别字段
+            'first_field' => SearchMessageConfig::PROJECT_PRO_SUB_CATEGORY,  //文章刊物级别字段
             'first_datas' => $request->pro_sub_category_datas
         ];
         return ModelDatabase::combinationSelectDatas($condition_datas);
@@ -219,7 +239,7 @@ class RetrievalController extends Controller
         $condition_datas = [
             'table_name'  => $this->opus_table_name,
             'time_field'  => $this->opus_time_field,
-            'first_fied'  => SearchMessageConfig::OPUS_OP_CATE_WORK,               //著作类别字段
+            'first_field' => SearchMessageConfig::OPUS_OP_CATE_WORK,               //著作类别字段
             'first_datas' => $request->op_cate_work_datas
         ];
         $op_cate_research_field = SearchMessageConfig::OPUS_OP_CATE_RESEARCH;      //著作研究类别字段
@@ -283,7 +303,7 @@ class RetrievalController extends Controller
         $condition_datas = [
             'table_name'  => $this->award_table_name,
             'time_field'  => $this->award_time_field,
-            'first_fied'  => SearchMessageConfig::AWARD_AW_LEVEL,  //文章刊物级别字段
+            'first_field' => SearchMessageConfig::AWARD_AW_LEVEL,  //文章刊物级别字段
             'first_datas' => $request->aw_level_datas
         ];
         return ModelDatabase::combinationSelectDatas($condition_datas);
@@ -343,7 +363,7 @@ class RetrievalController extends Controller
         $condition_datas = [
             'table_name'  => $this->patent_table_name,
             'time_field'  => $this->patent_time_field,
-            'first_fied'  => SearchMessageConfig::PATENT_PA_TYPE,                     //专利类型字段
+            'first_field' => SearchMessageConfig::PATENT_PA_TYPE,                     //专利类型字段
             'first_datas' => $request->pa_type_datas
         ];
         $pa_imple_situ_field = SearchMessageConfig::PATENT_PA_IMPLE_SITU;         //专利实施情况字段
@@ -393,7 +413,7 @@ class RetrievalController extends Controller
         $condition_datas = [
             'table_name'  => $this->appraisal_table_name,
             'time_field'  => $this->appraisal_time_field,
-            'first_fied'  => SearchMessageConfig::APPRAISAL_AP_LEVEL,  //文章刊物级别字段
+            'first_field' => SearchMessageConfig::APPRAISAL_AP_LEVEL,  //文章刊物级别字段
             'first_datas' => $request->ap_level_datas
         ];
         return ModelDatabase::combinationSelectDatas($condition_datas);
@@ -447,7 +467,7 @@ class RetrievalController extends Controller
         $condition_datas = [
             'table_name'  => $this->holdmeet_table_name,
             'time_field'  => $this->holdmeet_time_field,
-            'first_fied'  => SearchMessageConfig::HOLDMEET_HO_LEVEL,  //文章刊物级别字段
+            'first_field' => SearchMessageConfig::HOLDMEET_HO_LEVEL,  //文章刊物级别字段
             'first_datas' => $request->ho_level_datas
         ];
         return ModelDatabase::combinationSelectDatas($condition_datas);
@@ -483,7 +503,7 @@ class RetrievalController extends Controller
         $condition_datas = [
             'table_name'  => $this->joinmeet_tale_name,
             'time_field'  => $this->joinmeet_time_field,
-            'first_fied'  => SearchMessageConfig::JOINMEET_JO_LEVEL,  //文章刊物级别字段
+            'first_field' => SearchMessageConfig::JOINMEET_JO_LEVEL,  //文章刊物级别字段
             'first_datas' => $request->jo_level_datas
         ];
         return ModelDatabase::combinationSelectDatas($condition_datas);
@@ -519,7 +539,7 @@ class RetrievalController extends Controller
         $condition_datas = [
             'table_name'  => $this->lecture_table_name,
             'time_field'  => $this->lecture_time_field,
-            'first_fied'  => SearchMessageConfig::LECTURE_LE_EXPERT_LEVEL,  //专家级别字段
+            'first_field' => SearchMessageConfig::LECTURE_LE_EXPERT_LEVEL,  //专家级别字段
             'first_datas' => $request->le_expert_level_datas
         ];
         return ModelDatabase::combinationSelectDatas($condition_datas);

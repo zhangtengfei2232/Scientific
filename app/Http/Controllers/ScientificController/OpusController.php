@@ -50,12 +50,10 @@ class OpusController  extends Controller
             return responseTojson(1,'请你上传著作证书图片');
         }
         if($request->hasFile('op_cover_road')){
-            dd(5);
             $add_image_status = 1;
             $opus_image = $request->file('op_cover_road');
             $subjection = UploadSubjectionConfig::OPUS_COVER_IMG;
         }else{
-            dd($request->file());
             $add_image_status = 2;
             $opus_image = $request->file('op_coright_road');
             $subjection = UploadSubjectionConfig::COPYRIGHT_IMG;
