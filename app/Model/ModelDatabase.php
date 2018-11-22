@@ -68,6 +68,7 @@ class ModelDatabase  extends  Model
          $table_name  = $condition_datas['table_name'];
          $first_field = $condition_datas['first_field'];
          $first_datas = $condition_datas['first_datas'];
+         $time_field  = $condition_datas['time_field'];
          if(count($first_datas) == 0 && count($second_datas) == 0 && count($third_datas) == 0){          //三个字段都为空
                  $result = DB::table($table_name)->get();
          }elseif (count($first_datas) != 0 && count($second_datas) != 0 && count($third_datas) != 0){ //三个字段都不为空
@@ -105,7 +106,7 @@ class ModelDatabase  extends  Model
                  ->get();
          }
          foreach ($result as $datas){
-             $datas->$condition_datas['time_field'] = date('Y-m-d',$datas->$condition_datas['time_field']/1000);
+             $datas->$time_field = date('Y-m-d',$datas->$time_field/1000);
          }
          return responseTojson(0,'查询成功','',$result);
     }
