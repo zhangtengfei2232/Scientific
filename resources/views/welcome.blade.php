@@ -18,9 +18,9 @@
             <p>Login with your account</p>
             <form id="form1">
                 <input type="hidden" name="_token" value="{{csrf_token()}}"/>
-                <input type="text" placeholder="用户名" class="name" name="usercount" required="required" autocomplete=”off”>
-                <input type="password" placeholder="密码" class="password" name="userpassword" required="required" autocomplete=”off”>
-                <button type="button" class="submit" onclick="login()">Login</button>
+                <input type="text" placeholder="用户名" class="name" id="username" name="username" required="required" autocomplete=”off”>
+                <input type="password" placeholder="密码" class="password" id="userpassword" name="userpassword" required="required" autocomplete=”off”>
+                <button type="button" class="submit" id="login_btn">Login</button>
             </form>
         </div>
     </div>
@@ -92,24 +92,34 @@
             }
         });
     });
-    function login() {
-        $.ajax({
-            type: "POST",
-            dataType: "json",
-            url: "login" ,
-            data: $('#form1').serialize(),
-            success: function (result) {
-                if (result.status != 1) {
-                    location.href='indexpage';
-                }else{
-                    alert(result.message);
-                };
-            },
-            error : function() {
-                alert('错误！');
-            }
-        });
-    }
+    $("#login_btn").click(function(){
+         var username = $.trim($("#username").val());
+         var userpassword = $.trim($("#userpassword").val());
+         if(username == ""){
+             console.log(username);
+             alert("请输入用户");
+             return false;
+         }else if(userpassword == ""){
+             alert("请输入密码");
+             return false;
+         }
+         //ajax去服务器端校验
+         var data= {usercount:username,userpassword:userpassword};
+
+         $.ajax({
+             type:"POST",
+             url:"login",
+             data:data,
+             dataType:'json',
+             success:function(data){
+                 if(data.msg != 1){
+                       window.location.href='/indexpage';
+                 }else{
+                     alert(data.message);
+                 }
+             }
+         });
+     });
 </script>
 </body>
 </html>

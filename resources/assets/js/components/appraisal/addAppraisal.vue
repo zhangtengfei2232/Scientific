@@ -106,6 +106,7 @@
             ap_road: '',
             dataForm: new FormData(),
             dataFile: new FormData(),
+            dataFiles: new FormData(), 
             Bcode:false,
             ap_id:'',
             form: {
@@ -139,7 +140,6 @@
             if(this.Bcode == true){
                 this.dataFile.append('ap_cover_road', file);
                 let id = this.ap_id;
-                console.log(id);
                 this.dataFile.append('ap_id', id);
                 this.dataFile.append('is_add_appraisal',this.Bcode);
                 this.sendfile(this.dataFile);
@@ -150,11 +150,11 @@
         },
         fileProfils(files){
             if(this.Bcode == true){
-                this.dataFile.append('ap_road', files);
+                this.dataFiles.append('ap_road', files);
                 let id = this.ap_id;
-                this.dataFile.append('ap_id', id);
-                this.dataFile.append('is_add_appraisal',this.Bcode);
-                this.sendfile(this.dataFile);
+                this.dataFiles.append('ap_id', id);
+                this.dataFiles.append('is_add_appraisal',this.Bcode);
+                this.sendfile(this.dataFiles);
             }else{
                 this.$message.error('请先添加数据信息');
                 return false
