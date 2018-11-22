@@ -67,7 +67,7 @@
                                     <el-input v-model="form.phone" maxlength="30"></el-input>
                                 </el-form-item>
                                 <el-form-item label="编号" prop="number">
-                                    <el-input v-model="form.number" maxlength="20"></el-input>
+                                    <el-input v-model="form.number" maxlength="10"></el-input>
                                 </el-form-item>
                                 <el-form-item label="性别" prop="sex">
                                     <el-radio-group v-model="form.sex">
@@ -544,48 +544,64 @@
 //                let vue = this;
                 if(form.name == '') {
                     this.$message.error('老师姓名不能为空');
-                }else if(form.sex == '') {
-                    this.$message.error('老师性别不能为空');
+                    return;
                 }
+//                else if(form.sex == '') {
+//                    this.$message.error('老师性别不能为空');
+//                }
 //                else if(form.teacher_department == '') {
 //                    this.$message.error('老师所属部门不能为空');
 //                }
                 else if(form.teacher_id == '') {
                     this.$message.error('老师工号不能为空');
+                    return;
                 }else if(form.office_phone == '') {
                     this.$message.error('办公电话不能为空');
+                    return;
                 }else if(form.home_phone == '') {
                     this.$message.error('住宅电话不能为空');
+                    return;
                 }else if(form.phone == '') {
                     this.$message.error('手机号不能为空');
+                    return;
                 }else if(form.native_place == '') {
                     this.$message.error('籍贯不能为空');
+                    return;
                 }else if(form.number == '') {
                     this.$message.error('老师编号不能为空');
+                    return;
                 }else if(form.nation == '') {
                     this.$message.error('民族不能为空');
+                    return;
                 }else if(form.borth == '') {
                     this.$message.error('出生年月不能为空');
+                    return;
                 }
 //                else if(form.polit_outlook == '') {
 //                    this.$message.error('政治面貌不能为空');
 //                }
                 else if(form.admin_duties == '') {
                     this.$message.error('行政职务不能为空');
+                    return;
                 }else if(form.admin_tenure_time == '') {
                     this.$message.error('任职时间不能为空');
+                    return;
                 }
 //                else if(form.job_level == '') {
-//                    this.$message.error('职务级别不能为空');
+//                    this.$message.error('职务级别不能');
+//                    return;
 //                }
 //                else if(form.academic_title == '') {
 //                    this.$message.error('老师职称不能为空');
+//                    return;
 //                }
 //                else if(form.technical_position == '') {
 //                    this.$message.error('专业技术职务不能为空');
+//                    return;
 //                }
                 else if(form.review_time == '') {
                     this.$message.error('评审通过时间不能为空');
+                    return;
                 }else if(form.appointment_time == '') {
                     this.$message.error('聘任时间不能为空');
                 }else if(form.series == '') {
@@ -596,48 +612,66 @@
 //                }
                 else if(form.company == '') {
                     this.$message.error('所在单位不能为空');
+                    return;
                 }else if(form.te_re_department == '') {
                     this.$message.error('所属教研室和实验室不能为空');
+                    return;
                 }else if(form.working_hours == '') {
                     this.$message.error('来校工作时间不能为空');
+                    return;
                 }else if(form.origin_work_unit == '') {
                     this.$message.error('原工作单位不能为空');
+                    return;
                 }else if(form.certificate_num == '') {
                     this.$message.error('教师资格证书编号不能为空');
+                    return;
                 }else if(form.identity_card == '') {
                     this.$message.error('身份证号不能为空');
+                    return;
                 }else if(form.edu_school == '') {
                     this.$message.error('毕业院校不能为空');
+                    return;
                 }
 //                else if(form.first_academic == '') {
 //                    this.$message.error('第一学历学位不能为空');
 //                }
                 else if(form.first_graduate_school == '') {
                     this.$message.error('第一毕业学校不能为空');
+                    return;
                 }else if(form.first_study_major == '') {
                     this.$message.error('第一所学专业不能为空');
+                    return;
                 }else if(form.first_graduation_time == '') {
                     this.$message.error('第一毕业时间不能为空');
+                    return;
                 }
 //                else if(form.most_academic == '') {
 //                    this.$message.error('学历/学位不能为空');
 //                }
                 else if(form.most_graduate_school == '') {
                     this.$message.error('毕业学校不能为空');
+                    return;
                 }else if(form.most_study_major == '') {
                     this.$message.error('所学专业不能为空');
+                    return;
                 }else if(form.most_graduation_time == '') {
                     this.$message.error('毕业时间不能为空');
+                    return;
                 }else if(form.work_major == '') {
                     this.$message.error('现从事专业不能为空');
+                    return;
                 }else if(form.belong_subject == '') {
                     this.$message.error('所属学科不能为空');
+                    return;
                 }else if(form.teach_course == '') {
                     this.$message.error('任教课程不能为空');
+                    return;
                 }else if(form.master_company == '') {
                     this.$message.error('授予单位不能为空');
+                    return;
                 }else if(form.master_time == '') {
                     this.$message.error('获得时间不能为空');
+                    return;
                 }
                 this.$refs['form'].validate((valid) => {
                     let vue = this;

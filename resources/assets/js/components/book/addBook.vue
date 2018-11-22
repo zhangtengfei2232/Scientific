@@ -144,6 +144,7 @@
             op_coright_road: "",
             dataForm: new FormData(),
             dataFile: new FormData(),
+            dataFiles: new FormData(),
             Bcode:false,
             form: {
                 op_id:'',
@@ -191,11 +192,11 @@
         },
         fileProfils(files){
             if(this.Bcode == true){
-                this.dataFile.append('op_coright_road', files);
+                this.dataFiles.append('op_coright_road', files);
                 let id = this.form.op_id;
-                this.dataFile.append('op_id', id);
-                this.dataFile.append('is_add_opus',this.Bcode);
-                this.sendfile(this.dataFile);
+                this.dataFiles.append('op_id', id);
+                this.dataFiles.append('is_add_opus',this.Bcode);
+                this.sendfile(this.dataFiles);
             }else{
                 this.$message.error('请先添加数据信息');
                 return false

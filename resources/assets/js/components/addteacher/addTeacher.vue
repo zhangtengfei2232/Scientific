@@ -12,7 +12,7 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label="老师工号" prop="teacher_id">
-                        <el-input v-model="form.teacher_id" id='name' maxlength="7"></el-input>
+                        <el-input v-model="form.teacher_id" id='name' @blur="checkName(form.teacher_id)" maxlength="7"></el-input>
                         <span id='usernameWarn'></span>
                     </el-form-item>
 
@@ -29,7 +29,7 @@
                         <el-input v-model="form.phone" maxlength="11"></el-input>
                     </el-form-item>
                     <el-form-item label="编号" prop="number">
-                        <el-input v-model="form.number"maxlength="20"></el-input>
+                        <el-input v-model="form.number" maxlength="10"></el-input>
                     </el-form-item>
                     <el-form-item label="性别">
                         <el-radio-group v-model="form.sex">
@@ -399,33 +399,11 @@
             }
         },
         methods:{
-//            blurFn(){
-////                alter(12345);
-//            },
-            listenFocus(){
-                $("#name").focusout(function() {
-                    var name = $("#name").val();
-                    if(name != null && name != ''){
-                        this.checkName(name);
-                    }
-                });
-            },
-//            $(function(){
-//                $("#txtUserName").focus(function() {
-//                        $(this).addClass("focus");
-//                    }).blur(function(){
-//                }
             checkName(form) {
-
-//                if($(" #deleteacherNum ").val() == '') {
+//                if($(" #usernameWarn ").val() == '') {
 //                    this.$message.error('老师工号不能为空');
 //                    return;
 //                }
-//                this.$confirm('确定删除该老师吗, 是否继续?', '提示', {
-//                    confirmButtonText: '确定',
-//                    cancelButtonText: '取消',
-//                    type: 'warning'
-//                }).then(() => {
                         let self = this;
                         axios.get("selectAllTeacherId",{
                             params:{
@@ -433,19 +411,33 @@
                             }
                         }).then(function (response) {
                             var data = response.data;
-                            if (data.code == 0) {
-                                self.$message({
-                                    showClose: true,
-                                    message: data.message,
-                                    type: 'success'
-                                });
-                            } else {
-                                self.$notify({
-                                    type: 'error',
-                                    message: data.message,
-                                    duration: 2000,
-                                });
+                            for(var i=0;i<data.datas.length;i++){
+                                var k = data.datas[i].teacher_id;
+
+                                if($("#name ").val() == k) {
+                                    $("#usernameWarn").append(" 已存在肯尼啃");
+                                    return;
+                                }else{
+////                                    $("#name ").val() !='smkj'
+////                                    $("#usernameWarn").append("不符规则");
+                                    $("#usernameWarn").css('display','none');
+                                }
+
+
                             }
+//                            if (data.code == 0) {
+//                                self.$message({
+//                                    showClose: true,
+//                                    message: data.message,
+//                                    type: 'success'
+//                                });
+//                            } else {
+//                                self.$notify({
+//                                    type: 'error',
+//                                    message: data.message,
+//                                    duration: 2000,
+//                                });
+//                            }
 //                        });
 //                    }
 //                ).catch(() => {
@@ -455,30 +447,6 @@
 //                    });
                 });
             },
-
-//            checkName(name){
-//                return axios({
-//                    method: 'get',
-//                    url: 'selectAllTeacherId',
-//                    headers: {'Content-Type': 'multipart/form-data'},
-//                    timeout: 20000,
-//                    data: name,
-////                    data : {name:name},
-////                    method: 'post',
-////                    url : servletUrl,
-////                    type : "post",
-////                    dataType : 'JSON',
-////                    data : {name:name},
-//                    success : function(result) {
-//                        //已经存在该名字提示用户
-//                        if(result == true){
-//                            $("#errorMsg").html("已存在");
-//                        }else{
-//                            $("#errorMsg").html("可用");
-//                        }
-//                    }
-//                });
-//            },
             submitUpload() {
                 this.$refs.gra_cert_road.submit();
             },
@@ -495,9 +463,8 @@
             fileProfil(file){
                 if(this.Bcode == true){
                     this.dataFile.append('gra_cert_road', file);
-//                    let id = this.form.teacher_id;
-//                    console.log(id);
-//                    this.dataFile.append('teacher_id', id);
+                    let id = this.form.teacher_id;
+                    this.dataFile.append('teacher_id', id);
                     this.dataFile.append('is_add_teacher',this.Bcode);
                     this.sendfile(this.dataFile);
                 }else{
@@ -508,8 +475,8 @@
             fileEdufil(files){
                 if(this.Bcode == true){
                     this.dataFile.append('edu_cert_road', files);
-//                    let id = this.form.teacher_id;
-//                    this.dataFile.append('teacher_id', id);
+                    let id = this.form.teacher_id;
+                    this.dataFile.append('teacher_id', id);
                     this.dataFile.append('is_add_teacher',this.Bcode);
                     this.sendfile(this.dataFile);
                 }else{
@@ -537,7 +504,7 @@
             addTeacherFile(data){
                 return axios({
                     method: 'post',
-                    url: 'addteacher',
+                    url: 'addcertificate',
                     headers: {'Content-Type': 'multipart/form-data'},
                     timeout: 20000,
                     data: data
@@ -680,9 +647,9 @@
                             var data = res.data;
                             if (data.code == 0) {
                                 this.Bcode=true;
-                                vue.form.teacher_id =  res.data.datas;
+//                                vue.form.teacher_id =  res.data.datas;
                                 vue.$message({
-                                    message: '添加成功',
+                                    message:  data.message,
                                     type: 'success'
                                 });
 //                                this.$router.push({path: '/paper'});
