@@ -38,7 +38,7 @@
             </el-form-item>
 
             <el-form-item label="担任学术团体名称">
-                <el-input v-model="form.du_name" placeholder="请输入担任学术团体名称" maxlength="50" style="width: 300px;"></el-input>
+                <el-input v-model="form.du_name" placeholder="请输入担任学术团体名称" maxlength="50" style="width: 480px;"></el-input>
                 <!--<el-select v-model="form.level" placeholder="担任学术团体级别" style="width: 200px;">-->
                     <!--<el-option label="省级" value="1"></el-option>-->
                     <!--<el-option label="国家级" value="2"></el-option>-->
@@ -98,12 +98,11 @@
        float: left;
     }
     .add{
-        width: 73%;
         margin: 35px 0 0 35px;
     }
     /*组件*/
     .el-form{
-        width:62%;
+        width:58%;
         margin-top: 40px;
         margin-left: 150px;
     }

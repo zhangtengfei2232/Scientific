@@ -137,9 +137,10 @@
                     var data = res.data;
                     if (data.code == 0) {
                         this.$message({
-                            message: '添加成功',
+                            message: data.message,
                             type: 'success'
                         });
+
                     } else {
                         this.$notify({
                             type: 'error',

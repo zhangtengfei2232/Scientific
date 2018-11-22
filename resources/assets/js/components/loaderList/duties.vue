@@ -38,7 +38,6 @@
                     :data=" StudygroupDate"
                     style="width:100%"
                     border
-                    height="550"
                     @selection-change="handleSelectionChange">
                 <el-table-column
                         type="selection"
@@ -107,6 +106,7 @@
                         <!--header-align="center">-->
                 <!--</el-table-column>-->
             </el-table>
+            <el-button @click="ExcelSelection()">导出Excel</el-button>
             <div class="page">
                 <el-pagination
                         background
@@ -129,7 +129,7 @@
         border-right: 1px #d4d8d7 solid;
     }
     .cont{
-        width: 85%;
+        width: 96%;
         float: left;
         margin: 20px;
     }
@@ -212,13 +212,6 @@
                     }
                 });
             },
-//            checkYearExt(time){
-//                let a = time.split(',');
-//                this.year1 = a[0];
-//                this.year2 = a[1];
-////                console.log( this.year1,'...........');
-////                console.log(this.year2,'-0----8888888');
-//            },
             byNameSearch() {                //老师姓名
                 let self = this;
                 axios.get("byteachernameselectduties",{
@@ -274,22 +267,22 @@
             },
             ExcelSelection() {
                 var self = this;
-                var du_id_datas = [];//存放导出的数据
-                if(self.multipleSelection == undefined){
+                var art_id_datas = [];//存放导出的数据
+                if(self.multipleSelection == ''){
                     this.$message({
-                        message: '请选择要导出专家讲学',
+                        message: '请选择要导出的担任学术团体职务',
                         type: 'warning'
                     });
                 }else{
                     for (var i = 0; i < self.multipleSelection.length; i++) {
-                        du_id_datas.push(self.multipleSelection[i].du_id);
+                        art_id_datas.push(self.multipleSelection[i].du_id);
                     };
-                    this.ExcelHoldmeetDatas(du_id_datas);
+                    this.ExcelHoldmeetDatas(art_id_datas);
                 }
             },
-            ExcelHoldmeetDatas(du_id_datas) {
+            ExcelHoldmeetDatas(art_id_datas) {
                 let self = this;
-                let urls =  `exportdutiesexcel?du_id_datas=${du_id_datas}`;
+                let urls =  `exportdutiesexcel?du_id_datas=${art_id_datas}`;
                 window.location.href = urls;
             },
             onSubmit() {
