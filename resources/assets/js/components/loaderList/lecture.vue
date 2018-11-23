@@ -91,7 +91,6 @@
                     :data=" ExperspeakDate"
                     style="width:100%"
                     border
-                    height="550"
                     @selection-change="handleSelectionChange">
                 <el-table-column
                         type="selection"
@@ -152,7 +151,7 @@
         border-right: 1px #d4d8d7 solid;
     }
     .cont{
-        width: 85%;
+        width: 96%;
         float: left;
         margin: 20px;
     }
@@ -373,22 +372,22 @@
             },
             ExcelSelection() {
                 var self = this;
-                var lec_id_datas = [];//存放导出的数据
-                if(self.multipleSelection == undefined){
+                var art_id_datas = [];//存放导出的数据
+                if(self.multipleSelection == ''){
                     this.$message({
                         message: '请选择要导出专家讲学',
                         type: 'warning'
                     });
                 }else{
                     for (var i = 0; i < self.multipleSelection.length; i++) {
-                        lec_id_datas.push(self.multipleSelection[i].le_id);
+                        art_id_datas.push(self.multipleSelection[i].le_id);
                     };
-                    this.ExcelHoldmeetDatas(lec_id_datas);
+                    this.ExcelHoldmeetDatas(art_id_datas);
                 }
             },
-            ExcelHoldmeetDatas(lec_id_datas) {
+            ExcelHoldmeetDatas(art_id_datas) {
                 let self = this;
-                let urls =  `exportlectureexcel?lec_id_datas=${lec_id_datas}`;
+                let urls =  `exportlectureexcel?le_id_datas=${art_id_datas}`;
                 window.location.href = urls;
             },
             onSubmit() {
