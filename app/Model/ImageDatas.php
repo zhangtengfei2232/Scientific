@@ -29,8 +29,8 @@ class ImageDatas extends ModelDatabase
         return ($response > 0) ? true : false;
     }
     //根据owner_id删除图片
-    public static function byOwnerdeleteImagesDatas($owner_id_datas){
-        return DB::table('image')->whereIn('owner_id',$owner_id_datas)->delete();
+    public static function byOwnerdeleteImagesDatas($owner_id_datas,$owner_status){
+        return DB::table('image')->where('image_status',$owner_status)->whereIn('owner_id',$owner_id_datas)->delete();
     }
     //查看所有图片路径====>删除图片时候需要路径
     public static function selectAllImageRoadDatas($im_id){
@@ -54,7 +54,7 @@ class ImageDatas extends ModelDatabase
     public static function selectAllOwnerImage($owner_id_datas,$image_status){
         $image_road_datas = [];
         for($i = 0; $i < count($owner_id_datas); $i++){
-            $result = DB::table('image')->select('image_road')
+            $result = DB::table('image')->select('image_road','im_id')
                 ->where([
                     ['owner_id','=',$owner_id_datas[$i]],
                     ['image_status','=',$image_status]

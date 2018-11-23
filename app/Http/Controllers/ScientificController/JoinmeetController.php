@@ -65,7 +65,7 @@ class JoinmeetController  extends Controller
         ModelDatabase::beginTraction();
         $delete_joinmeet = ModelDatabase::deleteAllDatas($table_name,$id_field,$jo_id_datas);
         if(count($old_image_road) > 1){  //只有参加会议有图片的时候，才去数据库删除数据
-            $delete_image = ImageDatas::byOwnerdeleteImagesDatas($jo_id_datas);
+            $delete_image = ImageDatas::byOwnerdeleteImagesDatas($jo_id_datas,$status);
             ($delete_image == count($old_image_road)) ? $delete_image = true : $delete_image = false;
         }
         if($delete_image && $delete_joinmeet){
@@ -182,7 +182,7 @@ class JoinmeetController  extends Controller
         $delete_images = ImageDatas::deleteImagesDatas($delete_im_id);//删除数据库图片路径
         if($delete_images){
             ImageDatas::commit();
-            deletefiles(uploadSubjectionConfig::LECTURE,$images_road);
+            deletefiles(UploadSubjectionConfig::JOIN_MEET,$images_road);
             return responseTojson(0,'删除讲学图片成功');
         }
         ImageDatas::rollback();

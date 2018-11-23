@@ -95,9 +95,10 @@ class ProjectController extends Controller
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
-        $pro_road = trim($request->pro_road);
+        $pro_id[0] = trim($request->pro_id);
+        $pro_road  = ProjectDatabase::selectImagesRoadDatas($pro_id)[0];
         $datas = [
-            'pro_id'            => trim($request->pro_id),
+            'pro_id'            => $pro_id,
             'pro_host'          => trim($request->pro_host),
             'pro_all_author'    => trim($request->pro_all_author),
             'entry_name'        => trim($request->entry_name),
