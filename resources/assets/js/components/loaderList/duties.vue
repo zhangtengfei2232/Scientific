@@ -10,7 +10,7 @@
                                 width="400"
                                 trigger="click">
                             <el-input
-                                    placeholder="请输入老师姓名"
+                                    placeholder="请输入老师姓名 (回车搜索)"
                                     prefix-icon="el-icon-search"
                                     v-model="teacher_name"
                                     @keyup.enter.native="byNameSearch()">
@@ -24,7 +24,7 @@
                                 width="400"
                                 trigger="click">
                             <el-input
-                                    placeholder="请输入担任的学术团体名称"
+                                    placeholder="请输入担任的学术团体名称 (回车搜索)"
                                     prefix-icon="el-icon-search"
                                     v-model="du_name"
                                     @keyup.enter.native="byGroupNameSearch()">
