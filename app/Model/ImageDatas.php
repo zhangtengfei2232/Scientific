@@ -61,7 +61,9 @@ class ImageDatas extends ModelDatabase
                 ])->orderBy('create_time','desc')
                 ->get();
             foreach ($result as $road){
-                array_push($image_road_datas,$road->image_road);//所有图片放到一个数组
+                if(!empty($road->image_road)){
+                    array_push($image_road_datas,$road->image_road);//所有图片放到一个数组
+                }
             }
         }
         return $image_road_datas;
