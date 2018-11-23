@@ -93,9 +93,10 @@ class PatentController extends Controller
          if(!$request->isMethod('POST')){
              return responseTojson(1,'你请求的方式不对');
          }
-         $pa_road  = trim($request->pa_road);
+         $pa_id[0] = trim($request->pa_id);
+         $pa_road  = PatentDatabase::selectImageRoadDatas($pa_id)[0];
          $datas  = [
-            'pa_id'            => trim($request->pa_id),
+            'pa_id'            => $pa_id,
             'patent_person'    => trim($request->patent_person),
             'first_inventor'   => trim($request->first_inventor),
             'pa_all_author'    => trim($request->pa_all_author),

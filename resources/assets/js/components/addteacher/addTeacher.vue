@@ -277,14 +277,14 @@
                 </el-form-item>
                     <el-form-item label="毕业证书图片">
                         <el-upload
-                                ref="gra_cert_road"
-                                action="#"
-                                :before-upload="fileProfil"
-                                :on-preview="handlePreview"
-                                :on-remove="handleRemove"
-                                :auto-upload="false"
-                                :limit="1"
-                                list-type="picture">
+                            ref="gra_cert_road"
+                            action="#"
+                            :before-upload="fileProfil"
+                            :on-preview="handlePreview"
+                            :on-remove="handleRemove"
+                            :auto-upload="false"
+                            :limit="1"
+                            list-type="picture">
                             <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
                             <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传</el-button>
                             <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
@@ -344,7 +344,9 @@
                 edu_cert_road: '',
                 dataForm: new FormData(),
                 dataFile: new FormData(),
+                dataFiles: new FormData(),
                 Bcode:false,
+                teaId:[],
                 form:{
                     name:'',
                     sex:'',
@@ -399,32 +401,27 @@
             }
         },
         methods:{
-            checkName(form) {
-//                if($(" #usernameWarn ").val() == '') {
-//                    this.$message.error('老师工号不能为空');
-//                    return;
-//                }
-                        let self = this;
-                        axios.get("selectAllTeacherId",{
-                            params:{
-                                teacher_id:form.teacher_id
-                            }
-                        }).then(function (response) {
-                            var data = response.data;
-                            for(var i=0;i<data.datas.length;i++){
-                                var k = data.datas[i].teacher_id;
 
-                                if($("#name ").val() == k) {
-                                    $("#usernameWarn").append(" 已存在肯尼啃");
-                                    return;
-                                }else{
+            checkName(form) {
+                let self = this;
+                axios.get("selectAllTeacherId",{
+                    params:{
+                        teacher_id:form.teacher_id
+                    }
+                }).then(function (response) {
+                    var data = response.data;
+                    for(var i=0;i<data.datas.length;i++){
+                        var k = data.datas[i].teacher_id;
+
+                        if($("#name ").val() == k) {
+                            $("#usernameWarn").append(" 已存在");
+                            return;
+                        }else{
 ////                                    $("#name ").val() !='smkj'
 ////                                    $("#usernameWarn").append("不符规则");
-                                    $("#usernameWarn").css('display','none');
-                                }
-
-
-                            }
+                            $("#usernameWarn").css('display','none');
+                        }
+                    }
 //                            if (data.code == 0) {
 //                                self.$message({
 //                                    showClose: true,
@@ -474,11 +471,11 @@
             },
             fileEdufil(files){
                 if(this.Bcode == true){
-                    this.dataFile.append('edu_cert_road', files);
+                    this.dataFiles.append('edu_cert_road', files);
                     let id = this.form.teacher_id;
-                    this.dataFile.append('teacher_id', id);
-                    this.dataFile.append('is_add_teacher',this.Bcode);
-                    this.sendfile(this.dataFile);
+                    this.dataFiles.append('teacher_id', id);
+                    this.dataFiles.append('is_add_teacher',this.Bcode);
+                    this.sendfile(this.dataFiles);
                 }else{
                     this.$message.error('请先添加学历证书图片');
                     return false
@@ -681,3 +678,24 @@
         }
     }
 </script>
+
+
+
+<el-menu :default-active="$route.path" class="el-menu-vertical-demo" @open="handleopen" @close="handleclose" @select="handleselect"
+         unique-opened router v-show="!collapsed" ref="menuShow">
+    <template v-for="(item,index) in $router.options.routes" v-if="!item.hidden">
+        <el-submenu :index="index+''" v-if="!item.leaf">
+            <template slot="title"><i :class="item.iconCls"></i>{{item.name}}</template>
+            <el-menu-item v-for="child in item.children" :index="child.path" :key="child.path" v-if="!child.hidden">{{child.name}}</el-menu-item>
+        </el-submenu>
+        <el-menu-item v-if="item.leaf&&item.children.length>0" :index="item.children[0].path"><i :class="item.iconCls"></i>{{item.children[0].name}}</el-menu-item>
+    </template>
+</el-menu>
+
+methods: {
+menuItem: function() {
+// 动态获取可访问路由表
+this.$router.options.routes = this.$store.state.permission.addRouters;
+return this.$store.state.permission.addRouters
+},
+}

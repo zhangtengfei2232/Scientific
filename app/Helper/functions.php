@@ -50,7 +50,7 @@ use setasign\Fpdi\Tcpdf\Fpdi;
     }
     //删除文件
     function deletefiles($disk,$certificate_road){
-        if($certificate_road == null){
+        if(empty($certificate_road)){
             return ;
         }
         Storage::disk($disk)->delete($certificate_road);

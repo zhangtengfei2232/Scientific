@@ -337,10 +337,11 @@
     }
     //上传前先判断文件是否接收成功
     function judgeReceiveFiles($certificate_pdf){
+        $file_type = array('PDF','pdf');
         if(!$certificate_pdf->isValid()){
             return responseTojson(1,'上传失败,请重新上传',1);
         }
-        if($certificate_pdf->getClientOriginalExtension() != 'pdf'){
+        if(!in_array($certificate_pdf->getClientOriginalExtension(),$file_type)){
             return responseTojson(1,'请你上传PDF文件',1);
         }
         return responseTojson(0,'验证通过',1);

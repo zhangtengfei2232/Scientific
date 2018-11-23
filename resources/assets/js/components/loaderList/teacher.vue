@@ -121,7 +121,7 @@
                     :data="teacherDate"
                     style="width:100%"
                     border
-
+                    height="500"
                     @selection-change="handleSelectionChange">
                 <el-table-column
                     type="selection"

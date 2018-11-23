@@ -97,7 +97,6 @@
                             background-color="rgb(34,45,50)"
                             text-color="#fff"
                             active-text-color="#ffd04b"
-                            default-active="1"
                             class="el-menu-vertical-demo"
                             @open="handleOpen"
                             @close="handleClose"

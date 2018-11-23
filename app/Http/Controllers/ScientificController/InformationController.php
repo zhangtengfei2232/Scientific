@@ -163,7 +163,7 @@ class InformationController extends Controller
             return responseTojson(1,'上传图片失败');
         }
         TeacherDatabase::commit();
-        return responseTojson(0,'证书图片修改成功');
+        return responseTojson(0,'证书图片添加成功');
     }
     /**删除老师的所有信息
      */

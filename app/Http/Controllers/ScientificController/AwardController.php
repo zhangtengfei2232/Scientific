@@ -95,9 +95,10 @@ class AwardController extends Controller
          if(!$request->isMethod('POST')){
              return responseTojson(1,'你请求的方式不对');
          }
-         $aw_road  = trim($request->aw_road);
+         $aw_id[0] = trim($request->aw_id);
+         $aw_road  = AwardDatabase::selectAwardRoadDatas($aw_id)[0];
          $datas = [
-             'aw_id'            => trim($request->aw_id),
+             'aw_id'            => $aw_id,
              'aw_first_author'  => trim($request->aw_first_author),
              'aw_all_author'    => trim($request->aw_all_author),
              'prize_win_name'   => trim($request->prize_win_name),

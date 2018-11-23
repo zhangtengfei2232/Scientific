@@ -43,7 +43,7 @@ class AppraisalController extends Controller
             return responseTojson(1,'请你先添加成功鉴定信息');
          }
          if(!$request->hasFile('ap_road') && !$request->hasFile('ap_cover_road')){
-             return responseTojson(1,'请上传所要修改的成功鉴定证书图片');
+             return responseTojson(1,'请上传所要添加鉴定证书图片');
          }
          if($request->hasFile('ap_road')){
              $add_image_status = 1;
