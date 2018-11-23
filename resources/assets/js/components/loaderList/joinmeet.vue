@@ -3,7 +3,7 @@
         <div class="cont">
             <div class="header">
                 <el-header>
-                    <div class="art">参加会议（{{ total }}）</div>
+                    <div class="art" id="arts">参加会议（{{ total }}）</div>
                     <div class="search">
                         <el-row>
                             <el-col :span="12">
@@ -13,11 +13,11 @@
                                 </span>
                                 <el-dropdown-menu slot="dropdown">
                                     <el-dropdown-item>全部</el-dropdown-item>
-                                    <el-dropdown-item @click="timeSearch(8)">18年-今天</el-dropdown-item>
-                                    <el-dropdown-item @click="timeSearch(7)">17年-今天</el-dropdown-item>
-                                    <el-dropdown-item @click="timeSearch(6)">16年-今天</el-dropdown-item>
-                                    <el-dropdown-item @click="timeSearch(5)">15年-今天</el-dropdown-item>
-                                    <el-dropdown-item @click="timeSearch(4)">14年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click.native="timeSearch(8)">18年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click.native="timeSearch(7)">17年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click.native="timeSearch(6)">16年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click.native="timeSearch(5)">15年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click.native="timeSearch(4)">14年-今天</el-dropdown-item>
                                     <el-dropdown-item>
                                         <el-popover
                                             placement="top-start"
@@ -72,7 +72,7 @@
                                 </el-form-item>
                                 <el-form-item>
                                     <el-button type="primary" @click="onSubmit(form)">确定</el-button>
-                                    <el-button>取消</el-button>
+                                    <el-button @click="remove()">取消</el-button>
                                 </el-form-item>
                             </el-form>
                             <div slot="reference">高级筛选<i class="el-icon-arrow-down el-icon--right"></i></div>
@@ -192,6 +192,7 @@ export default {
             allJoinmeet:[],
             multipleSelection: [],
             data1: '',
+            newTime:0,
             jo_name:'',
             input:'',
             currentPage:1,
@@ -209,6 +210,9 @@ export default {
         }
     },
     methods: {
+        remove() {
+            document.querySelector("#arts").click();
+        },
         handleSizeChange: function (size) {
             this.pagesize = size;
         },
@@ -277,7 +281,7 @@ export default {
             let self = this;
             axios.get("bytimeselectjoinmeet",{
                 params:{
-                    start_time:newTime,
+                    start_time:this.newTime,
                     end_time:timestamp
                 }
             }).then(function (response) {

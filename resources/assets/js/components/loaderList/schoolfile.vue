@@ -13,11 +13,11 @@
                                 </span>
                                 <el-dropdown-menu slot="dropdown">
                                     <el-dropdown-item>全部</el-dropdown-item>
-                                    <el-dropdown-item @click="timeSearch(8)">18年-今天</el-dropdown-item>
-                                    <el-dropdown-item @click="timeSearch(7)">17年-今天</el-dropdown-item>
-                                    <el-dropdown-item @click="timeSearch(6)">16年-今天</el-dropdown-item>
-                                    <el-dropdown-item @click="timeSearch(5)">15年-今天</el-dropdown-item>
-                                    <el-dropdown-item @click="timeSearch(4)">14年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click.native="timeSearch(8)">18年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click.native="timeSearch(7)">17年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click.native="timeSearch(6)">16年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click.native="timeSearch(5)">15年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click.native="timeSearch(4)">14年-今天</el-dropdown-item>
                                     <el-dropdown-item>
                                         <el-popover
                                             placement="top-start"
@@ -130,6 +130,7 @@
 export default {
     data() {
         return {
+            newTime:0,
             searchValue:'',
             border:true,
             allSchoolfile:[],
@@ -202,7 +203,7 @@ export default {
             let self = this;
             axios.get("bytimeselectschoofile",{
                 params:{
-                    start_time:newTime,
+                    start_time:this.newTime,
                     end_time:timestamp
                 }
             }).then(function (response) {
