@@ -80,8 +80,9 @@ class ArticalController extends Controller
          if(!$delete_artical){
              return responseTojson(0,'删除文章失败');
          }
-         deletefiles($disk,$select_artical_road->art_road);
-         deletefiles($disk,$select_artical_road->art_sci_road);
+         if(!empty($select_artical_road)){
+             deleteAllFiles($disk,$select_artical_road);
+         }
          return responseTojson(0,'删除文章成功');
      }
      //查找个人一篇论文信息

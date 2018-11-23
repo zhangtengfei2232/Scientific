@@ -94,7 +94,8 @@ class PatentController extends Controller
              return responseTojson(1,'你请求的方式不对');
          }
          $pa_id[0] = trim($request->pa_id);
-         $pa_road  = PatentDatabase::selectImageRoadDatas($pa_id)[0];
+         $pa_road  = PatentDatabase::selectImageRoadDatas($pa_id);
+         (empty($pa_road)) ? $pa_road = '' : $pa_road = $pa_road[0];
          $datas  = [
             'pa_id'            => $pa_id,
             'patent_person'    => trim($request->patent_person),

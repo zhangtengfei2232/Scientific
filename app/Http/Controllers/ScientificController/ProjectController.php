@@ -97,6 +97,7 @@ class ProjectController extends Controller
         }
         $pro_id[0] = trim($request->pro_id);
         $pro_road  = ProjectDatabase::selectImagesRoadDatas($pro_id)[0];
+        (empty($pro_road)) ? $pro_road = '' : $pro_road = $pro_road[0];
         $datas = [
             'pro_id'            => $pro_id,
             'pro_host'          => trim($request->pro_host),

@@ -245,6 +245,8 @@ class RetrievalController extends Controller
      */
     //根据多个条件，组合查询文章信息
     public function combinationSelectOpus(Request $request){
+//        $op_cate_research_datas = [];
+//        $op_form_write_datas    = [];
         $condition_datas = [
             'table_name'  => $this->opus_table_name,
             'time_field'  => $this->opus_time_field,
