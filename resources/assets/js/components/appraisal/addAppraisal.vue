@@ -47,7 +47,7 @@
                     <el-input type="textarea" v-model="form.ap_remarks"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="onSubmit(form)">保存修改</el-button>
+                    <el-button type="primary" @click="onSubmit(form)">添加</el-button>
                     <el-button>取消</el-button>
                 </el-form-item>
                 <el-form-item label="成果封面">
@@ -106,7 +106,7 @@
             ap_road: '',
             dataForm: new FormData(),
             dataFile: new FormData(),
-            dataFiles: new FormData(), 
+            dataFiles: new FormData(),
             Bcode:false,
             ap_id:'',
             form: {
@@ -145,7 +145,7 @@
                 this.sendfile(this.dataFile);
             }else{
                 this.$message.error('请先添加数据信息');
-                return false
+                return false;
             }
         },
         fileProfils(files){
@@ -157,11 +157,11 @@
                 this.sendfile(this.dataFiles);
             }else{
                 this.$message.error('请先添加数据信息');
-                return false
+                return false;
             }
         },
         sendfile(dataFile) {
-            this.addBookFile(this.dataFile).then(res => {
+            this.addBookFile(dataFile).then(res => {
                 var data = res.data;
                 if (data.code == 0) {
                     this.$message({
