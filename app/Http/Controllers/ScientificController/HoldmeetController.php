@@ -61,7 +61,7 @@ class HoldmeetController extends Controller
         $old_image_road  = ImageDatas::selectAllOwnerImage($ho_id_datas,$owner_status);
         ModelDatabase::beginTraction();
         $delete_holdmeet = ModelDatabase::deleteAllDatas($table_name,$id_field,$ho_id_datas);
-        if(count($old_image_road) > 1){//只有举行会议有图片的时候，才去数据库删除数据
+        if(count($old_image_road) > 0){//只有举行会议有图片的时候，才去数据库删除数据
             $delete_image = ImageDatas::byOwnerdeleteImagesDatas($ho_id_datas,$owner_status);
             ($delete_image == count($old_image_road)) ? $delete_image = true : $delete_image = false;
         }
