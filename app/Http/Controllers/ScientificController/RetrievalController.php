@@ -174,8 +174,8 @@ class RetrievalController extends Controller
         if(empty($sch_percal_cate)) {
             return responseTojson(1,'你输入的学校认定刊物级别不能为空');
         }
-        $sch_percal_cate_field  = SearchMessageConfig::ARTICAL_PERCAL_CATE;
-        return ModelDatabase::categorySelectInformation($this->artical_table_name,$sch_percal_cate_field,$sch_percal_cate,$this->artical_time_field);
+        $sch_percal_cate_field  = SearchMessageConfig::ARTICAL_SCH_PERCAL_CATE;
+        return ModelDatabase::byNameSelectDatas($this->artical_table_name,$sch_percal_cate_field,$sch_percal_cate,$this->artical_time_field);
     }
 
     /**
