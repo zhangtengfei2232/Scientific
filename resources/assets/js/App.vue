@@ -93,7 +93,7 @@
             <el-row id="tac">
                 <el-col :span="12">
                     <el-menu
-                            :default-active="this.$router.path"
+                            :default-active="$route.path"
                             background-color="rgb(34,45,50)"
                             text-color="#fff"
                             active-text-color="#ffd04b"

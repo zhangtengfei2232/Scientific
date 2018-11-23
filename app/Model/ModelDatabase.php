@@ -69,37 +69,37 @@ class ModelDatabase  extends  Model
          $first_field = $condition_datas['first_field'];
          $first_datas = $condition_datas['first_datas'];
          $time_field  = $condition_datas['time_field'];
-         if(count($first_datas) == 0 && count($second_datas) == 0 && count($third_datas) == 0){          //三个字段都为空
-                 $result = DB::table($table_name)->get();
-         }elseif (count($first_datas) != 0 && count($second_datas) != 0 && count($third_datas) != 0){ //三个字段都不为空
+         if(empty($first_datas) && empty($second_datas) && empty($third_datas)){          //三个字段都为空
+             $result = DB::table($table_name)->get();
+         }elseif (!empty($first_datas) && !empty($second_datas) && !empty($third_datas) != 0){ //三个字段都不为空
              $result = DB::table($table_name)
                  ->whereIn($first_field,$first_datas)
                  ->whereIn($second_field,$second_datas)
                  ->whereIn($third_field,$third_datas)
                  ->get();
-         }elseif (count($first_datas) != 0 && count($second_datas) == 0 && count($third_datas) == 0){
+         }elseif (!empty($first_datas) && empty($second_datas) && empty($third_datas)){
              $result = DB::table($table_name)
                  ->whereIn($first_field,$first_datas)
                  ->get();
-         }elseif (count($first_datas) == 0 && count($second_datas) != 0 && count($third_datas) == 0){
+         }elseif (empty($first_datas) && !empty($second_datas) && empty($third_datas)){
              $result = DB::table($table_name)
                  ->whereIn($second_field,$second_datas)
                  ->get();
-         }elseif (count($first_datas) == 0 && count($second_datas) == 0 && count($third_datas) != 0){
+         }elseif (empty($first_datas) == 0 && empty($second_datas) && !empty($third_datas)){
              $result = DB::table($table_name)
                  ->whereIn($third_field,$third_datas)
                  ->get();
-         }elseif (count($first_datas) != 0 && count($second_datas) != 0 && count($third_datas) == 0){
+         }elseif (!empty($first_datas) && !empty($second_datas) && empty($third_datas)){
              $result = DB::table($table_name)
                  ->whereIn($first_field,$first_datas)
                  ->whereIn($second_field,$second_datas)
                  ->get();
-         }elseif (count($first_datas) != 0 && count($second_datas) == 0 && count($third_datas) != 0){
+         }elseif (!empty($first_datas) && empty($second_datas) && !empty($third_datas)){
              $result = DB::table($table_name)
                  ->whereIn($first_field,$first_datas)
                  ->whereIn($third_field,$third_datas)
                  ->get();
-         }elseif(count($first_datas) == 0 && count($second_datas) != 0 && count($third_datas) != 0){
+         }elseif(empty($first_datas) && !empty($second_datas) && !empty($third_datas)){
              $result = DB::table($table_name)
                  ->whereIn($second_field,$second_datas)
                  ->whereIn($third_field,$third_datas)

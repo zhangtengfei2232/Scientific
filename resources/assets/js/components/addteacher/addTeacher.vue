@@ -12,8 +12,8 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label="老师工号" prop="teacher_id">
-                        <el-input v-model="form.teacher_id" id='name' @blur="checkName(form.teacher_id)" maxlength="7"></el-input>
-                        <span id='usernameWarn'></span>
+                        <el-input v-model="form.teacher_id" id='name' @blur="checkName(form.teacher_id)"@focus="getFoce()" maxlength="7"></el-input>
+                        <span id='usernameWarn' v-show="form.is_exist_teacher_id">已存在</span>
                     </el-form-item>
 
                     <el-form-item label="姓名" prop="name">
@@ -340,6 +340,7 @@
     export default{
         data(){
             return{
+                error_id_msg:'',
                 gra_cert_road: '',
                 edu_cert_road: '',
                 dataForm: new FormData(),
@@ -348,6 +349,7 @@
                 Bcode:false,
                 teaId:[],
                 form:{
+                    is_exist_teacher_id:false,
                     name:'',
                     sex:'',
                     teacher_department:'',
@@ -401,48 +403,26 @@
             }
         },
         methods:{
-
-            checkName(form) {
-                let self = this;
-                axios.get("selectAllTeacherId",{
-                    params:{
-                        teacher_id:form.teacher_id
-                    }
-                }).then(function (response) {
-                    var data = response.data;
-                    for(var i=0;i<data.datas.length;i++){
-                        var k = data.datas[i].teacher_id;
-
-                        if($("#name ").val() == k) {
-                            $("#usernameWarn").append(" 已存在");
-                            return;
-                        }else{
-////                                    $("#name ").val() !='smkj'
-////                                    $("#usernameWarn").append("不符规则");
-                            $("#usernameWarn").css('display','none');
+            getTeacherId(){
+                    let self = this;
+                    axios.get("selectAllTeacherId",{
+                        params:{
+                            teacher_id:self.form.teacher_id
                         }
-                    }
-//                            if (data.code == 0) {
-//                                self.$message({
-//                                    showClose: true,
-//                                    message: data.message,
-//                                    type: 'success'
-//                                });
-//                            } else {
-//                                self.$notify({
-//                                    type: 'error',
-//                                    message: data.message,
-//                                    duration: 2000,
-//                                });
-//                            }
-//                        });
-//                    }
-//                ).catch(() => {
-//                    this.$message({
-//                        type: 'info',
-//                        message: '已取消删除'
-//                    });
-                });
+                    }).then(function (response) {
+                        self.teaId = response.data.datas;
+            })},
+            checkName() {
+                let self = this;
+                var teacher_id_datas = self.teaId;
+                for(var i = 0; i < teacher_id_datas.length; i++ ){
+                         if(teacher_id_datas[i].teacher_id == self.form.teacher_id){
+                             self.form.is_exist_teacher_id = true;
+                         }
+                }
+            },
+            getFoce(){
+                this.form.is_exist_teacher_id = false;
             },
             submitUpload() {
                 this.$refs.gra_cert_road.submit();
@@ -675,27 +655,9 @@
                     data: data
                 });
             },
+        },
+        mounted(){
+            this.getTeacherId();
         }
     }
 </script>
-
-
-
-<el-menu :default-active="$route.path" class="el-menu-vertical-demo" @open="handleopen" @close="handleclose" @select="handleselect"
-         unique-opened router v-show="!collapsed" ref="menuShow">
-    <template v-for="(item,index) in $router.options.routes" v-if="!item.hidden">
-        <el-submenu :index="index+''" v-if="!item.leaf">
-            <template slot="title"><i :class="item.iconCls"></i>{{item.name}}</template>
-            <el-menu-item v-for="child in item.children" :index="child.path" :key="child.path" v-if="!child.hidden">{{child.name}}</el-menu-item>
-        </el-submenu>
-        <el-menu-item v-if="item.leaf&&item.children.length>0" :index="item.children[0].path"><i :class="item.iconCls"></i>{{item.children[0].name}}</el-menu-item>
-    </template>
-</el-menu>
-
-methods: {
-menuItem: function() {
-// 动态获取可访问路由表
-this.$router.options.routes = this.$store.state.permission.addRouters;
-return this.$store.state.permission.addRouters
-},
-}
