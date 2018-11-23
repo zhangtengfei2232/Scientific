@@ -79,7 +79,9 @@ class ProjectDatabase extends ModelDatabase
         $images_road_datas = [];
         for($i = 0; $i < count($project_id_datas); $i++){
             $road = DB::table('project')->select('pro_road')->where('pro_id',$project_id_datas[$i])->first();
-            $images_road_datas[$i] = $road->pro_road;
+            if(!empty($road->pro_road)){
+                array_push($images_road_datas,$road->pro_road);
+            }
         }
         return $images_road_datas;
     }

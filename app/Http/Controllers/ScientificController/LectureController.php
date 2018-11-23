@@ -60,8 +60,8 @@ class LectureController extends Controller
          $old_image_road  = ImageDatas::selectAllOwnerImage($le_id_datas,$owner_status);
          LectureDatabase::beginTraction();
          $delete_lecture  = ModelDatabase::deleteAllDatas($table_name,$id_field,$le_id_datas);
-         if(count($old_image_road) > 1){//只有专家讲学有图片的时候，才去数据库删除数据
-             $delete_image = ImageDatas::byOwnerdeleteImagesDatas($le_id_datas);
+         if(count($old_image_road) > 0){//只有专家讲学有图片的时候，才去数据库删除数据
+             $delete_image = ImageDatas::byOwnerdeleteImagesDatas($le_id_datas,$owner_status);
              ($delete_image == count($old_image_road)) ? $delete_image = true : $delete_image = false;
          }
          if($delete_image && $delete_lecture){
@@ -112,7 +112,6 @@ class LectureController extends Controller
              'le_invite_unit'   => trim($request->le_invite_unit),
              'le_time'          => trim($request->le_time)
          ];
-         dd($datas);
          $judge_datas = judgeLectureField($datas);
          if($judge_datas['code'] == 1){
              return responseTojson(1,$judge_datas['message']);
@@ -176,7 +175,7 @@ class LectureController extends Controller
          $delete_images = ImageDatas::deleteImagesDatas($delete_im_id); //删除数据库图片路径
          if($delete_images){
             ImageDatas::commit();
-             deletefiles(UploadSubjectionConfig::HOLD_MEET,$images_road);
+             deletefiles(UploadSubjectionConfig::LECTURE,$images_road);
             return responseTojson(0,'删除举办会议图片成功');
          }
          ImageDatas::rollback();                                        //回滚，回复数据库数据

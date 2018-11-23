@@ -49,7 +49,9 @@ class PatentDatabase  extends ModelDatabase
         $pa_image_road = [];
         for($i = 0; $i < count($pa_id_datas); $i++){
             $result = DB::table('patent')->select('pa_road')->where('pa_id',$pa_id_datas[$i])->first();
-            $pa_image_road[$i] = $result->pa_road;
+            if(!empty($result->pa_road)){
+                array_push($pa_image_road,$result->pa_road);
+            }
         }
         return $pa_image_road;
     }
