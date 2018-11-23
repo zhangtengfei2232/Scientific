@@ -3,7 +3,7 @@
         <div class="cont">
             <div class="header">
                 <el-header>
-                    <div class="art">论文（{{ total }}）</div>
+                    <div class="art" id="arts">论文（{{ total }}）</div>
                     <div class="search">
                         <el-row>
                             <el-col :span="12">
@@ -13,11 +13,11 @@
                                 </span>
                                 <el-dropdown-menu slot="dropdown">
                                     <el-dropdown-item>全部</el-dropdown-item>
-                                    <el-dropdown-item @click="timeSearch(8)">18年-今天</el-dropdown-item>
-                                    <el-dropdown-item @click="timeSearch(7)">17年-今天</el-dropdown-item>
-                                    <el-dropdown-item @click="timeSearch(6)">16年-今天</el-dropdown-item>
-                                    <el-dropdown-item @click="timeSearch(5)">15年-今天</el-dropdown-item>
-                                    <el-dropdown-item @click="timeSearch(4)">14年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click.native="timeSearch(8)">18年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click.native="timeSearch(7)">17年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click.native="timeSearch(6)">16年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click.native="timeSearch(5)">15年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click.native="timeSearch(4)">14年-今天</el-dropdown-item>
                                     <el-dropdown-item>
                                         <el-popover
                                             placement="top-start"
@@ -76,7 +76,7 @@
                             trigger="click">
                             <el-form ref="form" :model="form" label-width="80px">
                                 <el-form-item label="刊物级别">
-                                    <el-checkbox-group v-model="form.percal_cate">
+                                    <el-checkbox-group :indeterminate="isIndeterminate" v-model="form.percal_cate">
                                         <el-checkbox :label="0">SCI一区</el-checkbox>
                                         <el-checkbox :label="1">SCI二区</el-checkbox>
                                         <el-checkbox :label="2">SCI三区</el-checkbox>
@@ -98,7 +98,7 @@
                                 </el-form-item>
                                 <el-form-item>
                                     <el-button type="primary" @click="onSubmit(form)">确定</el-button>
-                                    <el-button>取消</el-button>
+                                    <el-button @click="remove()">取消</el-button>
                                 </el-form-item>
                             </el-form>
                             <div slot="reference">高级筛选<i class="el-icon-arrow-down el-icon--right"></i></div>
@@ -111,7 +111,6 @@
                 stripe
                 style="width: 100%"
                 border
-                height="250"
                 @selection-change="handleSelectionChange">
                 <el-table-column
                 type="selection"
@@ -237,16 +236,18 @@
 export default {
     data() {
         return {
+            value:false,
             searchValue:'',
             art_rank: '',
             border:true,
             allArticle:[],
             currentPage:1,
-            pagesize:20,
+            pagesize:1,
             data1: '',
             art_name:'',
             total: 0,
-            newTime: '',
+            newTime: 0,
+            isIndeterminate: true,
             multipleSelection: [],
             form:{
                 art_cate_research: [],
@@ -292,6 +293,9 @@ export default {
         }
     },
     methods: {
+        remove() {
+            document.querySelector("#arts").click();
+        },
         handleSizeChange: function (size) {
             this.pagesize = size;
         },
@@ -396,7 +400,7 @@ export default {
             let self = this;
             axios.get("byperiodicalselectartical",{
                 params:{
-                    start_time:newTime,
+                    start_time:this.newTime,
                     end_time:timestamp
                 }
             }).then(function (response) {
@@ -549,6 +553,7 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allArticle = data.datas;
+                    document.querySelector("#arts").click();
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.percal_cate.length;i++){
                             if(data.datas[j].percal_cate == i){

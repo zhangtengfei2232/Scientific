@@ -236,7 +236,7 @@
                     let self = this;
                     axios.get("deleteartical",{
                          params:{
-                            artical_id:art_id_datas
+                            art_id_datas:art_id_datas
                         }
                     }).then(function (response) {
                     var data = response.data;
@@ -272,7 +272,7 @@
                     let self = this;
                     axios.get("deleteartical",{
                          params:{
-                            artical_id:self.id
+                            art_id_datas:self.id
                         }
                     }).then(function (response) {
                     var data = response.data;
