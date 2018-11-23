@@ -188,7 +188,7 @@
                     var data = res.data;
                     if (data.code == 0) {
                         this.$message({
-                            message: '修改成功',
+                            message: data.message,
                             type: 'success'
                         });
                         location. reload();
@@ -282,8 +282,9 @@
                     if (data.code == 0) {
                         self.$message({
                             type: 'success',
-                            message: '删除成功!'
+                            message: data.message
                         });
+                        location. reload();
                     } else {
                         self.$notify({
                             type: 'error',

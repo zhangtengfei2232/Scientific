@@ -2,7 +2,7 @@
     <div>
         <div class="cont">
             <div class="header">
-                <el-header style="height: 45px;">
+                <el-header>
                     <div class="art">专家讲学({{total}})</div>
                     <div class="search">
                         <el-row>
@@ -145,29 +145,23 @@
         background: #f4f5f5;
     }
     .art{
-        margin: 12px 17px;
-        padding-right: 24px;
+        padding: 20px 10px;
         float: left;
         border-right: 1px #d4d8d7 solid;
     }
     .cont{
-        width: 96%;
+        width:95%;
         float: left;
         margin: 20px;
     }
     .search{
         float: left;
-        margin: 12px 17px;
-        padding-right: 24px;
+        padding: 20px 20px;
         border-right: 1px #d4d8d7 solid;
     }
     .page{
         width: 30%;
         margin: 0 auto;
-    }
-    /*组件*/
-    .el-checkbox{
-        padding-left: 10px;
     }
 </style>
 

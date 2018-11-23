@@ -237,7 +237,7 @@
                             var data = res.data;
                             if (data.code == 0) {
                                 vue.$message({
-                                    message: '修改成功',
+                                    message: data.message,
                                     type: 'success'
                                 });
                                 this.$router.push({path: '/duties'});
@@ -265,34 +265,10 @@
                     data: data
                 });
             },
-//            checkFileExt(filename){
-//                if(filename == '') {
-//                    this.$message.error('上传文件不能为空');
-//                }
-//                var flag = false; //状态
-//                var arr = ["pdf"];
-//                //取出上传文件的扩展名
-//                console.log(filename);
-//                var index = filename.lastIndexOf(".");
-//                var ext = filename.substr(index+1);
-//                //循环比较
-//                for(var i=0;i<arr.length;i++){
-//                    if(ext == arr[i]){
-//                        flag = true;
-//                        break;
-//                    }
-//                }
-//                if(!flag){
-//                    this.$message.error('请上传PDF');
-//                }
-//            },
             checkYearExt(time){
                 let a = time.split(',');
-//                console.log(a);
                 this.year1 = a[0];
                 this.year2 = a[1];
-//                console.log(this.year1);
-//                console.log(this.year2);
             },
 
         },

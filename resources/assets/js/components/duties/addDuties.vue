@@ -10,27 +10,27 @@
                 </el-form-item>
                 <el-form-item label="职称">
                     <el-select v-model="form.du_academic" placeholder="请选择职称">
-                        <el-option label="教授" value="1"></el-option>
-                        <el-option label="副教授" value="2"></el-option>
-                        <el-option label="讲师" value="3"></el-option>
-                        <el-option label="助教" value="4"></el-option>
-                        <el-option label="高级实验师" value="5"></el-option>
-                        <el-option label="实验师" value="6"></el-option>
-                        <el-option label="助理实验师" value="7"></el-option>
+                        <el-option label="教授" value="0"></el-option>
+                        <el-option label="副教授" value="1"></el-option>
+                        <el-option label="讲师" value="2"></el-option>
+                        <el-option label="助教" value="3"></el-option>
+                        <el-option label="高级实验师" value="4"></el-option>
+                        <el-option label="实验师" value="5"></el-option>
+                        <el-option label="助理实验师" value="6"></el-option>
                     </el-select>
                 </el-form-item>
             <el-form-item label="学历">
                 <el-select v-model="form.du_education" placeholder="请选择学历">
-                    <el-option label="大专" value="1"></el-option>
-                    <el-option label="研究生" value="2"></el-option>
-                    <el-option label="本科" value="3"></el-option>
+                    <el-option label="大专" value="0"></el-option>
+                    <el-option label="研究生" value="1"></el-option>
+                    <el-option label="本科" value="2"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="学位">
                 <el-select v-model="form.du_degree" placeholder="请选择学位">
-                    <el-option label="硕士" value="1"></el-option>
-                    <el-option label="博士" value="2"></el-option>
-                    <el-option label="学士" value="3"></el-option>
+                    <el-option label="硕士" value="0"></el-option>
+                    <el-option label="博士" value="1"></el-option>
+                    <el-option label="学士" value="2"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="年龄">
@@ -138,37 +138,9 @@
                     this.dataForm.append('du_road', file);
                     return false;
                 },
-//                sendfile(file) {
-//                    this.addBookFile(vue.dataFile).then(res => {
-//                        var data = res.data;
-//                        if (data.code == 0) {
-//                            vue.$message({
-//                                message: '添加成功',
-//                                type: 'success'
-//                            });A
-//                        } else {
-//                            vue.$notify({
-//                                type: 'error',
-//                                message: '添加失败',
-//                                duration: 2000,
-//                            });
-//                        }
-//                    })
-//                },
-//                addBookFile(data){
-//                    return axios({
-//                        method: 'post',
-//                        url: 'addholdmeetimages',
-//                        headers: {'Content-Type': 'multipart/form-data'},
-//                        timeout: 20000,
-//                        data: data
-//                    });
-//                },
                 onSubmit(form,year1,year2) {
                     let vue = this;
                     form.du_year_num = year1+","+year2;
-                    console.log(form.du_year_num,'0000000000');
-
                     if(form.teacher_name == '') {
                         this.$message.error('老师姓名不能为空');
                         return
@@ -206,7 +178,7 @@
                                 var data = res.data;
                                 if (data.code == 0) {
                                     vue.$message({
-                                        message: '添加成功',
+                                        message: data.message,
                                         type: 'success'
                                     });
                                     this.$router.push({path: '/duties'});
@@ -234,24 +206,6 @@
                         data: data
                     });
                 },
-//                checkFileExt(filename){
-//                    if(filename == '') {
-//                        this.$message.error('上传文件不能为空');
-//                    }
-//                    var flag = false;
-//                    var arr = ["pdf"];
-//                    var index = filename.lastIndexOf(".");
-//                    var ext = filename.substr(index+1);
-//                    for(var i=0;i<arr.length;i++){
-//                        if(ext == arr[i]){
-//                            flag = true;
-//                            break;
-//                        }
-//                    }
-//                    if(!flag){
-//                        this.$message.error('请上传PDF');
-//                    }
-//                },
             }
         }
 
