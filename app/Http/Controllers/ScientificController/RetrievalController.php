@@ -112,9 +112,13 @@ class RetrievalController extends Controller
         $condition_datas = [
             'table_name'  => $this->artical_table_name,
             'time_field'  => $this->artical_time_field,
-            'first_field'  => SearchMessageConfig::ARTICAL_PERCAL_CATE,            //文章刊物级别字段
-            'first_datas' => $request->percal_cate_datas
+            'first_field' => SearchMessageConfig::ARTICAL_PERCAL_CATE,            //文章刊物级别字段
+            'first_datas' => $request->percal_cate_datas,
+            'total'       => 10
         ];
+        if($request->has('total')){
+            $condition_datas['total'] = $request->total;
+        }
         $art_cate_research_field = SearchMessageConfig::ARTICAL_ART_CATE_RESEARCH;//文章研究类别字段
         $cate_research_datas     = $request->cate_research_datas;
         return ModelDatabase::combinationSelectDatas($condition_datas,$art_cate_research_field,$cate_research_datas);
@@ -154,11 +158,15 @@ class RetrievalController extends Controller
 //        return ModelDatabase::byNameSelectDatas($this->artical_table_name,$publication_name_field,$publication_name,$this->artical_time_field);
 //    }
     //发表日期查询
-//    public function byPeriodicalSelectArtical(Request $request){
-//        $start_time = $request->start_time;
-//        $end_time   = $request->end_time;
-//        return ModelDatabase::timeSelectInformation($start_time,$end_time,$this->artical_table_name,$this->artical_time_field);
-//    }
+    public function byPeriodicalSelectArtical(Request $request){
+        $total = 10;
+        if($request->has('total')){
+            $total = $request->total;
+        }
+        $start_time = $request->start_time;
+        $end_time   = $request->end_time;
+        return ModelDatabase::timeSelectInformation($start_time,$end_time,$this->artical_table_name,$this->artical_time_field,$total);
+    }
 //    //刊物级别查询
 //    public function byJournalLevelSelectArtical(Request $request){
 //        $journal_level       = $request->percal_cate;
@@ -700,12 +708,23 @@ class RetrievalController extends Controller
     }
     //根据老师名字查询
     public function byTeacherNameSelectDuties(Request $request){
-        $teacher_name = $request->teacher_name;
-        if(empty($teacher_name)){
-            return responseTojson(1,'你输入的老师名字不能为空');
+        $data['total'] = 10;
+        if($request->has('total')){
+            $datas['total'] = $request->total;
         }
-        $teacher_name_field = SearchMessageConfig::DUTIES_TEACHER_NAME;
-        return ModelDatabase::byNameSelectDatas($this->duties_table_name,$teacher_name_field,$teacher_name,'');
+        $datas['value']        = $request->value;
+        $data['table_name']    = $this->duties_table_name;
+        $du_teacher_name_field = SearchMessageConfig::DUTIES_TEACHER_NAME;
+        $du_name_field         = SearchMessageConfig::DUTIES_DU_NAME;
+        switch($request->type){
+            case $du_teacher_name_field:
+                $data['field'] = $du_teacher_name_field;
+                break;
+            case $du_name_field:
+                $data['field'] = $du_name_field;
+                break;
+        }
+        return ModelDatabase::pagingQueryDatas($datas);
     }
 
 
@@ -853,4 +872,5 @@ class RetrievalController extends Controller
     public function countEveryModular(){
         return ModelDatabase::countEveryModularDatas();
     }
+
 }
