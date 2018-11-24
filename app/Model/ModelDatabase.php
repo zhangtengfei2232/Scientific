@@ -130,8 +130,8 @@ class ModelDatabase  extends  Model
      * @param $time_field
      * @return \Illuminate\Http\JsonResponse
      */
-    public static function selectAllDatas($table_name,$time_field){
-        $result = DB::table($table_name)->get();
+    public static function selectAllDatas($table_name,$time_field,$total){
+        $result = DB::table($table_name)->paginate($total);
         if($table_name == 'duties'){
             return  self::changeDutiesTimeDatas($result);
         }
