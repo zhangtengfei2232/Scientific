@@ -139,7 +139,8 @@ export default {
             data1: '',
             newTime:0,
             agree_name:'',
-            total:0
+            total:0,
+            type: '',
         }
     },
     methods: {
