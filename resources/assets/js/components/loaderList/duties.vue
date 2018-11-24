@@ -119,8 +119,7 @@
                         :page-sizes="[10, 20, 50, 100]"
                         :page-size="pagesize"
                         layout="total, sizes, prev, pager, next, jumper"
-                        :total="total"
-                        :next-click="byNameSearch">
+                        :total="total">
                 </el-pagination>
             </div>
         </div>
@@ -156,8 +155,8 @@
     export default {
         data() {
             return {
-                type:'teacher_name',
-                currentPages:4,
+                type:'',
+                currentPages:1,
                 pagesize:10,
                 searchValue:'',
                 border:true,
@@ -235,14 +234,15 @@
                     }
                 }).then(function (response) {
                     var data = response.data;
-                    console.log(data.datas.data,'***===***');
+//                    console.log(response.data,'*/////===***');
+//                    console.log(data,'***===***');
 //                    console.log(data.datas.data,'************');
 //                    self.form.num = data.datas.data.length;
 //                    console.log(data.datas,'/***/*/*/*/*/');
                     for(var i=0;i<data.datas.data.length;i++){
-                        data.datas[i].du_academic = self.du_academic[data.datas[i].du_academic];
-                        data.datas[i].du_education = self.du_education[data.datas[i].du_education];
-                        data.datas[i].du_degree = self.du_degree[data.datas[i].du_degree];
+                        data.datas.data[i].du_academic = self.du_academic[data.datas.data[i].du_academic];
+                        data.datas.data[i].du_education = self.du_education[data.datas.data[i].du_education];
+                        data.datas.data[i].du_degree = self.du_degree[data.datas.data[i].du_degree];
                     }
                     if (data.code == 0) {
                         self.StudygroupDate = data.datas;
@@ -259,15 +259,18 @@
                 let self = this;
                 axios.get("bynameselectduties",{
                     params:{
-                        du_name: self.du_name,
+                        value: self.du_name,
+                        type: self.type,
+                        page:self.currentPages,
+                        total:self.pagesize,
                     }
                 }).then(function (response) {
                     var data = response.data;
 //                    self.form.num = data.datas.length;
-                    for(var i=0;i<data.datas.length;i++){
-                        data.datas[i].du_academic = self.du_academic[data.datas[i].du_academic];
-                        data.datas[i].du_education = self.du_education[data.datas[i].du_education];
-                        data.datas[i].du_degree = self.du_degree[data.datas[i].du_degree];
+                    for(var i=0;i<data.datas.data.length;i++){
+                        data.datas.data[i].du_academic = self.du_academic[data.datas.data[i].du_academic];
+                        data.datas.data[i].du_education = self.du_education[data.datas.data[i].du_education];
+                        data.datas.data[i].du_degree = self.du_degree[data.datas.data[i].du_degree];
                     }
                     if (data.code == 0) {
                         self.StudygroupDate = data.datas;
@@ -306,10 +309,11 @@
 
             //分页
             handleSizeChange(val) {
+                this.pagesize = val;
 //                console.log(`每页 ${val} 条`);
             },
             handleCurrentChange(val) {
-//                console.log(`当前页: ${val}`);
+                this.currentPages=val;
             },
             onSubmit() {
 
@@ -320,16 +324,20 @@
         },
         watch:{
 
-            currentPages:function (oldVal,newVal) {
-                console.log(oldVal,newVal);
+            currentPages:function (currentPages) {
+                this.currentPages = currentPages;
+//                console.log(oldVal,newVal);
                 console.log(this.type);
-                switch(this.type){
-
+                switch(type){
                     case teacher_name :
                         self.byNameSearch();
+                        break;
                     case du_name:
                         self.byGroupNameSearch();
-
+                        break;
+                    default:
+                        this.$message.error('暂无此查询');
+                        break;
                 }
 //                this.byNameSearch();
 //                this.byGroupNameSearch();
