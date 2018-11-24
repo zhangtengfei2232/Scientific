@@ -130,8 +130,8 @@ class ModelDatabase  extends  Model
      * @param $time_field
      * @return \Illuminate\Http\JsonResponse
      */
-    public static function selectAllDatas($table_name,$time_field){
-        $result = DB::table($table_name)->get();
+    public static function selectAllDatas($table_name,$time_field,$total){
+        $result = DB::table($table_name)->paginate($total);
         if($table_name == 'duties'){
             return  self::changeDutiesTimeDatas($result);
         }
@@ -182,15 +182,16 @@ class ModelDatabase  extends  Model
     }
     //分页查询
     public static function pagingQueryDatas($datas){
-        $time_field = $datas['time_field'];
         $result = DB::table($datas['table_name'])
                   ->where($datas['field'],'like',"%".$datas['value']."%")
                   ->paginate($datas['total']);
-        foreach ($result as $datas){
-            $datas->$time_field = date('Y-m-d',$datas->$time_field);
+        if(!empty($datas['time_field'])){
+            $time_field = $datas['time_field'];
+            foreach ($result as $datas){
+                $datas->$time_field = date('Y-m-d',$datas->$time_field);
+            }
         }
         return responseTojson(0,'查询成功','',$result);
-
     }
     /**根据名称模糊查询
      * @param $table_name

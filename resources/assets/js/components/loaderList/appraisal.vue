@@ -107,7 +107,7 @@
                 </el-header>
             </div>
             <el-table
-                :data="allAppraisals"
+                :data="allAppraisal"
                 style="width: 100%"
                 border
                 @selection-change="handleSelectionChange">
@@ -210,7 +210,6 @@ export default {
             searchValue:'',
             border:true,
             allAppraisal:[],
-            allAppraisals:[],
             multipleSelection: [],
             data1: '',
             type: '',
@@ -241,21 +240,28 @@ export default {
         },
         handleCurrentChange: function(currentPage){
             this.currentPage = currentPage;
-            switch(type) {
-                case ap_first_author:
+            console.log(this.type);
+            switch(this.type) {
+                case 'ap_first_author':
+                    this.nameSearch();
+                    break;
+                case 'ap_res_name':
                     this.paNameSearch();
                     break;
-                case time1:
+                case 'time1':
                     this.timeSearch();
                     break;
-                case time2:
+                case 'time2':
                     this.twoTimeSearch();
                     break;
-                case ap_form:
+                case 'ap_form':
                     this.formSearch();
                     break;
-                case combine:
+                case 'combine':
                     this.onSubmit();
+                    break;
+                case '':
+                    this.getAppraisalData();
                     break;
                 default:
                     this.$message.error('暂无此查询');
@@ -287,23 +293,21 @@ export default {
         },
         getAppraisalData() {
             let self = this;
-            axios.get("leaderselectallappraisal").then(function (response) {
-                var data = response.data;
+            axios.get("leaderselectallappraisal",{
+                page: self.currentPage,
+                total: self.pagesize,
+            }).then(function (response) {
+                var data = response.data.datas;
                 if (data.code == 0) {
-                    for(var j=0;j<data.datas.length;j++){
+                    for(var j=0;j<data.data.length;j++){
                         for(var i= 0;i<self.ap_level.length;i++){
-                            if(data.datas[j].ap_level == i){
-                                data.datas[j].ap_level = self.ap_level[i];
+                            if(data.data[j].ap_level == i){
+                                data.data[j].ap_level = self.ap_level[i];
                             }
                         }
                     }
-                    self.allAppraisal = data.datas;
-                    for(var i=0;i<self.pagesize*self.currentPage;i++){
-                        self.allAppraisals[i] = data.datas[i];
-                    }
-                    console.log(self.allAppraisals);
-                    console.log(self.allAppraisal);
-                    self.total = data.datas.length;
+                    self.allAppraisal = data.data;
+                    self.total = data.data.length;
                 } else {
                     self.$notify({
                         type: 'error',
@@ -315,12 +319,13 @@ export default {
         },
         paNameSearch() {
             let self = this;
+            self.type = 'ap_res_name';
             axios.get("bynameselectappraisal",{
                 params:{
                     page: self.currentPage,
                     total: self.pagesize,
                     type: 'ap_first_author',
-                    ap_res_name: self.ap_res_name,
+                    value: self.ap_res_name,
                 }
             }).then(function (response) {
                 var data = response.data;
@@ -344,18 +349,23 @@ export default {
         },
         nameSearch() {
             let self = this;
-            axios.get("byhostselectappraisal",{
+            self.type = 'ap_first_author';
+            axios.get("bynameselectappraisal",{
                 params:{
-                    ap_first_author: self.ap_first_author,
+                    page: self.currentPage,
+                    total: self.pagesize,
+                    type: 'ap_first_author',
+                    value: self.ap_first_author,
                 }
             }).then(function (response) {
                 var data = response.data;
+                console.log(data);
                 if (data.code == 0) {
-                    self.allAppraisal = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
+                    self.allAppraisal = data.datas.data;
+                    for(var j=0;j<data.datas.data.length;j++){
                         for(var i= 0;i<self.ap_level.length;i++){
-                            if(data.datas[j].ap_level == i){
-                                data.datas[j].ap_level = self.ap_level[i];
+                            if(data.datas.data[j].ap_level == i){
+                                data.datas.data[j].ap_level = self.ap_level[i];
                             }
                         }
                     }
@@ -371,7 +381,7 @@ export default {
         formSearch() {
             let self = this;
             self.type = 'ap_form';
-            axios.get("byformselectappraisal",{
+            axios.get("byhostselectappraisal",{
                 params:{
                     page: self.currentPage,
                     total: self.pagesize,
@@ -424,11 +434,11 @@ export default {
             }).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
-                    self.allAppraisal = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
+                    self.allAppraisal = data.datas.data;
+                    for(var j=0;j<data.datas.data.length;j++){
                         for(var i= 0;i<self.ap_level.length;i++){
-                            if(data.datas[j].ap_level == i){
-                                data.datas[j].ap_level = self.ap_level[i];
+                            if(data.datas.data[j].ap_level == i){
+                                data.datas.data[j].ap_level = self.ap_level[i];
                             }
                         }
                     }

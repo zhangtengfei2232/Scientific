@@ -301,21 +301,24 @@ export default {
         },
         handleCurrentChange: function(currentPage){
             this.currentPage = currentPage;
-            switch(type) {
-                case author:
+            switch(this.type) {
+                case 'author':
                     this.nameSearch();
                     break;
-                case art_time1:
+                case 'art_time1':
                     this.timeSearch();
                     break;
-                case art_time2:
+                case 'art_time2':
                     this.twoTimeSearch();
                     break;
-                case sch_percal_cate:
+                case 'sch_percal_cate':
                     this.rankSearch();
                     break;
-                case combine:
+                case 'combine':
                     this.onSubmit();
+                    break;
+                case '':
+                    this.getArticleData();
                     break;
                 default:
                     this.$message.error('暂无此查询');
@@ -367,7 +370,10 @@ export default {
         },
         getArticleData() {
             let self = this;
-            axios.get("leaderselectallartical").then(function (response) {
+            axios.get("leaderselectallartical",{
+                page: self.currentPage,
+                total: self.pagesize,
+            }).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allArticle = data.datas;

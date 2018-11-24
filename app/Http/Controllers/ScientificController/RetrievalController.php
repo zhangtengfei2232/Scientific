@@ -462,35 +462,36 @@ class RetrievalController extends Controller
      */
     //根据多个条件，组合查询文章信息
     public function combinationSelectAppraisal(Request $request){
+        ($request->has('total')) ? $total = $request->total : $this->total;
         $condition_datas = [
             'table_name'  => $this->appraisal_table_name,
             'time_field'  => $this->appraisal_time_field,
             'first_field' => SearchMessageConfig::APPRAISAL_AP_LEVEL,  //文章刊物级别字段
-            'first_datas' => $request->ap_level_datas
+            'first_datas' => $request->ap_level_datas,
+            'total'       => $total
         ];
         return ModelDatabase::combinationSelectDatas($condition_datas);
     }
     //查询全部成果鉴定信息
-    public function leaderSelectAllAppraisal(){
-        return ModelDatabase::selectAllDatas($this->appraisal_table_name,$this->appraisal_time_field);
+    public function leaderSelectAllAppraisal(Request $request){
+        ($request->has('total')) ? $total = $request->total : $this->total;
+        return ModelDatabase::selectAllDatas($this->appraisal_table_name,$this->appraisal_time_field,$total);
     }
-    //主持人查询
-    public function byHostSelectAppraisal(Request $request){
-        $ap_first_author = $request->ap_first_author;
-        if(empty($ap_first_author)){
-             return responseTojson(1,'你输入的主持人不能为空');
-        }
-        $ap_first_author_field = SearchMessageConfig::APPRAISAL_AP_FIRST_AUTHOR;
-        return ModelDatabase::byNameSelectDatas($this->appraisal_table_name,$ap_first_author_field,$ap_first_author,$this->appraisal_time_field);
-    }
+//    //主持人查询
+//    public function byHostSelectAppraisal(Request $request){
+//        $ap_first_author = $request->ap_first_author;
+//        if(empty($ap_first_author)){
+//             return responseTojson(1,'你输入的主持人不能为空');
+//        }
+//        $ap_first_author_field = SearchMessageConfig::APPRAISAL_AP_FIRST_AUTHOR;
+//        return ModelDatabase::byNameSelectDatas($this->appraisal_table_name,$ap_first_author_field,$ap_first_author,$this->appraisal_time_field);
+//    }
     //鉴定成果名称查询
     public function byNameSelectAppraisal(Request $request){
-        $data['total'] = $this->total;
-        if($request->has('total')){
-            $data['total'] = $request->total;
-        }
+        ($request->has('total')) ? $data['total'] = $request->total : $this->total;
         $data['table_name']    = $this->appraisal_table_name;
         $data['time_field']    = $this->appraisal_time_field;
+        $data['value']         = $request->value;
         $ap_form_field         = SearchMessageConfig::APPRAISAL_AP_FORM;
         $ap_first_author_field = SearchMessageConfig::APPRAISAL_AP_FIRST_AUTHOR;
         $ap_res_name_field     = SearchMessageConfig::APPRAISAL_AP_RES_NAME;
@@ -500,8 +501,10 @@ class RetrievalController extends Controller
                 break;
             case $ap_first_author_field:
                 $data['field'] = $ap_first_author_field;
+                break;
             case $ap_form_field:
                 $data['field'] = $ap_form_field;
+                break;
         }
         return ModelDatabase::pagingQueryDatas($data);
     }
@@ -519,10 +522,7 @@ class RetrievalController extends Controller
 //    }
     //鉴定时间查询
     public function byTimeSelectAppraisal(Request $request){
-        $total = $this->total;
-        if($request->has('total')){
-            $total = $request->total;
-        }
+        ($request->has('total')) ? $total = $request->total : $this->total;
         $start_time = $request->start_time;
         $end_time   = $request->end_time;
         return ModelDatabase::timeSelectInformation($start_time,$end_time,$this->appraisal_table_name,$this->appraisal_time_field,$total);
@@ -729,7 +729,7 @@ class RetrievalController extends Controller
         if($request->has('total')){
             $datas['total'] = $request->total;
         }
-        $datas['value']        = $request->value;
+        $datas['value']         = $request->value;
         $datas['table_name']    = $this->duties_table_name;
         $du_teacher_name_field = SearchMessageConfig::DUTIES_TEACHER_NAME;
         $du_name_field         = SearchMessageConfig::DUTIES_DU_NAME;
