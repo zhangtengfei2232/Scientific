@@ -76,34 +76,34 @@ class ModelDatabase  extends  Model
                  ->whereIn($first_field,$first_datas)
                  ->whereIn($second_field,$second_datas)
                  ->whereIn($third_field,$third_datas)
-                 ->get();
+                 ->paginate($condition_datas['total']);
          }elseif (!empty($first_datas) && empty($second_datas) && empty($third_datas)){
              $result = DB::table($table_name)
                  ->whereIn($first_field,$first_datas)
-                 ->get();
+                 ->paginate($condition_datas['total']);
          }elseif (empty($first_datas) && !empty($second_datas) && empty($third_datas)){
              $result = DB::table($table_name)
                  ->whereIn($second_field,$second_datas)
-                 ->get();
+                 ->paginate($condition_datas['total']);
          }elseif (empty($first_datas) == 0 && empty($second_datas) && !empty($third_datas)){
              $result = DB::table($table_name)
                  ->whereIn($third_field,$third_datas)
-                 ->get();
+                 ->paginate($condition_datas['total']);
          }elseif (!empty($first_datas) && !empty($second_datas) && empty($third_datas)){
              $result = DB::table($table_name)
                  ->whereIn($first_field,$first_datas)
                  ->whereIn($second_field,$second_datas)
-                 ->get();
+                 ->paginate($condition_datas['total']);
          }elseif (!empty($first_datas) && empty($second_datas) && !empty($third_datas)){
              $result = DB::table($table_name)
                  ->whereIn($first_field,$first_datas)
                  ->whereIn($third_field,$third_datas)
-                 ->get();
+                 ->paginate($condition_datas['total']);
          }elseif(empty($first_datas) && !empty($second_datas) && !empty($third_datas)){
              $result = DB::table($table_name)
                  ->whereIn($second_field,$second_datas)
                  ->whereIn($third_field,$third_datas)
-                 ->get();
+                 ->paginate($condition_datas['total']);
          }
          foreach ($result as $datas){
              $datas->$time_field = date('Y-m-d',$datas->$time_field/1000);
@@ -150,9 +150,9 @@ class ModelDatabase  extends  Model
      * @param string $teacher_id
      * @return \Illuminate\Http\JsonResponse
      */
-    public static function timeSelectInformation($start_time,$end_time,$table_name,$time_field,$teacher_id = ''){
+    public static function timeSelectInformation($start_time,$end_time,$table_name,$time_field,$teacher_id = '',$total = 10){
         if(empty($teacher_id)){
-            $result = DB::table($table_name)->whereBetween($time_field,[$start_time,$end_time])->get();
+            $result = DB::table($table_name)->whereBetween($time_field,[$start_time,$end_time])->paginate($total);
         }else{
             $result = DB::table($table_name)
                 ->where('teacher_id',$teacher_id)
@@ -185,6 +185,7 @@ class ModelDatabase  extends  Model
         $result = DB::table($datas['table_name'])
                   ->where($datas['field'],'like',"%".$datas['value']."%")
                   ->paginate($datas['total']);
+        return $result;
 
     }
     /**根据名称模糊查询

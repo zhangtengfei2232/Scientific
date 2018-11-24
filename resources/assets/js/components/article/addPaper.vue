@@ -154,11 +154,11 @@
 
 <style scoped>
     .contents{
-        width: 75%;
+        width: 85%;
         float: left;
     }
     .add{
-        width: 73%;
+        width: 80%;
         margin: 35px 0 0 35px;
     }
 </style>
