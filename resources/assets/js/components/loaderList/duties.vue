@@ -115,11 +115,12 @@
                 <el-pagination
                         @size-change="handleSizeChange"
                         @current-change="handleCurrentChange"
-                        :current-page.sync="currentPages"
+                        :current-page="currentPages"
                         :page-sizes="[10, 20, 50, 100]"
-                        :page-size="pageSize"
+                        :page-size="pagesize"
                         layout="total, sizes, prev, pager, next, jumper"
-                        :total="total">
+                        :total="total"
+                        :next-click="byNameSearch">
                 </el-pagination>
             </div>
         </div>
@@ -157,7 +158,7 @@
             return {
                 type:'teacher_name',
                 currentPages:4,
-                pageSize:10,
+                pagesize:10,
                 searchValue:'',
                 border:true,
                 StudygroupDate: [],
@@ -197,7 +198,7 @@
         },
         methods: {
             click1(){
-            this.type = 'teacher_name';
+                this.type = 'teacher_name';
             },
             click2(){
                 this.type = 'du_name';
@@ -227,15 +228,18 @@
                 let self = this;
                 axios.get("byteachernameselectduties",{
                     params:{
-                        teacher_name: self.teacher_name,
+                        value: self.teacher_name,
                         type: self.type,
-                        page:1,
-                        total:10
+                        page:self.currentPages,
+                        total:self.pagesize,
                     }
                 }).then(function (response) {
                     var data = response.data;
-                    self.form.num = data.datas.length;
-                    for(var i=0;i<data.datas.length;i++){
+                    console.log(data.datas.data,'***===***');
+//                    console.log(data.datas.data,'************');
+//                    self.form.num = data.datas.data.length;
+//                    console.log(data.datas,'/***/*/*/*/*/');
+                    for(var i=0;i<data.datas.data.length;i++){
                         data.datas[i].du_academic = self.du_academic[data.datas[i].du_academic];
                         data.datas[i].du_education = self.du_education[data.datas[i].du_education];
                         data.datas[i].du_degree = self.du_degree[data.datas[i].du_degree];
@@ -259,7 +263,7 @@
                     }
                 }).then(function (response) {
                     var data = response.data;
-                    self.form.num = data.datas.length;
+//                    self.form.num = data.datas.length;
                     for(var i=0;i<data.datas.length;i++){
                         data.datas[i].du_academic = self.du_academic[data.datas[i].du_academic];
                         data.datas[i].du_education = self.du_education[data.datas[i].du_education];
@@ -302,13 +306,10 @@
 
             //分页
             handleSizeChange(val) {
-
-                console.log(`每页 ${val} 条`);
+//                console.log(`每页 ${val} 条`);
             },
             handleCurrentChange(val) {
-
-
-                console.log(`当前页: ${val}`);
+//                console.log(`当前页: ${val}`);
             },
             onSubmit() {
 
@@ -316,6 +317,23 @@
         },
         mounted() {
             this.getArticleData();
-        }
+        },
+        watch:{
+
+            currentPages:function (oldVal,newVal) {
+                console.log(oldVal,newVal);
+                console.log(this.type);
+                switch(this.type){
+
+                    case teacher_name :
+                        self.byNameSearch();
+                    case du_name:
+                        self.byGroupNameSearch();
+
+                }
+//                this.byNameSearch();
+//                this.byGroupNameSearch();
+            }
+        },
     }
 </script>
