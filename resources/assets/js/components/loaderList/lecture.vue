@@ -13,11 +13,11 @@
                                 </span>
                                     <el-dropdown-menu slot="dropdown">
                                         <el-dropdown-item>全部</el-dropdown-item>
-                                        <el-dropdown-item @click="timeSearch(8)">18年-今天</el-dropdown-item>
-                                        <el-dropdown-item @click="timeSearch(7)">17年-今天</el-dropdown-item>
-                                        <el-dropdown-item @click="timeSearch(6)">16年-今天</el-dropdown-item>
-                                        <el-dropdown-item @click="timeSearch(5)">15年-今天</el-dropdown-item>
-                                        <el-dropdown-item @click="timeSearch(4)">14年-今天</el-dropdown-item>
+                                        <el-dropdown-item @click.native="timeSearch(8)">18年-今天</el-dropdown-item>
+                                        <el-dropdown-item @click.native="timeSearch(7)">17年-今天</el-dropdown-item>
+                                        <el-dropdown-item @click.native="timeSearch(6)">16年-今天</el-dropdown-item>
+                                        <el-dropdown-item @click.native="timeSearch(5)">15年-今天</el-dropdown-item>
+                                        <el-dropdown-item @click.native="timeSearch(4)">14年-今天</el-dropdown-item>
                                         <el-dropdown-item>
                                             <el-popover
                                                     placement="top-start"
@@ -242,19 +242,25 @@
                     this.newTime = '1388548800';
                 }
                 var timestamp = Date.parse(new Date());
+//                console.log(timestamp,'=-=-=-=-')
                 let self = this;
                 axios.get("byinvitetimeselectlecture",{
                     params:{
-                        start_time:newTime,
+                        start_time:this.newTime,
                         end_time:timestamp
                     }
                 }).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
                         self.ExperspeakDate = data.datas;
-                        for(var i=0;i<data.datas.length;i++){
-                            data.datas[i].le_invite_status = self.le_invite_status[data.datas[i].le_invite_status];
-                            data.datas[i].le_expert_level = self.le_expert_level[data.datas[i].le_expert_level];
+                        for(var j=0;j<data.datas.length;j++){
+                            for(var i= 0;i<self.le_expert_level.length;i++){
+                                if(data.datas[j].le_expert_level == i){
+                                    data.datas[j].le_expert_level = self.le_expert_level[i];
+                                }
+                            }
+//                            data.datas[i].le_invite_status = self.le_invite_status[data.datas[i].le_invite_status];
+//                            data.datas[i].le_expert_level = self.le_expert_level[data.datas[i].le_expert_level];
                         }
                     } else {
                         self.$notify({
@@ -276,10 +282,17 @@
                     var data = response.data;
                     if (data.code == 0) {
                         self.ExperspeakDate = data.datas;
-                        for(var i=0;i<data.datas.length;i++){
-                            data.datas[i].le_invite_status = self.le_invite_status[data.datas[i].le_invite_status];
-                            data.datas[i].le_expert_level = self.le_expert_level[data.datas[i].le_expert_level];
+                        for(var j=0;j<data.datas.length;j++){
+                            for(var i= 0;i<self.le_expert_level.length;i++){
+                                if(data.datas[j].le_expert_level == i){
+                                    data.datas[j].le_expert_level = self.le_expert_level[i];
+                                }
+                            }
                         }
+//                        for(var i=0;i<data.datas.length;i++){
+//                            data.datas[i].le_invite_status = self.le_invite_status[data.datas[i].le_invite_status];
+//                            data.datas[i].le_expert_level = self.le_expert_level[data.datas[i].le_expert_level];
+//                        }
                     } else {
                         self.$notify({
                             type: 'error',

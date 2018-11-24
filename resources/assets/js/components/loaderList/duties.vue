@@ -8,12 +8,14 @@
                         <el-popover
                                 placement="top-start"
                                 width="400"
-                                trigger="click">
+                                trigger="click"
+                                >
                             <el-input
                                     placeholder="请输入老师姓名 (回车搜索)"
                                     prefix-icon="el-icon-search"
                                     v-model="teacher_name"
-                                    @keyup.enter.native="byNameSearch()">
+                                    @keyup.enter.native="byNameSearch()"
+                                    @focus="click1">
                             </el-input>
                             <div slot="reference">老师：姓名<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
@@ -22,12 +24,14 @@
                         <el-popover
                                 placement="top-start"
                                 width="400"
-                                trigger="click">
+                                trigger="click"
+                                >
                             <el-input
                                     placeholder="请输入担任的学术团体名称 (回车搜索)"
                                     prefix-icon="el-icon-search"
                                     v-model="du_name"
-                                    @keyup.enter.native="byGroupNameSearch()">
+                                    @keyup.enter.native="byNameSearch()"
+                                    @focus="click2">
                             </el-input>
                             <div slot="reference">担任学术团体名称<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
@@ -109,8 +113,12 @@
             <el-button @click="ExcelSelection()" style="margin-top: 20px;">导出Excel</el-button>
             <div class="page">
                 <el-pagination
-                        background
-                        layout="prev, pager, next"
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        :current-page.sync="currentPages"
+                        :page-sizes="[10, 20, 50, 100]"
+                        :page-size="pageSize"
+                        layout="total, sizes, prev, pager, next, jumper"
                         :total="total">
                 </el-pagination>
             </div>
@@ -147,6 +155,9 @@
     export default {
         data() {
             return {
+                type:'teacher_name',
+                currentPages:4,
+                pageSize:10,
                 searchValue:'',
                 border:true,
                 StudygroupDate: [],
@@ -185,6 +196,12 @@
             }
         },
         methods: {
+            click1(){
+            this.type = 'teacher_name';
+            },
+            click2(){
+                this.type = 'du_name';
+            },
             getArticleData() {
                 let self = this;
                 axios.get("leaderselectallduties").then(function (response) {
@@ -211,6 +228,9 @@
                 axios.get("byteachernameselectduties",{
                     params:{
                         teacher_name: self.teacher_name,
+                        type: self.type,
+                        page:1,
+                        total:10
                     }
                 }).then(function (response) {
                     var data = response.data;
@@ -278,6 +298,17 @@
                 let self = this;
                 let urls =  `exportdutiesexcel?du_id_datas=${art_id_datas}`;
                 window.location.href = urls;
+            },
+
+            //分页
+            handleSizeChange(val) {
+
+                console.log(`每页 ${val} 条`);
+            },
+            handleCurrentChange(val) {
+
+
+                console.log(`当前页: ${val}`);
             },
             onSubmit() {
 

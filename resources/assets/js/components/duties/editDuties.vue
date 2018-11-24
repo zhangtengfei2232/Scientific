@@ -1,7 +1,7 @@
 <template>
     <div class="information">
         <div class="add">
-            <el-form ref="form" :model="form" label-width="125px">
+            <el-form ref="form" :model="form" label-width="200px">
             <el-form-item label="姓名">
                 <el-input v-model="form.teacher_name" placeholder="请输入姓名" maxlength="15"></el-input>
             </el-form-item>
@@ -99,21 +99,22 @@
         float: left;
     }
     .add{
-        /*width: 80%;*/
+        width: 73%;
         margin: 35px 0 0 35px;
     }
     .demo{
         margin: 10px 0 10px 30%;
     }
+
     /*组件*/
-    .el-form{
-        width:58%;
-        margin-top: 40px;
-        margin-left: 150px;
-    }
-    .el-date-editor.el-input, .el-date-editor.el-input__inner {
-        width: 200px;
-    }
+    /*.el-form{*/
+        /*width:58%;*/
+        /*margin-top: 40px;*/
+        /*margin-left: 150px;*/
+    /*}*/
+    /*.el-date-editor.el-input, .el-date-editor.el-input__inner {*/
+        /*width: 200px;*/
+    /*}*/
 </style>
 <script>
     export default {

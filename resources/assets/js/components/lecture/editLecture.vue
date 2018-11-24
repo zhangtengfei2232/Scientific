@@ -1,7 +1,7 @@
 <template>
     <div class="information">
         <div class="add">
-            <el-form ref="form" :model="form" label-width="90px">
+            <el-form ref="form" :model="form" label-width="200px">
             <el-form-item label="专家姓名">
                 <el-input v-model="form.le_expert_name" placeholder="请输入专家姓名" maxlength="15"></el-input>
             </el-form-item>
@@ -94,18 +94,21 @@
         margin: 35px 0 0 35px;
     }
     .demo{
-        margin: 10px 0 10px 12%;
+        margin: 10px 0 10px 30%;
     }
     thead li{
         float: left;
         margin: 20px;
     }
     /*组件*/
-    .el-form{
-        width:62%;
-        margin-top: 40px;
-        margin-left: 150px;
-    }
+    /*.el-form-item__content{*/
+        /*margin-left: 200px;*/
+    /*}*/
+    /*.el-form{*/
+        /*width:62%;*/
+        /*margin-top: 40px;*/
+        /*margin-left: 150px;*/
+    /*}*/
 </style>
 <script>
     export default {

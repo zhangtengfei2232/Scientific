@@ -25,7 +25,6 @@
                     <el-table-column
                             prop="du_id"
                             label="序号"
-                            sortable
                             width="120">
                     </el-table-column>
                     <el-table-column
