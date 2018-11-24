@@ -77,7 +77,7 @@
                                     <el-option label="教研室主任" value="9"></el-option>
                                     <el-option label="党委书记" value="10"></el-option>
                                     <el-option label="党委副书记" value="11"></el-option>
-                                    <el-option label="研究生主任" value="12"></el-option>
+                                    <el-option label="研究室主任" value="12"></el-option>
                                     <el-option label="实验室主任" value="13"></el-option>
                                 </el-select>
                             </el-form-item>
@@ -479,7 +479,7 @@
                         self.allResult=true;//成果汇总
                         self.resultCollect=true;//成果汇总
                     }
-                    else if(status == 12){  //研究生主任
+                    else if(status == 12){  //研究室主任
                         self.allResult=true;//成果汇总
                         self.resultCollect=true;//成果汇总
                     }
