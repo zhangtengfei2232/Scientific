@@ -347,7 +347,7 @@ export default {
         nameSearch() {
             let self = this;
             self.type = 'ap_first_author';
-            console.log(self.type);
+
             axios.get("bynameselectappraisal",{
                 params:{
                     page: self.currentPage,
@@ -357,12 +357,13 @@ export default {
                 }
             }).then(function (response) {
                 var data = response.data;
+                console.log(data);
                 if (data.code == 0) {
-                    self.allAppraisal = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
+                    self.allAppraisal = data.datas.data;
+                    for(var j=0;j<data.datas.data.length;j++){
                         for(var i= 0;i<self.ap_level.length;i++){
-                            if(data.datas[j].ap_level == i){
-                                data.datas[j].ap_level = self.ap_level[i];
+                            if(data.datas.data[j].ap_level == i){
+                                data.datas.data[j].ap_level = self.ap_level[i];
                             }
                         }
                     }
