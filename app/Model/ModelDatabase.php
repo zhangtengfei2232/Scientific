@@ -180,6 +180,13 @@ class ModelDatabase  extends  Model
         }
         return responseTojson(0,'查询成功','',$result);
     }
+    //分页查询
+    public static function pagingQueryDatas($datas){
+        $result = DB::table($datas['table_name'])
+                  ->where($datas['field'],'like',"%".$datas['value']."%")
+                  ->paginate($datas['total']);
+
+    }
     /**根据名称模糊查询
      * @param $table_name
      * @param $field

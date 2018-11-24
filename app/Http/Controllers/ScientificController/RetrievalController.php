@@ -32,6 +32,7 @@ class RetrievalController extends Controller
     private $lecture_time_field   = SearchMessageConfig::LE_TIME;
     private $schfile_time_field   = SearchMessageConfig::SCHFILE_DOWN_TIME;
     private $agreement_time_field = SearchMessageConfig::AGREE_TIME;
+    private $data_page_number     = 10;
     /**
      * 1.秘书、院长的特殊功能======>检索所有信息功能
      * 2.生成=======>师资组成(最高学历，职称，学缘)，论文(期刊级别)，
@@ -44,7 +45,8 @@ class RetrievalController extends Controller
      * 老师检索
      */
     //查询老师全部信息
-    public function leaderSelectAllTeacher(){
+    public function leaderSelectAllTeacher(Request $request){
+        if($request->has(''))
         return ModelDatabase::selectAllteacherDatas();
     }
     //老师名字查询老师信息
@@ -122,59 +124,72 @@ class RetrievalController extends Controller
     }
     //根据论文作者模糊查询
     public function byAuthorSelectArtical(Request $request){
-        $art_author = $request->author;
-        if(empty($art_author)) {
-            return responseTojson(1,'你输入的论文作者不能为空');
+        $datas['total']  = 10;
+        $datas['value']  = $request->art_value;
+        if($request->has('total')){
+            $datas['total']  = $request->total;
         }
+        $datas['table_name'] = $this->artical_table_name;
+        $datas['time_field'] = $this->artical_time_field;
+        $art_field = $request->type;
         $art_author_field = SearchMessageConfig::ARTICAL_AUTHOR;
-        return ModelDatabase::byNameSelectDatas($this->artical_table_name,$art_author_field,$art_author,$this->artical_time_field);
+        $sch_percal_cate_field = SearchMessageConfig::ARTICAL_SCH_PERCAL_CATE;
+        switch ($art_field){
+            case $art_author_field:
+                $datas['field'] = $art_author_field;
+                break;
+            case $sch_percal_cate_field:
+                $datas['field'] = $sch_percal_cate_field;
+                break;
+        }
+        return ModelDatabase::pagingQueryDatas($datas);
     }
     //发表刊物名称查询
-    public function byDatelineSelectArtical(Request $request){
-        $publication_name = $request->publication_name;
-        if(empty($publication_name)) {
-            return responseTojson(1,'你输入的论文作者不能为空');
-        }
-        $publication_name_field = SearchMessageConfig::ARTICAL_PUBLICATION_NAME;
-        return ModelDatabase::byNameSelectDatas($this->artical_table_name,$publication_name_field,$publication_name,$this->artical_time_field);
-    }
+//    public function byDatelineSelectArtical(Request $request){
+//        $publication_name = $request->publication_name;
+//        if(empty($publication_name)) {
+//            return responseTojson(1,'你输入的论文作者不能为空');
+//        }
+
+//        return ModelDatabase::byNameSelectDatas($this->artical_table_name,$publication_name_field,$publication_name,$this->artical_time_field);
+//    }
     //发表日期查询
-    public function byPeriodicalSelectArtical(Request $request){
-        $start_time = $request->start_time;
-        $end_time   = $request->end_time;
-        return ModelDatabase::timeSelectInformation($start_time,$end_time,$this->artical_table_name,$this->artical_time_field);
-    }
-    //刊物级别查询
-    public function byJournalLevelSelectArtical(Request $request){
-        $journal_level       = $request->percal_cate;
-        $journal_level_field = SearchMessageConfig::ARTICAL_PERCAL_CATE;
-        return ModelDatabase::categorySelectInformation($this->artical_table_name,$journal_level_field,$journal_level,$this->artical_time_field);
-    }
-    //所属项目查询
-    public function byBelongProjectSelectArtical(Request $request){
-        $belong_project       = $request->belong_project;
-        $belong_project_field = SearchMessageConfig::ARTICAL_BELONG_PROJECT;
-        return ModelDatabase::byNameSelectDatas($this->artical_table_name,$belong_project_field,$belong_project,$this->artical_time_field);
-    }
-    //学科门类查询
-    public function bySubjectCategorySelectArtical(Request $request){
-        $subject_category_field = SearchMessageConfig::ARTICAL_ART_SUB_CATEGORY;
-        $subject_category       = $request->art_sub_category;
-        return ModelDatabase::categorySelectInformation($this->artical_table_name,$subject_category_field,$subject_category,$this->artical_time_field);
-    }
-    //研究类别查询
-    public function byCategoryResearchSelectArtical(Request $request){
-        $category_research_field = SearchMessageConfig::ARTICAL_ART_CATE_RESEARCH;
-        $category_research       = $request->category_research;
-        return ModelDatabase::categorySelectInformation($this->artical_table_name,$category_research_field,$category_research,$this->artical_time_field);
-    }
+//    public function byPeriodicalSelectArtical(Request $request){
+//        $start_time = $request->start_time;
+//        $end_time   = $request->end_time;
+//        return ModelDatabase::timeSelectInformation($start_time,$end_time,$this->artical_table_name,$this->artical_time_field);
+//    }
+//    //刊物级别查询
+//    public function byJournalLevelSelectArtical(Request $request){
+//        $journal_level       = $request->percal_cate;
+//        $journal_level_field = SearchMessageConfig::ARTICAL_PERCAL_CATE;
+//        return ModelDatabase::categorySelectInformation($this->artical_table_name,$journal_level_field,$journal_level,$this->artical_time_field);
+//    }
+//    //所属项目查询
+//    public function byBelongProjectSelectArtical(Request $request){
+//        $belong_project       = $request->belong_project;
+//        $belong_project_field = SearchMessageConfig::ARTICAL_BELONG_PROJECT;
+//        return ModelDatabase::byNameSelectDatas($this->artical_table_name,$belong_project_field,$belong_project,$this->artical_time_field);
+//    }
+//    //学科门类查询
+//    public function bySubjectCategorySelectArtical(Request $request){
+//        $subject_category_field = SearchMessageConfig::ARTICAL_ART_SUB_CATEGORY;
+//        $subject_category       = $request->art_sub_category;
+//        return ModelDatabase::categorySelectInformation($this->artical_table_name,$subject_category_field,$subject_category,$this->artical_time_field);
+//    }
+//    //研究类别查询
+//    public function byCategoryResearchSelectArtical(Request $request){
+//        $category_research_field = SearchMessageConfig::ARTICAL_ART_CATE_RESEARCH;
+//        $category_research       = $request->category_research;
+//        return ModelDatabase::categorySelectInformation($this->artical_table_name,$category_research_field,$category_research,$this->artical_time_field);
+//    }
     //学校认定刊物级别查询
     public function bySchoolaffirmLevelSelectArtical(Request $request){
         $sch_percal_cate = $request->sch_percal_cate;
         if(empty($sch_percal_cate)) {
             return responseTojson(1,'你输入的学校认定刊物级别不能为空');
         }
-        $sch_percal_cate_field  = SearchMessageConfig::ARTICAL_SCH_PERCAL_CATE;
+        $sch_percal_cate_field = SearchMessageConfig::ARTICAL_SCH_PERCAL_CATE;
         return ModelDatabase::byNameSelectDatas($this->artical_table_name,$sch_percal_cate_field,$sch_percal_cate,$this->artical_time_field);
     }
 
