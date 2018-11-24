@@ -129,7 +129,7 @@ class RetrievalController extends Controller
     //根据论文作者模糊查询
     public function byAuthorSelectArtical(Request $request){
         $datas['total']  = 10;
-        $datas['value']  = $request->art_value;
+        $datas['value']  = $request->value;
         if($request->has('total')){
             $datas['total'] = $request->total;
         }
