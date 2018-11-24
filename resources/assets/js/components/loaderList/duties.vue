@@ -30,7 +30,7 @@
                                     placeholder="请输入担任的学术团体名称 (回车搜索)"
                                     prefix-icon="el-icon-search"
                                     v-model="du_name"
-                                    @keyup.enter.native="byNameSearch()"
+                                    @keyup.enter.native="byGroupNameSearch()"
                                     >
                             </el-input>
                             <div slot="reference">担任学术团体名称<i class="el-icon-arrow-down el-icon--right"></i></div>
@@ -155,13 +155,14 @@
     export default {
         data() {
             return {
-                type:'',
+                types:'',
                 currentPages:1,
                 pagesize:10,
                 searchValue:'',
                 border:true,
                 StudygroupDate: [],
                 multipleSelection: [],
+                values:'',
                 data1: '',
                 year1: '',
                 year2: '',
@@ -210,32 +211,28 @@
                     }
                 }).then(function (response) {
                     self.total = response.data.datas.total;
-                    self.commonchange(response.data.datas.data);
+                    self.commonchange(response.data.datas.du_datas);
                 })
             },
             commonchange(data){
-                console.log(data);
                 let self = this;
                 for(var i=0;i<data.length;i++){
-                    let a = data[i].du_year_num.split(",");
-//                    let date = new Date();
-                    data[i]['start_time'] = new Date(parseInt(a[0])).toLocaleString().replace(/:\d{1,2}$/,' ');
-                    data[i]['end_time'] = new Date(parseInt(a[1])).toLocaleString().replace(/:\d{1,2}$/,' ');
                     data[i].du_academic = self.du_academic[data[i].du_academic];
                     data[i].du_education = self.du_education[data[i].du_education];
                     data[i].du_degree = self.du_degree[data[i].du_degree];
                 }
-                console.log(data);
                 self.StudygroupDate = data;
             },
             byNameSearch() {                //老师姓名
                 let self = this;
                 self.type = 'teacher_name';
-                self.commonget(self.type,self.teacher_name);
+                self.value = self.teacher_name;
+                self.commonget(self.type,self.du_name);
             },
             byGroupNameSearch() {                //担任学术团体名称
                 let self = this;
                 self.type = 'du_name';
+                self.value = self.du_name;
                 self.commonget(self.type,self.du_name);
             },
             handleSelectionChange(val) {
@@ -265,7 +262,7 @@
             //分页
             handleSizeChange(val) {
                 this.pagesize = val;
-//                console.log(`每页 ${val} 条`);
+                this.commonget(this.types,this.values);
             },
             handleCurrentChange(val) {
                 this.currentPages=val;
@@ -280,17 +277,7 @@
         watch:{
             currentPages:function (currentPages) {
                 this.currentPages = currentPages;
-                switch(type){
-                    case teacher_name :
-                        self.byNameSearch();
-                        break;
-                    case du_name:
-                        self.byGroupNameSearch();
-                        break;
-                    default:
-                        this.$message.error('暂无此查询');
-                        break;
-                }
+                this.commonget(this.types,this.values)
 //                this.byNameSearch();
 //                this.byGroupNameSearch();
             }
