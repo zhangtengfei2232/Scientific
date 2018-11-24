@@ -107,7 +107,7 @@
                 </el-header>
             </div>
             <el-table
-                :data="allArticle.slice((currentPage-1)*pagesize,currentPage*pagesize)"
+                :data="allArticle"
                 stripe
                 style="width: 100%"
                 border
@@ -236,17 +236,17 @@
 export default {
     data() {
         return {
-            value:false,
             searchValue:'',
             art_rank: '',
             border:true,
             allArticle:[],
             currentPage:1,
-            pagesize:1,
+            pagesize:10,
             data1: '',
             art_name:'',
             total: 0,
             newTime: 0,
+            type: '',
             isIndeterminate: true,
             multipleSelection: [],
             form:{
@@ -289,7 +289,7 @@ export default {
                 '经济学',
                 '政治学',
                 '法学',
-            ]
+            ],
         }
     },
     methods: {
@@ -301,12 +301,26 @@ export default {
         },
         handleCurrentChange: function(currentPage){
             this.currentPage = currentPage;
-        },
-        handleSizeChange: function (size) {
-            this.pagesize = size;
-        },
-        handleCurrentChange: function(currentPage){
-            this.currentPage = currentPage;
+            switch(type) {
+                case author:
+                    this.nameSearch();
+                    break;
+                case art_time1:
+                    this.timeSearch();
+                    break;
+                case art_time2:
+                    this.twoTimeSearch();
+                    break;
+                case sch_percal_cate:
+                    this.rankSearch();
+                    break;
+                case combine:
+                    this.onSubmit();
+                    break;
+                default:
+                    this.$message.error('暂无此查询');
+                    break;
+            }
         },
         handleSelectionChange(val) {
             this.multipleSelection = val;
@@ -385,6 +399,7 @@ export default {
             });
         },
         timeSearch(time) {
+            this.type = 'art_time1';
             if(time == 8) {
                 this.newTime = '1514779200';
             }else if(time == 7) {
@@ -400,6 +415,9 @@ export default {
             let self = this;
             axios.get("byperiodicalselectartical",{
                 params:{
+                    page: self.currentPage,
+                    total: self.pagesize,
+                    type: 'art_time',
                     start_time:this.newTime,
                     end_time:timestamp
                 }
@@ -435,8 +453,12 @@ export default {
         },
         twoTimeSearch() {
            let self = this;
+           self.type = 'art_time2';
             axios.get("byperiodicalselectartical",{
                 params:{
+                    page: self.currentPage,
+                    total: self.pagesize,
+                    type: 'art_time',
                     start_time:self.data1[0],
                     end_time:self.data1[1],
                 }
@@ -472,9 +494,13 @@ export default {
         },
         nameSearch() {
             let self = this;
+            self.type = 'author';
             axios.get("byauthorselectartical",{
                 params:{
-                    author: self.art_name,
+                    page: self.currentPage,
+                    total: self.pagesize,
+                    type: 'author',
+                    value: self.art_name,
                 }
             }).then(function (response) {
                 var data = response.data;
@@ -508,9 +534,13 @@ export default {
         },
         rankSearch() {
             let self = this;
+            self.type = 'sch_percal_cate';
             axios.get("byschoolaffirmlevelselectartical",{
                 params:{
-                    sch_percal_cate: self.art_rank,
+                    page: self.currentPage,
+                    total: self.pagesize,
+                    type: 'art_time',
+                    value: self.art_rank,
                 }
             }).then(function (response) {
                 var data = response.data;
@@ -544,8 +574,11 @@ export default {
         },
         onSubmit(form) {
             let self = this;
+            self.type = 'combine';
             axios.get("combinationselectartical",{
                 params:{
+                    page: self.currentPage,
+                    total: self.pagesize,
                     percal_cate_datas: form.percal_cate,
                     art_cate_research_datas: form.art_cate_research,
                 }

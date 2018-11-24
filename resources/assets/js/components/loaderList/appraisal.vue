@@ -107,10 +107,9 @@
                 </el-header>
             </div>
             <el-table
-                :data="allAppraisal"
+                :data="allAppraisals"
                 style="width: 100%"
                 border
-                height="250"
                 @selection-change="handleSelectionChange">
                 <el-table-column
                     type="selection"
@@ -211,11 +210,12 @@ export default {
             searchValue:'',
             border:true,
             allAppraisal:[],
+            allAppraisals:[],
             multipleSelection: [],
             data1: '',
             newTime:0,
             ap_first_author:'',
-            pagesize:20,
+            pagesize:10,
             ap_res_name:'',
             ap_form:'',
             currentPage:1,
@@ -240,6 +240,25 @@ export default {
         },
         handleCurrentChange: function(currentPage){
             this.currentPage = currentPage;
+            let self = this;
+            let m = 0;
+            let n = 0;
+            let index1 = self.pagesize*(self.currentPage-1);
+            let index2 = self.pagesize*self.currentPage;
+            console.log(index1);
+            if(self.allAppraisal.length > index2){
+                for(var i = index1 + 1;i<=index2;i++) {
+                    console.log(i);
+                    self.allAppraisals[m] = self.allAppraisal[i];
+                    m++;
+                }
+            }else{
+                for(var i = index1 + 1;i<=self.allAppraisal.length;i++) {
+                    console.log(i);
+                    self.allAppraisals[n] = self.allAppraisal[i];
+                    n++;
+                }
+            }
         },
         handleSelectionChange(val) {
             this.multipleSelection = val;
@@ -269,8 +288,6 @@ export default {
             axios.get("leaderselectallappraisal").then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
-                    self.allAppraisal = data.datas;
-                    self.total = data.datas.length;
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.ap_level.length;i++){
                             if(data.datas[j].ap_level == i){
@@ -278,6 +295,13 @@ export default {
                             }
                         }
                     }
+                    self.allAppraisal = data.datas;
+                    for(var i=0;i<self.pagesize*self.currentPage;i++){
+                        self.allAppraisals[i] = data.datas[i];
+                    }
+                    console.log(self.allAppraisals);
+                    console.log(self.allAppraisal);
+                    self.total = data.datas.length;
                 } else {
                     self.$notify({
                         type: 'error',

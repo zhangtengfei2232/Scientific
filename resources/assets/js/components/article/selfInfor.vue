@@ -168,7 +168,7 @@
 
 <style>
  .information{
-        width: 75%;
+        width: 85%;
         float: left;
     }
    .add{
