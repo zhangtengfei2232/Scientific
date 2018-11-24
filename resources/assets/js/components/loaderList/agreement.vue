@@ -153,9 +153,17 @@ export default {
                 case agree_name:
                     this.nameSearch();
                     break;
-                case agree_time:
+                case time1:
                     this.timeSearch();
                     break;
+                case time2:
+                    this.timeSearch();
+                    break;
+                case time1:
+                    this.twoTimeSearch();
+                    break;
+                case '':
+                    this.getAgreementData();
                 default:
                     this.$message.error('暂无此查询');
                     break;
@@ -186,7 +194,10 @@ export default {
         },
         getAgreementData() {
             let self = this;
-            axios.get("leaderselectallagreement").then(function (response) {
+            axios.get("leaderselectallagreement",{
+                page: self.currentPage,
+                total: self.pagesize,
+            }).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allAgreement = data.datas;
@@ -201,6 +212,7 @@ export default {
             });
         },
         timeSearch(time) {
+            this.type = 'time1';
             if(time == 8) {
                 this.newTime = '1514779200';
             }else if(time == 7) {
@@ -216,13 +228,16 @@ export default {
             let self = this;
             axios.get("bytimeselectagreement",{
                 params:{
+                    page: self.currentPage,
+                    total: self.pagesize,
+                    type: 'agree_time',
                     start_time:this.newTime,
                     end_time:timestamp
                 }
             }).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
-                    self.allAgreement = data.datas;
+                    self.allAgreement = data.datas.data;
                 } else {
                     self.$notify({
                         type: 'error',
@@ -234,15 +249,19 @@ export default {
         },
         twoTimeSearch() {
            let self = this;
+           self.type = 'time2';
             axios.get("bytimeselectagreement",{
                 params:{
+                    page: self.currentPage,
+                    total: self.pagesize,
+                    type: 'agree_time',
                     start_time:self.data1[0],
                     end_time:self.data1[1],
                 }
             }).then(function (response) {
-                var data = response.data;
+                var data = response.data.datas;
                 if (data.code == 0) {
-                    self.allAgreement = data.datas;
+                    self.allAgreement = data.data;
                 } else {
                     self.$notify({
                         type: 'error',
@@ -254,14 +273,18 @@ export default {
         },
         nameSearch() {
             let self = this;
+            self.type = 'agree_name';
             axios.get("bynameselectagreement",{
                 params:{
-                    agree_name: self.agree_name,
+                    page: self.currentPage,
+                    total: self.pagesize,
+                    type: 'agree_name',
+                    value: self.agree_name,
                 }
             }).then(function (response) {
-                var data = response.data;
+                var data = response.data.datas;
                 if (data.code == 0) {
-                    self.allSchoolfile = data.datas;
+                    self.allSchoolfile = data.data;
                 } else {
                     self.$notify({
                         type: 'error',

@@ -238,6 +238,7 @@ export default {
         return {
             searchValue:'',
             border:true,
+            type: '',
             allOpus:[],
             multipleSelection: [],
             data1: '',
@@ -301,6 +302,32 @@ export default {
         },
         handleCurrentChange: function(currentPage){
             this.currentPage = currentPage;
+            switch(this.type) {
+                case 'op_first_author':
+                    this.nameSearch();
+                    break;
+                case 'ap_res_name':
+                    this.paNameSearch();
+                    break;
+                case 'time1':
+                    this.timeSearch();
+                    break;
+                case 'time2':
+                    this.twoTimeSearch();
+                    break;
+                case 'ap_form':
+                    this.formSearch();
+                    break;
+                case 'combine':
+                    this.onSubmit();
+                    break;
+                case '':
+                    this.getAppraisalData();
+                    break;
+                default:
+                    this.$message.error('暂无此查询');
+                    break;
+            }
         },
         handleSizeChange: function (size) {
             this.pagesize = size;
@@ -333,30 +360,33 @@ export default {
         },
         getOpusData() {
             let self = this;
-            axios.get("leaderselecttallopus").then(function (response) {
+            axios.get("leaderselecttallopus",{
+                page: self.currentPage,
+                total: self.pagesize,
+            }).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
-                    self.allOpus = data.datas;
-                    self.total = data.datas.length;
-                    for(var j=0;j<data.datas.length;j++){
+                    self.allOpus = data.datas.data;
+                    self.total = data.data.length;
+                    for(var j=0;j<data.data.length;j++){
                         for(var i= 0;i<self.op_form_write.length;i++){
-                            if(data.datas[j].op_form_write == i){
-                                data.datas[j].op_form_write = self.op_form_write[i];
+                            if(data.data[j].op_form_write == i){
+                                data.data[j].op_form_write = self.op_form_write[i];
                             }
                         }
                         for(var i= 0;i<self.op_cate_research.length;i++){
-                            if(data.datas[j].op_cate_research == i){
-                                data.datas[j].op_cate_research = self.op_cate_research[i];
+                            if(data.data[j].op_cate_research == i){
+                                data.data[j].op_cate_research = self.op_cate_research[i];
                             }
                         }
                         for(var i= 0;i<self.op_cate_work.length;i++){
-                            if(data.datas[j].op_cate_work == i){
-                                data.datas[j].op_cate_work = self.op_cate_work[i];
+                            if(data.data[j].op_cate_work == i){
+                                data.data[j].op_cate_work = self.op_cate_work[i];
                             }
                         }
                         for(var i= 0;i<self.op_sub_category.length;i++){
-                            if(data.datas[j].op_sub_category == i){
-                                data.datas[j].op_sub_category = self.op_sub_category[i];
+                            if(data.data[j].op_sub_category == i){
+                                data.data[j].op_sub_category = self.op_sub_category[i];
                             }
                         }
                     }
@@ -467,33 +497,37 @@ export default {
         },
         nameSearch() {
             let self = this;
+            self.type = 'op_first_author';
             axios.get("byauthorselectopus",{
                 params:{
-                    op_first_author: self.op_first_author,
+                    page: self.currentPage,
+                    total: self.pagesize,
+                    type: 'op_first_author',
+                    value: self.op_first_author,
                 }
             }).then(function (response) {
-                var data = response.data;
+                var data = response.data.datas;
                 if (data.code == 0) {
-                    self.allOpus = data.datas;
+                    self.allOpus = data.data;
                     for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.op_form_write.length;i++){
-                            if(data.datas[j].op_form_write == i){
-                                data.datas[j].op_form_write = self.op_form_write[i];
+                            if(data.data[j].op_form_write == i){
+                                data.data[j].op_form_write = self.op_form_write[i];
                             }
                         }
                         for(var i= 0;i<self.op_cate_research.length;i++){
-                            if(data.datas[j].op_cate_research == i){
-                                data.datas[j].op_cate_research = self.op_cate_research[i];
+                            if(data.data[j].op_cate_research == i){
+                                data.data[j].op_cate_research = self.op_cate_research[i];
                             }
                         }
                         for(var i= 0;i<self.op_cate_work.length;i++){
-                            if(data.datas[j].op_cate_work == i){
-                                data.datas[j].op_cate_work = self.op_cate_work[i];
+                            if(data.data[j].op_cate_work == i){
+                                data.data[j].op_cate_work = self.op_cate_work[i];
                             }
                         }
                         for(var i= 0;i<self.op_sub_category.length;i++){
-                            if(data.datas[j].op_sub_category == i){
-                                data.datas[j].op_sub_category = self.op_sub_category[i];
+                            if(data.data[j].op_sub_category == i){
+                                data.data[j].op_sub_category = self.op_sub_category[i];
                             }
                         }
                     }
@@ -508,33 +542,37 @@ export default {
         },
         apNameSearch() {
             let self = this;
+            self.type = 'op_name';
             axios.get("bynameselectopus",{
                 params:{
-                    op_name: self.op_name,
+                    page: self.currentPage,
+                    total: self.pagesize,
+                    type: 'op_name',
+                    value: self.op_name,
                 }
             }).then(function (response) {
-                var data = response.data;
+                var data = response.data.datas;
                 if (data.code == 0) {
-                    self.allOpus = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
+                    self.allOpus = data.data;
+                    for(var j=0;j<data.data.length;j++){
                         for(var i= 0;i<self.op_form_write.length;i++){
-                            if(data.datas[j].op_form_write == i){
-                                data.datas[j].op_form_write = self.op_form_write[i];
+                            if(data.data[j].op_form_write == i){
+                                data.data[j].op_form_write = self.op_form_write[i];
                             }
                         }
                         for(var i= 0;i<self.op_cate_research.length;i++){
-                            if(data.datas[j].op_cate_research == i){
-                                data.datas[j].op_cate_research = self.op_cate_research[i];
+                            if(data.data[j].op_cate_research == i){
+                                data.data[j].op_cate_research = self.op_cate_research[i];
                             }
                         }
                         for(var i= 0;i<self.op_cate_work.length;i++){
-                            if(data.datas[j].op_cate_work == i){
-                                data.datas[j].op_cate_work = self.op_cate_work[i];
+                            if(data.data[j].op_cate_work == i){
+                                data.data[j].op_cate_work = self.op_cate_work[i];
                             }
                         }
                         for(var i= 0;i<self.op_sub_category.length;i++){
-                            if(data.datas[j].op_sub_category == i){
-                                data.datas[j].op_sub_category = self.op_sub_category[i];
+                            if(data.data[j].op_sub_category == i){
+                                data.data[j].op_sub_category = self.op_sub_category[i];
                             }
                         }
                     }
@@ -549,35 +587,38 @@ export default {
         },
         onSubmit(form) {
             let self = this;
+            self.type = 'combine';
             axios.get("combinationselectopus",{
                 params:{
+                    page: self.currentPage,
+                    total: self.pagesize,
                     op_cate_work_datas: form.op_cate_work,
                     op_form_write_datas: form.op_form_write,
                     op_cate_research_datas: form.op_cate_research
                 }
             }).then(function (response) {
-                var data = response.data;
+                var data = response.data.datas;
                 if (data.code == 0) {
                     self.allOpus = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
+                    for(var j=0;j<data.data.length;j++){
                         for(var i= 0;i<self.op_form_write.length;i++){
-                            if(data.datas[j].op_form_write == i){
-                                data.datas[j].op_form_write = self.op_form_write[i];
+                            if(data.data[j].op_form_write == i){
+                                data.data[j].op_form_write = self.op_form_write[i];
                             }
                         }
                         for(var i= 0;i<self.op_cate_research.length;i++){
-                            if(data.datas[j].op_cate_research == i){
-                                data.datas[j].op_cate_research = self.op_cate_research[i];
+                            if(data.data[j].op_cate_research == i){
+                                data.data[j].op_cate_research = self.op_cate_research[i];
                             }
                         }
                         for(var i= 0;i<self.op_cate_work.length;i++){
-                            if(data.datas[j].op_cate_work == i){
-                                data.datas[j].op_cate_work = self.op_cate_work[i];
+                            if(data.data[j].op_cate_work == i){
+                                data.data[j].op_cate_work = self.op_cate_work[i];
                             }
                         }
                         for(var i= 0;i<self.op_sub_category.length;i++){
-                            if(data.datas[j].op_sub_category == i){
-                                data.datas[j].op_sub_category = self.op_sub_category[i];
+                            if(data.data[j].op_sub_category == i){
+                                data.data[j].op_sub_category = self.op_sub_category[i];
                             }
                         }
                     }

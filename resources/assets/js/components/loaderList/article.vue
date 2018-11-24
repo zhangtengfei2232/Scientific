@@ -370,7 +370,10 @@ export default {
         },
         getArticleData() {
             let self = this;
-            axios.get("leaderselectallartical").then(function (response) {
+            axios.get("leaderselectallartical",{
+                page: self.currentPage,
+                total: self.pagesize,
+            }).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.allArticle = data.datas;
