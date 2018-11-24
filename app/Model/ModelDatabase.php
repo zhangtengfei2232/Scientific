@@ -130,11 +130,11 @@ class ModelDatabase  extends  Model
      * @param $time_field
      * @return \Illuminate\Http\JsonResponse
      */
-    public static function selectAllDatas($table_name,$time_field,$total){
+    public static function selectAllDatas($table_name,$total,$time_field = ''){
         $result = DB::table($table_name)->paginate($total);
-        if($table_name == 'duties'){
-            return  self::changeDutiesTimeDatas($result);
-        }
+//        if($table_name == 'duties'){
+//            return  self::changeDutiesTimeDatas($result);
+//        }
         if(!empty($time_field)){
             foreach ($result as $datas){
                 $datas->$time_field = date('Y-m-d',$datas->$time_field/1000);
@@ -214,6 +214,7 @@ class ModelDatabase  extends  Model
     }
     public static function changeDutiesTimeDatas($result){
         $result = json_decode(json_encode($result));
+        $result = $result->data;
         for($i = 0; $i < count($result); $i++){
             $result[$i] = (array)$result[$i];  //把数据强制转化为数组
             $duties_time_datas        = explode(',',$result[$i]['du_year_num']);

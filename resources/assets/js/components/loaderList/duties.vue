@@ -203,28 +203,55 @@
                 this.type = 'du_name';
             },
             getArticleData() {
+                 this.commonget(this.type)
+                // let self = this;
+            //     axios.get("leaderselectallduties").then(function (response) {
+            //         var data = response.data;
+            //         self.total = data.datas.length;
+            //         for(var i=0;i<data.datas.length;i++){
+            //             data.datas[i].du_academic = self.du_academic[data.datas[i].du_academic];
+            //             data.datas[i].du_education = self.du_education[data.datas[i].du_education];
+            //             data.datas[i].du_degree = self.du_degree[data.datas[i].du_degree];
+            //         }
+            //         if (data.code == 0) {
+            //             self.StudygroupDate = data.datas;
+            //         } else {
+            //             self.$notify({
+            //                 type: 'error',
+            //                 message: data.message,
+            //                 duration: 2000,
+            //             });
+            //         }
+            //     });
+            },
+            commonget(type,value){
                 let self = this;
-                axios.get("leaderselectallduties").then(function (response) {
-                    var data = response.data;
-                    self.total = data.datas.length;
-                    for(var i=0;i<data.datas.length;i++){
-                        data.datas[i].du_academic = self.du_academic[data.datas[i].du_academic];
-                        data.datas[i].du_education = self.du_education[data.datas[i].du_education];
-                        data.datas[i].du_degree = self.du_degree[data.datas[i].du_degree];
+                axios.get("byteachernameselectduties",{
+                    params:{
+                        value:value,
+                        type: type,
+                        page:self.currentPages,
+                        total:self.pagesize,
                     }
-                    if (data.code == 0) {
-                        self.StudygroupDate = data.datas;
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.message,
-                            duration: 2000,
-                        });
-                    }
-                });
+                }).then(function (response) {
+                    self.commonchange(response.data.datas.data);
+                    // console.log(response);
+                })
+            },
+            commonchange(data){
+                console.log(data);
+                let self = this;
+                for(var i=0;i<data.length;i++){
+                    data[i].du_academic = self.du_academic[data[i].du_academic];
+                    data[i].du_education = self.du_education[data[i].du_education];
+                    data[i].du_degree = self.du_degree[data[i].du_degree];
+                }
             },
             byNameSearch() {                //老师姓名
                 let self = this;
+                self.type = 'teacher_name';
+                self.commonget(self.type,self.teacher_name);
+                return ;
                 axios.get("byteachernameselectduties",{
                     params:{
                         value: self.teacher_name,

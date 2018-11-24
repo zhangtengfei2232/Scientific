@@ -475,7 +475,7 @@ class RetrievalController extends Controller
     //查询全部成果鉴定信息
     public function leaderSelectAllAppraisal(Request $request){
         ($request->has('total')) ? $total = $request->total : $this->total;
-        return ModelDatabase::selectAllDatas($this->appraisal_table_name,$this->appraisal_time_field,$total);
+        return ModelDatabase::selectAllDatas($this->appraisal_table_name,$total,$this->appraisal_time_field);
     }
 //    //主持人查询
 //    public function byHostSelectAppraisal(Request $request){
@@ -710,9 +710,10 @@ class RetrievalController extends Controller
      *担任学术团体职务
      */
     //查询全部担任团体职务信息
-    public function leaderSelectAllDuties(){
+    public function leaderSelectAllDuties(Request $request){
+        ($request->has('total')) ? $total = $request->total : $this->total;
         $table_name = $this->duties_table_name;
-        return ModelDatabase::selectAllDatas($table_name,'');
+        return ModelDatabase::selectAllDatas($table_name,$total);
     }
     //担任学术团体名称查询
     public function byNameSelectDuties(Request $request){
@@ -725,12 +726,12 @@ class RetrievalController extends Controller
     }
     //根据老师名字查询
     public function byTeacherNameSelectDuties(Request $request){
-        $data['total'] = 10;
+        $datas['total'] = 1;
         if($request->has('total')){
             $datas['total'] = $request->total;
         }
-        $datas['value']         = $request->value;
-        $datas['table_name']    = $this->duties_table_name;
+        $datas['value']      = $request->value;
+        $datas['table_name'] = $this->duties_table_name;
         $du_teacher_name_field = SearchMessageConfig::DUTIES_TEACHER_NAME;
         $du_name_field         = SearchMessageConfig::DUTIES_DU_NAME;
         switch($request->type){
@@ -740,6 +741,8 @@ class RetrievalController extends Controller
             case $du_name_field:
                 $datas['field'] = $du_name_field;
                 break;
+            default:
+                return ModelDatabase::selectAllDatas($this->duties_table_name,$datas['total']);
         }
         return ModelDatabase::pagingQueryDatas($datas);
     }
