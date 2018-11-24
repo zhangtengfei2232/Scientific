@@ -148,6 +148,17 @@ export default {
         },
         handleCurrentChange: function(currentPage){
             this.currentPage = currentPage;
+            switch(type) {
+                case agree_name:
+                    this.nameSearch();
+                    break;
+                case agree_time:
+                    this.timeSearch();
+                    break;
+                default:
+                    this.$message.error('暂无此查询');
+                    break;
+            }
         },
         handleSelectionChange(val) {
             this.multipleSelection = val;

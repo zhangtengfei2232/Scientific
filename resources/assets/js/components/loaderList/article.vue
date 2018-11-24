@@ -504,32 +504,33 @@ export default {
                 }
             }).then(function (response) {
                 var data = response.data;
-                if (data.code == 0) {
-                    self.allArticle = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
+                console.log(data);
+                // if (data.code == 0) {
+                    self.allArticle = data.data;
+                    for(var j=0;j<data.data.length;j++){
                         for(var i= 0;i<self.percal_cate.length;i++){
-                            if(data.datas[j].percal_cate == i){
-                                data.datas[j].percal_cate = self.percal_cate[i];
+                            if(data.data[j].percal_cate == i){
+                                data.data[j].percal_cate = self.percal_cate[i];
                             }
                         }
                         for(var i= 0;i<self.art_sub_category.length;i++){
-                            if(data.datas[j].art_sub_category == i){
-                                data.datas[j].art_sub_category = self.art_sub_category[i];
+                            if(data.data[j].art_sub_category == i){
+                                data.data[j].art_sub_category = self.art_sub_category[i];
                             }
                         }
                         for(var i= 0;i<self.art_cate_research.length;i++){
-                            if(data.datas[j].art_cate_research == i){
-                                data.datas[j].art_cate_research = self.art_cate_research[i];
+                            if(data.data[j].art_cate_research == i){
+                                data.data[j].art_cate_research = self.art_cate_research[i];
                             }
                         }
                     }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
+                // } else {
+                //     self.$notify({
+                //         type: 'error',
+                //         message: data.message,
+                //         duration: 2000,
+                //     });
+                // }
             });
         },
         rankSearch() {
