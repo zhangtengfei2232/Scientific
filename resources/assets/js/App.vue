@@ -16,7 +16,7 @@
                         <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item command="a" @click.native="dialogFormVisible  = true">重置密码</el-dropdown-item>
                             <el-dropdown-item command="b" @click.native="dialogdeleVisible  = true">删除老师</el-dropdown-item>
-                            <el-dropdown-item command="c" @click.native="dialogWorkVisible  = true">岗位类别</el-dropdown-item>
+                            <el-dropdown-item command="c" @click.native="dialogWorkVisible  = true">行政职务</el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
 
@@ -54,7 +54,7 @@
                         </div>
                     </el-dialog>
 
-                    <el-dialog title="修改老师岗位类别"
+                    <el-dialog title="修改老师行政职务"
                                :visible.sync="dialogWorkVisible"
                                :close-on-click-modal="false"
                                @close="closeWorkDialog"
@@ -63,20 +63,22 @@
                             <el-form-item label="老师工号">
                                 <el-input type="text" v-model="changework.teacher_id" placeholder="请输入需重置密码老师工号" maxlength="10" id="teacherId"></el-input>
                             </el-form-item>
-                            <el-form-item label="岗位类别" prop="post_category">
-                                <el-select v-model="changework.post_category" placeholder="请选择老师岗位类别" id="teaPost">
+                            <el-form-item label="行政职务" prop="admin_duties">
+                                <el-select v-model="changework.admin_duties" placeholder="请选择老师行政职务" id="teaPost">
                                     <el-option label="普通老师" value="0"></el-option>
                                     <el-option label="院长" value="1"></el-option>
                                     <el-option label="副院长" value="2"></el-option>
                                     <el-option label="教学秘书" value="3"></el-option>
                                     <el-option label="科研秘书" value="4"></el-option>
                                     <el-option label="研究生秘书" value="5"></el-option>
-                                    <el-option label="副主任" value="6"></el-option>
+                                    <el-option label="小麦中心主任" value="6"></el-option>
                                     <el-option label="系主任" value="7"></el-option>
                                     <el-option label="办公室主任" value="8"></el-option>
                                     <el-option label="教研室主任" value="9"></el-option>
                                     <el-option label="党委书记" value="10"></el-option>
                                     <el-option label="党委副书记" value="11"></el-option>
+                                    <el-option label="研究生主任" value="12"></el-option>
+                                    <el-option label="实验室主任" value="13"></el-option>
                                 </el-select>
                             </el-form-item>
                         </el-form>
@@ -114,7 +116,7 @@
 
                         <el-menu-item index="/duties" style="border-bottom:1px solid gray;">
                             <i class="el-icon-message"></i>
-                            <span slot="title">担任学术团体职务</span>
+                            <span slot="title">学术团体</span>
                         </el-menu-item>
                         <!--</div>-->
                         <div v-show="navGlobleview">
@@ -200,7 +202,7 @@
                 },
                 changework:{
                     teacher_id:'',
-                    post_category:'',
+                    admin_duties:'',
                 },
                 deleTeaform:{
                     teacher_id:'',
@@ -223,11 +225,11 @@
                 status:'',
                 navList:[
 //                    {icon:'el-icon-picture',name:'/',navItem:'ft'},
-                    {icon:'el-icon-bell',name:'/paper',navItem:'学术论文'},
-                    {icon:'el-icon-tickets',name:'/project',navItem:'科研项目'},
-                    {icon:'el-icon-edit',name:'/book',navItem:'学术著作'},
-                    {icon:'el-icon-star-off',name:'/award',navItem:'获奖成果'},
-                    {icon:'el-icon-edit-outline',name:'/patent',navItem:'学术专利'},
+                    {icon:'el-icon-bell',name:'/paper',navItem:'论文'},
+                    {icon:'el-icon-tickets',name:'/project',navItem:'项目'},
+                    {icon:'el-icon-edit',name:'/book',navItem:'著作'},
+                    {icon:'el-icon-star-off',name:'/award',navItem:'获奖'},
+                    {icon:'el-icon-edit-outline',name:'/patent',navItem:'专利'},
                     {icon:'el-icon-document',name:'/appraisal',navItem:'成果鉴定'},
                     {icon:'el-icon-time',name:'/holdmeet',navItem:'举办会议'},
                     {icon:'el-icon-edit-outline',name:'/joinmeet',navItem:'参加会议'},
@@ -250,13 +252,14 @@
                 this.dialogdeleVisible=false;
             },
             closeWorkDialog:function(){
-                this.changework.post_category = '';
+                this.changework.admin_duties = '';
                 this.changeform.teacher_id = '';
                 this.dialogWorkVisible=false;
             },
             changepsw(changeform){  // 重置老师密码
                 if($(" #teacherNum ").val() == '') {
                     this.$message.error('老师工号不能为空');
+                    return;
                 }
                 this.$refs['changeform'].validate((valid) => {
                     let vue = this;
@@ -328,13 +331,13 @@
                 });
             },
 
-            changeWork(changework){  // 修改老师岗位类别
-                console.log(changework,'----*//*///');
+            changeWork(changework){  // 修改老师行政职务
+//                console.log(changework,'----*//*///');
                 if($(" #teacherId ").val() == '') {
                     this.$message.error('老师工号不能为空');
                     return;
                 }else if($(" #teaPost ").val() == '') {
-                    this.$message.error('岗位类别不能为空');
+                    this.$message.error('行政职务不能为空');
                     return;
                 }
                 this.$refs['changework'].validate((valid) => {
@@ -345,7 +348,7 @@
                         });
                         vue.changeTeaWork(vue.dataForm).then(res => {
                             var data = res.data;
-                            console.log(data,'========/*/*///')
+//                            console.log(data,'========/*/*///')
                             if (data.code == 0) {
                                 vue.$message({
                                     message: data.message,
@@ -385,8 +388,8 @@
 //                    data: data
 //                });
 //            },
-            changeTeaWork(data) { //修改岗位类别
-                console.log(data,'/*/*/**/*/*/*///')
+            changeTeaWork(data) { //修改行政职务
+//                console.log(data,'/*/*/**/*/*/*///')
                 return axios({
                     method: 'post',
                     url: 'updateteacherpostcategory',
@@ -453,11 +456,13 @@
                         self.allResult=true;//成果汇总
                         self.resultCollect=true;//成果汇总
                     }
-                    else if(status == 6){  //副主任
-
+                    else if(status == 6){  //小麦中心主任
+                        self.allResult=true;//成果汇总
+                        self.resultCollect=true;//成果汇总
                     }
                     else if(status == 7){  //系主任
-
+                        self.allResult=true;//成果汇总
+                        self.resultCollect=true;//成果汇总
                     }
                     else if(status == 8){  //办公室主任
 
@@ -471,7 +476,12 @@
                         self.changeTeapsw=true;//修改老师密码
                     }
                     else if(status == 9){  //教研室主任
-
+                        self.allResult=true;//成果汇总
+                        self.resultCollect=true;//成果汇总
+                    }
+                    else if(status == 12){  //研究生主任
+                        self.allResult=true;//成果汇总
+                        self.resultCollect=true;//成果汇总
                     }
 
                     if(data.code == 0){

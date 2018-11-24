@@ -245,7 +245,7 @@
                         data.datas.data[i].du_degree = self.du_degree[data.datas.data[i].du_degree];
                     }
                     if (data.code == 0) {
-                        self.StudygroupDate = data.datas;
+                        self.StudygroupDate = data.datas.data;
                     } else {
                         self.$notify({
                             type: 'error',
@@ -273,7 +273,7 @@
                         data.datas.data[i].du_degree = self.du_degree[data.datas.data[i].du_degree];
                     }
                     if (data.code == 0) {
-                        self.StudygroupDate = data.datas;
+                        self.StudygroupDate = data.datas.data;
                     } else {
                         self.$notify({
                             type: 'error',
