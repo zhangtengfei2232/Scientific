@@ -132,9 +132,9 @@ class ModelDatabase  extends  Model
      */
     public static function selectAllDatas($table_name,$total,$time_field = ''){
         $result = DB::table($table_name)->paginate($total);
-//        if($table_name == 'duties'){
-//            return  self::changeDutiesTimeDatas($result);
-//        }
+        if($table_name == 'duties'){
+            return self::changeDutiesTimeDatas($result);
+        }
         if(!empty($time_field)){
             foreach ($result as $datas){
                 $datas->$time_field = date('Y-m-d',$datas->$time_field/1000);
@@ -185,11 +185,12 @@ class ModelDatabase  extends  Model
         $result = DB::table($datas['table_name'])
                   ->where($datas['field'],'like',"%".$datas['value']."%")
                   ->paginate($datas['total']);
-        if(!empty($datas['time_field'])){
-            $time_field = $datas['time_field'];
-            foreach ($result as $datas){
-                $datas->$time_field = date('Y-m-d',$datas->$time_field);
-            }
+        if($datas['table_name'] == 'duties'){
+            return self::changeDutiesTimeDatas($result);
+        }
+        $time_field = $datas['time_field'];
+        foreach ($result as $datas){
+            $datas->$time_field = date('Y-m-d',$datas->$time_field);
         }
         return responseTojson(0,'查询成功','',$result);
     }
@@ -214,6 +215,7 @@ class ModelDatabase  extends  Model
     }
     public static function changeDutiesTimeDatas($result){
         $result = json_decode(json_encode($result));
+        $datas['total'] = $result->total;
         $result = $result->data;
         for($i = 0; $i < count($result); $i++){
             $result[$i] = (array)$result[$i];  //把数据强制转化为数组
@@ -221,7 +223,8 @@ class ModelDatabase  extends  Model
             $result[$i]['start_time'] = date('Y-m-d',$duties_time_datas[0]/1000);
             $result[$i]['end_time']   = date('Y-m-d',$duties_time_datas[1]/1000);
         }
-        return responseTojson(0,'查询成功','',$result);
+        $datas['du_datas'] = $result;
+        return responseTojson(0,'查询成功','',$datas);
     }
     /**根据字段进行分组======>按字段 '升序' 分组返回个数
      * 饼图：师资（学历，职称，学缘），论文（期刊级别），
