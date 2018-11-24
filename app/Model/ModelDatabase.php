@@ -182,12 +182,14 @@ class ModelDatabase  extends  Model
     }
     //分页查询
     public static function pagingQueryDatas($datas){
-        $time_field = $datas['time_field'];
         $result = DB::table($datas['table_name'])
                   ->where($datas['field'],'like',"%".$datas['value']."%")
                   ->paginate($datas['total']);
-        foreach ($result as $datas){
-            $datas->$time_field = date('Y-m-d',$datas->$time_field);
+        if(!empty($datas['time_field'])){
+            $time_field = $datas['time_field'];
+            foreach ($result as $datas){
+                $datas->$time_field = date('Y-m-d',$datas->$time_field);
+            }
         }
         return responseTojson(0,'查询成功','',$result);
 

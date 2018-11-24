@@ -491,6 +491,7 @@ class RetrievalController extends Controller
         }
         $data['table_name']    = $this->appraisal_table_name;
         $data['time_field']    = $this->appraisal_time_field;
+        $data['value']         = $request->value;
         $ap_form_field         = SearchMessageConfig::APPRAISAL_AP_FORM;
         $ap_first_author_field = SearchMessageConfig::APPRAISAL_AP_FIRST_AUTHOR;
         $ap_res_name_field     = SearchMessageConfig::APPRAISAL_AP_RES_NAME;
@@ -729,7 +730,7 @@ class RetrievalController extends Controller
         if($request->has('total')){
             $datas['total'] = $request->total;
         }
-        $datas['value']        = $request->value;
+        $datas['value']         = $request->value;
         $datas['table_name']    = $this->duties_table_name;
         $du_teacher_name_field = SearchMessageConfig::DUTIES_TEACHER_NAME;
         $du_name_field         = SearchMessageConfig::DUTIES_DU_NAME;
