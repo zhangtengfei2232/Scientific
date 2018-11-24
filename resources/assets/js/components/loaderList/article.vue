@@ -423,22 +423,23 @@ export default {
                 }
             }).then(function (response) {
                 var data = response.data;
+                console.log(data);
                 if (data.code == 0) {
-                    self.allArticle = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
+                    self.allArticle = data.datas.data;
+                    for(var j=0;j<data.datas.data.length;j++){
                         for(var i= 0;i<self.percal_cate.length;i++){
-                            if(data.datas[j].percal_cate == i){
-                                data.datas[j].percal_cate = self.percal_cate[i];
+                            if(data.datas.data[j].percal_cate == i){
+                                data.datas.data[j].percal_cate = self.percal_cate[i];
                             }
                         }
                         for(var i= 0;i<self.art_sub_category.length;i++){
-                            if(data.datas[j].art_sub_category == i){
-                                data.datas[j].art_sub_category = self.art_sub_category[i];
+                            if(data.datas.data[j].art_sub_category == i){
+                                data.datas.data[j].art_sub_category = self.art_sub_category[i];
                             }
                         }
                         for(var i= 0;i<self.art_cate_research.length;i++){
-                            if(data.datas[j].art_cate_research == i){
-                                data.datas[j].art_cate_research = self.art_cate_research[i];
+                            if(data.datas.data[j].art_cate_research == i){
+                                data.datas.data[j].art_cate_research = self.art_cate_research[i];
                             }
                         }
                     }
@@ -504,22 +505,23 @@ export default {
                 }
             }).then(function (response) {
                 var data = response.data;
+                console.log(data);
                 if (data.code == 0) {
-                    self.allArticle = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
+                    self.allArticle = data.datas.data;
+                    for(var j=0;j<data.datas.data.length;j++){
                         for(var i= 0;i<self.percal_cate.length;i++){
-                            if(data.datas[j].percal_cate == i){
-                                data.datas[j].percal_cate = self.percal_cate[i];
+                            if(data.datas.data[j].percal_cate == i){
+                                data.datas.data[j].percal_cate = self.percal_cate[i];
                             }
                         }
                         for(var i= 0;i<self.art_sub_category.length;i++){
-                            if(data.datas[j].art_sub_category == i){
-                                data.datas[j].art_sub_category = self.art_sub_category[i];
+                            if(data.datas.data[j].art_sub_category == i){
+                                data.datas.data[j].art_sub_category = self.art_sub_category[i];
                             }
                         }
                         for(var i= 0;i<self.art_cate_research.length;i++){
-                            if(data.datas[j].art_cate_research == i){
-                                data.datas[j].art_cate_research = self.art_cate_research[i];
+                            if(data.datas.data[j].art_cate_research == i){
+                                data.datas.data[j].art_cate_research = self.art_cate_research[i];
                             }
                         }
                     }
@@ -535,7 +537,7 @@ export default {
         rankSearch() {
             let self = this;
             self.type = 'sch_percal_cate';
-            axios.get("byschoolaffirmlevelselectartical",{
+            axios.get("byauthorselectartical",{
                 params:{
                     page: self.currentPage,
                     total: self.pagesize,

@@ -139,7 +139,8 @@ export default {
             data1: '',
             newTime:0,
             agree_name:'',
-            total:0
+            total:0,
+            type: '',
         }
     },
     methods: {
@@ -148,6 +149,17 @@ export default {
         },
         handleCurrentChange: function(currentPage){
             this.currentPage = currentPage;
+            switch(type) {
+                case agree_name:
+                    this.nameSearch();
+                    break;
+                case agree_time:
+                    this.timeSearch();
+                    break;
+                default:
+                    this.$message.error('暂无此查询');
+                    break;
+            }
         },
         handleSelectionChange(val) {
             this.multipleSelection = val;
