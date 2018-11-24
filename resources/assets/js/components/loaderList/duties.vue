@@ -15,7 +15,7 @@
                                     prefix-icon="el-icon-search"
                                     v-model="teacher_name"
                                     @keyup.enter.native="byNameSearch()"
-                                    @focus="click1">
+                                    >
                             </el-input>
                             <div slot="reference">老师：姓名<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
@@ -31,7 +31,7 @@
                                     prefix-icon="el-icon-search"
                                     v-model="du_name"
                                     @keyup.enter.native="byNameSearch()"
-                                    @focus="click2">
+                                    >
                             </el-input>
                             <div slot="reference">担任学术团体名称<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
@@ -196,33 +196,8 @@
             }
         },
         methods: {
-            click1(){
-                this.type = 'teacher_name';
-            },
-            click2(){
-                this.type = 'du_name';
-            },
             getArticleData() {
                  this.commonget(this.type)
-                // let self = this;
-            //     axios.get("leaderselectallduties").then(function (response) {
-            //         var data = response.data;
-            //         self.total = data.datas.length;
-            //         for(var i=0;i<data.datas.length;i++){
-            //             data.datas[i].du_academic = self.du_academic[data.datas[i].du_academic];
-            //             data.datas[i].du_education = self.du_education[data.datas[i].du_education];
-            //             data.datas[i].du_degree = self.du_degree[data.datas[i].du_degree];
-            //         }
-            //         if (data.code == 0) {
-            //             self.StudygroupDate = data.datas;
-            //         } else {
-            //             self.$notify({
-            //                 type: 'error',
-            //                 message: data.message,
-            //                 duration: 2000,
-            //             });
-            //         }
-            //     });
             },
             commonget(type,value){
                 let self = this;
@@ -234,81 +209,34 @@
                         total:self.pagesize,
                     }
                 }).then(function (response) {
+                    self.total = response.data.datas.total;
                     self.commonchange(response.data.datas.data);
-                    // console.log(response);
                 })
             },
             commonchange(data){
                 console.log(data);
                 let self = this;
                 for(var i=0;i<data.length;i++){
+                    let a = data[i].du_year_num.split(",");
+//                    let date = new Date();
+                    data[i]['start_time'] = new Date(parseInt(a[0])).toLocaleString().replace(/:\d{1,2}$/,' ');
+                    data[i]['end_time'] = new Date(parseInt(a[1])).toLocaleString().replace(/:\d{1,2}$/,' ');
                     data[i].du_academic = self.du_academic[data[i].du_academic];
                     data[i].du_education = self.du_education[data[i].du_education];
                     data[i].du_degree = self.du_degree[data[i].du_degree];
                 }
+                console.log(data);
+                self.StudygroupDate = data;
             },
             byNameSearch() {                //老师姓名
                 let self = this;
                 self.type = 'teacher_name';
                 self.commonget(self.type,self.teacher_name);
-                return ;
-                axios.get("byteachernameselectduties",{
-                    params:{
-                        value: self.teacher_name,
-                        type: self.type,
-                        page:self.currentPages,
-                        total:self.pagesize,
-                    }
-                }).then(function (response) {
-                    var data = response.data;
-//                    console.log(response.data,'*/////===***');
-//                    console.log(data,'***===***');
-//                    console.log(data.datas.data,'************');
-//                    self.form.num = data.datas.data.length;
-//                    console.log(data.datas,'/***/*/*/*/*/');
-                    for(var i=0;i<data.datas.data.length;i++){
-                        data.datas.data[i].du_academic = self.du_academic[data.datas.data[i].du_academic];
-                        data.datas.data[i].du_education = self.du_education[data.datas.data[i].du_education];
-                        data.datas.data[i].du_degree = self.du_degree[data.datas.data[i].du_degree];
-                    }
-                    if (data.code == 0) {
-                        self.StudygroupDate = data.datas.data;
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.message,
-                            duration: 2000,
-                        });
-                    }
-                });
             },
             byGroupNameSearch() {                //担任学术团体名称
                 let self = this;
-                axios.get("bynameselectduties",{
-                    params:{
-                        value: self.du_name,
-                        type: self.type,
-                        page:self.currentPages,
-                        total:self.pagesize,
-                    }
-                }).then(function (response) {
-                    var data = response.data;
-//                    self.form.num = data.datas.length;
-                    for(var i=0;i<data.datas.data.length;i++){
-                        data.datas.data[i].du_academic = self.du_academic[data.datas.data[i].du_academic];
-                        data.datas.data[i].du_education = self.du_education[data.datas.data[i].du_education];
-                        data.datas.data[i].du_degree = self.du_degree[data.datas.data[i].du_degree];
-                    }
-                    if (data.code == 0) {
-                        self.StudygroupDate = data.datas.data;
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.message,
-                            duration: 2000,
-                        });
-                    }
-                });
+                self.type = 'du_name';
+                self.commonget(self.type,self.du_name);
             },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
@@ -350,11 +278,8 @@
             this.getArticleData();
         },
         watch:{
-
             currentPages:function (currentPages) {
                 this.currentPages = currentPages;
-//                console.log(oldVal,newVal);
-                console.log(this.type);
                 switch(type){
                     case teacher_name :
                         self.byNameSearch();
