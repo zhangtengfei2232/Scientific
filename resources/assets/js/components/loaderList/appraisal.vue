@@ -3,7 +3,7 @@
         <div class="cont">
             <div class="header">
                 <el-header>
-                    <div class="art">成果鉴定（{{ total }}）</div>
+                    <div class="art" id="arts">成果鉴定（{{ total }}）</div>
                     <div class="search">
                         <el-row>
                             <el-col :span="12">
@@ -13,11 +13,11 @@
                                 </span>
                                 <el-dropdown-menu slot="dropdown">
                                     <el-dropdown-item>全部</el-dropdown-item>
-                                    <el-dropdown-item @click="timeSearch(8)">18年-今天</el-dropdown-item>
-                                    <el-dropdown-item @click="timeSearch(7)">17年-今天</el-dropdown-item>
-                                    <el-dropdown-item @click="timeSearch(6)">16年-今天</el-dropdown-item>
-                                    <el-dropdown-item @click="timeSearch(5)">15年-今天</el-dropdown-item>
-                                    <el-dropdown-item @click="timeSearch(4)">14年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click.native="timeSearch(8)">18年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click.native="timeSearch(7)">17年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click.native="timeSearch(6)">16年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click.native="timeSearch(5)">15年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click.native="timeSearch(4)">14年-今天</el-dropdown-item>
                                     <el-dropdown-item>
                                        <el-popover
                                             placement="top-start"
@@ -88,7 +88,7 @@
                             width="500"
                             trigger="click">
                             <el-form ref="form" :model="form" label-width="80px">
-                                <el-form-item label="刊物级别">
+                                <el-form-item label="鉴定级别">
                                     <el-checkbox-group v-model="form.ap_level">
                                         <el-checkbox :label="0">国家级</el-checkbox>
                                         <el-checkbox :label="1">省级</el-checkbox>
@@ -98,7 +98,7 @@
                                 </el-form-item>
                                 <el-form-item>
                                     <el-button type="primary" @click="onSubmit(form)">确定</el-button>
-                                    <el-button>取消</el-button>
+                                    <el-button @click="remove()">取消</el-button>
                                 </el-form-item>
                             </el-form>
                             <div slot="reference">高级筛选<i class="el-icon-arrow-down el-icon--right"></i></div>
@@ -213,6 +213,7 @@ export default {
             allAppraisal:[],
             multipleSelection: [],
             data1: '',
+            newTime:0,
             ap_first_author:'',
             pagesize:20,
             ap_res_name:'',
@@ -231,6 +232,9 @@ export default {
         }
     },
     methods: {
+        remove() {
+            document.querySelector("#arts").click();
+        },
         handleSizeChange: function (size) {
             this.pagesize = size;
         },
@@ -377,7 +381,7 @@ export default {
             let self = this;
             axios.get("bytimeselectappraisal",{
                 params:{
-                    start_time:newTime,
+                    start_time:this.newTime,
                     end_time:timestamp
                 }
             }).then(function (response) {

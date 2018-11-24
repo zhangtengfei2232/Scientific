@@ -10,7 +10,7 @@
                                 width="400"
                                 trigger="click">
                             <el-input
-                                    placeholder="请输入老师姓名"
+                                    placeholder="请输入老师姓名(回车搜索)"
                                     prefix-icon="el-icon-search"
                                     v-model="form.name"
                                     @keyup.enter.native="byNameSearch(form)">
@@ -40,7 +40,7 @@
                                 width="400"
                                 trigger="click">
                             <el-input
-                                    placeholder="请输入老师行政职务"
+                                    placeholder="请输入老师行政职务(回车搜索)"
                                     prefix-icon="el-icon-search"
                                     v-model="form.duties"
                                     @keyup.enter.native="byDutiesSearch(form)">
@@ -54,7 +54,7 @@
                                 width="400"
                                 trigger="click">
                             <el-input
-                                    placeholder="请输入老师所属教研室和实验室"
+                                    placeholder="请输入老师所属教研室和实验室(回车搜索)"
                                     prefix-icon="el-icon-search"
                                     v-model="form.lab"
                                     @keyup.enter.native="byLabSearch(form)">
@@ -68,7 +68,7 @@
                                 width="400"
                                 trigger="click">
                             <el-input
-                                    placeholder="请输入老师现从事专业"
+                                    placeholder="请输入老师现从事专业(回车搜索)"
                                     prefix-icon="el-icon-search"
                                     v-model="form.major"
                                     @keyup.enter.native="byMajorSearch(form)">

@@ -3,7 +3,7 @@
         <div class="cont">
             <div class="header">
                 <el-header>
-                    <div class="art">著作（{{ total }}）</div>
+                    <div class="art" id="arts">著作（{{ total }}）</div>
                     <div class="search">
                         <el-row>
                             <el-col :span="12">
@@ -13,11 +13,11 @@
                                 </span>
                                 <el-dropdown-menu slot="dropdown">
                                     <el-dropdown-item>全部</el-dropdown-item>
-                                    <el-dropdown-item @click="timeSearch(8)">18年-今天</el-dropdown-item>
-                                    <el-dropdown-item @click="timeSearch(7)">17年-今天</el-dropdown-item>
-                                    <el-dropdown-item @click="timeSearch(6)">16年-今天</el-dropdown-item>
-                                    <el-dropdown-item @click="timeSearch(5)">15年-今天</el-dropdown-item>
-                                    <el-dropdown-item @click="timeSearch(4)">14年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click.native="timeSearch(8)">18年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click.native="timeSearch(7)">17年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click.native="timeSearch(6)">16年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click.native="timeSearch(5)">15年-今天</el-dropdown-item>
+                                    <el-dropdown-item @click.native="timeSearch(4)">14年-今天</el-dropdown-item>
                                     <el-dropdown-item>
                                         <el-popover
                                             placement="top-start"
@@ -62,11 +62,11 @@
                             width="400"
                             trigger="click">
                             <el-input
-                                placeholder="请输入奖励名称"
+                                placeholder="请输入著作名称"
                                 prefix-icon="el-icon-search"
                                 v-model="op_name" @keyup.enter.native="apNameSearch()">
                             </el-input>
-                            <div slot="reference">奖励名称<i class="el-icon-arrow-down el-icon--right"></i></div>
+                            <div slot="reference">著作名称<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
                     </div>
                     <div class="search">
@@ -101,7 +101,7 @@
                                 </el-form-item>
                                 <el-form-item>
                                     <el-button type="primary" @click="onSubmit(form)">确定</el-button>
-                                    <el-button>取消</el-button>
+                                    <el-button @click="remove()">取消</el-button>
                                 </el-form-item>
                             </el-form>
                             <div slot="reference">高级筛选<i class="el-icon-arrow-down el-icon--right"></i></div>
@@ -194,8 +194,12 @@
             <el-button @click="ExcelSelection()">导出Excel</el-button>
             <div class="page">
                 <el-pagination
-                    background
-                    layout="prev, pager, next"
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="currentPage"
+                    :page-sizes="[10, 20, 50, 100]"
+                    :page-size="pagesize"
+                    layout="total, sizes, prev, pager, next, jumper"
                     :total="total">
                 </el-pagination>
             </div>
@@ -239,7 +243,10 @@ export default {
             data1: '',
             op_first_author:'',
             op_name:'',
+            newTime:0,
             total:0,
+            currentPage:1,
+            pagesize:20,
             form: {
                 op_cate_work: [],
                 op_form_write: [],
@@ -286,6 +293,21 @@ export default {
         }
     },
     methods: {
+        remove() {
+            document.querySelector("#arts").click();
+        },
+        handleSizeChange: function (size) {
+            this.pagesize = size;
+        },
+        handleCurrentChange: function(currentPage){
+            this.currentPage = currentPage;
+        },
+        handleSizeChange: function (size) {
+            this.pagesize = size;
+        },
+        handleCurrentChange: function(currentPage){
+            this.currentPage = currentPage;
+        },
         handleSelectionChange(val) {
             this.multipleSelection = val;
         },
@@ -363,7 +385,7 @@ export default {
             let self = this;
             axios.get("bypublicationdateselectopus",{
                 params:{
-                    start_time:newTime,
+                    start_time:this.newTime,
                     end_time:timestamp
                 }
             }).then(function (response) {

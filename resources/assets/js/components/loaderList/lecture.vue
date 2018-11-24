@@ -49,7 +49,7 @@
                                 width="400"
                                 trigger="click">
                             <el-input
-                                    placeholder="请输入专家姓名"
+                                    placeholder="请输入专家姓名 (回车搜索)"
                                     prefix-icon="el-icon-search"
                                     v-model="form.name"
                                     @keyup.enter.native="byNameSearch(form)">
@@ -63,7 +63,7 @@
                                 width="400"
                                 trigger="click">
                             <el-input
-                                    placeholder="请输入邀请单位"
+                                    placeholder="请输入邀请单位 (回车搜索)"
                                     prefix-icon="el-icon-search">
                             </el-input>
                             <div slot="reference">邀请单位<i class="el-icon-arrow-down el-icon--right"></i></div>
