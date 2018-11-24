@@ -107,7 +107,7 @@
                 </el-header>
             </div>
             <el-table
-                :data="allAppraisals"
+                :data="allAppraisal"
                 style="width: 100%"
                 border
                 @selection-change="handleSelectionChange">
@@ -210,7 +210,6 @@ export default {
             searchValue:'',
             border:true,
             allAppraisal:[],
-            allAppraisals:[],
             multipleSelection: [],
             data1: '',
             type: '',
@@ -241,21 +240,28 @@ export default {
         },
         handleCurrentChange: function(currentPage){
             this.currentPage = currentPage;
-            switch(type) {
-                case ap_first_author:
+            console.log(this.type);
+            switch(this.type) {
+                case 'ap_first_author':
+                    this.nameSearch();
+                    break;
+                case 'ap_res_name':
                     this.paNameSearch();
                     break;
-                case time1:
+                case 'time1':
                     this.timeSearch();
                     break;
-                case time2:
+                case 'time2':
                     this.twoTimeSearch();
                     break;
-                case ap_form:
+                case 'ap_form':
                     this.formSearch();
                     break;
-                case combine:
+                case 'combine':
                     this.onSubmit();
+                    break;
+                case '':
+                    this.getAppraisalData();
                     break;
                 default:
                     this.$message.error('暂无此查询');
@@ -298,11 +304,6 @@ export default {
                         }
                     }
                     self.allAppraisal = data.datas;
-                    for(var i=0;i<self.pagesize*self.currentPage;i++){
-                        self.allAppraisals[i] = data.datas[i];
-                    }
-                    console.log(self.allAppraisals);
-                    console.log(self.allAppraisal);
                     self.total = data.datas.length;
                 } else {
                     self.$notify({
@@ -315,12 +316,13 @@ export default {
         },
         paNameSearch() {
             let self = this;
+            self.type = 'ap_res_name';
             axios.get("bynameselectappraisal",{
                 params:{
                     page: self.currentPage,
                     total: self.pagesize,
                     type: 'ap_first_author',
-                    ap_res_name: self.ap_res_name,
+                    value: self.ap_res_name,
                 }
             }).then(function (response) {
                 var data = response.data;
@@ -344,9 +346,14 @@ export default {
         },
         nameSearch() {
             let self = this;
-            axios.get("byhostselectappraisal",{
+            self.type = 'ap_first_author';
+            console.log(self.type);
+            axios.get("bynameselectappraisal",{
                 params:{
-                    ap_first_author: self.ap_first_author,
+                    page: self.currentPage,
+                    total: self.pagesize,
+                    type: 'ap_first_author',
+                    value: self.ap_first_author,
                 }
             }).then(function (response) {
                 var data = response.data;
@@ -371,7 +378,7 @@ export default {
         formSearch() {
             let self = this;
             self.type = 'ap_form';
-            axios.get("byformselectappraisal",{
+            axios.get("byhostselectappraisal",{
                 params:{
                     page: self.currentPage,
                     total: self.pagesize,
@@ -423,6 +430,7 @@ export default {
                 }
             }).then(function (response) {
                 var data = response.data;
+                console.log(data);
                 if (data.code == 0) {
                     self.allAppraisal = data.datas;
                     for(var j=0;j<data.datas.length;j++){
