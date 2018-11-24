@@ -192,7 +192,6 @@ class ModelDatabase  extends  Model
             }
         }
         return responseTojson(0,'查询成功','',$result);
-
     }
     /**根据名称模糊查询
      * @param $table_name

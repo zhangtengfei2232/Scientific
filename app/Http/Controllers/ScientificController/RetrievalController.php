@@ -501,8 +501,10 @@ class RetrievalController extends Controller
                 break;
             case $ap_first_author_field:
                 $data['field'] = $ap_first_author_field;
+                break;
             case $ap_form_field:
                 $data['field'] = $ap_form_field;
+                break;
         }
         return ModelDatabase::pagingQueryDatas($data);
     }
