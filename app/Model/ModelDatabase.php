@@ -185,7 +185,7 @@ class ModelDatabase  extends  Model
         $result = DB::table($datas['table_name'])
                   ->where($datas['field'],'like',"%".$datas['value']."%")
                   ->paginate($datas['total']);
-        return $result;
+        return responseTojson(0,'查询成功','',$result);
 
     }
     /**根据名称模糊查询
