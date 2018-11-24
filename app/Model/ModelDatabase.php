@@ -150,7 +150,7 @@ class ModelDatabase  extends  Model
      * @param string $teacher_id
      * @return \Illuminate\Http\JsonResponse
      */
-    public static function timeSelectInformation($start_time,$end_time,$table_name,$time_field,$teacher_id = '',$total = 10){
+    public static function timeSelectInformation($start_time,$end_time,$table_name,$time_field,$total = 10,$teacher_id = ''){
         if(empty($teacher_id)){
             $result = DB::table($table_name)->whereBetween($time_field,[$start_time,$end_time])->paginate($total);
         }else{
@@ -182,9 +182,13 @@ class ModelDatabase  extends  Model
     }
     //分页查询
     public static function pagingQueryDatas($datas){
+        $time_field = $datas['time_field'];
         $result = DB::table($datas['table_name'])
                   ->where($datas['field'],'like',"%".$datas['value']."%")
                   ->paginate($datas['total']);
+        foreach ($result as $datas){
+            $datas->$time_field = date('Y-m-d',$datas->$time_field);
+        }
         return responseTojson(0,'查询成功','',$result);
 
     }

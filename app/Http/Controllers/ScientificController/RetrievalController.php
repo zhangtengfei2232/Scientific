@@ -32,7 +32,7 @@ class RetrievalController extends Controller
     private $lecture_time_field   = SearchMessageConfig::LE_TIME;
     private $schfile_time_field   = SearchMessageConfig::SCHFILE_DOWN_TIME;
     private $agreement_time_field = SearchMessageConfig::AGREE_TIME;
-    private $data_page_number     = 10;
+    private $total = 10;
     /**
      * 1.秘书、院长的特殊功能======>检索所有信息功能
      * 2.生成=======>师资组成(最高学历，职称，学缘)，论文(期刊级别)，
@@ -128,7 +128,7 @@ class RetrievalController extends Controller
     }
     //根据论文作者模糊查询
     public function byAuthorSelectArtical(Request $request){
-        $datas['total']  = 10;
+        $datas['total']  = $this->total;
         $datas['value']  = $request->value;
         if($request->has('total')){
             $datas['total'] = $request->total;
@@ -159,7 +159,7 @@ class RetrievalController extends Controller
 //    }
     //发表日期查询
     public function byPeriodicalSelectArtical(Request $request){
-        $total = 10;
+        $total = $this->total;
         if($request->has('total')){
             $total = $request->total;
         }
@@ -485,37 +485,54 @@ class RetrievalController extends Controller
     }
     //鉴定成果名称查询
     public function byNameSelectAppraisal(Request $request){
-        $ap_res_name = $request->ap_res_name;
-        if(empty($ap_res_name)){
-             return responseTojson(1,'你输入的鉴定成果名称不能为空');
+        $data['total'] = $this->total;
+        if($request->has('total')){
+            $data['total'] = $request->total;
         }
-        $ap_res_name_field = SearchMessageConfig::APPRAISAL_AP_RES_NAME;
-        return ModelDatabase::byNameSelectDatas($this->appraisal_table_name,$ap_res_name_field,$ap_res_name,$this->appraisal_time_field);
+        $data['table_name']    = $this->appraisal_table_name;
+        $data['time_field']    = $this->appraisal_time_field;
+        $ap_form_field         = SearchMessageConfig::APPRAISAL_AP_FORM;
+        $ap_first_author_field = SearchMessageConfig::APPRAISAL_AP_FIRST_AUTHOR;
+        $ap_res_name_field     = SearchMessageConfig::APPRAISAL_AP_RES_NAME;
+        switch($request->type){
+            case $ap_res_name_field:
+                $data['filed'] = $ap_res_name_field;
+                break;
+            case $ap_first_author_field:
+                $data['field'] = $ap_first_author_field;
+            case $ap_form_field:
+                $data['field'] = $ap_form_field;
+        }
+        return ModelDatabase::pagingQueryDatas($data);
     }
-    //鉴定形式查询
-    public function byFormSelectAppraisal(Request $request){
-        $ap_form_field = SearchMessageConfig::APPRAISAL_AP_FORM;
-        $ap_form       = $request->ap_form;
-        return ModelDatabase::categorySelectInformation($this->appraisal_table_name,$ap_form_field,$ap_form,$this->appraisal_time_field);
-    }
-    //鉴定结论查询
-    public function byConclusionSelectAppraisal(Request $request){
-        $ap_conclusion_field = SearchMessageConfig::APPRAISAL_AP_CONCLUSION;
-        $ap_conclusion       = $request->ap_conclusion;
-        return ModelDatabase::byNameSelectDatas($this->appraisal_table_name,$ap_conclusion_field,$ap_conclusion,$this->appraisal_time_field);
-    }
+//    //鉴定形式查询
+//    public function byFormSelectAppraisal(Request $request){
+//        $ap_form_field = SearchMessageConfig::APPRAISAL_AP_FORM;
+//        $ap_form       = $request->ap_form;
+//        return ModelDatabase::categorySelectInformation($this->appraisal_table_name,$ap_form_field,$ap_form,$this->appraisal_time_field);
+//    }
+//    //鉴定结论查询
+//    public function byConclusionSelectAppraisal(Request $request){
+//        $ap_conclusion_field = SearchMessageConfig::APPRAISAL_AP_CONCLUSION;
+//        $ap_conclusion       = $request->ap_conclusion;
+//        return ModelDatabase::byNameSelectDatas($this->appraisal_table_name,$ap_conclusion_field,$ap_conclusion,$this->appraisal_time_field);
+//    }
     //鉴定时间查询
     public function byTimeSelectAppraisal(Request $request){
+        $total = $this->total;
+        if($request->has('total')){
+            $total = $request->total;
+        }
         $start_time = $request->start_time;
         $end_time   = $request->end_time;
-        return ModelDatabase::timeSelectInformation($start_time,$end_time,$this->appraisal_table_name,$this->appraisal_time_field);
+        return ModelDatabase::timeSelectInformation($start_time,$end_time,$this->appraisal_table_name,$this->appraisal_time_field,$total);
     }
-    //鉴定级别查询
-    public function byLevelSelectAppraisal(Request $request){
-        $ap_level_field = SearchMessageConfig::APPRAISAL_AP_LEVEL;
-        $ap_level       = $request->ap_level;
-        return ModelDatabase::categorySelectInformation($this->appraisal_table_name,$ap_level_field,$ap_level,$this->appraisal_time_field);
-    }
+//    //鉴定级别查询
+//    public function byLevelSelectAppraisal(Request $request){
+//        $ap_level_field = SearchMessageConfig::APPRAISAL_AP_LEVEL;
+//        $ap_level       = $request->ap_level;
+//        return ModelDatabase::categorySelectInformation($this->appraisal_table_name,$ap_level_field,$ap_level,$this->appraisal_time_field);
+//    }
 
     /**
      * 举办会议检索
