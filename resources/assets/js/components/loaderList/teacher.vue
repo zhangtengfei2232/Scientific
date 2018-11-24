@@ -2,7 +2,7 @@
     <div>
         <div class="cont">
             <div class="header">
-                <el-header style="height: 45px;">
+                <el-header>
                     <div class="art">所有成员({{total}})</div>
                     <div class="search">
                         <el-popover
@@ -96,7 +96,7 @@
                             <el-form ref="form" :model="form" label-width="50px">
                                 <el-dropdown @command="postCommand" style="font-size: 16px;">
                                     <span class="el-dropdown-link">
-                                    岗位类别<i class="el-icon-arrow-down el-icon--right"></i>
+                                    行政职务<i class="el-icon-arrow-down el-icon--right"></i>
                                     </span>
                                     <el-dropdown-menu slot="dropdown">
                                         <el-dropdown-item command="0">普通老师</el-dropdown-item>
@@ -121,7 +121,6 @@
                     :data="teacherDate"
                     style="width:100%"
                     border
-                    height="500"
                     @selection-change="handleSelectionChange">
                 <el-table-column
                     type="selection"
@@ -217,10 +216,10 @@
                         prop="series"
                         label="系列">
                 </el-table-column>
-                <el-table-column
-                        prop="post_category"
-                        label="岗位类别">
-                </el-table-column>
+                <!--<el-table-column-->
+                        <!--prop="post_category"-->
+                        <!--label="岗位类别">-->
+                <!--</el-table-column>-->
                 <el-table-column
                         prop="company"
                         label="所在单位">
@@ -334,29 +333,23 @@
         background: #f4f5f5;
     }
     .art{
-        margin: 12px 17px;
-        padding-right: 24px;
+        padding: 20px 10px;
         float: left;
         border-right: 1px #d4d8d7 solid;
     }
     .cont{
-        width: 97%;
+        width: 95%;
         float: left;
         margin: 20px;
     }
     .search{
         float: left;
-        margin: 12px 10px;
-        padding-right: 10px;
+        padding: 20px 20px;
         border-right: 1px #d4d8d7 solid;
     }
     .page{
         width: 30%;
         margin: 0 auto;
-    }
-    /*组件*/
-    .el-checkbox{
-        padding-left: 10px;
     }
 </style>
 
@@ -420,19 +413,21 @@
                     '实验师',
                     '助理实验师',
                 ],
-                post_category:[     //岗位类别
+                admin_duties:[     //行政职务
                     '普通老师',
                     '院长',
                     '副院长',
                     '教学秘书',
                     '科研秘书',
                     '研究生秘书',
-                    '副主任',
+                    '小麦中心主任',
                     '系主任',
                     '办公室主任',
                     '教研室主任',
                     '党委书记',
                     '党委副书记',
+                    '研究生主任',
+                    '实验室主任',
                 ],
                 first_academic:[//第一学历学位
                     '大专',
@@ -462,7 +457,7 @@
                         data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
                         data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
                         data.datas[i].academic_title = self.academic_title[data.datas[i].academic_title];//老师职称
-                        data.datas[i].post_category = self.post_category[data.datas[i].post_category];//岗位类别
+                        data.datas[i].admin_duties = self.admin_duties[data.datas[i].admin_duties];//行政职务
                     }
                     if (data.code == 0) {
                         self.teacherDate = data.datas;
@@ -496,7 +491,7 @@
                         data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
                         data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
                         data.datas[i].academic_title = self.academic_title[data.datas[i].academic_title];//老师职称
-                        data.datas[i].post_category = self.post_category[data.datas[i].post_category];//岗位类别
+                        data.datas[i].admin_duties = self.admin_duties[data.datas[i].admin_duties];//行政职务
                     }
                     if (data.code == 0) {
                         self.teacherDate = data.datas;
@@ -527,7 +522,7 @@
                         data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
                         data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
                         data.datas[i].academic_title = self.academic_title[data.datas[i].academic_title];//老师职称
-                        data.datas[i].post_category = self.post_category[data.datas[i].post_category];//岗位类别
+                        data.datas[i].admin_duties = self.admin_duties[data.datas[i].admin_duties];//行政职务
                     }
                     if (data.code == 0) {
                         self.teacherDate = data.datas;
@@ -558,7 +553,7 @@
                         data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
                         data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
                         data.datas[i].academic_title = self.academic_title[data.datas[i].academic_title];//老师职称
-                        data.datas[i].post_category = self.post_category[data.datas[i].post_category];//岗位类别
+                        data.datas[i].admin_duties = self.admin_duties[data.datas[i].admin_duties];//行政职务
                     }
                     if (data.code == 0) {
                         self.teacherDate = data.datas;
@@ -589,7 +584,7 @@
                         data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
                         data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
                         data.datas[i].academic_title = self.academic_title[data.datas[i].academic_title];//老师职称
-                        data.datas[i].post_category = self.post_category[data.datas[i].post_category];//岗位类别
+                        data.datas[i].admin_duties = self.admin_duties[data.datas[i].admin_duties];//行政职务
                     }
                     if (data.code == 0) {
                         self.teacherDate = data.datas;
@@ -620,7 +615,7 @@
                         data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
                         data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
                         data.datas[i].academic_title = self.academic_title[data.datas[i].academic_title];//老师职称
-                        data.datas[i].post_category = self.post_category[data.datas[i].post_category];//岗位类别
+                        data.datas[i].admin_duties = self.admin_duties[data.datas[i].admin_duties];//行政职务
                     }
                     if (data.code == 0) {
                         self.teacherDate = data.datas;
@@ -651,7 +646,7 @@
                         data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
                         data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
                         data.datas[i].academic_title = self.academic_title[data.datas[i].academic_title];//老师职称
-                        data.datas[i].post_category = self.post_category[data.datas[i].post_category];//岗位类别
+                        data.datas[i].admin_duties = self.admin_duties[data.datas[i].admin_duties];//行政职务
                     }
                     if (data.code == 0) {
                         self.teacherDate = data.datas;
@@ -664,11 +659,11 @@
                     }
                 });
             },
-            postCommand(command){       //岗位类别
+            postCommand(command){       //行政职务
                 let self = this;
                 axios.get("bypostcategoryselectteacher",{
                     params:{
-                        post_category: command,
+                        admin_duties: command,
                     }
                 }).then(function (response) {
                     var data = response.data;
@@ -682,7 +677,7 @@
                         data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
                         data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
                         data.datas[i].academic_title = self.academic_title[data.datas[i].academic_title];//老师职称
-                        data.datas[i].post_category = self.post_category[data.datas[i].post_category];//岗位类别
+                        data.datas[i].admin_duties = self.admin_duties[data.datas[i].admin_duties];//行政职务
                     }
                     if (data.code == 0) {
                         self.teacherDate = data.datas;

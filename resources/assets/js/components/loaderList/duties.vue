@@ -2,18 +2,20 @@
     <div>
         <div class="cont">
             <div class="header">
-                <el-header style="height: 45px;">
+                <el-header>
                     <div class="art">学生团体任职({{total}})</div>
                     <div class="search">
                         <el-popover
                                 placement="top-start"
                                 width="400"
-                                trigger="click">
+                                trigger="click"
+                                >
                             <el-input
                                     placeholder="请输入老师姓名 (回车搜索)"
                                     prefix-icon="el-icon-search"
                                     v-model="teacher_name"
-                                    @keyup.enter.native="byNameSearch()">
+                                    @keyup.enter.native="byNameSearch()"
+                                    @focus="click1">
                             </el-input>
                             <div slot="reference">老师：姓名<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
@@ -22,12 +24,14 @@
                         <el-popover
                                 placement="top-start"
                                 width="400"
-                                trigger="click">
+                                trigger="click"
+                                >
                             <el-input
                                     placeholder="请输入担任的学术团体名称 (回车搜索)"
                                     prefix-icon="el-icon-search"
                                     v-model="du_name"
-                                    @keyup.enter.native="byGroupNameSearch()">
+                                    @keyup.enter.native="byNameSearch()"
+                                    @focus="click2">
                             </el-input>
                             <div slot="reference">担任学术团体名称<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
@@ -106,11 +110,15 @@
                         <!--header-align="center">-->
                 <!--</el-table-column>-->
             </el-table>
-            <el-button @click="ExcelSelection()">导出Excel</el-button>
+            <el-button @click="ExcelSelection()" style="margin-top: 20px;">导出Excel</el-button>
             <div class="page">
                 <el-pagination
-                        background
-                        layout="prev, pager, next"
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        :current-page="currentPages"
+                        :page-sizes="[10, 20, 50, 100]"
+                        :page-size="pagesize"
+                        layout="total, sizes, prev, pager, next, jumper"
                         :total="total">
                 </el-pagination>
             </div>
@@ -123,29 +131,23 @@
         background: #f4f5f5;
     }
     .art{
-        margin: 12px 17px;
-        padding-right: 24px;
+        padding: 20px 10px;
         float: left;
         border-right: 1px #d4d8d7 solid;
     }
     .cont{
-        width: 96%;
+        width: 95%;
         float: left;
         margin: 20px;
     }
     .search{
         float: left;
-        margin: 12px 17px;
-        padding-right: 24px;
+        padding: 20px 20px;
         border-right: 1px #d4d8d7 solid;
     }
     .page{
         width: 30%;
         margin: 0 auto;
-    }
-    /*组件*/
-    .el-checkbox{
-        padding-left: 10px;
     }
 </style>
 
@@ -153,6 +155,9 @@
     export default {
         data() {
             return {
+                type:'',
+                currentPages:1,
+                pagesize:10,
                 searchValue:'',
                 border:true,
                 StudygroupDate: [],
@@ -191,6 +196,12 @@
             }
         },
         methods: {
+            click1(){
+                this.type = 'teacher_name';
+            },
+            click2(){
+                this.type = 'du_name';
+            },
             getArticleData() {
                 let self = this;
                 axios.get("leaderselectallduties").then(function (response) {
@@ -216,18 +227,25 @@
                 let self = this;
                 axios.get("byteachernameselectduties",{
                     params:{
-                        teacher_name: self.teacher_name,
+                        value: self.teacher_name,
+                        type: self.type,
+                        page:self.currentPages,
+                        total:self.pagesize,
                     }
                 }).then(function (response) {
                     var data = response.data;
-                    self.form.num = data.datas.length;
-                    for(var i=0;i<data.datas.length;i++){
-                        data.datas[i].du_academic = self.du_academic[data.datas[i].du_academic];
-                        data.datas[i].du_education = self.du_education[data.datas[i].du_education];
-                        data.datas[i].du_degree = self.du_degree[data.datas[i].du_degree];
+//                    console.log(response.data,'*/////===***');
+//                    console.log(data,'***===***');
+//                    console.log(data.datas.data,'************');
+//                    self.form.num = data.datas.data.length;
+//                    console.log(data.datas,'/***/*/*/*/*/');
+                    for(var i=0;i<data.datas.data.length;i++){
+                        data.datas.data[i].du_academic = self.du_academic[data.datas.data[i].du_academic];
+                        data.datas.data[i].du_education = self.du_education[data.datas.data[i].du_education];
+                        data.datas.data[i].du_degree = self.du_degree[data.datas.data[i].du_degree];
                     }
                     if (data.code == 0) {
-                        self.StudygroupDate = data.datas;
+                        self.StudygroupDate = data.datas.data;
                     } else {
                         self.$notify({
                             type: 'error',
@@ -241,18 +259,21 @@
                 let self = this;
                 axios.get("bynameselectduties",{
                     params:{
-                        du_name: self.du_name,
+                        value: self.du_name,
+                        type: self.type,
+                        page:self.currentPages,
+                        total:self.pagesize,
                     }
                 }).then(function (response) {
                     var data = response.data;
-                    self.form.num = data.datas.length;
-                    for(var i=0;i<data.datas.length;i++){
-                        data.datas[i].du_academic = self.du_academic[data.datas[i].du_academic];
-                        data.datas[i].du_education = self.du_education[data.datas[i].du_education];
-                        data.datas[i].du_degree = self.du_degree[data.datas[i].du_degree];
+//                    self.form.num = data.datas.length;
+                    for(var i=0;i<data.datas.data.length;i++){
+                        data.datas.data[i].du_academic = self.du_academic[data.datas.data[i].du_academic];
+                        data.datas.data[i].du_education = self.du_education[data.datas.data[i].du_education];
+                        data.datas.data[i].du_degree = self.du_degree[data.datas.data[i].du_degree];
                     }
                     if (data.code == 0) {
-                        self.StudygroupDate = data.datas;
+                        self.StudygroupDate = data.datas.data;
                     } else {
                         self.$notify({
                             type: 'error',
@@ -285,12 +306,42 @@
                 let urls =  `exportdutiesexcel?du_id_datas=${art_id_datas}`;
                 window.location.href = urls;
             },
+
+            //分页
+            handleSizeChange(val) {
+                this.pagesize = val;
+//                console.log(`每页 ${val} 条`);
+            },
+            handleCurrentChange(val) {
+                this.currentPages=val;
+            },
             onSubmit() {
 
             }
         },
         mounted() {
             this.getArticleData();
-        }
+        },
+        watch:{
+
+            currentPages:function (currentPages) {
+                this.currentPages = currentPages;
+//                console.log(oldVal,newVal);
+                console.log(this.type);
+                switch(type){
+                    case teacher_name :
+                        self.byNameSearch();
+                        break;
+                    case du_name:
+                        self.byGroupNameSearch();
+                        break;
+                    default:
+                        this.$message.error('暂无此查询');
+                        break;
+                }
+//                this.byNameSearch();
+//                this.byGroupNameSearch();
+            }
+        },
     }
 </script>

@@ -49,7 +49,6 @@
                     <el-table-column
                             prop="le_id"
                             label="序号"
-                            sortable
                             width="120">
                     </el-table-column>
                     <el-table-column
@@ -59,8 +58,7 @@
                     </el-table-column>
                     <el-table-column
                             prop="le_time"
-                            label="讲学时间"
-                            sortable>
+                            label="讲学时间">
                     </el-table-column>
                     <el-table-column
                             fixed="right"
@@ -237,7 +235,7 @@
                         if (data.code == 0) {
                              self.$message({
                                 type: 'success',
-                                message: '删除成功!'
+                                message:data.message,
                             });
                             location.reload();
                         } else {
@@ -272,7 +270,7 @@
                         if (data.code == 0) {
                             self.$message({
                                 type: 'success',
-                                message: '删除成功!'
+                                message:data.message
                             });
                             location.reload();
                         } else {

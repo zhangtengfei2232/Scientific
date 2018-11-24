@@ -2,7 +2,7 @@
     <div>
         <div class="cont">
             <div class="header">
-                <el-header style="height: 45px;">
+                <el-header>
                     <div class="art">专家讲学({{total}})</div>
                     <div class="search">
                         <el-row>
@@ -13,11 +13,11 @@
                                 </span>
                                     <el-dropdown-menu slot="dropdown">
                                         <el-dropdown-item>全部</el-dropdown-item>
-                                        <el-dropdown-item @click="timeSearch(8)">18年-今天</el-dropdown-item>
-                                        <el-dropdown-item @click="timeSearch(7)">17年-今天</el-dropdown-item>
-                                        <el-dropdown-item @click="timeSearch(6)">16年-今天</el-dropdown-item>
-                                        <el-dropdown-item @click="timeSearch(5)">15年-今天</el-dropdown-item>
-                                        <el-dropdown-item @click="timeSearch(4)">14年-今天</el-dropdown-item>
+                                        <el-dropdown-item @click.native="timeSearch(8)">18年-今天</el-dropdown-item>
+                                        <el-dropdown-item @click.native="timeSearch(7)">17年-今天</el-dropdown-item>
+                                        <el-dropdown-item @click.native="timeSearch(6)">16年-今天</el-dropdown-item>
+                                        <el-dropdown-item @click.native="timeSearch(5)">15年-今天</el-dropdown-item>
+                                        <el-dropdown-item @click.native="timeSearch(4)">14年-今天</el-dropdown-item>
                                         <el-dropdown-item>
                                             <el-popover
                                                     placement="top-start"
@@ -51,7 +51,7 @@
                             <el-input
                                     placeholder="请输入专家姓名 (回车搜索)"
                                     prefix-icon="el-icon-search"
-                                    v-model="form.name"
+                                    v-model="name"
                                     @keyup.enter.native="byNameSearch(form)">
                             </el-input>
                             <div slot="reference">专家：姓名<i class="el-icon-arrow-down el-icon--right"></i></div>
@@ -64,7 +64,9 @@
                                 trigger="click">
                             <el-input
                                     placeholder="请输入邀请单位 (回车搜索)"
-                                    prefix-icon="el-icon-search">
+                                    prefix-icon="el-icon-search"
+                                    v-model="art_rank"
+                                    @keyup.enter.native="byCompanySearch(form)">
                             </el-input>
                             <div slot="reference">邀请单位<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
@@ -131,8 +133,12 @@
             <el-button @click="ExcelSelection()"style="margin-top: 20px;">导出Excel</el-button>
             <div class="page">
                 <el-pagination
-                        background
-                        layout="prev, pager, next"
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        :current-page="currentPage"
+                        :page-sizes="[10, 20, 50, 100]"
+                        :page-size="pagesize"
+                        layout="total, sizes, prev, pager, next, jumper"
                         :total="total">
                 </el-pagination>
             </div>
@@ -145,29 +151,23 @@
         background: #f4f5f5;
     }
     .art{
-        margin: 12px 17px;
-        padding-right: 24px;
+        padding: 20px 10px;
         float: left;
         border-right: 1px #d4d8d7 solid;
     }
     .cont{
-        width: 96%;
+        width:95%;
         float: left;
         margin: 20px;
     }
     .search{
         float: left;
-        margin: 12px 17px;
-        padding-right: 24px;
+        padding: 20px 20px;
         border-right: 1px #d4d8d7 solid;
     }
     .page{
         width: 30%;
         margin: 0 auto;
-    }
-    /*组件*/
-    .el-checkbox{
-        padding-left: 10px;
     }
 </style>
 
@@ -175,17 +175,21 @@
     export default {
         data() {
             return {
+                currentPage:1,
+                pagesize:10,
+                newTime: 0,
+                total:0,
+                type: '',
                 searchValue:'',
                 border:true,
                 ExperspeakDate: [],
                 multipleSelection: [],
                 data1: '',
                 input:'',
-                total:0,
+                name:'',
 //                pagesize:9,
                 form: {
                     type:'',
-                    name:'',
                     company:'',
                     checkList: [],
                     num:'',
@@ -213,6 +217,35 @@
             }
         },
         methods: {
+            handleSizeChange: function (size) {
+                this.pagesize = size;
+            },
+            handleCurrentChange: function(currentPage){
+                this.currentPage = currentPage;
+                switch(type) {
+                    case le_expert_name:
+                        this.byNameSearch();
+                        break;
+                    case art_time1:
+                        this.timeSearch();
+                        break;
+                    case art_time2:
+                        this.twoTimeSearch();
+                        break;
+//                    case sch_percal_cate:
+//                        this.rankSearch();
+//                        break;
+//                    case combine:
+//                        this.onSubmit();
+//                        break;
+                    default:
+                        this.$message.error('暂无此查询');
+                        break;
+                }
+            },
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
+            },
             getArticleData() {
                 let self = this;
                 axios.get("leaderselectalllecture").then(function (response) {
@@ -236,6 +269,7 @@
                 });
             },
             timeSearch(time) {
+                this.type = 'art_time1';
                 if(time == 8) {
                     this.newTime = '1514779200';
                 }else if(time == 7) {
@@ -248,19 +282,28 @@
                     this.newTime = '1388548800';
                 }
                 var timestamp = Date.parse(new Date());
+//                console.log(timestamp,'=-=-=-=-')
                 let self = this;
                 axios.get("byinvitetimeselectlecture",{
                     params:{
-                        start_time:newTime,
-                        end_time:timestamp
+                        start_time:this.newTime,
+                        end_time:timestamp,
+                        page: self.currentPage,
+                        total: self.pagesize,
+                        type: 'art_time',
                     }
                 }).then(function (response) {
                     var data = response.data;
                     if (data.code == 0) {
                         self.ExperspeakDate = data.datas;
-                        for(var i=0;i<data.datas.length;i++){
-                            data.datas[i].le_invite_status = self.le_invite_status[data.datas[i].le_invite_status];
-                            data.datas[i].le_expert_level = self.le_expert_level[data.datas[i].le_expert_level];
+                        for(var j=0;j<data.datas.length;j++){
+                            for(var i= 0;i<self.le_expert_level.length;i++){
+                                if(data.datas[j].le_expert_level == i){
+                                    data.datas[j].le_expert_level = self.le_expert_level[i];
+                                }
+                            }
+//                            data.datas[i].le_invite_status = self.le_invite_status[data.datas[i].le_invite_status];
+//                            data.datas[i].le_expert_level = self.le_expert_level[data.datas[i].le_expert_level];
                         }
                     } else {
                         self.$notify({
@@ -273,8 +316,12 @@
             },
             twoTimeSearch() {
                 let self = this;
+                self.type = 'art_time2';
                 axios.get("byinvitetimeselectlecture",{
                     params:{
+                        page: self.currentPage,
+                        total: self.pagesize,
+                        type: 'art_time',
                         start_time:self.data1[0],
                         end_time:self.data1[1],
                     }
@@ -282,10 +329,17 @@
                     var data = response.data;
                     if (data.code == 0) {
                         self.ExperspeakDate = data.datas;
-                        for(var i=0;i<data.datas.length;i++){
-                            data.datas[i].le_invite_status = self.le_invite_status[data.datas[i].le_invite_status];
-                            data.datas[i].le_expert_level = self.le_expert_level[data.datas[i].le_expert_level];
+                        for(var j=0;j<data.datas.length;j++){
+                            for(var i= 0;i<self.le_expert_level.length;i++){
+                                if(data.datas[j].le_expert_level == i){
+                                    data.datas[j].le_expert_level = self.le_expert_level[i];
+                                }
+                            }
                         }
+//                        for(var i=0;i<data.datas.length;i++){
+//                            data.datas[i].le_invite_status = self.le_invite_status[data.datas[i].le_invite_status];
+//                            data.datas[i].le_expert_level = self.le_expert_level[data.datas[i].le_expert_level];
+//                        }
                     } else {
                         self.$notify({
                             type: 'error',
@@ -295,11 +349,16 @@
                     }
                 });
             },
-            byNameSearch(form) {                //专家姓名
+            byNameSearch() {                //专家姓名
                 let self = this;
+                self.type = 'le_expert_name';
                 axios.get("bynameselectlecture",{
                     params:{
-                        le_expert_name: form.name,
+                        page: self.currentPage,
+                        total: self.pagesize,
+                        type: 'le_expert_name',
+                        value: self.name,
+//                        le_expert_name: form.name,
                     }
                 }).then(function (response) {
                     var data = response.data;

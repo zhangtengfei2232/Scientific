@@ -102,7 +102,24 @@
                                     <el-input v-model="form.native_place"></el-input>
                                 </el-form-item>
                                 <el-form-item label="行政职务" prop="admin_duties">
-                                    <el-input v-model="form.admin_duties" maxlength="30"></el-input>
+                                    <el-select v-model="form.admin_duties" disabled placeholder="请选择老师行政职务">
+                                        <el-option label="普通老师" value="0"></el-option>
+                                        <el-option label="院长" value="1"></el-option>
+                                        <el-option label="副院长" value="2"></el-option>
+                                        <el-option label="教学秘书" value="3"></el-option>
+                                        <el-option label="科研秘书" value="4"></el-option>
+                                        <el-option label="研究生秘书" value="5"></el-option>
+                                        <el-option label="小麦中心主任" value="6"></el-option>
+                                        <el-option label="系主任" value="7"></el-option>
+                                        <el-option label="办公室主任" value="8"></el-option>
+                                        <el-option label="教研室主任" value="9"></el-option>
+                                        <el-option label="党委书记" value="10"></el-option>
+                                        <el-option label="党委副书记" value="11"></el-option>
+                                        <el-option label="研究生主任" value="12"></el-option>
+                                        <el-option label="实验室主任" value="13"></el-option>
+                                    </el-select>
+
+                                    <!--<el-input v-model="form.admin_duties" maxlength="30"></el-input>-->
                                 </el-form-item>
                                 <el-form-item label="任职时间" prop="admin_tenure_time">
                                     <el-col :span="15">
@@ -168,22 +185,22 @@
                                 <el-form-item label="系列" prop="series">
                                     <el-input v-model="form.series" maxlength="20"></el-input>
                                 </el-form-item>
-                                <el-form-item label="岗位类别" prop="post_category">
-                                    <el-select v-model="form.post_category" disabled placeholder="请选择老师岗位类别">
-                                        <el-option label="普通老师" value="0"></el-option>
-                                        <el-option label="院长" value="1"></el-option>
-                                        <el-option label="副院长" value="2"></el-option>
-                                        <el-option label="教学秘书" value="3"></el-option>
-                                        <el-option label="科研秘书" value="4"></el-option>
-                                        <el-option label="研究生秘书" value="5"></el-option>
-                                        <el-option label="副主任" value="6"></el-option>
-                                        <el-option label="系主任" value="7"></el-option>
-                                        <el-option label="办公室主任" value="8"></el-option>
-                                        <el-option label="教研室主任" value="9"></el-option>
-                                        <el-option label="党委书记" value="10"></el-option>
-                                        <el-option label="党委副书记" value="11"></el-option>
-                                    </el-select>
-                                </el-form-item>
+                                <!--<el-form-item label="岗位类别" prop="post_category">-->
+                                    <!--<el-select v-model="form.post_category" disabled placeholder="请选择老师岗位类别">-->
+                                        <!--<el-option label="普通老师" value="0"></el-option>-->
+                                        <!--<el-option label="院长" value="1"></el-option>-->
+                                        <!--<el-option label="副院长" value="2"></el-option>-->
+                                        <!--<el-option label="教学秘书" value="3"></el-option>-->
+                                        <!--<el-option label="科研秘书" value="4"></el-option>-->
+                                        <!--<el-option label="研究生秘书" value="5"></el-option>-->
+                                        <!--<el-option label="副主任" value="6"></el-option>-->
+                                        <!--<el-option label="系主任" value="7"></el-option>-->
+                                        <!--<el-option label="办公室主任" value="8"></el-option>-->
+                                        <!--<el-option label="教研室主任" value="9"></el-option>-->
+                                        <!--<el-option label="党委书记" value="10"></el-option>-->
+                                        <!--<el-option label="党委副书记" value="11"></el-option>-->
+                                    <!--</el-select>-->
+                                <!--</el-form-item>-->
 
                                 <el-form-item label="所在单位" prop="company">
                                     <el-input v-model="form.company" maxlength="20"></el-input>
@@ -406,7 +423,7 @@
                     review_time:'',
                     appointment_time:'',
                     series:'',
-                    post_category:'',
+//                    post_category:'',
                     most_study_major:'',
 
                     company:'',
@@ -450,7 +467,7 @@
                         self.teacherDate.job_level = String(data.datas.information.job_level);
                         self.teacherDate.technical_position = String(data.datas.information.technical_position);
                         self.teacherDate.academic_title = String(data.datas.information.academic_title);
-                        self.teacherDate.post_category = String(data.datas.information.post_category);
+                        self.teacherDate.admin_duties = String(data.datas.information.admin_duties);
                         self.teacherDate.first_academic = String(data.datas.information.first_academic);
                         self.teacherDate.most_academic = String(data.datas.information.most_academic);
 

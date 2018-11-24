@@ -1,7 +1,7 @@
 <template>
     <div class="information">
         <div class="add">
-            <el-form ref="form" :model="form" label-width="125px">
+            <el-form ref="form" :model="form" label-width="200px">
             <el-form-item label="姓名">
                 <el-input v-model="form.teacher_name" placeholder="请输入姓名" maxlength="15"></el-input>
             </el-form-item>
@@ -99,21 +99,22 @@
         float: left;
     }
     .add{
-        /*width: 80%;*/
+        width: 73%;
         margin: 35px 0 0 35px;
     }
     .demo{
         margin: 10px 0 10px 30%;
     }
+
     /*组件*/
-    .el-form{
-        width:58%;
-        margin-top: 40px;
-        margin-left: 150px;
-    }
-    .el-date-editor.el-input, .el-date-editor.el-input__inner {
-        width: 200px;
-    }
+    /*.el-form{*/
+        /*width:58%;*/
+        /*margin-top: 40px;*/
+        /*margin-left: 150px;*/
+    /*}*/
+    /*.el-date-editor.el-input, .el-date-editor.el-input__inner {*/
+        /*width: 200px;*/
+    /*}*/
 </style>
 <script>
     export default {
@@ -237,7 +238,7 @@
                             var data = res.data;
                             if (data.code == 0) {
                                 vue.$message({
-                                    message: '修改成功',
+                                    message: data.message,
                                     type: 'success'
                                 });
                                 this.$router.push({path: '/duties'});
@@ -265,34 +266,10 @@
                     data: data
                 });
             },
-//            checkFileExt(filename){
-//                if(filename == '') {
-//                    this.$message.error('上传文件不能为空');
-//                }
-//                var flag = false; //状态
-//                var arr = ["pdf"];
-//                //取出上传文件的扩展名
-//                console.log(filename);
-//                var index = filename.lastIndexOf(".");
-//                var ext = filename.substr(index+1);
-//                //循环比较
-//                for(var i=0;i<arr.length;i++){
-//                    if(ext == arr[i]){
-//                        flag = true;
-//                        break;
-//                    }
-//                }
-//                if(!flag){
-//                    this.$message.error('请上传PDF');
-//                }
-//            },
             checkYearExt(time){
                 let a = time.split(',');
-//                console.log(a);
                 this.year1 = a[0];
                 this.year2 = a[1];
-//                console.log(this.year1);
-//                console.log(this.year2);
             },
 
         },
