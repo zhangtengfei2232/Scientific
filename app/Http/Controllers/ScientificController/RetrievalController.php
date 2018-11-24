@@ -725,12 +725,9 @@ class RetrievalController extends Controller
     }
     //根据老师名字查询
     public function byTeacherNameSelectDuties(Request $request){
-        $data['total'] = 10;
-        if($request->has('total')){
-            $datas['total'] = $request->total;
-        }
-        $datas['value']         = $request->value;
-        $datas['table_name']    = $this->duties_table_name;
+
+        $datas['value']      = $request->value;
+        $datas['table_name'] = $this->duties_table_name;
         $du_teacher_name_field = SearchMessageConfig::DUTIES_TEACHER_NAME;
         $du_name_field         = SearchMessageConfig::DUTIES_DU_NAME;
         switch($request->type){

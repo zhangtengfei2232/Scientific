@@ -106,7 +106,7 @@ class TeacherDatabase extends ModelDatabase
          $buffer     = json_decode(json_encode($buffer));
          $buffer     = (array)$buffer;
          unset($buffer['password']);   //去除老师的密码信息
-         $message['role_status'] = $buffer['post_category'];
+         $message['role_status'] = $buffer['admin_duties'];
          $message['information'] = $buffer;
          return responseTojson(0,'查询成功','',$message);
      }
