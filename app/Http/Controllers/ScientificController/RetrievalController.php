@@ -131,12 +131,12 @@ class RetrievalController extends Controller
         $datas['total']  = 10;
         $datas['value']  = $request->art_value;
         if($request->has('total')){
-            $datas['total']  = $request->total;
+            $datas['total'] = $request->total;
         }
         $datas['table_name'] = $this->artical_table_name;
         $datas['time_field'] = $this->artical_time_field;
         $art_field = $request->type;
-        $art_author_field = SearchMessageConfig::ARTICAL_AUTHOR;
+        $art_author_field      = SearchMessageConfig::ARTICAL_AUTHOR;
         $sch_percal_cate_field = SearchMessageConfig::ARTICAL_SCH_PERCAL_CATE;
         switch ($art_field){
             case $art_author_field:
