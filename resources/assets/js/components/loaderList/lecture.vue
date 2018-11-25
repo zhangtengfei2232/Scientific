@@ -241,6 +241,7 @@
                 })
             },
             commonchange(data){
+                console.log(data,'/+-_=');
                 let self = this;
                 for(var i=0;i<data.length;i++){
                     data[i].le_invite_status = self.le_invite_status[data[i].le_invite_status];
@@ -292,9 +293,10 @@
             timeSearchget(){   //时间分页
 
                 let self = this;
+                self.types = 'time';
 //                console.log(timestamp);
 //                return ;
-                axios.get("byinvitetimeselectlecture", {
+                axios.get("bynameselectlecture", {
                     params: {
                         start_time:this.newTime,
                         end_time:this.timestamp,
