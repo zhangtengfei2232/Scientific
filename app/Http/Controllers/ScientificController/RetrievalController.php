@@ -625,37 +625,54 @@ class RetrievalController extends Controller
         ];
         return ModelDatabase::combinationSelectDatas($condition_datas);
     }
-    //查询全部专家讲学信息
-    public function leaderSelectAllLecture(){
-        return ModelDatabase::selectAllDatas($this->lecture_table_name,$this->lecture_time_field);
-    }
+//    //查询全部专家讲学信息
+//    public function leaderSelectAllLecture(){
+//        return
+//    }
     //专家名字查询
     public function byNameSelectLecture(Request $request){
-        $le_expert_name = $request->le_expert_name;
-        if(empty($le_expert_name)){
-            return responseTojson(1,'你输入的专家名字不能为空');
-        }
-        $le_expert_name_field = SearchMessageConfig::LECTURE_LE_EXPERT_NAME;
-        return ModelDatabase::byNameSelectDatas($this->lecture_table_name,$le_expert_name_field,$le_expert_name,$this->lecture_time_field);
-    }
-    //专家级别查询
-    public function byLevelSelectLecture(Request $request){
+        ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = 10;
+        $datas['value']      = $request->value;
+        $datas['table_name'] = $this->lecture_table_name;
+        $datas['time_field'] = $this->lecture_time_field;
         $le_expert_level_field = SearchMessageConfig::LECTURE_LE_EXPERT_LEVEL;
-        $le_expert_level       = $request->le_expert_level;
-        return ModelDatabase::categorySelectInformation($this->lecture_table_name,$le_expert_level_field,$le_expert_level,$this->lecture_time_field);
-    }
-    //邀请单位查询
-    public function byInviteUnitSelectLecture(Request $request){
+        $le_expert_name_field = SearchMessageConfig::LECTURE_LE_EXPERT_NAME;
         $le_invite_unit_field = SearchMessageConfig::LECTURE_LE_INVITE_UNIT;
-        $le_invite_unit       = $request->le_invite_unit;
-        return ModelDatabase::byNameSelectDatas($this->lecture_table_name,$le_invite_unit_field,$le_invite_unit,$this->lecture_time_field);
+        switch($request->type){
+            case $le_expert_level_field:
+                $datas['field'] = $le_expert_level_field;
+                return ModelDatabase::categorySelectInformation($datas['table_name'],$le_expert_level_field,$datas['value'],$datas['time_field']);
+            case $le_expert_name_field:
+                $datas['field'] = $le_expert_name_field;
+                break;
+            case $le_invite_unit_field:
+                $datas['field'] = $le_invite_unit_field;
+                break;
+            case 'time':
+                return ModelDatabase::timeSelectInformation($request->start_time,$request->end_time,$datas['table_name'],$datas['time_field']);
+            default:
+                return ModelDatabase::selectAllDatas($datas['table_name'],$datas['time_field']);
+        }
+        return ModelDatabase::pagingQueryDatas($datas);
     }
+//    //专家级别查询
+//    public function byLevelSelectLecture(Request $request){
+//        $le_expert_level_field = SearchMessageConfig::LECTURE_LE_EXPERT_LEVEL;
+//        $le_expert_level       = $request->le_expert_level;
+//        return ModelDatabase::categorySelectInformation($this->lecture_table_name,$le_expert_level_field,$le_expert_level,$this->lecture_time_field);
+//    }
+    //邀请单位查询
+//    public function byInviteUnitSelectLecture(Request $request){
+//        $le_invite_unit_field = SearchMessageConfig::LECTURE_LE_INVITE_UNIT;
+//        $le_invite_unit       = $request->le_invite_unit;
+//        return ModelDatabase::byNameSelectDatas($this->lecture_table_name,$le_invite_unit_field,$le_invite_unit,$this->lecture_time_field);
+//    }
     //邀请时间查询
-    public function byInviteTimeSelectLecture(Request $request){
-        $start_time = $request->start_time;
-        $end_time   = $request->end_time;
-        return ModelDatabase::timeSelectInformation($start_time,$end_time,$this->lecture_table_name,$this->lecture_time_field);
-    }
+//    public function byInviteTimeSelectLecture(Request $request){
+//        $start_time = $request->start_time;
+//        $end_time   = $request->end_time;
+//        return ModelDatabase::timeSelectInformation($start_time,$end_time,$this->lecture_table_name,$this->lecture_time_field);
+//    }
 
     /**
      * 校发文件检索
@@ -710,11 +727,11 @@ class RetrievalController extends Controller
      *担任学术团体职务
      */
     //查询全部担任团体职务信息
-    public function leaderSelectAllDuties(Request $request){
-        ($request->has('total')) ? $total = $request->total : $this->total;
-        $table_name = $this->duties_table_name;
-        return ModelDatabase::selectAllDatas($table_name,$total);
-    }
+//    public function leaderSelectAllDuties(Request $request){
+//        ($request->has('total')) ? $total = $request->total : $this->total;
+//        $table_name = $this->duties_table_name;
+//
+//    }
     //根据老师名字查询
     public function byTeacherNameSelectDuties(Request $request){
         ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = 10;
@@ -794,6 +811,17 @@ class RetrievalController extends Controller
             return ModelDatabase::groupByAndCountDatas($this->project_table_name,$group_field,$pro_cate_research_num,$this->project_time_field,$time_datas);
         }
         return ModelDatabase::groupByAndCountDatas($this->project_table_name,$group_field,$pro_cate_research_num);
+    }
+    //项目级别查询
+    public function groupByProjectLevel(Request $request){
+        $group_field = SearchMessageConfig::PRO_LEVEL;
+        $pro_level_num = SearchMessageConfig::PRO_LEVEL_NUM;
+        if($request->has('start_time') && $request->has('end_time')){
+            $time_datas['start_time'] = $request->start_time;
+            $time_datas['end_time']   = $request->end_time;
+            return ModelDatabase::groupByAndCountDatas($this->project_table_name,$group_field,$pro_level_num,$this->project_time_field,$time_datas);
+        }
+        return ModelDatabase::groupByAndCountDatas($this->project_table_name,$group_field,$pro_level_num);
     }
     /**
      * 著作饼图数据
