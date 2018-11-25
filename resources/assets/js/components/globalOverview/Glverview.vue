@@ -102,12 +102,31 @@
                     <span class="span">论文图</span>
                     <div id="myArticle" :style="{width: '320px', height: '300px'}"></div>
                     <el-button type="primary" size="mini">刊物级别</el-button>
+                    <div class="timesearch">
+                        <div class="data1">
+                            <el-date-picker
+                                    v-model="data1"
+                                    type="year"
+                                    placeholder="选择年">
+                            </el-date-picker>
+                        </div>
+                        <div class="reference">-</div>
+                        <div class="data2">
+                            <el-date-picker
+                                    v-model="data2"
+                                    type="year"
+                                    placeholder="选择年">
+                            </el-date-picker>
+                        </div>
+                    </div>
                 </div>
                 <div class="list4">
                     <span class="span">项目图</span>
                     <div id="myProject" :style="{width: '320px', height: '300px'}"></div>
                     <el-button type="primary" size="mini" @click="getProjectDate()">学科门类</el-button>
                     <el-button type="danger" size="mini" @click="ProType()">研究类别</el-button>
+                    <el-button type="warning" size="mini" @click="ApprovalMoney()">批准经费</el-button>
+                    <el-button type="success" size="mini" @click="GetMoney()">到账经费</el-button>
                 </div>
                 <div class="list5">
                     <span class="span">著作图</span>
@@ -208,6 +227,12 @@
         display: inline-block;
         padding: 10px 25px;
     }
+    .list4 button{
+        padding: 7px 10px;
+    }
+    .data1,.data2,.reference{
+        float:left;
+    }
 </style>
 
 <script>
@@ -216,6 +241,8 @@ export default {
     name: 'eCharts',
     data () {
         return {
+            data1: '',
+            data2: '',
             AllDate:[],
             teacherMicDate:[],
             teacherRanDate:[],
@@ -224,7 +251,8 @@ export default {
             OpusDate:[],
             AwardDate:[],
             PatentDate:[],
-            AppraisalDate:[]
+            AppraisalDate:[],
+
         }
     },
     methods: {
@@ -247,10 +275,12 @@ export default {
             let self = this;
             axios.get("groupbyteachertechnicaltitle").then(function (response) {
                 var data = response.data;
-                console.log(response.data);
+                console.log(response.data,'+++++++++');
+
                 if (data.code == 0) {
                     self.teacherMicDate = data.datas;
                     self.drawLine(self.teacherMicDate);
+                    console.log(self.teacherMicDate,'++====++++');
                 } else {
                     self.$notify({
                         type: 'error',
@@ -417,6 +447,39 @@ export default {
                     ]
                 }
             });
+        },
+        ApprovalMoney(){    //批准经费
+            let self = this;
+            axios.get("").then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.ProjectDate = data.datas;
+                    self.drawLineAgreenMoney(self.ProjectDate);
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,
+                    });
+                }
+            });
+        },
+        drawLineAgreenMoney(datas){
+            var myProject = this.$echarts.init(document.getElementById('myProject'));
+            myProject.setOption({
+                series: {
+                    type: 'pie',
+                    radius : '55%',
+                    data: [
+                        {name: '0-1000'+'('+datas[0]+')', value: datas[0]},
+                        {name: '1000-2000'+'('+datas[1]+')', value: datas[1]},
+                        {name: '2000'+'('+datas[2]+')', value: datas[2]},
+                    ]
+                }
+            });
+        },
+        GetMoney(){     //到账经费
+
         },
         getOpusDate() {
             let self = this;
