@@ -93,12 +93,7 @@ use setasign\Fpdi\Tcpdf\Fpdi;
     }
     //选取多个PDF，取第一页导出新的PDF
     function  selectionFirstPageToNewPdf($disk,$pdf_road_datas){
-        $complete_pdf_road_datas = [];
-        //拼接PDF的完整路径
-        $storage_path = str_replace('\\','/',storage_path());
-        for($i = 0; $i < count($pdf_road_datas); $i++){
-            $complete_pdf_road_datas[$i] = $storage_path.'/app/data/'.$disk.'/'.$pdf_road_datas[$i];
-        }
+        $complete_pdf_road_datas = stitchingFilePath($disk,$pdf_road_datas);
         $pdf = new Fpdi();
         // 載入現在 PDF 檔案
         for($i = 0; $i < count($complete_pdf_road_datas); $i++){
@@ -117,8 +112,38 @@ use setasign\Fpdi\Tcpdf\Fpdi;
         $pdf->closeParsers();
         return;
     }
-    function judgeReturnVolue($result){
-
+    //拼接多个PDF
+    function selectionSplicingToNewPdf($disk,$pdf_road_datas){
+        // 建立 FPDI 物件
+        $pdf = new Fpdi();
+        // 載入現在 PDF 檔案
+        $complete_pdf_road_datas = stitchingFilePath($disk,$pdf_road_datas);
+        for($i = 0; $i < count($complete_pdf_road_datas); $i++){
+            $page_count = $pdf->setSourceFile($complete_pdf_road_datas[$i]);
+            for($pageNo = 1; $pageNo <= $page_count; $pageNo++){
+                //一页一页的读取PDF，添加到新的PDF
+                $templateId = $pdf->importPage($pageNo);
+                $size = $pdf->getTemplateSize($templateId);
+                $pdf->AddPage($size['orientation'], $size);
+                $pdf->useTemplate($templateId);
+                $pdf->SetFont('Helvetica');
+                $pdf->SetXY(5, 5);
+            }
+        }
+        $pdf->output("merge-pdf.pdf", "D");
+        // 結束 FPDI 剖析器
+        $pdf->closeParsers();
+        return ;
+    }
+    //拼接导出文件的路径
+    function stitchingFilePath($disk,$pdf_road_datas){
+        $complete_pdf_road_datas = [];
+        //拼接PDF的完整路径
+        $storage_path = str_replace('\\','/',storage_path());
+        for($i = 0; $i < count($pdf_road_datas); $i++){
+            $complete_pdf_road_datas[$i] = $storage_path.'/app/data/'.$disk.'/'.$pdf_road_datas[$i];
+        }
+        return $complete_pdf_road_datas;
     }
     //导出EXCEL表格，单元格设置，数字转excel字母
     function intToChr($index, $start = 65) {

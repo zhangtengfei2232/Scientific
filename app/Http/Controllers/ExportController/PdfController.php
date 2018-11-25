@@ -23,25 +23,40 @@ class PdfController extends Controller
     public function exportProjectPdfs(Request $request){
         $pro_id_datas   = explode(',',$request->pro_id_datas);
         $pro_road_datas = ProjectDatabase::selectImagesRoadDatas($pro_id_datas);
+        if(empty($pro_road_datas)) return view('empty');
+        $disk           = UploadSubjectionConfig::PROJECT;
+        selectionSplicingToNewPdf($disk,$pro_road_datas);
     }
     //选多个著作文件导出
     public function exportOpusPdfs(Request $request){
         $op_id_datas = $request->op_id_datas;
         $op_road_datas = OpusDatabase::selectOpusAllImageDatas($op_id_datas);
+        if(empty($op_road_datas)) return view('empty');
+        $disk           = UploadSubjectionConfig::OPUS;
+        selectionSplicingToNewPdf($disk,$op_road_datas);
     }
     //选多个获奖著作文件导出
     public function exportAwardPdfs(Request $request){
-        $aw_id_datas = $request->aw_id_datas;
-        $aw_road_datas = AwardDatabase::selectAwardRoadDatas($aw_id_datas);
+        $aw_id_datas    = $request->aw_id_datas;
+        $aw_road_datas  = AwardDatabase::selectAwardRoadDatas($aw_id_datas);
+        if(empty($aw_road_datas)) return view('empty');
+        $disk           = UploadSubjectionConfig::AWARD;
+        selectionSplicingToNewPdf($disk,$aw_road_datas);
     }
     //选多个专利文件导出
     public function exportPatentPdfs(Request $request){
-        $pa_id_datas = $request->pa_id_datas;
-        $pa_road_datas = PatentDatabase::selectImageRoadDatas($pa_id_datas);
+        $pa_id_datas    = $request->pa_id_datas;
+        $pa_road_datas  = PatentDatabase::selectImageRoadDatas($pa_id_datas);
+        if(empty($pa_road_datas)) return view('empty');
+        $disk           = UploadSubjectionConfig::PATENT;
+        selectionSplicingToNewPdf($disk,$pa_road_datas);
     }
     //选多个成果鉴定文件导出
     public function exportAppraisalPdfs(Request $request){
-        $ap_id_datas = $request->ap_id_datas;
-        $ap_road_datas = AppraisalDatabase::selectAllAppraisalImageRoad($ap_id_datas);
+        $ap_id_datas    = $request->ap_id_datas;
+        $ap_road_datas  = AppraisalDatabase::selectAllAppraisalImageRoad($ap_id_datas);
+        if(empty($ap_road_datas)) return view('empty');
+        $disk           = UploadSubjectionConfig::APPRAISAL;
+        selectionSplicingToNewPdf($disk,$ap_road_datas);
     }
 }

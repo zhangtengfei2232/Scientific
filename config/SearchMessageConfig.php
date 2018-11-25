@@ -79,6 +79,9 @@ class SearchMessageConfig
     const PROJECT_PRO_CATE_RESEARCH = 'pro_cate_research';  //项目研究类别
     const PROJECT_PRO_SUB_CATEGORY  = 'pro_sub_category';   //项目学科门类
     const PRO_ROAD                  = 'pro_road';           //项目图片路径
+    const PRO_LEVEL                 = 'pro_level';          //项目级别
+    const PRO_APPROVAL_FUNDS        = 'approval_funds';     //项目批准经费
+    const PRO_ACCOUNT_OUTLAY        = 'account_outlay';     //项目当年到账经费
     const PROJECT_APPROVAL_UNIT     = 'approval_unit';      //项目批准单位
     const OPUS_OP_FIRST_AUTHOR      = 'op_first_author';    //著作第一作者
     const OPUS_OP_NAME              = 'op_name';            //著作名称
@@ -149,6 +152,7 @@ class SearchMessageConfig
     const ARTICAL_PERCAL_CATE_NUM = 11;   //文章期刊类别字段取值个数
     const PRO_CATE_RESEARCH_NUM   = 3;    //项目研究类别字段取值个数
     const PRO_SUB_CATEGORY_NUM    = 3;    //项目学科门类字段取值个数
+    const PRO_LEVEL_NUM           = 3;    //项目级别字段取值个数
     const OP_FORM_WRITE_NUM       = 5;    //著作编著形式字段取值个数
     const OP_CATE_WORK_NUM        = 5;    //著作著作类别字段取值个数
     const AW_FORM_ACHIEVEMENT_NUM = 11;   //获奖成果形式字段取值个数
@@ -183,6 +187,7 @@ class SearchMessageConfig
         ['序号','主持人','所有参加人','项目名称','项目类别','批准单位','批准经费（万元）','当年到账经费（万元）','研究类别',
             '学科门类','合作形式','社会经济目标','服务的国民经济行业','积分','时间','备注']
     ];
+    const PROJECT_LEVEL_DATAS = ['市厅级','省部级','国家级','其他'];
     //著作
     const OPUS_CELL_DATAS    = [
         ['序号','第一作者（或主编）','全部作者','著作名称','编著形式','出版社','出版时间','书号','总字数（千字）',
@@ -236,7 +241,7 @@ class SearchMessageConfig
     //老师
     const TEA_POLIT_OUTLOOK_DATAS  = ['积极分子','发展对象','预备党员','党员'];    //政治面貌
     const TEA_JOB_LEVEL_DATAS      = ['正处','副处','正科','副科','其他'];         //老师职务级别
-    const TEA_POST_CATEGORY_DATAS  = ['普通老师','院长','副院长','教学秘书','科研秘书','研究生秘书','副主任','系主任',
+    const TEA_ADMIN_DUTIES_DATAS   = ['普通老师','院长','副院长','教学秘书','科研秘书','研究生秘书','副主任','系主任',
         '办公室主任','教研室主任','党委书记','党委副书记'];                          //老师岗位类别
     const TEACHER_DEPARTMENT       = ['生工','生物技术系','农学系','领导行政政工']; //老师部门
     const TEA_MOST_ACADEMIC_DATAS  = ['硕士','博士','其他'];                      //老师最高学历学位

@@ -235,18 +235,35 @@ class ModelDatabase  extends  Model
      */
     public static function groupByAndCountDatas($table_name,$field,$number,$time_field = '',$time_datas = []){
         $count_datas = [];
-        if(empty($time_field)){
+        if($table_name == 'project'){
+            $approval_funds_money_datas = [];
+            $account_outlay_money_datas = [];
             for($i = 0; $i < $number; $i++){
-                $count = DB::table($table_name)->where($field,$i)->count();
-                $count_datas[$i] = $count;
+                $count_num = DB::table($table_name)->where($field,$i);
+                $count_approval_funds_money = DB::table($table_name)->where($field,$i);
+                $count_account_outlay_money = DB::table($table_name)->where($field,$i);
+                if(!empty($time_field)){
+                    $count_num = $count_num->whereBetween($time_field,[$time_datas['start_time'],$time_datas['end_time']]);
+                    $count_approval_funds_money = $count_approval_funds_money->whereBetween($time_field,[$time_datas['start_time'],$time_datas['end_time']]);
+                    $count_account_outlay_money = $count_account_outlay_money->whereBetween($time_field,[$time_datas['start_time'],$time_datas['end_time']]);
+                }
+                $approval_funds_money_datas[$i] = $count_approval_funds_money->sum('approval_funds');
+                $account_outlay_money_datas[$i] = $count_account_outlay_money->sum('account_outlay');
+                $count_datas[$i] = $count_num;
             }
-        }else{
-            for($i = 0; $i < $number; $i++){
-                $count = DB::table($table_name)->where($field,$i)
-                    ->whereBetween($time_field,[$time_datas['start_time'],$time_datas['end_time']])
-                    ->count();
-                $count_datas[$i] = $count;
+            $datas['count_num']      = $count_datas;
+            $datas['approval_funds'] = $approval_funds_money_datas;
+            $datas['account_outlay'] = $account_outlay_money_datas;
+            $datas['sum_approval_funds_money'] = array_sum($datas['approval_funds']);
+            $datas['sum_account_outlay_money'] = array_sum($datas['account_outlay']);
+            return responseTojson(0,'查询成功','',$datas);
+        }
+        for($i = 0; $i < $number; $i++){
+            $count = DB::table($table_name)->where($field,$i);
+            if(!empty($time_field)){
+                $count = $count->whereBetween($time_field,[$time_datas['start_time'],$time_datas['end_time']]);
             }
+            $count_datas[$i] = $count->count();
         }
         return responseTojson(0,'查询成功','',$count_datas);
     }
@@ -263,19 +280,12 @@ class ModelDatabase  extends  Model
      */
     public static function countEveryModularDatas(){
         $count_datas = [];
-        $count_datas[0] = DB::table('artical')->count();
-        $count_datas[1] = DB::table('project')->count();
-        $count_datas[2] = DB::table('opus')->count();
-        $count_datas[3] = DB::table('award')->count();
-        $count_datas[4] = DB::table('patent')->count();
-        $count_datas[5] = DB::table('appraisal')->count();
-        $count_datas[6] = DB::table('holdmeet')->count();
-        $count_datas[7] = DB::table('joinmeet')->count();
-        $count_datas[8] = DB::table('lecture')->count();
-        $count_datas[9] = DB::table('duties')->count();
+        $table_name_datas = ['artical','project','opus','award','patent','appraisal','holdmeet','joinmeet','lecture','duties'];
+        for($i = 0; $i < count($table_name_datas); $i++){
+            $count_datas[$i] = DB::table($table_name_datas[$i])->count();
+        }
         return responseTojson(0,'查询成功','',$count_datas);
     }
-
     /**
      * 导出表格所需数据
      */
