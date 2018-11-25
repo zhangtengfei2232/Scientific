@@ -649,7 +649,7 @@ class RetrievalController extends Controller
                 $datas['field'] = $le_invite_unit_field;
                 break;
             case 'time':
-                return ModelDatabase::timeSelectInformation($request->start_time,$request->end_time,$datas['table_name'],$datas['time_field']);
+                return ModelDatabase::timeSelectInformation($request->start_time,$request->end_time,$datas['table_name'],$datas['time_field'],5);
             default:
                 return ModelDatabase::selectAllDatas($datas['table_name'],$datas['total'],$datas['time_field']);
         }
