@@ -715,21 +715,9 @@ class RetrievalController extends Controller
         $table_name = $this->duties_table_name;
         return ModelDatabase::selectAllDatas($table_name,$total);
     }
-    //担任学术团体名称查询
-    public function byNameSelectDuties(Request $request){
-        $du_name = $request->du_name;
-        if(empty($du_name)){
-            return responseTojson(1,'你输入的担任学术团体名称不能为空');
-        }
-        $du_name_field = SearchMessageConfig::DUTIES_DU_NAME;
-        return ModelDatabase::byNameSelectDatas($this->duties_table_name,$du_name_field,$du_name,'');
-    }
     //根据老师名字查询
     public function byTeacherNameSelectDuties(Request $request){
-        $datas['total'] = 1;
-        if($request->has('total')){
-            $datas['total'] = $request->total;
-        }
+        ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = 10;
         $datas['value']      = $request->value;
         $datas['table_name'] = $this->duties_table_name;
         $du_teacher_name_field = SearchMessageConfig::DUTIES_TEACHER_NAME;

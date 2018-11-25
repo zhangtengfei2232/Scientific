@@ -188,17 +188,15 @@ class InformationController extends Controller
         //老师成果鉴定
         $appraisal_table_name = SearchMessageConfig::APPRAISAL_TABLE;
         $ap_road              = SearchMessageConfig::AP_ROAD;
-        $ap_cover_road        = SearchMessageConfig::AP_COVER_ROAD;
         $ap_id_field          = SearchMessageConfig::APPRAISAL_ID;
-        $appraisal_datas      = ModelDatabase::byTeacherIdSelect($teacher_id,$ap_id_field,$appraisal_table_name,$ap_road,$ap_cover_road);//合作协议
+        $appraisal_datas      = ModelDatabase::byTeacherIdSelect($teacher_id,$ap_id_field,$appraisal_table_name,$ap_road);
         $appraisal_road_datas = $appraisal_datas['file_road'];
         $appraisal_id_datas   = $appraisal_datas['id_datas'];
         //老师著作
         $opus_table_name      = SearchMessageConfig::OPUS_TABLE;
         $op_id_filed          = SearchMessageConfig::OPUS_ID;
-        $op_cover_road        = SearchMessageConfig::OP_COVER_ROAD;
-        $op_coright_road      = SearchMessageConfig::OP_CORIGHT_ROAD;
-        $opus_datas           = ModelDatabase::byTeacherIdSelect($teacher_id,$op_id_filed,$opus_table_name,$op_cover_road,$op_coright_road);
+        $op_road              = SearchMessageConfig::OP_ROAD;
+        $opus_datas           = ModelDatabase::byTeacherIdSelect($teacher_id,$op_id_filed,$opus_table_name,$op_road);
         $opus_road_datas      = $opus_datas['file_road'];
         $op_id_datas          = $opus_datas['id_datas'];
         //老师获奖

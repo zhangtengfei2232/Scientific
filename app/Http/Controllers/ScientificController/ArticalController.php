@@ -171,11 +171,4 @@ class ArticalController extends Controller
          deletefiles($disk,$reset_artical_road);
          return responseTojson(1,'修改论文失败');
      }
-     //同时导出多个论文，取每个论文的第一页，形成一个新的PDF论文
-     public function exportAllArtical(Request $request){
-         $art_id_datas = explode(',',$request->art_id_datas);
-         $art_road_datas = ArticalDatabase::selectArticalToPdfRoadDatas($art_id_datas);
-         $disk = UploadSubjectionConfig::ARTICAL;
-         selectionFirstPageToNewPdf($disk,$art_road_datas);
-     }
 }

@@ -9,6 +9,8 @@ use config\SearchMessageConfig;
 use App\Model\ModelDatabase;
 class ProjectController extends Controller
 {
+    private $disk = UploadSubjectionConfig::PROJECT;
+    private $subjection = UploadSubjectionConfig::PROJECT_IMG;
     //添加项目信息
     public function addProject(Request $request){
         if(!$request->isMethod('POST')){
@@ -42,19 +44,17 @@ class ProjectController extends Controller
             return ProjectDatabase::addProjectDatas($datas);
         }
         $project_image = $request->file('pro_road');
-        $judge_project_image = judgeFileImage($project_image);
-        if($judge_project_image['code'] == 1){                             //验证图片
-            return responseTojson(1,$judge_project_image['message']);
+        $judge_project = judgeReceiveFiles($project_image);
+        if($judge_project['code'] == 1){                             //验证是否已为PDF
+            return responseTojson(1,$judge_project['message']);
         }
-        $disk = UploadSubjectionConfig::PROJECT;
-        $subjection_project = UploadSubjectionConfig::PROJECT_IMG;
-        $project_iamge_road = uploadFiles($subjection_project,$project_image,$disk);//上传图片
-        $datas['pro_road']  = $project_iamge_road;
+        $project_road = uploadFiles($this->subjection,$project_image,$this->disk);//上传项目PDF
+        $datas['pro_road']  = $project_road;
         $add_project = ProjectDatabase::addProjectDatas($datas);
         if($add_project){
             return responseTojson(0,'添加项目成功');
         }
-        deletefiles($disk,$project_iamge_road);
+        deletefiles($this->disk,$project_road);
         return responseTojson(1,'添加项目失败');
     }
     //删除项目信息
@@ -127,25 +127,23 @@ class ProjectController extends Controller
         }
         $reset_image_status = true;
         $project_image = $request->file('pro_road');
-        $judge_project_img = judgeFileImage($project_image);
+        $judge_project_img = judgeReceiveFiles($project_image);
         if($judge_project_img['code'] == 1){
             return responseTojson(1,$judge_project_img['message']);
         }
-        $disk               = UploadSubjectionConfig::PROJECT;
-        $subjection_project = UploadSubjectionConfig::PROJECT_IMG;
-        $new_image_road     = uploadFiles($subjection_project,$project_image,$disk);
+        $new_image_road     = uploadFiles($this->subjection,$project_image,$this->disk);
         $datas['pro_road']  = $new_image_road;
         ProjectDatabase::beginTraction();
         $reset_project      = ProjectDatabase::updateProjectDatas($datas,$reset_image_status);
         if($reset_project){
             ProjectDatabase::commit();
             if(!empty($pro_road)){
-                deletefiles($disk,$pro_road);
+                deletefiles($this->disk,$pro_road);
             }
             return responseTojson(0,'修改项目成功');
         }
         ProjectDatabase::rollback();
-        deletefiles($disk,$new_image_road);
+        deletefiles($this->disk,$new_image_road);
         return responseTojson(1,'修改项目失败');
     }
 }

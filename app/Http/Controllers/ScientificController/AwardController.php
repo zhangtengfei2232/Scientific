@@ -11,6 +11,8 @@ use config\UploadSubjectionConfig;
 use config\SearchMessageConfig;
 class AwardController extends Controller
 {
+     private $disk       = UploadSubjectionConfig::AWARD;
+     private $subjection = UploadSubjectionConfig::AWARD_IMG;
      //添加获奖信息
      public function addAward(Request $request){
          if(!$request->isMethod('POST')){
@@ -40,19 +42,17 @@ class AwardController extends Controller
              return AwardDatabase::addAwardDatas($datas);
          }
          $award_image = $request->file('aw_road');
-         $judge_image = judgeFileImage($award_image);
+         $judge_image = judgeReceiveFiles($award_image);
          if($judge_image['code'] == 1){
              return responseTojson(1,$judge_image['message']);
          }
-         $disk             = UploadSubjectionConfig::AWARD;
-         $subjection_image = UploadSubjectionConfig::AWARD_IMG;
-         $add_image_road   = uploadFiles($subjection_image,$award_image,$disk);
+         $add_image_road   = uploadFiles($this->subjection,$award_image,$this->disk);
          $datas['aw_road'] = $add_image_road;
          $add_award = AwardDatabase::addAwardDatas($datas);
          if($add_award){
              return responseTojson(0,'添加获奖信息成功');
          }
-         deletefiles($disk,$add_image_road);
+         deletefiles($this->disk,$add_image_road);
          return responseTojson(1,'添加获奖信息失败');
      }
      //删除获奖信息
@@ -124,25 +124,23 @@ class AwardController extends Controller
          }
          $reset_image_status = true;
          $award_image = $request->file('aw_road');
-         $judge_image = judgeFileImage($award_image);
+         $judge_image = judgeReceiveFiles($award_image);
          if($judge_image['code'] == 1){
              return responseTojson(1,$judge_image['message']);
          }
-         $disk = UploadSubjectionConfig::AWARD;
-         $subjection_award = UploadSubjectionConfig::AWARD_IMG;
          AwardDatabase::beginTraction();
-         $new_image_road   = uploadFiles($subjection_award,$award_image,$disk);
+         $new_image_road   = uploadFiles($this->subjection,$award_image,$this->disk);
          $datas['aw_road'] = $new_image_road;
          $reset_award      = AwardDatabase::updateAwardDatas($datas,$reset_image_status);
          if($reset_award){
              ArticalDatabase::commit();
              if(!empty($aw_road)){
-                 deletefiles($disk,$aw_road);
+                 deletefiles($this->disk,$aw_road);
              }
              return responseTojson(0,'修改获奖信息成功');
          }
          ArticalDatabase::rollback();
-         deletefiles($disk,$new_image_road);
+         deletefiles($this->disk,$new_image_road);
          return responseTojson(1,'修改获奖信息失败');
      }
 }
