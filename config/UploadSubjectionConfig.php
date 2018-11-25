@@ -19,8 +19,7 @@ class uploadSubjectionConfig
     const GRADUCETION_IMG     = 'graducationimg';        //老师上传毕业证书文件夹名
     const EDUCATION_IMG       = 'educationimg';          //老师上传学历证书文件夹名
     const PATENT_IMG          = 'patentimg';             //老师上传专利图片文件夹名
-    const COPYRIGHT_IMG       = 'copyrightimg';          //老师上传著作版权图片文件夹名
-    const OPUS_COVER_IMG      = 'opuscoverimg';          //老师上传著作封面图片文件夹名
+    const OPUS_IMG            = 'opusimg';               //老师上传著作封面图片文件夹名
     const HOLD_IMG            = 'holdimage';             //老师上传举行会议图片文件夹名
     const HOLD_INJECTION      = 'holdinjection';         //老师上传举行会议图注图片文件夹名
     const JOIN_IMG            = 'joinimage';             //老师上传参加会议图片文件夹名
@@ -30,8 +29,7 @@ class uploadSubjectionConfig
     const AWARD_IMG           = 'awardimg';              //老师上传获奖图片文件夹名
     const ARTICAL_PDF         = 'articalpdf';            //老师上传论文文件夹名
     const ARTICAL_SCI         = 'articalsci';            //老师上传论文SCI索引报告
-    const APPRAISAL_COVER_IMG = 'appraisalcoverimg';     //老师上传鉴定封面图片文件夹名
-    const APPRAISAL_IMG       = 'appraisalimg';          //老师上传鉴定证书图片文件夹名
+    const APPRAISAL_IMG       = 'appraisalimg';          //老师上传鉴定文件文件夹名
     const PROJECT_IMG         = 'projectimg';            //老师上传项目合同图片文件夹
     const DUTIES_IMG          = 'dutiesimage';           //老师担任团体职务证书
     const SCHOOL_FILE_PDF     = 'schoolfilepdf';         //老师上传校发文件pdf文件夹名

@@ -9,8 +9,9 @@ class OpusDatabase  extends ModelDatabase
 {
     //添加著作信息
     public static function addOpusDatas($datas){
-       $response =  DB::table('opus')
-                ->insertGetId([
+         $op_road = $datas['op_remarks'];
+         $response =  DB::table('opus')
+                ->insert([
                     'teacher_id'       => $datas['teacher_id'],
                     'op_first_author'  => $datas['op_first_author'],
                     'op_all_author'    => $datas['op_all_author'],
@@ -25,10 +26,14 @@ class OpusDatabase  extends ModelDatabase
                     'op_integral'      => $datas['op_integral'],
                     'op_cate_research' => $datas['op_cate_research'],
                     'op_sub_category'  => $datas['op_sub_category'],
-                    'op_remarks'       => $datas['op_remarks']
+                    'op_road'          => $datas['op_road'],
+                    'op_remarks'       => $op_road
                 ]);
-       return ($response) ? responseTojson(0,'添加著作信息成功','',$response)
-              : responseTojson(1,'添加著作信息失败');
+         if(empty($op_road)){
+             return ($response) ? responseTojson(0,'添加著作信息成功','',$response)
+                 : responseTojson(1,'添加著作信息失败');
+         }
+         return $response;
     }
     //查看单个著作信息
     public static function selectOpusDatas($op_id){
@@ -56,16 +61,15 @@ class OpusDatabase  extends ModelDatabase
     public static function selectOpusAllImageDatas($op_id_datas){
         $op_raod_datas = [];
         for($i = 0; $i < count($op_id_datas); $i++){
-            $road = DB::table('opus')->select('op_cover_road','op_coright_road')
+            $road = DB::table('opus')->select('op_road')
                     ->where('op_id',$op_id_datas[$i])
                     ->first();
-            array_push($op_raod_datas,$road->op_cover_road) ;
-            array_push($op_raod_datas,$road->op_coright_road);
+            array_push($op_raod_datas,$road->op_road);
         }
         return $op_raod_datas;
     }
     //修改著作信息
-    public static function updateOpusDatas($datas){
+    public static function updateOpusDatas($datas,$reset_image_status){
         $respone = DB::table('opus')->where('op_id',$datas['op_id'])
                    ->update([
                        'op_first_author'  => $datas['op_first_author'],
@@ -81,21 +85,13 @@ class OpusDatabase  extends ModelDatabase
                        'op_integral'      => $datas['op_integral'],
                        'op_cate_research' => $datas['op_cate_research'],
                        'op_sub_category'  => $datas['op_sub_category'],
+                       'op_road'          => $datas['op_road'],
                        'op_remarks'       => $datas['op_remarks']
                    ]);
+        if($reset_image_status){
+            return ($respone != 1) ? false : true;
+        }
         return ($respone != 1) ? responseTojson(1,'修改著作信息失败')
                : responseTojson(0,'修改著作信息成功');
     }
-    //修改著作图片信息
-    public static function updateImageDatas($new_image_road,$status,$op_id){
-        if($status == 1){
-            $response = DB::table('opus')->where('op_id',$op_id)
-                      ->update(['op_cover_road' => $new_image_road]);
-        } elseif ($status == 2){
-            $response =  DB::table('opus')->where('op_id',$op_id)
-                      ->update(['op_coright_road' => $new_image_road]);
-        }
-        return ($response != 1) ? false : true;
-    }
-
 }

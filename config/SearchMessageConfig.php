@@ -86,8 +86,7 @@ class SearchMessageConfig
     const OPUS_OP_FORM_WRITE        = 'op_form_write';      //著作编著形式
     const OPUS_OP_CATE_RESEARCH     = 'op_cate_research';   //著作研究类别
     const OPUS_OP_SUB_CATEGORY      = 'op_sub_category';    //著作学科门类
-    const OP_COVER_ROAD             = 'op_cover_road';      //著作封面路径
-    const OP_CORIGHT_ROAD           = 'op_coright_road';    //著作版权路劲
+    const OP_ROAD                   = 'op_road';            //著作文件路径
     const AWARD_AW_FIRST_AUTHOR     = 'aw_first_author';    //获奖第一获奖人
     const AWARD_AWARD_NAME          = 'award_name';         //获奖奖励名称
     const AWARD_AW_GRANT_UNIT       = 'aw_grant_unit';      //获奖授予单位
@@ -107,7 +106,6 @@ class SearchMessageConfig
     const APPRAISAL_AP_CONCLUSION   = 'ap_conclusion';      //鉴定结论
     const APPRAISAL_AP_LEVEL        = 'ap_level';           //鉴定级别
     const AP_ROAD                   = 'ap_road';            //鉴定路径
-    const AP_COVER_ROAD             = 'ap_cover_road';      //鉴定封面路径
     const HOLDMEET_HO_NAME          = 'ho_name';            //举行会议名称
     const HOLDMEET_HO_LEVEL         = 'ho_level';           //举行会议级别
     const HOLDMEET_INJECTION        = 'ho_graph_inject';    //举行会议图注

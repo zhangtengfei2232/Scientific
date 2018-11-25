@@ -17,6 +17,9 @@ Route::group(['namespace' => 'Login'], function (){
  * 导出每个模块Excel表格
  */
 Route::group(['namespace' => 'ExportController'], function (){
+    /**
+     * 导出EXCEL表格信息
+     */
     Route::get('exportteacherexcel','ExcelController@exportTeacherExcel');        //导出老师EXCEL表格
     Route::get('exportarticalexcel','ExcelController@exportArticalExcel');        //导出论文EXCEL表格
     Route::get('exportprojectexcel','ExcelController@exportProjectExcel');        //导出项目Excel表格
@@ -30,6 +33,17 @@ Route::group(['namespace' => 'ExportController'], function (){
     Route::get('exportdutiesexcel','ExcelController@exportDutiesExcel');          //导出担任团体职务Excel表格
     Route::get('exportschoolfileexcel','ExcelController@exportSchoolFileExcel');  //导出校发文件Excel表格
     Route::get('exportagreementexcel','ExcelController@exportAgreementExcel');    //导出合作协议Excel表格
+
+    /**
+     * 导出PDF
+     */
+    Route::get('exportaArticalPdfs','PdfController@exportarticalpdfs');       //导出多个论文，取第一页,合成一个新的PDF
+    Route::get('exportprojectpdfs','PdfController@exportProjectPdfs');        //导出项目PDF
+    Route::get('exportopuspdfs','PdfController@exportOpusPdfs');              //导出著作PDF
+    Route::get('exportawardpdfs','PdfController@exportAwardPdfs');            //导出获奖PDF
+    Route::get('exportpatentpdfs','PdfController@exportPatentPdfs');          //导出专利PDF
+    Route::get('exportappraisalpdfs','PdfController@exportAppraisalPdfs');    //导出成果鉴定PDF
+
 });
 
 Route::group(['namespace' => 'ScientificController','middleware'=>['validate']], function (){
@@ -58,7 +72,6 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
 
 
     //老师对论文的操作
-    Route::get('exportallartical', 'ArticalController@exportAllArtical');          //导出多个论文，取第一页,合成一个新的PDF
     Route::post('addartical', 'ArticalController@addArtical');                     //添加论文
     Route::get('deleteartical', 'ArticalController@deleteArtical');                //删除论文
     Route::get('selectartical', 'ArticalController@selectArtical');                //查询单个论文
@@ -70,13 +83,11 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
 
     //老师对成果鉴定的操作
     Route::post('addappraisal', 'AppraisalController@addAppraisal');               //添加成果鉴定信息
-    Route::post('addappraisalimage', 'AppraisalController@addAppraisalImage');     //添加成果鉴定图片
     Route::get('deleteappraisal', 'AppraisalController@deleteAppraisal');          //删除单个成果鉴定信息
     Route::get('selectappraisal', 'AppraisalController@selectAppraisal');          //查询单个成果鉴定信息
     Route::get('selectallappraisal', 'AppraisalController@selectAllAppraisal');    //查询全部成功鉴定信息
-    Route::get('timeselectappraisal', 'AppraisalController@timeSelectAppraisal');    //根据时间区间搜索成果鉴定
+    Route::get('timeselectappraisal', 'AppraisalController@timeSelectAppraisal');  //根据时间区间搜索成果鉴定
     Route::post('updateappraisal', 'AppraisalController@updateAppraisal');         //修改成果鉴定信息
-    Route::post('updateappraisalimage', 'AppraisalController@updateAppraisalImage');//修改成果鉴定图片信息信息
 
     //老师对获奖的操作
     Route::post('addaward', 'AwardController@addAward');                           //添加获奖信息
@@ -133,13 +144,11 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
 
     //老师对著作的操作
     Route::post('addopus', 'OpusController@addOpus');                              //添加著作
-    Route::post('addopusimage', 'OpusController@addOpusImage');                    //添加著作图片
     Route::get('deleteopus', 'OpusController@deleteOpus');                         //删除著作信息
     Route::get('selectopus', 'OpusController@selectOpus');                         //查询单个著作信息
     Route::get('selectallopus', 'OpusController@selectAllOpus');                   //查询全部著作信息
     Route::get('timeselectopus', 'OpusController@timeSelectOpus');                 //根据时间区间查询信息
     Route::post('updateopus', 'OpusController@updateOpus');                        //修改著作信息
-    Route::post('updateopusimage', 'OpusController@updateOpusImage');              //修改著作图片
 
 
     //老师对专利的操作
