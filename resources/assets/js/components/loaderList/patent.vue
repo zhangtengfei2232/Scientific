@@ -165,7 +165,7 @@
                 <el-pagination
                     @size-change="handleSizeChange"
                     @current-change="handleCurrentChange"
-                    :current-page="currentPage"
+                    :current-page="currentPages"
                     :page-sizes="[10, 20, 50, 100]"
                     :page-size="pagesize"
                     layout="total, sizes, prev, pager, next, jumper"
@@ -205,6 +205,13 @@
 export default {
     data() {
         return {
+            types:'',
+            currentPages:1,
+            pagesize:10,
+            start_time:0,
+            end_time:0,
+            values:'',
+            total:0,
             searchValue:'',
             border:true,
             newTime:0,
@@ -213,9 +220,6 @@ export default {
             data1: '',
             first_inventor:'',
             pa_name:'',
-            currentPage:1,
-            total:0,
-            pagesize:20,
             form: {
                 pa_type:[],
                 pa_imple_situ: [],
@@ -265,32 +269,56 @@ export default {
             window.location.href = urls;
         },
         getPatentData() {
+            this.commonget(this.type);
+//            let self = this;
+//            axios.get("leaderselectallpatent").then(function (response) {
+//                var data = response.data;
+//                if (data.code == 0) {
+//                    self.allPatent = data.datas;
+//                    self.total = data.datas.length;
+//                    for(var j=0;j<data.datas.length;j++){
+//                        for(var i= 0;i<self.pa_type.length;i++){
+//                            if(data.datas[j].pa_type == i){
+//                                data.datas[j].pa_type = self.pa_type[i];
+//                            }
+//                        }
+//                        for(var i= 0;i<self.pa_imple_situ.length;i++){
+//                            if(data.datas[j].pa_imple_situ == i){
+//                                data.datas[j].pa_imple_situ = self.pa_imple_situ[i];
+//                            }
+//                        }
+//                    }
+//                } else {
+//                    self.$notify({
+//                        type: 'error',
+//                        message: data.message,
+//                        duration: 2000,
+//                    });
+//                }
+//            });
+        },
+        commonget(){
             let self = this;
-            axios.get("leaderselectallpatent").then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allPatent = data.datas;
-                    self.total = data.datas.length;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.pa_type.length;i++){
-                            if(data.datas[j].pa_type == i){
-                                data.datas[j].pa_type = self.pa_type[i];
-                            }
-                        }
-                        for(var i= 0;i<self.pa_imple_situ.length;i++){
-                            if(data.datas[j].pa_imple_situ == i){
-                                data.datas[j].pa_imple_situ = self.pa_imple_situ[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
+            axios.get("bynameselectlecture",{
+                params:{
+                    value:self.values,
+                    type: self.types,
+                    page:self.currentPages,
+                    total:self.pagesize,
                 }
-            });
+            }).then(function (response) {
+                self.total = response.data.datas.total;
+                self.commonchange(response.data.datas.data);
+
+            })
+        },
+        commonchange(data){
+            let self = this;
+            for(var i=0;i<data.length;i++){
+                data[i].le_invite_status = self.le_invite_status[data[i].le_invite_status];
+                data[i].le_expert_level = self.le_expert_level[data[i].le_expert_level];
+            }
+            self.ExperspeakDate = data;
         },
         paNameSearch() {
             let self = this;
