@@ -51,8 +51,8 @@
                             <el-input
                                     placeholder="请输入专家姓名 (回车搜索)"
                                     prefix-icon="el-icon-search"
-                                    v-model="name"
-                                    @keyup.enter.native="byNameSearch(form)">
+                                    v-model="le_expert_name"
+                                    @keyup.enter.native="byNameSearch()">
                             </el-input>
                             <div slot="reference">专家：姓名<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
@@ -65,8 +65,8 @@
                             <el-input
                                     placeholder="请输入邀请单位 (回车搜索)"
                                     prefix-icon="el-icon-search"
-                                    v-model="art_rank"
-                                    @keyup.enter.native="byCompanySearch(form)">
+                                    v-model="le_invite_unit"
+                                    @keyup.enter.native="byCompanySearch()">
                             </el-input>
                             <div slot="reference">邀请单位<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
@@ -135,7 +135,7 @@
                 <el-pagination
                         @size-change="handleSizeChange"
                         @current-change="handleCurrentChange"
-                        :current-page="currentPage"
+                        :current-page="currentPages"
                         :page-sizes="[10, 20, 50, 100]"
                         :page-size="pagesize"
                         layout="total, sizes, prev, pager, next, jumper"
@@ -175,11 +175,18 @@
     export default {
         data() {
             return {
-                currentPage:1,
+                types:'',
+                currentPages:1,
                 pagesize:10,
-                newTime: 0,
+                newTime: '',
+                timestamp:0,
+                values:'',
                 total:0,
-                type: '',
+                le_invite_unit:'',
+                le_expert_name:'',
+//                le_time:'',
+//                le_expert_level:'',
+//                le_invite_status:'',
                 searchValue:'',
                 border:true,
                 ExperspeakDate: [],
@@ -187,10 +194,9 @@
                 data1: '',
                 input:'',
                 name:'',
-//                pagesize:9,
                 form: {
                     type:'',
-                    company:'',
+//                    company:'',
                     checkList: [],
                     num:'',
                 },
@@ -213,63 +219,95 @@
                     '15年-今天',
                     '14年-今天',
                 ],
-
             }
         },
         methods: {
-            handleSizeChange: function (size) {
-                this.pagesize = size;
+            getArticleData() {
+                this.commonget(this.type)
             },
-            handleCurrentChange: function(currentPage){
-                this.currentPage = currentPage;
-                switch(type) {
-                    case le_expert_name:
-                        this.byNameSearch();
-                        break;
-                    case art_time1:
-                        this.timeSearch();
-                        break;
-                    case art_time2:
-                        this.twoTimeSearch();
-                        break;
-//                    case sch_percal_cate:
-//                        this.rankSearch();
-//                        break;
-//                    case combine:
-//                        this.onSubmit();
-//                        break;
-                    default:
-                        this.$message.error('暂无此查询');
-                        break;
+            commonget(){
+                let self = this;
+                axios.get("bynameselectlecture",{
+                    params:{
+                        value:self.values,
+                        type: self.types,
+                        page:self.currentPages,
+                        total:self.pagesize,
+                    }
+                }).then(function (response) {
+                    self.total = response.data.datas.total;
+                    self.commonchange(response.data.datas.du_datas);
+
+                })
+            },
+            commonchange(data){
+                let self = this;
+                for(var i=0;i<data.length;i++){
+                    data[i].le_invite_status = self.le_invite_status[data[i].le_invite_status];
+                    data[i].le_expert_level = self.le_expert_level[data[i].le_expert_level];
                 }
+                self.ExperspeakDate = data;
             },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
             },
-            getArticleData() {
+
+
+
+            byNameSearch() {                //专家姓名
                 let self = this;
-                axios.get("leaderselectalllecture").then(function (response) {
-                    var data = response.data;
-//                    console.log(data,'////*******');
-//                    self.form.num = data.datas.length;
-                    self.total = data.datas.length;
-                    for(var i=0;i<data.datas.length;i++){
-                        data.datas[i].le_invite_status = self.le_invite_status[data.datas[i].le_invite_status];
-                        data.datas[i].le_expert_level = self.le_expert_level[data.datas[i].le_expert_level];
+                self.types = 'le_expert_name';
+                self.values = self.le_expert_name;
+                self.commonget();
+            },
+            byCompanySearch(){  // 邀请单位
+                let self = this;
+                self.types = 'le_invite_unit';
+                self.values = self.le_invite_unit;
+                self.commonget();
+            },
+
+//            dropDown(command){
+//                let self = this;
+//                axios.get("bylevelselectlecture", {
+//                    params: {
+//                        le_expert_level: command,
+//                        value: self.values,
+//                        type: self.types,
+//                        page: self.currentPages,
+//                        total: self.pagesize,
+//                    }
+//                }).then(function (response) {
+//                    self.total = response.data.datas.total;
+//                    self.commonchange(response.data.datas.du_datas);
+//                });
+//            },
+            levelCommand(){       //专家级别
+                let self = this;
+//                le_expert_level: command;
+                self.types = 'le_expert_level';
+                self.values = self.command;
+                self.commonget();
+            },
+            timeSearchget(){   //时间分页
+
+                let self = this;
+//                console.log(timestamp);
+//                return ;
+                axios.get("byinvitetimeselectlecture", {
+                    params: {
+                        start_time:this.newTime,
+                        end_time:this.timestamp,
+                        type: self.types,
+                        page: self.currentPages,
+                        total: self.pagesize,
                     }
-                    if (data.code == 0) {
-                        self.ExperspeakDate = data.datas;
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.message,
-                            duration: 2000,
-                        });
-                    }
+                }).then(function (response) {
+                    self.total = response.data.datas.total;
+                    self.commonchange(response.data.datas.du_datas);
                 });
             },
             timeSearch(time) {
-                this.type = 'art_time1';
                 if(time == 8) {
                     this.newTime = '1514779200';
                 }else if(time == 7) {
@@ -281,153 +319,81 @@
                 }else if(time == 4) {
                     this.newTime = '1388548800';
                 }
-                var timestamp = Date.parse(new Date());
-//                console.log(timestamp,'=-=-=-=-')
+                this.timestamp = Date.parse(new Date());
                 let self = this;
-                axios.get("byinvitetimeselectlecture",{
-                    params:{
-                        start_time:this.newTime,
-                        end_time:timestamp,
-                        page: self.currentPage,
-                        total: self.pagesize,
-                        type: 'art_time',
-                    }
-                }).then(function (response) {
-                    var data = response.data;
-                    if (data.code == 0) {
-                        self.ExperspeakDate = data.datas;
-                        for(var j=0;j<data.datas.length;j++){
-                            for(var i= 0;i<self.le_expert_level.length;i++){
-                                if(data.datas[j].le_expert_level == i){
-                                    data.datas[j].le_expert_level = self.le_expert_level[i];
-                                }
-                            }
-//                            data.datas[i].le_invite_status = self.le_invite_status[data.datas[i].le_invite_status];
-//                            data.datas[i].le_expert_level = self.le_expert_level[data.datas[i].le_expert_level];
-                        }
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.message,
-                            duration: 2000,
-                        });
-                    }
-                });
+                self.types = 'le_time';
+                self.values = self.le_time;
+                self.timeSearchget();
+
+//                console.log(timestamp,'=-=-=-=-')
+//                let self = this;
+//                axios.get("byinvitetimeselectlecture",{
+//                    params:{
+//                        start_time:this.newTime,
+//                        end_time:timestamp,
+//                        page: self.currentPage,
+//                        total: self.pagesize,
+//                        type: 'art_time',
+//                    }
+//                }).then(function (response) {
+//                    var data = response.data;
+//                    if (data.code == 0) {
+//                        self.ExperspeakDate = data.datas;
+//                        for(var j=0;j<data.datas.length;j++){
+//                            for(var i= 0;i<self.le_expert_level.length;i++){
+//                                if(data.datas[j].le_expert_level == i){
+//                                    data.datas[j].le_expert_level = self.le_expert_level[i];
+//                                }
+//                            }
+//                        }
+//                    } else {
+//                        self.$notify({
+//                            type: 'error',
+//                            message: data.message,
+//                            duration: 2000,
+//                        });
+//                    }
+//                });
             },
             twoTimeSearch() {
-                let self = this;
                 self.type = 'art_time2';
-                axios.get("byinvitetimeselectlecture",{
-                    params:{
-                        page: self.currentPage,
-                        total: self.pagesize,
-                        type: 'art_time',
-                        start_time:self.data1[0],
-                        end_time:self.data1[1],
-                    }
-                }).then(function (response) {
-                    var data = response.data;
-                    if (data.code == 0) {
-                        self.ExperspeakDate = data.datas;
-                        for(var j=0;j<data.datas.length;j++){
-                            for(var i= 0;i<self.le_expert_level.length;i++){
-                                if(data.datas[j].le_expert_level == i){
-                                    data.datas[j].le_expert_level = self.le_expert_level[i];
-                                }
-                            }
-                        }
-//                        for(var i=0;i<data.datas.length;i++){
-//                            data.datas[i].le_invite_status = self.le_invite_status[data.datas[i].le_invite_status];
-//                            data.datas[i].le_expert_level = self.le_expert_level[data.datas[i].le_expert_level];
+                let self = this;
+                self.values = self.le_time;
+                self.timeSearchget();
+//                axios.get("byinvitetimeselectlecture",{
+//                    params:{
+//                        page: self.currentPage,
+//                        total: self.pagesize,
+//                        type: 'art_time',
+//                        start_time:self.data1[0],
+//                        end_time:self.data1[1],
+//                    }
+//                }).then(function (response) {
+//                    var data = response.data;
+//                    if (data.code == 0) {
+//                        self.ExperspeakDate = data.datas;
+//                        for(var j=0;j<data.datas.length;j++){
+//                            for(var i= 0;i<self.le_expert_level.length;i++){
+//                                if(data.datas[j].le_expert_level == i){
+//                                    data.datas[j].le_expert_level = self.le_expert_level[i];
+//                                }
+//                            }
 //                        }
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.message,
-                            duration: 2000,
-                        });
-                    }
-                });
+//                    } else {
+//                        self.$notify({
+//                            type: 'error',
+//                            message: data.message,
+//                            duration: 2000,
+//                        });
+//                    }
+//                });
             },
-            byNameSearch() {                //专家姓名
-                let self = this;
-                self.type = 'le_expert_name';
-                axios.get("bynameselectlecture",{
-                    params:{
-                        page: self.currentPage,
-                        total: self.pagesize,
-                        type: 'le_expert_name',
-                        value: self.name,
-//                        le_expert_name: form.name,
-                    }
-                }).then(function (response) {
-                    var data = response.data;
-                    self.form.num = data.datas.length;
-                    for(var i=0;i<data.datas.length;i++){
-                        data.datas[i].le_invite_status = self.le_invite_status[data.datas[i].le_invite_status];
-                        data.datas[i].le_expert_level = self.le_expert_level[data.datas[i].le_expert_level];
-                    }
-                    if (data.code == 0) {
-                        self.ExperspeakDate = data.datas;
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.message,
-                            duration: 2000,
-                        });
-                    }
-                });
+            handleSizeChange(val) {
+                this.pagesize = val;
+                this.commonget(this.types,this.values);
             },
-            byCompanySearch(form){  // 邀请单位
-                let self = this;
-                axios.get("byinviteunitselectlecture",{
-                    params:{
-                        le_invite_unit: form.company,
-                    }
-                }).then(function (response) {
-                    var data = response.data;
-                    self.form.num = data.datas.length;
-                    for(var i=0;i<data.datas.length;i++){
-                        data.datas[i].le_invite_status = self.le_invite_status[data.datas[i].le_invite_status];
-                        data.datas[i].le_expert_level = self.le_expert_level[data.datas[i].le_expert_level];
-                    }
-                    if (data.code == 0) {
-                        self.ExperspeakDate = data.datas;
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.message,
-                            duration: 2000,
-                        });
-                    }
-                });
-            },
-            levelCommand(command){       //专家级别
-                let self = this;
-                axios.get("bylevelselectlecture",{
-                    params:{
-                        le_expert_level: command,
-                    }
-                }).then(function (response) {
-                    var data = response.data;
-                    self.form.num = data.datas.length;
-                    for(var i=0;i<data.datas.length;i++){
-                        data.datas[i].le_invite_status = self.le_invite_status[data.datas[i].le_invite_status];
-                        data.datas[i].le_expert_level = self.le_expert_level[data.datas[i].le_expert_level];
-                    }
-                    if (data.code == 0) {
-                        self.ExperspeakDate = data.datas;
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.message,
-                            duration: 2000,
-                        });
-                    }
-                });
-            },
-            handleSelectionChange(val) {
-                this.multipleSelection = val;
+            handleCurrentChange(val) {
+                this.currentPages=val;
             },
             ExcelSelection() {
                 var self = this;
@@ -455,6 +421,34 @@
         },
         mounted() {
             this.getArticleData();
-        }
+        },
+        watch:{
+            currentPages:function (currentPages) {
+                this.currentPages = currentPages;
+                this.commonget(this.types,this.values);
+//                this.byNameSearch();
+//                this.byGroupNameSearch();
+                switch(types) {
+                    case le_expert_name:
+                        this.byNameSearch();
+                        break;
+                    case art_time1:
+                        this.timeSearch(this.newTime);
+                        break;
+                    case art_time2:
+                        this.twoTimeSearch();
+                        break;
+                    case le_invite_unit:    //邀请单位
+                        this.byCompanySearch();
+                        break;
+//                    case combine:
+//                        this.onSubmit();
+//                        break;
+                    default:
+                        this.$message.error('暂无此查询');
+                        break;
+                }
+            }
+        },
     }
 </script>

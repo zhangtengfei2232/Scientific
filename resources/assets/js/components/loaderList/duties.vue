@@ -200,21 +200,23 @@
             getArticleData() {
                  this.commonget(this.type)
             },
-            commonget(type,value){
+            commonget(){
                 let self = this;
                 axios.get("byteachernameselectduties",{
                     params:{
-                        value:value,
-                        type: type,
+                        value:self.values,
+                        type: self.types,
                         page:self.currentPages,
                         total:self.pagesize,
                     }
                 }).then(function (response) {
+                    console.log(response.data,'[]---]]][]');
                     self.total = response.data.datas.total;
                     self.commonchange(response.data.datas.du_datas);
                 })
             },
             commonchange(data){
+                console.log(data,'-=---data--');
                 let self = this;
                 for(var i=0;i<data.length;i++){
                     data[i].du_academic = self.du_academic[data[i].du_academic];
@@ -225,15 +227,15 @@
             },
             byNameSearch() {                //老师姓名
                 let self = this;
-                self.type = 'teacher_name';
-                self.value = self.teacher_name;
-                self.commonget(self.value);
+                self.types = 'teacher_name';
+                self.values = self.teacher_name;
+                self.commonget();
             },
             byGroupNameSearch() {                //担任学术团体名称
                 let self = this;
-                self.type = 'du_name';
-                self.value = self.du_name;
-                self.commonget(self.value);
+                self.types = 'du_name';
+                self.values = self.du_name;
+                self.commonget();
             },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
