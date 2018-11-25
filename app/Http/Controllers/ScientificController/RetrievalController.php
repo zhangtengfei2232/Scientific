@@ -636,7 +636,7 @@ class RetrievalController extends Controller
                 break;
             case 'time':
                 return ModelDatabase::timeSelectInformation($request->start_time,$request->end_time,$datas['table_name'],$datas['time_field'],$datas['total']);
-            default:
+            default :
                 return ModelDatabase::selectAllDatas($datas['table_name'],$datas['total'],$datas['time_field']);
         }
         return ModelDatabase::pagingQueryDatas($datas);

@@ -178,15 +178,12 @@
                 types:'',
                 currentPages:1,
                 pagesize:10,
-                newTime: '',
-                timestamp:0,
+                start_time:0,
+                end_time:0,
                 values:'',
                 total:0,
                 le_invite_unit:'',
                 le_expert_name:'',
-//                le_time:'',
-//                le_expert_level:'',
-//                le_invite_status:'',
                 searchValue:'',
                 border:true,
                 ExperspeakDate: [],
@@ -236,11 +233,12 @@
                     }
                 }).then(function (response) {
                     self.total = response.data.datas.total;
-                    self.commonchange(response.data.datas.du_datas);
+                    self.commonchange(response.data.datas.data);
 
                 })
             },
             commonchange(data){
+                console.log(data,'asdd');
                 let self = this;
                 for(var i=0;i<data.length;i++){
                     data[i].le_invite_status = self.le_invite_status[data[i].le_invite_status];
@@ -266,127 +264,55 @@
                 self.values = self.le_invite_unit;
                 self.commonget();
             },
-
-//            dropDown(command){
-//                let self = this;
-//                axios.get("bylevelselectlecture", {
-//                    params: {
-//                        le_expert_level: command,
-//                        value: self.values,
-//                        type: self.types,
-//                        page: self.currentPages,
-//                        total: self.pagesize,
-//                    }
-//                }).then(function (response) {
-//                    self.total = response.data.datas.total;
-//                    self.commonchange(response.data.datas.du_datas);
-//                });
-//            },
             levelCommand(){       //专家级别
                 let self = this;
-//                le_expert_level: command;
                 self.types = 'le_expert_level';
                 self.values = self.command;
                 self.commonget();
             },
             timeSearchget(){   //时间分页
-
                 let self = this;
+                self.types = 'time';
 //                console.log(timestamp);
 //                return ;
-                axios.get("byinvitetimeselectlecture", {
+                axios.get("bynameselectlecture", {
                     params: {
-                        start_time:this.newTime,
-                        end_time:this.timestamp,
+                        start_time:self.start_time,
+                        end_time:self.end_time,
                         type: self.types,
                         page: self.currentPages,
                         total: self.pagesize,
                     }
                 }).then(function (response) {
+                    console.log(response);
                     self.total = response.data.datas.total;
-                    self.commonchange(response.data.datas.du_datas);
+                    self.commonchange(response.data.datas.data);
                 });
             },
             timeSearch(time) {
                 if(time == 8) {
-                    this.newTime = '1514779200';
+                    this.start_time = '1514779200';
                 }else if(time == 7) {
-                    this.newTime = '1483243200';
+                    this.start_time = '1483243200';
                 }else if(time == 6) {
-                    this.newTime = '1451620800';
+                    this.start_time = '1451620800';
                 }else if(time == 5) {
-                    this.newTime = '1420084800';
+                    this.start_time = '1420084800';
                 }else if(time == 4) {
-                    this.newTime = '1388548800';
+                    this.start_time = '1388548800';
                 }
-                this.timestamp = Date.parse(new Date());
+                this.end_time = Date.parse(new Date());
                 let self = this;
                 self.types = 'le_time';
-                self.values = self.le_time;
                 self.timeSearchget();
-
-//                console.log(timestamp,'=-=-=-=-')
-//                let self = this;
-//                axios.get("byinvitetimeselectlecture",{
-//                    params:{
-//                        start_time:this.newTime,
-//                        end_time:timestamp,
-//                        page: self.currentPage,
-//                        total: self.pagesize,
-//                        type: 'art_time',
-//                    }
-//                }).then(function (response) {
-//                    var data = response.data;
-//                    if (data.code == 0) {
-//                        self.ExperspeakDate = data.datas;
-//                        for(var j=0;j<data.datas.length;j++){
-//                            for(var i= 0;i<self.le_expert_level.length;i++){
-//                                if(data.datas[j].le_expert_level == i){
-//                                    data.datas[j].le_expert_level = self.le_expert_level[i];
-//                                }
-//                            }
-//                        }
-//                    } else {
-//                        self.$notify({
-//                            type: 'error',
-//                            message: data.message,
-//                            duration: 2000,
-//                        });
-//                    }
-//                });
             },
             twoTimeSearch() {
                 self.type = 'art_time2';
                 let self = this;
-                self.values = self.le_time;
+                self.types = 'time';
+                self.start_time = self.data1[0];
+                self.end_time   = self.data1[1];
                 self.timeSearchget();
-//                axios.get("byinvitetimeselectlecture",{
-//                    params:{
-//                        page: self.currentPage,
-//                        total: self.pagesize,
-//                        type: 'art_time',
-//                        start_time:self.data1[0],
-//                        end_time:self.data1[1],
-//                    }
-//                }).then(function (response) {
-//                    var data = response.data;
-//                    if (data.code == 0) {
-//                        self.ExperspeakDate = data.datas;
-//                        for(var j=0;j<data.datas.length;j++){
-//                            for(var i= 0;i<self.le_expert_level.length;i++){
-//                                if(data.datas[j].le_expert_level == i){
-//                                    data.datas[j].le_expert_level = self.le_expert_level[i];
-//                                }
-//                            }
-//                        }
-//                    } else {
-//                        self.$notify({
-//                            type: 'error',
-//                            message: data.message,
-//                            duration: 2000,
-//                        });
-//                    }
-//                });
             },
             handleSizeChange(val) {
                 this.pagesize = val;
@@ -425,25 +351,19 @@
         watch:{
             currentPages:function (currentPages) {
                 this.currentPages = currentPages;
-                this.commonget(this.types,this.values);
-//                this.byNameSearch();
-//                this.byGroupNameSearch();
-                switch(types) {
-                    case le_expert_name:
+                switch(this.types) {
+                    case 'le_expert_name':
                         this.byNameSearch();
                         break;
-                    case art_time1:
-                        this.timeSearch(this.newTime);
+                    case 'time':
+                        this.timeSearchget();
                         break;
-                    case art_time2:
-                        this.twoTimeSearch();
-                        break;
-                    case le_invite_unit:    //邀请单位
+                    case 'le_invite_unit':    //邀请单位
                         this.byCompanySearch();
                         break;
-//                    case combine:
-//                        this.onSubmit();
-//                        break;
+                    case '':
+                        this.getArticleData();
+                        break;
                     default:
                         this.$message.error('暂无此查询');
                         break;
