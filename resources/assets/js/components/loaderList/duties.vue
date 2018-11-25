@@ -227,13 +227,13 @@
                 let self = this;
                 self.type = 'teacher_name';
                 self.value = self.teacher_name;
-                self.commonget(self.type,self.du_name);
+                self.commonget(self.value);
             },
             byGroupNameSearch() {                //担任学术团体名称
                 let self = this;
                 self.type = 'du_name';
                 self.value = self.du_name;
-                self.commonget(self.type,self.du_name);
+                self.commonget(self.value);
             },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
