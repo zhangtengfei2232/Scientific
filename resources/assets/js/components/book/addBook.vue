@@ -91,7 +91,7 @@
                     <el-button type="primary" @click="onSubmit(form)">立即创建</el-button>
                     <el-button>取消</el-button>
                 </el-form-item>
-                <el-form-item label="著作封面">
+                <el-form-item label="著作版权页PDF">
                     <el-upload
                         ref="op_cover_road"
                         action="#"
