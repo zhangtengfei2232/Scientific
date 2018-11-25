@@ -615,33 +615,19 @@ class RetrievalController extends Controller
     /**
      * 专家讲学检索
      */
-    //根据多个条件，组合查询讲学信息
-    public function combinationSelectLecture(Request $request){
-        $condition_datas = [
-            'table_name'  => $this->lecture_table_name,
-            'time_field'  => $this->lecture_time_field,
-            'first_field' => SearchMessageConfig::LECTURE_LE_EXPERT_LEVEL,  //专家级别字段
-            'first_datas' => $request->le_expert_level_datas
-        ];
-        return ModelDatabase::combinationSelectDatas($condition_datas);
-    }
-//    //查询全部专家讲学信息
-//    public function leaderSelectAllLecture(){
-//        return
-//    }
     //专家名字查询
-    public function byNameSelectLecture(Request $request){
+    public function byFieldSelectLecture(Request $request){
         ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = 10;
-        $datas['value']      = $request->value;
-        $datas['table_name'] = $this->lecture_table_name;
-        $datas['time_field'] = $this->lecture_time_field;
+        $datas['value']        = $request->value;
+        $datas['table_name']   = $this->lecture_table_name;
+        $datas['time_field']   = $this->lecture_time_field;
         $le_expert_level_field = SearchMessageConfig::LECTURE_LE_EXPERT_LEVEL;
-        $le_expert_name_field = SearchMessageConfig::LECTURE_LE_EXPERT_NAME;
-        $le_invite_unit_field = SearchMessageConfig::LECTURE_LE_INVITE_UNIT;
+        $le_expert_name_field  = SearchMessageConfig::LECTURE_LE_EXPERT_NAME;
+        $le_invite_unit_field  = SearchMessageConfig::LECTURE_LE_INVITE_UNIT;
         switch($request->type){
             case $le_expert_level_field:
                 $datas['field'] = $le_expert_level_field;
-                return ModelDatabase::categorySelectInformation($datas['table_name'],$le_expert_level_field,$datas['value'],$datas['time_field']);
+                return ModelDatabase::categorySelectInformation($datas['table_name'],$le_expert_level_field,$datas['value'],$datas['time_field'],$datas['total']);
             case $le_expert_name_field:
                 $datas['field'] = $le_expert_name_field;
                 break;
@@ -649,91 +635,59 @@ class RetrievalController extends Controller
                 $datas['field'] = $le_invite_unit_field;
                 break;
             case 'time':
-                return ModelDatabase::timeSelectInformation($request->start_time,$request->end_time,$datas['table_name'],$datas['time_field']);
+                return ModelDatabase::timeSelectInformation($request->start_time,$request->end_time,$datas['table_name'],$datas['time_field'],$datas['total']);
             default:
                 return ModelDatabase::selectAllDatas($datas['table_name'],$datas['total'],$datas['time_field']);
         }
         return ModelDatabase::pagingQueryDatas($datas);
     }
-//    //专家级别查询
-//    public function byLevelSelectLecture(Request $request){
-//        $le_expert_level_field = SearchMessageConfig::LECTURE_LE_EXPERT_LEVEL;
-//        $le_expert_level       = $request->le_expert_level;
-//        return ModelDatabase::categorySelectInformation($this->lecture_table_name,$le_expert_level_field,$le_expert_level,$this->lecture_time_field);
-//    }
-    //邀请单位查询
-//    public function byInviteUnitSelectLecture(Request $request){
-//        $le_invite_unit_field = SearchMessageConfig::LECTURE_LE_INVITE_UNIT;
-//        $le_invite_unit       = $request->le_invite_unit;
-//        return ModelDatabase::byNameSelectDatas($this->lecture_table_name,$le_invite_unit_field,$le_invite_unit,$this->lecture_time_field);
-//    }
-    //邀请时间查询
-//    public function byInviteTimeSelectLecture(Request $request){
-//        $start_time = $request->start_time;
-//        $end_time   = $request->end_time;
-//        return ModelDatabase::timeSelectInformation($start_time,$end_time,$this->lecture_table_name,$this->lecture_time_field);
-//    }
-
     /**
      * 校发文件检索
      */
-    //查询全部校发文件信息
-    public function leaderSelectAllSchoolfile(){
-        $table_name = $this->schfile_table_name;
-        $time_field = $this->schfile_time_field;
-        return ModelDatabase::selectAllDatas($table_name,$time_field);
-    }
     //校发文件名称查询
-    public function byNameSelectSchoofile(Request $request){
-        $schfile_name = $request->schfile_name;
-        if(empty($schfile_name)){
-            return responseTojson(1,'你输入的校发文件名称不能为空');
-        }
+    public function byFieldSelectSchoofile(Request $request){
+        ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = 10;
+        $datas['table_name'] = $this->schfile_table_name;
+        $datas['time_field'] = $this->schfile_time_field;
+        $datas['value']      = $request->value;
         $schfile_name_field = SearchMessageConfig::SCHOOLFILE_SCHFILE_NAME;
-        return ModelDatabase::byNameSelectDatas($this->schfile_table_name,$schfile_name_field,$schfile_name,$this->schfile_time_field);
+        switch($request->type){
+            case $schfile_name_field:
+                $datas['field'] = $schfile_name_field;
+                break;
+            case 'time':
+                return ModelDatabase::timeSelectInformation($request->start_time,$request->end_time,$datas['table_name'],$datas['time_field']);
+            default :
+                return ModelDatabase::selectAllDatas($datas['table_name'],$datas['time_field']);
+        }
+        return ModelDatabase::pagingQueryDatas($datas);
     }
-    //校发时间查询
-    public function byTimeSelectSchoofile(Request $request){
-        $start_time = $request->start_time;
-        $end_time   = $request->end_time;
-        return ModelDatabase::timeSelectInformation($start_time,$end_time,$this->schfile_table_name,$this->schfile_time_field);
-    }
-
     /**
      * 合作协议检索
      */
-    //查询全部合作协议信息
-    public function leaderSelectAllAgreement(){
-        $table_name = $this->agreement_table_name;
-        $time_field = $this->agreement_time_field;
-        return ModelDatabase::selectAllDatas($table_name,$time_field);
-    }
     //合作协议名称查询
-    public function byNameSelectAgreement(Request $request){
-        $agree_name = $request->agree_name;
-        if(empty($agree_name)){
-            return responseTojson(1,'你输入的合作协议名称不能为空');
-        }
+    public function byFieldSelectAgreement(Request $request){
+        ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = 10;
+        $datas['table_name'] = $this->agreement_table_name;
+        $datas['time_field'] = $this->agreement_time_field;
+        $datas['value']      = $request->value;
         $agree_name_filed = SearchMessageConfig::AGREEMENT_AGREE_NAME;
-        return ModelDatabase::byNameSelectDatas($this->agreement_table_name,$agree_name_filed,$agree_name,$this->agreement_time_field);
-    }
-    //协议时间查询
-    public function byTimeSelectAgreement(Request $request){
-        $start_time = $request->start_time;
-        $end_time   = $request->end_time;
-        return ModelDatabase::timeSelectInformation($start_time,$end_time,$this->agreement_table_name,$this->agreement_time_field);
+        switch($request->type){
+            case $agree_name_filed:
+                $datas['field'] = $agree_name_filed;
+                break;
+            case 'time':
+                return ModelDatabase::timeSelectInformation($request->start_time,$request->end_time,$datas['table_name'],$datas['time_field']);
+            default:
+                return ModelDatabase::selectAllDatas($datas['table_name'],$datas['total']);
+        }
+        return ModelDatabase::pagingQueryDatas($datas);
     }
     /**
      *担任学术团体职务
      */
-    //查询全部担任团体职务信息
-//    public function leaderSelectAllDuties(Request $request){
-//        ($request->has('total')) ? $total = $request->total : $this->total;
-//        $table_name = $this->duties_table_name;
-//
-//    }
     //根据老师名字查询
-    public function byTeacherNameSelectDuties(Request $request){
+    public function byFieldSelectDuties(Request $request){
         ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = 10;
         $datas['value']      = $request->value;
         $datas['table_name'] = $this->duties_table_name;
@@ -747,7 +701,7 @@ class RetrievalController extends Controller
                 $datas['field'] = $du_name_field;
                 break;
             default:
-                return ModelDatabase::selectAllDatas($this->duties_table_name,$datas['total']);
+                return ModelDatabase::selectAllDatas($datas['table_name'],$datas['total']);
         }
         return ModelDatabase::pagingQueryDatas($datas);
     }
