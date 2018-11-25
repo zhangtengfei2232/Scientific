@@ -404,57 +404,37 @@ class RetrievalController extends Controller
     /**
      * 专利检索
      */
-    //根据多个条件，组合查询文章信息
-    public function combinationSelectPatent(Request $request){
-        $condition_datas = [
-            'table_name'  => $this->patent_table_name,
-            'time_field'  => $this->patent_time_field,
-            'first_field' => SearchMessageConfig::PATENT_PA_TYPE,                     //专利类型字段
-            'first_datas' => $request->pa_type_datas
-        ];
-        $pa_imple_situ_field = SearchMessageConfig::PATENT_PA_IMPLE_SITU;         //专利实施情况字段
-        $pa_imple_situ_datas     = $request->pa_imple_situ_datas;
-        return ModelDatabase::combinationSelectDatas($condition_datas,$pa_imple_situ_field,$pa_imple_situ_datas);
-    }
-    //查询全部专利信息
-    public function leaderSelectAllPatent(){
-        return ModelDatabase::selectAllDatas($this->patent_table_name,$this->patent_time_field);
-    }
-    //第一发明人查询
-    public function byFirstInventorSelectPatent(Request $request){
-        $first_inventor = $request->first_inventor;
-        if(empty($first_inventor)){
-            return responseTojson(1,'你输入的第一发明人不能为空');
-        }
-        $first_inventor_field = SearchMessageConfig::PATEN_FIRST_INVENTOR;
-        return ModelDatabase::byNameSelectDatas($this->patent_table_name,$first_inventor_field,$first_inventor,$this->patent_time_field);
-    }
-    //专利类型查询
-    public function byTypeSelectPatent(Request $request){
-        $pa_type_field = SearchMessageConfig::PATENT_PA_TYPE;
-        $pa_type       = $request->pa_type;
-        return ModelDatabase::categorySelectInformation($this->patent_table_name,$pa_type_field,$pa_type,$this->patent_time_field);
-    }
-    //实施情况查询
-    public function byImplementStatusSelectPatent(Request $request){
-        $pa_imple_situ_field = SearchMessageConfig::PATENT_PA_IMPLE_SITU;
-        $pa_imple_situ       = $request->pa_imple_situ;
-        return ModelDatabase::categorySelectInformation($this->patent_table_name,$pa_imple_situ_field,$pa_imple_situ,$this->patent_time_field);
-    }
-    //受理日查询
-    public function byAdmissibilityDaySelectPatent(Request $request){
-        $start_time = $request->start_time;
-        $end_time   = $request->end_time;
-        return ModelDatabase::timeSelectInformation($start_time,$end_time,$this->patent_table_name,$this->patent_time_field);
-    }
+
     //专利名称查询
-    public function byNameSelectPatent(Request $request){
-        $pa_name = $request->pa_name;
-        if(empty($pa_name)){
-            return responseTojson(1,'你输入的专利名称不能为空');
-        }
+    public function byFieldSelectPatent(Request $request){
+        ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = 10;
+        $datas['table_name'] = $this->patent_table_name;
+        $datas['time_field'] = $this->patent_time_field;
+        $datas['value']      = $request->value;
         $pa_name_field = SearchMessageConfig::PATENT_PA_NAME;
-        return ModelDatabase::byNameSelectDatas($this->patent_table_name,$pa_name_field,$pa_name,$this->patent_time_field);
+        $first_inventor_field = SearchMessageConfig::PATEN_FIRST_INVENTOR;
+        switch($request->type){
+            case $pa_name_field:
+                $datas['field'] = $pa_name_field;
+                break;
+            case $first_inventor_field:
+                $datas['field'] = $first_inventor_field;
+                break;
+            case 'advanced_screening':
+                $condition_datas = [
+                    'table_name'  => $datas['table_name'],
+                    'time_field'  => $datas['time_field'],
+                    'first_field' => SearchMessageConfig::PATENT_PA_TYPE,                 //专利类型字段
+                    'first_datas' => $request->pa_type_datas
+                ];
+                $pa_imple_situ_field = SearchMessageConfig::PATENT_PA_IMPLE_SITU;         //专利实施情况字段
+                return ModelDatabase::combinationSelectDatas($condition_datas,$pa_imple_situ_field,$request->pa_imple_situ_datas);
+            case 'time':
+                return ModelDatabase::timeSelectInformation($request->start_time,$request->end_time,$datas['table_name'],$datas['time_field'],'',$datas['total']);
+            default:
+                return  ModelDatabase::selectAllDatas($datas['table_name'],$datas['time_field']);
+        }
+        return ModelDatabase::pagingQueryDatas($datas);
     }
 
     /**
@@ -635,7 +615,7 @@ class RetrievalController extends Controller
                 $datas['field'] = $le_invite_unit_field;
                 break;
             case 'time':
-                return ModelDatabase::timeSelectInformation($request->start_time,$request->end_time,$datas['table_name'],$datas['time_field'],$datas['total']);
+                return ModelDatabase::timeSelectInformation($request->start_time,$request->end_time,$datas['table_name'],$datas['time_field'],'',$datas['total']);
             default :
                 return ModelDatabase::selectAllDatas($datas['table_name'],$datas['total'],$datas['time_field']);
         }

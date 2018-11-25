@@ -65,46 +65,21 @@ class ModelDatabase  extends  Model
     }
     //根据字段组合查询数据
     public static function combinationSelectDatas($condition_datas,$second_field = '',$second_datas = [],$third_field = '',$third_datas = []){
-         $table_name  = $condition_datas['table_name'];
+//         $table_name  = $condition_datas['table_name'];
          $first_field = $condition_datas['first_field'];
          $first_datas = $condition_datas['first_datas'];
          $time_field  = $condition_datas['time_field'];
-         if(empty($first_datas) && empty($second_datas) && empty($third_datas)){          //三个字段都为空
-             $result = DB::table($table_name)->get();
-         }elseif (!empty($first_datas) && !empty($second_datas) && !empty($third_datas) != 0){ //三个字段都不为空
-             $result = DB::table($table_name)
-                 ->whereIn($first_field,$first_datas)
-                 ->whereIn($second_field,$second_datas)
-                 ->whereIn($third_field,$third_datas)
-                 ->paginate($condition_datas['total']);
-         }elseif (!empty($first_datas) && empty($second_datas) && empty($third_datas)){
-             $result = DB::table($table_name)
-                 ->whereIn($first_field,$first_datas)
-                 ->paginate($condition_datas['total']);
-         }elseif (empty($first_datas) && !empty($second_datas) && empty($third_datas)){
-             $result = DB::table($table_name)
-                 ->whereIn($second_field,$second_datas)
-                 ->paginate($condition_datas['total']);
-         }elseif (empty($first_datas) == 0 && empty($second_datas) && !empty($third_datas)){
-             $result = DB::table($table_name)
-                 ->whereIn($third_field,$third_datas)
-                 ->paginate($condition_datas['total']);
-         }elseif (!empty($first_datas) && !empty($second_datas) && empty($third_datas)){
-             $result = DB::table($table_name)
-                 ->whereIn($first_field,$first_datas)
-                 ->whereIn($second_field,$second_datas)
-                 ->paginate($condition_datas['total']);
-         }elseif (!empty($first_datas) && empty($second_datas) && !empty($third_datas)){
-             $result = DB::table($table_name)
-                 ->whereIn($first_field,$first_datas)
-                 ->whereIn($third_field,$third_datas)
-                 ->paginate($condition_datas['total']);
-         }elseif(empty($first_datas) && !empty($second_datas) && !empty($third_datas)){
-             $result = DB::table($table_name)
-                 ->whereIn($second_field,$second_datas)
-                 ->whereIn($third_field,$third_datas)
-                 ->paginate($condition_datas['total']);
+         $result = DB::table($condition_datas['table_name']);
+         if(!empty($first_datas)){
+             $result = $result->whereIn($first_field,$first_datas);
          }
+         if(!empty($second_datas)){
+             $result = $result->whereIn($second_field,$second_datas);
+         }
+         if(!empty($third_datas)){
+             $result = $result->whereIn($third_field,$third_datas);
+         }
+         $result = $result->paginate($condition_datas['total']);
          foreach ($result as $datas){
              $datas->$time_field = date('Y-m-d',$datas->$time_field/1000);
          }
