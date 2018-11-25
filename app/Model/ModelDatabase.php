@@ -150,7 +150,7 @@ class ModelDatabase  extends  Model
      * @param string $teacher_id
      * @return \Illuminate\Http\JsonResponse
      */
-    public static function timeSelectInformation($start_time,$end_time,$table_name,$time_field,$total = 10,$teacher_id = ''){
+    public static function timeSelectInformation($start_time,$end_time,$table_name,$time_field,$teacher_id = '',$total = 10){
         if(empty($teacher_id)){
             $result = DB::table($table_name)->whereBetween($time_field,[$start_time,$end_time])->paginate($total);
         }else{
@@ -171,8 +171,8 @@ class ModelDatabase  extends  Model
      * @param $time_field
      * @return \Illuminate\Http\JsonResponse
      */
-    public static function categorySelectInformation($table_name,$field,$cetificate,$time_field){
-        $result = DB::table($table_name)->where($field,$cetificate)->get();
+    public static function categorySelectInformation($table_name,$field,$cetificate,$time_field,$total){
+        $result = DB::table($table_name)->where($field,$cetificate)->paginate($total);
         if(!empty($time_field)){
             foreach ($result as $datas){
                 $datas->$time_field = date('Y-m-d',$datas->$time_field/1000);

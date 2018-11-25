@@ -302,32 +302,20 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     /**
      * 专家讲学路由
      */
-    Route::get('combinationselectlecture','RetrievalController@combinationSelectLecture');              //组合查询讲学信息
-    Route::get('leaderselectalllecture','RetrievalController@leaderSelectAllLecture');                  //查询全部专家讲学信息
-    Route::get('bynameselectlecture','RetrievalController@byNameSelectLecture');                        //专家名字查询
-    Route::get('bylevelselectlecture','RetrievalController@byLevelSelectLecture');                      //专家级别查询
-    Route::get('byinviteunitselectlecture','RetrievalController@byInviteUnitSelectLecture');            //邀请单位查询
-    Route::get('byinvitetimeselectlecture','RetrievalController@byInviteTimeSelectLecture');            //邀请时间查询
-
+    Route::get('byFieldSelectLecture','RetrievalController@byFieldSelectLecture');                        //专家名字查询
     /**
      * 校发文件查询路由
      */
-    Route::get('leaderselectallschoolfile','RetrievalController@leaderSelectAllSchoolfile');            //查询全部校发文件信息
-    Route::get('bynameselectschoofile','RetrievalController@byNameSelectSchoofile');                    //校发文件名称查询
-    Route::get('bytimeselectschoofile','RetrievalController@byTimeSelectSchoofile');                    //校发时间查询
+    Route::get('byfieldselectschoofile','RetrievalController@byFieldSelectSchoofile');                    //校发文件名称查询
 
     /**
      * 合作协议查询路由
      */
-    Route::get('leaderselectallagreement','RetrievalController@leaderSelectAllAgreement');              //查询全部合作协议信息
-    Route::get('bynameselectagreement','RetrievalController@byNameSelectAgreement');                    //合作协议名称查询
-    Route::get('bytimeselectagreement','RetrievalController@byTimeSelectAgreement');                    //协议时间查询
+    Route::get('byfieldselectagreement','RetrievalController@byFieldSelectAgreement');                     //协议时间查询
     /**
      * 担任团体职务查询路由
      */
-    Route::get('leaderselectallduties','RetrievalController@leaderSelectAllDuties');                    //查询全部担任团体职务信息
-    Route::get('bynameselectduties','RetrievalController@byNameSelectDuties');                          //担任学术团体名称查询
-    Route::get('byteachernameselectduties','RetrievalController@byTeacherNameSelectDuties');            //根据老师名字查询
+    Route::get('byfieldselectduties','RetrievalController@byFieldSelectDuties');                          //担任学术团体名称查询
 
 
     /**总览数据
