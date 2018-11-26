@@ -123,7 +123,8 @@
                 <div class="list4">
                     <span class="span">项目图</span>
                     <div id="myProject" :style="{width: '320px', height: '300px'}"></div>
-                    <el-button type="primary" size="mini" @click="getProjectDate()">学科门类</el-button>
+                    <el-button type="primary" size="mini" @click="getProjectDate()">项目类别</el-button>
+                    <!-- <el-button type="primary" size="mini" @click="getProjectDate()">学科门类</el-button> -->
                     <el-button type="danger" size="mini" @click="ProType()">研究类别</el-button>
                     <el-button type="warning" size="mini" @click="ApprovalMoney()">批准经费</el-button>
                     <el-button type="success" size="mini" @click="GetMoney()">到账经费</el-button>
@@ -276,12 +277,9 @@ export default {
             let self = this;
             axios.get("groupbyteachertechnicaltitle").then(function (response) {
                 var data = response.data;
-                console.log(response.data,'+++++++++');
-
                 if (data.code == 0) {
                     self.teacherMicDate = data.datas;
                     self.drawLine(self.teacherMicDate);
-                    console.log(self.teacherMicDate,'++====++++');
                 } else {
                     self.$notify({
                         type: 'error',
@@ -401,13 +399,28 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.ProjectDate = data.datas;
-                    self.drawLinePro(self.ProjectDate);
+                    self.drawLinePros(self.ProjectDate);
                 } else {
                     self.$notify({
                         type: 'error',
                         message: data.message,
                         duration: 2000,
                     });
+                }
+            });
+        },
+        drawLinePros(datas) {
+             var myProject = this.$echarts.init(document.getElementById('myProject'));
+             myProject.setOption({
+                series: {
+                    type: 'pie',
+                    radius : '55%',
+                    data: [
+                        {name: '市厅级'+'('+datas[0]+')', value: datas[0]},
+                        {name: '省部级'+'('+datas[1]+')', value: datas[1]},
+                        {name: '国家级'+'('+datas[2]+')', value: datas[2]},
+                        {name: '其他'+'('+datas[3]+')', value: datas[3]},
+                    ]
                 }
             });
         },
