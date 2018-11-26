@@ -248,7 +248,7 @@
                         if (data.code == 0) {
                             self.$message({
                                 type: 'success',
-                                message: '删除成功!'
+                                message: data.message
                             });
                             location.reload();
                         } else {

@@ -246,19 +246,18 @@
                 self.ExperspeakDate = data;
             },
 
-
-
-
             byNameSearch() {                //专家姓名
                 let self = this;
                 self.types = 'le_expert_name';
                 self.values = self.le_expert_name;
+                self.currentPages = 1;
                 self.commonget();
             },
             byCompanySearch(){  // 邀请单位
                 let self = this;
                 self.types = 'le_invite_unit';
                 self.values = self.le_invite_unit;
+                self.currentPages = 1;
                 self.commonget();
             },
             levelCommand(command){       //专家级别
@@ -266,6 +265,7 @@
                 self.types = 'le_expert_level';
 //                console.log(self.command,'/*/*/*/');
                 self.values = command;
+                self.currentPages = 1;
                 self.commonget();
             },
             timeSearchget(){   //时间分页
@@ -299,6 +299,7 @@
                 this.end_time = Date.parse(new Date());
                 let self = this;
                 self.types = 'le_time';
+                self.currentPages = 1;
                 self.timeSearchget();
             },
             twoTimeSearch() {
@@ -306,6 +307,7 @@
                 self.types = 'time';
                 self.start_time = self.data1[0];
                 self.end_time   = self.data1[1];
+                self.currentPages = 1;
                 self.timeSearchget();
             },
             handleSelectionChange(val) {

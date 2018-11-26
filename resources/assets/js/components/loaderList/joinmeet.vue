@@ -9,10 +9,10 @@
                             <el-col :span="12">
                                 <el-dropdown>
                                 <span class="el-dropdown-link">
-                                    时间：全部<i class="el-icon-arrow-down el-icon--right"></i>
+                                    会议时间<i class="el-icon-arrow-down el-icon--right"></i>
                                 </span>
                                 <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item>全部</el-dropdown-item>
+                                    <!--<el-dropdown-item>全部</el-dropdown-item>-->
                                     <el-dropdown-item @click.native="timeSearch(8)">18年-今天</el-dropdown-item>
                                     <el-dropdown-item @click.native="timeSearch(7)">17年-今天</el-dropdown-item>
                                     <el-dropdown-item @click.native="timeSearch(6)">16年-今天</el-dropdown-item>
@@ -84,7 +84,6 @@
                 :data="allJoinmeet"
                 style="width: 100%"
                 border
-                height="250"
                 @selection-change="handleSelectionChange">
                 <el-table-column
                     type="selection"
@@ -142,7 +141,7 @@
                     width="120">
                 </el-table-column>
             </el-table>
-            <el-button @click="ExcelSelection()">导出Excel</el-button>
+            <el-button @click="ExcelSelection()" style="margin-top: 20px;">导出Excel</el-button>
             <div class="page">
                 <el-pagination
                     @size-change="handleSizeChange"
@@ -187,6 +186,14 @@
 export default {
     data() {
         return {
+            types:'',
+            currentPages:1,
+            pagesize:10,
+            start_time:0,
+            end_time:0,
+            values:'',
+            total:0,
+
             searchValue:'',
             border:true,
             allJoinmeet:[],
@@ -196,8 +203,6 @@ export default {
             jo_name:'',
             input:'',
             currentPage:1,
-            pagesize:20,
-            total:0,
             form: {
                 jo_level: [],
             },
@@ -213,14 +218,15 @@ export default {
         remove() {
             document.querySelector("#arts").click();
         },
-        handleSizeChange: function (size) {
-            this.pagesize = size;
-        },
-        handleCurrentChange: function(currentPage){
-            this.currentPage = currentPage;
-        },
         handleSelectionChange(val) {
             this.multipleSelection = val;
+        },
+        handleSizeChange(val) {
+            this.pagesize = val;
+            this.commonget(this.types,this.values);
+        },
+        handleCurrentChange(val) {
+            this.currentPages=val;
         },
         ExcelSelection() {
             var self = this;
@@ -243,119 +249,78 @@ export default {
             window.location.href = urls;
         },
         getJoinmeetData() {
+            this.commonget(this.type);
+        },
+        commonget(){
             let self = this;
-            axios.get("leaderselectalljoinmeet").then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allJoinmeet = data.datas;
-                    self.total = data.datas.length;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.jo_level.length;i++){
-                            if(data.datas[j].jo_level == i){
-                                data.datas[j].jo_level = self.jo_level[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
+            axios.get("byfieldselectjoinmeet",{
+                params:{
+                    value:self.values,
+                    type: self.types,
+                    page:self.currentPages,
+                    total:self.pagesize,
                 }
+            }).then(function (response) {
+                self.total = response.data.datas.total;
+                self.commonchange(response.data.datas.data);
+
+            })
+        },
+        commonchange(data){
+            let self = this;
+            for(var i=0;i<data.length;i++){
+                data[i].jo_level = self.jo_level[data[i].jo_level];
+            }
+            self.allJoinmeet = data;
+        },
+        timeSearchget(){   //时间分页
+            let self = this;
+            self.types = 'time';
+            axios.get("byfieldselectjoinmeet", {
+                params: {
+                    start_time:self.start_time,
+                    end_time:self.end_time,
+                    type: self.types,
+                    page: self.currentPages,
+                    total: self.pagesize,
+                }
+            }).then(function (response) {
+                self.total = response.data.datas.total;
+                self.commonchange(response.data.datas.data);
             });
         },
         timeSearch(time) {
             if(time == 8) {
-                this.newTime = '1514779200';
+                this.start_time = '1514779200000';
             }else if(time == 7) {
-                this.newTime = '1483243200';
+                this.start_time = '1483243200000';
             }else if(time == 6) {
-                this.newTime = '1451620800';
+                this.start_time = '1451620800000';
             }else if(time == 5) {
-                this.newTime = '1420084800';
+                this.start_time = '1420084800000';
             }else if(time == 4) {
-                this.newTime = '1388548800';
+                this.start_time = '1388548800000';
             }
-            var timestamp = Date.parse(new Date());
+            this.end_time = Date.parse(new Date());
             let self = this;
-            axios.get("bytimeselectjoinmeet",{
-                params:{
-                    start_time:this.newTime,
-                    end_time:timestamp
-                }
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allJoinmeet = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.jo_level.length;i++){
-                            if(data.datas[j].jo_level == i){
-                                data.datas[j].jo_level = self.jo_level[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+            self.types = 'jo_time';
+            self.currentPages = 1;
+            self.timeSearchget();
         },
         twoTimeSearch() {
-           let self = this;
-            axios.get("bytimeselectjoinmeet",{
-                params:{
-                    start_time:self.data1[0],
-                    end_time:self.data1[1],
-                }
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allJoinmeet = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.jo_level.length;i++){
-                            if(data.datas[j].jo_level == i){
-                                data.datas[j].jo_level = self.jo_level[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+            let self = this;
+            self.types = 'time';
+            self.start_time = self.data1[0];
+            self.end_time   = self.data1[1];
+            self.currentPages = 1;
+            self.timeSearchget();
         },
         nameSearch() {
             let self = this;
-            axios.get("bynameselectjoinmeet",{
-                params:{
-                    jo_name: self.jo_name,
-                }
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allJoinmeet = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.jo_level.length;i++){
-                            if(data.datas[j].jo_level == i){
-                                data.datas[j].jo_level = self.jo_level[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+            self.types = 'jo_name';
+            self.values = self.jo_name;
+            self.currentPages = 1;
+            self.commonget();
         },
         onSubmit(form) {
             let self = this;
@@ -386,6 +351,19 @@ export default {
     },
     mounted() {
         this.getJoinmeetData();
-    }
+    },
+    watch:{
+        currentPages:function (currentPages) {
+            this.currentPages = currentPages;
+            switch(this.types) {
+                case 'time':
+                    this.timeSearchget();
+                    break;
+                default:
+                    this.commonget();
+                    break;
+            }
+        }
+    },
 }
 </script>

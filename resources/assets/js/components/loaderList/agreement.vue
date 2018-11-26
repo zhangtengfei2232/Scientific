@@ -9,10 +9,9 @@
                             <el-col :span="12">
                                 <el-dropdown>
                                 <span class="el-dropdown-link">
-                                    时间：全部<i class="el-icon-arrow-down el-icon--right"></i>
+                                    合作协议时间<i class="el-icon-arrow-down el-icon--right"></i>
                                 </span>
                                 <el-dropdown-menu slot="dropdown">
-                                    <!--<el-dropdown-item>全部</el-dropdown-item>-->
                                     <el-dropdown-item @click.native="timeSearch(8)">18年-今天</el-dropdown-item>
                                     <el-dropdown-item @click.native="timeSearch(7)">17年-今天</el-dropdown-item>
                                     <el-dropdown-item @click.native="timeSearch(6)">16年-今天</el-dropdown-item>
@@ -180,23 +179,6 @@ export default {
         },
         getAgreementData() {
             this.commonget(this.type);
-//            let self = this;
-//            axios.get("leaderselectallagreement",{
-//                page: self.currentPage,
-//                total: self.pagesize,
-//            }).then(function (response) {
-//                var data = response.data;
-//                if (data.code == 0) {
-//                    self.allAgreement = data.datas;
-//                    self.total = data.datas.length;
-//                } else {
-//                    self.$notify({
-//                        type: 'error',
-//                        message: data.message,
-//                        duration: 2000,
-//                    });
-//                }
-//            });
         },
         commonget(){
             let self = this;
@@ -230,98 +212,36 @@ export default {
         },
         timeSearch(time) {
             if(time == 8) {
-                this.newTime = '1514779200';
+                this.start_time = '1514779200000';
             }else if(time == 7) {
-                this.newTime = '1483243200';
+                this.start_time = '14832432000000';
             }else if(time == 6) {
-                this.newTime = '1451620800';
+                this.start_time = '1451620800000';
             }else if(time == 5) {
-                this.newTime = '1420084800';
+                this.start_time = '1420084800000';
             }else if(time == 4) {
-                this.newTime = '1388548800';
+                this.start_time = '1388548800000';
             }
             this.end_time = Date.parse(new Date());
             let self = this;
-            self.types = 'le_time';
+            self.types = 'agree_time';
+            self.currentPages = 1;
             self.timeSearchget();
-//            var timestamp = Date.parse(new Date());
-//            let self = this;
-//            axios.get("bytimeselectagreement",{
-//                params:{
-//                    page: self.currentPage,
-//                    total: self.pagesize,
-//                    type: 'agree_time',
-//                    start_time:this.newTime,
-//                    end_time:timestamp
-//                }
-//            }).then(function (response) {
-//                var data = response.data;
-//                if (data.code == 0) {
-//                    self.allAgreement = data.datas.data;
-//                } else {
-//                    self.$notify({
-//                        type: 'error',
-//                        message: data.message,
-//                        duration: 2000,
-//                    });
-//                }
-//            });
         },
         twoTimeSearch() {
             let self = this;
             self.types = 'time';
             self.start_time = self.data1[0];
             self.end_time   = self.data1[1];
+            self.currentPages = 1;
             self.timeSearchget();
-//           let self = this;
-//           self.type = 'time2';
-//            axios.get("bytimeselectagreement",{
-//                params:{
-//                    page: self.currentPage,
-//                    total: self.pagesize,
-//                    type: 'agree_time',
-//                    start_time:self.data1[0],
-//                    end_time:self.data1[1],
-//                }
-//            }).then(function (response) {
-//                var data = response.data.datas;
-//                if (data.code == 0) {
-//                    self.allAgreement = data.data;
-//                } else {
-//                    self.$notify({
-//                        type: 'error',
-//                        message: data.message,
-//                        duration: 2000,
-//                    });
-//                }
-//            });
         },
         nameSearch() {
             let self = this;
             self.types = 'agree_name';
             self.values = self.agree_name;
+            self.currentPages = 1;
             self.commonget();
-//            let self = this;
-//            self.type = 'agree_name';
-//            axios.get("bynameselectagreement",{
-//                params:{
-//                    page: self.currentPage,
-//                    total: self.pagesize,
-//                    type: 'agree_name',
-//                    value: self.agree_name,
-//                }
-//            }).then(function (response) {
-//                var data = response.data.datas;
-//                if (data.code == 0) {
-//                    self.allSchoolfile = data.data;
-//                } else {
-//                    self.$notify({
-//                        type: 'error',
-//                        message: data.message,
-//                        duration: 2000,
-//                    });
-//                }
-//            });
         },
     },
     mounted() {

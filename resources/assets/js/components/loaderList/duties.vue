@@ -227,12 +227,14 @@
                 let self = this;
                 self.types = 'teacher_name';
                 self.values = self.teacher_name;
+                self.currentPages = 1;
                 self.commonget();
             },
             byGroupNameSearch() {                //担任学术团体名称
                 let self = this;
                 self.types = 'du_name';
                 self.values = self.du_name;
+                self.currentPages = 1;
                 self.commonget();
             },
             ExcelSelection() {

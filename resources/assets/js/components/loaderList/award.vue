@@ -9,10 +9,10 @@
                             <el-col :span="12">
                                 <el-dropdown>
                                 <span class="el-dropdown-link">
-                                    时间：全部<i class="el-icon-arrow-down el-icon--right"></i>
+                                    授予时间<i class="el-icon-arrow-down el-icon--right"></i>
                                 </span>
                                 <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item>全部</el-dropdown-item>
+                                    <!--<el-dropdown-item>全部</el-dropdown-item>-->
                                     <el-dropdown-item @click.native="timeSearch(8)">18年-今天</el-dropdown-item>
                                     <el-dropdown-item @click.native="timeSearch(7)">17年-今天</el-dropdown-item>
                                     <el-dropdown-item @click.native="timeSearch(6)">16年-今天</el-dropdown-item>
@@ -98,7 +98,6 @@
                 :data="allAward"
                 style="width: 100%"
                 border
-                height="250"
                 @selection-change="handleSelectionChange">
                 <el-table-column
                     type="selection"
@@ -166,12 +165,12 @@
                     width="120">
                 </el-table-column>
             </el-table>
-            <el-button @click="ExcelSelection()">导出Excel</el-button>
+            <el-button @click="ExcelSelection()" style="margin-top: 20px;">导出Excel</el-button>
             <div class="page">
                 <el-pagination
                     @size-change="handleSizeChange"
                     @current-change="handleCurrentChange"
-                    :current-page="currentPage"
+                    :current-page="currentPages"
                     :page-sizes="[10, 20, 50, 100]"
                     :page-size="pagesize"
                     layout="total, sizes, prev, pager, next, jumper"
@@ -211,6 +210,14 @@
 export default {
     data() {
         return {
+            types:'',
+            currentPages:1,
+            pagesize:10,
+            start_time:0,
+            end_time:0,
+            values:'',
+            total:0,
+
             searchValue:'',
             border:true,
             allAward:[],
@@ -219,9 +226,7 @@ export default {
             newTime:0,
             aw_first_author:'',
             award_name:'',
-            pagesize:20,
             currentPage:1,
-            total:0,
             form: {
                 aw_level: [],
             },
@@ -256,14 +261,15 @@ export default {
         remove() {
             document.querySelector("#arts").click();
         },
-        handleSizeChange: function (size) {
-            this.pagesize = size;
-        },
-        handleCurrentChange: function(currentPage){
-            this.currentPage = currentPage;
-        },
         handleSelectionChange(val) {
             this.multipleSelection = val;
+        },
+        handleSizeChange(val) {
+            this.pagesize = val;
+            this.commonget(this.types,this.values);
+        },
+        handleCurrentChange(val) {
+            this.currentPages=val;
         },
         ExcelSelection() {
             var self = this;
@@ -286,195 +292,87 @@ export default {
             window.location.href = urls;
         },
         getAwardData() {
+            this.commonget(this.type);
+        },
+        commonget(){
             let self = this;
-            axios.get("leaderselectallaward").then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allAward = data.datas;
-                    self.total = data.datas.length;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.form_achievement.length;i++){
-                            if(data.datas[j].form_achievement == i){
-                                data.datas[j].form_achievement = self.form_achievement[i];
-                            }
-                        }
-                        for(var i= 0;i<self.aw_grade.length;i++){
-                            if(data.datas[j].aw_grade == i){
-                                data.datas[j].aw_grade = self.aw_grade[i];
-                            }
-                        }
-                        for(var i= 0;i<self.aw_level.length;i++){
-                            if(data.datas[j].aw_level == i){
-                                data.datas[j].aw_level = self.aw_level[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
+            axios.get("byfieldselectaward",{
+                params:{
+                    value:self.values,
+                    type: self.types,
+                    page:self.currentPages,
+                    total:self.pagesize,
                 }
+            }).then(function (response) {
+                self.total = response.data.datas.total;
+                self.commonchange(response.data.datas.data);
+
+            })
+        },
+        commonchange(data){
+            let self = this;
+            for(var i=0;i<data.length;i++){
+                data[i].form_achievement = self.form_achievement[data[i].form_achievement];
+                data[i].aw_grade = self.aw_grade[data[i].aw_grade];
+                data[i].aw_level = self.aw_level[data[i].aw_level];
+            }
+            self.allAward = data;
+        },
+        timeSearchget(){   //时间分页
+            let self = this;
+            self.types = 'time';
+            axios.get("byfieldselectaward", {
+                params: {
+                    start_time:self.start_time,
+                    end_time:self.end_time,
+                    type: self.types,
+                    page: self.currentPages,
+                    total: self.pagesize,
+                }
+            }).then(function (response) {
+                self.total = response.data.datas.total;
+                self.commonchange(response.data.datas.data);
             });
         },
         timeSearch(time) {
             if(time == 8) {
-                this.newTime = '1514779200';
+                this.start_time = '1514779200000';
             }else if(time == 7) {
-                this.newTime = '1483243200';
+                this.start_time = '1483243200000';
             }else if(time == 6) {
-                this.newTime = '1451620800';
+                this.start_time = '1451620800000';
             }else if(time == 5) {
-                this.newTime = '1420084800';
+                this.start_time = '1420084800000';
             }else if(time == 4) {
-                this.newTime = '1388548800';
+                this.start_time = '1388548800000';
             }
-            var timestamp = Date.parse(new Date());
+            this.end_time = Date.parse(new Date());
             let self = this;
-            axios.get("byawardtimeselectaward",{
-                params:{
-                    start_time:this.newTime,
-                    end_time:timestamp
-                }
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allAward = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.form_achievement.length;i++){
-                            if(data.datas[j].form_achievement == i){
-                                data.datas[j].form_achievement = self.form_achievement[i];
-                            }
-                        }
-                        for(var i= 0;i<self.aw_grade.length;i++){
-                            if(data.datas[j].aw_grade == i){
-                                data.datas[j].aw_grade = self.aw_grade[i];
-                            }
-                        }
-                        for(var i= 0;i<self.aw_level.length;i++){
-                            if(data.datas[j].aw_level == i){
-                                data.datas[j].aw_level = self.aw_level[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+            self.types = 'aw_grant_time';
+            self.currentPages = 1;
+            self.timeSearchget();
         },
         twoTimeSearch() {
-           let self = this;
-            axios.get("byawardtimeselectaward",{
-                params:{
-                    start_time:self.data1[0],
-                    end_time:self.data1[1],
-                }
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allAward = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.form_achievement.length;i++){
-                            if(data.datas[j].form_achievement == i){
-                                data.datas[j].form_achievement = self.form_achievement[i];
-                            }
-                        }
-                        for(var i= 0;i<self.aw_grade.length;i++){
-                            if(data.datas[j].aw_grade == i){
-                                data.datas[j].aw_grade = self.aw_grade[i];
-                            }
-                        }
-                        for(var i= 0;i<self.aw_level.length;i++){
-                            if(data.datas[j].aw_level == i){
-                                data.datas[j].aw_level = self.aw_level[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+            let self = this;
+            self.types = 'time';
+            self.start_time = self.data1[0];
+            self.end_time   = self.data1[1];
+            self.currentPages = 1;
+            self.timeSearchget();
         },
         nameSearch() {
             let self = this;
-            axios.get("byfirstwinnerselectaward",{
-                params:{
-                    aw_first_author: self.aw_first_author,
-                }
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allAward = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.form_achievement.length;i++){
-                            if(data.datas[j].form_achievement == i){
-                                data.datas[j].form_achievement = self.form_achievement[i];
-                            }
-                        }
-                        for(var i= 0;i<self.aw_grade.length;i++){
-                            if(data.datas[j].aw_grade == i){
-                                data.datas[j].aw_grade = self.aw_grade[i];
-                            }
-                        }
-                        for(var i= 0;i<self.aw_level.length;i++){
-                            if(data.datas[j].aw_level == i){
-                                data.datas[j].aw_level = self.aw_level[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+            self.types = 'aw_first_author';
+            self.values = self.aw_first_author;
+            self.currentPages = 1;
+            self.commonget();
         },
         awNameSearch() {
             let self = this;
-            axios.get("bynameselectaward",{
-                params:{
-                    award_name: self.award_name,
-                }
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allAward = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.form_achievement.length;i++){
-                            if(data.datas[j].form_achievement == i){
-                                data.datas[j].form_achievement = self.form_achievement[i];
-                            }
-                        }
-                        for(var i= 0;i<self.aw_grade.length;i++){
-                            if(data.datas[j].aw_grade == i){
-                                data.datas[j].aw_grade = self.aw_grade[i];
-                            }
-                        }
-                        for(var i= 0;i<self.aw_level.length;i++){
-                            if(data.datas[j].aw_level == i){
-                                data.datas[j].aw_level = self.aw_level[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+            self.types = 'award_name';
+            self.values = self.award_name;
+            self.currentPages = 1;
+            self.commonget();
         },
         onSubmit(form) {
             let self = this;
@@ -515,6 +413,19 @@ export default {
     },
     mounted() {
         this.getAwardData();
-    }
+    },
+    watch:{
+        currentPages:function (currentPages) {
+            this.currentPages = currentPages;
+            switch(this.types) {
+                case 'time':
+                    this.timeSearchget();
+                    break;
+                default:
+                    this.commonget();
+                    break;
+            }
+        }
+    },
 }
 </script>
