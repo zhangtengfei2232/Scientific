@@ -420,6 +420,14 @@
                         self.navTeacherInfo=true;//老师管理
                         self.allResult=true;//成果汇总
                         self.resultCollect=true;//各项统计
+
+                        //为测试暂时添加上的
+                        self.navSpecial=true;//特殊功能
+                        self.navAddtea=true;//添加老师
+                        self.navSchoolFile=true;//校发文件
+                        self.navAgrement=true;
+
+
                     }
                     else if(status == 2){   //副院长
 

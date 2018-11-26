@@ -62,7 +62,6 @@
                 :data="allAgreement"
                 style="width: 100%"
                 border
-                height="250"
                 @selection-change="handleSelectionChange">
                 <el-table-column
                     type="selection"
@@ -85,7 +84,7 @@
                     width="120">
                 </el-table-column>
             </el-table>
-            <el-button @click="ExcelSelection()">导出Excel</el-button>
+            <el-button @click="ExcelSelection()" style="margin-top: 20px;">导出Excel</el-button>
             <div class="page">
                 <el-pagination
                     @size-change="handleSizeChange"
@@ -111,7 +110,7 @@
         border-right: 1px #d4d8d7 solid;
     }
     .cont{
-        width: 85%;
+        width: 95%;
         float: left;
         margin: 20px;
     }
@@ -210,8 +209,7 @@ export default {
                 }
             }).then(function (response) {
                 self.total = response.data.datas.total;
-//                self.commonchange(response.data.datas.data);
-
+                self.allAgreement = response.data.datas.data;
             })
         },
         timeSearchget(){   //时间分页
@@ -227,7 +225,7 @@ export default {
                 }
             }).then(function (response) {
                 self.total = response.data.datas.total;
-//                self.commonchange(response.data.datas.data);
+                self.allAgreement = response.data.datas.data;
             });
         },
         timeSearch(time) {

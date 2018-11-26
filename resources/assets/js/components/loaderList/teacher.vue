@@ -319,9 +319,13 @@
             <el-button @click="ExcelSelection()"style="margin-top: 20px;">导出Excel</el-button>
             <div class="page">
                 <el-pagination
-                        background
-                        layout="prev, pager, next"
-                        :total="total">
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="currentPages"
+                    :page-sizes="[10, 20, 50, 100]"
+                    :page-size="pagesize"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="total">
                 </el-pagination>
             </div>
         </div>
@@ -357,6 +361,13 @@
     export default {
         data() {
             return {
+                types:'',
+                currentPages:1,
+                pagesize:10,
+                start_time:0,
+                end_time:0,
+                values:'',
+                total:0,
                 searchValue:'',
                 border:true,
                 teacherDate:[],
@@ -365,7 +376,6 @@
                 labinput:'',
                 dutiesinput:'',
                 majorinput:'',
-                total:0,
                 form: {
                     type:'',
                     checkList: [],
@@ -443,32 +453,56 @@
         },
         methods: {
             getArticleData() {
+                this.commonget(this.type);
+//                let self = this;
+//                axios.get("leaderselectallteacher").then(function (response) {
+//                    var data = response.data;
+////                    self.form.num = data.datas.length;
+//                    self.total = data.datas.length;
+//                    for(var i=0;i<data.datas.length;i++){
+//                        data.datas[i].sex = self.sex[data.datas[i].sex];
+//                        data.datas[i].first_academic = self.first_academic[data.datas[i].first_academic];//第一学历学位
+//                        data.datas[i].most_academic = self.most_academic[data.datas[i].most_academic];//最高学历/学位
+//                        data.datas[i].polit_outlook = self.polit_outlook[data.datas[i].polit_outlook];//政治面貌
+//                        data.datas[i].teacher_department = self.teacher_department[data.datas[i].teacher_department];//所属部门
+//                        data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
+//                        data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
+//                        data.datas[i].academic_title = self.academic_title[data.datas[i].academic_title];//老师职称
+//                        data.datas[i].admin_duties = self.admin_duties[data.datas[i].admin_duties];//行政职务
+//                    }
+//                    if (data.code == 0) {
+//                        self.teacherDate = data.datas;
+//                    } else {
+//                        self.$notify({
+//                            type: 'error',
+//                            message: data.message,
+//                            duration: 2000,
+//                        });
+//                    }
+//                });
+            },
+            commonget(){
                 let self = this;
-                axios.get("leaderselectallteacher").then(function (response) {
-                    var data = response.data;
-//                    self.form.num = data.datas.length;
-                    self.total = data.datas.length;
-                    for(var i=0;i<data.datas.length;i++){
-                        data.datas[i].sex = self.sex[data.datas[i].sex];
-                        data.datas[i].first_academic = self.first_academic[data.datas[i].first_academic];//第一学历学位
-                        data.datas[i].most_academic = self.most_academic[data.datas[i].most_academic];//最高学历/学位
-                        data.datas[i].polit_outlook = self.polit_outlook[data.datas[i].polit_outlook];//政治面貌
-                        data.datas[i].teacher_department = self.teacher_department[data.datas[i].teacher_department];//所属部门
-                        data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
-                        data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
-                        data.datas[i].academic_title = self.academic_title[data.datas[i].academic_title];//老师职称
-                        data.datas[i].admin_duties = self.admin_duties[data.datas[i].admin_duties];//行政职务
+                axios.get("leaderselectallteacher",{
+                    params:{
+                        value:self.values,
+                        type: self.types,
+                        page:self.currentPages,
+                        total:self.pagesize,
                     }
-                    if (data.code == 0) {
-                        self.teacherDate = data.datas;
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.message,
-                            duration: 2000,
-                        });
-                    }
-                });
+                }).then(function (response) {
+                    self.total = response.data.datas.total;
+                    self.commonchange(response.data.datas.data);
+
+                })
+            },
+            commonchange(data){
+                let self = this;
+                for(var i=0;i<data.length;i++){
+                    data[i].le_invite_status = self.le_invite_status[data[i].le_invite_status];
+                    data[i].le_expert_level = self.le_expert_level[data[i].le_expert_level];
+                }
+                self.ExperspeakDate = data;
             },
             handleClick(row) {
                 console.log(row);

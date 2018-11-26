@@ -102,7 +102,6 @@
                 :data="allPatent"
                 style="width: 100%"
                 border
-                height="250"
                 @selection-change="handleSelectionChange">
                 <el-table-column
                     type="selection"
@@ -186,7 +185,7 @@
         border-right: 1px #d4d8d7 solid;
     }
     .cont{
-        width: 85%;
+        width: 95%;
         float: left;
         margin: 20px;
     }
@@ -244,6 +243,7 @@ export default {
         },
         handleSizeChange(val) {
             this.pagesize = val;
+//            console.log(val,'/*********')
             this.commonget(this.types,this.values);
         },
         handleCurrentChange(val) {
@@ -403,6 +403,8 @@ export default {
                 }
             }).then(function (response) {
                 self.total = response.data.datas.total;
+                console.log(response.data.datas);
+
                 self.commonchange(response.data.datas.data);
             });
         },
@@ -420,7 +422,7 @@ export default {
             }
             this.end_time = Date.parse(new Date());
             let self = this;
-            self.types = 'le_time';
+            self.types = 'author_notic_day';
             self.timeSearchget();
 
 //                var data = response.data;
