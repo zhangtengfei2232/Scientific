@@ -9,6 +9,8 @@ use config\UploadSubjectionConfig;
 use config\SearchMessageConfig;
 class OpusController  extends Controller
 {
+    private $disk         = UploadSubjectionConfig::OPUS;
+    private   $subjection = UploadSubjectionConfig::OPUS_IMG;
     //添加著作信息
     public function addOpus(Request $request)
     {
@@ -36,49 +38,31 @@ class OpusController  extends Controller
             return responseTojson(1,$judge_datas['message']);
         }
         $datas['op_remarks'] = trim($request->op_remarks);
-        return OpusDatabase::addOpusDatas($datas);
-    }
-    //添加著作封面和版权图片
-    public function addOpusImage(Request $request){
-        if(!$request->isMethod('POST')){
-            return responseTojson(1,'你请求的方式不对');
+        if(!$request->hasFile('op_road')){
+            $datas['op_road'] = '';
+            return OpusDatabase::addOpusDatas($datas);
         }
-        if(!$request->is_add_opus){
-            return responseTojson(1,'请你先添加著作信息');
+        $opus_image = $request->file('op_road');
+        $judge_image = judgeReceiveFiles($opus_image);
+        if($judge_image['code'] == 1){
+            return responseTojson(1,$judge_image['message']);
         }
-        if(!$request->hasFile('op_cover_road') && !$request->hasFile('op_coright_road')){
-            return responseTojson(1,'请你上传著作证书图片');
+        $new_image_road   = uploadFiles($this->subjection,$opus_image,$this->disk);
+        $datas['op_road'] = $new_image_road;
+        $add_opus         = OpusDatabase::addOpusDatas($datas);
+        if($add_opus){
+            return responseTojson(0,'添加著作信息成功');
         }
-        if($request->hasFile('op_cover_road')){
-            $add_image_status = 1;
-            $opus_image = $request->file('op_cover_road');
-            $subjection = UploadSubjectionConfig::OPUS_COVER_IMG;
-        }else{
-            $add_image_status = 2;
-            $opus_image = $request->file('op_coright_road');
-            $subjection = UploadSubjectionConfig::COPYRIGHT_IMG;
-        }
-        $judge_opu_iamge  = judgeFileImage($opus_image);
-        if($judge_opu_iamge['code'] == 1){
-            return responseTojson(1,$judge_opu_iamge['message']);
-        }
-        $op_id       = $request->op_id;
-        $disk        = UploadSubjectionConfig::OPUS;
-        $new_image_road = uploadFiles($subjection,$opus_image,$disk);
-        $add_image      = OpusDatabase::updateImageDatas($new_image_road,$add_image_status,$op_id);
-        if($add_image){
-            return responseTojson(0,'上传图片成功');
-        }
-        deletefiles($disk,$new_image_road);
-        return responseTojson(1,'上传图片失败');
+        deletefiles($this->disk,$new_image_road);
+        return responseTojson(0,'添加著作信息成功');
     }
     //删除著作信息
     public function deleteOpus(Request $request)
     {
-        $op_id_datas = $request->op_id_datas;
+        $op_id_datas         = $request->op_id_datas;
         $table_name          = SearchMessageConfig::OPUS_TABLE;
         $id_field            = SearchMessageConfig::OPUS_ID;
-        $old_images_road = OpusDatabase::selectOpusAllImageDatas($op_id_datas);
+        $old_images_road     = OpusDatabase::selectOpusAllImageDatas($op_id_datas);
         ModelDatabase::beginTraction();
         $delete_opus     = ModelDatabase::deleteAllDatas($table_name,$id_field,$op_id_datas);
         if($delete_opus) {
@@ -118,9 +102,11 @@ class OpusController  extends Controller
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
-        $op_id                 = trim($request->op_id);
+        $op_id[0]              = trim($request->op_id);
+        $opus_road             = OpusDatabase::selectOpusAllImageDatas($op_id);
+        (empty($opus_road)) ? $opus_road = '' : $opus_road = $opus_road[0];
         $datas = [
-            'op_id'            => $op_id,
+            'op_id'            => $op_id[0],
             'op_first_author'  => trim($request->op_first_author),
             'op_all_author'    => trim($request->op_all_author),
             'op_name'          => trim($request->op_name),
@@ -140,44 +126,30 @@ class OpusController  extends Controller
             return $judge_datas;
         }
         $datas['op_remarks'] = trim($request->op_remarks);
-        return  OpusDatabase::updateOpusDatas($datas);
-    }
-    //修改著作图片信息
-    public function updateOpusImage(Request $request){
-        if(!$request->isMethod('POST')){
-            return responseTojson(1,'你请求的方式不对');
+        $reset_image_status = false;
+        $datas['op_road']   = $opus_road;
+        if(!$request->hasFile('op_road')){
+            return OpusDatabase::updateOpusDatas($datas,$reset_image_status);
         }
-        $op_id               = $request->op_id;
-        if(!$request->hasFile('op_cover_road') && !$request->hasFile('op_coright_road')){
-            return responseTojson(1,'请你上传著作证书图片');
-        }
-        if($request->hasFile('op_cover_road')){
-            $update_image_status = 1;
-            $opus_image = $request->file('op_cover_road');
-            $subjection = UploadSubjectionConfig::OPUS_COVER_IMG;
-        }else{
-            $update_image_status = 2;
-            $opus_image = $request->file('op_coright_road');
-            $subjection = UploadSubjectionConfig::COPYRIGHT_IMG;
-        }
-        $judge_image       = judgeFileImage($opus_image);
+        $reset_image_status = true;
+        $opus_image = $request->file('op_road');
+        $judge_image = judgeReceiveFiles($opus_image);
         if($judge_image['code'] == 1){
             return responseTojson(1,$judge_image['message']);
         }
-        $disk = UploadSubjectionConfig::OPUS;
-        $old_image_road = OpusDatabase::selectOpusImageRoad($op_id,$update_image_status);
+        $new_image_road = uploadFiles($this->subjection,$opus_image,$this->disk);
+        $datas['op_road'] = $new_image_road;
         OpusDatabase::beginTraction();
-        $new_image_road = uploadFiles($subjection,$opus_image,$disk);
-        $reset_image    = OpusDatabase::updateImageDatas($new_image_road,$update_image_status,$op_id);
-        if($reset_image){
-            OpusDatabase::commit();
-            if(!empty($old_image_road)){
-                deletefiles($disk,$old_image_road);
-            }
-            return responseTojson(0,'修改图片成功');
+        $reset_opus = OpusDatabase::updateOpusDatas($datas,$reset_image_status);
+        if($reset_opus){
+             OpusDatabase::commit();
+             if(!empty($opus_road)){
+                 deletefiles($this->disk,$opus_road);
+             }
+             return responseTojson(0,'修改著作信息成功');
         }
-        OpusDatabase::rollback();
-        deletefiles($disk,$new_image_road);
-        return responseTojson(1,'修改图片失败');
+        deletefiles($this->disk,$new_image_road);
+        return responseTojson(1,'修改著作信息失败');
     }
+
 }

@@ -58,7 +58,7 @@ class ExcelController extends Controller
                         date($this->date_formate,$teacher_information[$i][$j]->borth/1000),
                         SearchMessageConfig::TEA_POLIT_OUTLOOK_DATAS[$teacher_information[$i][$j]->polit_outlook],
                         $teacher_information[$i][$j]->native_place,
-                        $teacher_information[$i][$j]->admin_duties,
+                        SearchMessageConfig::TEA_ADMIN_DUTIES_DATAS[$teacher_information[$i][$j]->admin_duties],
                         date($this->date_formate,$teacher_information[$i][$j]->admin_tenure_time/1000),
                         SearchMessageConfig::TEA_JOB_LEVEL_DATAS[ $teacher_information[$i][$j]->job_level],
                         SearchMessageConfig::TEA_TECHNICAL_POSITION[$teacher_information[$i][$j]->technical_position],
@@ -66,7 +66,6 @@ class ExcelController extends Controller
                         date($this->date_formate,$teacher_information[$i][$j]->review_time/1000),
                         date($this->date_formate,$teacher_information[$i][$j]->appointment_time/1000),
                         $teacher_information[$i][$j]->series,
-                        SearchMessageConfig::TEA_POST_CATEGORY_DATAS[$teacher_information[$i][$j]->post_category],
                         $teacher_information[$i][$j]->company,
                         $teacher_information[$i][$j]->te_re_department,
                         date($this->date_formate,$teacher_information[$i][$j]->working_hours/1000),
@@ -95,16 +94,17 @@ class ExcelController extends Controller
         Excel::create('老师信息',function ($excel) use ($new_teacher_cell_datas){
             $excel->sheet('生命科技学院教工信息表',function ($sheet) use ($new_teacher_cell_datas){
                 $sheet->rows($new_teacher_cell_datas[1]);
-                for($i = 0; $i < 41;$i++){
-                    if($i < 28 || ($i > 35 && $i < 39)){
+                for($i = 0; $i < 40;$i++){
+                    if($i < 27 || ($i > 34 && $i < 38)){
                         //前26个表格单元格格式，合并每一列的前两行
                         $table_list = intToChr($i);
                         $sheet->mergeCells($table_list.'1:'.$table_list.'2');
-                    }elseif ($i == 28){
+                    }elseif ($i == 27){
                         //设置老师的第一学历和最高学历单元格格式
                         $sheet->mergeCells(intToChr($i).'1:'.intToChr($i + 3).'1');
                         $sheet->mergeCells(intToChr($i + 4).'1:'.intToChr($i + 7).'1');
-                    }elseif($i == 39){
+                        $i += 7;  //跳格
+                    }elseif($i == 38){
                         //设置老师的硕(博)导的单元格格式
                         $sheet->mergeCells(intToChr($i).'1:'.intToChr($i + 1).'1');
                     }
@@ -176,6 +176,7 @@ class ExcelController extends Controller
                 $datas->approval_unit,
                 $datas->approval_funds,
                 $datas->account_outlay,
+                SearchMessageConfig::PROJECT_LEVEL_DATAS[$datas->pro_level],
                 SearchMessageConfig::PRO_PRO_CATE_RESEARCH_DATAS[$datas->pro_cate_research],
                 SearchMessageConfig::SUB_CATEGORY_DATAS[$datas->pro_sub_category],
                 SearchMessageConfig::PRO_FORM_COOPERATE_DATAS[$datas->form_cooperate],

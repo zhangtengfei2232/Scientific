@@ -102,7 +102,7 @@
         font-size: 18px;
         color: #090909;
         display: inline-block;
-        padding: 23px 60px;
+        padding: 23px 20px;
         border-right: 1px solid #eee;
     }
     .load{

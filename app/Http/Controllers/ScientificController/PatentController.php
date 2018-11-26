@@ -9,6 +9,8 @@ use config\UploadSubjectionConfig;
 use config\SearchMessageConfig;
 class PatentController extends Controller
 {
+     private $disk = UploadSubjectionConfig::PATENT;
+     private $subjection = UploadSubjectionConfig::PATENT_IMG;
      //添加专利信息
      public function addPatent(Request $request)
      {
@@ -38,19 +40,17 @@ class PatentController extends Controller
              return PatentDatabase::addPatentDatas($datas);
          }
          $patent_image = $request->file('pa_road');
-         $judge_image  = judgeFileImage($patent_image);
+         $judge_image  = judgeReceiveFiles($patent_image);
          if($judge_image['code'] == 1){
              return responseTojson(1,$judge_image['message']);
          }
-         $disk              = UploadSubjectionConfig::PATENT;
-         $subjection_patent = UploadSubjectionConfig::PATENT_IMG;
-         $add_image_road    = uploadFiles($subjection_patent,$patent_image,$disk);
+         $add_image_road    = uploadFiles($this->subjection,$patent_image,$this->disk);
          $datas['pa_road']  = $add_image_road;
          $add_patent        = PatentDatabase::addPatentDatas($datas);
          if($add_patent){
              return responseTojson(0,'添加专利信息成功');
          }
-         deletefiles($disk,$add_image_road);
+         deletefiles($this->disk,$add_image_road);
          return responseTojson(1,'添加专利信息失败');
      }
      //删除专利信息
@@ -121,25 +121,23 @@ class PatentController extends Controller
          }
          $reset_image_status = true;
          $patent_image = $request->file('pa_road');
-         $judge_image  = judgeFileImage($patent_image);
+         $judge_image  = judgeReceiveFiles($patent_image);
          if($judge_image['code'] ==1){
              return responseTojson(1,$judge_image['message']);
          }
-         $disk              = UploadSubjectionConfig::PATENT;
-         $subjection_patent = UploadSubjectionConfig::PATENT_IMG;
-         $new_image_road    = uploadFiles($subjection_patent,$patent_image,$disk);
+         $new_image_road    = uploadFiles($this->subjection,$patent_image,$this->disk);
          $datas['pa_road']  = $new_image_road;
          PatentDatabase::beginTraction();
          $reset_patent      = PatentDatabase::updatePatentDatas($datas,$reset_image_status);
          if($reset_patent){
              PatentDatabase::commit();
              if(!empty($pa_road)){
-                 deletefiles($disk,$pa_road);
+                 deletefiles($this->disk,$pa_road);
              }
              return responseTojson(0,'修改专利信息成功');
          }
          PatentDatabase::rollback();
-         deletefiles($disk,$new_image_road);
+         deletefiles($this->disk,$new_image_road);
          return responseTojson(1,'修改信息失败');
      }
 }

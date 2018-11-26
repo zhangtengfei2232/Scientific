@@ -114,16 +114,17 @@ class ArticalDatabase  extends ModelDatabase
          }
          return $artical_road;
     }
+    //查询导出PDF的文件路径
     //合并多个PDF第一页
     public static function selectArticalToPdfRoadDatas($art_id_datas){
-         $art_road_datas = [];
-         for($i = 0; $i < count($art_id_datas); $i++){
-             $artical_raod = DB::table('artical')->select('art_road')
-                             ->where('art_id',$art_id_datas[$i])->first();
-             if(!empty($artical_raod->art_road)){
-                 array_push($art_road_datas,$artical_raod->art_road);
-             }
-         }
-         return $art_road_datas;
+        $art_road_datas = [];
+        for($i = 0; $i < count($art_id_datas); $i++){
+            $artical_raod = DB::table('artical')->select('art_road')
+                ->where('art_id',$art_id_datas[$i])->first();
+            if(!empty($artical_raod->art_road)){
+                array_push($art_road_datas,$artical_raod->art_road);
+            }
+        }
+        return $art_road_datas;
     }
 }

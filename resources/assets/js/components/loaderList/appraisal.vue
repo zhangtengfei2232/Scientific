@@ -188,7 +188,7 @@
         border-right: 1px #d4d8d7 solid;
     }
     .cont{
-        width: 85%;
+        width: 95%;
         float: left;
         margin: 20px;
     }
@@ -293,21 +293,18 @@ export default {
         },
         getAppraisalData() {
             let self = this;
-            axios.get("leaderselectallappraisal",{
-                page: self.currentPage,
-                total: self.pagesize,
-            }).then(function (response) {
-                var data = response.data.datas;
+            axios.get("leaderselectallappraisal").then(function (response) {
+                var data = response.data;
                 if (data.code == 0) {
-                    for(var j=0;j<data.data.length;j++){
+                    for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.ap_level.length;i++){
-                            if(data.data[j].ap_level == i){
-                                data.data[j].ap_level = self.ap_level[i];
+                            if(data.datas[j].ap_level == i){
+                                data.datas[j].ap_level = self.ap_level[i];
                             }
                         }
                     }
-                    self.allAppraisal = data.data;
-                    self.total = data.data.length;
+                    self.allAppraisal = data.datas;
+                    self.total = data.datas.length;
                 } else {
                     self.$notify({
                         type: 'error',
@@ -350,6 +347,7 @@ export default {
         nameSearch() {
             let self = this;
             self.type = 'ap_first_author';
+
             axios.get("bynameselectappraisal",{
                 params:{
                     page: self.currentPage,
@@ -433,12 +431,13 @@ export default {
                 }
             }).then(function (response) {
                 var data = response.data;
+                console.log(data);
                 if (data.code == 0) {
-                    self.allAppraisal = data.datas.data;
-                    for(var j=0;j<data.datas.data.length;j++){
+                    self.allAppraisal = data.datas;
+                    for(var j=0;j<data.datas.length;j++){
                         for(var i= 0;i<self.ap_level.length;i++){
-                            if(data.datas.data[j].ap_level == i){
-                                data.datas.data[j].ap_level = self.ap_level[i];
+                            if(data.datas[j].ap_level == i){
+                                data.datas[j].ap_level = self.ap_level[i];
                             }
                         }
                     }

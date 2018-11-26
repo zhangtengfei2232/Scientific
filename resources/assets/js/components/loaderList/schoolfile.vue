@@ -12,7 +12,7 @@
                                     时间：全部<i class="el-icon-arrow-down el-icon--right"></i>
                                 </span>
                                 <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item>全部</el-dropdown-item>
+                                    <!--<el-dropdown-item>全部</el-dropdown-item>-->
                                     <el-dropdown-item @click.native="timeSearch(8)">18年-今天</el-dropdown-item>
                                     <el-dropdown-item @click.native="timeSearch(7)">17年-今天</el-dropdown-item>
                                     <el-dropdown-item @click.native="timeSearch(6)">16年-今天</el-dropdown-item>
@@ -90,7 +90,7 @@
                 <el-pagination
                     @size-change="handleSizeChange"
                     @current-change="handleCurrentChange"
-                    :current-page="currentPage"
+                    :current-page="currentPages"
                     :page-sizes="[10, 20, 50, 100]"
                     :page-size="pagesize"
                     layout="total, sizes, prev, pager, next, jumper"
@@ -111,7 +111,7 @@
         border-right: 1px #d4d8d7 solid;
     }
     .cont{
-        width: 85%;
+        width:95%;
         float: left;
         margin: 20px;
     }
@@ -130,6 +130,13 @@
 export default {
     data() {
         return {
+            types:'',
+            currentPages:1,
+            pagesize:10,
+            start_time:0,
+            end_time:0,
+            values:'',
+            total:0,
             newTime:0,
             searchValue:'',
             border:true,
@@ -138,19 +145,18 @@ export default {
             data1: '',
             currentPage:1,
             schfile_name:'',
-            total:0,
-            pagesize:20,
         }
     },
     methods: {
-        handleSizeChange: function (size) {
-            this.pagesize = size;
-        },
-        handleCurrentChange: function(currentPage){
-            this.currentPage = currentPage;
-        },
         handleSelectionChange(val) {
             this.multipleSelection = val;
+        },
+        handleSizeChange(val) {
+            this.pagesize = val;
+            this.commonget(this.types,this.values);
+        },
+        handleCurrentChange(val) {
+            this.currentPages=val;
         },
         ExcelSelection() {
             var self = this;
@@ -172,19 +178,59 @@ export default {
             window.location.href = urls;
         },
         getSchoolfileData() {
+            this.commonget(this.type);
+//            let self = this;
+//            axios.get("leaderselectallschoolfile").then(function (response) {
+//                var data = response.data;
+//                if (data.code == 0) {
+//                    self.allSchoolfile = data.datas;
+//                    self.total = data.datas.length;
+//                } else {
+//                    self.$notify({
+//                        type: 'error',
+//                        message: data.message,
+//                        duration: 2000,
+//                    });
+//                }
+//            });
+        },
+        commonget(){
             let self = this;
-            axios.get("leaderselectallschoolfile").then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allSchoolfile = data.datas;
-                    self.total = data.datas.length;
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
+            axios.get("byfieldselectschoofile",{
+                params:{
+                    value:self.values,
+                    type: self.types,
+                    page:self.currentPages,
+                    total:self.pagesize,
                 }
+            }).then(function (response) {
+                self.total = response.data.datas.total;
+//                self.commonchange(response.data.datas.data);
+
+            })
+        },
+//        commonchange(data){
+//            let self = this;
+//            for(var i=0;i<data.length;i++){
+//                data[i].le_invite_status = self.le_invite_status[data[i].le_invite_status];
+//                data[i].le_expert_level = self.le_expert_level[data[i].le_expert_level];
+//            }
+//            self.ExperspeakDate = data;
+//        },
+        timeSearchget(){   //时间分页
+            let self = this;
+            self.types = 'time';
+            axios.get("byfieldselectschoofile", {
+                params: {
+                    start_time:self.start_time,
+                    end_time:self.end_time,
+                    type: self.types,
+                    page: self.currentPages,
+                    total: self.pagesize,
+                }
+            }).then(function (response) {
+                self.total = response.data.datas.total;
+//                self.commonchange(response.data.datas.data);
             });
         },
         timeSearch(time) {
@@ -199,68 +245,94 @@ export default {
             }else if(time == 4) {
                 this.newTime = '1388548800';
             }
-            var timestamp = Date.parse(new Date());
+            this.end_time = Date.parse(new Date());
             let self = this;
-            axios.get("bytimeselectschoofile",{
-                params:{
-                    start_time:this.newTime,
-                    end_time:timestamp
-                }
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allSchoolfile = data.datas;
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+            self.types = 'le_time';
+            self.timeSearchget();
+//            var timestamp = Date.parse(new Date());
+//            let self = this;
+//            axios.get("bytimeselectschoofile",{
+//                params:{
+//                    start_time:this.newTime,
+//                    end_time:timestamp
+//                }
+//            }).then(function (response) {
+//                var data = response.data;
+//                if (data.code == 0) {
+//                    self.allSchoolfile = data.datas;
+//                } else {
+//                    self.$notify({
+//                        type: 'error',
+//                        message: data.message,
+//                        duration: 2000,
+//                    });
+//                }
+//            });
         },
         twoTimeSearch() {
-           let self = this;
-            axios.get("bytimeselectschoofile",{
-                params:{
-                    start_time:self.data1[0],
-                    end_time:self.data1[1],
-                }
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allSchoolfile = data.datas;
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+            let self = this;
+            self.types = 'time';
+            self.start_time = self.data1[0];
+            self.end_time   = self.data1[1];
+            self.timeSearchget();
+//           let self = this;
+//            axios.get("bytimeselectschoofile",{
+//                params:{
+//                    start_time:self.data1[0],
+//                    end_time:self.data1[1],
+//                }
+//            }).then(function (response) {
+//                var data = response.data;
+//                if (data.code == 0) {
+//                    self.allSchoolfile = data.datas;
+//                } else {
+//                    self.$notify({
+//                        type: 'error',
+//                        message: data.message,
+//                        duration: 2000,
+//                    });
+//                }
+//            });
         },
         nameSearch() {
             let self = this;
-            axios.get("bynameselectschoofile",{
-                params:{
-                    schfile_name: self.schfile_name,
-                }
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allSchoolfile = data.datas;
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+            self.types = 'schfile_name';
+            self.values = self.schfile_name;
+            self.commonget();
+//            let self = this;
+//            axios.get("bynameselectschoofile",{
+//                params:{
+//                    schfile_name: self.schfile_name,
+//                }
+//            }).then(function (response) {
+//                var data = response.data;
+//                if (data.code == 0) {
+//                    self.allSchoolfile = data.datas;
+//                } else {
+//                    self.$notify({
+//                        type: 'error',
+//                        message: data.message,
+//                        duration: 2000,
+//                    });
+//                }
+//            });
         },
     },
     mounted() {
         this.getSchoolfileData();
-    }
+    },
+    watch:{
+        currentPages:function (currentPages) {
+            this.currentPages = currentPages;
+            switch(this.types) {
+                case 'time':
+                    this.timeSearchget();
+                    break;
+                default:
+                    this.commonget();
+                    break;
+            }
+        }
+    },
 }
 </script>
