@@ -100,12 +100,11 @@
                 </div>
                 <div class="list3">
                     <span class="span">论文图</span>
-                    <div id="myArticle" :style="{width: '320px', height: '300px'}"></div>
-                    <el-button type="primary" size="mini">刊物级别</el-button>
                     <div class="timesearch">
                         <div class="data1">
                             <el-date-picker
-                                    v-model="data1"
+                                    v-model="dataArt1"
+                                    size="mini"
                                     type="year"
                                     placeholder="选择年">
                             </el-date-picker>
@@ -113,35 +112,120 @@
                         <div class="reference">-</div>
                         <div class="data2">
                             <el-date-picker
-                                    v-model="data2"
+                                    v-model="dataArt2"
+                                    size="mini"
                                     type="year"
                                     placeholder="选择年">
                             </el-date-picker>
                         </div>
+                        <div class="clear"></div>
                     </div>
+                    <div id="myArticle" :style="{width: '320px', height: '300px'}"></div>
+                    <el-button type="primary" size="mini">刊物级别</el-button>
                 </div>
                 <div class="list4">
                     <span class="span">项目图</span>
+                    <div class="timesearch">
+                        <div class="data1">
+                            <el-date-picker
+                                    v-model="dataPro1"
+                                    size="mini"
+                                    type="year"
+                                    placeholder="选择年">
+                            </el-date-picker>
+                        </div>
+                        <div class="reference">-</div>
+                        <div class="data2">
+                            <el-date-picker
+                                    v-model="dataPro2"
+                                    size="mini"
+                                    type="year"
+                                    placeholder="选择年">
+                            </el-date-picker>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
                     <div id="myProject" :style="{width: '320px', height: '300px'}"></div>
-                    <el-button type="primary" size="mini" @click="getProjectDate()">学科门类</el-button>
+                    <el-button type="primary" size="mini" @click="getProjectDate()">项目类别</el-button>
+                    <el-button type="primary" size="mini" @click="ProjectList()">学科门类</el-button>
                     <el-button type="danger" size="mini" @click="ProType()">研究类别</el-button>
-                    <el-button type="warning" size="mini" @click="ApprovalMoney()">批准经费</el-button>
-                    <el-button type="success" size="mini" @click="GetMoney()">到账经费</el-button>
+                    <!-- <el-button type="warning" size="mini" @click="ApprovalMoney()">批准经费</el-button> -->
+                    <!-- <el-button type="success" size="mini" @click="GetMoney()">到账经费</el-button> -->
                 </div>
                 <div class="list5">
                     <span class="span">著作图</span>
+                    <div class="timesearch">
+                        <div class="data1">
+                            <el-date-picker
+                                    v-model="dataOpu1"
+                                    size="mini"
+                                    type="year"
+                                    placeholder="选择年">
+                            </el-date-picker>
+                        </div>
+                        <div class="reference">-</div>
+                        <div class="data2">
+                            <el-date-picker
+                                    v-model="dataOpu2"
+                                    size="mini"
+                                    type="year"
+                                    placeholder="选择年">
+                            </el-date-picker>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
                     <div id="myOpus" :style="{width: '320px', height: '300px'}"></div>
                     <el-button type="primary" size="mini" @click="getOpusDate()">著作类别</el-button>
                     <el-button type="danger" size="mini" @click="OpusType()">编著形式</el-button>
                 </div>
                 <div class="list6">
                     <span class="span">获奖图</span>
+                    <div class="timesearch">
+                        <div class="data1">
+                            <el-date-picker
+                                    v-model="dataAwa1"
+                                    size="mini"
+                                    type="year"
+                                    placeholder="选择年">
+                            </el-date-picker>
+                        </div>
+                        <div class="reference">-</div>
+                        <div class="data2">
+                            <el-date-picker
+                                    v-model="dataAwa2"
+                                    size="mini"
+                                    type="year"
+                                    placeholder="选择年">
+                            </el-date-picker>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
                     <div id="myAward" :style="{width: '320px', height: '300px'}"></div>
                     <el-button type="primary" size="mini" @click="getAwardDate()">奖励级别</el-button>
                     <el-button type="danger" size="mini" @click="AwardType()">成果形式</el-button>
                 </div>
                 <div class="list7">
                     <span class="span">专利图</span>
+                    <div class="timesearch">
+                        <div class="data1">
+                            <el-date-picker
+                                    v-model="dataPat1"
+                                    size="mini"
+                                    type="year"
+                                    placeholder="选择年">
+                            </el-date-picker>
+                        </div>
+                        <div class="reference">-</div>
+                        <div class="data2">
+                            <el-date-picker
+                                    v-model="dataPat2"
+                                    size="mini"
+                                    type="year"
+                                    placeholder="选择年">
+                            </el-date-picker>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
                     <div id="myPatent" :style="{width: '320px', height: '300px'}"></div>
                     <el-button type="primary" size="mini">专利类型</el-button>
                 </div>
@@ -219,7 +303,7 @@
     }
     .list2,.list3,.list4,.list5,.list6,.list7,.list8{
         width: 30%;
-        height: 390px;
+        height: 420px;
         float: left;
         margin: 0 0 0 10%;
         border-bottom: #eee solid 1px;
@@ -231,8 +315,17 @@
     .list4 button{
         padding: 7px 10px;
     }
+    .timesearch{
+        width: 350px;
+    }
+    .el-date-editor.el-input, .el-date-editor.el-input__inner {
+        width: 121px;
+    }
     .data1,.data2,.reference{
         float:left;
+    }
+    .clear{
+        clear: both;
     }
 </style>
 
@@ -242,8 +335,16 @@ export default {
     name: 'eCharts',
     data () {
         return {
-            data1: '',
-            data2: '',
+            dataArt1: '',
+            dataArt2: '',
+            dataPro1: '',
+            dataPro2: '',
+            dataAwa1: '',
+            dataAwa2: '',
+            dataPat1: '',
+            dataPat2: '',
+            dataOpu1: '',
+            dataOpu2: '',
             AllDate:[],
             teacherMicDate:[],
             teacherRanDate:[],
@@ -276,12 +377,9 @@ export default {
             let self = this;
             axios.get("groupbyteachertechnicaltitle").then(function (response) {
                 var data = response.data;
-                console.log(response.data,'+++++++++');
-
                 if (data.code == 0) {
                     self.teacherMicDate = data.datas;
                     self.drawLine(self.teacherMicDate);
-                    console.log(self.teacherMicDate,'++====++++');
                 } else {
                     self.$notify({
                         type: 'error',
@@ -396,6 +494,38 @@ export default {
             });
         },
         getProjectDate() {
+            let self = this;
+            axios.get("groupbyprojectlevel").then(function (response) {
+                var data = response.data;
+                console.log(data);
+                if (data.code == 0) {
+                    self.ProjectDate = data.datas;
+                    self.drawLinePros(self.ProjectDate);
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,
+                    });
+                }
+            });
+        },
+        drawLinePros(datas) {
+             var myProject = this.$echarts.init(document.getElementById('myProject'));
+             myProject.setOption({
+                series: {
+                    type: 'pie',
+                    radius : '55%',
+                    data: [
+                        {name: '市厅级'+'('+datas[0]+')', value: datas[0]},
+                        {name: '省部级'+'('+datas[1]+')', value: datas[1]},
+                        {name: '国家级'+'('+datas[2]+')', value: datas[2]},
+                        {name: '其他'+'('+datas[3]+')', value: datas[3]},
+                    ]
+                }
+            });
+        },
+        ProjectList() {
             let self = this;
             axios.get("groupbyprojectcertificatelevel").then(function (response) {
                 var data = response.data;

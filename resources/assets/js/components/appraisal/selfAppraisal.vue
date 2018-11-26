@@ -176,9 +176,6 @@ export default {
             }else if(form.ap_integral == '') {
                 this.$message.error('积分不能为空');
                 return
-            }else if(form.ap_remarks == '') {
-                this.$message.error('备注不能为空');
-                return
             }
             this.$refs['form'].validate((valid) => {
                     if (valid) {
@@ -193,6 +190,7 @@ export default {
                                     message: '修改成功',
                                     type: 'success'
                                 });
+                            vue.$router.push({path: '/appraisal'});
                             } else {
                                 vue.$notify({
                                     type: 'error',
