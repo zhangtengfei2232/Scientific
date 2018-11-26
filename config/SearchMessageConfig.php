@@ -66,11 +66,8 @@ class SearchMessageConfig
     const GRA_CERT_ROAD             = 'gra_cert_road';      //老师毕业证书
     const EDU_CERT_ROAD             = 'edu_cert_road';      //老师学位证书
     const ARTICAL_AUTHOR            = 'author';             //论文第一作者字段
-    const ARTICAL_PUBLICATION_NAME  = 'publication_name';   //论文发表刊物名称
     const ARTICAL_PERCAL_CATE       = 'percal_cate';        //论文期刊级别
-    const ARTICAL_BELONG_PROJECT    = 'belong_project';     //论文所属项目
     const ARTICAL_ART_CATE_RESEARCH = 'art_cate_research';  //论文研究类别
-    const ARTICAL_ART_SUB_CATEGORY  = 'art_sub_category';   //论文学科门类
     const ARTICAL_SCH_PERCAL_CATE   = 'sch_percal_cate';    //论文学校认证期刊级别
     const ARTICAL_ROAD              = 'art_road';           //论文文件路径
     const ARTICAL_SCI_ROAD          = 'art_sci_road';       //论文SCI路径
@@ -88,14 +85,11 @@ class SearchMessageConfig
     const OPUS_OP_CATE_WORK         = 'op_cate_work';       //著作类别
     const OPUS_OP_FORM_WRITE        = 'op_form_write';      //著作编著形式
     const OPUS_OP_CATE_RESEARCH     = 'op_cate_research';   //著作研究类别
-    const OPUS_OP_SUB_CATEGORY      = 'op_sub_category';    //著作学科门类
     const OP_ROAD                   = 'op_road';            //著作文件路径
     const AWARD_AW_FIRST_AUTHOR     = 'aw_first_author';    //获奖第一获奖人
     const AWARD_AWARD_NAME          = 'award_name';         //获奖奖励名称
     const AWARD_AW_GRANT_UNIT       = 'aw_grant_unit';      //获奖授予单位
-    const AWARD_PRIZE_WIN_NAME      = 'prize_win_name';     //获奖成果名称
     const AWARD_AW_LEVEL            = 'aw_level';           //获奖奖励级别
-    const AWARD_AW_SCH_RANK         = 'aw_sch_rank';        //获奖校级名次
     const AW_ROAD                   = 'aw_road';            //获奖路径
     const AW_FORM_ACHIEVEMENT       = 'form_achievement';   //获奖成果形式
     const PATEN_FIRST_INVENTOR      = 'first_inventor';     //专利第一发明人
@@ -106,7 +100,6 @@ class SearchMessageConfig
     const APPRAISAL_AP_FIRST_AUTHOR = 'ap_first_author';    //鉴定第一作者
     const APPRAISAL_AP_RES_NAME     = 'ap_res_name';        //专利名称
     const APPRAISAL_AP_FORM         = 'ap_form';            //鉴定形式
-    const APPRAISAL_AP_CONCLUSION   = 'ap_conclusion';      //鉴定结论
     const APPRAISAL_AP_LEVEL        = 'ap_level';           //鉴定级别
     const AP_ROAD                   = 'ap_road';            //鉴定路径
     const HOLDMEET_HO_NAME          = 'ho_name';            //举行会议名称
@@ -170,10 +163,10 @@ class SearchMessageConfig
     //老师
     const TEACHER_CELL_DATAS  = [
         ['序号','分组','姓名','办公电话','住宅电话','手机','编号','性别','民族','出生年月','政治面貌','籍贯',
-            '行政职务','任职时间','职务级别','专业技术职务','职称','评审通过时间','聘任时间','系列','岗位类别',
+            '行政职务','任职时间','职务级别','专业技术职务','职称','评审通过时间','聘任时间','系列',
             '所在单位','所属教研室和实验室','来校工作时间','原工作单位','教师资格证书编号','身份证号','老师毕业院校','第一学历','','','',
             '最高学历学位','','','','现从事专业','所属学科','任教课程','硕(博)导'],
-        ['','','','','','','','','','','','','','','','','','','','','','','','','','','','','学历/学位','毕业院校','所学专业',
+        ['','','','','','','','','','','','','','','','','','','','','','','','','','','','学历/学位','毕业院校','所学专业',
             '毕业时间','学历/学位','毕业院校','所学专业','毕业时间','','','',
             '授予单位','获得时间']
     ];
@@ -184,8 +177,8 @@ class SearchMessageConfig
     ];
     //项目
     const PROJECT_CELL_DATAS = [
-        ['序号','主持人','所有参加人','项目名称','项目类别','批准单位','批准经费（万元）','当年到账经费（万元）','研究类别',
-            '学科门类','合作形式','社会经济目标','服务的国民经济行业','积分','时间','备注']
+        ['序号','主持人','所有参加人','项目名称','项目类别','批准单位','批准经费（万元）','当年到账经费（万元）','项目级别',
+            '研究类别','学科门类','合作形式','社会经济目标','服务的国民经济行业','积分','时间','备注']
     ];
     const PROJECT_LEVEL_DATAS = ['市厅级','省部级','国家级','其他'];
     //著作

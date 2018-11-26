@@ -94,16 +94,17 @@ class ExcelController extends Controller
         Excel::create('老师信息',function ($excel) use ($new_teacher_cell_datas){
             $excel->sheet('生命科技学院教工信息表',function ($sheet) use ($new_teacher_cell_datas){
                 $sheet->rows($new_teacher_cell_datas[1]);
-                for($i = 0; $i < 41;$i++){
-                    if($i < 28 || ($i > 35 && $i < 39)){
+                for($i = 0; $i < 40;$i++){
+                    if($i < 27 || ($i > 34 && $i < 38)){
                         //前26个表格单元格格式，合并每一列的前两行
                         $table_list = intToChr($i);
                         $sheet->mergeCells($table_list.'1:'.$table_list.'2');
-                    }elseif ($i == 28){
+                    }elseif ($i == 27){
                         //设置老师的第一学历和最高学历单元格格式
                         $sheet->mergeCells(intToChr($i).'1:'.intToChr($i + 3).'1');
                         $sheet->mergeCells(intToChr($i + 4).'1:'.intToChr($i + 7).'1');
-                    }elseif($i == 39){
+                        $i += 7;  //跳格
+                    }elseif($i == 38){
                         //设置老师的硕(博)导的单元格格式
                         $sheet->mergeCells(intToChr($i).'1:'.intToChr($i + 1).'1');
                     }

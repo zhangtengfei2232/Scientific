@@ -35,7 +35,7 @@ class RetrievalController extends Controller
     private $total = 10;
     /**
      * 1.秘书、院长的特殊功能======>检索所有信息功能
-     * 2.生成=======>师资组成(最高学历，职称，学缘)，论文(期刊级别)，
+     * 2.生成=======>师资组成(最高学历，职称，学缘)，论文(期刊级别)
      * 项目(证书级别)，著作(著作类别)，获奖(获奖级别)
      */
     /**
@@ -44,83 +44,59 @@ class RetrievalController extends Controller
     /**
      * 老师检索
      */
-    //查询老师全部信息
-    public function leaderSelectAllTeacher(Request $request){
-        if($request->has(''))
-        return ModelDatabase::selectAllteacherDatas();
-    }
-    //老师名字查询老师信息
-    public function byNameSelectTeacher(Request $request){
-        $teacher_name = $request->teacher_name;
-        if(empty($teacher_name)) {
-            return responseTojson(1,'你输入的老师名字不能为空');
+    public function byFieldSelectTeacher(Request $request){
+        ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = $this->total;
+        $datas['table_name'] = $this->teacher_table_name;
+        if($request->has('value')){
+            $datas['value'] = $request->value;
         }
-        $name_field   = SearchMessageConfig::TEACHER_NAME;
-        return ModelDatabase::byNameSelectDatas($this->teacher_table_name,$name_field,$teacher_name,'');
-    }
-    //老师职称查询
-    public function byAcademicTitleSelectTeacher(Request $request){
-        $academic_title_field = SearchMessageConfig::TEACHER_ACADEMIC_TITLE;
-        $academic_title       = $request->academic_title;
-        return ModelDatabase::categorySelectInformation($this->teacher_table_name,$academic_title_field,$academic_title,'');
-    }
-    //老师行政职务查询
-    public function byAdminDutiesSelectTeacher(Request $request){
-        $admin_duties = $request->admin_duties;
-        if(empty($admin_duties)) {
-            return responseTojson(1,'你输入的老师行政职务不能为空');
+        $teacher_name_field          = SearchMessageConfig::TEACHER_NAME;
+        $teacher_admin_duties_field  = SearchMessageConfig::TEACHER_ADMIN_DUTIES;
+        $teacher_re_department_field = SearchMessageConfig::TEACHER_TE_RE_DEPARTMENT;
+        $teacher_work_major_filed    = SearchMessageConfig::TEACHER_WORK_MAJOR;
+        $academic_title_field        = SearchMessageConfig::TEACHER_ACADEMIC_TITLE;
+        $job_level_field             = SearchMessageConfig::TEACHER_JOB_LEVEL;
+        $post_category_field         = SearchMessageConfig::TEACHER_POST_CATEGORY;
+        switch($request->type){
+            case $teacher_name_field:
+                $datas['field'] = $teacher_name_field;
+                break;
+            case $teacher_admin_duties_field:
+                $datas['field'] = $teacher_admin_duties_field;
+                break;
+            case $teacher_re_department_field:
+                $datas['field'] = $teacher_re_department_field;
+                break;
+            case $teacher_work_major_filed:
+                $datas['field'] = $teacher_work_major_filed;
+                break;
+            case 'composite_query':
+                $datas['first_field'] = $academic_title_field;
+                $datas['first_datas'] = $request->academic_title_datas;
+                $job_level_datas      = $request->job_level_datas;
+                $post_category_datas  = $request->post_category_datas;
+                return ModelDatabase::combinationSelectDatas($datas,$job_level_field,$job_level_datas,$post_category_field,$post_category_datas);
+            default:
+                return ModelDatabase::selectAllDatas($datas);
         }
-        $admin_duties_field = SearchMessageConfig::TEACHER_ADMIN_DUTIES;
-        return ModelDatabase::byNameSelectDatas($this->teacher_table_name,$admin_duties_field,$admin_duties,'');
-    }
-    //老师所属教研室和实验室查询
-    public function byTeachResearchSelectTeacher(Request $request){
-        $te_re_department = $request->te_re_department;
-        if(empty($te_re_department)) {
-            return responseTojson(1,'你输入的老师所属教研室和实验室不能为空');
-        }
-        $te_re_department_field = SearchMessageConfig::TEACHER_TE_RE_DEPARTMENT;
-        return ModelDatabase::byNameSelectDatas($this->teacher_table_name,$te_re_department_field,$te_re_department,'');
-    }
-    //老师岗位类别查询
-    public function byPostCategorySelectTeacher(Request $request){
-        $post_category_field = SearchMessageConfig::TEACHER_POST_CATEGORY;
-        $post_category       = $request->post_category;
-        return ModelDatabase::categorySelectInformation($this->teacher_table_name,$post_category_field,$post_category,'');
-    }
-    //老师职务级别查询
-    public function byJobLevelSelectTeacher(Request $request){
-        $job_level_field = SearchMessageConfig::TEACHER_JOB_LEVEL;
-        $job_level       = $request->job_level;
-        return ModelDatabase::categorySelectInformation($this->teacher_table_name,$job_level_field,$job_level,'');
-    }
-    //老师从事专业查询
-    public function byWorkMajorSelectTeacher(Request $request){
-        $work_major = $request->work_major;
-        if(empty($work_major)) {
-            return responseTojson(1,'你输入的老师从事专业不能为空');
-        }
-        $work_major_filed = SearchMessageConfig::TEACHER_WORK_MAJOR;
-        return ModelDatabase::byNameSelectDatas($this->teacher_table_name,$work_major_filed,$work_major,'');
+        return ModelDatabase::pagingQueryDatas($datas);
     }
     /**
      * 论文检索
      */
     //根据论文作者模糊查询
     public function byFieldSelectArtical(Request $request){
-        $datas['total']  = $this->total;
-        $datas['value']  = $request->value;
-        if($request->has('total')){
-            $datas['total'] = $request->total;
+        ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = $this->total;
+        if($request->has('value')){
+            $datas['value'] = $request->total;
         }
         $datas['table_name'] = $this->artical_table_name;
         $datas['time_field'] = $this->artical_time_field;
-        $art_field = $request->type;
         $art_author_field        = SearchMessageConfig::ARTICAL_AUTHOR;
         $sch_percal_cate_field   = SearchMessageConfig::ARTICAL_SCH_PERCAL_CATE;
         $journal_level_field     = SearchMessageConfig::ARTICAL_PERCAL_CATE;
         $art_cate_research_field = SearchMessageConfig::ARTICAL_ART_CATE_RESEARCH;//文章研究类别字段
-        switch ($art_field){
+        switch ($request->type){
             case $art_author_field:
                 $datas['field'] = $art_author_field;
                 break;
@@ -142,7 +118,6 @@ class RetrievalController extends Controller
     /**
      * 项目检索
      */
-    //项目年份查询
     public function byFieldSelectProject(Request $request){
         ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = $this->total;
         $datas['table_name']    = $this->project_table_name;
@@ -178,7 +153,6 @@ class RetrievalController extends Controller
     /**
      * 著作检索
      */
-    //著作名称查询
     public function byFieldSelectOpus(Request $request){
         ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = $this->total;
         $datas['table_name'] = $this->opus_table_name;
@@ -214,7 +188,6 @@ class RetrievalController extends Controller
     /**
      * 获奖检索
      */
-    //奖励名称查询
     public function byFieldSelectAward(Request $request){
         ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = $this->total;
         if($request->has('value')){
@@ -246,7 +219,6 @@ class RetrievalController extends Controller
     /**
      * 专利检索
      */
-    //专利名称查询
     public function byFieldSelectPatent(Request $request){
         ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = $this->total;
         $datas['table_name'] = $this->patent_table_name;
@@ -279,7 +251,6 @@ class RetrievalController extends Controller
     /**
      * 成果鉴定检索
      */
-    //鉴定成果名称查询
     public function byFieldSelectAppraisal(Request $request){
         ($request->has('total')) ? $datas['total'] = $request->total : $this->total;
         $datas['table_name']    = $this->appraisal_table_name;
@@ -316,7 +287,6 @@ class RetrievalController extends Controller
     /**
      * 举办会议检索
      */
-    //举办会议名称查询
     public function byFieldSelectHoldmeet(Request $request){
         ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = $this->total;
         $datas['table_name'] = $this->holdmeet_table_name;
@@ -344,7 +314,6 @@ class RetrievalController extends Controller
     /**
      * 参加会议检索
      */
-    //参加会议名称查询
     public function byFieldSelectJoinmeet(Request $request){
         ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = $this->total;
         $datas['table_name'] = $this->joinmeet_tale_name;
@@ -372,7 +341,6 @@ class RetrievalController extends Controller
     /**
      * 专家讲学检索
      */
-    //专家名字查询
     public function byFieldSelectLecture(Request $request){
         ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = $this->total;
         if($request->has('value')){
@@ -404,7 +372,6 @@ class RetrievalController extends Controller
     /**
      * 校发文件检索
      */
-    //校发文件名称查询
     public function byFieldSelectSchoofile(Request $request){
         ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = $this->total;
         $datas['table_name'] = $this->schfile_table_name;
@@ -427,7 +394,6 @@ class RetrievalController extends Controller
     /**
      * 合作协议检索
      */
-    //合作协议名称查询
     public function byFieldSelectAgreement(Request $request){
         ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = $this->total;
         $datas['table_name'] = $this->agreement_table_name;
@@ -450,7 +416,6 @@ class RetrievalController extends Controller
     /**
      *担任学术团体职务
      */
-    //根据老师名字查询
     public function byFieldSelectDuties(Request $request){
         ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = $this->total;
         if($request->has('value')){

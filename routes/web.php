@@ -196,15 +196,7 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     /**
      * 老师查询路由
      */
-    Route::get('leaderselectallteacher','RetrievalController@leaderSelectAllTeacher');                    //查询老师全部信息
-    Route::get('bynameselectteacher','RetrievalController@byNameSelectTeacher');                          //老师名字查询老师信息
-    Route::get('byacademictitleselectteacher','RetrievalController@byAcademicTitleSelectTeacher');        //老师职称查询
-    Route::get('byadmindutiesselectteacher','RetrievalController@byAdminDutiesSelectTeacher');            //老师行政职务查询
-    Route::get('byteachresearchselectteacher','RetrievalController@byTeachResearchSelectTeacher');        //老师所属教研室和实验室查询
-    Route::get('bypostcategoryselectteacher','RetrievalController@byPostCategorySelectTeacher');          //老师岗位类别查询
-    Route::get('byjoblevelselectteacher','RetrievalController@byJobLevelSelectTeacher');                  //老师职务级别查询
-    Route::get('byworkmajorselectteacher','RetrievalController@byWorkMajorSelectTeacher');                //老师先从事专业查询
-
+    Route::get('byfieldselectteacher','RetrievalController@byFieldSelectTeacher');                          //老师名字查询老师信息
 
     /**
      * 论文查询路由
@@ -225,7 +217,7 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     /**
      * 专利查询路由
      */
-    Route::get('byfieldselectpatent','RetrievalController@byFieldSelectPatent');                          //专利名称查询
+    Route::get('byfieldselectpatent','RetrievalController@byFieldSelectPatent');
 
     /**
      * 成果鉴定查询路由
@@ -239,25 +231,23 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     /**
      * 参加会议查询路由
      */
-    Route::get('byfieldselectjoinmeet','RetrievalController@byFieldSelectJoinmeet');                      //参加会议名称查询
-
+    Route::get('byfieldselectjoinmeet','RetrievalController@byFieldSelectJoinmeet');
     /**
      * 专家讲学路由
      */
-    Route::get('byFieldSelectLecture','RetrievalController@byFieldSelectLecture');                        //专家名字查询
+    Route::get('byFieldSelectLecture','RetrievalController@byFieldSelectLecture');
     /**
      * 校发文件查询路由
      */
-    Route::get('byfieldselectschoofile','RetrievalController@byFieldSelectSchoofile');                    //校发文件名称查询
-
+    Route::get('byfieldselectschoofile','RetrievalController@byFieldSelectSchoofile');
     /**
      * 合作协议查询路由
      */
-    Route::get('byfieldselectagreement','RetrievalController@byFieldSelectAgreement');                     //协议时间查询
+    Route::get('byfieldselectagreement','RetrievalController@byFieldSelectAgreement');
     /**
      * 担任团体职务查询路由
      */
-    Route::get('byfieldselectduties','RetrievalController@byFieldSelectDuties');                          //担任学术团体名称查询
+    Route::get('byfieldselectduties','RetrievalController@byFieldSelectDuties');
 
 
     /**总览数据
