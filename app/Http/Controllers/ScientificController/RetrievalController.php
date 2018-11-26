@@ -461,7 +461,7 @@ class RetrievalController extends Controller
     public function groupByArticalJournalLevel(Request $request){
         $group_field     = SearchMessageConfig::ARTICAL_PERCAL_CATE;
         $percal_cate_num = SearchMessageConfig::ARTICAL_PERCAL_CATE_NUM;
-        if($request->has('start_time') && $request->has('end_time')){
+        if(!empty($request->start_time) && !empty($request->end_time)){
             $time_datas['start_time'] = $request->start_time;
             $time_datas['end_time']   = $request->end_time;
             return ModelDatabase::groupByAndCountDatas($this->artical_table_name,$group_field,$percal_cate_num,$this->artical_time_field,$time_datas);
@@ -475,7 +475,7 @@ class RetrievalController extends Controller
     public function groupByProjectCertificateLevel(Request $request){
         $group_field          = SearchMessageConfig::PROJECT_PRO_SUB_CATEGORY;
         $pro_sub_category_num = SearchMessageConfig::PRO_SUB_CATEGORY_NUM;
-        if($request->has('start_time') && $request->has('end_time')){
+        if(!empty($request->start_time) && !empty($request->end_time)){
             $time_datas['start_time'] = $request->start_time;
             $time_datas['end_time']   = $request->end_time;
             return ModelDatabase::groupByAndCountDatas($this->project_table_name,$group_field,$pro_sub_category_num,$this->project_time_field,$time_datas);
@@ -486,7 +486,7 @@ class RetrievalController extends Controller
     public function groupByProjetCateResearch(Request $request){
         $group_field           = SearchMessageConfig::PROJECT_PRO_CATE_RESEARCH;
         $pro_cate_research_num = SearchMessageConfig::PRO_CATE_RESEARCH_NUM;
-        if($request->has('start_time') && $request->has('end_time')){
+        if(!empty($request->start_time) && !empty($request->end_time)){
             $time_datas['start_time'] = $request->start_time;
             $time_datas['end_time']   = $request->end_time;
             return ModelDatabase::groupByAndCountDatas($this->project_table_name,$group_field,$pro_cate_research_num,$this->project_time_field,$time_datas);
@@ -497,7 +497,7 @@ class RetrievalController extends Controller
     public function groupByProjectLevel(Request $request){
         $group_field = SearchMessageConfig::PRO_LEVEL;
         $pro_level_num = SearchMessageConfig::PRO_LEVEL_NUM;
-        if($request->has('start_time') && $request->has('end_time')){
+        if(!empty($request->start_time) && !empty($request->end_time)){
             $time_datas['start_time'] = $request->start_time;
             $time_datas['end_time']   = $request->end_time;
             return ModelDatabase::groupByAndCountDatas($this->project_table_name,$group_field,$pro_level_num,$this->project_time_field,$time_datas);
@@ -511,7 +511,7 @@ class RetrievalController extends Controller
     public function gropuByOpusCategory(Request $request){
         $group_field      = SearchMessageConfig::OPUS_OP_CATE_WORK;
         $op_cate_work_num = SearchMessageConfig::OP_CATE_WORK_NUM;
-        if($request->has('start_time') && $request->has('end_time')){
+        if(!empty($request->start_time) && !empty($request->end_time)){
             $time_datas['start_time'] = $request->start_time;
             $time_datas['end_time']   = $request->end_time;
             return ModelDatabase::groupByAndCountDatas($this->opus_table_name,$group_field,$op_cate_work_num,$this->opus_time_field,$time_datas);
@@ -522,7 +522,7 @@ class RetrievalController extends Controller
     public function groupByOpusFormWrite(Request $request){
         $group_field       = SearchMessageConfig::OPUS_OP_FORM_WRITE;
         $op_form_write_num = SearchMessageConfig::OP_FORM_WRITE_NUM;
-        if($request->has('start_time') && $request->has('end_time')){
+        if(!empty($request->start_time) && !empty($request->end_time)){
             $time_datas['start_time'] = $request->start_time;
             $time_datas['end_time']   = $request->end_time;
             return ModelDatabase::groupByAndCountDatas($this->opus_table_name,$group_field,$op_form_write_num,$this->opus_time_field,$time_datas);
@@ -537,7 +537,7 @@ class RetrievalController extends Controller
     public function groupBywinLevel(Request $request){
         $group_field  = SearchMessageConfig::AWARD_AW_LEVEL;
         $aw_level_num = SearchMessageConfig::AW_LEVEL_NUM;
-        if($request->has('start_time') && $request->has('end_time')){
+        if(!empty($request->start_time) && !empty($request->end_time)){
             $time_datas['start_time'] = $request->start_time;
             $time_datas['end_time']   = $request->end_time;
             return ModelDatabase::groupByAndCountDatas($this->award_table_name,$group_field,$aw_level_num,$this->award_time_field,$time_datas);
@@ -548,7 +548,7 @@ class RetrievalController extends Controller
     public function groupByFormAchievement(Request $request){
         $group_field          = SearchMessageConfig::AW_FORM_ACHIEVEMENT;
         $form_achievement_num = SearchMessageConfig::AW_FORM_ACHIEVEMENT_NUM;
-        if($request->has('start_time') && $request->has('end_time')){
+        if(!empty($request->start_time) && !empty($request->end_time)){
             $time_datas['start_time'] = $request->start_time;
             $time_datas['end_time']   = $request->end_time;
             return ModelDatabase::groupByAndCountDatas($this->award_table_name,$group_field,$form_achievement_num,$this->award_time_field,$time_datas);
@@ -562,7 +562,7 @@ class RetrievalController extends Controller
     public function groupByPatentType(Request $request){
         $group_field  = SearchMessageConfig::PATENT_PA_TYPE;
         $pa_type_num  = SearchMessageConfig::PA_TYPE_NUM;
-        if($request->has('start_time') && $request->has('end_time')){
+        if(!empty($request->start_time) && !empty($request->end_time)){
             $time_datas['start_time'] = $request->start_time;
             $time_datas['end_time']   = $request->end_time;
             return ModelDatabase::groupByAndCountDatas($this->patent_table_name,$group_field,$pa_type_num,$this->patent_time_field,$time_datas);
@@ -576,7 +576,7 @@ class RetrievalController extends Controller
     public function groupByAppraisalLevel(Request $request){
         $group_field = SearchMessageConfig::APPRAISAL_AP_LEVEL;
         $ap_level_num = SearchMessageConfig::AP_LEVEL_NUM;
-        if($request->has('start_time') && $request->has('end_time')){
+        if(!empty($request->start_time) && !empty($request->end_time)){
             $time_datas['start_time'] = $request->start_time;
             $time_datas['end_time']   = $request->end_time;
             return ModelDatabase::groupByAndCountDatas($this->appraisal_table_name,$group_field,$ap_level_num,$this->patent_time_field,$time_datas);

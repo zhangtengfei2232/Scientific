@@ -199,6 +199,7 @@ class ModelDatabase  extends  Model
                     $count_approval_funds_money = $count_approval_funds_money->whereBetween($time_field,[$time_datas['start_time'],$time_datas['end_time']]);
                     $count_account_outlay_money = $count_account_outlay_money->whereBetween($time_field,[$time_datas['start_time'],$time_datas['end_time']]);
                 }
+                $count_num = $count_num->count();
                 $approval_funds_money_datas[$i] = $count_approval_funds_money->sum('approval_funds');
                 $account_outlay_money_datas[$i] = $count_account_outlay_money->sum('account_outlay');
                 $count_datas[$i] = $count_num;
