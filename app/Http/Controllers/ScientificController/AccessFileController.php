@@ -22,7 +22,6 @@ class AccessFileController extends Controller
         $downResponse = new BinaryFileResponse($temp_path);
         return $downResponse;
     }
-
     /**从Storage文件下，下载PDF文件
      * @param Request $request
      * @return BinaryFileResponse

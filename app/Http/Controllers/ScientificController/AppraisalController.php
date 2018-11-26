@@ -11,7 +11,7 @@ use config\SearchMessageConfig;
 class AppraisalController extends Controller
 {
     private $disk       = UploadSubjectionConfig::APPRAISAL;
-    private $subjection = UploadSubjectionConfig::APPRAISAL_COVER_IMG;
+    private $subjection = UploadSubjectionConfig::APPRAISAL_IMG;
     //添加成果鉴定
     public function addAppraisal(Request $request){
          if(!$request->isMethod('POST')){

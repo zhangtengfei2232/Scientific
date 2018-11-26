@@ -172,13 +172,13 @@ class HoldmeetController extends Controller
         $delete_im_id = $request->im_id;
         $images_road  = ImageDatas::selectAllImageRoadDatas($delete_im_id); //先去查询所有删除的图片路径
         ImageDatas::beginTraction();                                        //开启事务处理
-        $delete_images = ImageDatas::deleteImagesDatas($delete_im_id);     //删除数据库图片路径
+        $delete_images = ImageDatas::deleteImagesDatas($delete_im_id);      //删除数据库图片路径
         if($delete_images){
             ImageDatas::commit();
             deletefiles(UploadSubjectionConfig::HOLD_MEET,$images_road);
             return responseTojson(0,'删除举办会议图片成功');
         }
-        ImageDatas::rollback();                                        //回滚，回复数据库数据
+        ImageDatas::rollback();                                             //回滚，回复数据库数据
         return responseTojson(1,'删除举办会议图片失败');
     }
 }
