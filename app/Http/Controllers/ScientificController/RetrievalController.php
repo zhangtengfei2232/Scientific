@@ -404,13 +404,14 @@ class RetrievalController extends Controller
     /**
      * 专利检索
      */
-
     //专利名称查询
     public function byFieldSelectPatent(Request $request){
-        ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = 10;
+        ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = $this->total;
         $datas['table_name'] = $this->patent_table_name;
         $datas['time_field'] = $this->patent_time_field;
-        $datas['value']      = $request->value;
+        if($request->has('value')){
+            $datas['value']  = $request->value;
+        }
         $pa_name_field = SearchMessageConfig::PATENT_PA_NAME;
         $first_inventor_field = SearchMessageConfig::PATEN_FIRST_INVENTOR;
         switch($request->type){
@@ -421,18 +422,14 @@ class RetrievalController extends Controller
                 $datas['field'] = $first_inventor_field;
                 break;
             case 'advanced_screening':
-                $condition_datas = [
-                    'table_name'  => $datas['table_name'],
-                    'time_field'  => $datas['time_field'],
-                    'first_field' => SearchMessageConfig::PATENT_PA_TYPE,                 //专利类型字段
-                    'first_datas' => $request->pa_type_datas
-                ];
+                $datas['first_field'] = SearchMessageConfig::PATENT_PA_TYPE;
+                $datas['first_datas'] = $request->pa_type_datas;
                 $pa_imple_situ_field = SearchMessageConfig::PATENT_PA_IMPLE_SITU;         //专利实施情况字段
-                return ModelDatabase::combinationSelectDatas($condition_datas,$pa_imple_situ_field,$request->pa_imple_situ_datas);
+                return ModelDatabase::combinationSelectDatas($datas,$pa_imple_situ_field,$request->pa_imple_situ_datas);
             case 'time':
                 return ModelDatabase::timeSelectInformation($request->start_time,$request->end_time,$datas['table_name'],$datas['time_field'],'',$datas['total']);
             default:
-                return  ModelDatabase::selectAllDatas($datas['table_name'],$datas['time_field']);
+                return  ModelDatabase::selectAllDatas($datas);
         }
         return ModelDatabase::pagingQueryDatas($datas);
     }
@@ -440,165 +437,100 @@ class RetrievalController extends Controller
     /**
      * 成果鉴定检索
      */
-    //根据多个条件，组合查询文章信息
-    public function combinationSelectAppraisal(Request $request){
-        ($request->has('total')) ? $total = $request->total : $this->total;
-        $condition_datas = [
-            'table_name'  => $this->appraisal_table_name,
-            'time_field'  => $this->appraisal_time_field,
-            'first_field' => SearchMessageConfig::APPRAISAL_AP_LEVEL,  //文章刊物级别字段
-            'first_datas' => $request->ap_level_datas,
-            'total'       => $total
-        ];
-        return ModelDatabase::combinationSelectDatas($condition_datas);
-    }
-    //查询全部成果鉴定信息
-    public function leaderSelectAllAppraisal(Request $request){
-        ($request->has('total')) ? $total = $request->total : $this->total;
-        return ModelDatabase::selectAllDatas($this->appraisal_table_name,$total,$this->appraisal_time_field);
-    }
-//    //主持人查询
-//    public function byHostSelectAppraisal(Request $request){
-//        $ap_first_author = $request->ap_first_author;
-//        if(empty($ap_first_author)){
-//             return responseTojson(1,'你输入的主持人不能为空');
-//        }
-//        $ap_first_author_field = SearchMessageConfig::APPRAISAL_AP_FIRST_AUTHOR;
-//        return ModelDatabase::byNameSelectDatas($this->appraisal_table_name,$ap_first_author_field,$ap_first_author,$this->appraisal_time_field);
-//    }
     //鉴定成果名称查询
     public function byNameSelectAppraisal(Request $request){
-        ($request->has('total')) ? $data['total'] = $request->total : $this->total;
-        $data['table_name']    = $this->appraisal_table_name;
-        $data['time_field']    = $this->appraisal_time_field;
-        $data['value']         = $request->value;
+        ($request->has('total')) ? $datas['total'] = $request->total : $this->total;
+        $datas['table_name']    = $this->appraisal_table_name;
+        $datas['time_field']    = $this->appraisal_time_field;
+        if($request->has('value')){
+            $datas['value']     = $request->value;
+        }
         $ap_form_field         = SearchMessageConfig::APPRAISAL_AP_FORM;
         $ap_first_author_field = SearchMessageConfig::APPRAISAL_AP_FIRST_AUTHOR;
         $ap_res_name_field     = SearchMessageConfig::APPRAISAL_AP_RES_NAME;
         switch($request->type){
             case $ap_res_name_field:
-                $data['filed'] = $ap_res_name_field;
+                $datas['filed'] = $ap_res_name_field;
                 break;
             case $ap_first_author_field:
-                $data['field'] = $ap_first_author_field;
+                $datas['field'] = $ap_first_author_field;
                 break;
             case $ap_form_field:
-                $data['field'] = $ap_form_field;
+                $datas['field'] = $ap_form_field;
                 break;
+            case 'time':
+                return ModelDatabase::timeSelectInformation($request->start_time,$request->end_time,$datas['table_name'],$datas['time_field'],'',$datas['total']);
+            case 'advanced_screening':
+                $datas['first_field'] = SearchMessageConfig::APPRAISAL_AP_LEVEL;
+                return ModelDatabase::categorySelectInformation($datas);
+            default:
+                return ModelDatabase::selectAllDatas($datas);
         }
-        return ModelDatabase::pagingQueryDatas($data);
+        return ModelDatabase::pagingQueryDatas($datas);
     }
-//    //鉴定形式查询
-//    public function byFormSelectAppraisal(Request $request){
-//        $ap_form_field = SearchMessageConfig::APPRAISAL_AP_FORM;
-//        $ap_form       = $request->ap_form;
-//        return ModelDatabase::categorySelectInformation($this->appraisal_table_name,$ap_form_field,$ap_form,$this->appraisal_time_field);
-//    }
-//    //鉴定结论查询
-//    public function byConclusionSelectAppraisal(Request $request){
-//        $ap_conclusion_field = SearchMessageConfig::APPRAISAL_AP_CONCLUSION;
-//        $ap_conclusion       = $request->ap_conclusion;
-//        return ModelDatabase::byNameSelectDatas($this->appraisal_table_name,$ap_conclusion_field,$ap_conclusion,$this->appraisal_time_field);
-//    }
-    //鉴定时间查询
-    public function byTimeSelectAppraisal(Request $request){
-        ($request->has('total')) ? $total = $request->total : $this->total;
-        $start_time = $request->start_time;
-        $end_time   = $request->end_time;
-        return ModelDatabase::timeSelectInformation($start_time,$end_time,$this->appraisal_table_name,$this->appraisal_time_field,$total);
-    }
-//    //鉴定级别查询
-//    public function byLevelSelectAppraisal(Request $request){
-//        $ap_level_field = SearchMessageConfig::APPRAISAL_AP_LEVEL;
-//        $ap_level       = $request->ap_level;
-//        return ModelDatabase::categorySelectInformation($this->appraisal_table_name,$ap_level_field,$ap_level,$this->appraisal_time_field);
-//    }
 
     /**
      * 举办会议检索
      */
-    //根据多个条件，组合查询文章信息
-    public function combinationSelectHoldmeet(Request $request){
-        $condition_datas = [
-            'table_name'  => $this->holdmeet_table_name,
-            'time_field'  => $this->holdmeet_time_field,
-            'first_field' => SearchMessageConfig::HOLDMEET_HO_LEVEL,  //文章刊物级别字段
-            'first_datas' => $request->ho_level_datas
-        ];
-        return ModelDatabase::combinationSelectDatas($condition_datas);
-    }
-    //查询全部举办会议信息
-    public function leaderSelectAllHoldmeet(){
-        return ModelDatabase::selectAllDatas($this->holdmeet_table_name,$this->holdmeet_time_field);
-    }
     //举办会议名称查询
-    public function byNameSelectHoldmeet(Request $request){
-        $ho_name = $request->ho_name;
-        if(empty($ho_name)){
-            return responseTojson(1,'你输入的举办会议名称不能为空');
+    public function byFieldSelectHoldmeet(Request $request){
+        ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = $this->total;
+        $datas['table_name'] = $this->holdmeet_table_name;
+        $datas['time_field'] = $this->holdmeet_time_field;
+        if($request->has('value')){
+            $datas['value'] = $request->value;
         }
-        $ho_name_field = SearchMessageConfig::HOLDMEET_HO_NAME;
-        return ModelDatabase::byNameSelectDatas($this->holdmeet_table_name,$ho_name_field,$ho_name,$this->holdmeet_time_field);
-    }
-    //举办会议级别查询
-    public function byLevelSelectHoldmeet(Request $request){
+        $ho_name_field  = SearchMessageConfig::HOLDMEET_HO_NAME;
         $ho_level_field = SearchMessageConfig::HOLDMEET_HO_LEVEL;
-        $ho_level       = $request->ho_level;
-        return ModelDatabase::categorySelectInformation($this->holdmeet_table_name,$ho_level_field,$ho_level,$this->holdmeet_time_field);
+        switch($request->type){
+            case $ho_name_field:
+                $datas['field'] = $ho_name_field;
+                break;
+            case $ho_level_field:
+                $datas['value'] = $ho_level_field;
+                return ModelDatabase::categorySelectInformation($datas);
+            case 'time':
+                return ModelDatabase::timeSelectInformation($request->start_time,$request->end_time,$datas['table_name'],'',$datas['time_field']);
+            default:
+                return ModelDatabase::selectAllDatas($datas);
+        }
+        return ModelDatabase::pagingQueryDatas($datas);
     }
-    //举办会议时间查询
-    public function byTimeSelectHoldmeet(Request $request){
-        $start_time = $request->start_time;
-        $end_time   = $request->end_time;
-        return ModelDatabase::timeSelectInformation($start_time,$end_time,$this->holdmeet_table_name,$this->holdmeet_time_field);
-    }
-
     /**
      * 参加会议检索
      */
-    //根据多个条件，组合查询文章信息
-    public function combinationSelectJoinmeet(Request $request){
-        $condition_datas = [
-            'table_name'  => $this->joinmeet_tale_name,
-            'time_field'  => $this->joinmeet_time_field,
-            'first_field' => SearchMessageConfig::JOINMEET_JO_LEVEL,  //文章刊物级别字段
-            'first_datas' => $request->jo_level_datas
-        ];
-        return ModelDatabase::combinationSelectDatas($condition_datas);
-    }
-    //查询全部参加会议信息
-    public function leaderSelectAllJoinmeet(){
-        return ModelDatabase::selectAllDatas($this->joinmeet_tale_name,$this->joinmeet_time_field);
-    }
     //参加会议名称查询
-    public function byNameSelectJoinmeet(Request $request){
-        $jo_name = $request->jo_name;
-        if(empty($jo_name)){
-            return responseTojson(1,'你输入的参加会议名称不能为空');
+    public function byFieldSelectJoinmeet(Request $request){
+        ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = $this->total;
+        $datas['table_name'] = $this->joinmeet_tale_name;
+        $datas['time_field'] = $this->joinmeet_time_field;
+        if($request->has('value')){
+            $datas['value']  = $request->value;
         }
-        $jo_name_field = SearchMessageConfig::JOINMEET_JO_NAME;
-        return ModelDatabase::byNameSelectDatas($this->joinmeet_tale_name,$jo_name_field,$jo_name,$this->joinmeet_time_field);
-    }
-    //参加会议级别查询
-    public function byLevelSelectJoinmeet(Request $request){
+        $jo_name_field  = SearchMessageConfig::JOINMEET_JO_NAME;
         $jo_level_field = SearchMessageConfig::JOINMEET_JO_LEVEL;
-        $jo_level       = $request->jo_level;
-        return ModelDatabase::categorySelectInformation($this->joinmeet_tale_name,$jo_level_field,$jo_level,$this->joinmeet_time_field);
+        switch($request->type){
+            case $jo_name_field:
+                $datas['field'] = $jo_name_field;
+                break;
+            case $jo_level_field:
+                return ModelDatabase::categorySelectInformation($datas);
+            case 'time':
+                return ModelDatabase::timeSelectInformation($request->start_time,$request->end_time,$datas['table_name'],'',$datas['time_field']);
+            default:
+                return ModelDatabase::selectAllDatas($datas);
+        }
+        return ModelDatabase::pagingQueryDatas($datas);
     }
-    //参加会议时间查询
-    public function byTimeSelectJoinmeet(Request $request){
-        $start_time = $request->start_time;
-        $end_time   = $request->end_time;
-        return ModelDatabase::timeSelectInformation($start_time,$end_time,$this->joinmeet_tale_name,$this->joinmeet_time_field);
-    }
-
     /**
      * 专家讲学检索
      */
     //专家名字查询
     public function byFieldSelectLecture(Request $request){
-        ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = 10;
-        $datas['value']        = $request->value;
+        ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = $this->total;
+        if($request->has('value')){
+            $datas['value']    = $request->value;
+        }
         $datas['table_name']   = $this->lecture_table_name;
         $datas['time_field']   = $this->lecture_time_field;
         $le_expert_level_field = SearchMessageConfig::LECTURE_LE_EXPERT_LEVEL;
@@ -607,7 +539,7 @@ class RetrievalController extends Controller
         switch($request->type){
             case $le_expert_level_field:
                 $datas['field'] = $le_expert_level_field;
-                return ModelDatabase::categorySelectInformation($datas['table_name'],$le_expert_level_field,$datas['value'],$datas['time_field'],$datas['total']);
+                return ModelDatabase::categorySelectInformation($datas);
             case $le_expert_name_field:
                 $datas['field'] = $le_expert_name_field;
                 break;
@@ -617,7 +549,7 @@ class RetrievalController extends Controller
             case 'time':
                 return ModelDatabase::timeSelectInformation($request->start_time,$request->end_time,$datas['table_name'],$datas['time_field'],'',$datas['total']);
             default :
-                return ModelDatabase::selectAllDatas($datas['table_name'],$datas['total'],$datas['time_field']);
+                return ModelDatabase::selectAllDatas($datas);
         }
         return ModelDatabase::pagingQueryDatas($datas);
     }
@@ -626,11 +558,13 @@ class RetrievalController extends Controller
      */
     //校发文件名称查询
     public function byFieldSelectSchoofile(Request $request){
-        ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = 10;
+        ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = $this->total;
         $datas['table_name'] = $this->schfile_table_name;
         $datas['time_field'] = $this->schfile_time_field;
-        $datas['value']      = $request->value;
-        $schfile_name_field = SearchMessageConfig::SCHOOLFILE_SCHFILE_NAME;
+        if($request->has('value')){
+            $datas['value']  = $request->value;
+        }
+        $schfile_name_field  = SearchMessageConfig::SCHOOLFILE_SCHFILE_NAME;
         switch($request->type){
             case $schfile_name_field:
                 $datas['field'] = $schfile_name_field;
@@ -638,7 +572,7 @@ class RetrievalController extends Controller
             case 'time':
                 return ModelDatabase::timeSelectInformation($request->start_time,$request->end_time,$datas['table_name'],$datas['time_field']);
             default :
-                return ModelDatabase::selectAllDatas($datas['table_name'],$datas['time_field']);
+                return ModelDatabase::selectAllDatas($datas);
         }
         return ModelDatabase::pagingQueryDatas($datas);
     }
@@ -647,10 +581,12 @@ class RetrievalController extends Controller
      */
     //合作协议名称查询
     public function byFieldSelectAgreement(Request $request){
-        ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = 10;
+        ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = $this->total;
         $datas['table_name'] = $this->agreement_table_name;
         $datas['time_field'] = $this->agreement_time_field;
-        $datas['value']      = $request->value;
+        if($request->has('value')){
+            $datas['value']  = $request->value;
+        }
         $agree_name_filed = SearchMessageConfig::AGREEMENT_AGREE_NAME;
         switch($request->type){
             case $agree_name_filed:
@@ -659,7 +595,7 @@ class RetrievalController extends Controller
             case 'time':
                 return ModelDatabase::timeSelectInformation($request->start_time,$request->end_time,$datas['table_name'],$datas['time_field']);
             default:
-                return ModelDatabase::selectAllDatas($datas['table_name'],$datas['total']);
+                return ModelDatabase::selectAllDatas($datas);
         }
         return ModelDatabase::pagingQueryDatas($datas);
     }
@@ -668,8 +604,10 @@ class RetrievalController extends Controller
      */
     //根据老师名字查询
     public function byFieldSelectDuties(Request $request){
-        ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = 10;
-        $datas['value']      = $request->value;
+        ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = $this->total;
+        if($request->has('value')){
+            $datas['value']  = $request->value;
+        }
         $datas['table_name'] = $this->duties_table_name;
         $du_teacher_name_field = SearchMessageConfig::DUTIES_TEACHER_NAME;
         $du_name_field         = SearchMessageConfig::DUTIES_DU_NAME;
@@ -681,7 +619,7 @@ class RetrievalController extends Controller
                 $datas['field'] = $du_name_field;
                 break;
             default:
-                return ModelDatabase::selectAllDatas($datas['table_name'],$datas['total']);
+                return ModelDatabase::selectAllDatas($datas);
         }
         return ModelDatabase::pagingQueryDatas($datas);
     }

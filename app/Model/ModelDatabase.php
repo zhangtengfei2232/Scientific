@@ -105,8 +105,12 @@ class ModelDatabase  extends  Model
      * @param $time_field
      * @return \Illuminate\Http\JsonResponse
      */
-    public static function selectAllDatas($table_name,$total,$time_field = ''){
-        $result = DB::table($table_name)->paginate($total);
+    public static function selectAllDatas($datas){
+        $table_name = $datas['table_name'];
+        if(!empty($datas['time_field'])){
+            $time_field = $datas['time_field'];
+        }
+        $result = DB::table($table_name)->paginate($datas['total']);
         if($table_name == 'duties'){
             return self::changeDutiesTimeDatas($result);
         }
@@ -146,8 +150,9 @@ class ModelDatabase  extends  Model
      * @param $time_field
      * @return \Illuminate\Http\JsonResponse
      */
-    public static function categorySelectInformation($table_name,$field,$cetificate,$time_field,$total){
-        $result = DB::table($table_name)->where($field,$cetificate)->paginate($total);
+    public static function categorySelectInformation($datas){
+        $result = DB::table($datas['table_name'])->where($datas['field'],$datas['value'])->paginate($datas['value']);
+        $time_field = $datas['time_field'];
         if(!empty($time_field)){
             foreach ($result as $datas){
                 $datas->$time_field = date('Y-m-d',$datas->$time_field/1000);
