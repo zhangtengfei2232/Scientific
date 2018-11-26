@@ -202,7 +202,7 @@
             },
             commonget(){
                 let self = this;
-                axios.get("byteachernameselectduties",{
+                axios.get("byfieldselectduties",{
                     params:{
                         value:self.values,
                         type: self.types,

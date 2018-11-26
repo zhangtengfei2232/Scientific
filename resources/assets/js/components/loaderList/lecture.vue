@@ -12,7 +12,7 @@
                                     讲学时间<i class="el-icon-arrow-down el-icon--right"></i>
                                 </span>
                                     <el-dropdown-menu slot="dropdown">
-                                        <el-dropdown-item>全部</el-dropdown-item>
+                                        <!--<el-dropdown-item>全部</el-dropdown-item>-->
                                         <el-dropdown-item @click.native="timeSearch(8)">18年-今天</el-dropdown-item>
                                         <el-dropdown-item @click.native="timeSearch(7)">17年-今天</el-dropdown-item>
                                         <el-dropdown-item @click.native="timeSearch(6)">16年-今天</el-dropdown-item>
@@ -133,13 +133,13 @@
             <el-button @click="ExcelSelection()"style="margin-top: 20px;">导出Excel</el-button>
             <div class="page">
                 <el-pagination
-                        @size-change="handleSizeChange"
-                        @current-change="handleCurrentChange"
-                        :current-page="currentPages"
-                        :page-sizes="[10, 20, 50, 100]"
-                        :page-size="pagesize"
-                        layout="total, sizes, prev, pager, next, jumper"
-                        :total="total">
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="currentPages"
+                    :page-sizes="[10, 20, 50, 100]"
+                    :page-size="pagesize"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="total">
                 </el-pagination>
             </div>
         </div>
@@ -224,7 +224,7 @@
             },
             commonget(){
                 let self = this;
-                axios.get("bynameselectlecture",{
+                axios.get("byFieldSelectLecture",{
                     params:{
                         value:self.values,
                         type: self.types,
@@ -232,7 +232,6 @@
                         total:self.pagesize,
                     }
                 }).then(function (response) {
-                    console.log(response.data.datas,'=--=-=-=-=');
                     self.total = response.data.datas.total;
                     self.commonchange(response.data.datas.data);
 
@@ -246,9 +245,7 @@
                 }
                 self.ExperspeakDate = data;
             },
-            handleSelectionChange(val) {
-                this.multipleSelection = val;
-            },
+
 
 
 
@@ -274,7 +271,7 @@
             timeSearchget(){   //时间分页
                 let self = this;
                 self.types = 'time';
-                axios.get("bynameselectlecture", {
+                axios.get("byFieldSelectLecture", {
                     params: {
                         start_time:self.start_time,
                         end_time:self.end_time,
@@ -305,12 +302,14 @@
                 self.timeSearchget();
             },
             twoTimeSearch() {
-//                self.type = 'art_time2';
                 let self = this;
                 self.types = 'time';
                 self.start_time = self.data1[0];
                 self.end_time   = self.data1[1];
                 self.timeSearchget();
+            },
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
             },
             handleSizeChange(val) {
                 this.pagesize = val;
@@ -350,20 +349,11 @@
             currentPages:function (currentPages) {
                 this.currentPages = currentPages;
                 switch(this.types) {
-                    case 'le_expert_name':
-                        this.byNameSearch();
-                        break;
                     case 'time':
                         this.timeSearchget();
                         break;
-                    case 'le_invite_unit':    //邀请单位
-                        this.byCompanySearch();
-                        break;
-                    case '':
-                        this.getArticleData();
-                        break;
                     default:
-                        this.$message.error('暂无此查询');
+                        this.commonget();
                         break;
                 }
             }

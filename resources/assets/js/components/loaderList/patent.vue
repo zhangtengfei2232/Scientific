@@ -239,14 +239,15 @@ export default {
         remove() {
             document.querySelector("#arts").click();
         },
-        handleSizeChange: function (size) {
-            this.pagesize = size;
-        },
-        handleCurrentChange: function(currentPage){
-            this.currentPage = currentPage;
-        },
         handleSelectionChange(val) {
             this.multipleSelection = val;
+        },
+        handleSizeChange(val) {
+            this.pagesize = val;
+            this.commonget(this.types,this.values);
+        },
+        handleCurrentChange(val) {
+            this.currentPages=val;
         },
         ExcelSelection() {
             var self = this;
@@ -270,6 +271,7 @@ export default {
         },
         getPatentData() {
             this.commonget(this.type);
+
 //            let self = this;
 //            axios.get("leaderselectallpatent").then(function (response) {
 //                var data = response.data;
@@ -299,7 +301,7 @@ export default {
         },
         commonget(){
             let self = this;
-            axios.get("bynameselectlecture",{
+            axios.get("byfieldselectpatent",{
                 params:{
                     value:self.values,
                     type: self.types,
@@ -315,148 +317,171 @@ export default {
         commonchange(data){
             let self = this;
             for(var i=0;i<data.length;i++){
-                data[i].le_invite_status = self.le_invite_status[data[i].le_invite_status];
-                data[i].le_expert_level = self.le_expert_level[data[i].le_expert_level];
+                data[i].pa_type = self.pa_type[data[i].pa_type];
+                data[i].pa_imple_situ = self.pa_imple_situ[data[i].pa_imple_situ];
             }
-            self.ExperspeakDate = data;
+            self.allPatent = data;
         },
-        paNameSearch() {
+        paNameSearch() { //专利名
             let self = this;
-            axios.get("bynameselectpatent",{
-                params:{
-                    first_inventor: self.first_inventor,
+            self.types = 'pa_name';
+            self.values = self.pa_name;
+            self.commonget();
+//            axios.get("bynameselectpatent",{
+//                params:{
+//                    first_inventor: self.first_inventor,
+//                }
+//            }).then(function (response) {
+//                var data = response.data;
+//                if (data.code == 0) {
+//                    self.allPatent = data.datas;
+//                    for(var j=0;j<data.datas.length;j++){
+//                        for(var i= 0;i<self.pa_type.length;i++){
+//                            if(data.datas[j].pa_type == i){
+//                                data.datas[j].pa_type = self.pa_type[i];
+//                            }
+//                        }
+//                        for(var i= 0;i<self.pa_imple_situ.length;i++){
+//                            if(data.datas[j].pa_imple_situ == i){
+//                                data.datas[j].pa_imple_situ = self.pa_imple_situ[i];
+//                            }
+//                        }
+//                    }
+//                } else {
+//                    self.$notify({
+//                        type: 'error',
+//                        message: data.message,
+//                        duration: 2000,
+//                    });
+//                }
+//            });
+        },
+         nameSearch() { //发明人
+             let self = this;
+             self.types = 'first_inventor';
+             self.values = self.first_inventor;
+             self.commonget();
+//            axios.get("byfirstinventorselectpatent",{
+//                params:{
+//                    pa_name: self.pa_name,
+//                }
+//            }).then(function (response) {
+//                var data = response.data;
+//                if (data.code == 0) {
+//                    self.allPatent = data.datas;
+//                    for(var j=0;j<data.datas.length;j++){
+//                        for(var i= 0;i<self.pa_type.length;i++){
+//                            if(data.datas[j].pa_type == i){
+//                                data.datas[j].pa_type = self.pa_type[i];
+//                            }
+//                        }
+//                        for(var i= 0;i<self.pa_imple_situ.length;i++){
+//                            if(data.datas[j].pa_imple_situ == i){
+//                                data.datas[j].pa_imple_situ = self.pa_imple_situ[i];
+//                            }
+//                        }
+//                    }
+//                } else {
+//                    self.$notify({
+//                        type: 'error',
+//                        message: data.message,
+//                        duration: 2000,
+//                    });
+//                }
+//            });
+        },
+        timeSearchget(){   //时间分页
+            let self = this;
+            self.types = 'time';
+            axios.get("byfieldselectpatent", {
+                params: {
+                    start_time:self.start_time,
+                    end_time:self.end_time,
+                    type: self.types,
+                    page: self.currentPages,
+                    total: self.pagesize,
                 }
             }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allPatent = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.pa_type.length;i++){
-                            if(data.datas[j].pa_type == i){
-                                data.datas[j].pa_type = self.pa_type[i];
-                            }
-                        }
-                        for(var i= 0;i<self.pa_imple_situ.length;i++){
-                            if(data.datas[j].pa_imple_situ == i){
-                                data.datas[j].pa_imple_situ = self.pa_imple_situ[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
-        },
-         nameSearch() {
-            let self = this;
-            axios.get("byfirstinventorselectpatent",{
-                params:{
-                    pa_name: self.pa_name,
-                }
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allPatent = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.pa_type.length;i++){
-                            if(data.datas[j].pa_type == i){
-                                data.datas[j].pa_type = self.pa_type[i];
-                            }
-                        }
-                        for(var i= 0;i<self.pa_imple_situ.length;i++){
-                            if(data.datas[j].pa_imple_situ == i){
-                                data.datas[j].pa_imple_situ = self.pa_imple_situ[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
+                self.total = response.data.datas.total;
+                self.commonchange(response.data.datas.data);
             });
         },
         timeSearch(time) {
             if(time == 8) {
-                this.newTime = '1514779200';
+                this.start_time = '1514779200000';
             }else if(time == 7) {
-                this.newTime = '1483243200';
+                this.start_time = '1483243200000';
             }else if(time == 6) {
-                this.newTime = '1451620800';
+                this.start_time = '1451620800000';
             }else if(time == 5) {
-                this.newTime = '1420084800';
+                this.start_time = '1420084800000';
             }else if(time == 4) {
-                this.newTime = '1388548800';
+                this.start_time = '1388548800000';
             }
-            var timestamp = Date.parse(new Date());
+            this.end_time = Date.parse(new Date());
             let self = this;
-            axios.get("byadmissibilitydayselectpatent",{
-                params:{
-                    start_time:this.newTime,
-                    end_time:timestamp
-                }
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allPatent = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.pa_type.length;i++){
-                            if(data.datas[j].pa_type == i){
-                                data.datas[j].pa_type = self.pa_type[i];
-                            }
-                        }
-                        for(var i= 0;i<self.pa_imple_situ.length;i++){
-                            if(data.datas[j].pa_imple_situ == i){
-                                data.datas[j].pa_imple_situ = self.pa_imple_situ[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+            self.types = 'le_time';
+            self.timeSearchget();
+
+//                var data = response.data;
+//                if (data.code == 0) {
+//                    self.allPatent = data.datas;
+//                    for(var j=0;j<data.datas.length;j++){
+//                        for(var i= 0;i<self.pa_type.length;i++){
+//                            if(data.datas[j].pa_type == i){
+//                                data.datas[j].pa_type = self.pa_type[i];
+//                            }
+//                        }
+//                        for(var i= 0;i<self.pa_imple_situ.length;i++){
+//                            if(data.datas[j].pa_imple_situ == i){
+//                                data.datas[j].pa_imple_situ = self.pa_imple_situ[i];
+//                            }
+//                        }
+//                    }
+//                } else {
+//                    self.$notify({
+//                        type: 'error',
+//                        message: data.message,
+//                        duration: 2000,
+//                    });
+//
         },
         twoTimeSearch() {
-           let self = this;
-            axios.get("byadmissibilitydayselectpatent",{
-                params:{
-                    start_time:self.data1[0],
-                    end_time:self.data1[1],
-                }
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allPatent = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.pa_type.length;i++){
-                            if(data.datas[j].pa_type == i){
-                                data.datas[j].pa_type = self.pa_type[i];
-                            }
-                        }
-                        for(var i= 0;i<self.pa_imple_situ.length;i++){
-                            if(data.datas[j].pa_imple_situ == i){
-                                data.datas[j].pa_imple_situ = self.pa_imple_situ[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+            let self = this;
+            self.types = 'time';
+            self.start_time = self.data1[0];
+            self.end_time   = self.data1[1];
+            self.timeSearchget();
+//           let self = this;
+//            axios.get("byadmissibilitydayselectpatent",{
+//                params:{
+//                    start_time:self.data1[0],
+//                    end_time:self.data1[1],
+//                }
+//            }).then(function (response) {
+//                var data = response.data;
+//                if (data.code == 0) {
+//                    self.allPatent = data.datas;
+//                    for(var j=0;j<data.datas.length;j++){
+//                        for(var i= 0;i<self.pa_type.length;i++){
+//                            if(data.datas[j].pa_type == i){
+//                                data.datas[j].pa_type = self.pa_type[i];
+//                            }
+//                        }
+//                        for(var i= 0;i<self.pa_imple_situ.length;i++){
+//                            if(data.datas[j].pa_imple_situ == i){
+//                                data.datas[j].pa_imple_situ = self.pa_imple_situ[i];
+//                            }
+//                        }
+//                    }
+//                } else {
+//                    self.$notify({
+//                        type: 'error',
+//                        message: data.message,
+//                        duration: 2000,
+//                    });
+//                }
+//            });
         },
         onSubmit(form) {
             let self = this;
@@ -493,6 +518,19 @@ export default {
     },
     mounted() {
         this.getPatentData();
-    }
+    },
+    watch:{
+        currentPages:function (currentPages) {
+            this.currentPages = currentPages;
+            switch(this.types) {
+                case 'time':
+                    this.timeSearchget();
+                    break;
+                default:
+                    this.commonget();
+                    break;
+            }
+        }
+    },
 }
 </script>
