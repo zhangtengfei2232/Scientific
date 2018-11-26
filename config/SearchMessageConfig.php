@@ -180,7 +180,6 @@ class SearchMessageConfig
         ['序号','主持人','所有参加人','项目名称','项目类别','批准单位','批准经费（万元）','当年到账经费（万元）','项目级别',
             '研究类别','学科门类','合作形式','社会经济目标','服务的国民经济行业','积分','时间','备注']
     ];
-    const PROJECT_LEVEL_DATAS = ['市厅级','省部级','国家级','其他'];
     //著作
     const OPUS_CELL_DATAS    = [
         ['序号','第一作者（或主编）','全部作者','著作名称','编著形式','出版社','出版时间','书号','总字数（千字）',
@@ -243,6 +242,7 @@ class SearchMessageConfig
     //论文
     const ARTI_PERCAL_CATE_DATAS  = ['SCI一区','SCI二区','SCI三区','SCI四区','EI','SSCI','CN','CSSCI核心库','中文核心','CSCD核心库','河南科技学院期刊'];
     //项目
+    const PROJECT_LEVEL_DATAS         = ['市厅级','省部级','国家级','其他'];
     const PRO_PRO_CATE_RESEARCH_DATAS = ['基础研究','实验与发展','应用研究'];
     const PRO_FORM_COOPERATE_DATAS    = ['与境外机构合作','与国内高校合作','与国内独立研究机构合作','与境外注册外商独资企业合作','与境内注册其他企业合作','其他'];
     //著作

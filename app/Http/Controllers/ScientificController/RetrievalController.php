@@ -247,7 +247,6 @@ class RetrievalController extends Controller
         }
         return ModelDatabase::pagingQueryDatas($datas);
     }
-
     /**
      * 成果鉴定检索
      */
@@ -283,7 +282,6 @@ class RetrievalController extends Controller
         }
         return ModelDatabase::pagingQueryDatas($datas);
     }
-
     /**
      * 举办会议检索
      */
@@ -436,8 +434,6 @@ class RetrievalController extends Controller
         }
         return ModelDatabase::pagingQueryDatas($datas);
     }
-
-
     /**
      * 查询饼图数据
      */
