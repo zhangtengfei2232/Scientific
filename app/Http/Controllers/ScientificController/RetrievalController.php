@@ -280,7 +280,7 @@ class RetrievalController extends Controller
      * 成果鉴定检索
      */
     //鉴定成果名称查询
-    public function byNameSelectAppraisal(Request $request){
+    public function byFieldSelectAppraisal(Request $request){
         ($request->has('total')) ? $datas['total'] = $request->total : $this->total;
         $datas['table_name']    = $this->appraisal_table_name;
         $datas['time_field']    = $this->appraisal_time_field;
