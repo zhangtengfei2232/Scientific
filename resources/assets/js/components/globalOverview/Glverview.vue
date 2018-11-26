@@ -330,7 +330,6 @@
 </style>
 
 <script>
-
 export default {
     name: 'eCharts',
     data () {
@@ -436,27 +435,9 @@ export default {
         },
         getArticleDate() {
             let self = this;
-            axios.get("groupbyarticaljournallevel").then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.ArticleDate = data.datas;
-                    self.drawLineArt(self.ArticleDate);
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
-        },
-        getTimeArt() {
-            let self = this;
-            axios.get("",{
-                params:{
-                    start_time: self.data1,
-                    end_time: self.data2,
-                }
+            axios.get("groupbyarticaljournallevel",{
+                start_time: self.dataArt1,
+                end_time: self.dataArt2,
             }).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
@@ -495,7 +476,10 @@ export default {
         },
         getProjectDate() {
             let self = this;
-            axios.get("groupbyprojectlevel").then(function (response) {
+            axios.get("groupbyprojectlevel",{
+                start_time: self.dataPro1,
+                end_time: self.dataPro2,
+            }).then(function (response) {
                 var data = response.data;
                 console.log(data);
                 if (data.code == 0) {
@@ -510,24 +494,27 @@ export default {
                 }
             });
         },
-        drawLinePros(datas) {
+        drawLinePros(data1,data2,data3) {
              var myProject = this.$echarts.init(document.getElementById('myProject'));
              myProject.setOption({
                 series: {
                     type: 'pie',
                     radius : '55%',
                     data: [
-                        {name: '市厅级'+'('+datas[0]+')', value: datas[0]},
-                        {name: '省部级'+'('+datas[1]+')', value: datas[1]},
-                        {name: '国家级'+'('+datas[2]+')', value: datas[2]},
-                        {name: '其他'+'('+datas[3]+')', value: datas[3]},
+                        {name: '市厅级'+'('+datas[0]+')个('+ '批准经费：' + data2[0] +')(到账经费' + data3[0] + ')' , value: datas[0]},
+                        {name: '省部级'+'('+datas[1]+')个'+ '批准经费：' + data2[1] +')(到账经费' + data3[1] + ')' , value: datas[1]},
+                        {name: '国家级'+'('+datas[2]+')个'+ '批准经费：' + data2[2] +')(到账经费' + data3[2] + ')' , value: datas[2]},
+                        {name: '其他'+'('+datas[3]+')个'+ '批准经费：' + data2[3] +')(到账经费' + data3[3] + ')' , value: datas[3]},
                     ]
                 }
             });
         },
         ProjectList() {
             let self = this;
-            axios.get("groupbyprojectcertificatelevel").then(function (response) {
+            axios.get("groupbyprojectcertificatelevel",{
+                start_time: self.dataPro1,
+                end_time: self.dataPro2,
+            }).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.ProjectDate = data.datas;
@@ -570,33 +557,12 @@ export default {
                 }
             });
         },
-        getTimePro() {
-            let self = this;
-            axios.get("",{
-                params:{
-                    start_time: self.data1,
-                    end_time: self.data2,
-                }
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.ProjectDate = data.datas;
-                    self.drawMoneyPro(self.ProjectDate);
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
-        },
-        moneyPro() {
-
-        },
         ProType() {
             let self = this;
-            axios.get("groupbyprojetcateresearch").then(function (response) {
+            axios.get("groupbyprojetcateresearch",{
+                start_time: self.dataPro1,
+                end_time: self.dataPro2,
+            }).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.ProjectDate = data.datas;
@@ -624,22 +590,6 @@ export default {
                 }
             });
         },
-        ApprovalMoney(){    //批准经费
-            let self = this;
-            axios.get("").then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.ProjectDate = data.datas;
-                    self.drawLineAgreenMoney(self.ProjectDate);
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
-        },
         drawLineAgreenMoney(datas){
             var myProject = this.$echarts.init(document.getElementById('myProject'));
             myProject.setOption({
@@ -654,12 +604,12 @@ export default {
                 }
             });
         },
-        GetMoney(){     //到账经费
-
-        },
         getOpusDate() {
             let self = this;
-            axios.get("gropubyopuscategory").then(function (response) {
+            axios.get("gropubyopuscategory",{
+                start_time: self.dataOpu1,
+                end_time: self.dataOpu2,
+            }).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.OpusDate = data.datas;
@@ -689,30 +639,12 @@ export default {
                 }
             });
         },
-        getTimeOpus() {
-            let self = this;
-            axios.get("",{
-                params:{
-                    start_time: self.data1,
-                    end_time: self.data2,
-                }
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.OpusDate = data.datas;
-                    self.drawLineOpu(self.OpusDate);
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
-        },
         OpusType() {
              let self = this;
-            axios.get("groupbyopusformwrite").then(function (response) {
+            axios.get("groupbyopusformwrite",{
+                start_time: self.dataOpu1,
+                end_time: self.dataOpu2,
+            }).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.OpusDate = data.datas;
@@ -744,7 +676,10 @@ export default {
         },
         getAwardDate() {
             let self = this;
-            axios.get("groupbywinlevel").then(function (response) {
+            axios.get("groupbywinlevel",{
+                start_time: self.dataAwa1,
+                end_time: self.dataAwa2,
+            }).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.AwardDate = data.datas;
@@ -774,12 +709,12 @@ export default {
                 }
             });
         },
-        getTimeAward() {
-
-        },
         AwardType() {
             let self = this;
-            axios.get("groupbyformachievement").then(function (response) {
+            axios.get("groupbyformachievement",{
+                start_time: self.dataAwa1,
+                end_time: self.dataAwa2,
+            }).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.AwardDate = data.datas;
@@ -816,7 +751,10 @@ export default {
         },
         getPatentDate() {
             let self = this;
-            axios.get("groupbypatenttype").then(function (response) {
+            axios.get("groupbypatenttype",{
+                start_time: self.dataPat1,
+                end_time: self.dataPat2,
+            }).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.PatentDate = data.datas;
