@@ -52,7 +52,7 @@
                     <el-input type="textarea" v-model="form.pa_remarks"></el-input>
                 </el-form-item>
                 <div class="demo" v-show="type1">
-                    <img :src="filelist " alt="无法加载" style="width:100px">
+                    <el-button type="warning" size="mini" @click="watchPDF()">查看</el-button>
                 </div>
                 <el-form-item label="专利图片">
                     <el-upload
@@ -100,7 +100,6 @@ export default {
             type1:false,
             pa_road:'',
             PatetSelfData: {},
-            filelist:'',
             dataForm: new FormData(),
             form: {
                 pa_id:'',
@@ -120,6 +119,10 @@ export default {
     },
 
     methods: {
+        watchPDF() {
+            let urls =  `showfile?disk=patent&subjection=${this.art_road}`;
+            window.open(urls, '_blank');
+        },
         filePatpic(file) {
             this.dataForm.append('pa_road', file);
             return false;
@@ -136,7 +139,7 @@ export default {
                         self.form.pa_imple_situ = String(data.datas.pa_imple_situ);
                         if(data.datas.pa_road !== ''){
                             self.type1=true;
-                            self.filelist= 'showfile?disk=joinmeet&subjection=' + data.datas.pa_road;
+                            self.pa_road= data.datas.pa_road;
                         }
                     } else {
                         self.$notify({
@@ -178,9 +181,6 @@ export default {
                 return
             }else if(form.pa_integral == '') {
                 this.$message.error('积分不能为空');
-                return
-            }else if(form.pa_remarks == '') {
-                this.$message.error('备注不能为空');
                 return
             }
             this.$refs['form'].validate((valid) => {

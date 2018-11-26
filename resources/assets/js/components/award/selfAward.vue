@@ -72,6 +72,9 @@
                 <div class="demo" v-show="type1">
                     <img :src="filelist.url" alt="无法加载" style="width:100px">
                 </div>
+                <el-form-item v-show="pdfType">
+                    <el-button type="warning" size="mini" @click="watchPDF()">查看SCI</el-button>
+                </el-form-item>
                 <el-form-item label="证书图片">
                     <el-upload
                         class="upload-demo"
@@ -134,6 +137,10 @@ export default {
         }
     },
     methods: {
+        watchPDF() {
+            let urls =  `showfile?disk=award&subjection=${this.aw_road}`;
+            window.open(urls, '_blank');
+        },
         getAwardSelfData() {
                 let self = this;
                 let aw_id = self.$route.params.aw_id;

@@ -46,47 +46,25 @@
                 <el-form-item label="备注">
                     <el-input type="textarea" v-model="form.ap_remarks"></el-input>
                 </el-form-item>
+                <el-form-item v-show="pdfType">
+                    <el-button type="warning" size="mini" @click="watchPDF()">查看</el-button>
+                </el-form-item>
+                <el-form-item label="成果封面,成果鉴定证书PDF">
+                    <el-upload
+                        class="upload-demo"
+                        action="#"
+                        multiple
+                        ref="ap_road"
+                        :before-upload="fileProfil"
+                        :auto-upload="false"
+                        :limit="1">
+                        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传</el-button>
+                    </el-upload>
+                </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="onSubmit(form)">立即修改</el-button>
                     <el-button>取消</el-button>
-                </el-form-item>
-                <div class="demo" v-show="type1">
-                    <img :src="filelist.url" alt="无法加载" style="width:100px">
-                </div>
-                <el-form-item label="成果封面">
-                    <el-upload
-                        class="upload-demo"
-                        ref="ap_cover_road"
-                        action="#"
-                        :before-upload="fileProfil"
-                        :on-preview="handlePreview"
-                        :on-remove="handleRemove"
-                        :auto-upload="false"
-                        :limit="1"
-                        list-type="picture">
-                        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-                        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传</el-button>
-                        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-                    </el-upload>
-                </el-form-item>
-                <div class="demo" v-show="type2">
-                   <img :src="filelists.url" alt="无法加载" style="width:100px">
-                </div>
-                <el-form-item label="成果鉴定证书图片">
-                    <el-upload
-                        class="upload-demo"
-                        ref="ap_road"
-                        action="#"
-                        :before-upload="fileProfils"
-                        :on-preview="handlePreview"
-                        :on-remove="handleRemove"
-                        :auto-upload="false"
-                        :limit="1"
-                        list-type="picture">
-                        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-                        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUploads">上传</el-button>
-                        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-                    </el-upload>
                 </el-form-item>
             </el-form>
         </div>
@@ -111,16 +89,10 @@
 export default {
     data() {
         return {
-            type1:false,
-            type2:false,
+            pdfType:false,
             AppraisalSelfData: {},
             dataForm: new FormData(),
-            dataFile: new FormData(),
-            filelist: [{url:''}],
-            filelists: [{url:''}],
-            ap_cover_road:'',
             ap_road:'',
-            ap_id: '',
             form: {
                 ap_first_author: '',
                 ap_all_author: '',
@@ -137,6 +109,10 @@ export default {
     },
 
     methods: {
+        watchPDF() {
+            let urls =  `showfile?disk=appraisal&subjection=${this.ap_road}`;
+            window.open(urls, '_blank');
+        },
         getAppraisalSelfData() {
             let self = this;
             let ap_id = self.$route.params.ap_id;
@@ -145,15 +121,10 @@ export default {
                 if (data.code == 0) {
                     self.AppraisalSelfData = data.datas;
                     self.form = data.datas;
-                    self.ap_id = data.datas.ap_id;
                     self.form.ap_level = String(data.datas.ap_level);
-                    if(data.datas.ap_cover_road !== ''){
-                        self.type1=true;
-                        self.filelist.url = 'showfile?disk=appraisal&subjection=' + data.datas.ap_cover_road;
-                    }
                     if(data.datas.ap_road !== ''){
-                        self.type2=true;
-                        self.filelists.url = 'showfile?disk=appraisal&subjection=' + data.datas.ap_road;
+                        self.pdfType=true;
+                        self.ap_road = data.datas.ap_road;
                     }
                 } else {
                     self.$notify({
@@ -164,66 +135,16 @@ export default {
                 }
             });
         },
-        submitUpload() {
-            this.$refs.ap_cover_road.submit();
-        },
         submitUploads() {
             this.$refs.ap_road.submit();
         },
-        handleRemove(file, fileList) {
-            console.log(file, fileList);
-        },
-        handlePreview(file) {
-            console.log(file);
-        },
         fileProfil(file){
             if(file !== ''){
-                this.dataFile.append('ap_cover_road', file);
-                let id = this.ap_id;
-                console.log(this.ap_id);
-                this.dataFile.append('ap_id', id);
-                this.sendfile(this.dataFile);
+                this.dataForm.append('ap_road', file);
             }else{
                 this.$message.error('请先添加文件');
                 return false
             }
-        },
-        fileProfils(files){
-            if(files !== ''){
-                this.dataFile.append('ap_road', files);
-                let id = this.ap_id;
-                this.dataFile.append('ap_id', id);
-                this.sendfile(this.dataFile);
-            }else{
-                this.$message.error('请先添加文件');
-                return false
-            }
-        },
-        sendfile(dataFile) {
-            this.addBookFile(this.dataFile).then(res => {
-                var data = res.data;
-                if (data.code == 0) {
-                    this.$message({
-                        message: '修改成功',
-                        type: 'success'
-                    });
-                } else {
-                    this.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            })
-        },
-        addBookFile(data){
-             return axios({
-                method: 'post',
-                url: 'updateappraisalimage',
-                headers: {'Content-Type': 'multipart/form-data'},
-                timeout: 20000,
-                data: data,
-            });
         },
         onSubmit(form) {
             let vue = this;
@@ -279,6 +200,7 @@ export default {
                                 });
                             }
                         })
+                        this.$refs.ap_road.submit();
                     } else {
                         console.log('error submit!!')
                         return false

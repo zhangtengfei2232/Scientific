@@ -73,7 +73,7 @@
                     <el-upload
                         class="upload-demo"
                             drag
-                            action=""
+                            action="#"
                             multiple
                             ref="aw_road"
                             :before-upload="filePic"
