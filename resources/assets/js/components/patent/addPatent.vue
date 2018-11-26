@@ -60,8 +60,7 @@
                         ref="pa_road"
                         :limit="1"
                         :before-upload="filePatpic"
-                        :auto-upload="false"
-                        list-type="picture">
+                        :auto-upload="false">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
@@ -110,12 +109,8 @@
     },
     methods: {
         filePatpic(file) {
-            if(file == '') {
-                return
-            }else{
                 this.dataForm.append('pa_road', file);
                 return false;
-            }
         },
         onSubmit(form) {
             if(form.patent_person == '') {
@@ -147,9 +142,6 @@
                 return
             }else if(form.pa_integral == '') {
                 this.$message.error('积分不能为空');
-                return
-            }else if(form.pa_remarks == '') {
-                this.$message.error('备注不能为空');
                 return
             }
             this.$refs['form'].validate((valid) => {

@@ -53,7 +53,7 @@ class ModelDatabase  extends  Model
            }
         }
         $data['file_road'] = $file_road;
-        $data['id_datas']  = $id_datas ;
+        $data['id_datas']  = $id_datas;
         if(empty($id_field)){
             $data['image_id_datas'] = $image_id_datas;
         }
@@ -66,7 +66,6 @@ class ModelDatabase  extends  Model
     }
     //根据字段组合查询数据
     public static function combinationSelectDatas($condition_datas,$second_field = '',$second_datas = [],$third_field = '',$third_datas = []){
-//         $table_name  = $condition_datas['table_name'];
          $first_field = $condition_datas['first_field'];
          $first_datas = $condition_datas['first_datas'];
          $time_field  = $condition_datas['time_field'];
@@ -87,8 +86,7 @@ class ModelDatabase  extends  Model
          return responseTojson(0,'查询成功','',$result);
     }
     /**查询某个表的所有数据
-     * @param $table_name
-     * @param $time_field
+     * @param $datas
      * @return \Illuminate\Http\JsonResponse
      */
     public static function selectAllDatas($datas){
@@ -128,7 +126,10 @@ class ModelDatabase  extends  Model
         }
         return responseTojson(0,'查询成功','',$result);
     }
-    //分页查询
+    /**分页查询
+     * @param $datas
+     * @return \Illuminate\Http\JsonResponse
+     */
     public static function pagingQueryDatas($datas){
         $result = DB::table($datas['table_name'])
                   ->where($datas['field'],'like',"%".$datas['value']."%")
@@ -165,16 +166,17 @@ class ModelDatabase  extends  Model
         $datas['total'] = $result->total;
         $result = $result->data;
         foreach ($result as $datas){
-            $datas->borth                 = date('Y-m-d',$datas->borth);
-            $datas->admin_tenure_time     = date('Y-m-d',$datas->admin_tenure_time);
-            $datas->review_time           = date('Y-m-d',$datas->review_time);
-            $datas->appointment_time      = date('Y-m-d',$datas->appointment_time);
-            $datas->working_hours         = date('Y-m-d',$datas->working_hours);
-            $datas->first_graduation_time = date('Y-m-d',$datas->first_graduation_time);
-            $datas->most_graduation_time  = date('Y-m-d',$datas->most_graduation_time);
-            $datas->master_time           = date('Y-m-d',$datas->master_time);
+            $datas->borth                 = date('Y-m-d',$datas->borth/1000);
+            $datas->admin_tenure_time     = date('Y-m-d',$datas->admin_tenure_time/1000);
+            $datas->review_time           = date('Y-m-d',$datas->review_time/1000);
+            $datas->appointment_time      = date('Y-m-d',$datas->appointment_time/1000);
+            $datas->working_hours         = date('Y-m-d',$datas->working_hours/1000);
+            $datas->first_graduation_time = date('Y-m-d',$datas->first_graduation_time/1000);
+            $datas->most_graduation_time  = date('Y-m-d',$datas->most_graduation_time/1000);
+            $datas->master_time           = date('Y-m-d',$datas->master_time/1000);
         }
-        return responseTojson(0,'查询成功','',$result);
+        $datas['teacher_datas'] = $result;
+        return responseTojson(0,'查询成功','',$datas);
     }
     /**根据字段进行分组======>按字段 '升序' 分组返回个数
      * 饼图：师资（学历，职称，学缘），论文（期刊级别），
@@ -197,6 +199,7 @@ class ModelDatabase  extends  Model
                     $count_approval_funds_money = $count_approval_funds_money->whereBetween($time_field,[$time_datas['start_time'],$time_datas['end_time']]);
                     $count_account_outlay_money = $count_account_outlay_money->whereBetween($time_field,[$time_datas['start_time'],$time_datas['end_time']]);
                 }
+                $count_num = $count_num->count();
                 $approval_funds_money_datas[$i] = $count_approval_funds_money->sum('approval_funds');
                 $account_outlay_money_datas[$i] = $count_account_outlay_money->sum('account_outlay');
                 $count_datas[$i] = $count_num;

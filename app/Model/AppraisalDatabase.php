@@ -21,6 +21,7 @@ class AppraisalDatabase extends ModelDatabase
                        'ap_time'         => $datas['ap_time'],
                        'ap_level'        => $datas['ap_level'],
                        'ap_integral'     => $datas['ap_integral'],
+                       'ap_road'         => $datas['ap_road'],
                        'ap_remarks'      => $datas['ap_remarks']
                    ]);
         if(empty($ap_road)){
@@ -67,6 +68,7 @@ class AppraisalDatabase extends ModelDatabase
                       'ap_time'         => $datas['ap_time'],
                       'ap_level'        => $datas['ap_level'],
                       'ap_integral'     => $datas['ap_integral'],
+                      'ap_road'         => $datas['ap_road'],
                       'ap_remarks'      => $datas['ap_remarks']
                   ]);
         if($reset_image_status){
@@ -74,16 +76,5 @@ class AppraisalDatabase extends ModelDatabase
         }
         return ($response != 1) ? responseTojson(1,'修改鉴定成果信息失败')
             :responseTojson(0,'修改鉴定成果信息成功');
-    }
-    //修改成功鉴定证书和封面图片
-    public static function updateAppraisalImageDatas($new_image_road,$update_image_status,$ap_id){
-        if($update_image_status == 1){
-            $response = DB::table('appraisal')->where('ap_id',$ap_id)
-                ->update(['ap_road' => $new_image_road]);
-        }else{
-            $response = DB::table('appraisal')->where('ap_id',$ap_id)
-                ->update(['ap_cover_road' => $new_image_road]);
-        }
-        return ($response != 1) ? false : true;
     }
 }
