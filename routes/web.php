@@ -269,6 +269,7 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
      */
     Route::get('groupbyprojectcertificatelevel','RetrievalController@groupByProjectCertificateLevel');//按照项目学科门类分组查询
     Route::get('groupbyprojetcateresearch','RetrievalController@groupByProjetCateResearch');          //按照项目研究类别分组查询
+    Route::get('groupbyprojectlevel','RetrievalController@groupByProjectLevel');                      //项目级别查询
     /**
      * 著作数据路由
      */
