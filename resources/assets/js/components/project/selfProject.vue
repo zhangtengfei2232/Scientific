@@ -87,9 +87,9 @@
                     </el-col>
                 </el-form-item>
                 <div class="demo" v-show="type1">
-                    <img :src="filelists" alt="无法加载" style="width:100px">
+                    <el-button type="warning" size="mini" @click="watchPDF()">查看</el-button>
                 </div>
-                <el-form-item label="项目合同书封面图片">
+                <el-form-item label="项目合同书封面">
                     <el-upload
                         class="upload-demo"
                             :auto-upload="false"
@@ -98,8 +98,7 @@
                             ref="pro_road"
                             :before-upload="fileProfil"
                             multiple
-                            :limit="1"
-                            list-type="picture">
+                            :limit="1">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
@@ -157,6 +156,10 @@
         }
     },
     methods: {
+        watchPDF() {
+            let urls =  `showfile?disk=project&subjection=${this.pro_road}`;
+            window.open(urls, '_blank');
+        },
         fileProfil(file){
             this.dataForm.append('pro_road', file);
             return false;

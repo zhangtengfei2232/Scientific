@@ -46,41 +46,22 @@
                 <el-form-item label="备注">
                     <el-input type="textarea" v-model="form.ap_remarks"></el-input>
                 </el-form-item>
+                <el-form-item label="成果封面,成果鉴定证书PDF">
+                    <el-upload
+                        class="upload-demo"
+                        action="#"
+                        multiple
+                        ref="ap_road"
+                        :before-upload="fileProfil"
+                        :auto-upload="false"
+                        :limit="1">
+                        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传</el-button>
+                    </el-upload>
+                </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="onSubmit(form)">添加</el-button>
                     <el-button>取消</el-button>
-                </el-form-item>
-                <el-form-item label="成果封面">
-                    <el-upload
-                        class="upload-demo"
-                        ref="ap_cover_road"
-                        action="#"
-                        :before-upload="fileProfil"
-                        :on-preview="handlePreview"
-                        :on-remove="handleRemove"
-                        :auto-upload="false"
-                        :limit="1"
-                        list-type="picture">
-                        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-                        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传</el-button>
-                        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-                    </el-upload>
-                </el-form-item>
-                <el-form-item label="成果鉴定证书图片">
-                    <el-upload
-                        class="upload-demo"
-                        ref="ap_road"
-                        action="#"
-                        :before-upload="fileProfils"
-                        :on-preview="handlePreview"
-                        :on-remove="handleRemove"
-                        :auto-upload="false"
-                        :limit="1"
-                        list-type="picture">
-                        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-                        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUploads">上传</el-button>
-                        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-                    </el-upload>
                 </el-form-item>
             </el-form>
         </div>
@@ -102,13 +83,8 @@
   export default {
     data() {
       return {
-            ap_cover_road: '',
             ap_road: '',
             dataForm: new FormData(),
-            dataFile: new FormData(),
-            dataFiles: new FormData(),
-            Bcode:false,
-            ap_id:'',
             form: {
                 ap_first_author: '',
                 ap_all_author: '',
@@ -124,67 +100,11 @@
         }
     },
     methods: {
-        submitUpload() {
-            this.$refs.ap_cover_road.submit();
-        },
         submitUploads() {
             this.$refs.ap_road.submit();
         },
-        handleRemove(file, fileList) {
-            console.log(file, fileList);
-        },
-        handlePreview(file) {
-            console.log(file);
-        },
         fileProfil(file){
-            if(this.Bcode == true){
-                this.dataFile.append('ap_cover_road', file);
-                let id = this.ap_id;
-                this.dataFile.append('ap_id', id);
-                this.dataFile.append('is_add_appraisal',this.Bcode);
-                this.sendfile(this.dataFile);
-            }else{
-                this.$message.error('请先添加数据信息');
-                return false;
-            }
-        },
-        fileProfils(files){
-            if(this.Bcode == true){
-                this.dataFiles.append('ap_road', files);
-                let id = this.ap_id;
-                this.dataFiles.append('ap_id', id);
-                this.dataFiles.append('is_add_appraisal',this.Bcode);
-                this.sendfile(this.dataFiles);
-            }else{
-                this.$message.error('请先添加数据信息');
-                return false;
-            }
-        },
-        sendfile(dataFile) {
-            this.addBookFile(dataFile).then(res => {
-                var data = res.data;
-                if (data.code == 0) {
-                    this.$message({
-                        message: '添加成功',
-                        type: 'success'
-                    });
-                } else {
-                    this.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            })
-        },
-        addBookFile(data){
-             return axios({
-                method: 'post',
-                url: 'addappraisalimage',
-                headers: {'Content-Type': 'multipart/form-data'},
-                timeout: 20000,
-                data: data,
-            });
+            this.dataForm.append('ap_road', file);
         },
         onSubmit(form) {
             let vue = this;
@@ -227,8 +147,6 @@
                     vue.addAppraisalData(vue.dataForm).then(res => {
                         var data = res.data;
                         if (data.code == 0) {
-                            this.Bcode = true;
-                            vue.ap_id = res.data.datas;
                             vue.$message({
                                 message: '添加成功',
                                 type: 'success'

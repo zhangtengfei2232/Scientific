@@ -148,9 +148,6 @@
             }else if(form.pa_integral == '') {
                 this.$message.error('积分不能为空');
                 return
-            }else if(form.pa_remarks == '') {
-                this.$message.error('备注不能为空');
-                return
             }
             this.$refs['form'].validate((valid) => {
                 let vue = this;

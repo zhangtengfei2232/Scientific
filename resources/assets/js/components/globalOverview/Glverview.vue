@@ -145,6 +145,7 @@
     .datas{
         width:85%;
         float: left;
+        margin:0 5%;
     }
     .el-row {
         margin-bottom: 20px;
@@ -321,6 +322,27 @@ export default {
                 }
             });
         },
+        getTimeArt() {
+            let self = this;
+            axios.get("",{
+                params:{
+                    start_time: self.data1,
+                    end_time: self.data2,
+                }
+            }).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.ArticleDate = data.datas;
+                    self.drawLineArt(self.ArticleDate);
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,
+                    });
+                }
+            });
+        },
         drawLineArt(datas) {
             var myArticle = this.$echarts.init(document.getElementById('myArticle'));
             myArticle.setOption({
@@ -388,6 +410,30 @@ export default {
                 }
             });
         },
+        getTimePro() {
+            let self = this;
+            axios.get("",{
+                params:{
+                    start_time: self.data1,
+                    end_time: self.data2,
+                }
+            }).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.ProjectDate = data.datas;
+                    self.drawMoneyPro(self.ProjectDate);
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,
+                    });
+                }
+            });
+        },
+        moneyPro() {
+
+        },
         ProType() {
             let self = this;
             axios.get("groupbyprojetcateresearch").then(function (response) {
@@ -447,6 +493,27 @@ export default {
                         {name: '编著'+'('+datas[3]+')', value: datas[3]},
                         {name: '其他'+'('+datas[4]+')', value: datas[4]},
                     ]
+                }
+            });
+        },
+        getTimeOpus() {
+            let self = this;
+            axios.get("",{
+                params:{
+                    start_time: self.data1,
+                    end_time: self.data2,
+                }
+            }).then(function (response) {
+                var data = response.data;
+                if (data.code == 0) {
+                    self.OpusDate = data.datas;
+                    self.drawLineOpu(self.OpusDate);
+                } else {
+                    self.$notify({
+                        type: 'error',
+                        message: data.message,
+                        duration: 2000,
+                    });
                 }
             });
         },
@@ -513,6 +580,9 @@ export default {
                     ]
                 }
             });
+        },
+        getTimeAward() {
+
         },
         AwardType() {
             let self = this;

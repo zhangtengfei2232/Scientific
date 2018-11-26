@@ -87,39 +87,22 @@
                 <el-form-item label="备注">
                     <el-input type="textarea" v-model="form.op_remarks"></el-input>
                 </el-form-item>
+                <el-form-item label="著作封面,版权页PDF">
+                    <el-upload
+                        class="upload-demo"
+                        action="#"
+                        multiple
+                        ref="op_road"
+                        :before-upload="fileProfil"
+                        :auto-upload="false"
+                        :limit="1">
+                        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传</el-button>
+                    </el-upload>
+                </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="onSubmit(form)">立即创建</el-button>
                     <el-button>取消</el-button>
-                </el-form-item>
-                <el-form-item label="著作封面">
-                    <el-upload
-                        ref="op_cover_road"
-                        action="#"
-                        :before-upload="fileProfil"
-                        :on-preview="handlePreview"
-                        :on-remove="handleRemove"
-                        :auto-upload="false"
-                        :limit="1"
-                        list-type="picture">
-                        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-                        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传</el-button>
-                        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-                    </el-upload>
-                </el-form-item>
-                <el-form-item label="版权页图片">
-                    <el-upload
-                        ref="op_coright_road"
-                        action="#"
-                        :before-upload="fileProfils"
-                        :on-preview="handlePreview"
-                        :on-remove="handleRemove"
-                        :auto-upload="false"
-                        :limit="1"
-                        list-type="picture">
-                        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-                        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUploads">上传</el-button>
-                        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-                    </el-upload>
                 </el-form-item>
             </el-form>
         </div>
@@ -140,11 +123,8 @@
   export default {
     data() {
       return {
-            op_cover_road: "",
-            op_coright_road: "",
+            op_road: "",
             dataForm: new FormData(),
-            dataFile: new FormData(),
-            dataFiles: new FormData(),
             Bcode:false,
             form: {
                 op_id:'',
@@ -167,67 +147,11 @@
     },
     methods: {
         submitUpload() {
-            this.$refs.op_cover_road.submit();
-        },
-        submitUploads() {
-            this.$refs.op_coright_road.submit();
-        },
-        handleRemove(file, fileList) {
-            console.log(file, fileList);
-        },
-        handlePreview(file) {
-            console.log(file);
+            this.$refs.op_road.submit();
         },
         fileProfil(file){
-            if(this.Bcode == true){
-                this.dataFile.append('op_cover_road', file,);
-                let id = this.form.op_id;
-                this.dataFile.append('op_id', id);
-                this.dataFile.append('is_add_opus',this.Bcode);
-                this.sendfile(this.dataFile);
-            }else{
-                this.$message.error('请先添加数据信息');
-                return false
-            }
-        },
-        fileProfils(files){
-            if(this.Bcode == true){
-                this.dataFiles.append('op_coright_road', files);
-                let id = this.form.op_id;
-                this.dataFiles.append('op_id', id);
-                this.dataFiles.append('is_add_opus',this.Bcode);
-                this.sendfile(this.dataFiles);
-            }else{
-                this.$message.error('请先添加数据信息');
-                return false
-            }
-        },
-        sendfile(dataFile) {
-            this.addBookFile(dataFile).then(res => {
-                let vue = this;
-                var data = res.data;
-                if (data.code == 0) {
-                    vue.$message({
-                        message: '添加成功',
-                        type: 'success'
-                    });
-                } else {
-                    vue.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            })
-        },
-        addBookFile(data){
-             return axios({
-                method: 'post',
-                url: 'addopusimage',
-                headers: {'Content-Type': 'multipart/form-data'},
-                timeout: 20000,
-                data: data,
-            });
+            this.dataForm.append('op_road', file);
+            return false;
         },
         onSubmit(form) {
             if(form.op_first_author == '') {
@@ -296,6 +220,7 @@
                             });
                         }
                     })
+                    this.$refs.op_road.submit();
                 } else {
                     console.log('error submit!!')
                     return false
