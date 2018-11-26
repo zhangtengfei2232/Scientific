@@ -93,14 +93,15 @@
                 <el-form-item label="著作封面,版权页PDF">
                     <el-upload
                         class="upload-demo"
-                        action="#"
-                        multiple
-                        ref="op_road"
-                        :before-upload="fileProfil"
-                        :auto-upload="false"
-                        :limit="1">
-                        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-                        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传</el-button>
+                            :auto-upload="false"
+                            drag
+                            action="#"
+                            ref="op_road"
+                            :before-upload="fileProfil"
+                            multiple
+                            :limit="1">
+                        <i class="el-icon-upload"></i>
+                        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
                 </el-form-item>
                 <el-form-item>
@@ -168,6 +169,7 @@ export default {
                     self.form = data.datas;
                     self.form.op_form_write = String(data.datas.op_form_write);
                     self.form.op_cate_work = String(data.datas.op_cate_work);
+                    self.form.op_cate_research = String(data.datas.op_cate_research);
                     self.form.op_sub_category = String(data.datas.op_sub_category);
                     if(data.datas.op_road !== ''){
                         self.type1=true;
@@ -182,12 +184,9 @@ export default {
                 }
             });
         },
-        submitUpload() {
-            this.$refs.op_road.submit();
-        },
         fileProfil(file){
             if(file !== ''){
-                this.dataForm.append('op_cover_road', file);
+                this.dataForm.append('op_road', file);
             }else{
                 this.$message.error('请先添加文件');
                 return false
@@ -233,9 +232,6 @@ export default {
             }else if(form.op_sub_category == '') {
                 this.$message.error('学科门类不能为空');
                 return
-            }else if(form.op_remarks == '') {
-                this.$message.error('备注不能为空');
-                return
             }
             this.$refs['form'].validate((valid) => {
                 let vue = this;
@@ -250,6 +246,7 @@ export default {
                                 message: '修改成功',
                                 type: 'success'
                             });
+                            vue.$router.push({path: '/book'});
                         } else {
                             vue.$notify({
                                 type: 'error',

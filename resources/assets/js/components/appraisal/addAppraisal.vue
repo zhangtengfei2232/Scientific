@@ -49,14 +49,15 @@
                 <el-form-item label="成果封面,成果鉴定证书PDF">
                     <el-upload
                         class="upload-demo"
-                        action="#"
-                        multiple
-                        ref="ap_road"
-                        :before-upload="fileProfil"
-                        :auto-upload="false"
-                        :limit="1">
-                        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-                        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传</el-button>
+                            :auto-upload="false"
+                            drag
+                            action="#"
+                            ref="ap_road"
+                            :before-upload="fileProfil"
+                            multiple
+                            :limit="1">
+                        <i class="el-icon-upload"></i>
+                        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
                 </el-form-item>
                 <el-form-item>

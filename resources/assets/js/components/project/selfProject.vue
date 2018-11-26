@@ -23,6 +23,14 @@
                 <el-form-item label="当年到账经费">
                     <el-input v-model="form.account_outlay" maxlength="100"></el-input>
                 </el-form-item>
+                <el-form-item label="项目级别">
+                    <el-select v-model="form.pro_level" placeholder="请选择类别">
+                        <el-option label="市厅级" value="0"></el-option>
+                        <el-option label="省部级" value="1"></el-option>
+                        <el-option label="国际级" value="2"></el-option>
+                        <el-option label="其他" value="3"></el-option>
+                    </el-select>
+                </el-form-item>
                 <el-form-item label="研究类别">
                     <el-select v-model="form.pro_cate_research" placeholder="请选择类别">
                         <el-option label="基础研究" value="0"></el-option>
@@ -136,6 +144,7 @@
             pro_road:'',
             dataForm: new FormData(),
             form: {
+                pro_level:'',
                 pro_host: '',
                 pro_all_author: '',
                 entry_name: '',
@@ -176,9 +185,8 @@
                     self.form.pro_sub_category = String(data.datas.pro_sub_category);
                     self.form.form_cooperate = String(data.datas.form_cooperate);
                     if(data.datas.pro_road !== ''){
-                        let road = 'showfile?disk=project&subjection=' + data.datas.pro_road;
                         self.type1=true;
-                        self.filelists = road;
+                        self.pro_road = data.datas.pro_road;
                     }
                 }else {
                     self.$notify({
@@ -198,6 +206,9 @@
                 return
             }else if(form.entry_name == '') {
                 this.$message.error('项目名称不能为空');
+                return
+            }else if(form.pro_level == ''){
+                this.$message.error('项目级别不能为空');
                 return
             }else if(form.project_category == '') {
                 this.$message.error('项目类别不能为空');
@@ -228,9 +239,6 @@
                 return
             }else if(form.pro_integral == '') {
                 this.$message.error('积分不能为空');
-                return
-            }else if(form.pro_remarks == '') {
-                this.$message.error('备注不能为空');
                 return
             }else if(form.project_year == '') {
                 this.$message.error('项目年份不能为空');

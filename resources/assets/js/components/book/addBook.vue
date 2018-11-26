@@ -90,14 +90,15 @@
                 <el-form-item label="著作封面,版权页PDF">
                     <el-upload
                         class="upload-demo"
-                        action="#"
-                        multiple
-                        ref="op_road"
-                        :before-upload="fileProfil"
-                        :auto-upload="false"
-                        :limit="1">
-                        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-                        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传</el-button>
+                            :auto-upload="false"
+                            drag
+                            action="#"
+                            ref="op_road"
+                            :before-upload="fileProfil"
+                            multiple
+                            :limit="1">
+                        <i class="el-icon-upload"></i>
+                        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     </el-upload>
                 </el-form-item>
                 <el-form-item>
@@ -125,7 +126,6 @@
       return {
             op_road: "",
             dataForm: new FormData(),
-            Bcode:false,
             form: {
                 op_id:'',
                 op_first_author: '',
@@ -146,9 +146,6 @@
         }
     },
     methods: {
-        submitUpload() {
-            this.$refs.op_road.submit();
-        },
         fileProfil(file){
             this.dataForm.append('op_road', file);
             return false;
@@ -193,9 +190,6 @@
             }else if(form.op_sub_category == '') {
                 this.$message.error('学科门类不能为空');
                 return
-            }else if(form.op_remarks == '') {
-                this.$message.error('备注不能为空');
-                return
             }
             this.$refs['form'].validate((valid) => {
                 let vue = this;
@@ -212,6 +206,7 @@
                                 message: '添加成功',
                                 type: 'success'
                             });
+                        vue.$router.push({path: '/book'});
                         } else {
                             vue.$notify({
                                 type: 'error',

@@ -120,7 +120,7 @@ export default {
 
     methods: {
         watchPDF() {
-            let urls =  `showfile?disk=patent&subjection=${this.art_road}`;
+            let urls =  `showfile?disk=patent&subjection=${this.pa_road}`;
             window.open(urls, '_blank');
         },
         filePatpic(file) {
