@@ -1,5 +1,6 @@
 <?php
 namespace App\Model;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 class ModelDatabase  extends  Model
@@ -52,7 +53,7 @@ class ModelDatabase  extends  Model
            }
         }
         $data['file_road'] = $file_road;
-        $data['id_datas'] = $id_datas ;
+        $data['id_datas']  = $id_datas ;
         if(empty($id_field)){
             $data['image_id_datas'] = $image_id_datas;
         }
@@ -85,21 +86,6 @@ class ModelDatabase  extends  Model
          }
          return responseTojson(0,'查询成功','',$result);
     }
-    //查老师所有信息
-    public static function selectAllteacherDatas(){
-        $result = DB::table('teacher')->get();
-        foreach ($result as $datas){
-            $datas->borth                 = date('Y-m-d',$datas->borth/1000);
-            $datas->admin_tenure_time     = date('Y-m-d',$datas->admin_tenure_time/1000);
-            $datas->review_time           = date('Y-m-d',$datas->review_time/1000);
-            $datas->appointment_time      = date('Y-m-d',$datas->appointment_time/1000);
-            $datas->working_hours         = date('Y-m-d',$datas->working_hours/1000);
-            $datas->first_graduation_time = date('Y-m-d',$datas->first_graduation_time/1000);
-            $datas->most_graduation_time  = date('Y-m-d',$datas->most_graduation_time/1000);
-            $datas->master_time           = date('Y-m-d',$datas->master_time/1000);
-        }
-        return responseTojson(0,'查询成功','',$result);
-    }
     /**查询某个表的所有数据
      * @param $table_name
      * @param $time_field
@@ -107,17 +93,16 @@ class ModelDatabase  extends  Model
      */
     public static function selectAllDatas($datas){
         $table_name = $datas['table_name'];
-        if(!empty($datas['time_field'])){
-            $time_field = $datas['time_field'];
-        }
         $result = DB::table($table_name)->paginate($datas['total']);
         if($table_name == 'duties'){
             return self::changeDutiesTimeDatas($result);
         }
-        if(!empty($time_field)){
-            foreach ($result as $datas){
-                $datas->$time_field = date('Y-m-d',$datas->$time_field/1000);
-            }
+        if($table_name == 'teacher'){
+            return self::changeTeacherTimeDatas($result);
+        }
+        $time_field = $datas['time_field'];
+        foreach ($result as $datas){
+            $datas->$time_field = date('Y-m-d',$datas->$time_field/1000);
         }
         return responseTojson(0,'查询成功','',$result);
     }
@@ -143,23 +128,6 @@ class ModelDatabase  extends  Model
         }
         return responseTojson(0,'查询成功','',$result);
     }
-    /**根据级别,类别，门类，编著形式,名次检索
-     * @param $table_name
-     * @param $field
-     * @param $cetificate
-     * @param $time_field
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public static function categorySelectInformation($datas){
-        $result = DB::table($datas['table_name'])->where($datas['field'],$datas['value'])->paginate($datas['value']);
-        $time_field = $datas['time_field'];
-        if(!empty($time_field)){
-            foreach ($result as $datas){
-                $datas->$time_field = date('Y-m-d',$datas->$time_field/1000);
-            }
-        }
-        return responseTojson(0,'查询成功','',$result);
-    }
     //分页查询
     public static function pagingQueryDatas($datas){
         $result = DB::table($datas['table_name'])
@@ -168,31 +136,16 @@ class ModelDatabase  extends  Model
         if($datas['table_name'] == 'duties'){
             return self::changeDutiesTimeDatas($result);
         }
+        if($datas['table_name'] == 'teacher'){
+            return self::changeTeacherTimeDatas($result);
+        }
         $time_field = $datas['time_field'];
         foreach ($result as $datas){
             $datas->$time_field = date('Y-m-d',$datas->$time_field);
         }
         return responseTojson(0,'查询成功','',$result);
     }
-    /**根据名称模糊查询
-     * @param $table_name
-     * @param $field
-     * @param $name
-     * @param $time_field
-     * @return mixed
-     */
-    public static function byNameSelectDatas($table_name,$field,$name,$time_field){
-       $result = DB::table($table_name)->where($field,'like',"%".$name."%")->get();
-       if($table_name == 'duties'){
-           return self::changeDutiesTimeDatas($result);
-       }
-       if(!empty($time_field)){
-           foreach ($result as $datas){
-               $datas->$time_field = date('Y-m-d',$datas->$time_field/1000);
-           }
-       }
-       return responseTojson(0,'查询成功','',$result);
-    }
+    //转化担任团体职务时间
     public static function changeDutiesTimeDatas($result){
         $result = json_decode(json_encode($result));
         $datas['total'] = $result->total;
@@ -205,6 +158,23 @@ class ModelDatabase  extends  Model
         }
         $datas['du_datas'] = $result;
         return responseTojson(0,'查询成功','',$datas);
+    }
+    //转化老师表的时间数据
+    public static function changeTeacherTimeDatas($result){
+        $result = json_decode(json_encode($result));
+        $datas['total'] = $result->total;
+        $result = $result->data;
+        foreach ($result as $datas){
+            $datas->borth                 = date('Y-m-d',$datas->borth);
+            $datas->admin_tenure_time     = date('Y-m-d',$datas->admin_tenure_time);
+            $datas->review_time           = date('Y-m-d',$datas->review_time);
+            $datas->appointment_time      = date('Y-m-d',$datas->appointment_time);
+            $datas->working_hours         = date('Y-m-d',$datas->working_hours);
+            $datas->first_graduation_time = date('Y-m-d',$datas->first_graduation_time);
+            $datas->most_graduation_time  = date('Y-m-d',$datas->most_graduation_time);
+            $datas->master_time           = date('Y-m-d',$datas->master_time);
+        }
+        return responseTojson(0,'查询成功','',$result);
     }
     /**根据字段进行分组======>按字段 '升序' 分组返回个数
      * 饼图：师资（学历，职称，学缘），论文（期刊级别），
