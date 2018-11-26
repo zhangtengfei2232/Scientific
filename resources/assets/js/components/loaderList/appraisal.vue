@@ -188,7 +188,7 @@
         border-right: 1px #d4d8d7 solid;
     }
     .cont{
-        width: 85%;
+        width: 95%;
         float: left;
         margin: 20px;
     }

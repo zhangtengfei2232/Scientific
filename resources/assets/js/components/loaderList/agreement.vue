@@ -12,7 +12,7 @@
                                     时间：全部<i class="el-icon-arrow-down el-icon--right"></i>
                                 </span>
                                 <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item>全部</el-dropdown-item>
+                                    <!--<el-dropdown-item>全部</el-dropdown-item>-->
                                     <el-dropdown-item @click.native="timeSearch(8)">18年-今天</el-dropdown-item>
                                     <el-dropdown-item @click.native="timeSearch(7)">17年-今天</el-dropdown-item>
                                     <el-dropdown-item @click.native="timeSearch(6)">16年-今天</el-dropdown-item>
@@ -62,7 +62,6 @@
                 :data="allAgreement"
                 style="width: 100%"
                 border
-                height="250"
                 @selection-change="handleSelectionChange">
                 <el-table-column
                     type="selection"
@@ -85,12 +84,12 @@
                     width="120">
                 </el-table-column>
             </el-table>
-            <el-button @click="ExcelSelection()">导出Excel</el-button>
+            <el-button @click="ExcelSelection()" style="margin-top: 20px;">导出Excel</el-button>
             <div class="page">
                 <el-pagination
                     @size-change="handleSizeChange"
                     @current-change="handleCurrentChange"
-                    :current-page="currentPage"
+                    :current-page="currentPages"
                     :page-sizes="[10, 20, 50, 100]"
                     :page-size="pagesize"
                     layout="total, sizes, prev, pager, next, jumper"
@@ -111,7 +110,7 @@
         border-right: 1px #d4d8d7 solid;
     }
     .cont{
-        width: 85%;
+        width: 95%;
         float: left;
         margin: 20px;
     }
@@ -130,47 +129,34 @@
 export default {
     data() {
         return {
+            types:'',
+            currentPages:1,
+            pagesize:10,
+            start_time:0,
+            end_time:0,
+            values:'',
+            total:0,
             searchValue:'',
             border:true,
             allAgreement:[],
-            pagesize:20,
             multipleSelection: [],
             currentPage:1,
             data1: '',
             newTime:0,
             agree_name:'',
-            total:0,
             type: '',
         }
     },
     methods: {
-        handleSizeChange: function (size) {
-            this.pagesize = size;
-        },
-        handleCurrentChange: function(currentPage){
-            this.currentPage = currentPage;
-            switch(type) {
-                case agree_name:
-                    this.nameSearch();
-                    break;
-                case time1:
-                    this.timeSearch();
-                    break;
-                case time2:
-                    this.timeSearch();
-                    break;
-                case time1:
-                    this.twoTimeSearch();
-                    break;
-                case '':
-                    this.getAgreementData();
-                default:
-                    this.$message.error('暂无此查询');
-                    break;
-            }
-        },
         handleSelectionChange(val) {
             this.multipleSelection = val;
+        },
+        handleSizeChange(val) {
+            this.pagesize = val;
+            this.commonget(this.types,this.values);
+        },
+        handleCurrentChange(val) {
+            this.currentPages=val;
         },
         ExcelSelection() {
             var self = this;
@@ -193,26 +179,56 @@ export default {
             window.location.href = urls;
         },
         getAgreementData() {
+            this.commonget(this.type);
+//            let self = this;
+//            axios.get("leaderselectallagreement",{
+//                page: self.currentPage,
+//                total: self.pagesize,
+//            }).then(function (response) {
+//                var data = response.data;
+//                if (data.code == 0) {
+//                    self.allAgreement = data.datas;
+//                    self.total = data.datas.length;
+//                } else {
+//                    self.$notify({
+//                        type: 'error',
+//                        message: data.message,
+//                        duration: 2000,
+//                    });
+//                }
+//            });
+        },
+        commonget(){
             let self = this;
-            axios.get("leaderselectallagreement",{
-                page: self.currentPage,
-                total: self.pagesize,
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allAgreement = data.datas;
-                    self.total = data.datas.length;
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
+            axios.get("byfieldselectagreement",{
+                params:{
+                    value:self.values,
+                    type: self.types,
+                    page:self.currentPages,
+                    total:self.pagesize,
                 }
+            }).then(function (response) {
+                self.total = response.data.datas.total;
+                self.allAgreement = response.data.datas.data;
+            })
+        },
+        timeSearchget(){   //时间分页
+            let self = this;
+            self.types = 'time';
+            axios.get("byfieldselectagreement", {
+                params: {
+                    start_time:self.start_time,
+                    end_time:self.end_time,
+                    type: self.types,
+                    page: self.currentPages,
+                    total: self.pagesize,
+                }
+            }).then(function (response) {
+                self.total = response.data.datas.total;
+                self.allAgreement = response.data.datas.data;
             });
         },
         timeSearch(time) {
-            this.type = 'time1';
             if(time == 8) {
                 this.newTime = '1514779200';
             }else if(time == 7) {
@@ -224,79 +240,105 @@ export default {
             }else if(time == 4) {
                 this.newTime = '1388548800';
             }
-            var timestamp = Date.parse(new Date());
+            this.end_time = Date.parse(new Date());
             let self = this;
-            axios.get("bytimeselectagreement",{
-                params:{
-                    page: self.currentPage,
-                    total: self.pagesize,
-                    type: 'agree_time',
-                    start_time:this.newTime,
-                    end_time:timestamp
-                }
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allAgreement = data.datas.data;
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+            self.types = 'le_time';
+            self.timeSearchget();
+//            var timestamp = Date.parse(new Date());
+//            let self = this;
+//            axios.get("bytimeselectagreement",{
+//                params:{
+//                    page: self.currentPage,
+//                    total: self.pagesize,
+//                    type: 'agree_time',
+//                    start_time:this.newTime,
+//                    end_time:timestamp
+//                }
+//            }).then(function (response) {
+//                var data = response.data;
+//                if (data.code == 0) {
+//                    self.allAgreement = data.datas.data;
+//                } else {
+//                    self.$notify({
+//                        type: 'error',
+//                        message: data.message,
+//                        duration: 2000,
+//                    });
+//                }
+//            });
         },
         twoTimeSearch() {
-           let self = this;
-           self.type = 'time2';
-            axios.get("bytimeselectagreement",{
-                params:{
-                    page: self.currentPage,
-                    total: self.pagesize,
-                    type: 'agree_time',
-                    start_time:self.data1[0],
-                    end_time:self.data1[1],
-                }
-            }).then(function (response) {
-                var data = response.data.datas;
-                if (data.code == 0) {
-                    self.allAgreement = data.data;
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+            let self = this;
+            self.types = 'time';
+            self.start_time = self.data1[0];
+            self.end_time   = self.data1[1];
+            self.timeSearchget();
+//           let self = this;
+//           self.type = 'time2';
+//            axios.get("bytimeselectagreement",{
+//                params:{
+//                    page: self.currentPage,
+//                    total: self.pagesize,
+//                    type: 'agree_time',
+//                    start_time:self.data1[0],
+//                    end_time:self.data1[1],
+//                }
+//            }).then(function (response) {
+//                var data = response.data.datas;
+//                if (data.code == 0) {
+//                    self.allAgreement = data.data;
+//                } else {
+//                    self.$notify({
+//                        type: 'error',
+//                        message: data.message,
+//                        duration: 2000,
+//                    });
+//                }
+//            });
         },
         nameSearch() {
             let self = this;
-            self.type = 'agree_name';
-            axios.get("bynameselectagreement",{
-                params:{
-                    page: self.currentPage,
-                    total: self.pagesize,
-                    type: 'agree_name',
-                    value: self.agree_name,
-                }
-            }).then(function (response) {
-                var data = response.data.datas;
-                if (data.code == 0) {
-                    self.allSchoolfile = data.data;
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+            self.types = 'agree_name';
+            self.values = self.agree_name;
+            self.commonget();
+//            let self = this;
+//            self.type = 'agree_name';
+//            axios.get("bynameselectagreement",{
+//                params:{
+//                    page: self.currentPage,
+//                    total: self.pagesize,
+//                    type: 'agree_name',
+//                    value: self.agree_name,
+//                }
+//            }).then(function (response) {
+//                var data = response.data.datas;
+//                if (data.code == 0) {
+//                    self.allSchoolfile = data.data;
+//                } else {
+//                    self.$notify({
+//                        type: 'error',
+//                        message: data.message,
+//                        duration: 2000,
+//                    });
+//                }
+//            });
         },
     },
     mounted() {
         this.getAgreementData();
-    }
+    },
+    watch:{
+        currentPages:function (currentPages) {
+            this.currentPages = currentPages;
+            switch(this.types) {
+                case 'time':
+                    this.timeSearchget();
+                    break;
+                default:
+                    this.commonget();
+                    break;
+            }
+        }
+    },
 }
 </script>

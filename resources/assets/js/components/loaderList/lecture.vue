@@ -12,7 +12,7 @@
                                     讲学时间<i class="el-icon-arrow-down el-icon--right"></i>
                                 </span>
                                     <el-dropdown-menu slot="dropdown">
-                                        <el-dropdown-item>全部</el-dropdown-item>
+                                        <!--<el-dropdown-item>全部</el-dropdown-item>-->
                                         <el-dropdown-item @click.native="timeSearch(8)">18年-今天</el-dropdown-item>
                                         <el-dropdown-item @click.native="timeSearch(7)">17年-今天</el-dropdown-item>
                                         <el-dropdown-item @click.native="timeSearch(6)">16年-今天</el-dropdown-item>
@@ -133,13 +133,13 @@
             <el-button @click="ExcelSelection()"style="margin-top: 20px;">导出Excel</el-button>
             <div class="page">
                 <el-pagination
-                        @size-change="handleSizeChange"
-                        @current-change="handleCurrentChange"
-                        :current-page="currentPages"
-                        :page-sizes="[10, 20, 50, 100]"
-                        :page-size="pagesize"
-                        layout="total, sizes, prev, pager, next, jumper"
-                        :total="total">
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="currentPages"
+                    :page-sizes="[10, 20, 50, 100]"
+                    :page-size="pagesize"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="total">
                 </el-pagination>
             </div>
         </div>
@@ -209,7 +209,7 @@
                     '其他'
                 ],
                 le_time:[
-                    '全部',
+//                    '全部',
                     '18年-今天',
                     '17年-今天',
                     '16年-今天',
@@ -220,11 +220,11 @@
         },
         methods: {
             getArticleData() {
-                this.commonget(this.type)
+                this.commonget(this.type);
             },
             commonget(){
                 let self = this;
-                axios.get("bynameselectlecture",{
+                axios.get("byFieldSelectLecture",{
                     params:{
                         value:self.values,
                         type: self.types,
@@ -238,7 +238,6 @@
                 })
             },
             commonchange(data){
-                console.log(data,'asdd');
                 let self = this;
                 for(var i=0;i<data.length;i++){
                     data[i].le_invite_status = self.le_invite_status[data[i].le_invite_status];
@@ -246,9 +245,7 @@
                 }
                 self.ExperspeakDate = data;
             },
-            handleSelectionChange(val) {
-                this.multipleSelection = val;
-            },
+
 
 
 
@@ -264,18 +261,17 @@
                 self.values = self.le_invite_unit;
                 self.commonget();
             },
-            levelCommand(){       //专家级别
+            levelCommand(command){       //专家级别
                 let self = this;
                 self.types = 'le_expert_level';
-                self.values = self.command;
+//                console.log(self.command,'/*/*/*/');
+                self.values = command;
                 self.commonget();
             },
             timeSearchget(){   //时间分页
                 let self = this;
                 self.types = 'time';
-//                console.log(timestamp);
-//                return ;
-                axios.get("bynameselectlecture", {
+                axios.get("byFieldSelectLecture", {
                     params: {
                         start_time:self.start_time,
                         end_time:self.end_time,
@@ -284,22 +280,21 @@
                         total: self.pagesize,
                     }
                 }).then(function (response) {
-                    console.log(response);
                     self.total = response.data.datas.total;
                     self.commonchange(response.data.datas.data);
                 });
             },
             timeSearch(time) {
                 if(time == 8) {
-                    this.start_time = '1514779200';
+                    this.start_time = '1514779200000';
                 }else if(time == 7) {
-                    this.start_time = '1483243200';
+                    this.start_time = '1483243200000';
                 }else if(time == 6) {
-                    this.start_time = '1451620800';
+                    this.start_time = '1451620800000';
                 }else if(time == 5) {
-                    this.start_time = '1420084800';
+                    this.start_time = '1420084800000';
                 }else if(time == 4) {
-                    this.start_time = '1388548800';
+                    this.start_time = '1388548800000';
                 }
                 this.end_time = Date.parse(new Date());
                 let self = this;
@@ -307,12 +302,14 @@
                 self.timeSearchget();
             },
             twoTimeSearch() {
-                self.type = 'art_time2';
                 let self = this;
                 self.types = 'time';
                 self.start_time = self.data1[0];
                 self.end_time   = self.data1[1];
                 self.timeSearchget();
+            },
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
             },
             handleSizeChange(val) {
                 this.pagesize = val;
@@ -352,20 +349,11 @@
             currentPages:function (currentPages) {
                 this.currentPages = currentPages;
                 switch(this.types) {
-                    case 'le_expert_name':
-                        this.byNameSearch();
-                        break;
                     case 'time':
                         this.timeSearchget();
                         break;
-                    case 'le_invite_unit':    //邀请单位
-                        this.byCompanySearch();
-                        break;
-                    case '':
-                        this.getArticleData();
-                        break;
                     default:
-                        this.$message.error('暂无此查询');
+                        this.commonget();
                         break;
                 }
             }
