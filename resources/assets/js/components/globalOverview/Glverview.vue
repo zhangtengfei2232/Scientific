@@ -408,6 +408,7 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.teacherRanDate = data.datas;
+                    // console.log(data);
                     self.drawLineRank(self.teacherRanDate);
                 } else {
                     self.$notify({
@@ -481,10 +482,9 @@ export default {
                 end_time: self.dataPro2,
             }).then(function (response) {
                 var data = response.data;
-                console.log(data);
+                console.log(data.datas);
                 if (data.code == 0) {
-                    self.ProjectDate = data.datas;
-                    self.drawLinePros(self.ProjectDate);
+                    self.drawLinePros(data.datas.account_outlay,data.datas.approval_funds,data.datas.count_num);
                 } else {
                     self.$notify({
                         type: 'error',
@@ -499,14 +499,113 @@ export default {
              myProject.setOption({
                 series: {
                     type: 'pie',
-                    radius : '55%',
+                    radius : '25%',
+                    "label": {
+                        "normal": {
+                            "show": true,
+                            "textStyle": {
+                                "fontSize": 18
+                            }
+                        },
+                        "emphasis": {
+                            "show": true
+                        }
+                    },
                     data: [
-                        {name: '市厅级'+'('+datas[0]+')个('+ '批准经费：' + data2[0] +')(到账经费' + data3[0] + ')' , value: datas[0]},
-                        {name: '省部级'+'('+datas[1]+')个'+ '批准经费：' + data2[1] +')(到账经费' + data3[1] + ')' , value: datas[1]},
-                        {name: '国家级'+'('+datas[2]+')个'+ '批准经费：' + data2[2] +')(到账经费' + data3[2] + ')' , value: datas[2]},
-                        {name: '其他'+'('+datas[3]+')个'+ '批准经费：' + data2[3] +')(到账经费' + data3[3] + ')' , value: datas[3]},
+                        {name: '市厅级'+'('+data1[0]+')('+ '批准经费：' + data2[0] +')(到账经费' + data3[0] + ')' , value: data1[0]},
+                        {name: '省部级'+'('+data1[1]+')('+ '批准经费：' + data2[1] +')(到账经费' + data3[1] + ')' , value: data1[1]},
+                        {name: '国家级'+'('+data1[2]+')('+ '批准经费：' + data2[2] +')(到账经费' + data3[2] + ')' , value: data1[2]},
+                        {name: '其他'+'('+data1[3]+')('+ '批准经费：' + data2[3] +')(到账经费' + data3[3] + ')' , value: data1[3]},
                     ]
                 }
+                // {
+            //     "title": {
+            //         "text": "",
+            //         "subtext": "",
+            //         "x": "center"
+            //     },
+            //     "tooltip": {
+            //         "trigger": "item",
+            //         "formatter": "{a} <br\/>{b} : {c}%",
+            //         "textStyle": {
+            //             "fontSize": 18
+            //         }
+            //     },
+            //     "legend": {
+            //         "orient": "vertical",
+            //         "left": "left",
+            //         "data": ["", "使用场景", "活动", "适用人群", "品牌", "款式", "物流", "价格", "功能", "服务", "质量"],
+            //         "textStyle": {
+            //             "fontSize": 18
+            //         }
+            //     },
+            //     "toolbox": {
+            //         "feature": {
+            //             "dataView": {
+            //                 "show": true,
+            //                 "readOnly": false
+            //             },
+            //             "saveAsImage": {
+            //                 "show": true
+            //             }
+            //         }
+            //     },
+            //     "series": [{
+            //         "name": "",
+            //         "type": "pie",
+            //         "radius": ["0%", "100%"],
+            //         "data": [{
+            //             "name": "使用场景",
+            //             "value": 0.23
+            //         }, {
+            //             "name": "活动",
+            //             "value": 0.44
+            //         }, {
+            //             "name": "适用人群",
+            //             "value": 0.83
+            //         }, {
+            //             "name": "品牌",
+            //             "value": 1.09
+            //         }, {
+            //             "name": "款式",
+            //             "value": 4.56
+            //         }, {
+            //             "name": "物流",
+            //             "value": 7.56
+            //         }, {
+            //             "name": "价格",
+            //             "value": 7.62
+            //         }, {
+            //             "name": "功能",
+            //             "value": 17.03
+            //         }, {
+            //             "name": "服务",
+            //             "value": 20.03
+            //         }, {
+            //             "name": "质量",
+            //             "value": 40.6
+            //         }],
+            //         "label": {
+            //             "normal": {
+            //                 "show": true,
+            //                 "textStyle": {
+            //                     "fontSize": 18
+            //                 }
+            //             },
+            //             "emphasis": {
+            //                 "show": true
+            //             }
+            //         },
+            //         "lableLine": {
+            //             "normal": {
+            //                 "show": true
+            //             },
+            //             "emphasis": {
+            //                 "show": true
+            //             }
+            //         }
+            //     }]
+            // }
             });
         },
         ProjectList() {
@@ -516,9 +615,9 @@ export default {
                 end_time: self.dataPro2,
             }).then(function (response) {
                 var data = response.data;
+                console.log(data);
                 if (data.code == 0) {
-                    self.ProjectDate = data.datas;
-                    self.drawLinePro(self.ProjectDate);
+                    self.drawLinePro(data.datas.account_outlay);
                 } else {
                     self.$notify({
                         type: 'error',
@@ -565,7 +664,7 @@ export default {
             }).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
-                    self.ProjectDate = data.datas;
+                    self.ProjectDate = data.datas.account_outlay;
                     self.drawLineTypePro(self.ProjectDate);
                 } else {
                     self.$notify({
