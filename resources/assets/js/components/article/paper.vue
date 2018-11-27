@@ -46,9 +46,8 @@
                     width="55">
                     </el-table-column>
                     <el-table-column
-                    prop="art_id"
-                    sortable
-                    label="序号"
+                    prop="publication_name"
+                    label="发表刊物名称"
                     width="120">
                     </el-table-column>
                     <el-table-column
