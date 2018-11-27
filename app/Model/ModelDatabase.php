@@ -212,12 +212,12 @@ class ModelDatabase  extends  Model
                 $count_num = $count_num->count();
                 $count_datas[$i] = $count_num;
             }
-            $datas['count_num']      = $count_datas;
+            $datas['count_num'] = $count_datas;
             if($field == 'pro_level'){
                 $datas['approval_funds'] = $approval_funds_money_datas;
                 $datas['account_outlay'] = $account_outlay_money_datas;
                 $datas['sum_approval_funds_money'] = array_sum($datas['approval_funds']);
-                $datas['sum_account_outlay_money'] = array_sum($datas['account_outlay']); 
+                $datas['sum_account_outlay_money'] = array_sum($datas['account_outlay']);
             }
             return responseTojson(0,'查询成功','',$datas);
         }
