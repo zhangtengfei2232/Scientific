@@ -106,6 +106,7 @@
                                     v-model="dataArt1"
                                     size="mini"
                                     type="year"
+                                    value-format="timestamp"
                                     placeholder="选择年">
                             </el-date-picker>
                         </div>
@@ -115,13 +116,14 @@
                                     v-model="dataArt2"
                                     size="mini"
                                     type="year"
+                                    value-format="timestamp"
                                     placeholder="选择年">
                             </el-date-picker>
                         </div>
                         <div class="clear"></div>
                     </div>
                     <div id="myArticle" :style="{width: '320px', height: '300px'}"></div>
-                    <el-button type="primary" size="mini">刊物级别</el-button>
+                    <el-button type="primary" size="mini" @click="getArticleDate()">刊物级别</el-button>
                 </div>
                 <div class="list4">
                     <span class="span">项目图</span>
@@ -131,6 +133,7 @@
                                     v-model="dataPro1"
                                     size="mini"
                                     type="year"
+                                    value-format="timestamp"
                                     placeholder="选择年">
                             </el-date-picker>
                         </div>
@@ -140,6 +143,7 @@
                                     v-model="dataPro2"
                                     size="mini"
                                     type="year"
+                                    value-format="timestamp"
                                     placeholder="选择年">
                             </el-date-picker>
                         </div>
@@ -158,6 +162,7 @@
                                     v-model="dataOpu1"
                                     size="mini"
                                     type="year"
+                                    value-format="timestamp"
                                     placeholder="选择年">
                             </el-date-picker>
                         </div>
@@ -167,6 +172,7 @@
                                     v-model="dataOpu2"
                                     size="mini"
                                     type="year"
+                                    value-format="timestamp"
                                     placeholder="选择年">
                             </el-date-picker>
                         </div>
@@ -184,6 +190,7 @@
                                     v-model="dataAwa1"
                                     size="mini"
                                     type="year"
+                                    value-format="timestamp"
                                     placeholder="选择年">
                             </el-date-picker>
                         </div>
@@ -193,6 +200,7 @@
                                     v-model="dataAwa2"
                                     size="mini"
                                     type="year"
+                                    value-format="timestamp"
                                     placeholder="选择年">
                             </el-date-picker>
                         </div>
@@ -210,6 +218,7 @@
                                     v-model="dataPat1"
                                     size="mini"
                                     type="year"
+                                    value-format="timestamp"
                                     placeholder="选择年">
                             </el-date-picker>
                         </div>
@@ -219,6 +228,7 @@
                                     v-model="dataPat2"
                                     size="mini"
                                     type="year"
+                                    value-format="timestamp"
                                     placeholder="选择年">
                             </el-date-picker>
                         </div>
@@ -485,6 +495,8 @@ export default {
         },
         getArticleDate() {
             let self = this;
+            console.log(self.dataArt1);
+            console.log(self.dataArt2);
             axios.get("groupbyarticaljournallevel",{
                 start_time: self.dataArt1,
                 end_time: self.dataArt2,
