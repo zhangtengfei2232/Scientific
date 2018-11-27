@@ -64,23 +64,23 @@
                 @selection-change="handleSelectionChange">
                 <el-table-column
                     type="selection"
-                    width="55">
+                    width="100">
                 </el-table-column>
                 <el-table-column
                     fixed
                     prop="agree_name"
                     label="协议名称"
-                    width="150">
+                    width="200">
                 </el-table-column>
                 <el-table-column
                     prop="agree_cooperate_unit"
                     label="合作单位"
-                    width="120">
+                    width="200">
                 </el-table-column>
                 <el-table-column
                     prop="agree_time"
                     label="日期"
-                    width="120">
+                    width="200">
                 </el-table-column>
             </el-table>
             <el-button @click="ExcelSelection()" style="margin-top: 20px;">导出Excel</el-button>

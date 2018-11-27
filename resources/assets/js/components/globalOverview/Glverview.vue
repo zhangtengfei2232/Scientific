@@ -235,7 +235,7 @@
                         <div class="clear"></div>
                     </div>
                     <div id="myPatent" :style="{width: '420px', height: '400px'}"></div>
-                    <el-button type="primary" size="mini">专利类型</el-button>
+                    <el-button type="primary" size="mini" @click="getPatentDate()">专利类型</el-button>
                 </div>
                 <div class="list8">
                     <span class="span">成果鉴定图</span>
@@ -382,7 +382,7 @@ export default {
         },
         getTeacherDate() {
             let self = this;
-            axios.get("groupbyteachertechnicaltitle").then(function (response) {
+            axios.get("groupbyteachereducation").then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.teacherMicDate = data.datas;
@@ -425,6 +425,7 @@ export default {
                     }
                 },
                 series: {
+                    name:'学历',
                     calculable : true,
                     type: 'pie',
                     radius : '50%',
@@ -438,11 +439,10 @@ export default {
         },
         rank() {
             let self = this;
-            axios.get("groupbyteachereducation").then(function (response) {
+            axios.get("groupbyteachertechnicaltitle").then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
                     self.teacherRanDate = data.datas;
-                    // console.log(data);
                     self.drawLineRank(self.teacherRanDate);
                 } else {
                     self.$notify({
@@ -482,6 +482,7 @@ export default {
                      }
                  },
                 series: {
+                    name:'职称',
                     type: 'pie',
                     radius : '55%',
                     data: [
@@ -495,11 +496,11 @@ export default {
         },
         getArticleDate() {
             let self = this;
-            console.log(self.dataArt1);
-            console.log(self.dataArt2);
             axios.get("groupbyarticaljournallevel",{
-                start_time: self.dataArt1,
-                end_time: self.dataArt2,
+                params: {
+                    start_time: self.dataArt1,
+                    end_time: self.dataArt2,
+                }
             }).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
@@ -543,6 +544,7 @@ export default {
                     }
                 },
                 series: {
+                    name:'刊物级别',
                     type: 'pie',
                     radius : '35%',
                     data: [
@@ -564,8 +566,10 @@ export default {
         getProjectDate() {
             let self = this;
             axios.get("groupbyprojectlevel",{
-                start_time: self.dataPro1,
-                end_time: self.dataPro2,
+                params:{
+                    start_time: self.dataPro1,
+                    end_time: self.dataPro2,
+                }
             }).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
@@ -615,7 +619,7 @@ export default {
                 calculable : true,
                 series : [
                     {
-                        name:'访问来源',
+                        name:'项目类别',
                         type:'pie',
                         center: ['50%', '60%'],
                         radius : '35%',
@@ -660,8 +664,10 @@ export default {
         ProjectList() {
             let self = this;
             axios.get("groupbyprojectcertificatelevel",{
-                start_time: self.dataPro1,
-                end_time: self.dataPro2,
+                params:{
+                    start_time: self.dataPro1,
+                    end_time: self.dataPro2,
+                }
             }).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
@@ -705,6 +711,7 @@ export default {
                      }
                  },
                 series: {
+                    name:'学科门类',
                     type: 'pie',
                     radius : '40%',
                     data: [
@@ -733,8 +740,10 @@ export default {
         ProType() {
             let self = this;
             axios.get("groupbyprojetcateresearch",{
-                start_time: self.dataPro1,
-                end_time: self.dataPro2,
+                params: {
+                    start_time: self.dataPro1,
+                    end_time: self.dataPro2,
+                }
             }).then(function (response) {
                 var data = response.data;
                 console.log(data);
@@ -779,6 +788,7 @@ export default {
                      }
                  },
                 series: {
+                    name:'研究类别',
                     type: 'pie',
                     radius : '45%',
                     data: [
@@ -792,8 +802,10 @@ export default {
         getOpusDate() {
             let self = this;
             axios.get("gropubyopuscategory",{
-                start_time: self.dataOpu1,
-                end_time: self.dataOpu2,
+                params: {
+                    start_time: self.dataOpu1,
+                    end_time: self.dataOpu2,
+                }
             }).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
@@ -838,6 +850,7 @@ export default {
                  },
                 series: {
                     type: 'pie',
+                    name:'著作类别',
                     radius : '45%',
                     data: [
                         {name: '专著'+'('+datas[0]+')', value: datas[0]},
@@ -852,8 +865,10 @@ export default {
         OpusType() {
              let self = this;
             axios.get("groupbyopusformwrite",{
-                start_time: self.dataOpu1,
-                end_time: self.dataOpu2,
+                params: {
+                    start_time: self.dataOpu1,
+                    end_time: self.dataOpu2,
+                }
             }).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
@@ -897,6 +912,7 @@ export default {
                      }
                  },
                 series: {
+                    name:'编著形式',
                     type: 'pie',
                     radius : '45%',
                     data: [
@@ -912,8 +928,10 @@ export default {
         getAwardDate() {
             let self = this;
             axios.get("groupbywinlevel",{
-                start_time: self.dataAwa1,
-                end_time: self.dataAwa2,
+                params: {
+                    start_time: self.dataAwa1,
+                    end_time: self.dataAwa2,
+                }
             }).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
@@ -958,6 +976,7 @@ export default {
                 },
                 series: {
                     type: 'pie',
+                    name:'奖励级别',
                     radius : '45%',
                     data: [
                         {name: '国家级'+'('+datas[0]+')', value: datas[0]},
@@ -972,8 +991,10 @@ export default {
         AwardType() {
             let self = this;
             axios.get("groupbyformachievement",{
-                start_time: self.dataAwa1,
-                end_time: self.dataAwa2,
+                params: {
+                    start_time: self.dataAwa1,
+                    end_time: self.dataAwa2,
+                }
             }).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
@@ -1037,8 +1058,10 @@ export default {
         getPatentDate() {
             let self = this;
             axios.get("groupbypatenttype",{
-                start_time: self.dataPat1,
-                end_time: self.dataPat2,
+                params: {
+                    start_time: self.dataPat1,
+                    end_time: self.dataPat2,
+                }
             }).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
