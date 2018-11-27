@@ -117,6 +117,7 @@
                                         <el-checkbox :label="4">高级实验师</el-checkbox>
                                         <el-checkbox :label="5">实验师</el-checkbox>
                                         <el-checkbox :label="6">助理实验师</el-checkbox>
+                                        <el-checkbox :label="7">其他</el-checkbox>
                                     </el-checkbox-group>
                                 </el-form-item>
                                 <el-form-item label="职务级别">
@@ -417,10 +418,11 @@
                     checkList: [],
                 },
                 teacher_department:[//所属部门
-                    '生工',
+                    '生物工程系',
                     '生物技术系',
                     '农学系',
                     '领导行政政工',
+                    '在外人员',
                 ],
                 sex:[
                     '男',
@@ -430,7 +432,8 @@
                     '积极分子',
                     '发展对象',
                     '预备党员',
-                    '党员',
+                    '共产党员',
+                    '其他',
                 ],
                 job_level:[ //职务级别
                     '正处',
@@ -443,7 +446,8 @@
                     '初级',
                     '中级',
                     '副高',
-                    '正高'
+                    '正高',
+                    '其他',
                 ],
                 academic_title:[    //老师职称
                     '教授',

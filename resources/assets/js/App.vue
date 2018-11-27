@@ -25,6 +25,7 @@
                                :close-on-click-modal="false"
                                @close="closeDialog"
                                id="resetNumcer"
+                               width="500px"
                                center>
                         <el-form :model="changeform" style="padding: 11px 55px;" ref="changeform">
                             <el-form-item label="老师工号">
@@ -41,6 +42,7 @@
                                :visible.sync="dialogdeleVisible"
                                :close-on-click-modal="false"
                                @close="closeDeleDialog"
+                               width="500px"
                                center>
                         <el-form :model="deleTeaform" style="padding: 11px 55px;" ref="deleTeaform">
                             <el-form-item label="老师工号">
@@ -58,10 +60,11 @@
                                :visible.sync="dialogWorkVisible"
                                :close-on-click-modal="false"
                                @close="closeWorkDialog"
+                               width="500px"
                                center>
                         <el-form :model="changework" style="padding: 11px 55px;" ref="changework">
                             <el-form-item label="老师工号">
-                                <el-input type="text" v-model="changework.teacher_id" placeholder="请输入需重置密码老师工号" maxlength="10" id="teacherId"></el-input>
+                                <el-input type="text" v-model="changework.teacher_id" placeholder="请输入需重置密码老师工号" maxlength="10" id="teacherId" style="width: 80%"></el-input>
                             </el-form-item>
                             <el-form-item label="行政职务" prop="admin_duties">
                                 <el-select v-model="changework.admin_duties" placeholder="请选择老师行政职务" id="teaPost">
@@ -422,6 +425,7 @@
                         self.navAddtea=true;//添加老师
                         self.navSchoolFile=true;//校发文件
                         self.navAgrement=true;
+                        self.changeTeapsw=true;//修改老师密码
 
 
                     }
@@ -610,14 +614,6 @@
     #con{
         height:100%;
         overflow:auto;
-
-        /*或者
-        *overflow-x:hidden;
-        *overflow-y:scroll;
-        */
-
-        /*background-color:#789;*/
-        /*color:#fff;*/
     }
 
 
@@ -662,5 +658,6 @@
     .el-submenu .el-menu-item{
         min-width: 160px;
     }
+
 </style>
 
