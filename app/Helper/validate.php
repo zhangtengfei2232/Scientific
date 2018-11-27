@@ -87,25 +87,21 @@
         if(emptyarray($datas)){
             return responseTojson(1,'你填写的的论文信息不全',1);
         }
-        if(strlen($datas['title']) > 90){
-            return responseTojson(1,'你输入的论文题目过长',1);
-        }elseif (strlen($datas['author']) > 12){
+        if (strlen($datas['author']) > 29){
             return responseTojson(1,'你输入作者姓名过长',1);
-        }elseif (strlen($datas['publication_name']) > 30){
+        }elseif (strlen($datas['publication_name']) > 199){
             return responseTojson(1,'你输入刊物名称过长',1);
-        }elseif (strlen($datas['publication_num']) > 20){
+        }elseif (strlen($datas['publication_num']) > 99){
             return responseTojson(1,'你输入的刊号过长',1);
         }elseif (!preg_match("/^[0-9]*$/",$datas['num_words'])
             || strlen($datas['num_words']) > 9){
             return responseTojson(1,'你输入的论文字数必须为数字，且不能超过9位',1);
-        }elseif (strlen($datas['belong_project']) > 20){
+        }elseif (strlen($datas['belong_project']) > 199){
             return responseTojson(1,'你输入的所属项目名称不合法',1);
-        }elseif (strlen($datas['art_cate_research']) > 20){
-            return responseTojson(1,'你输入的研究类别名称不合法',1);
         }elseif (!preg_match("/^[0-9]*$/",$datas['art_integral'])
             || strlen($datas['art_integral']) > 9){
             return responseTojson(1,'你输入的积分必须为数字，且不能超过9位',1);
-        }elseif (strlen($datas['sch_percal_cate']) > 20){
+        }elseif (strlen($datas['sch_percal_cate']) > 99){
             return responseTojson(1,'你输入的学校认证期刊级别名字过长',1);
         }else{
             return responseTojson(0,'验证通过',1);

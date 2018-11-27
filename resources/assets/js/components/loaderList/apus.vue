@@ -9,10 +9,10 @@
                             <el-col :span="12">
                                 <el-dropdown>
                                 <span class="el-dropdown-link">
-                                    时间：全部<i class="el-icon-arrow-down el-icon--right"></i>
+                                    著作出版时间<i class="el-icon-arrow-down el-icon--right"></i>
                                 </span>
                                 <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item>全部</el-dropdown-item>
+                                    <!--<el-dropdown-item>全部</el-dropdown-item>-->
                                     <el-dropdown-item @click.native="timeSearch(8)">18年-今天</el-dropdown-item>
                                     <el-dropdown-item @click.native="timeSearch(7)">17年-今天</el-dropdown-item>
                                     <el-dropdown-item @click.native="timeSearch(6)">16年-今天</el-dropdown-item>
@@ -113,7 +113,6 @@
                 :data="allOpus"
                 style="width: 100%"
                 border
-                height="250"
                 @selection-change="handleSelectionChange">
                 <el-table-column
                     type="selection"
@@ -191,12 +190,12 @@
                     width="140">
                 </el-table-column>
             </el-table>
-            <el-button @click="ExcelSelection()">导出Excel</el-button>
+            <el-button @click="ExcelSelection()" style="margin-top: 20px;">导出Excel</el-button>
             <div class="page">
                 <el-pagination
                     @size-change="handleSizeChange"
                     @current-change="handleCurrentChange"
-                    :current-page="currentPage"
+                    :current-page="currentPages"
                     :page-sizes="[10, 20, 50, 100]"
                     :page-size="pagesize"
                     layout="total, sizes, prev, pager, next, jumper"
@@ -236,6 +235,13 @@
 export default {
     data() {
         return {
+            types:'',
+            currentPages:1,
+            pagesize:10,
+            start_time:0,
+            end_time:0,
+            values:'',
+            total:0,
             searchValue:'',
             border:true,
             type: '',
@@ -245,9 +251,10 @@ export default {
             op_first_author:'',
             op_name:'',
             newTime:0,
-            total:0,
             currentPage:1,
-            pagesize:20,
+            op_cate:'',
+            op_form:'',
+            op_cate_res:'',
             form: {
                 op_cate_work: [],
                 op_form_write: [],
@@ -297,46 +304,15 @@ export default {
         remove() {
             document.querySelector("#arts").click();
         },
-        handleSizeChange: function (size) {
-            this.pagesize = size;
-        },
-        handleCurrentChange: function(currentPage){
-            this.currentPage = currentPage;
-            switch(this.type) {
-                case 'op_first_author':
-                    this.nameSearch();
-                    break;
-                case 'ap_res_name':
-                    this.paNameSearch();
-                    break;
-                case 'time1':
-                    this.timeSearch();
-                    break;
-                case 'time2':
-                    this.twoTimeSearch();
-                    break;
-                case 'ap_form':
-                    this.formSearch();
-                    break;
-                case 'combine':
-                    this.onSubmit();
-                    break;
-                case '':
-                    this.getAppraisalData();
-                    break;
-                default:
-                    this.$message.error('暂无此查询');
-                    break;
-            }
-        },
-        handleSizeChange: function (size) {
-            this.pagesize = size;
-        },
-        handleCurrentChange: function(currentPage){
-            this.currentPage = currentPage;
-        },
         handleSelectionChange(val) {
             this.multipleSelection = val;
+        },
+        handleSizeChange(val) {
+            this.pagesize = val;
+            this.commonget(this.types,this.values);
+        },
+        handleCurrentChange(val) {
+            this.currentPages=val;
         },
         ExcelSelection() {
             var self = this;
@@ -359,281 +335,130 @@ export default {
             window.location.href = urls;
         },
         getOpusData() {
+            this.commonget(this.type);
+        },
+        commonget(){
             let self = this;
-            axios.get("leaderselecttallopus",{
-                page: self.currentPage,
-                total: self.pagesize,
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allOpus = data.datas.data;
-                    self.total = data.data.length;
-                    for(var j=0;j<data.data.length;j++){
-                        for(var i= 0;i<self.op_form_write.length;i++){
-                            if(data.data[j].op_form_write == i){
-                                data.data[j].op_form_write = self.op_form_write[i];
-                            }
-                        }
-                        for(var i= 0;i<self.op_cate_research.length;i++){
-                            if(data.data[j].op_cate_research == i){
-                                data.data[j].op_cate_research = self.op_cate_research[i];
-                            }
-                        }
-                        for(var i= 0;i<self.op_cate_work.length;i++){
-                            if(data.data[j].op_cate_work == i){
-                                data.data[j].op_cate_work = self.op_cate_work[i];
-                            }
-                        }
-                        for(var i= 0;i<self.op_sub_category.length;i++){
-                            if(data.data[j].op_sub_category == i){
-                                data.data[j].op_sub_category = self.op_sub_category[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
+            axios.get("byfieldselectopus",{
+                params:{
+                    value:self.values,
+                    type: self.types,
+                    page:self.currentPages,
+                    total:self.pagesize,
                 }
+            }).then(function (response) {
+                self.total = response.data.datas.total;
+                self.commonchange(response.data.datas.data);
+
+            })
+        },
+        commonchange(data){
+            let self = this;
+            for(var i=0;i<data.length;i++){
+                data[i].op_form_write = self.op_form_write[data[i].op_form_write];
+                data[i].op_cate_research = self.op_cate_research[data[i].op_cate_research];
+                data[i].op_cate_work = self.op_cate_work[data[i].op_cate_work];
+                data[i].op_sub_category = self.op_sub_category[data[i].op_sub_category];
+            }
+            self.allOpus = data;
+        },
+        nameSearch() {
+            let self = this;
+            self.types = 'op_first_author';
+            self.values = self.op_first_author;
+            self.commonget();
+        },
+        apNameSearch() {
+            let self = this;
+            self.types = 'op_name';
+            self.values = self.op_name;
+            self.currentPages = 1;
+            console.log(this.types,this.values)
+            self.commonget();
+        },
+        timeSearchget(){   //时间分页
+            let self = this;
+            self.types = 'time';
+            axios.get("byfieldselectopus", {
+                params: {
+                    start_time:self.start_time,
+                    end_time:self.end_time,
+                    type: self.types,
+                    page: self.currentPages,
+                    total: self.pagesize,
+                }
+            }).then(function (response) {
+                self.total = response.data.datas.total;
+                self.commonchange(response.data.datas.data);
             });
         },
         timeSearch(time) {
             if(time == 8) {
-                this.newTime = '1514779200';
+                this.start_time = '1514779200000';
             }else if(time == 7) {
-                this.newTime = '1483243200';
+                this.start_time = '1483243200000';
             }else if(time == 6) {
-                this.newTime = '1451620800';
+                this.start_time = '1451620800000';
             }else if(time == 5) {
-                this.newTime = '1420084800';
+                this.start_time = '1420084800000';
             }else if(time == 4) {
-                this.newTime = '1388548800';
+                this.start_time = '1388548800000';
             }
-            var timestamp = Date.parse(new Date());
+            this.end_time = Date.parse(new Date());
             let self = this;
-            axios.get("bypublicationdateselectopus",{
-                params:{
-                    start_time:this.newTime,
-                    end_time:timestamp
-                }
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allOpus = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.op_form_write.length;i++){
-                            if(data.datas[j].op_form_write == i){
-                                data.datas[j].op_form_write = self.op_form_write[i];
-                            }
-                        }
-                        for(var i= 0;i<self.op_cate_research.length;i++){
-                            if(data.datas[j].op_cate_research == i){
-                                data.datas[j].op_cate_research = self.op_cate_research[i];
-                            }
-                        }
-                        for(var i= 0;i<self.op_cate_work.length;i++){
-                            if(data.datas[j].op_cate_work == i){
-                                data.datas[j].op_cate_work = self.op_cate_work[i];
-                            }
-                        }
-                        for(var i= 0;i<self.op_sub_category.length;i++){
-                            if(data.datas[j].op_sub_category == i){
-                                data.datas[j].op_sub_category = self.op_sub_category[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+            self.types = 'op_publish_time';
+            self.timeSearchget();
         },
         twoTimeSearch() {
-           let self = this;
-            axios.get("bypublicationdateselectopus",{
-                params:{
-                    start_time:self.data1[0],
-                    end_time:self.data1[1],
-                }
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allOpus = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.op_form_write.length;i++){
-                            if(data.datas[j].op_form_write == i){
-                                data.datas[j].op_form_write = self.op_form_write[i];
-                            }
-                        }
-                        for(var i= 0;i<self.op_cate_research.length;i++){
-                            if(data.datas[j].op_cate_research == i){
-                                data.datas[j].op_cate_research = self.op_cate_research[i];
-                            }
-                        }
-                        for(var i= 0;i<self.op_cate_work.length;i++){
-                            if(data.datas[j].op_cate_work == i){
-                                data.datas[j].op_cate_work = self.op_cate_work[i];
-                            }
-                        }
-                        for(var i= 0;i<self.op_sub_category.length;i++){
-                            if(data.datas[j].op_sub_category == i){
-                                data.datas[j].op_sub_category = self.op_sub_category[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
-        },
-        nameSearch() {
             let self = this;
-            self.type = 'op_first_author';
-            axios.get("byauthorselectopus",{
-                params:{
-                    page: self.currentPage,
-                    total: self.pagesize,
-                    type: 'op_first_author',
-                    value: self.op_first_author,
-                }
-            }).then(function (response) {
-                var data = response.data.datas;
-                if (data.code == 0) {
-                    self.allOpus = data.data;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.op_form_write.length;i++){
-                            if(data.data[j].op_form_write == i){
-                                data.data[j].op_form_write = self.op_form_write[i];
-                            }
-                        }
-                        for(var i= 0;i<self.op_cate_research.length;i++){
-                            if(data.data[j].op_cate_research == i){
-                                data.data[j].op_cate_research = self.op_cate_research[i];
-                            }
-                        }
-                        for(var i= 0;i<self.op_cate_work.length;i++){
-                            if(data.data[j].op_cate_work == i){
-                                data.data[j].op_cate_work = self.op_cate_work[i];
-                            }
-                        }
-                        for(var i= 0;i<self.op_sub_category.length;i++){
-                            if(data.data[j].op_sub_category == i){
-                                data.data[j].op_sub_category = self.op_sub_category[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+            self.types = 'time';
+            self.start_time = self.data1[0];
+            self.end_time   = self.data1[1];
+            self.timeSearchget();
         },
-        apNameSearch() {
+        groupchecks(){
             let self = this;
-            self.type = 'op_name';
-            axios.get("bynameselectopus",{
+            axios.get("byfieldselectopus",{
                 params:{
-                    page: self.currentPage,
-                    total: self.pagesize,
-                    type: 'op_name',
-                    value: self.op_name,
+                    op_cate_work_datas:self.op_cate,
+                    op_form_write_datas:self.op_form,
+                    op_cate_research_datas:self.op_cate_res,
+                    type: self.types,
+                    page:self.currentPages,
+                    total:self.pagesize,
                 }
             }).then(function (response) {
-                var data = response.data.datas;
-                if (data.code == 0) {
-                    self.allOpus = data.data;
-                    for(var j=0;j<data.data.length;j++){
-                        for(var i= 0;i<self.op_form_write.length;i++){
-                            if(data.data[j].op_form_write == i){
-                                data.data[j].op_form_write = self.op_form_write[i];
-                            }
-                        }
-                        for(var i= 0;i<self.op_cate_research.length;i++){
-                            if(data.data[j].op_cate_research == i){
-                                data.data[j].op_cate_research = self.op_cate_research[i];
-                            }
-                        }
-                        for(var i= 0;i<self.op_cate_work.length;i++){
-                            if(data.data[j].op_cate_work == i){
-                                data.data[j].op_cate_work = self.op_cate_work[i];
-                            }
-                        }
-                        for(var i= 0;i<self.op_sub_category.length;i++){
-                            if(data.data[j].op_sub_category == i){
-                                data.data[j].op_sub_category = self.op_sub_category[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+                self.total = response.data.datas.total;
+                self.commonchange(response.data.datas.data);
+
+            })
         },
+
         onSubmit(form) {
             let self = this;
-            self.type = 'combine';
-            axios.get("combinationselectopus",{
-                params:{
-                    page: self.currentPage,
-                    total: self.pagesize,
-                    op_cate_work_datas: form.op_cate_work,
-                    op_form_write_datas: form.op_form_write,
-                    op_cate_research_datas: form.op_cate_research
-                }
-            }).then(function (response) {
-                var data = response.data.datas;
-                if (data.code == 0) {
-                    self.allOpus = data.datas;
-                    for(var j=0;j<data.data.length;j++){
-                        for(var i= 0;i<self.op_form_write.length;i++){
-                            if(data.data[j].op_form_write == i){
-                                data.data[j].op_form_write = self.op_form_write[i];
-                            }
-                        }
-                        for(var i= 0;i<self.op_cate_research.length;i++){
-                            if(data.data[j].op_cate_research == i){
-                                data.data[j].op_cate_research = self.op_cate_research[i];
-                            }
-                        }
-                        for(var i= 0;i<self.op_cate_work.length;i++){
-                            if(data.data[j].op_cate_work == i){
-                                data.data[j].op_cate_work = self.op_cate_work[i];
-                            }
-                        }
-                        for(var i= 0;i<self.op_sub_category.length;i++){
-                            if(data.data[j].op_sub_category == i){
-                                data.data[j].op_sub_category = self.op_sub_category[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
-        }
+            self.types = 'composite_query';
+            self.op_cate = form.op_cate_work;
+            self.op_form = form.op_form_write;
+            self.op_cate_res = form.op_cate_research;
+            self.currentPages = 1;
+            self.groupchecks();
+        },
     },
     mounted() {
         this.getOpusData();
-    }
+    },
+    watch:{
+        currentPages:function (currentPages) {
+            this.currentPages = currentPages;
+            switch(this.types) {
+                case 'time':
+                    this.timeSearchget();
+                    break;
+                default:
+                    this.commonget();
+                    break;
+            }
+        }
+    },
 }
 </script>

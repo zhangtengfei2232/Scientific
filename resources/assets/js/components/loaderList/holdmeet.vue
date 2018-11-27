@@ -9,10 +9,10 @@
                             <el-col :span="12">
                                 <el-dropdown>
                                 <span class="el-dropdown-link">
-                                    时间：全部<i class="el-icon-arrow-down el-icon--right"></i>
+                                    会议时间<i class="el-icon-arrow-down el-icon--right"></i>
                                 </span>
                                 <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item>全部</el-dropdown-item>
+                                    <!--<el-dropdown-item>全部</el-dropdown-item>-->
                                     <el-dropdown-item @click.native="timeSearch(8)">18年-今天</el-dropdown-item>
                                     <el-dropdown-item @click.native="timeSearch(7)">17年-今天</el-dropdown-item>
                                     <el-dropdown-item @click.native="timeSearch(6)">16年-今天</el-dropdown-item>
@@ -84,7 +84,6 @@
                 :data="allHoldmeet"
                 style="width: 100%"
                 border
-                height="250"
                 @selection-change="handleSelectionChange">
                 <el-table-column
                     type="selection"
@@ -127,7 +126,7 @@
                     width="120">
                 </el-table-column>
             </el-table>
-            <el-button @click="ExcelSelection()">导出Excel</el-button>
+            <el-button @click="ExcelSelection()" style="margin-top: 20px;">导出Excel</el-button>
             <div class="page">
                 <el-pagination
                     @size-change="handleSizeChange"
@@ -172,6 +171,13 @@
 export default {
     data() {
         return {
+            types:'',
+            currentPages:1,
+            pagesize:10,
+            start_time:0,
+            end_time:0,
+            values:'',
+            total:0,
             searchValue:'',
             border:true,
             allHoldmeet:[],
@@ -180,8 +186,6 @@ export default {
             newTime:0,
             currentPage:1,
             ho_name:'',
-            pagesize:20,
-            total:0,
             form: {
                 ho_level: [],
             },
@@ -197,14 +201,15 @@ export default {
         remove() {
             document.querySelector("#arts").click();
         },
-        handleSizeChange: function (size) {
-            this.pagesize = size;
-        },
-        handleCurrentChange: function(currentPage){
-            this.currentPage = currentPage;
-        },
         handleSelectionChange(val) {
             this.multipleSelection = val;
+        },
+        handleSizeChange(val) {
+            this.pagesize = val;
+            this.commonget(this.types,this.values);
+        },
+        handleCurrentChange(val) {
+            this.currentPages=val;
         },
         ExcelSelection() {
             var self = this;
@@ -227,149 +232,117 @@ export default {
             window.location.href = urls;
         },
         getHoldmeetData() {
+            this.commonget(this.type);
+        },
+        commonget(){
             let self = this;
-            axios.get("leaderselectallholdmeet").then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allHoldmeet = data.datas;
-                    self.total = data.datas.length;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.ho_level.length;i++){
-                            if(data.datas[j].ho_level == i){
-                                data.datas[j].ho_level = self.ho_level[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
+            axios.get("byfieldselectholdmeet",{
+                params:{
+                    value:self.values,
+                    type: self.types,
+                    page:self.currentPages,
+                    total:self.pagesize,
                 }
+            }).then(function (response) {
+                self.total = response.data.datas.total;
+                self.commonchange(response.data.datas.data);
+
+            })
+        },
+        commonchange(data){
+            let self = this;
+            for(var i=0;i<data.length;i++){
+                data[i].ho_level = self.ho_level[data[i].ho_level];
+            }
+            self.allHoldmeet = data;
+        },
+        timeSearchget(){   //时间分页
+            let self = this;
+            self.types = 'time';
+            axios.get("byfieldselectholdmeet", {
+                params: {
+                    start_time:self.start_time,
+                    end_time:self.end_time,
+                    type: self.types,
+                    page: self.currentPages,
+                    total: self.pagesize,
+                }
+            }).then(function (response) {
+                self.total = response.data.datas.total;
+                self.commonchange(response.data.datas.data);
             });
         },
         timeSearch(time) {
             if(time == 8) {
-                this.newTime = '1514779200';
+                this.start_time = '1514779200000';
             }else if(time == 7) {
-                this.newTime = '1483243200';
+                this.start_time = '1483243200000';
             }else if(time == 6) {
-                this.newTime = '1451620800';
+                this.start_time = '1451620800000';
             }else if(time == 5) {
-                this.newTime = '1420084800';
+                this.start_time = '1420084800000';
             }else if(time == 4) {
-                this.newTime = '1388548800';
+                this.start_time = '1388548800000';
             }
-            var timestamp = Date.parse(new Date());
+            this.end_time = Date.parse(new Date());
             let self = this;
-            axios.get("bytimeselectholdmeet",{
-                params:{
-                    start_time:this.newTime,
-                    end_time:timestamp
-                }
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allHoldmeet = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.ho_level.length;i++){
-                            if(data.datas[j].ho_level == i){
-                                data.datas[j].ho_level = self.ho_level[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+            self.types = 'ho_time';
+            self.currentPages = 1;
+            self.timeSearchget();
         },
         twoTimeSearch() {
-           let self = this;
-            axios.get("bytimeselectholdmeet",{
-                params:{
-                    start_time:self.data1[0],
-                    end_time:self.data1[1],
-                }
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allHoldmeet = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.ho_level.length;i++){
-                            if(data.datas[j].ho_level == i){
-                                data.datas[j].ho_level = self.ho_level[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+            let self = this;
+            self.types = 'time';
+            self.start_time = self.data1[0];
+            self.end_time   = self.data1[1];
+            self.currentPages = 1;
+            self.timeSearchget();
         },
         nameSearch() {
             let self = this;
-            axios.get("bynameselectholdmeet",{
+            self.types = 'ho_name';
+            self.values = self.ho_name;
+            self.currentPages = 1;
+            self.commonget();
+        },
+        groupchecks(){
+            let self = this;
+            axios.get("byfieldselectholdmeet",{
                 params:{
-                    ho_name: self.ho_name,
+                    ho_level_datas:self.values,
+                    type: self.types,
+                    page:self.currentPages,
+                    total:self.pagesize,
                 }
             }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allHoldmeet = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.ho_level.length;i++){
-                            if(data.datas[j].ho_level == i){
-                                data.datas[j].ho_level = self.ho_level[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+                self.total = response.data.datas.total;
+                self.commonchange(response.data.datas.data);
+
+            })
         },
         onSubmit(form) {
             let self = this;
-            axios.get("combinationselectholdmeet",{
-                params:{
-                    ho_level_datas: form.ho_level,
-                }
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allHoldmeet = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.ho_level.length;i++){
-                            if(data.datas[j].ho_level == i){
-                                data.datas[j].ho_level = self.ho_level[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+            self.types = 'ho_level';
+            self.values = form.ho_level;
+            self.currentPages = 1;
+            self.groupchecks();
         }
     },
     mounted() {
         this.getHoldmeetData();
-    }
+    },
+    watch:{
+        currentPages:function (currentPages) {
+            this.currentPages = currentPages;
+            switch(this.types) {
+                case 'time':
+                    this.timeSearchget();
+                    break;
+                default:
+                    this.commonget();
+                    break;
+            }
+        }
+    },
 }
 </script>

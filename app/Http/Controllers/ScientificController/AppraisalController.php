@@ -112,8 +112,8 @@ class AppraisalController extends Controller
         }
         $datas['ap_remarks'] = trim($request->ap_remarks);
         $reset_image_status = false;
-        $datas['ap_road'] = $ap_road;
         if(!$request->hasFile('ap_road')){
+            $datas['ap_road'] = $ap_road;
             return AppraisalDatabase::updateAppraisalDatas($datas,$reset_image_status);
         }
         $reset_image_status = false;

@@ -3,7 +3,7 @@
         <div class="cont">
             <div class="header">
                 <el-header>
-                    <div class="art">所有成员({{total}})</div>
+                    <div class="art" id="arts">所有成员({{total}})</div>
                     <div class="search">
                         <el-popover
                                 placement="top-start"
@@ -12,8 +12,8 @@
                             <el-input
                                     placeholder="请输入老师姓名(回车搜索)"
                                     prefix-icon="el-icon-search"
-                                    v-model="form.name"
-                                    @keyup.enter.native="byNameSearch(form)">
+                                    v-model="name"
+                                    @keyup.enter.native="byNameSearch()">
                             </el-input>
                             <div slot="reference">老师：姓名<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
@@ -34,20 +34,20 @@
                             </el-dropdown-menu>
                         </el-dropdown>
                     </div>
-                    <div class="search">
-                        <el-popover
-                                placement="top-start"
-                                width="400"
-                                trigger="click">
-                            <el-input
-                                    placeholder="请输入老师行政职务(回车搜索)"
-                                    prefix-icon="el-icon-search"
-                                    v-model="form.duties"
-                                    @keyup.enter.native="byDutiesSearch(form)">
-                            </el-input>
-                            <div slot="reference">行政职务<i class="el-icon-arrow-down el-icon--right"></i></div>
-                        </el-popover>
-                    </div>
+                    <!--<div class="search">-->
+                        <!--<el-popover-->
+                                <!--placement="top-start"-->
+                                <!--width="400"-->
+                                <!--trigger="click">-->
+                            <!--<el-input-->
+                                    <!--placeholder="请输入老师行政职务(回车搜索)"-->
+                                    <!--prefix-icon="el-icon-search"-->
+                                    <!--v-model="duties"-->
+                                    <!--@keyup.enter.native="byDutiesSearch()">-->
+                            <!--</el-input>-->
+                            <!--<div slot="reference">行政职务<i class="el-icon-arrow-down el-icon&#45;&#45;right"></i></div>-->
+                        <!--</el-popover>-->
+                    <!--</div>-->
                     <div class="search">
                         <el-popover
                                 placement="top-start"
@@ -56,8 +56,8 @@
                             <el-input
                                     placeholder="请输入老师所属教研室和实验室(回车搜索)"
                                     prefix-icon="el-icon-search"
-                                    v-model="form.lab"
-                                    @keyup.enter.native="byLabSearch(form)">
+                                    v-model="te_re_department"
+                                    @keyup.enter.native="byLabSearch()">
                             </el-input>
                             <div slot="reference">所属教研室和实验室<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
@@ -70,12 +70,12 @@
                             <el-input
                                     placeholder="请输入老师现从事专业(回车搜索)"
                                     prefix-icon="el-icon-search"
-                                    v-model="form.major"
-                                    @keyup.enter.native="byMajorSearch(form)">
+                                    v-model="work_major"
+                                    @keyup.enter.native="byMajorSearch()">
                             </el-input>
                             <div slot="reference">现从事专业<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
-                </div>
+                    </div>
                     <div class="search">
                         <el-form ref="form" :model="form" label-width="50px">
                             <el-dropdown @command="levelCommand" style="font-size: 16px;">
@@ -93,28 +93,84 @@
                         </el-form>
                     </div>
                     <div class="search">
-                            <el-form ref="form" :model="form" label-width="50px">
-                                <el-dropdown @command="postCommand" style="font-size: 16px;">
-                                    <span class="el-dropdown-link">
-                                    行政职务<i class="el-icon-arrow-down el-icon--right"></i>
-                                    </span>
-                                    <el-dropdown-menu slot="dropdown">
-                                        <el-dropdown-item command="0">普通老师</el-dropdown-item>
-                                        <el-dropdown-item command="1">院长</el-dropdown-item>
-                                        <el-dropdown-item command="2">副院长</el-dropdown-item>
-                                        <el-dropdown-item command="3">教学秘书</el-dropdown-item>
-                                        <el-dropdown-item command="4">科研秘书</el-dropdown-item>
-                                        <el-dropdown-item command="5">研究生秘书</el-dropdown-item>
-                                        <el-dropdown-item command="6">副主任</el-dropdown-item>
-                                        <el-dropdown-item command="7">系主任</el-dropdown-item>
-                                        <el-dropdown-item command="8">办公室主任</el-dropdown-item>
-                                        <el-dropdown-item command="9">教研室主任</el-dropdown-item>
-                                        <el-dropdown-item command="10">党委书记</el-dropdown-item>
-                                        <el-dropdown-item command="11">党委副书记</el-dropdown-item>
-                                    </el-dropdown-menu>
-                                </el-dropdown>
-                            </el-form>
+                            <!--<el-form ref="form" :model="form" label-width="50px">-->
+                        <el-dropdown @command="postCommand" style="font-size: 16px;">
+                            <span class="el-dropdown-link">
+                            行政职务<i class="el-icon-arrow-down el-icon--right"></i>
+                            </span>
+                            <el-dropdown-menu slot="dropdown">
+                                <el-dropdown-item command="0">普通老师</el-dropdown-item>
+                                <el-dropdown-item command="1">院长</el-dropdown-item>
+                                <el-dropdown-item command="2">副院长</el-dropdown-item>
+                                <el-dropdown-item command="3">教学秘书</el-dropdown-item>
+                                <el-dropdown-item command="4">科研秘书</el-dropdown-item>
+                                <el-dropdown-item command="5">研究生秘书</el-dropdown-item>
+                                <el-dropdown-item command="6">小麦中心主任</el-dropdown-item>
+                                <el-dropdown-item command="7">系主任</el-dropdown-item>
+                                <el-dropdown-item command="8">办公室主任</el-dropdown-item>
+                                <el-dropdown-item command="9">教研室主任</el-dropdown-item>
+                                <el-dropdown-item command="10">党委书记</el-dropdown-item>
+                                <el-dropdown-item command="11">党委副书记</el-dropdown-item>
+                                <el-dropdown-item command="12">研究室主任</el-dropdown-item>
+                                <el-dropdown-item command="13">实验室主任</el-dropdown-item>
+                            </el-dropdown-menu>
+                        </el-dropdown>
+                            <!--</el-form>-->
                     </div>
+
+                    <div class="search">
+                        <el-popover
+                                placement="top-start"
+                                width="500"
+                                trigger="click">
+                            <el-form ref="form" :model="form" :indeterminate="isIndeterminate" label-width="80px">
+                                <el-form-item label="老师职称">
+                                    <el-checkbox-group v-model="form.academic_title">
+                                        <el-checkbox :label="0">教授</el-checkbox>
+                                        <el-checkbox :label="1">副教授</el-checkbox>
+                                        <el-checkbox :label="2">讲师</el-checkbox>
+                                        <el-checkbox :label="3">助教</el-checkbox>
+                                        <el-checkbox :label="4">高级实验师</el-checkbox>
+                                        <el-checkbox :label="5">实验师</el-checkbox>
+                                        <el-checkbox :label="6">助理实验师</el-checkbox>
+                                    </el-checkbox-group>
+                                </el-form-item>
+                                <el-form-item label="职务级别">
+                                    <el-checkbox-group v-model="form.job_level">
+                                        <el-checkbox :label="0">正处</el-checkbox>
+                                        <el-checkbox :label="1">副处</el-checkbox>
+                                        <el-checkbox :label="2">正科</el-checkbox>
+                                        <el-checkbox :label="3">副科</el-checkbox>
+                                        <el-checkbox :label="4">其他</el-checkbox>
+                                    </el-checkbox-group>
+                                </el-form-item>
+                                <el-form-item label="行政职务">
+                                    <el-checkbox-group v-model="form.admin_duties">
+                                        <el-checkbox :label="0">普通老师</el-checkbox>
+                                        <el-checkbox :label="1">院长</el-checkbox>
+                                        <el-checkbox :label="2">副院长</el-checkbox>
+                                        <el-checkbox :label="3">教学秘书</el-checkbox>
+                                        <el-checkbox :label="4">科研秘书</el-checkbox>
+                                        <el-checkbox :label="5">研究生秘书</el-checkbox>
+                                        <el-checkbox :label="6">小麦中心主任</el-checkbox>
+                                        <el-checkbox :label="7">系主任</el-checkbox>
+                                        <el-checkbox :label="8">办公室主任</el-checkbox>
+                                        <el-checkbox :label="9">教研室主任</el-checkbox>
+                                        <el-checkbox :label="10">党委书记</el-checkbox>
+                                        <el-checkbox :label="11">党委副书记</el-checkbox>
+                                        <el-checkbox :label="12">研究室主任</el-checkbox>
+                                        <el-checkbox :label="13">实验室主任</el-checkbox>
+                                    </el-checkbox-group>
+                                </el-form-item>
+                                <el-form-item>
+                                    <el-button type="primary" @click.native="onSubmit(form)">确定</el-button>
+                                    <el-button @click="remove()">取消</el-button>
+                                </el-form-item>
+                            </el-form>
+                            <div slot="reference">高级筛选<i class="el-icon-arrow-down el-icon--right"></i></div>
+                        </el-popover>
+                    </div>
+
                 </el-header>
             </div>
             <el-table
@@ -305,16 +361,6 @@
                         label="硕博获得时间"
                         width="100">
                 </el-table-column>
-                <!--<el-table-column-->
-                        <!--fixed="right"-->
-                        <!--label="操作"-->
-                        <!--width="100">-->
-                    <!--<template slot-scope="scope">-->
-                        <!--<el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>-->
-                        <!--<el-button type="text" size="small">编辑</el-button>-->
-                    <!--</template>-->
-                <!--</el-table-column>-->
-
             </el-table>
             <el-button @click="ExcelSelection()"style="margin-top: 20px;">导出Excel</el-button>
             <div class="page">
@@ -370,20 +416,21 @@
                 total:0,
                 searchValue:'',
                 border:true,
+                isIndeterminate: true,
                 teacherDate:[],
                 data1: '',
-                nameinput:'',
-                labinput:'',
-                dutiesinput:'',
-                majorinput:'',
+                name:'',
+                te_re_department:'',
+                work_major:'',
+                academic:'',
+                job:'',
+                admin:'',
                 form: {
+                    admin_duties:[],
+                    academic_title:[],
+                    job_level:[],
                     type:'',
                     checkList: [],
-                    name:'',
-                    duties:'',
-                    lab:'',
-                    major:'',
-                    num:''
                 },
                 teacher_department:[//所属部门
                     '生工',
@@ -452,40 +499,92 @@
             }
         },
         methods: {
+            remove() {
+                document.querySelector("#arts").click();
+            },
             getArticleData() {
                 this.commonget(this.type);
-//                let self = this;
-//                axios.get("leaderselectallteacher").then(function (response) {
-//                    var data = response.data;
-////                    self.form.num = data.datas.length;
-//                    self.total = data.datas.length;
-//                    for(var i=0;i<data.datas.length;i++){
-//                        data.datas[i].sex = self.sex[data.datas[i].sex];
-//                        data.datas[i].first_academic = self.first_academic[data.datas[i].first_academic];//第一学历学位
-//                        data.datas[i].most_academic = self.most_academic[data.datas[i].most_academic];//最高学历/学位
-//                        data.datas[i].polit_outlook = self.polit_outlook[data.datas[i].polit_outlook];//政治面貌
-//                        data.datas[i].teacher_department = self.teacher_department[data.datas[i].teacher_department];//所属部门
-//                        data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
-//                        data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
-//                        data.datas[i].academic_title = self.academic_title[data.datas[i].academic_title];//老师职称
-//                        data.datas[i].admin_duties = self.admin_duties[data.datas[i].admin_duties];//行政职务
-//                    }
-//                    if (data.code == 0) {
-//                        self.teacherDate = data.datas;
-//                    } else {
-//                        self.$notify({
-//                            type: 'error',
-//                            message: data.message,
-//                            duration: 2000,
-//                        });
-//                    }
-//                });
             },
             commonget(){
                 let self = this;
-                axios.get("leaderselectallteacher",{
+                axios.get("byfieldselectteacher",{
                     params:{
                         value:self.values,
+                        type: self.types,
+                        page:self.currentPages,
+                        total:self.pagesize,
+                    }
+                }).then(function (response) {
+                    console.log(response);
+                    self.total = response.data.datas.total;
+                    self.commonchange(response.data.datas);
+
+                })
+            },
+            commonchange(data){
+                let self = this;
+                for(var i=0;i<data.length;i++){
+                    data[i].sex = self.sex[data[i].sex];
+                    data[i].first_academic = self.first_academic[data[i].first_academic];
+                    data[i].most_academic = self.most_academic[data[i].most_academic];
+                    data[i].polit_outlook = self.polit_outlook[data[i].polit_outlook];
+                    data[i].teacher_department = self.teacher_department[data[i].teacher_department];
+                    data[i].job_level = self.job_level[data[i].job_level];
+                    data[i].technical_position = self.technical_position[data[i].technical_position];
+                    data[i].academic_title = self.academic_title[data[i].academic_title];
+                    data[i].admin_duties = self.admin_duties[data[i].admin_duties];
+                }
+                self.teacherDate = data;
+            },
+            byNameSearch() {                //老师姓名
+                let self = this;
+                self.types = 'name';
+                self.values = self.name;
+                self.currentPages = 1;
+                self.commonget();
+            },
+            byLabSearch(){                  //所属教研室和实验室
+                let self = this;
+                self.types = 'te_re_department';
+                self.values = self.te_re_department;
+                self.currentPages = 1;
+                self.commonget();
+            },
+            byMajorSearch(){                    //现从事专业
+                let self = this;
+                self.types = 'work_major';
+                self.values = self.work_major;
+                self.currentPages = 1;
+                self.commonget();
+            },
+            titleCommand(command){      //老师职称
+                let self = this;
+                self.types = 'academic_title';
+                self.values = command;
+                self.currentPages = 1;
+                self.commonget();
+            },
+            levelCommand(command){       //职务级别
+                let self = this;
+                self.types = 'job_level';
+                self.values = command;
+                self.currentPages = 1;
+                self.commonget();
+            },
+            postCommand(command){       //行政职务
+                let self = this;
+                self.types = 'admin_duties';
+                self.values = command;
+                self.currentPages = 1;
+                self.commonget();
+            },
+            groupchecks(){
+                let self = this;
+                axios.get("byfieldselectteacher",{
+                    params:{
+                        academic_title_datas:self.academic,
+                        job_level_datas:self.job,
+                        admin_duties_datas:self.admin,
                         type: self.types,
                         page:self.currentPages,
                         total:self.pagesize,
@@ -496,241 +595,29 @@
 
                 })
             },
-            commonchange(data){
+            onSubmit(form) {
                 let self = this;
-                for(var i=0;i<data.length;i++){
-                    data[i].le_invite_status = self.le_invite_status[data[i].le_invite_status];
-                    data[i].le_expert_level = self.le_expert_level[data[i].le_expert_level];
-                }
-                self.ExperspeakDate = data;
-            },
-            handleClick(row) {
-                console.log(row);
-            },
-            byNameSearch(form) {                //老师姓名
-                let self = this;
-                axios.get("bynameselectteacher",{
-                    params:{
-                        teacher_name: form.name,
-                    }
-                }).then(function (response) {
-                    var data = response.data;
-                    self.form.num = data.datas.length;
-                    for(var i=0;i<data.datas.length;i++){
-                        data.datas[i].sex = self.sex[data.datas[i].sex];
-                        data.datas[i].first_academic = self.first_academic[data.datas[i].first_academic];//第一学历学位
-                        data.datas[i].most_academic = self.most_academic[data.datas[i].most_academic];//最高学历/学位
-                        data.datas[i].polit_outlook = self.polit_outlook[data.datas[i].polit_outlook];//政治面貌
-                        data.datas[i].teacher_department = self.teacher_department[data.datas[i].teacher_department];//所属部门
-                        data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
-                        data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
-                        data.datas[i].academic_title = self.academic_title[data.datas[i].academic_title];//老师职称
-                        data.datas[i].admin_duties = self.admin_duties[data.datas[i].admin_duties];//行政职务
-                    }
-                    if (data.code == 0) {
-                        self.teacherDate = data.datas;
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.message,
-                            duration: 2000,
-                        });
-                    }
-                });
-            },
-            byDutiesSearch(form){               //行政职务
-                let self = this;
-                axios.get("byadmindutiesselectteacher",{
-                    params:{
-                        admin_duties: form.duties,
-                    }
-                }).then(function (response) {
-                    var data = response.data;
-                    self.form.num = data.datas.length;
-                    for(var i=0;i<data.datas.length;i++){
-                        data.datas[i].sex = self.sex[data.datas[i].sex];
-                        data.datas[i].first_academic = self.first_academic[data.datas[i].first_academic];//第一学历学位
-                        data.datas[i].most_academic = self.most_academic[data.datas[i].most_academic];//最高学历/学位
-                        data.datas[i].polit_outlook = self.polit_outlook[data.datas[i].polit_outlook];//政治面貌
-                        data.datas[i].teacher_department = self.teacher_department[data.datas[i].teacher_department];//所属部门
-                        data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
-                        data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
-                        data.datas[i].academic_title = self.academic_title[data.datas[i].academic_title];//老师职称
-                        data.datas[i].admin_duties = self.admin_duties[data.datas[i].admin_duties];//行政职务
-                    }
-                    if (data.code == 0) {
-                        self.teacherDate = data.datas;
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.message,
-                            duration: 2000,
-                        });
-                    }
-                });
-            },
-            byLabSearch(form){                  //所属教研室和实验室
-                let self = this;
-                axios.get("byteachresearchselectteacher",{
-                    params:{
-                        te_re_department: form.lab,
-                    }
-                }).then(function (response) {
-                    var data = response.data;
-                    self.form.num = data.datas.length;
-                    for(var i=0;i<data.datas.length;i++){
-                        data.datas[i].sex = self.sex[data.datas[i].sex];
-                        data.datas[i].first_academic = self.first_academic[data.datas[i].first_academic];//第一学历学位
-                        data.datas[i].most_academic = self.most_academic[data.datas[i].most_academic];//最高学历/学位
-                        data.datas[i].polit_outlook = self.polit_outlook[data.datas[i].polit_outlook];//政治面貌
-                        data.datas[i].teacher_department = self.teacher_department[data.datas[i].teacher_department];//所属部门
-                        data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
-                        data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
-                        data.datas[i].academic_title = self.academic_title[data.datas[i].academic_title];//老师职称
-                        data.datas[i].admin_duties = self.admin_duties[data.datas[i].admin_duties];//行政职务
-                    }
-                    if (data.code == 0) {
-                        self.teacherDate = data.datas;
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.message,
-                            duration: 2000,
-                        });
-                    }
-                });
-            },
-            byMajorSearch(form){                    //现从事专业
-                let self = this;
-                axios.get("byworkmajorselectteacher",{
-                    params:{
-                        work_major:form.major,
-                    }
-                }).then(function (response) {
-                    var data = response.data;
-                    self.form.num = data.datas.length;
-                    for(var i=0;i<data.datas.length;i++){
-                        data.datas[i].sex = self.sex[data.datas[i].sex];
-                        data.datas[i].first_academic = self.first_academic[data.datas[i].first_academic];//第一学历学位
-                        data.datas[i].most_academic = self.most_academic[data.datas[i].most_academic];//最高学历/学位
-                        data.datas[i].polit_outlook = self.polit_outlook[data.datas[i].polit_outlook];//政治面貌
-                        data.datas[i].teacher_department = self.teacher_department[data.datas[i].teacher_department];//所属部门
-                        data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
-                        data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
-                        data.datas[i].academic_title = self.academic_title[data.datas[i].academic_title];//老师职称
-                        data.datas[i].admin_duties = self.admin_duties[data.datas[i].admin_duties];//行政职务
-                    }
-                    if (data.code == 0) {
-                        self.teacherDate = data.datas;
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.message,
-                            duration: 2000,
-                        });
-                    }
-                });
-            },
-            titleCommand(command){      //老师职称
-                let self = this;
-                axios.get("byacademictitleselectteacher",{
-                    params:{
-                        academic_title: command,
-                    }
-                }).then(function (response) {
-                    var data = response.data;
-                    self.form.num = data.datas.length;
-                    for(var i=0;i<data.datas.length;i++){
-                        data.datas[i].sex = self.sex[data.datas[i].sex];
-                        data.datas[i].first_academic = self.first_academic[data.datas[i].first_academic];//第一学历学位
-                        data.datas[i].most_academic = self.most_academic[data.datas[i].most_academic];//最高学历/学位
-                        data.datas[i].polit_outlook = self.polit_outlook[data.datas[i].polit_outlook];//政治面貌
-                        data.datas[i].teacher_department = self.teacher_department[data.datas[i].teacher_department];//所属部门
-                        data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
-                        data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
-                        data.datas[i].academic_title = self.academic_title[data.datas[i].academic_title];//老师职称
-                        data.datas[i].admin_duties = self.admin_duties[data.datas[i].admin_duties];//行政职务
-                    }
-                    if (data.code == 0) {
-                        self.teacherDate = data.datas;
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.message,
-                            duration: 2000,
-                        });
-                    }
-                });
-            },
-            levelCommand(command){       //职务级别
-                let self = this;
-                axios.get("byjoblevelselectteacher",{
-                    params:{
-                        job_level: command,
-                    }
-                }).then(function (response) {
-                    var data = response.data;
-                    self.form.num = data.datas.length;
-                    for(var i=0;i<data.datas.length;i++){
-                        data.datas[i].sex = self.sex[data.datas[i].sex];
-                        data.datas[i].first_academic = self.first_academic[data.datas[i].first_academic];//第一学历学位
-                        data.datas[i].most_academic = self.most_academic[data.datas[i].most_academic];//最高学历/学位
-                        data.datas[i].polit_outlook = self.polit_outlook[data.datas[i].polit_outlook];//政治面貌
-                        data.datas[i].teacher_department = self.teacher_department[data.datas[i].teacher_department];//所属部门
-                        data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
-                        data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
-                        data.datas[i].academic_title = self.academic_title[data.datas[i].academic_title];//老师职称
-                        data.datas[i].admin_duties = self.admin_duties[data.datas[i].admin_duties];//行政职务
-                    }
-                    if (data.code == 0) {
-                        self.teacherDate = data.datas;
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.message,
-                            duration: 2000,
-                        });
-                    }
-                });
-            },
-            postCommand(command){       //行政职务
-                let self = this;
-                axios.get("bypostcategoryselectteacher",{
-                    params:{
-                        admin_duties: command,
-                    }
-                }).then(function (response) {
-                    var data = response.data;
-                    self.form.num = data.datas.length;
-                    for(var i=0;i<data.datas.length;i++){
-                        data.datas[i].sex = self.sex[data.datas[i].sex];
-                        data.datas[i].first_academic = self.first_academic[data.datas[i].first_academic];//第一学历学位
-                        data.datas[i].most_academic = self.most_academic[data.datas[i].most_academic];//最高学历/学位
-                        data.datas[i].polit_outlook = self.polit_outlook[data.datas[i].polit_outlook];//政治面貌
-                        data.datas[i].teacher_department = self.teacher_department[data.datas[i].teacher_department];//所属部门
-                        data.datas[i].job_level = self.job_level[data.datas[i].job_level];//职务级别
-                        data.datas[i].technical_position = self.technical_position[data.datas[i].technical_position];//专业技术职务
-                        data.datas[i].academic_title = self.academic_title[data.datas[i].academic_title];//老师职称
-                        data.datas[i].admin_duties = self.admin_duties[data.datas[i].admin_duties];//行政职务
-                    }
-                    if (data.code == 0) {
-                        self.teacherDate = data.datas;
-                    } else {
-                        self.$notify({
-                            type: 'error',
-                            message: data.message,
-                            duration: 2000,
-                        });
-                    }
-                });
+                self.types = 'composite_query';
+                self.academic = form.academic_title;
+                self.job = form.job_level;
+                self.admin = form.admin_duties;
+                self.currentPages = 1;
+                self.groupchecks();
             },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
             },
+            handleSizeChange(val) {
+                this.pagesize = val;
+                this.commonget(this.types,this.values);
+            },
+            handleCurrentChange(val) {
+                this.currentPages=val;
+            },
             ExcelSelection() {
                 var self = this;
                 var tea_id_datas = [];//存放导出的数据
-                if(self.multipleSelection == undefined){
+                if(self.multipleSelection == ''){
                     this.$message({
                         message: '请选择要导出的老师信息',
                         type: 'warning'

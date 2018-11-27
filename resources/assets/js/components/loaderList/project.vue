@@ -9,10 +9,10 @@
                             <el-col :span="12">
                                 <el-dropdown>
                                 <span class="el-dropdown-link">
-                                    时间：全部<i class="el-icon-arrow-down el-icon--right"></i>
+                                    项目年份<i class="el-icon-arrow-down el-icon--right"></i>
                                 </span>
                                 <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item>全部</el-dropdown-item>
+                                    <!--<el-dropdown-item>全部</el-dropdown-item>-->
                                     <el-dropdown-item @click.native="timeSearch(8)">18年-今天</el-dropdown-item>
                                     <el-dropdown-item @click.native="timeSearch(7)">17年-今天</el-dropdown-item>
                                     <el-dropdown-item @click.native="timeSearch(6)">16年-今天</el-dropdown-item>
@@ -51,7 +51,7 @@
                            <el-input
                                 placeholder="请输入主持人姓名"
                                 prefix-icon="el-icon-search"
-                                v-model="pro_name" @keyup.enter.native="nameSearch()">
+                                v-model="pro_host" @keyup.enter.native="nameSearch()">
                             </el-input>
                             <div slot="reference">检索：主持人<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
@@ -124,7 +124,6 @@
                 :data="allProject"
                 style="width: 100%"
                 border
-                height="250"
                 @selection-change="handleSelectionChange">
                 <el-table-column
                     type="selection"
@@ -197,12 +196,12 @@
                     width="120">
                 </el-table-column>
             </el-table>
-            <el-button @click="ExcelSelection()">导出Excel</el-button>
+            <el-button @click="ExcelSelection()" style="margin-top: 20px;">导出Excel</el-button>
             <div class="page">
                 <el-pagination
                     @size-change="handleSizeChange"
                     @current-change="handleCurrentChange"
-                    :current-page="currentPage"
+                    :current-page="currentPages"
                     :page-sizes="[10, 20, 50, 100]"
                     :page-size="pagesize"
                     layout="total, sizes, prev, pager, next, jumper"
@@ -242,16 +241,22 @@
 export default {
     data() {
         return {
+            types:'',
+            currentPages:1,
+            pagesize:10,
+            start_time:0,
+            end_time:0,
+            values:'',
+            total:0,
+            pro_name:'',
             newTime:0,
             searchValue:'',
             border:true,
             allProject:[],
             multipleSelection: [],
             data1: '',
-            pro_name:'',
+            pro_host:'',
             project_category:'',
-            total:0,
-            pagesize:20,
             currentPage:1,
             approval_unit:'',
             form: {
@@ -296,14 +301,15 @@ export default {
         remove() {
             document.querySelector("#arts").click();
         },
-        handleSizeChange: function (size) {
-            this.pagesize = size;
-        },
-        handleCurrentChange: function(currentPage){
-            this.currentPage = currentPage;
-        },
         handleSelectionChange(val) {
             this.multipleSelection = val;
+        },
+        handleSizeChange(val) {
+            this.pagesize = val;
+            this.commonget(this.types,this.values);
+        },
+        handleCurrentChange(val) {
+            this.currentPages=val;
         },
         ExcelSelection() {
             var self = this;
@@ -326,271 +332,137 @@ export default {
             window.location.href = urls;
         },
         getProjectData() {
+            this.commonget(this.type);
+        },
+        commonget(){
             let self = this;
-            axios.get("leaderselectallproject").then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allProject = data.datas;
-                    self.total = data.datas.length;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.pro_cate_research.length;i++){
-                            if(data.datas[j].pro_cate_research == i){
-                                data.datas[j].pro_cate_research = self.pro_cate_research[i];
-                            }
-                        }
-                        for(var i= 0;i<self.pro_sub_category.length;i++){
-                            if(data.datas[j].pro_sub_category == i){
-                                data.datas[j].pro_sub_category = self.pro_sub_category[i];
-                            }
-                        }
-                        for(var i= 0;i<self.form_cooperate.length;i++){
-                            if(data.datas[j].form_cooperate == i){
-                                data.datas[j].form_cooperate = self.form_cooperate[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
+            axios.get("byfieldselectproject",{
+                params:{
+                    value:self.values,
+                    type: self.types,
+                    page:self.currentPages,
+                    total:self.pagesize,
                 }
+            }).then(function (response) {
+                self.total = response.data.datas.total;
+                self.commonchange(response.data.datas.data);
+
+            })
+        },
+        commonchange(data){
+            let self = this;
+            for(var i=0;i<data.length;i++){
+                data[i].pro_cate_research = self.pro_cate_research[data[i].pro_cate_research];
+                data[i].pro_sub_category = self.pro_sub_category[data[i].pro_sub_category];
+                data[i].form_cooperate = self.form_cooperate[data[i].form_cooperate];
+            }
+            self.allProject = data;
+            console.log(self.allProject);
+        },
+        timeSearchget(){   //时间分页
+            let self = this;
+            self.types = 'time';
+            axios.get("byfieldselectproject", {
+                params: {
+                    start_time:self.start_time,
+                    end_time:self.end_time,
+                    type: self.types,
+                    page: self.currentPages,
+                    total: self.pagesize,
+                }
+            }).then(function (response) {
+                self.total = response.data.datas.total;
+                self.commonchange(response.data.datas.data);
             });
         },
         timeSearch(time) {
             if(time == 8) {
-                this.newTime = '1514779200';
+                this.start_time = '1514779200000';
             }else if(time == 7) {
-                this.newTime = '1483243200';
+                this.start_time = '1483243200000';
             }else if(time == 6) {
-                this.newTime = '1451620800';
+                this.start_time = '1451620800000';
             }else if(time == 5) {
-                this.newTime = '1420084800';
+                this.start_time = '1420084800000';
             }else if(time == 4) {
-                this.newTime = '1388548800';
+                this.start_time = '1388548800000';
             }
-            var timestamp = Date.parse(new Date());
+            this.end_time = Date.parse(new Date());
             let self = this;
-            axios.get("byyearselectproject",{
-                params:{
-                    start_time:this.newTime,
-                    end_time:timestamp
-                }
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allProject = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.pro_cate_research.length;i++){
-                            if(data.datas[j].pro_cate_research == i){
-                                data.datas[j].pro_cate_research = self.pro_cate_research[i];
-                            }
-                        }
-                        for(var i= 0;i<self.pro_sub_category.length;i++){
-                            if(data.datas[j].pro_sub_category == i){
-                                data.datas[j].pro_sub_category = self.pro_sub_category[i];
-                            }
-                        }
-                        for(var i= 0;i<self.form_cooperate.length;i++){
-                            if(data.datas[j].form_cooperate == i){
-                                data.datas[j].form_cooperate = self.form_cooperate[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+            self.types = 'project_year';
+            self.currentPages = 1;
+            self.timeSearchget();
         },
         twoTimeSearch() {
-           let self = this;
-            axios.get("byyearselectproject",{
-                params:{
-                    start_time:self.data1[0],
-                    end_time:self.data1[1],
-                }
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allProject = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.pro_cate_research.length;i++){
-                            if(data.datas[j].pro_cate_research == i){
-                                data.datas[j].pro_cate_research = self.pro_cate_research[i];
-                            }
-                        }
-                        for(var i= 0;i<self.pro_sub_category.length;i++){
-                            if(data.datas[j].pro_sub_category == i){
-                                data.datas[j].pro_sub_category = self.pro_sub_category[i];
-                            }
-                        }
-                        for(var i= 0;i<self.form_cooperate.length;i++){
-                            if(data.datas[j].form_cooperate == i){
-                                data.datas[j].form_cooperate = self.form_cooperate[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+            let self = this;
+            self.types = 'time';
+            self.start_time = self.data1[0];
+            self.end_time   = self.data1[1];
+            self.currentPages = 1;
+            self.timeSearchget();
         },
         nameSearch() {
             let self = this;
-            axios.get("byhostselectproject",{
-                params:{
-                    pro_host: self.pro_name,
-                }
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allProject = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.pro_cate_research.length;i++){
-                            if(data.datas[j].pro_cate_research == i){
-                                data.datas[j].pro_cate_research = self.pro_cate_research[i];
-                            }
-                        }
-                        for(var i= 0;i<self.pro_sub_category.length;i++){
-                            if(data.datas[j].pro_sub_category == i){
-                                data.datas[j].pro_sub_category = self.pro_sub_category[i];
-                            }
-                        }
-                        for(var i= 0;i<self.form_cooperate.length;i++){
-                            if(data.datas[j].form_cooperate == i){
-                                data.datas[j].form_cooperate = self.form_cooperate[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+            self.types = 'pro_host';
+            self.values = self.pro_host;
+            self.currentPages = 1;
+            self.commonget();
         },
         typeSearch() {
             let self = this;
-            axios.get("bycategoryselectproject",{
-                params:{
-                    project_category: self.project_category,
-                }
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allProject = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.pro_cate_research.length;i++){
-                            if(data.datas[j].pro_cate_research == i){
-                                data.datas[j].pro_cate_research = self.pro_cate_research[i];
-                            }
-                        }
-                        for(var i= 0;i<self.pro_sub_category.length;i++){
-                            if(data.datas[j].pro_sub_category == i){
-                                data.datas[j].pro_sub_category = self.pro_sub_category[i];
-                            }
-                        }
-                        for(var i= 0;i<self.form_cooperate.length;i++){
-                            if(data.datas[j].form_cooperate == i){
-                                data.datas[j].form_cooperate = self.form_cooperate[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+            self.types = 'project_category';
+            self.values = self.project_category;
+            self.currentPages = 1;
+            self.commonget();
         },
         approveSearch() {
             let self = this;
-            axios.get("byapprovalunitaelectproject",{
-                params:{
-                    approval_unit: self.approval_unit,
-                }
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allProject = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.pro_cate_research.length;i++){
-                            if(data.datas[j].pro_cate_research == i){
-                                data.datas[j].pro_cate_research = self.pro_cate_research[i];
-                            }
-                        }
-                        for(var i= 0;i<self.pro_sub_category.length;i++){
-                            if(data.datas[j].pro_sub_category == i){
-                                data.datas[j].pro_sub_category = self.pro_sub_category[i];
-                            }
-                        }
-                        for(var i= 0;i<self.form_cooperate.length;i++){
-                            if(data.datas[j].form_cooperate == i){
-                                data.datas[j].form_cooperate = self.form_cooperate[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+            self.types = 'approval_unit';
+            self.values = self.approval_unit;
+            self.currentPages = 1;
+            self.commonget();
         },
-        onSubmit(form) {
-           let self = this;
-            axios.get("combinationselectproject",{
+
+        groupchecks(){
+            let self = this;
+            axios.get("byfieldselectproject",{
                 params:{
-                    pro_sub_category_datas: form.pro_sub_category,
+                    pro_sub_category_datas:self.values,
+                    type: self.types,
+                    page:self.currentPages,
+                    total:self.pagesize,
                 }
             }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allProject = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.pro_cate_research.length;i++){
-                            if(data.datas[j].pro_cate_research == i){
-                                data.datas[j].pro_cate_research = self.pro_cate_research[i];
-                            }
-                        }
-                        for(var i= 0;i<self.pro_sub_category.length;i++){
-                            if(data.datas[j].pro_sub_category == i){
-                                data.datas[j].pro_sub_category = self.pro_sub_category[i];
-                            }
-                        }
-                        for(var i= 0;i<self.form_cooperate.length;i++){
-                            if(data.datas[j].form_cooperate == i){
-                                data.datas[j].form_cooperate = self.form_cooperate[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+                self.total = response.data.datas.total;
+                self.commonchange(response.data.datas.data);
+
+            })
+        },
+
+        onSubmit(form) {
+            let self = this;
+            self.types = 'pro_sub_category';
+            self.values = form.pro_sub_category;
+            console.log( self.values);
+            self.currentPages = 1;
+            self.groupchecks();
         }
     },
     mounted() {
         this.getProjectData();
-    }
+    },
+    watch:{
+        currentPages:function (currentPages) {
+            this.currentPages = currentPages;
+            switch(this.types) {
+                case 'time':
+                    this.timeSearchget();
+                    break;
+                default:
+                    this.commonget();
+                    break;
+            }
+        }
+    },
 }
 </script>

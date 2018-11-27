@@ -9,10 +9,10 @@
                             <el-col :span="12">
                                 <el-dropdown>
                                 <span class="el-dropdown-link">
-                                    时间：全部<i class="el-icon-arrow-down el-icon--right"></i>
+                                    鉴定时间<i class="el-icon-arrow-down el-icon--right"></i>
                                 </span>
                                 <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item>全部</el-dropdown-item>
+                                    <!--<el-dropdown-item>全部</el-dropdown-item>-->
                                     <el-dropdown-item @click.native="timeSearch(8)">18年-今天</el-dropdown-item>
                                     <el-dropdown-item @click.native="timeSearch(7)">17年-今天</el-dropdown-item>
                                     <el-dropdown-item @click.native="timeSearch(6)">16年-今天</el-dropdown-item>
@@ -162,7 +162,7 @@
                     width="120">
                 </el-table-column>
             </el-table>
-            <el-button @click="ExcelSelection()">导出Excel</el-button>
+            <el-button @click="ExcelSelection()" style="margin-top: 20px;">导出Excel</el-button>
             <div class="page">
                 <el-pagination
                     @size-change="handleSizeChange"
@@ -207,6 +207,13 @@
 export default {
     data() {
         return {
+            types:'',
+            currentPages:1,
+            pagesize:10,
+            start_time:0,
+            end_time:0,
+            values:'',
+            total:0,
             searchValue:'',
             border:true,
             allAppraisal:[],
@@ -215,11 +222,9 @@ export default {
             type: '',
             newTime:0,
             ap_first_author:'',
-            pagesize:10,
             ap_res_name:'',
             ap_form:'',
             currentPage:1,
-            total: 0,
             form: {
                 ap_level: [],
             },
@@ -234,42 +239,6 @@ export default {
     methods: {
         remove() {
             document.querySelector("#arts").click();
-        },
-        handleSizeChange: function (size) {
-            this.pagesize = size;
-        },
-        handleCurrentChange: function(currentPage){
-            this.currentPage = currentPage;
-            console.log(this.type);
-            switch(this.type) {
-                case 'ap_first_author':
-                    this.nameSearch();
-                    break;
-                case 'ap_res_name':
-                    this.paNameSearch();
-                    break;
-                case 'time1':
-                    this.timeSearch();
-                    break;
-                case 'time2':
-                    this.twoTimeSearch();
-                    break;
-                case 'ap_form':
-                    this.formSearch();
-                    break;
-                case 'combine':
-                    this.onSubmit();
-                    break;
-                case '':
-                    this.getAppraisalData();
-                    break;
-                default:
-                    this.$message.error('暂无此查询');
-                    break;
-            }
-        },
-        handleSelectionChange(val) {
-            this.multipleSelection = val;
         },
         ExcelSelection() {
             var self = this;
@@ -292,227 +261,143 @@ export default {
             window.location.href = urls;
         },
         getAppraisalData() {
-            let self = this;
-            axios.get("leaderselectallappraisal").then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.ap_level.length;i++){
-                            if(data.datas[j].ap_level == i){
-                                data.datas[j].ap_level = self.ap_level[i];
-                            }
-                        }
-                    }
-                    self.allAppraisal = data.datas;
-                    self.total = data.datas.length;
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+            this.commonget(this.type);
         },
-        paNameSearch() {
+        commonget(){
             let self = this;
-            self.type = 'ap_res_name';
-            axios.get("bynameselectappraisal",{
+            axios.get("byfieldselectappraisal",{
                 params:{
-                    page: self.currentPage,
-                    total: self.pagesize,
-                    type: 'ap_first_author',
-                    value: self.ap_res_name,
+                    value:self.values,
+                    type: self.types,
+                    page:self.currentPages,
+                    total:self.pagesize,
                 }
             }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allAppraisal = data.datas.data;
-                    for(var j=0;j<data.datas.data.length;j++){
-                        for(var i= 0;i<self.ap_level.length;i++){
-                            if(data.datas.data[j].ap_level == i){
-                                data.datas.data[j].ap_level = self.ap_level[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+                self.total = response.data.datas.total;
+                self.commonchange(response.data.datas.data);
+
+            })
+        },
+        commonchange(data){
+            let self = this;
+            for(var i=0;i<data.length;i++){
+                data[i].ap_level = self.ap_level[data[i].ap_level];
+            }
+            self.allAppraisal = data;
+        },
+        apNameSearch() {
+            let self = this;
+            self.types = 'ap_res_name';
+            self.values = self.ap_res_name;
+            self.currentPages = 1;
+            self.commonget();
         },
         nameSearch() {
             let self = this;
-            self.type = 'ap_first_author';
-
-            axios.get("bynameselectappraisal",{
-                params:{
-                    page: self.currentPage,
-                    total: self.pagesize,
-                    type: 'ap_first_author',
-                    value: self.ap_first_author,
-                }
-            }).then(function (response) {
-                var data = response.data;
-                console.log(data);
-                if (data.code == 0) {
-                    self.allAppraisal = data.datas.data;
-                    for(var j=0;j<data.datas.data.length;j++){
-                        for(var i= 0;i<self.ap_level.length;i++){
-                            if(data.datas.data[j].ap_level == i){
-                                data.datas.data[j].ap_level = self.ap_level[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+            self.types = 'ap_first_author';
+            self.values = self.ap_first_author;
+            self.currentPages = 1;
+            self.commonget();
         },
         formSearch() {
             let self = this;
-            self.type = 'ap_form';
-            axios.get("byhostselectappraisal",{
-                params:{
-                    page: self.currentPage,
+            self.types = 'ap_form';
+            self.values = self.ap_form;
+            self.currentPages = 1;
+            self.commonget();
+        },
+        timeSearchget(){   //时间分页
+            let self = this;
+            self.types = 'time';
+            axios.get("byfieldselectappraisal", {
+                params: {
+                    start_time:self.start_time,
+                    end_time:self.end_time,
+                    type: self.types,
+                    page: self.currentPages,
                     total: self.pagesize,
-                    type: 'ap_form',
-                    ap_form: self.ap_form,
                 }
             }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allAppraisal = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.ap_level.length;i++){
-                            if(data.datas[j].ap_level == i){
-                                data.datas[j].ap_level = self.ap_level[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
+                self.total = response.data.datas.total;
+                self.commonchange(response.data.datas.data);
             });
         },
         timeSearch(time) {
-            this.type = 'time1';
             if(time == 8) {
-                this.newTime = '1514779200';
+                this.start_time = '1514779200000';
             }else if(time == 7) {
-                this.newTime = '1483243200';
+                this.start_time = '1483243200000';
             }else if(time == 6) {
-                this.newTime = '1451620800';
+                this.start_time = '1451620800000';
             }else if(time == 5) {
-                this.newTime = '1420084800';
+                this.start_time = '1420084800000';
             }else if(time == 4) {
-                this.newTime = '1388548800';
+                this.start_time = '1388548800000';
             }
-            var timestamp = Date.parse(new Date());
+            this.end_time = Date.parse(new Date());
             let self = this;
-            axios.get("bytimeselectappraisal",{
-                params:{
-                    page: self.currentPage,
-                    total: self.pagesize,
-                    type: 'ap_time',
-                    start_time:this.newTime,
-                    end_time:timestamp
-                }
-            }).then(function (response) {
-                var data = response.data;
-                console.log(data);
-                if (data.code == 0) {
-                    self.allAppraisal = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.ap_level.length;i++){
-                            if(data.datas[j].ap_level == i){
-                                data.datas[j].ap_level = self.ap_level[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+            self.types = 'ap_time';
+            self.currentPages = 1;
+            self.timeSearchget();
         },
         twoTimeSearch() {
-           let self = this;
-           self.type = 'time2';
-            axios.get("combinationselectappraisal",{
+            let self = this;
+            self.types = 'time';
+            self.start_time = self.data1[0];
+            self.end_time   = self.data1[1];
+            self.currentPages = 1;
+            self.timeSearchget();
+        },
+
+        groupchecks(){
+            let self = this;
+            axios.get("byfieldselectappraisal",{
                 params:{
-                    page: self.currentPage,
-                    total: self.pagesize,
-                    type: 'ap_time',
-                    start_time:self.data1[0],
-                    end_time:self.data1[1],
+                    ap_level_datas:self.values,
+                    type: self.types,
+                    page:self.currentPages,
+                    total:self.pagesize,
                 }
             }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allAppraisal = data.datas.data;
-                    for(var j=0;j<data.datas.data.length;j++){
-                        for(var i= 0;i<self.ap_level.length;i++){
-                            if(data.datas.data[j].ap_level == i){
-                                data.datas.data[j].ap_level = self.ap_level[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+                self.total = response.data.datas.total;
+                self.commonchange(response.data.datas.data);
+
+            })
         },
         onSubmit(form) {
             let self = this;
-            self.type = 'combine';
-            axios.get("combinationselectappraisal",{
-                params:{
-                    page: self.currentPage,
-                    total: self.pagesize,
-                    ap_level_datas:form.ap_level,
-                }
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allAppraisal = data.datas.data;
-                    for(var j=0;j<data.datas.data.length;j++){
-                        for(var i= 0;i<self.ap_level.length;i++){
-                            if(data.datas.data[j].ap_level == i){
-                                data.datas.data[j].ap_level = self.ap_level[i];
-                            }
-                        }
-                    }
-                }else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
-        }
+            self.types = 'ap_level';
+            self.values = form.ap_level;
+            console.log( self.values);
+            self.currentPages = 1;
+            self.groupchecks();
+        },
+        handleSelectionChange(val) {
+            this.multipleSelection = val;
+        },
+        handleSizeChange(val) {
+            this.pagesize = val;
+            this.commonget(this.types,this.values);
+        },
+        handleCurrentChange(val) {
+            this.currentPages=val;
+        },
     },
     mounted() {
         this.getAppraisalData();
-    }
+    },
+    watch:{
+        currentPages:function (currentPages) {
+            this.currentPages = currentPages;
+            switch(this.types) {
+                case 'time':
+                    this.timeSearchget();
+                    break;
+                default:
+                    this.commonget();
+                    break;
+            }
+        }
+    },
 }
 </script>

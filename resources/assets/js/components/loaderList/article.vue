@@ -9,10 +9,9 @@
                             <el-col :span="12">
                                 <el-dropdown>
                                 <span class="el-dropdown-link">
-                                    时间：全部<i class="el-icon-arrow-down el-icon--right"></i>
+                                    发表时间<i class="el-icon-arrow-down el-icon--right"></i>
                                 </span>
                                 <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item>全部</el-dropdown-item>
                                     <el-dropdown-item @click.native="timeSearch(8)">18年-今天</el-dropdown-item>
                                     <el-dropdown-item @click.native="timeSearch(7)">17年-今天</el-dropdown-item>
                                     <el-dropdown-item @click.native="timeSearch(6)">16年-今天</el-dropdown-item>
@@ -196,7 +195,7 @@
                 <el-pagination
                     @size-change="handleSizeChange"
                     @current-change="handleCurrentChange"
-                    :current-page="currentPage"
+                    :current-page="currentPages"
                     :page-sizes="[10, 20, 50, 100]"
                     :page-size="pagesize"
                     layout="total, sizes, prev, pager, next, jumper"
@@ -236,19 +235,26 @@
 export default {
     data() {
         return {
+            types:'',
+            currentPages:1,
+            pagesize:10,
+            start_time:0,
+            end_time:0,
+            values:'',
+            total:0,
             searchValue:'',
             art_rank: '',
             border:true,
             allArticle:[],
             currentPage:1,
-            pagesize:10,
             data1: '',
             art_name:'',
-            total: 0,
             newTime: 0,
             type: '',
             isIndeterminate: true,
             multipleSelection: [],
+            percal:'',
+            art_cate:'',
             form:{
                 art_cate_research: [],
                 percal_cate:[]
@@ -294,39 +300,18 @@ export default {
     },
     methods: {
         remove() {
+//            this.isIndeterminate = false;
             document.querySelector("#arts").click();
-        },
-        handleSizeChange: function (size) {
-            this.pagesize = size;
-        },
-        handleCurrentChange: function(currentPage){
-            this.currentPage = currentPage;
-            switch(this.type) {
-                case 'author':
-                    this.nameSearch();
-                    break;
-                case 'art_time1':
-                    this.timeSearch();
-                    break;
-                case 'art_time2':
-                    this.twoTimeSearch();
-                    break;
-                case 'sch_percal_cate':
-                    this.rankSearch();
-                    break;
-                case 'combine':
-                    this.onSubmit();
-                    break;
-                case '':
-                    this.getArticleData();
-                    break;
-                default:
-                    this.$message.error('暂无此查询');
-                    break;
-            }
         },
         handleSelectionChange(val) {
             this.multipleSelection = val;
+        },
+        handleSizeChange(val) {
+            this.pagesize = val;
+            this.commonget(this.types,this.values);
+        },
+        handleCurrentChange(val) {
+            this.currentPages=val;
         },
         ExcelSelection() {
             var self = this;
@@ -369,261 +354,129 @@ export default {
             window.location.href = urls;
         },
         getArticleData() {
+            this.commonget(this.type);
+        },
+        commonget(){
             let self = this;
-            axios.get("leaderselectallartical",{
-                page: self.currentPage,
-                total: self.pagesize,
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allArticle = data.datas;
-                    self.total = data.datas.length;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.percal_cate.length;i++){
-                            if(data.datas[j].percal_cate == i){
-                                data.datas[j].percal_cate = self.percal_cate[i];
-                            }
-                        }
-                        for(var i= 0;i<self.art_sub_category.length;i++){
-                            if(data.datas[j].art_sub_category == i){
-                                data.datas[j].art_sub_category = self.art_sub_category[i];
-                            }
-                        }
-                        for(var i= 0;i<self.art_cate_research.length;i++){
-                            if(data.datas[j].art_cate_research == i){
-                                data.datas[j].art_cate_research = self.art_cate_research[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
+            axios.get("byfieldselectartical",{
+                params:{
+                    value:self.values,
+                    type: self.types,
+                    page:self.currentPages,
+                    total:self.pagesize,
                 }
+            }).then(function (response) {
+                self.total = response.data.datas.total;
+                self.commonchange(response.data.datas.data);
+
+            })
+        },
+        commonchange(data){
+            let self = this;
+            for(var i=0;i<data.length;i++){
+                data[i].percal_cate = self.percal_cate[data[i].percal_cate];
+                data[i].art_sub_category = self.art_sub_category[data[i].art_sub_category];
+                data[i].art_cate_research = self.art_cate_research[data[i].art_cate_research];
+            }
+            self.allArticle = data;
+        },
+        timeSearchget(){   //时间分页
+            let self = this;
+            self.types = 'time';
+            axios.get("byfieldselectartical", {
+                params: {
+                    start_time:self.start_time,
+                    end_time:self.end_time,
+                    type: self.types,
+                    page: self.currentPages,
+                    total: self.pagesize,
+                }
+            }).then(function (response) {
+                self.total = response.data.datas.total;
+                self.commonchange(response.data.datas.data);
             });
         },
         timeSearch(time) {
-            this.type = 'art_time1';
             if(time == 8) {
-                this.newTime = '1514779200';
+                this.start_time = '1514779200000';
             }else if(time == 7) {
-                this.newTime = '1483243200';
+                this.start_time = '1483243200000';
             }else if(time == 6) {
-                this.newTime = '1451620800';
+                this.start_time = '1451620800000';
             }else if(time == 5) {
-                this.newTime = '1420084800';
+                this.start_time = '1420084800000';
             }else if(time == 4) {
-                this.newTime = '1388548800';
+                this.start_time = '1388548800000';
             }
-            var timestamp = Date.parse(new Date());
+            this.end_time = Date.parse(new Date());
             let self = this;
-            axios.get("byperiodicalselectartical",{
-                params:{
-                    page: self.currentPage,
-                    total: self.pagesize,
-                    type: 'art_time',
-                    start_time:this.newTime,
-                    end_time:timestamp
-                }
-            }).then(function (response) {
-                var data = response.data;
-                console.log(data);
-                if (data.code == 0) {
-                    self.allArticle = data.datas.data;
-                    for(var j=0;j<data.datas.data.length;j++){
-                        for(var i= 0;i<self.percal_cate.length;i++){
-                            if(data.datas.data[j].percal_cate == i){
-                                data.datas.data[j].percal_cate = self.percal_cate[i];
-                            }
-                        }
-                        for(var i= 0;i<self.art_sub_category.length;i++){
-                            if(data.datas.data[j].art_sub_category == i){
-                                data.datas.data[j].art_sub_category = self.art_sub_category[i];
-                            }
-                        }
-                        for(var i= 0;i<self.art_cate_research.length;i++){
-                            if(data.datas.data[j].art_cate_research == i){
-                                data.datas.data[j].art_cate_research = self.art_cate_research[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+            self.types = 'art_time';
+            self.currentPages = 1;
+            self.timeSearchget();
         },
         twoTimeSearch() {
-           let self = this;
-           self.type = 'art_time2';
-            axios.get("byperiodicalselectartical",{
-                params:{
-                    page: self.currentPage,
-                    total: self.pagesize,
-                    type: 'art_time',
-                    start_time:self.data1[0],
-                    end_time:self.data1[1],
-                }
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allArticle = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.percal_cate.length;i++){
-                            if(data.datas[j].percal_cate == i){
-                                data.datas[j].percal_cate = self.percal_cate[i];
-                            }
-                        }
-                        for(var i= 0;i<self.art_sub_category.length;i++){
-                            if(data.datas[j].art_sub_category == i){
-                                data.datas[j].art_sub_category = self.art_sub_category[i];
-                            }
-                        }
-                        for(var i= 0;i<self.art_cate_research.length;i++){
-                            if(data.datas[j].art_cate_research == i){
-                                data.datas[j].art_cate_research = self.art_cate_research[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+            let self = this;
+            self.types = 'time';
+            self.start_time = self.data1[0];
+            self.end_time   = self.data1[1];
+            self.currentPages = 1;
+            self.timeSearchget();
         },
         nameSearch() {
             let self = this;
-            self.type = 'author';
-            axios.get("byauthorselectartical",{
-                params:{
-                    page: self.currentPage,
-                    total: self.pagesize,
-                    type: 'author',
-                    value: self.art_name,
-                }
-            }).then(function (response) {
-                var data = response.data;
-                console.log(data);
-                if (data.code == 0) {
-                    self.allArticle = data.datas.data;
-                    for(var j=0;j<data.datas.data.length;j++){
-                        for(var i= 0;i<self.percal_cate.length;i++){
-                            if(data.datas.data[j].percal_cate == i){
-                                data.datas.data[j].percal_cate = self.percal_cate[i];
-                            }
-                        }
-                        for(var i= 0;i<self.art_sub_category.length;i++){
-                            if(data.datas.data[j].art_sub_category == i){
-                                data.datas.data[j].art_sub_category = self.art_sub_category[i];
-                            }
-                        }
-                        for(var i= 0;i<self.art_cate_research.length;i++){
-                            if(data.datas.data[j].art_cate_research == i){
-                                data.datas.data[j].art_cate_research = self.art_cate_research[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+            self.types = 'art_name';
+            self.values = self.art_name;
+            self.currentPages = 1;
+            self.commonget();
         },
         rankSearch() {
             let self = this;
-            self.type = 'sch_percal_cate';
-            axios.get("byauthorselectartical",{
+            self.types = 'art_rank';
+            self.values = self.art_rank;
+            self.currentPages = 1;
+            self.commonget();
+        },
+        groupchecks(){
+            let self = this;
+            axios.get("byfieldselectartical",{
                 params:{
-                    page: self.currentPage,
-                    total: self.pagesize,
-                    type: 'art_time',
-                    value: self.art_rank,
+                    percal_cate_datas:self.percal,
+                    art_cate_research_datas:self.art_cate,
+
+                    type: self.types,
+                    page:self.currentPages,
+                    total:self.pagesize,
                 }
             }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allArticle = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.percal_cate.length;i++){
-                            if(data.datas[j].percal_cate == i){
-                                data.datas[j].percal_cate = self.percal_cate[i];
-                            }
-                        }
-                        for(var i= 0;i<self.art_sub_category.length;i++){
-                            if(data.datas[j].art_sub_category == i){
-                                data.datas[j].art_sub_category = self.art_sub_category[i];
-                            }
-                        }
-                        for(var i= 0;i<self.art_cate_research.length;i++){
-                            if(data.datas[j].art_cate_research == i){
-                                data.datas[j].art_cate_research = self.art_cate_research[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+                self.total = response.data.datas.total;
+                self.commonchange(response.data.datas.data);
+
+            })
         },
         onSubmit(form) {
             let self = this;
-            self.type = 'combine';
-            axios.get("combinationselectartical",{
-                params:{
-                    page: self.currentPage,
-                    total: self.pagesize,
-                    percal_cate_datas: form.percal_cate,
-                    art_cate_research_datas: form.art_cate_research,
-                }
-            }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allArticle = data.datas;
-                    document.querySelector("#arts").click();
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.percal_cate.length;i++){
-                            if(data.datas[j].percal_cate == i){
-                                data.datas[j].percal_cate = self.percal_cate[i];
-                            }
-                        }
-                        for(var i= 0;i<self.art_sub_category.length;i++){
-                            if(data.datas[j].art_sub_category == i){
-                                data.datas[j].art_sub_category = self.art_sub_category[i];
-                            }
-                        }
-                        for(var i= 0;i<self.art_cate_research.length;i++){
-                            if(data.datas[j].art_cate_research == i){
-                                data.datas[j].art_cate_research = self.art_cate_research[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
-        }
+            self.types = 'composite_query';
+            self.percal = form.percal_cate;
+            self.art_cate = form.art_cate_research;
+            self.currentPages = 1;
+            self.groupchecks();
+        },
     },
     mounted() {
         this.getArticleData();
-    }
+    },
+    watch:{
+        currentPages:function (currentPages) {
+            this.currentPages = currentPages;
+            switch(this.types) {
+                case 'time':
+                    this.timeSearchget();
+                    break;
+                default:
+                    this.commonget();
+                    break;
+            }
+        }
+    },
 }
 </script>

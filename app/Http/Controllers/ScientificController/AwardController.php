@@ -118,8 +118,8 @@ class AwardController extends Controller
              return responseTojson(1,$judge_datas['message']);
          }
          $reset_image_status = false;
-         $datas['aw_road'] = $aw_road;
          if(!$request->hasFile('aw_road')){
+            $datas['aw_road'] = $aw_road;
             return AwardDatabase::updateAwardDatas($datas,$reset_image_status);
          }
          $reset_image_status = true;
