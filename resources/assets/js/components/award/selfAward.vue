@@ -69,11 +69,8 @@
                 <el-form-item label="积分">
                     <el-input v-model="form.aw_integral" maxlength="100"></el-input>
                 </el-form-item>
-                <div class="demo" v-show="type1">
-                    <img :src="filelist.url" alt="无法加载" style="width:100px">
-                </div>
                 <el-form-item v-show="pdfType">
-                    <el-button type="warning" size="mini" @click="watchPDF()">查看SCI</el-button>
+                    <el-button type="warning" size="mini" @click="watchPDF()">查看</el-button>
                 </el-form-item>
                 <el-form-item label="证书图片">
                     <el-upload
@@ -119,7 +116,7 @@ export default {
             filelist: [{url:''}],
             dataForm: new FormData(),
             aw_road:'',
-            type1:false,
+            pdfType:false,
             form: {
                 aw_first_author: '',
                 aw_first_author: '',
@@ -153,7 +150,7 @@ export default {
                         self.form.aw_grade = String(data.datas.aw_grade);
                         self.form.aw_level = String(data.datas.aw_level);
                         if(data.datas.aw_road !== ''){
-                            self.type1=true;
+                            self.pdfType=true;
                             self.filelist.url = 'showfile?disk=award&subjection=' + data.datas.aw_road;
                         }
                     } else {

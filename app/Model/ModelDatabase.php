@@ -69,7 +69,8 @@ class ModelDatabase  extends  Model
          $first_field = $condition_datas['first_field'];
          $first_datas = $condition_datas['first_datas'];
          $time_field  = $condition_datas['time_field'];
-         $result = DB::table($condition_datas['table_name']);
+         $table_name  = $condition_datas['table_name'];
+         $result = DB::table($table_name);
          if(!empty($first_datas)){
              $result = $result->whereIn($first_field,$first_datas);
          }
@@ -80,6 +81,9 @@ class ModelDatabase  extends  Model
              $result = $result->whereIn($third_field,$third_datas);
          }
          $result = $result->paginate($condition_datas['total']);
+         if($table_name == 'teacher'){
+             self::changeTeacherTimeDatas($result);
+         }
          foreach ($result as $datas){
              $datas->$time_field = date('Y-m-d',$datas->$time_field/1000);
          }
@@ -163,7 +167,7 @@ class ModelDatabase  extends  Model
     //转化老师表的时间数据
     public static function changeTeacherTimeDatas($result){
         $result = json_decode(json_encode($result));
-        $datas['total'] = $result->total;
+        $teacher_data['total'] = $result->total;
         $result = $result->data;
         foreach ($result as $datas){
             $datas->borth                 = date('Y-m-d',$datas->borth/1000);
@@ -175,8 +179,8 @@ class ModelDatabase  extends  Model
             $datas->most_graduation_time  = date('Y-m-d',$datas->most_graduation_time/1000);
             $datas->master_time           = date('Y-m-d',$datas->master_time/1000);
         }
-        $datas['teacher_datas'] = $result;
-        return responseTojson(0,'查询成功','',$datas);
+        $teacher_data['teacher_data'] = $result;
+        return responseTojson(0,'查询成功','',$teacher_data);
     }
     /**根据字段进行分组======>按字段 '升序' 分组返回个数
      * 饼图：师资（学历，职称，学缘），论文（期刊级别），
@@ -192,23 +196,29 @@ class ModelDatabase  extends  Model
             $account_outlay_money_datas = [];
             for($i = 0; $i < $number; $i++){
                 $count_num = DB::table($table_name)->where($field,$i);
-                $count_approval_funds_money = DB::table($table_name)->where($field,$i);
-                $count_account_outlay_money = DB::table($table_name)->where($field,$i);
+                if($field == 'pro_level'){  //只有项目经费，采取查经费
+                    $count_approval_funds_money = DB::table($table_name)->where($field,$i);
+                    $count_account_outlay_money = DB::table($table_name)->where($field,$i);
+                    if(!empty($time_field)){
+                        $count_approval_funds_money = $count_approval_funds_money->whereBetween($time_field,[$time_datas['start_time'],$time_datas['end_time']]);
+                        $count_account_outlay_money = $count_account_outlay_money->whereBetween($time_field,[$time_datas['start_time'],$time_datas['end_time']]);
+                    }
+                    $approval_funds_money_datas[$i] = $count_approval_funds_money->sum('approval_funds');
+                    $account_outlay_money_datas[$i] = $count_account_outlay_money->sum('account_outlay');
+                }
                 if(!empty($time_field)){
                     $count_num = $count_num->whereBetween($time_field,[$time_datas['start_time'],$time_datas['end_time']]);
-                    $count_approval_funds_money = $count_approval_funds_money->whereBetween($time_field,[$time_datas['start_time'],$time_datas['end_time']]);
-                    $count_account_outlay_money = $count_account_outlay_money->whereBetween($time_field,[$time_datas['start_time'],$time_datas['end_time']]);
                 }
                 $count_num = $count_num->count();
-                $approval_funds_money_datas[$i] = $count_approval_funds_money->sum('approval_funds');
-                $account_outlay_money_datas[$i] = $count_account_outlay_money->sum('account_outlay');
                 $count_datas[$i] = $count_num;
             }
             $datas['count_num']      = $count_datas;
-            $datas['approval_funds'] = $approval_funds_money_datas;
-            $datas['account_outlay'] = $account_outlay_money_datas;
-            $datas['sum_approval_funds_money'] = array_sum($datas['approval_funds']);
-            $datas['sum_account_outlay_money'] = array_sum($datas['account_outlay']);
+            if($field == 'pro_level'){
+                $datas['approval_funds'] = $approval_funds_money_datas;
+                $datas['account_outlay'] = $account_outlay_money_datas;
+                $datas['sum_approval_funds_money'] = array_sum($datas['approval_funds']);
+                $datas['sum_account_outlay_money'] = array_sum($datas['account_outlay']); 
+            }
             return responseTojson(0,'查询成功','',$datas);
         }
         for($i = 0; $i < $number; $i++){

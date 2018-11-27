@@ -46,9 +46,8 @@
                     width="55">
                     </el-table-column>
                     <el-table-column
-                    prop="jo_id"
-                    label="序号"
-                    sortable
+                    prop="jo_title"
+                    label="会议题目"
                     width="120">
                     </el-table-column>
                     <el-table-column

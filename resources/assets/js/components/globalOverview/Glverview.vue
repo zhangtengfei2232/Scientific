@@ -145,12 +145,10 @@
                         </div>
                         <div class="clear"></div>
                     </div>
-                    <div id="myProject" :style="{width: '320px', height: '300px'}"></div>
+                    <div id="myProject" :style="{width: '400px', height: '400px'}"></div>
                     <el-button type="primary" size="mini" @click="getProjectDate()">项目类别</el-button>
                     <el-button type="primary" size="mini" @click="ProjectList()">学科门类</el-button>
                     <el-button type="danger" size="mini" @click="ProType()">研究类别</el-button>
-                    <!-- <el-button type="warning" size="mini" @click="ApprovalMoney()">批准经费</el-button> -->
-                    <!-- <el-button type="success" size="mini" @click="GetMoney()">到账经费</el-button> -->
                 </div>
                 <div class="list5">
                     <span class="span">著作图</span>
@@ -174,7 +172,7 @@
                         </div>
                         <div class="clear"></div>
                     </div>
-                    <div id="myOpus" :style="{width: '320px', height: '300px'}"></div>
+                    <div id="myOpus" :style="{width: '320px', height: '300px', margin: '0 0 90px 0'}"></div>
                     <el-button type="primary" size="mini" @click="getOpusDate()">著作类别</el-button>
                     <el-button type="danger" size="mini" @click="OpusType()">编著形式</el-button>
                 </div>
@@ -200,7 +198,7 @@
                         </div>
                         <div class="clear"></div>
                     </div>
-                    <div id="myAward" :style="{width: '320px', height: '300px'}"></div>
+                    <div id="myAward" :style="{width: '420px', height: '400px'}"></div>
                     <el-button type="primary" size="mini" @click="getAwardDate()">奖励级别</el-button>
                     <el-button type="danger" size="mini" @click="AwardType()">成果形式</el-button>
                 </div>
@@ -226,7 +224,7 @@
                         </div>
                         <div class="clear"></div>
                     </div>
-                    <div id="myPatent" :style="{width: '320px', height: '300px'}"></div>
+                    <div id="myPatent" :style="{width: '420px', height: '400px'}"></div>
                     <el-button type="primary" size="mini">专利类型</el-button>
                 </div>
                 <div class="list8">
@@ -246,7 +244,7 @@
         overflow-x: hidden;
     }
     .datas{
-        width:85%;
+        width:95%;
         float: left;
         margin:0 5%;
     }
@@ -302,8 +300,8 @@
         line-height: 60px;
     }
     .list2,.list3,.list4,.list5,.list6,.list7,.list8{
-        width: 30%;
-        height: 420px;
+        width: 40%;
+        height: 530px;
         float: left;
         margin: 0 0 0 10%;
         border-bottom: #eee solid 1px;
@@ -391,13 +389,39 @@ export default {
         drawLine(datas){
             var myChart = this.$echarts.init(document.getElementById('myChart'));
             myChart.setOption({
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                toolbox: {
+                    show : true,
+                    feature : {
+                        mark : {show: true},
+                        dataView : {show: true, readOnly: false},
+                        magicType : {
+                            show: true,
+                            type: ['pie', 'funnel'],
+                            option: {
+                                funnel: {
+                                    x: '25%',
+                                    width: '50%',
+                                    funnelAlign: 'left',
+                                    max: 1548
+                                }
+                            }
+                        },
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
                 series: {
+                    calculable : true,
                     type: 'pie',
                     radius : '50%',
                     data: [
-                        {name: '博士'+'('+datas[0]+')', value: datas[0]},
-                        {name: '硕士'+'('+datas[1]+')', value: datas[1]},
-                        {name: '研究生'+'('+datas[2]+')', value: datas[2]}
+                        {name: '硕士'+'('+datas[0]+')', value: datas[0]},
+                        {name: '博士'+'('+datas[1]+')', value: datas[1]},
+                        {name: '其他'+'('+datas[2]+')', value: datas[2]}
                     ]
                 }
             });
@@ -408,6 +432,7 @@ export default {
                 var data = response.data;
                 if (data.code == 0) {
                     self.teacherRanDate = data.datas;
+                    // console.log(data);
                     self.drawLineRank(self.teacherRanDate);
                 } else {
                     self.$notify({
@@ -421,6 +446,31 @@ export default {
         drawLineRank(datas) {
             var myChart = this.$echarts.init(document.getElementById('myChart'));
              myChart.setOption({
+                 tooltip : {
+                     trigger: 'item',
+                     formatter: "{a} <br/>{b} : {c} ({d}%)"
+                 },
+                 toolbox: {
+                     show : true,
+                     feature : {
+                         mark : {show: true},
+                         dataView : {show: true, readOnly: false},
+                         magicType : {
+                             show: true,
+                             type: ['pie', 'funnel'],
+                             option: {
+                                 funnel: {
+                                     x: '25%',
+                                     width: '50%',
+                                     funnelAlign: 'left',
+                                     max: 1548
+                                 }
+                             }
+                         },
+                         restore : {show: true},
+                         saveAsImage : {show: true}
+                     }
+                 },
                 series: {
                     type: 'pie',
                     radius : '55%',
@@ -455,6 +505,31 @@ export default {
         drawLineArt(datas) {
             var myArticle = this.$echarts.init(document.getElementById('myArticle'));
             myArticle.setOption({
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                toolbox: {
+                    show : true,
+                    feature : {
+                        mark : {show: true},
+                        dataView : {show: true, readOnly: false},
+                        magicType : {
+                            show: true,
+                            type: ['pie', 'funnel'],
+                            option: {
+                                funnel: {
+                                    x: '25%',
+                                    width: '50%',
+                                    funnelAlign: 'left',
+                                    max: 1548
+                                }
+                            }
+                        },
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
                 series: {
                     type: 'pie',
                     radius : '35%',
@@ -481,10 +556,8 @@ export default {
                 end_time: self.dataPro2,
             }).then(function (response) {
                 var data = response.data;
-                console.log(data);
                 if (data.code == 0) {
-                    self.ProjectDate = data.datas;
-                    self.drawLinePros(self.ProjectDate);
+                    self.drawLinePros(data.datas.account_outlay,data.datas.approval_funds,data.datas.count_num);
                 } else {
                     self.$notify({
                         type: 'error',
@@ -497,16 +570,79 @@ export default {
         drawLinePros(data1,data2,data3) {
              var myProject = this.$echarts.init(document.getElementById('myProject'));
              myProject.setOption({
-                series: {
-                    type: 'pie',
-                    radius : '55%',
-                    data: [
-                        {name: '市厅级'+'('+datas[0]+')个('+ '批准经费：' + data2[0] +')(到账经费' + data3[0] + ')' , value: datas[0]},
-                        {name: '省部级'+'('+datas[1]+')个'+ '批准经费：' + data2[1] +')(到账经费' + data3[1] + ')' , value: datas[1]},
-                        {name: '国家级'+'('+datas[2]+')个'+ '批准经费：' + data2[2] +')(到账经费' + data3[2] + ')' , value: datas[2]},
-                        {name: '其他'+'('+datas[3]+')个'+ '批准经费：' + data2[3] +')(到账经费' + data3[3] + ')' , value: datas[3]},
-                    ]
-                }
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                legend: {
+                    orient : 'vertical',
+                    x : 'left',
+                    data:['市厅级','省部级','国家级','其他']
+                },
+                toolbox: {
+                    show : true,
+                    feature : {
+                        mark : {show: true},
+                        dataView : {show: true, readOnly: false},
+                        magicType : {
+                            show: true,
+                            type: ['pie', 'funnel'],
+                            option: {
+                                funnel: {
+                                    x: '25%',
+                                    width: '50%',
+                                    funnelAlign: 'left',
+                                    max: 1548
+                                }
+                            }
+                        },
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
+                calculable : true,
+                series : [
+                    {
+                        name:'访问来源',
+                        type:'pie',
+                        center: ['50%', '60%'],
+                        radius : '35%',
+                        data:[
+                            {name: '市厅级'+'('+data1[0]+')('+ '批准经费：' + data2[0] +')(到账经费:' + data3[0] + ')' , value: data1[0]},
+                            {name: '省部级'+'('+data1[1]+')('+ '批准经费：' + data2[1] +')(到账经费:' + data3[1] + ')' , value: data1[1]},
+                            {name: '国家级'+'('+data1[2]+')('+ '批准经费：' + data2[2] +')(到账经费:' + data3[2] + ')' , value: data1[2]},
+                            {name: '其他'+'('+data1[3]+')('+ '批准经费：' + data2[3] +')(到账经费:' + data3[3] + ')' , value: data1[3]},
+                        ],
+                        clickable:false,　　　　　　 //是否开启点击
+                        minAngle: 5,           　　 //最小的扇区角度（0 ~ 360），用于防止某个值过小导致扇区太小影响交互
+                        avoidLabelOverlap: true,   //是否启用防止标签重叠策略
+                        hoverAnimation:true,　　  //是否开启 hover 在扇区上的放大动画效果。
+                        silent: false,　　　　　　　　//图形是否不响应和触发鼠标事件
+                        label:{
+                            align: 'left',
+                            normal:{
+                                formatter(v) {
+                                    let text = Math.round(v.percent)+'%' + '' + v.name
+                                    if(text.length <= 8)
+                                    {
+                                        return text;
+                                    }else if(text.length > 8 && text.length <= 16){
+                                        return text = `${text.slice(0,8)}\n${text.slice(8)}`
+                                    }else if(text.length > 16 && text.length <= 24){
+                                        return text = `${text.slice(0,8)}\n${text.slice(8,16)}\n${text.slice(16)}`
+                                    }else if(text.length > 24 && text.length <= 30){
+                                        return text = `${text.slice(0,8)}\n${text.slice(8,16)}\n${text.slice(16,24)}\n${text.slice(24)}`
+                                    }else if(text.length > 30){
+                                        return text = `${text.slice(0,8)}\n${text.slice(8,16)}\n${text.slice(16,24)}\n${text.slice(24,30)}\n${text.slice(30)}`
+                                    }
+                                },
+                                textStyle : {
+                                    fontSize : 12
+                                }
+                            }
+                        }
+                    }
+                ]
             });
         },
         ProjectList() {
@@ -517,7 +653,7 @@ export default {
             }).then(function (response) {
                 var data = response.data;
                 if (data.code == 0) {
-                    self.ProjectDate = data.datas;
+                    self.ProjectDate = data.datas.count_num;
                     self.drawLinePro(self.ProjectDate);
                 } else {
                     self.$notify({
@@ -531,9 +667,34 @@ export default {
         drawLinePro(datas) {
              var myProject = this.$echarts.init(document.getElementById('myProject'));
              myProject.setOption({
+                 tooltip : {
+                     trigger: 'item',
+                     formatter: "{a} <br/>{b} : {c} ({d}%)"
+                 },
+                 toolbox: {
+                     show : true,
+                     feature : {
+                         mark : {show: true},
+                         dataView : {show: true, readOnly: false},
+                         magicType : {
+                             show: true,
+                             type: ['pie', 'funnel'],
+                             option: {
+                                 funnel: {
+                                     x: '25%',
+                                     width: '50%',
+                                     funnelAlign: 'left',
+                                     max: 1548
+                                 }
+                             }
+                         },
+                         restore : {show: true},
+                         saveAsImage : {show: true}
+                     }
+                 },
                 series: {
                     type: 'pie',
-                    radius : '55%',
+                    radius : '40%',
                     data: [
                         {name: '理学'+'('+datas[0]+')', value: datas[0]},
                         {name: '工学'+'('+datas[1]+')', value: datas[1]},
@@ -564,8 +725,9 @@ export default {
                 end_time: self.dataPro2,
             }).then(function (response) {
                 var data = response.data;
+                console.log(data);
                 if (data.code == 0) {
-                    self.ProjectDate = data.datas;
+                    self.ProjectDate = data.datas.count_num;
                     self.drawLineTypePro(self.ProjectDate);
                 } else {
                     self.$notify({
@@ -579,27 +741,38 @@ export default {
         drawLineTypePro(datas) {
             var myProject = this.$echarts.init(document.getElementById('myProject'));
              myProject.setOption({
+                 tooltip : {
+                     trigger: 'item',
+                     formatter: "{a} <br/>{b} : {c} ({d}%)"
+                 },
+                 toolbox: {
+                     show : true,
+                     feature : {
+                         mark : {show: true},
+                         dataView : {show: true, readOnly: false},
+                         magicType : {
+                             show: true,
+                             type: ['pie', 'funnel'],
+                             option: {
+                                 funnel: {
+                                     x: '25%',
+                                     width: '50%',
+                                     funnelAlign: 'left',
+                                     max: 1548
+                                 }
+                             }
+                         },
+                         restore : {show: true},
+                         saveAsImage : {show: true}
+                     }
+                 },
                 series: {
                     type: 'pie',
-                    radius : '55%',
+                    radius : '45%',
                     data: [
                         {name: '基础研究'+'('+datas[0]+')', value: datas[0]},
                         {name: '实验与发展'+'('+datas[1]+')', value: datas[1]},
                         {name: '应用研究'+'('+datas[2]+')', value: datas[2]},
-                    ]
-                }
-            });
-        },
-        drawLineAgreenMoney(datas){
-            var myProject = this.$echarts.init(document.getElementById('myProject'));
-            myProject.setOption({
-                series: {
-                    type: 'pie',
-                    radius : '55%',
-                    data: [
-                        {name: '0-1000'+'('+datas[0]+')', value: datas[0]},
-                        {name: '1000-2000'+'('+datas[1]+')', value: datas[1]},
-                        {name: '2000'+'('+datas[2]+')', value: datas[2]},
                     ]
                 }
             });
@@ -626,9 +799,34 @@ export default {
         drawLineOpu(datas) {
             var myOpus = this.$echarts.init(document.getElementById('myOpus'));
              myOpus.setOption({
+                 tooltip : {
+                     trigger: 'item',
+                     formatter: "{a} <br/>{b} : {c} ({d}%)"
+                 },
+                 toolbox: {
+                     show : true,
+                     feature : {
+                         mark : {show: true},
+                         dataView : {show: true, readOnly: false},
+                         magicType : {
+                             show: true,
+                             type: ['pie', 'funnel'],
+                             option: {
+                                 funnel: {
+                                     x: '25%',
+                                     width: '50%',
+                                     funnelAlign: 'left',
+                                     max: 1548
+                                 }
+                             }
+                         },
+                         restore : {show: true},
+                         saveAsImage : {show: true}
+                     }
+                 },
                 series: {
                     type: 'pie',
-                    radius : '55%',
+                    radius : '45%',
                     data: [
                         {name: '专著'+'('+datas[0]+')', value: datas[0]},
                         {name: '教科书'+'('+datas[1]+')', value: datas[1]},
@@ -661,9 +859,34 @@ export default {
         drawLineTypeOpu(datas) {
              var myOpus = this.$echarts.init(document.getElementById('myOpus'));
              myOpus.setOption({
+                 tooltip : {
+                     trigger: 'item',
+                     formatter: "{a} <br/>{b} : {c} ({d}%)"
+                 },
+                 toolbox: {
+                     show : true,
+                     feature : {
+                         mark : {show: true},
+                         dataView : {show: true, readOnly: false},
+                         magicType : {
+                             show: true,
+                             type: ['pie', 'funnel'],
+                             option: {
+                                 funnel: {
+                                     x: '25%',
+                                     width: '50%',
+                                     funnelAlign: 'left',
+                                     max: 1548
+                                 }
+                             }
+                         },
+                         restore : {show: true},
+                         saveAsImage : {show: true}
+                     }
+                 },
                 series: {
                     type: 'pie',
-                    radius : '55%',
+                    radius : '45%',
                     data: [
                         {name: '主编'+'('+datas[0]+')', value: datas[0]},
                         {name: '副主编'+'('+datas[1]+')', value: datas[1]},
@@ -696,9 +919,34 @@ export default {
         drawLineAwa(datas) {
             var myAward = this.$echarts.init(document.getElementById('myAward'));
             myAward.setOption({
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                toolbox: {
+                    show : true,
+                    feature : {
+                        mark : {show: true},
+                        dataView : {show: true, readOnly: false},
+                        magicType : {
+                            show: true,
+                            type: ['pie', 'funnel'],
+                            option: {
+                                funnel: {
+                                    x: '25%',
+                                    width: '50%',
+                                    funnelAlign: 'left',
+                                    max: 1548
+                                }
+                            }
+                        },
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
                 series: {
                     type: 'pie',
-                    radius : '55%',
+                    radius : '45%',
                     data: [
                         {name: '国家级'+'('+datas[0]+')', value: datas[0]},
                         {name: '省部级'+'('+datas[1]+')', value: datas[1]},
@@ -731,9 +979,34 @@ export default {
         drawLineTypeAwa(datas) {
             var myAward = this.$echarts.init(document.getElementById('myAward'));
             myAward.setOption({
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                toolbox: {
+                    show : true,
+                    feature : {
+                        mark : {show: true},
+                        dataView : {show: true, readOnly: false},
+                        magicType : {
+                            show: true,
+                            type: ['pie', 'funnel'],
+                            option: {
+                                funnel: {
+                                    x: '25%',
+                                    width: '50%',
+                                    funnelAlign: 'left',
+                                    max: 1548
+                                }
+                            }
+                        },
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
                 series: {
                     type: 'pie',
-                    radius : '55%',
+                    radius : '45%',
                     data: [
                         {name: '论文'+'('+datas[0]+')', value: datas[0]},
                         {name: '研究报告'+'('+datas[1]+')', value: datas[1]},
@@ -771,9 +1044,34 @@ export default {
         drawLinePat(datas) {
             var myPatent = this.$echarts.init(document.getElementById('myPatent'));
              myPatent.setOption({
+                 tooltip : {
+                     trigger: 'item',
+                     formatter: "{a} <br/>{b} : {c} ({d}%)"
+                 },
+                 toolbox: {
+                     show : true,
+                     feature : {
+                         mark : {show: true},
+                         dataView : {show: true, readOnly: false},
+                         magicType : {
+                             show: true,
+                             type: ['pie', 'funnel'],
+                             option: {
+                                 funnel: {
+                                     x: '25%',
+                                     width: '50%',
+                                     funnelAlign: 'left',
+                                     max: 1548
+                                 }
+                             }
+                         },
+                         restore : {show: true},
+                         saveAsImage : {show: true}
+                     }
+                 },
                 series: {
                     type: 'pie',
-                    radius : '55%',
+                    radius : '45%',
                     data: [
                         {name: '发明专利'+'('+datas[0]+')', value: datas[0]},
                         {name: '实用新型专利'+'('+datas[1]+')', value: datas[1]},
@@ -801,6 +1099,31 @@ export default {
         drawLineApp(datas) {
             var myAppraisal = this.$echarts.init(document.getElementById('myAppraisal'));
              myAppraisal.setOption({
+                 tooltip : {
+                     trigger: 'item',
+                     formatter: "{a} <br/>{b} : {c} ({d}%)"
+                 },
+                 toolbox: {
+                     show : true,
+                     feature : {
+                         mark : {show: true},
+                         dataView : {show: true, readOnly: false},
+                         magicType : {
+                             show: true,
+                             type: ['pie', 'funnel'],
+                             option: {
+                                 funnel: {
+                                     x: '25%',
+                                     width: '50%',
+                                     funnelAlign: 'left',
+                                     max: 1548
+                                 }
+                             }
+                         },
+                         restore : {show: true},
+                         saveAsImage : {show: true}
+                     }
+                 },
                 series: {
                     type: 'pie',
                     radius : '55%',

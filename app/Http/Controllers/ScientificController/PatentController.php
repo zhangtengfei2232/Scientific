@@ -114,9 +114,9 @@ class PatentController extends Controller
              return responseTojson(1,$judge_datas['message']);
          }
          $reset_image_status = false;
-         $datas['pa_road']   = $pa_road;
          $datas['pa_remarks'] = trim($request->pa_remarks);
          if(!$request->hasFile('pa_road')){
+             $datas['pa_road']   = $pa_road;
              return PatentDatabase::updatePatentDatas($datas,$reset_image_status);
          }
          $reset_image_status = true;

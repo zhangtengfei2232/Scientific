@@ -140,11 +140,11 @@ class SearchMessageConfig
     /**
      * 分组查询，每个字段的情况个数
      */
-    const TEA_ACADEMIC_TITLE_NUM  = 7;    //老师职称字段取值个数
-    const TEA_MOST_ACADEMIC_NUM   = 2;    //老师最高学历字段取值个数
+    const TEA_ACADEMIC_TITLE_NUM  = 4;    //老师职称字段取值个数
+    const TEA_MOST_ACADEMIC_NUM   = 3;    //老师最高学历字段取值个数
     const ARTICAL_PERCAL_CATE_NUM = 11;   //文章期刊类别字段取值个数
     const PRO_CATE_RESEARCH_NUM   = 3;    //项目研究类别字段取值个数
-    const PRO_SUB_CATEGORY_NUM    = 3;    //项目学科门类字段取值个数
+    const PRO_SUB_CATEGORY_NUM    = 18;   //项目学科门类字段取值个数
     const PRO_LEVEL_NUM           = 4;    //项目级别字段取值个数
     const OP_FORM_WRITE_NUM       = 5;    //著作编著形式字段取值个数
     const OP_CATE_WORK_NUM        = 5;    //著作著作类别字段取值个数
