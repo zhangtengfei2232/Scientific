@@ -127,8 +127,8 @@ class OpusController  extends Controller
         }
         $datas['op_remarks'] = trim($request->op_remarks);
         $reset_image_status = false;
-        $datas['op_road']   = $opus_road;
         if(!$request->hasFile('op_road')){
+            $datas['op_road']   = $opus_road;
             return OpusDatabase::updateOpusDatas($datas,$reset_image_status);
         }
         $reset_image_status = true;

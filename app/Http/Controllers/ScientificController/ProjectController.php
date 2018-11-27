@@ -97,7 +97,7 @@ class ProjectController extends Controller
             return responseTojson(1,'你请求的方式不对');
         }
         $pro_id[0] = trim($request->pro_id);
-        $pro_road  = ProjectDatabase::selectImagesRoadDatas($pro_id)[0];
+        $pro_road  = ProjectDatabase::selectImagesRoadDatas($pro_id);
         (empty($pro_road)) ? $pro_road = '' : $pro_road = $pro_road[0];
         $datas = [
             'pro_id'            => $pro_id,
@@ -123,8 +123,8 @@ class ProjectController extends Controller
         }
         $reset_image_status = false;
         $datas['pro_remarks'] = trim($request->pro_remarks);
-        $datas['pro_road']    = $pro_road;
         if(!$request->hasFile('pro_road')){
+            $datas['pro_road']    = $pro_road;
             return ProjectDatabase::updateProjectDatas($datas,$reset_image_status);
         }
         $reset_image_status = true;
