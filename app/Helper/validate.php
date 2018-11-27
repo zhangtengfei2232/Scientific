@@ -26,41 +26,39 @@
                 return responseTojson(1,'你输入的工号有误',1);
             }
         }
-        if(strlen($datas['name']) > 15){
+        if(strlen($datas['name']) > 29){
             return responseTojson(1,'你填写的老师姓名不合法',1);
-        }elseif (strlen($datas['office_phone']) > 30
+        }elseif (strlen($datas['office_phone']) > 29
             || (!preg_match($isMob, $datas['office_phone'])
             && !preg_match($isTel, $datas['office_phone']))){
             return responseTojson(1,'你填写的办公电话有误',1);
-        }elseif (strlen($datas['home_phone']) > 30
+        }elseif (strlen($datas['home_phone']) > 29
             || (!preg_match($isTel, $datas['home_phone'])
             && !preg_match($isMob, $datas['home_phone']))){
             return responseTojson(1,'你填写的住宅电话有误',1);
         }elseif (strlen($datas['phone']) > 11
             || !preg_match($isMob, $datas['phone'])){
             return responseTojson(1,'你输入的手机号有误',1);
-        }elseif (strlen($datas['number']) > 20){
-            return responseTojson(1,'你输入的老师编号名称过长',1);
-        }elseif (strlen($datas['nation']) > 40){
+        }elseif (strlen($datas['number']) > 19){
+            return responseTojson(1,'你输入的老师编号过长',1);
+        }elseif (strlen($datas['nation']) > 39){
             return responseTojson(1,'你输入的民族名称过长',1);
-        }elseif (strlen($datas['admin_duties']) > 30){
-            return responseTojson(1,'你输入的行政职务名称过长',1);
-        }elseif (strlen($datas['series']) > 20){
+        }elseif (strlen($datas['series']) > 29){
             return responseTojson(1,'你输入的系列名称过长',1);
-        }elseif (strlen($datas['company']) > 20){
+        }elseif (strlen($datas['company']) > 29){
             return responseTojson(1,'你输入的单位名称过长',1);
-        }elseif (strlen($datas['te_re_department']) > 30){
+        }elseif (strlen($datas['te_re_department']) > 59){
             return responseTojson(1,'你输入的所属教研室和实验室名称过长',1);
-        }elseif (strlen($datas['origin_work_unit']) > 20){
+        }elseif (strlen($datas['origin_work_unit']) > 59){
             return responseTojson(1,'你输入的原工作单位名称过长',1);
-        }elseif (strlen($datas['certificate_num']) > 20){
+        }elseif (strlen($datas['certificate_num']) > 19){
             return responseTojson(1,'你输入的教师资格证编号名称过长',1);
         }elseif (strlen($datas['identity_card']) > 18
                 || (!preg_match($eighting_preg_card, $datas['identity_card']) &&
                 !preg_match($fiveting_preg_card,$datas['identity_card'])
                 )){
             return responseTojson(1,'你输入的身份证号有误',1);
-        }elseif (strlen($datas['edu_school']) > 30){
+        }elseif (strlen($datas['edu_school']) > 39){
             return responseTojson(1,'你输入的毕业院校名称过长',1);
         }elseif (strlen($datas['work_major']) > 30){
             return responseTojson(1,'你输入的从事专业名称过长',1);
@@ -68,16 +66,20 @@
             return responseTojson(1,'你输入的从事专业所属学科名称过长',1);
         }elseif (strlen($datas['teach_course']) > 20){
             return responseTojson(1,'你输入的任教课程有误',1);
-        }elseif (strlen($datas['first_graduate_school']) > 30){
+        }elseif (strlen($datas['first_graduate_school']) > 39){
             return responseTojson(1,'你输入的老师第一学历毕业学校名称过长',1);
-        }elseif (strlen($datas['first_study_major']) > 20){
+        }elseif (strlen($datas['first_study_major']) > 29){
             return responseTojson(1,'你输入的老师第一学历专业名称过长',1);
-        }elseif (strlen($datas['most_graduate_school']) > 30){
+        }elseif (strlen($datas['most_graduate_school']) > 39){
             return responseTojson(1,'你输入的老师最高学历专业名称过长',1);
-        }elseif (strlen($datas['most_study_major']) > 20){
+        }elseif (strlen($datas['most_study_major']) > 29){
             return responseTojson(1,'你输入的老师最高学历专业名称过长',1);
         }elseif (strlen($datas['master_company']) > 100){
             return responseTojson(1,'你输入的老师硕博导授予单位名称过长',1);
+        }elseif (strlen($datas['work_major']) > 49){
+            return responseTojson(1,'你输入的老师从事专业名称过长',1);
+        }elseif (strlen($datas['belong_subject']) > 49){
+            return responseTojson(1,'你输入的老师从事专业所属学科名称过长',1);
         }else{
             return responseTojson(0,'验证通过',1);
         }
@@ -112,13 +114,11 @@
         if(emptyarray($datas)){
             return responseTojson(1,'你填写的的项目信息不全',1);
         }
-        if(strlen($datas['pro_host']) > 10){
+        if(strlen($datas['pro_host']) > 29){
             return responseTojson(1,'你输入的主持人有误',1);
-        }elseif (strlen($datas['entry_name']) > 40){
-            return responseTojson(1,'你输入的项目名称过长',1);
-        }elseif (strlen($datas['project_category']) > 20){
+        }elseif (strlen($datas['project_category']) > 99){
             return responseTojson(1,'你输入的项目类别名过长',1);
-        }elseif (strlen($datas['approval_unit']) > 20){
+        }elseif (strlen($datas['approval_unit']) > 59){
             return responseTojson(1,'你输入的批准单位名字过长',1);
         }elseif (!preg_match("/^[0-9]*$/",$datas['approval_funds'])
             || strlen($datas['approval_funds']) > 9){
@@ -126,13 +126,13 @@
         }elseif (!preg_match("/^[0-9]*$/",$datas['account_outlay'])
             || strlen($datas['account_outlay']) > 9){
             return responseTojson(1,'你输入的当年到账经费必须全为数字且不超过9位',1);
-        }elseif (strlen($datas['na_eco_industry']) > 20){
+        }elseif (strlen($datas['social_eco_goal']) > 49){
+            return responseTojson(1,'你输入的社会经济目标过长',1);
+        }elseif (strlen($datas['na_eco_industry']) > 49){
             return responseTojson(1,'你输入的服务的国民经济行业过长',1);
         }elseif (!preg_match("/^[0-9]*$/",$datas['pro_integral'])
             || strlen($datas['pro_integral']) > 9){
             return responseTojson(1,'你输入的积分必须全为数字且不超过9位',1);
-        }elseif (strlen($datas['social_eco_goal']) > 50){
-            return responseTojson(1,'你输入的社会经济目标过长',1);
         }else{
             return responseTojson(0,'验证通过',1);
         }
@@ -142,13 +142,11 @@
         if(emptyarray($datas)){
             return responseTojson(1,'你填写著作信息不完整',1);
         }
-        if(strlen($datas['op_first_author']) > 15){
+        if(strlen($datas['op_first_author']) > 29){
             return responseTojson(1,'你填写的著作第一作者名字过长',1);
-        }elseif (strlen($datas['op_name']) > 50){
-            return responseTojson(1,'你填写的著作名称过长',1);
-        }elseif (strlen($datas['op_publish']) > 50){
+        }elseif (strlen($datas['op_publish']) > 99){
             return responseTojson(1,'你填写的著作出版社名字过长',1);
-        }elseif (strlen($datas['op_number']) > 30){
+        }elseif (strlen($datas['op_number']) > 99){
             return responseTojson(1,'你填写的著作书号过长',1);
         }elseif (strlen($datas['op_total_words']) > 9
             || !preg_match("/^[0-9]*$/",$datas['op_total_words'])){
@@ -168,15 +166,11 @@
         if(emptyarray($datas)){
             return responseTojson(1,'你填写的信息不完整',1);
         }
-        if(strlen($datas['aw_first_author']) > 15){
+        if(strlen($datas['aw_first_author']) > 29){
             return responseTojson(1,'你输入的第一获奖人姓名过长',1);
-        }elseif (strlen($datas['prize_win_name']) > 40){
-            return responseTojson(1,'你输入的获奖成果名称过长',1);
-        }elseif (strlen($datas['award_name']) > 20){
+        }elseif (strlen($datas['award_name']) > 99){
             return responseTojson(1,'你输入的奖励名称过长',1);
-        }elseif (strlen($datas['aw_grant_unit']) > 40){
-            return responseTojson(1,'你输入的授予单位过长',1);
-        }elseif (strlen($datas['aw_certi_number']) > 30){
+        }elseif (strlen($datas['aw_certi_number']) > 99){
             return responseTojson(1,'你输入的证书编号过长',1);
         }elseif (!preg_match("/^[0-9]*$/",$datas['aw_integral'])
             || strlen($datas['aw_integral']) > 9){
@@ -190,17 +184,14 @@
         if(emptyarray($datas)){
             return responseTojson(1,'你输入的信息不完整',1);
         }
-        if(strlen($datas['patent_person']) > 30){
+        if(strlen($datas['patent_person']) > 99){
             return responseTojson(1,'你输入的专利人名字过长',1);
-        }elseif(strlen($datas['first_inventor']) > 10){
+        }elseif(strlen($datas['first_inventor']) > 29){
             return responseTojson(1,'你输入的第一发明人名字过长',1);
-        }elseif (strlen($datas['pa_name']) > 50){
-            return responseTojson(1,'你输入的专利名字过长',1);
-        }elseif (strlen($datas['author_num']) > 30){
+        }elseif (strlen($datas['author_num']) > 149){
             return responseTojson(1,'你输入的授权编号过长',1);
-        }elseif (!preg_match("/^[0-9]*$/",$datas['author_cert_num'])
-            || strlen($datas['author_cert_num']) > 9){
-            return responseTojson(1,'你输入的授权证书编号必须全为数字且不超过9位',1);
+        }elseif (strlen($datas['author_cert_num']) > 149){
+            return responseTojson(1,'你输入的授权证书编号过长',1);
         }elseif (!preg_match("/^[0-9]*$/",$datas['pa_integral'])
             ||strlen($datas['pa_integral']) > 9){
             return responseTojson(1,'你输入的积分必须全为数字且不超过9位',1);
@@ -213,14 +204,10 @@
         if(emptyarray($datas)){
             return responseTojson(1,'你输入的信息不完整',1);
         }
-        if(strlen($datas['ap_first_author']) > 15){
+        if(strlen($datas['ap_first_author']) > 30){
             return responseTojson(1,'你输入的鉴定第一作者名字过长',1);
-        }elseif (strlen($datas['ap_res_name']) > 20){
-            return responseTojson(1,'你输入的鉴定成果名称过长',1);
-        }elseif (strlen($datas['ap_form']) > 30){
+        }elseif (strlen($datas['ap_form']) > 99){
             return responseTojson(1,'你输入的鉴定形式过长',1);
-        }elseif (strlen($datas['ap_num']) > 20){
-            return responseTojson(1,'你输入的鉴定编号过长',1);
         }elseif (strlen($datas['ap_integral']) > 9
             || !preg_match("/^[0-9]*$/",$datas['ap_integral'])){
             return responseTojson(1,'你输入的积分必须全为数字且不超过9位',1);
@@ -233,15 +220,9 @@
         if(emptyarray($datas)){
             return responseTojson(1,'你输入的信息不完整',1);
         }
-        if(strlen($datas['ho_name']) > 50){
-            return responseTojson(1,'你输入的会议名称过长',1);
-        }elseif (strlen($datas['people_num']) > 7
+        if (strlen($datas['people_num']) > 7
             || !preg_match("/^[0-9]*$/",$datas['people_num'])){
             return responseTojson(1,'你输入的会议参加人数必须全为数字且不超过7位',1);
-        }elseif (strlen($datas['ho_unit']) > 50){
-            return responseTojson(1,'你输入的会议主办方单位名字过长',1);
-        }elseif (strlen($datas['undertake_unit']) > 50){
-            return responseTojson(1,'你输入的会议承办方单位名字过长',1);
         }else{
             return responseTojson(0,'验证通过',1);
         }
@@ -251,21 +232,13 @@
         if(emptyarray($datas)){
             return responseTojson(1,'你输入的信息不完整',1);
         }
-        if(strlen($datas['jo_name']) > 50){
-            return responseTojson(1,'你输入的会议名称过长',1);
-        }elseif (strlen($datas['jo_hold_unit']) > 50){
-            return responseTojson(1,'你输入的会议主办方单位名称过长',1);
-        }elseif (strlen($datas['jo_take_unit']) > 50){
-            return responseTojson(1,'你输入的会议承办方单位过长',1);
-        }elseif (strlen($datas['jo_place']) > 50){
+        if (strlen($datas['jo_place']) > 99){
             return responseTojson(1,'你输入的会议地点名称过长',1);
-        }elseif (strlen($datas['jo_is_invite']) > 30){
+        }elseif (strlen($datas['jo_is_invite']) > 29){
             return responseTojson(1,'你输入的是否被邀大会或分会场报告过长',1);
         }elseif (strlen($datas['jo_art_num']) > 9
             || !preg_match("/^[0-9]*$/",$datas['jo_art_num'])){
             return responseTojson(1,'你输入的会议论文提交次数必须为数字且不超过9位',1);
-        }elseif (strlen($datas['jo_title']) > 50){
-            return responseTojson(1,'你输入的会议题目名称过长',1);
         }else{
             return responseTojson(0,'验证通过',1);
         }
@@ -275,11 +248,9 @@
         if(emptyarray($datas)){
             return responseTojson(1,'你输入的信息不完整',1);
         }
-        if(strlen($datas['le_expert_name']) > 15){
+        if(strlen($datas['le_expert_name']) > 29){
             return responseTojson(1,'你输入的专家名字过长',1);
-        }elseif (strlen($datas['le_report_name']) > 30){
-            return responseTojson(1,'你输入的报告名称过长',1);
-        }elseif (strlen($datas['le_invite_unit']) > 20){
+        }elseif (strlen($datas['le_invite_unit']) > 149){
             return responseTojson(1,'你输入的邀请单位名字过长',1);
         }else{
             return responseTojson(0,'验证成功',1);
@@ -290,17 +261,15 @@
         if(emptyarray($datas)){
             return responseTojson(1,'你输入的信息不完整',1);
         }
-        if(strlen($datas['teacher_name']) > 15){
+        if(strlen($datas['teacher_name']) > 30){
             return responseTojson(1,'你输入的老师名字过长',1);
         }elseif (strlen($datas['du_age']) > 4
             || !preg_match( "/^(?:[1-9]?\d|100)$/",$datas['du_age'])){
             return responseTojson(1,'你输入的年龄必须为数字且不超过4位',1);
-        }elseif (strlen($datas['du_name']) > 50){
-            return responseTojson(1,'你输入的担任学术团体名称过长',1);
+        }elseif (strlen($datas['du_duty']) > 99){
+            return responseTojson(1,'你输入的所任职务名称过长',1);
         }elseif (strlen($datas['du_year_num']) > 50){
             return responseTojson(1,'你输入的所任职务年限有误',1);
-        }elseif (strlen($datas['du_duty']) > 20){
-            return responseTojson(1,'你输入的所任职务名称过长',1);
         }else{
             return responseTojson(0,'验证通过',1);
         }
@@ -310,10 +279,10 @@
         if(emptyarray($datas)){
             return responseTojson(1,'你输入的信息不完整',1);
         }
-        if(strlen($datas['schfile_num']) > 20){
-            return responseTojson(1,'你输入的文件编号过长',1);
-        }elseif (strlen($datas['schfile_name']) > 30){
+        if(strlen($datas['schfile_name']) > 99){
             return responseTojson(1,'你输入的文件名称过长',1);
+        }elseif(strlen($datas['schfile_num']) > 49){
+            return responseTojson(1,'你输入的文件编号过长',1);
         }else{
             return responseTojson(0,'验证通过',1);
         }
@@ -323,10 +292,8 @@
         if(emptyarray($datas)){
             return responseTojson(1,'你输入的信息不完整',1);
         }
-        if(strlen($datas['agree_name']) > 30){
+        if(strlen($datas['agree_name']) > 99){
             return responseTojson(1,'你输入的协议名称过长',1);
-        }elseif (strlen($datas['agree_cooperate_unit']) > 50){
-            return responseTojson(1,'你输入的合作单位名称过长',1);
         }else{
             return responseTojson(0,'验证通过',1);
         }
@@ -404,8 +371,8 @@
     }
     function judgeTeacherIdField($teacher_id){
         $judge_teacherid = "/^smkj[0-9]+$/";
-        if(!preg_match($judge_teacherid,$teacher_id)){
-            return responseTojson(1,"老师的工号必须以'smkj'开头，且后面为数字",1);
+        if(!preg_match($judge_teacherid,$teacher_id) || strlen($teacher_id) > 9){
+            return responseTojson(1,"老师的工号必须以'smkj'开头，且后面为数字,总长度不能超过9位",1);
         }
         if(strlen($teacher_id) > 10){
             return responseTojson(1,"老师的工号过长",1);

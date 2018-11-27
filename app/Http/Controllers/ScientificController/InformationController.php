@@ -26,6 +26,9 @@ class InformationController extends Controller
         }
         $old_password = trim($request->old_password);
         $new_password = trim($request->new_password);
+        if(!preg_match("/^[A-Za-z0-9]+$/",$new_password) || strlen($new_password) > 30){
+            return responseTojson(1,'你输入的新密码必须为字母或数字且不超过30位');
+        }
         return TeacherDatabase::byOldPasswordSelectDatas($old_password,$new_password);
     }
     //重置老师密码
