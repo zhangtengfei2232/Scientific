@@ -12,7 +12,6 @@
                                     授予时间<i class="el-icon-arrow-down el-icon--right"></i>
                                 </span>
                                 <el-dropdown-menu slot="dropdown">
-                                    <!--<el-dropdown-item>全部</el-dropdown-item>-->
                                     <el-dropdown-item @click.native="timeSearch(8)">18年-今天</el-dropdown-item>
                                     <el-dropdown-item @click.native="timeSearch(7)">17年-今天</el-dropdown-item>
                                     <el-dropdown-item @click.native="timeSearch(6)">16年-今天</el-dropdown-item>
@@ -374,41 +373,27 @@ export default {
             self.currentPages = 1;
             self.commonget();
         },
-        onSubmit(form) {
+        groupchecks(){
             let self = this;
-            axios.get("combinationselectaward",{
+            axios.get("byfieldselectaward",{
                 params:{
-                    aw_level_datas: form.aw_level,
+                    aw_level_datas:self.values,
+                    type: self.types,
+                    page:self.currentPages,
+                    total:self.pagesize,
                 }
             }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allAward = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.form_achievement.length;i++){
-                            if(data.datas[j].form_achievement == i){
-                                data.datas[j].form_achievement = self.form_achievement[i];
-                            }
-                        }
-                        for(var i= 0;i<self.aw_grade.length;i++){
-                            if(data.datas[j].aw_grade == i){
-                                data.datas[j].aw_grade = self.aw_grade[i];
-                            }
-                        }
-                        for(var i= 0;i<self.aw_level.length;i++){
-                            if(data.datas[j].aw_level == i){
-                                data.datas[j].aw_level = self.aw_level[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+                self.total = response.data.datas.total;
+                self.commonchange(response.data.datas.data);
+
+            })
+        },
+        onSubmit(form) {
+            let self = this;
+            self.types = 'aw_level';
+            self.values = form.aw_level;
+            self.currentPages = 1;
+            self.groupchecks();
         }
     },
     mounted() {

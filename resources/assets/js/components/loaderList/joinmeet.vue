@@ -71,7 +71,7 @@
                                     </el-checkbox-group>
                                 </el-form-item>
                                 <el-form-item>
-                                    <el-button type="primary" @click="onSubmit(form)">确定</el-button>
+                                    <el-button type="primary" @click.native="onSubmit(form)">确定</el-button>
                                     <el-button @click="remove()">取消</el-button>
                                 </el-form-item>
                             </el-form>
@@ -322,31 +322,28 @@ export default {
             self.currentPages = 1;
             self.commonget();
         },
-        onSubmit(form) {
+        groupchecks(){
             let self = this;
-            axios.get("combinationselectjoinmeet",{
+            axios.get("byfieldselectjoinmeet",{
                 params:{
-                    jo_level_datas: form.jo_level,
+                    jo_level_datas:self.values,
+                    type: self.types,
+                    page:self.currentPages,
+                    total:self.pagesize,
                 }
             }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allHoldmeet = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.jo_level.length;i++){
-                            if(data.datas[j].jo_level == i){
-                                data.datas[j].jo_level = self.jo_level[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+                self.total = response.data.datas.total;
+                self.commonchange(response.data.datas.data);
+
+            })
+        },
+
+        onSubmit(form) {
+            let self = this;
+            self.types = 'jo_level';
+            self.values = form.jo_level;
+            self.currentPages = 1;
+            self.groupchecks();
         }
     },
     mounted() {

@@ -252,6 +252,9 @@ export default {
             op_name:'',
             newTime:0,
             currentPage:1,
+            op_cate:'',
+            op_form:'',
+            op_cate_res:'',
             form: {
                 op_cate_work: [],
                 op_form_write: [],
@@ -336,7 +339,6 @@ export default {
         },
         commonget(){
             let self = this;
-//            console.log(self.types + 'dssd',self.values+'sdsd');
             axios.get("byfieldselectopus",{
                 params:{
                     value:self.values,
@@ -345,7 +347,6 @@ export default {
                     total:self.pagesize,
                 }
             }).then(function (response) {
-//                console.log(response.data.datas)
                 self.total = response.data.datas.total;
                 self.commonchange(response.data.datas.data);
 
@@ -415,52 +416,33 @@ export default {
             self.end_time   = self.data1[1];
             self.timeSearchget();
         },
+        groupchecks(){
+            let self = this;
+            axios.get("byfieldselectopus",{
+                params:{
+                    op_cate_work_datas:self.op_cate,
+                    op_form_write_datas:self.op_form,
+                    op_cate_research_datas:self.op_cate_res,
+                    type: self.types,
+                    page:self.currentPages,
+                    total:self.pagesize,
+                }
+            }).then(function (response) {
+                self.total = response.data.datas.total;
+                self.commonchange(response.data.datas.data);
+
+            })
+        },
+
         onSubmit(form) {
-//            let self = this;
-//            self.type = 'combine';
-//            axios.get("combinationselectopus",{
-//                params:{
-//                    page: self.currentPage,
-//                    total: self.pagesize,
-//                    op_cate_work_datas: form.op_cate_work,
-//                    op_form_write_datas: form.op_form_write,
-//                    op_cate_research_datas: form.op_cate_research
-//                }
-//            }).then(function (response) {
-//                var data = response.data.datas;
-//                if (data.code == 0) {
-//                    self.allOpus = data.datas;
-//                    for(var j=0;j<data.data.length;j++){
-//                        for(var i= 0;i<self.op_form_write.length;i++){
-//                            if(data.data[j].op_form_write == i){
-//                                data.data[j].op_form_write = self.op_form_write[i];
-//                            }
-//                        }
-//                        for(var i= 0;i<self.op_cate_research.length;i++){
-//                            if(data.data[j].op_cate_research == i){
-//                                data.data[j].op_cate_research = self.op_cate_research[i];
-//                            }
-//                        }
-//                        for(var i= 0;i<self.op_cate_work.length;i++){
-//                            if(data.data[j].op_cate_work == i){
-//                                data.data[j].op_cate_work = self.op_cate_work[i];
-//                            }
-//                        }
-//                        for(var i= 0;i<self.op_sub_category.length;i++){
-//                            if(data.data[j].op_sub_category == i){
-//                                data.data[j].op_sub_category = self.op_sub_category[i];
-//                            }
-//                        }
-//                    }
-//                } else {
-//                    self.$notify({
-//                        type: 'error',
-//                        message: data.message,
-//                        duration: 2000,
-//                    });
-//                }
-//            });
-        }
+            let self = this;
+            self.types = 'composite_query';
+            self.op_cate = form.op_cate_work;
+            self.op_form = form.op_form_write;
+            self.op_cate_res = form.op_cate_research;
+            self.currentPages = 1;
+            self.groupchecks();
+        },
     },
     mounted() {
         this.getOpusData();

@@ -253,6 +253,8 @@ export default {
             type: '',
             isIndeterminate: true,
             multipleSelection: [],
+            percal:'',
+            art_cate:'',
             form:{
                 art_cate_research: [],
                 percal_cate:[]
@@ -300,7 +302,6 @@ export default {
         remove() {
 //            this.isIndeterminate = false;
             document.querySelector("#arts").click();
-
         },
         handleSelectionChange(val) {
             this.multipleSelection = val;
@@ -435,47 +436,31 @@ export default {
             self.currentPages = 1;
             self.commonget();
         },
-        onSubmit(form) {
+        groupchecks(){
             let self = this;
-            self.type = 'combine';
-            axios.get("combinationselectartical",{
+            axios.get("byfieldselectartical",{
                 params:{
-                    page: self.currentPage,
-                    total: self.pagesize,
-                    percal_cate_datas: form.percal_cate,
-                    art_cate_research_datas: form.art_cate_research,
+                    percal_cate_datas:self.percal,
+                    art_cate_research_datas:self.art_cate,
+
+                    type: self.types,
+                    page:self.currentPages,
+                    total:self.pagesize,
                 }
             }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allArticle = data.datas;
-                    document.querySelector("#arts").click();
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.percal_cate.length;i++){
-                            if(data.datas[j].percal_cate == i){
-                                data.datas[j].percal_cate = self.percal_cate[i];
-                            }
-                        }
-                        for(var i= 0;i<self.art_sub_category.length;i++){
-                            if(data.datas[j].art_sub_category == i){
-                                data.datas[j].art_sub_category = self.art_sub_category[i];
-                            }
-                        }
-                        for(var i= 0;i<self.art_cate_research.length;i++){
-                            if(data.datas[j].art_cate_research == i){
-                                data.datas[j].art_cate_research = self.art_cate_research[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
-        }
+                self.total = response.data.datas.total;
+                self.commonchange(response.data.datas.data);
+
+            })
+        },
+        onSubmit(form) {
+            let self = this;
+            self.types = 'composite_query';
+            self.percal = form.percal_cate;
+            self.art_cate = form.art_cate_research;
+            self.currentPages = 1;
+            self.groupchecks();
+        },
     },
     mounted() {
         this.getArticleData();

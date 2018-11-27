@@ -3,7 +3,7 @@
         <div class="cont">
             <div class="header">
                 <el-header>
-                    <div class="art">所有成员({{total}})</div>
+                    <div class="art" id="arts">所有成员({{total}})</div>
                     <div class="search">
                         <el-popover
                                 placement="top-start"
@@ -163,15 +163,13 @@
                                     </el-checkbox-group>
                                 </el-form-item>
                                 <el-form-item>
-                                    <el-button type="primary" @click="onSubmit(form)">确定</el-button>
+                                    <el-button type="primary" @click.native="onSubmit(form)">确定</el-button>
                                     <el-button @click="remove()">取消</el-button>
                                 </el-form-item>
                             </el-form>
                             <div slot="reference">高级筛选<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
                     </div>
-
-
 
                 </el-header>
             </div>
@@ -424,6 +422,9 @@
                 name:'',
                 te_re_department:'',
                 work_major:'',
+                academic:'',
+                job:'',
+                admin:'',
                 form: {
                     admin_duties:[],
                     academic_title:[],
@@ -514,7 +515,7 @@
                         total:self.pagesize,
                     }
                 }).then(function (response) {
-                    console.log(response.data.datas);
+                    console.log(response);
                     self.total = response.data.datas.total;
                     self.commonchange(response.data.datas);
 
@@ -542,12 +543,6 @@
                 self.currentPages = 1;
                 self.commonget();
             },
-//            byDutiesSearch(){               //行政职务
-//                let self = this;
-//                self.types = 'duties';
-//                self.values = self.duties;
-//                self.commonget();
-//            },
             byLabSearch(){                  //所属教研室和实验室
                 let self = this;
                 self.types = 'te_re_department';
@@ -583,9 +578,32 @@
                 self.currentPages = 1;
                 self.commonget();
             },
+            groupchecks(){
+                let self = this;
+                axios.get("byfieldselectteacher",{
+                    params:{
+                        academic_title_datas:self.academic,
+                        job_level_datas:self.job,
+                        admin_duties_datas:self.admin,
+                        type: self.types,
+                        page:self.currentPages,
+                        total:self.pagesize,
+                    }
+                }).then(function (response) {
+                    self.total = response.data.datas.total;
+                    self.commonchange(response.data.datas.data);
 
-
-
+                })
+            },
+            onSubmit(form) {
+                let self = this;
+                self.types = 'composite_query';
+                self.academic = form.academic_title;
+                self.job = form.job_level;
+                self.admin = form.admin_duties;
+                self.currentPages = 1;
+                self.groupchecks();
+            },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
             },

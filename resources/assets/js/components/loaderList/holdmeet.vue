@@ -305,31 +305,27 @@ export default {
             self.currentPages = 1;
             self.commonget();
         },
-        onSubmit(form) {
+        groupchecks(){
             let self = this;
-            axios.get("combinationselectholdmeet",{
+            axios.get("byfieldselectholdmeet",{
                 params:{
-                    ho_level_datas: form.ho_level,
+                    ho_level_datas:self.values,
+                    type: self.types,
+                    page:self.currentPages,
+                    total:self.pagesize,
                 }
             }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allHoldmeet = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.ho_level.length;i++){
-                            if(data.datas[j].ho_level == i){
-                                data.datas[j].ho_level = self.ho_level[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
+                self.total = response.data.datas.total;
+                self.commonchange(response.data.datas.data);
+
+            })
+        },
+        onSubmit(form) {
+            let self = this;
+            self.types = 'ho_level';
+            self.values = form.ho_level;
+            self.currentPages = 1;
+            self.groupchecks();
         }
     },
     mounted() {

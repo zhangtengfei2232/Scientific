@@ -3,7 +3,7 @@
         <div class="cont">
             <div class="header">
                 <el-header>
-                    <div class="art">专家讲学({{total}})</div>
+                    <div class="art" id="arts">专家讲学({{total}})</div>
                     <div class="search">
                         <el-row>
                             <el-col :span="12">
@@ -72,21 +72,44 @@
                         </el-popover>
                     </div>
                     <div class="search">
-                        <el-form ref="form" :model="form" label-width="50px">
-                            <el-dropdown @command="levelCommand" style="font-size: 16px;">
-                                <span class="el-dropdown-link">
-                                专家级别<i class="el-icon-arrow-down el-icon--right"></i>
-                                </span>
-                                <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item command="0">院士</el-dropdown-item>
-                                    <el-dropdown-item command="1">博导</el-dropdown-item>
-                                    <el-dropdown-item command="2">国务院学位委员会委员</el-dropdown-item>
-                                    <el-dropdown-item command="3">教授</el-dropdown-item>
-                                    <el-dropdown-item command="4">其他</el-dropdown-item>
-                                </el-dropdown-menu>
-                            </el-dropdown>
-                        </el-form>
+                        <el-popover
+                                placement="top-start"
+                                width="500"
+                                trigger="click">
+                            <el-form ref="form" :model="form" label-width="80px">
+                                <el-form-item label="专家级别">
+                                    <el-checkbox-group v-model="form.le_expert_level">
+                                        <el-checkbox :label="0">院士</el-checkbox>
+                                        <el-checkbox :label="1">博导</el-checkbox>
+                                        <el-checkbox :label="2">国务院学位委员会委员</el-checkbox>
+                                        <el-checkbox :label="3">教授</el-checkbox>
+                                        <el-checkbox :label="4">其他</el-checkbox>
+                                    </el-checkbox-group>
+                                </el-form-item>
+                                <el-form-item>
+                                    <el-button type="primary" @click="onSubmit(form)">确定</el-button>
+                                    <el-button @click="remove()">取消</el-button>
+                                </el-form-item>
+                            </el-form>
+                            <div slot="reference">高级筛选<i class="el-icon-arrow-down el-icon--right"></i></div>
+                        </el-popover>
                     </div>
+                    <!--<div class="search">-->
+                        <!--<el-form ref="form" :model="form" label-width="50px">-->
+                            <!--<el-dropdown @command="levelCommand" style="font-size: 16px;">-->
+                                <!--<span class="el-dropdown-link">-->
+                                <!--专家级别<i class="el-icon-arrow-down el-icon&#45;&#45;right"></i>-->
+                                <!--</span>-->
+                                <!--<el-dropdown-menu slot="dropdown">-->
+                                    <!--<el-dropdown-item command="0">院士</el-dropdown-item>-->
+                                    <!--<el-dropdown-item command="1">博导</el-dropdown-item>-->
+                                    <!--<el-dropdown-item command="2">国务院学位委员会委员</el-dropdown-item>-->
+                                    <!--<el-dropdown-item command="3">教授</el-dropdown-item>-->
+                                    <!--<el-dropdown-item command="4">其他</el-dropdown-item>-->
+                                <!--</el-dropdown-menu>-->
+                            <!--</el-dropdown>-->
+                        <!--</el-form>-->
+                    <!--</div>-->
                 </el-header>
             </div>
             <el-table
@@ -192,6 +215,7 @@
                 input:'',
                 name:'',
                 form: {
+                    le_expert_level:[],
                     type:'',
 //                    company:'',
                     checkList: [],
@@ -219,6 +243,9 @@
             }
         },
         methods: {
+            remove() {
+                document.querySelector("#arts").click();
+            },
             getArticleData() {
                 this.commonget(this.type);
             },
@@ -310,6 +337,29 @@
                 self.currentPages = 1;
                 self.timeSearchget();
             },
+            groupchecks(){
+                let self = this;
+                axios.get("byFieldSelectLecture",{
+                    params:{
+                        le_expert_level_datas:self.values,
+                        type: self.types,
+                        page:self.currentPages,
+                        total:self.pagesize,
+                    }
+                }).then(function (response) {
+                    self.total = response.data.datas.total;
+                    self.commonchange(response.data.datas.data);
+
+                })
+            },
+
+            onSubmit(form) {
+                let self = this;
+                self.types = 'le_expert_level';
+                self.values = form.le_expert_level;
+                self.currentPages = 1;
+                self.groupchecks();
+            },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
             },
@@ -340,9 +390,6 @@
                 let urls =  `exportlectureexcel?le_id_datas=${art_id_datas}`;
                 window.location.href = urls;
             },
-            onSubmit() {
-
-            }
         },
         mounted() {
             this.getArticleData();

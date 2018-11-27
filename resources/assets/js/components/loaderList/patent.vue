@@ -219,6 +219,8 @@ export default {
             data1: '',
             first_inventor:'',
             pa_name:'',
+            pa_ty:'',
+            pa_imple:'',
             form: {
                 pa_type:[],
                 pa_imple_situ: [],
@@ -349,38 +351,31 @@ export default {
             self.currentPages = 1;
             self.timeSearchget();
         },
-        onSubmit(form) {
+        groupchecks(){
             let self = this;
-            axios.get("combinationselectpatent",{
+            axios.get("byfieldselectpatent",{
                 params:{
-                    pa_type_datas: form.pa_type,
-                    pa_imple_situ_datas:form.pa_imple_situ,
+                    pa_type_datas:self.pa_type,
+                    pa_imple_situ_datas:self.pa_imple,
+                    type: self.types,
+                    page:self.currentPages,
+                    total:self.pagesize,
                 }
             }).then(function (response) {
-                var data = response.data;
-                if (data.code == 0) {
-                    self.allPatent = data.datas;
-                    for(var j=0;j<data.datas.length;j++){
-                        for(var i= 0;i<self.pa_type.length;i++){
-                            if(data.datas[j].pa_type == i){
-                                data.datas[j].pa_type = self.pa_type[i];
-                            }
-                        }
-                        for(var i= 0;i<self.pa_imple_situ.length;i++){
-                            if(data.datas[j].pa_imple_situ == i){
-                                data.datas[j].pa_imple_situ = self.pa_imple_situ[i];
-                            }
-                        }
-                    }
-                } else {
-                    self.$notify({
-                        type: 'error',
-                        message: data.message,
-                        duration: 2000,
-                    });
-                }
-            });
-        }
+                self.total = response.data.datas.total;
+                self.commonchange(response.data.datas.data);
+
+            })
+        },
+
+        onSubmit(form) {
+            let self = this;
+            self.types = 'composite_query';
+            self.pa_ty = form.pa_type;
+            self.pa_imple = form.pa_imple_situ;
+            self.currentPages = 1;
+            self.groupchecks();
+        },
     },
     mounted() {
         this.getPatentData();

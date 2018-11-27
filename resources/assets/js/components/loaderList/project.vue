@@ -434,7 +434,6 @@ export default {
                 }
             }).then(function (response) {
                 self.total = response.data.datas.total;
-                console.log(response.data.datas.data);
                 self.commonchange(response.data.datas.data);
 
             })
@@ -447,49 +446,7 @@ export default {
             console.log( self.values);
             self.currentPages = 1;
             self.groupchecks();
-
-
-//            let self = this;
-//            self.types = 'pro_host';
-//            self.values = self.pro_host;
-//            self.currentPages = 1;
-//            self.commonget();
         }
-//           let self = this;
-//            axios.get("combinationselectproject",{
-//                params:{
-//                    pro_sub_category_datas: form.pro_sub_category,
-//                }
-//            }).then(function (response) {
-//                var data = response.data;
-//                if (data.code == 0) {
-//                    self.allProject = data.datas;
-//                    for(var j=0;j<data.datas.length;j++){
-//                        for(var i= 0;i<self.pro_cate_research.length;i++){
-//                            if(data.datas[j].pro_cate_research == i){
-//                                data.datas[j].pro_cate_research = self.pro_cate_research[i];
-//                            }
-//                        }
-//                        for(var i= 0;i<self.pro_sub_category.length;i++){
-//                            if(data.datas[j].pro_sub_category == i){
-//                                data.datas[j].pro_sub_category = self.pro_sub_category[i];
-//                            }
-//                        }
-//                        for(var i= 0;i<self.form_cooperate.length;i++){
-//                            if(data.datas[j].form_cooperate == i){
-//                                data.datas[j].form_cooperate = self.form_cooperate[i];
-//                            }
-//                        }
-//                    }
-//                } else {
-//                    self.$notify({
-//                        type: 'error',
-//                        message: data.message,
-//                        duration: 2000,
-//                    });
-//                }
-//            });
-//        }
     },
     mounted() {
         this.getProjectData();

@@ -348,6 +348,30 @@ export default {
             self.currentPages = 1;
             self.timeSearchget();
         },
+
+        groupchecks(){
+            let self = this;
+            axios.get("byfieldselectappraisal",{
+                params:{
+                    ap_level_datas:self.values,
+                    type: self.types,
+                    page:self.currentPages,
+                    total:self.pagesize,
+                }
+            }).then(function (response) {
+                self.total = response.data.datas.total;
+                self.commonchange(response.data.datas.data);
+
+            })
+        },
+        onSubmit(form) {
+            let self = this;
+            self.types = 'ap_level';
+            self.values = form.ap_level;
+            console.log( self.values);
+            self.currentPages = 1;
+            self.groupchecks();
+        },
         handleSelectionChange(val) {
             this.multipleSelection = val;
         },
@@ -358,35 +382,6 @@ export default {
         handleCurrentChange(val) {
             this.currentPages=val;
         },
-        onSubmit() {
-//            let self = this;
-//            self.type = 'combine';
-//            axios.get("combinationselectappraisal",{
-//                params:{
-//                    page: self.currentPage,
-//                    total: self.pagesize,
-//                    ap_level_datas:form.ap_level,
-//                }
-//            }).then(function (response) {
-//                var data = response.data;
-//                if (data.code == 0) {
-//                    self.allAppraisal = data.datas.data;
-//                    for(var j=0;j<data.datas.data.length;j++){
-//                        for(var i= 0;i<self.ap_level.length;i++){
-//                            if(data.datas.data[j].ap_level == i){
-//                                data.datas.data[j].ap_level = self.ap_level[i];
-//                            }
-//                        }
-//                    }
-//                }else {
-//                    self.$notify({
-//                        type: 'error',
-//                        message: data.message,
-//                        duration: 2000,
-//                    });
-//                }
-//            });
-        }
     },
     mounted() {
         this.getAppraisalData();
