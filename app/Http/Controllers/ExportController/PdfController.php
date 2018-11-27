@@ -16,6 +16,7 @@ class PdfController extends Controller
     public function exportArticalPdfs(Request $request){
         $art_id_datas   = explode(',',$request->art_id_datas);
         $art_road_datas = ArticalDatabase::selectArticalToPdfRoadDatas($art_id_datas);
+        if(empty($art_road_datas))return redirect('showemptyview');
         $disk = UploadSubjectionConfig::ARTICAL;
         selectionFirstPageToNewPdf($disk,$art_road_datas);
     }
@@ -23,7 +24,7 @@ class PdfController extends Controller
     public function exportProjectPdfs(Request $request){
         $pro_id_datas   = explode(',',$request->pro_id_datas);
         $pro_road_datas = ProjectDatabase::selectImagesRoadDatas($pro_id_datas);
-        if(empty($pro_road_datas)) return view('empty');
+        if(empty($pro_road_datas)) return redirect('showemptyview');;
         $disk           = UploadSubjectionConfig::PROJECT;
         selectionSplicingToNewPdf($disk,$pro_road_datas);
     }
@@ -31,7 +32,7 @@ class PdfController extends Controller
     public function exportOpusPdfs(Request $request){
         $op_id_datas = $request->op_id_datas;
         $op_road_datas = OpusDatabase::selectOpusAllImageDatas($op_id_datas);
-        if(empty($op_road_datas)) return view('empty');
+        if(empty($op_road_datas)) return redirect('showemptyview');;
         $disk           = UploadSubjectionConfig::OPUS;
         selectionSplicingToNewPdf($disk,$op_road_datas);
     }
@@ -39,7 +40,7 @@ class PdfController extends Controller
     public function exportAwardPdfs(Request $request){
         $aw_id_datas    = $request->aw_id_datas;
         $aw_road_datas  = AwardDatabase::selectAwardRoadDatas($aw_id_datas);
-        if(empty($aw_road_datas)) return view('empty');
+        if(empty($aw_road_datas)) return redirect('showemptyview');;
         $disk           = UploadSubjectionConfig::AWARD;
         selectionSplicingToNewPdf($disk,$aw_road_datas);
     }
@@ -47,7 +48,7 @@ class PdfController extends Controller
     public function exportPatentPdfs(Request $request){
         $pa_id_datas    = $request->pa_id_datas;
         $pa_road_datas  = PatentDatabase::selectImageRoadDatas($pa_id_datas);
-        if(empty($pa_road_datas)) return view('empty');
+        if(empty($pa_road_datas)) return redirect('showemptyview');;
         $disk           = UploadSubjectionConfig::PATENT;
         selectionSplicingToNewPdf($disk,$pa_road_datas);
     }
@@ -55,7 +56,7 @@ class PdfController extends Controller
     public function exportAppraisalPdfs(Request $request){
         $ap_id_datas    = $request->ap_id_datas;
         $ap_road_datas  = AppraisalDatabase::selectAllAppraisalImageRoad($ap_id_datas);
-        if(empty($ap_road_datas)) return view('empty');
+        if(empty($ap_road_datas)) return redirect('showemptyview');;
         $disk           = UploadSubjectionConfig::APPRAISAL;
         selectionSplicingToNewPdf($disk,$ap_road_datas);
     }

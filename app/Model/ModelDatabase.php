@@ -68,7 +68,6 @@ class ModelDatabase  extends  Model
     public static function combinationSelectDatas($condition_datas,$second_field = '',$second_datas = [],$third_field = '',$third_datas = []){
          $first_field = $condition_datas['first_field'];
          $first_datas = $condition_datas['first_datas'];
-         $time_field  = $condition_datas['time_field'];
          $table_name  = $condition_datas['table_name'];
          $result = DB::table($table_name);
          if(!empty($first_datas)){
@@ -84,6 +83,7 @@ class ModelDatabase  extends  Model
          if($table_name == 'teacher'){
              self::changeTeacherTimeDatas($result);
          }
+        $time_field  = $condition_datas['time_field'];
          foreach ($result as $datas){
              $datas->$time_field = date('Y-m-d',$datas->$time_field/1000);
          }

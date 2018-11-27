@@ -12,6 +12,15 @@ Route::group(['namespace' => 'Login'], function (){
     Route::get('leavelogin','LoginController@leaveLogin');
 });
 
+/**
+ * 后台异常路由
+ */
+Route::group(['namespace' => 'ErrorController'],function (){
+    //后台报错，404页面
+    Route::post('showfourview','EmptyController@showFourView');
+    //用户请求资源失败，返回资源为空页面
+    Route::get('showemptyview','EmptyController@showEmptyView');
+});
 
 /**
  * 导出每个模块Excel表格
@@ -257,8 +266,8 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     /**
      * 师资组成数据路由
      */
-    Route::get('groupbyteachereducation','RetrievalController@groupByTeacherEducation');             //按老师职称分组查询数据
-    Route::get('groupbyteachertechnicaltitle','RetrievalController@groupByTeacherTechnicalTitle');           //按老师学历学位分组查询数据
+    Route::get('groupbyteachereducation','RetrievalController@groupByTeacherEducation');             //按老师学历学位分组查询数据
+    Route::get('groupbyteachertechnicaltitle','RetrievalController@groupByTeacherTechnicalTitle');   //按老师职称分组查询数据
     /**
      * 论文数据路由
      */
