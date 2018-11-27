@@ -46,9 +46,8 @@
                             width="55">
                     </el-table-column>
                     <el-table-column
-                            prop="schfile_id"
-                            label="序号"
-                            sortable
+                            prop="schfile_num"
+                            label="文件编号"
                             width="120">
                     </el-table-column>
                     <el-table-column

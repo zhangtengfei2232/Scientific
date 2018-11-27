@@ -46,15 +46,14 @@
                             width="55">
                     </el-table-column>
                     <el-table-column
-                            prop="agree_id"
-                            label="序号"
-                            sortable
-                            width="120">
+                            prop="agree_cooperate_unit"
+                            label="合作单位"
+                            width="200">
                     </el-table-column>
                     <el-table-column
                             prop="agree_name"
                             label="协议名称"
-                            width="120">
+                            width="200">
                     </el-table-column>
                     <el-table-column
                             prop="agree_time"
@@ -95,7 +94,7 @@
     }
     .table{
         float: left;
-        width: 80%;
+        width: 85%;
         margin: 20px 0 0 5%;
     }
     .paper{

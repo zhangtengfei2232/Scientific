@@ -46,9 +46,8 @@
                     width="55">
                     </el-table-column>
                     <el-table-column
-                    prop="pro_id"
-                    sortable
-                    label="序号"
+                    prop="project_category"
+                    label="项目类别"
                     width="120">
                     </el-table-column>
                     <el-table-column
@@ -64,7 +63,7 @@
                     <el-table-column
                         fixed="right"
                         label="操作"
-                        width="200">
+                        width="250">
                         <template slot-scope="scope">
                             <el-button
                             type="text"
@@ -72,6 +71,7 @@
                             <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentProjectSelfData(ProjectDate[scope.$index].pro_id)"></el-button>
                             <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentProjectSelfData(ProjectDate[scope.$index].pro_id)"></el-button>
                             <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteProjectData(ProjectDate[scope.$index].pro_id)"></el-button>
+                            <el-button type="success" icon="el-icon-download" size="mini" @click="uploadProjectData(ProjectDate[scope.$index].pro_road)"></el-button>
                             </el-button>
                         </template>
                     </el-table-column>
@@ -81,6 +81,7 @@
                     <el-button @click="toggleSelection()">取消选择</el-button>
                     <el-button @click="BatchDelete()">删除</el-button>
                     <el-button @click="ExcelSelection()">导出Excel</el-button>
+                    <el-button @click="BatchExport()">导出PDF</el-button>
                 </div>
             </template>
         </div>
@@ -93,7 +94,7 @@
     }
     .table{
         float: left;
-        width: 80%;
+        width: 85%;
         margin: 20px 0 0 5%;
     }
     .paper{
@@ -265,6 +266,29 @@
                     });
                 });
             },
+            uploadProjectData(pro_road) {
+                let urls =  `downloadfile?file=project/${pro_road}`;
+                window.location.href = urls;
+            },
+            BatchExport() {
+                var self = this;
+                var art_id_datas = [];//存放导出的数据
+                if(self.multipleSelection == ''){
+                    this.$message({
+                        message: '请选择要导出数据',
+                        type: 'warning'
+                    });
+                }else{
+                    for (var i = 0; i < self.multipleSelection.length; i++) {
+                        art_id_datas.push(self.multipleSelection[i].pro_id);
+                    };
+                    this.exportArticleDatas(art_id_datas);
+                }
+            },
+            exportArticleDatas(art_id_datas) {
+                let urls =  `exportallproject?pro_id_datas=${art_id_datas}`;
+                window.location.href = urls;
+            },
             byTimeSearch(form) {
                 let self = this;
                 axios.get("timeselectproject",{
@@ -290,7 +314,6 @@
                     path: `/selfProject/${pro_id}`,
                 })
             }
-
         },
         mounted() {
             this.getProjectData();

@@ -47,9 +47,8 @@
                     width="55">
                     </el-table-column>
                     <el-table-column
-                    prop="op_id"
-                    label="序号"
-                    sortable
+                    prop="op_publish"
+                    label="著作出版社"
                     width="120">
                     </el-table-column>
                     <el-table-column
@@ -73,6 +72,7 @@
                             <el-button type="primary" icon="el-icon-edit" size="mini" @click="sentBookSelfData(BookDate[scope.$index].op_id)"></el-button>
                             <el-button type="warning" icon="el-icon-zoom-in" size="mini" @click="sentBookSelfData(BookDate[scope.$index].op_id)"></el-button>
                             <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteBookData(BookDate[scope.$index].op_id)"></el-button>
+                            <el-button type="success" icon="el-icon-download" size="mini" @click="uploadBookData(BookDate[scope.$index].op_road)"></el-button>
                             </el-button>
                         </template>
                     </el-table-column>
@@ -82,6 +82,7 @@
                     <el-button @click="toggleSelection()">取消选择</el-button>
                     <el-button @click="BatchDelete()">删除</el-button>
                     <el-button @click="ExcelSelection()">导出Excel</el-button>
+                    <el-button @click="BatchExport()">导出PDF</el-button>
                 </div>
             </template>
         </div>
@@ -212,7 +213,7 @@
                     this.deleteBookDatas(pro_id_datas);
                 }
 		    },
-             deleteBookDatas(pro_id_datas) {
+            deleteBookDatas(pro_id_datas) {
                 this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -282,6 +283,29 @@
                     });
                 });
             },
+            uploadBookData(op_road) {
+                let urls =  `downloadfile?file=opus/${op_road}`;
+                window.location.href = urls;
+            },
+            BatchExport() {
+                var self = this;
+                var art_id_datas = [];//存放导出的数据
+                if(self.multipleSelection == ''){
+                    this.$message({
+                        message: '请选择要导出数据',
+                        type: 'warning'
+                    });
+                }else{
+                    for (var i = 0; i < self.multipleSelection.length; i++) {
+                        art_id_datas.push(self.multipleSelection[i].op_id);
+                    };
+                    this.exportArticleDatas(art_id_datas);
+                }
+            },
+            exportArticleDatas(art_id_datas) {
+                let urls =  `exportallopus?op_id_datas=${art_id_datas}`;
+                window.location.href = urls;
+            },
             byTimeSearch(form) {
                 axios.get("timeselectopus",{
                     params:{
@@ -302,7 +326,6 @@
                     }
                 });
             },
-
         },
         mounted() {
             this.getBookData();

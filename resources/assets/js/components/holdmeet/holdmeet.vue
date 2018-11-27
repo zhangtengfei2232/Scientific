@@ -46,9 +46,8 @@
                     width="55">
                     </el-table-column>
                     <el-table-column
-                    prop="ho_id"
-                    sortable
-                    label="序号"
+                    prop="people_num"
+                    label="会议参加人数"
                     width="120">
                     </el-table-column>
                     <el-table-column
