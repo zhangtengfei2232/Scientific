@@ -34,20 +34,6 @@
                             </el-dropdown-menu>
                         </el-dropdown>
                     </div>
-                    <!--<div class="search">-->
-                        <!--<el-popover-->
-                                <!--placement="top-start"-->
-                                <!--width="400"-->
-                                <!--trigger="click">-->
-                            <!--<el-input-->
-                                    <!--placeholder="请输入老师行政职务(回车搜索)"-->
-                                    <!--prefix-icon="el-icon-search"-->
-                                    <!--v-model="duties"-->
-                                    <!--@keyup.enter.native="byDutiesSearch()">-->
-                            <!--</el-input>-->
-                            <!--<div slot="reference">行政职务<i class="el-icon-arrow-down el-icon&#45;&#45;right"></i></div>-->
-                        <!--</el-popover>-->
-                    <!--</div>-->
                     <div class="search">
                         <el-popover
                                 placement="top-start"
@@ -93,7 +79,6 @@
                         </el-form>
                     </div>
                     <div class="search">
-                            <!--<el-form ref="form" :model="form" label-width="50px">-->
                         <el-dropdown @command="postCommand" style="font-size: 16px;">
                             <span class="el-dropdown-link">
                             行政职务<i class="el-icon-arrow-down el-icon--right"></i>
@@ -115,7 +100,6 @@
                                 <el-dropdown-item command="13">实验室主任</el-dropdown-item>
                             </el-dropdown-menu>
                         </el-dropdown>
-                            <!--</el-form>-->
                     </div>
 
                     <div class="search">
@@ -515,9 +499,8 @@
                         total:self.pagesize,
                     }
                 }).then(function (response) {
-                    console.log(response);
                     self.total = response.data.datas.total;
-                    self.commonchange(response.data.datas);
+                    self.commonchange(response.data.datas.teacher_data);
 
                 })
             },
@@ -591,7 +574,7 @@
                     }
                 }).then(function (response) {
                     self.total = response.data.datas.total;
-                    self.commonchange(response.data.datas.data);
+                    self.commonchange(response.data.datas.data.teacher_data);
 
                 })
             },
@@ -637,6 +620,22 @@
         },
         mounted() {
             this.getArticleData();
-        }
+        },
+        watch:{
+            currentPages:function (currentPages) {
+                this.currentPages = currentPages;
+                switch(this.types) {
+                    case 'time':
+                        this.timeSearchget();
+                        break;
+                    case 'composite_query':
+                        this.groupchecks();
+                        break;
+                    default:
+                        this.commonget();
+                        break;
+                }
+            }
+        },
     }
 </script>

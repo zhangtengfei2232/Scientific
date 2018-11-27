@@ -91,7 +91,7 @@
                 </div>
             </div>
         </div>
-        <div class="aside" style="max-height:720px;overflow-y:auto;overflow-x: hidden;">
+        <div class="aside" style="max-height:785px;z-index:1000;overflow-y:auto;overflow-x: hidden;">
             <el-row id="tac">
                 <el-col :span="12">
                     <el-menu
@@ -103,7 +103,6 @@
                             @open="handleOpen"
                             @close="handleClose"
                             router>
-                        <!--<div v-show="navJudgment">-->
                         <el-menu-item index="/" class="signIn" style="height:70px;border-bottom:1px solid gray;font-size:17px;text-align: center">
                             <img src="/dist/img/wang_light.png" alt="未加载">
                             <span>{{teacherDate.name}}</span>
@@ -118,7 +117,6 @@
                             <i class="el-icon-message"></i>
                             <span slot="title">学术团体</span>
                         </el-menu-item>
-                        <!--</div>-->
                         <div v-show="navGlobleview">
                             <el-menu-item index="/Glverview" style="border-bottom:1px solid gray;">
                                 <i class="el-icon-view"></i>
@@ -332,7 +330,6 @@
             },
 
             changeWork(changework){  // 修改老师行政职务
-//                console.log(changework,'----*//*///');
                 if($(" #teacherId ").val() == '') {
                     this.$message.error('老师工号不能为空');
                     return;
@@ -348,7 +345,6 @@
                         });
                         vue.changeTeaWork(vue.dataForm).then(res => {
                             var data = res.data;
-//                            console.log(data,'========/*/*///')
                             if (data.code == 0) {
                                 vue.$message({
                                     message: data.message,

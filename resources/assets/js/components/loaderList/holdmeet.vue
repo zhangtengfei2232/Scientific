@@ -338,6 +338,9 @@ export default {
                 case 'time':
                     this.timeSearchget();
                     break;
+                case 'ho_level':
+                    this.groupchecks();
+                    break;
                 default:
                     this.commonget();
                     break;

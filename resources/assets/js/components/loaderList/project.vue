@@ -458,6 +458,9 @@ export default {
                 case 'time':
                     this.timeSearchget();
                     break;
+                case 'pro_sub_category':
+                    this.groupchecks();
+                    break;
                 default:
                     this.commonget();
                     break;

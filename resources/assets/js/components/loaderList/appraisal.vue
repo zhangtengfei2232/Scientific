@@ -368,7 +368,6 @@ export default {
             let self = this;
             self.types = 'ap_level';
             self.values = form.ap_level;
-            console.log( self.values);
             self.currentPages = 1;
             self.groupchecks();
         },
@@ -392,6 +391,9 @@ export default {
             switch(this.types) {
                 case 'time':
                     this.timeSearchget();
+                    break;
+                case 'ap_level':
+                    this.groupchecks();
                     break;
                 default:
                     this.commonget();

@@ -254,6 +254,9 @@ export default {
                 case 'time':
                     this.timeSearchget();
                     break;
+                case 'schfile_name':
+                    this.groupchecks();
+                    break;
                 default:
                     this.commonget();
                     break;

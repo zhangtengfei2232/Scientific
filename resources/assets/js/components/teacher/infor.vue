@@ -4,7 +4,7 @@
             <!--{{ $route.params.art_id }}-->
             <div class="content">
                 <div class="perInfo">
-                    <span style="margin-left: 15px;">个人信息</span>
+                    <span style="margin-left: 40px;">个人信息</span>
                     <span style="float: right;margin-right:60px;"><el-button type="text" @click="dialogFormVisible  = true">修改密码</el-button></span>
 
                     <el-dialog title="修改密码"

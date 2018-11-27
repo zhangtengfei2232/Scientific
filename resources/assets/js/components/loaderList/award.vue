@@ -406,6 +406,9 @@ export default {
                 case 'time':
                     this.timeSearchget();
                     break;
+                case 'aw_level':
+                    this.groupchecks();
+                    break;
                 default:
                     this.commonget();
                     break;
