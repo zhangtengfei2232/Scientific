@@ -165,7 +165,7 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     Route::get('deletepatent', 'PatentController@deletePatent');                   //删除专利信息
     Route::get('selectpatent', 'PatentController@selectPatent');                   //查询单个专利信息
     Route::get('selectallpatent', 'PatentController@selectAllPatent');             //查询全部专利信息
-    Route::get('timeselectpatent', 'PatentController@timesSelectPatent');          //根据时间区间查询信息
+    Route::get('timeselectpatent', 'PatentController@timeSelectPatent');          //根据时间区间查询信息
     Route::post('updatepatent', 'PatentController@updatePatent');                  //修改专利信息
 
 
@@ -184,7 +184,7 @@ Route::group(['namespace' => 'ScientificController','middleware'=>['validate']],
     Route::post('updateagreement','AgreementController@updateAgreement');          //修改教学科研合作协议信息
     Route::get('selectagreement','AgreementController@selectAgreement');           //查询单个教学科研合作协议信息
     Route::get('selectallagreement','AgreementController@selectAllAgreement');     //查询全部教学科研合作协议信息
-    Route::get('timeselectagreement','AgreementController@timesSelectAgreement');  //根据时间区间查询信息
+    Route::get('timeselectagreement','AgreementController@timeSelectAgreement');  //根据时间区间查询信息
 
 
     //老师对校发文件的操作
