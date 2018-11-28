@@ -46,7 +46,7 @@ Route::group(['namespace' => 'ExportController'], function (){
     /**
      * 导出PDF
      */
-    Route::get('exportaArticalPdfs','PdfController@exportarticalpdfs');       //导出多个论文，取第一页,合成一个新的PDF
+    Route::get('exportarticalPdfs','PdfController@exportarticalpdfs');       //导出多个论文，取第一页,合成一个新的PDF
     Route::get('exportprojectpdfs','PdfController@exportProjectPdfs');        //导出项目PDF
     Route::get('exportopuspdfs','PdfController@exportOpusPdfs');              //导出著作PDF
     Route::get('exportawardpdfs','PdfController@exportAwardPdfs');            //导出获奖PDF
