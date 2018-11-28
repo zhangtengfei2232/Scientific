@@ -150,7 +150,7 @@
                         <div class="clear"></div>
                     </div>
                     <div id="myProject" :style="{width: '400px', height: '400px'}"></div>
-                    <el-button type="primary" size="mini" @click="getProjectDate()">项目类别</el-button>
+                    <el-button type="primary" size="mini" @click="getProjectDate()">项目级别</el-button>
                     <el-button type="primary" size="mini" @click="ProjectList()">学科门类</el-button>
                     <el-button type="danger" size="mini" @click="ProType()">研究类别</el-button>
                 </div>
@@ -619,7 +619,7 @@ export default {
                 calculable : true,
                 series : [
                     {
-                        name:'项目类别',
+                        name:'项目级别',
                         type:'pie',
                         center: ['50%', '60%'],
                         radius : '35%',

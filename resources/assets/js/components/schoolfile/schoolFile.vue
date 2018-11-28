@@ -28,7 +28,7 @@
                                 format="yyyy 年 MM 月 dd 日"
                                 value-format="timestamp">
                         </el-date-picker>
-                        <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch">搜索</el-button>
+                        <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch(form)">搜索</el-button>
                     </div>
                 </el-form>
             </span>
@@ -286,17 +286,18 @@
                     path: `/selfSchoolFile/${schfile_id}`,
                 })
             },
-            byTimeSearch() {
+            byTimeSearch(form) {
                 let self = this;
                 axios.get("timeselectschoolfile",{
                     params:{
-                        start_time: this.form.data1,
-                        end_time: this.form.data2,
+                        start_time: form.data1,
+                        end_time: form.data2,
                     }
                 }).then(function (response) {
+                    console.log(response);
                     var data = response.data;
                     if (data.code == 0) {
-                        self.shoolFileDate = data.datas;
+                        self.shoolFileDate = data.datas.data;
                     } else {
                         self.$notify({
                             type: 'error',

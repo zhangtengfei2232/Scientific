@@ -287,7 +287,7 @@
                 }
             },
             exportArticleDatas(art_id_datas) {
-                let urls =  `exportallpatent?pa_id_datas=${art_id_datas}`;
+                let urls =  `exportpatentpdfs?pa_id_datas=${art_id_datas}`;
                 window.location.href = urls;
             },
             sentPatentSelfData(pa_id) {
@@ -296,6 +296,11 @@
                 })
             },
             byTimeSearch(form) {
+                let self = this;
+                if(form.data1 == ''||form.data2 == ''){
+                    this.$message.error("搜索时间不能为空！");
+                    return;
+                }
                 axios.get("timeselectpatent",{
                     params:{
                         start_time: form.data1,

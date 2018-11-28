@@ -304,10 +304,15 @@
                 }
             },
             exportArticleDatas(art_id_datas) {
-                let urls =  `exportallopus?op_id_datas=${art_id_datas}`;
+                let urls =  `exportopuspdfs?op_id_datas=${art_id_datas}`;
                 window.location.href = urls;
             },
             byTimeSearch(form) {
+                let self = this;
+                if(form.data1 == ''||form.data2 == ''){
+                    this.$message.error("搜索时间不能为空！");
+                    return;
+                }
                 axios.get("timeselectopus",{
                     params:{
                         start_time: form.data1,
@@ -315,7 +320,6 @@
                     }
                 }).then(function (response) {
                     var data = response.data;
-                    console.log(data.datas);
                     if (data.code == 0) {
                         self.BookDate = data.datas;
                     } else {
