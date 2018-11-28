@@ -285,8 +285,8 @@
             },
             uploadBookData(op_road) {
                 let urls =  `downloadfile?file=opus/${op_road}`;
-                // window.location.href(urls, '_blank');
-                window.location.href = urls;
+                window.open(urls, '_blank');
+                // window.location.href = urls;
             },
             BatchExport() {
                 var self = this;
