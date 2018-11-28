@@ -268,7 +268,8 @@
             },
             uploadPatentData(pa_road) {
                 let urls =  `downloadfile?file=patent/${pa_road}`;
-                window.location.href = urls;
+                window.open(urls, '_blank');
+                // window.location.href = urls;
             },
             BatchExport() {
                 var self = this;

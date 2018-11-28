@@ -272,7 +272,8 @@
             },
             uploadAppraisalData(ap_road) {
                 let urls =  `downloadfile?file=appraisal/${ap_road}`;
-                window.location.href = urls;
+                window.open(urls, '_blank');
+                // window.location.href = urls;
             },
             BatchExport() {
                 var self = this;

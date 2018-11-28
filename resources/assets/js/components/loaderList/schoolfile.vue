@@ -65,23 +65,23 @@
                 @selection-change="handleSelectionChange">
                 <el-table-column
                     type="selection"
-                    width="55">
+                    width="100">
                 </el-table-column>
                 <el-table-column
                     fixed
                     prop="schfile_name"
                     label="校发文件名称"
-                    width="150">
+                    width="200">
                 </el-table-column>
                 <el-table-column
                     prop="schfile_num"
                     label="文件编号"
-                    width="120">
+                    width="200">
                 </el-table-column>
                 <el-table-column
                     prop="schfile_down_time"
                     label="文件日期"
-                    width="120">
+                    width="200">
                 </el-table-column>
             </el-table>
             <el-button @click="ExcelSelection()" style="margin-top: 20px;">导出Excel</el-button>

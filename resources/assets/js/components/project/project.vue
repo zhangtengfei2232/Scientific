@@ -268,7 +268,8 @@
             },
             uploadProjectData(pro_road) {
                 let urls =  `downloadfile?file=project/${pro_road}`;
-                window.location.href = urls;
+                window.open(urls, '_blank');
+                // window.location.href = urls;
             },
             BatchExport() {
                 var self = this;
