@@ -64,7 +64,7 @@
                     <el-table-column
                         fixed="right"
                         label="操作"
-                        width="200">
+                        width="250">
                         <template slot-scope="scope">
                             <el-button
                             type="text"
@@ -285,6 +285,7 @@
             },
             uploadBookData(op_road) {
                 let urls =  `downloadfile?file=opus/${op_road}`;
+                // window.location.href(urls, '_blank');
                 window.location.href = urls;
             },
             BatchExport() {
