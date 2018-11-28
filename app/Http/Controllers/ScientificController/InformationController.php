@@ -102,7 +102,6 @@ class InformationController extends Controller
             'review_time'           => trim($request->review_time),          //评审通过时间
             'appointment_time'      => trim($request->appointment_time),     //聘任时间
             'series'                => trim($request->series),               //老师系列
-            'post_category'         => trim($request->post_category),        //老师岗位类别
             'company'               => trim($request->company),              //老师所在单位
             'te_re_department'      => trim($request->te_re_department),     //老师所属教研室或实验室
             'working_hours'         => trim($request->working_hours),        //老师来校工作时间
@@ -348,7 +347,6 @@ class InformationController extends Controller
             'review_time'           => trim($request->review_time),          //评审通过时间
             'appointment_time'      => trim($request->appointment_time),     //聘任时间
             'series'                => trim($request->series),               //老师系列
-            'post_category'         => trim($request->post_category),        //老师岗位类别
             'company'               => trim($request->company),              //老师所在单位
             'te_re_department'      => trim($request->te_re_department),     //老师所属教研室或实验室
             'working_hours'         => trim($request->working_hours),        //老师来校工作时间
