@@ -287,7 +287,7 @@
                 }
             },
             exportArticleDatas(art_id_datas) {
-                let urls =  `exportallproject?pro_id_datas=${art_id_datas}`;
+                let urls =  `exportprojectpdfs?pro_id_datas=${art_id_datas}`;
                 window.location.href = urls;
             },
             byTimeSearch(form) {

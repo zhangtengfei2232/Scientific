@@ -151,7 +151,6 @@ class ModelDatabase  extends  Model
      * @return \Illuminate\Http\JsonResponse
      */
     public static function pagingQueryDatas($datas){
-        dd(5);
         $table_name = $datas['table_name'];
         $result = DB::table($table_name);
         $department = session('department');
