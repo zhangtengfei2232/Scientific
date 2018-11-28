@@ -14,6 +14,7 @@
                     <el-option label="高级实验师" value="4"></el-option>
                     <el-option label="实验师" value="5"></el-option>
                     <el-option label="助理实验师" value="6"></el-option>
+                    <el-option label="其他" value="7"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="学历" prop="du_education">

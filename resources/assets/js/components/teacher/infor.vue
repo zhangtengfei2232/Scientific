@@ -49,6 +49,7 @@
                                         <el-option label="农学系" value="2"></el-option>
                                         <el-option label="领导行政政工" value="3"></el-option>
                                         <el-option label="在外人员" value="4"></el-option>
+                                        <el-option label="其他" value="5"></el-option>
                                     </el-select>
                                 </el-form-item>
                                 <el-form-item label="老师工号" prop="teacher_id">
@@ -754,6 +755,9 @@
                     this.$message.error('原密码不能为空');
                     return;
                 }else if($("#newpsw ").val() == '') {
+                    this.$message.error('新密码不能为空');
+                    return;
+                }else if($(".newpsw ").val() == '') {
                     this.$message.error('新密码不能为空');
                     return;
                 }

@@ -23,13 +23,13 @@
                             width="55">
                     </el-table-column>
                     <el-table-column
-                            prop="du_id"
-                            label="序号"
+                            prop="teacher_name"
+                            label="老师姓名"
                             width="120">
                     </el-table-column>
                     <el-table-column
-                            prop="teacher_name"
-                            label="老师姓名"
+                            prop="du_academic"
+                            label="职称"
                             width="120">
                     </el-table-column>
                     <el-table-column
@@ -168,6 +168,16 @@
                 StudygroupDate: [],
                 sortable:true,
                 checked: false,
+                du_academic:[   //职称
+                    '教授',
+                    '副教授',
+                    '讲师',
+                    '助教',
+                    '高级实验师',
+                    '实验师',
+                    '助理实验师',
+                    '其他',
+                ],
                 form: {
                     teacher_name:'',
                     data1: '',
@@ -229,9 +239,12 @@
                 let self = this;
                 axios.get("selectallduties").then(function (response) {
                     var data = response.data;
-                    if (data.code == 0) {
-                        self.StudygroupDate = data.datas;
-//                        console.log(data.datas);
+                    var length_data = response.data.datas;
+                    for(var i=0;i<length_data.length;i++){
+                        length_data[i].du_academic = self.du_academic[length_data[i].du_academic];
+                    }
+                    if (response.data.code == 0) {
+                        self.StudygroupDate = length_data;
                     } else {
                         self.$notify({
                             type: 'error',
