@@ -648,7 +648,6 @@
                             var data = res.data;
                             if (data.code == 0) {
                                 this.Bcode=true;
-//                                vue.form.teacher_id =  res.data.datas;
                                 vue.$message({
                                     message:  data.message,
                                     type: 'success'
