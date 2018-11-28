@@ -25,6 +25,7 @@
                                :close-on-click-modal="false"
                                @close="closeDialog"
                                id="resetNumcer"
+                               width="500px"
                                center>
                         <el-form :model="changeform" style="padding: 11px 55px;" ref="changeform">
                             <el-form-item label="老师工号">
@@ -41,6 +42,7 @@
                                :visible.sync="dialogdeleVisible"
                                :close-on-click-modal="false"
                                @close="closeDeleDialog"
+                               width="500px"
                                center>
                         <el-form :model="deleTeaform" style="padding: 11px 55px;" ref="deleTeaform">
                             <el-form-item label="老师工号">
@@ -58,10 +60,11 @@
                                :visible.sync="dialogWorkVisible"
                                :close-on-click-modal="false"
                                @close="closeWorkDialog"
+                               width="500px"
                                center>
                         <el-form :model="changework" style="padding: 11px 55px;" ref="changework">
                             <el-form-item label="老师工号">
-                                <el-input type="text" v-model="changework.teacher_id" placeholder="请输入需重置密码老师工号" maxlength="10" id="teacherId"></el-input>
+                                <el-input type="text" v-model="changework.teacher_id" placeholder="请输入需重置密码老师工号" maxlength="10" id="teacherId" style="width: 80%"></el-input>
                             </el-form-item>
                             <el-form-item label="行政职务" prop="admin_duties">
                                 <el-select v-model="changework.admin_duties" placeholder="请选择老师行政职务" id="teaPost">
@@ -91,7 +94,7 @@
                 </div>
             </div>
         </div>
-        <div class="aside" style="max-height:720px;overflow-y:auto;overflow-x: hidden;">
+        <div class="aside" style="max-height:785px;z-index:1000;overflow-y:auto;overflow-x: hidden;">
             <el-row id="tac">
                 <el-col :span="12">
                     <el-menu
@@ -103,7 +106,6 @@
                             @open="handleOpen"
                             @close="handleClose"
                             router>
-                        <!--<div v-show="navJudgment">-->
                         <el-menu-item index="/" class="signIn" style="height:70px;border-bottom:1px solid gray;font-size:17px;text-align: center">
                             <img src="/dist/img/wang_light.png" alt="未加载">
                             <span>{{teacherDate.name}}</span>
@@ -118,7 +120,6 @@
                             <i class="el-icon-message"></i>
                             <span slot="title">学术团体</span>
                         </el-menu-item>
-                        <!--</div>-->
                         <div v-show="navGlobleview">
                             <el-menu-item index="/Glverview" style="border-bottom:1px solid gray;">
                                 <i class="el-icon-view"></i>
@@ -332,7 +333,6 @@
             },
 
             changeWork(changework){  // 修改老师行政职务
-//                console.log(changework,'----*//*///');
                 if($(" #teacherId ").val() == '') {
                     this.$message.error('老师工号不能为空');
                     return;
@@ -348,7 +348,6 @@
                         });
                         vue.changeTeaWork(vue.dataForm).then(res => {
                             var data = res.data;
-//                            console.log(data,'========/*/*///')
                             if (data.code == 0) {
                                 vue.$message({
                                     message: data.message,
@@ -426,6 +425,7 @@
                         self.navAddtea=true;//添加老师
                         self.navSchoolFile=true;//校发文件
                         self.navAgrement=true;
+                        self.changeTeapsw=true;//修改老师密码
 
 
                     }
@@ -614,14 +614,6 @@
     #con{
         height:100%;
         overflow:auto;
-
-        /*或者
-        *overflow-x:hidden;
-        *overflow-y:scroll;
-        */
-
-        /*background-color:#789;*/
-        /*color:#fff;*/
     }
 
 
@@ -666,5 +658,6 @@
     .el-submenu .el-menu-item{
         min-width: 160px;
     }
+
 </style>
 

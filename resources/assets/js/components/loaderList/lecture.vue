@@ -12,7 +12,6 @@
                                     讲学时间<i class="el-icon-arrow-down el-icon--right"></i>
                                 </span>
                                     <el-dropdown-menu slot="dropdown">
-                                        <!--<el-dropdown-item>全部</el-dropdown-item>-->
                                         <el-dropdown-item @click.native="timeSearch(8)">18年-今天</el-dropdown-item>
                                         <el-dropdown-item @click.native="timeSearch(7)">17年-今天</el-dropdown-item>
                                         <el-dropdown-item @click.native="timeSearch(6)">16年-今天</el-dropdown-item>
@@ -94,22 +93,6 @@
                             <div slot="reference">高级筛选<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
                     </div>
-                    <!--<div class="search">-->
-                        <!--<el-form ref="form" :model="form" label-width="50px">-->
-                            <!--<el-dropdown @command="levelCommand" style="font-size: 16px;">-->
-                                <!--<span class="el-dropdown-link">-->
-                                <!--专家级别<i class="el-icon-arrow-down el-icon&#45;&#45;right"></i>-->
-                                <!--</span>-->
-                                <!--<el-dropdown-menu slot="dropdown">-->
-                                    <!--<el-dropdown-item command="0">院士</el-dropdown-item>-->
-                                    <!--<el-dropdown-item command="1">博导</el-dropdown-item>-->
-                                    <!--<el-dropdown-item command="2">国务院学位委员会委员</el-dropdown-item>-->
-                                    <!--<el-dropdown-item command="3">教授</el-dropdown-item>-->
-                                    <!--<el-dropdown-item command="4">其他</el-dropdown-item>-->
-                                <!--</el-dropdown-menu>-->
-                            <!--</el-dropdown>-->
-                        <!--</el-form>-->
-                    <!--</div>-->
                 </el-header>
             </div>
             <el-table
@@ -287,14 +270,14 @@
                 self.currentPages = 1;
                 self.commonget();
             },
-            levelCommand(command){       //专家级别
-                let self = this;
-                self.types = 'le_expert_level';
-//                console.log(self.command,'/*/*/*/');
-                self.values = command;
-                self.currentPages = 1;
-                self.commonget();
-            },
+//            levelCommand(command){       //专家级别
+//                let self = this;
+//                self.types = 'le_expert_level';
+////                console.log(self.command,'/*/*/*/');
+//                self.values = command;
+//                self.currentPages = 1;
+//                self.commonget();
+//            },
             timeSearchget(){   //时间分页
                 let self = this;
                 self.types = 'time';
@@ -400,6 +383,9 @@
                 switch(this.types) {
                     case 'time':
                         this.timeSearchget();
+                        break;
+                    case 'le_expert_level':
+                        this.groupchecks();
                         break;
                     default:
                         this.commonget();

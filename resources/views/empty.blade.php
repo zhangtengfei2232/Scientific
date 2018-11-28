@@ -8,7 +8,10 @@
     <title>尊敬的老师:</title>
 </head>
 <body>
-<div style="text-align: center;margin-top: 20%">
+<div style="text-align: center;margin-top: 6%">
+    <div style="overflow: hidden">
+        <h1 style="float: left;">尊敬的老师：</h1>
+    </div>
     <h1>
            NOT Found! 未找到你想要的！你并没有上传文件，无法导出！
     </h1>

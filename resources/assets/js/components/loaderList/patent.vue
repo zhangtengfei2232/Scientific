@@ -387,6 +387,9 @@ export default {
                 case 'time':
                     this.timeSearchget();
                     break;
+                case 'composite_query':
+                    this.groupchecks();
+                    break;
                 default:
                     this.commonget();
                     break;

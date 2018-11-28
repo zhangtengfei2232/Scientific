@@ -5,10 +5,12 @@
                 <div class="contentLeft"style="width: 50%;">
                     <el-form-item label="老师所属部门" prop="teacher_department">
                         <el-select v-model="form.teacher_department" placeholder="请选择老师所属部门">
-                            <el-option label="生工" value="0"></el-option>
-                            <el-option label="生物技术系" value="1"></el-option>
+                            <el-option label="生物工程系" value=0></el-option>
+                            <el-option label="生物技术系" value=1></el-option>
                             <el-option label="农学系" value="2"></el-option>
                             <el-option label="领导行政政工" value="3"></el-option>
+                            <el-option label="在外人员" value="4"></el-option>
+                            <el-option label="其他" value="5"></el-option>
                         </el-select>
                     </el-form-item>
                     <el-form-item label="老师工号" prop="teacher_id">
@@ -58,7 +60,8 @@
                             <el-option label="积极分子" value="0"></el-option>
                             <el-option label="发展对象" value="1"></el-option>
                             <el-option label="预备党员" value="2"></el-option>
-                            <el-option label="党员" value="3"></el-option>
+                            <el-option label="共产党员" value="3"></el-option>
+                            <el-option label="其他" value="4"></el-option>
                         </el-select>
                         <!--<el-input v-model="form.polit_outlook"></el-input>-->
                     </el-form-item>
@@ -112,6 +115,7 @@
                             <el-option label="中级" value="1"></el-option>
                             <el-option label="副高" value="2"></el-option>
                             <el-option label="正高" value="3"></el-option>
+                            <el-option label="其他" value="4"></el-option>
                         </el-select>
                         <!--<el-input v-model="form.technical_position"></el-input>-->
                     </el-form-item>
@@ -124,6 +128,7 @@
                             <el-option label="高级实验师" value="4"></el-option>
                             <el-option label="实验师" value="5"></el-option>
                             <el-option label="助理实验师" value="6"></el-option>
+                            <el-option label="其他" value="7"></el-option>
                         </el-select>
                         <!--<el-input v-model="form.academic_title"></el-input>-->
                     </el-form-item>
@@ -414,7 +419,8 @@
                     '积极分子',
                     '发展对象',
                     '预备党员',
-                    '党员',
+                    '共产党员',
+                    '其他',
                 ],
             }
         },

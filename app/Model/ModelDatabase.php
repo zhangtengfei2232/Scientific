@@ -68,7 +68,6 @@ class ModelDatabase  extends  Model
     public static function combinationSelectDatas($condition_datas,$second_field = '',$second_datas = [],$third_field = '',$third_datas = []){
          $first_field = $condition_datas['first_field'];
          $first_datas = $condition_datas['first_datas'];
-         $time_field  = $condition_datas['time_field'];
          $table_name  = $condition_datas['table_name'];
          $result = DB::table($table_name);
          if(!empty($first_datas)){
@@ -84,6 +83,7 @@ class ModelDatabase  extends  Model
          if($table_name == 'teacher'){
              self::changeTeacherTimeDatas($result);
          }
+        $time_field  = $condition_datas['time_field'];
          foreach ($result as $datas){
              $datas->$time_field = date('Y-m-d',$datas->$time_field/1000);
          }
@@ -212,12 +212,12 @@ class ModelDatabase  extends  Model
                 $count_num = $count_num->count();
                 $count_datas[$i] = $count_num;
             }
-            $datas['count_num']      = $count_datas;
+            $datas['count_num'] = $count_datas;
             if($field == 'pro_level'){
                 $datas['approval_funds'] = $approval_funds_money_datas;
                 $datas['account_outlay'] = $account_outlay_money_datas;
                 $datas['sum_approval_funds_money'] = array_sum($datas['approval_funds']);
-                $datas['sum_account_outlay_money'] = array_sum($datas['account_outlay']); 
+                $datas['sum_account_outlay_money'] = array_sum($datas['account_outlay']);
             }
             return responseTojson(0,'查询成功','',$datas);
         }

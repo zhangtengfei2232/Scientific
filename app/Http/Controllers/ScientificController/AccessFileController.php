@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 class AccessFileController extends Controller
 {
-    /**请求laravel/strorage/app/data/下的文件资源
+    /**请求laravel/storage/app/data/下的文件资源
      * @param Request $request
      * @return BinaryFileResponse
      */
@@ -27,6 +27,10 @@ class AccessFileController extends Controller
      * @return BinaryFileResponse
      */
     public function downloadFile(Request $request){
+        $file_datas = explode('/',$request->file);
+        if(empty($file_datas[1])){
+            return redirect('showemptyview');
+        }
         $file = 'app/data/'.$request->file;
         return response()->download(storage_path($file));
     }

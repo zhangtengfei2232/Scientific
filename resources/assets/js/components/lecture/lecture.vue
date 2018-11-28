@@ -47,13 +47,13 @@
                             width="55">
                     </el-table-column>
                     <el-table-column
-                            prop="le_id"
-                            label="序号"
+                            prop="le_expert_name"
+                            label="专家姓名"
                             width="120">
                     </el-table-column>
                     <el-table-column
-                            prop="le_expert_name"
-                            label="专家姓名"
+                            prop="le_expert_level"
+                            label="专家级别"
                             width="120">
                     </el-table-column>
                     <el-table-column
@@ -143,6 +143,13 @@
                 sortable:true,
                 ExperspeakDate: [],
                 checked: false,
+                le_expert_level:[
+                    '院士',
+                    '博导',
+                    '国务院学位委员会委员',
+                    '教授',
+                    '其他'
+                ],
                 dataForm: new FormData(),
                 form: {
                     le_expert_name:'',
@@ -208,8 +215,12 @@
                 let self = this;
                 axios.get("selectalllecture").then(function (response) {
                     var data = response.data;
-                    if (data.code == 0) {
-                        self.ExperspeakDate = data.datas;
+                    var length_data = response.data.datas;
+                    for(var i=0;i<length_data.length;i++){
+                        length_data[i].le_expert_level = self.le_expert_level[length_data[i].le_expert_level];
+                    }
+                    if (response.data.code == 0) {
+                        self.ExperspeakDate = length_data;
                     } else {
                         self.$notify({
                             type: 'error',
