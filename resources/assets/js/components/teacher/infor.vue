@@ -449,17 +449,8 @@
             }
         },
         methods: {
-//            getTeacherData(){
-//                let self = this;
-////                this.form.Bcode = self.$route.params.Bcode;
-//                axios.get("selectteacher").then(function (response) {
-//                    var data = response.data;
-//
-//                });
-//            },
             getTeacherData(){
                 let self = this;
-//                this.form.Bcode = self.$route.params.Bcode;
                 axios.get("selectteacher").then(function (response) {
                     var data = response.data;
                     if(data.code == 0){
@@ -475,10 +466,6 @@
                         self.teacherDate.most_academic = String(data.datas.information.most_academic);
 
                         self.form = data.datas.information;
-//                        self.changeform = data.datas.information;
-//
-//                        data.datas.information.post_category = self.post_category[data.datas.information.post_category];
-
                         if(data.datas.information.gra_cert_road !== ''){
                             self.type1=true;
                             self.filelist = 'showfile?disk=teacher&subjection=' + data.datas.information.gra_cert_road;

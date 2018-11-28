@@ -50,7 +50,7 @@
                            <el-input
                                 placeholder="请输入作者名"
                                 prefix-icon="el-icon-search"
-                                v-model="art_name" @keyup.enter.native="nameSearch()">
+                                v-model="author" @keyup.enter.native="nameSearch()">
                             </el-input>
                             <div slot="reference">检索：作者<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
@@ -63,7 +63,7 @@
                             <el-input
                                 placeholder="请输入刊物级别"
                                 prefix-icon="el-icon-search"
-                                v-model="art_rank" @keyup.enter.native="rankSearch()">
+                                v-model="sch_percal_cate" @keyup.enter.native="rankSearch()">
                             </el-input>
                             <div slot="reference">学校认定刊物级别<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
@@ -253,8 +253,10 @@ export default {
             type: '',
             isIndeterminate: true,
             multipleSelection: [],
+            sch_percal_cate: '',
             percal:'',
             art_cate:'',
+            author:'',
             form:{
                 art_cate_research: [],
                 percal_cate:[]
@@ -300,7 +302,6 @@ export default {
     },
     methods: {
         remove() {
-//            this.isIndeterminate = false;
             document.querySelector("#arts").click();
         },
         handleSelectionChange(val) {
@@ -424,15 +425,15 @@ export default {
         },
         nameSearch() {
             let self = this;
-            self.types = 'art_name';
-            self.values = self.art_name;
+            self.types = 'author';
+            self.values = self.author;
             self.currentPages = 1;
             self.commonget();
         },
         rankSearch() {
             let self = this;
-            self.types = 'art_rank';
-            self.values = self.art_rank;
+            self.types = 'sch_percal_cate';
+            self.values = self.sch_percal_cate;
             self.currentPages = 1;
             self.commonget();
         },
@@ -442,7 +443,6 @@ export default {
                 params:{
                     percal_cate_datas:self.percal,
                     art_cate_research_datas:self.art_cate,
-
                     type: self.types,
                     page:self.currentPages,
                     total:self.pagesize,
