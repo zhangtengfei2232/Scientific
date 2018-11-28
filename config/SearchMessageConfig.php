@@ -12,12 +12,14 @@ class SearchMessageConfig
     const TEACH_SECRETARY                  = 3;      //教学秘书
     const RESEARCH_SECRETARY               = 4;      //科研秘书
     const GRADUATE_SECRETARY               = 5;      //研究生秘书
-    const DEPUTY_DIRECTOR                  = 6;      //副主任
+    const DEPUTY_DIRECTOR                  = 6;      //小麦中心主任
     const DEPARTMENT_HEAD                  = 7;      //系主任
     const OFFICE_DIRECTOR                  = 8;      //办公室主任
     const TEACH_RESEARCH_HEAD              = 9;      //教研室主任
     const PARTY_COMMITTEE_SECRETARY        = 10;     //党委书记
     const PARTY_COMMITTEE_DEPUTY_SECRETARY = 11;     //党委副书记
+    const RESERRCH_DIRECTOR                = 12;     //研究室主任
+    const LAB_DIRECTOR                     = 13;     //实验室主任
     /**
      * 每个表的表名
      */
@@ -228,17 +230,17 @@ class SearchMessageConfig
                                 '中国文学','外国文学','艺术学','历史学','考古学','经济学','政治学','法学'];
     const CATE_RESEARCH_DATAS = ['基础研究','应用研究'];
     const MEETING_LEVEL_DATAS = ['省级','大区级','国家级','国际会议'];
-    const ACADEMIC_DATAS      = ['教授','副教授','讲师','助教','高级实验师','实验师','助理实验师'];
+    const ACADEMIC_DATAS      = ['教授','副教授','讲师','助教','高级实验师','实验师','助理实验师','其他'];
     const SEX_DATAS           = ['男','女'];
     //老师
-    const TEA_POLIT_OUTLOOK_DATAS  = ['积极分子','发展对象','预备党员','共产党员'];    //政治面貌
-    const TEA_JOB_LEVEL_DATAS      = ['正处','副处','正科','副科','其他'];         //老师职务级别
+    const TEA_POLIT_OUTLOOK_DATAS  = ['积极分子','发展对象','预备党员','共产党员','其他'];    //政治面貌
+    const TEA_JOB_LEVEL_DATAS      = ['正处','副处','正科','副科','其他'];                   //老师职务级别
     const TEA_ADMIN_DUTIES_DATAS   = ['普通老师','院长','副院长','教学秘书','科研秘书','研究生秘书','副主任','系主任',
-        '办公室主任','教研室主任','党委书记','党委副书记'];                          //老师岗位类别
-    const TEACHER_DEPARTMENT       = ['生物工程系','生物技术系','农学系','领导行政政工','在外人员']; //老师部门
-    const TEA_MOST_ACADEMIC_DATAS  = ['硕士','博士','其他'];                      //老师最高学历学位
-    const TEA_FIRST_ACADEMIC_DATAS = ['大专','本科','其他'];                      //老师第一学历学位
-    const TEA_TECHNICAL_POSITION   = ['初级','中级','副高','正高'];               //老师专业技术职务
+        '办公室主任','教研室主任','党委书记','党委副书记'];                                   //老师岗位类别
+    const TEACHER_DEPARTMENT       = ['生物工程系','生物技术系','农学系','领导行政政工','在外人员','其他']; //老师部门
+    const TEA_MOST_ACADEMIC_DATAS  = ['硕士','博士','其他'];                                //老师最高学历学位
+    const TEA_FIRST_ACADEMIC_DATAS = ['大专','本科','其他'];                                //老师第一学历学位
+    const TEA_TECHNICAL_POSITION   = ['初级','中级','副高','正高','其他'];                   //老师专业技术职务
     //论文
     const ARTI_PERCAL_CATE_DATAS  = ['SCI一区','SCI二区','SCI三区','SCI四区','EI','SSCI','CN','CSSCI核心库','中文核心','CSCD核心库','河南科技学院期刊'];
     //项目

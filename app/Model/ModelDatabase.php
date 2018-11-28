@@ -70,6 +70,11 @@ class ModelDatabase  extends  Model
          $first_datas = $condition_datas['first_datas'];
          $table_name  = $condition_datas['table_name'];
          $result = DB::table($table_name);
+         $department = session('department');
+         if(!empty($department)){
+             $result = $result->join('teacher','teacher.teacher_id','=',$table_name.'.teacher_id')
+                       ->where('teacher.teacher_department',$department);
+         }
          if(!empty($first_datas)){
              $result = $result->whereIn($first_field,$first_datas);
          }
@@ -81,7 +86,7 @@ class ModelDatabase  extends  Model
          }
          $result = $result->paginate($condition_datas['total']);
          if($table_name == 'teacher'){
-             self::changeTeacherTimeDatas($result);
+             return self::changeTeacherTimeDatas($result);
          }
         $time_field  = $condition_datas['time_field'];
          foreach ($result as $datas){
@@ -95,7 +100,13 @@ class ModelDatabase  extends  Model
      */
     public static function selectAllDatas($datas){
         $table_name = $datas['table_name'];
-        $result = DB::table($table_name)->paginate($datas['total']);
+        $result = DB::table($table_name);
+        $department = session('department');
+        if(!empty($department)){
+            $result = $result->join('teacher','teacher.teacher_id','=',$table_name.'.teacher_id')
+                ->where('teacher.teacher_department',$department);
+        }
+        $result = $result->paginate($datas['total']);
         if($table_name == 'duties'){
             return self::changeDutiesTimeDatas($result);
         }
@@ -117,13 +128,18 @@ class ModelDatabase  extends  Model
      * @return \Illuminate\Http\JsonResponse
      */
     public static function timeSelectInformation($start_time,$end_time,$table_name,$time_field,$teacher_id = '',$total = 10){
-        if(empty($teacher_id)){
-            $result = DB::table($table_name)->whereBetween($time_field,[$start_time,$end_time])->paginate($total);
+        $result = DB::table($table_name);
+        if(!empty($teacher_id)){
+            $result = $result->where('teacher_id',$teacher_id)
+                   ->whereBetween($time_field,[$start_time,$end_time])
+                   ->get();
         }else{
-            $result = DB::table($table_name)
-                ->where('teacher_id',$teacher_id)
-                ->whereBetween($time_field,[$start_time,$end_time])
-                ->get();
+            $department = session('department');
+            if(!empty($department)){
+                $result = $result->join('teacher','teacher.teacher_id','=',$table_name.'.teacher_id')
+                    ->where('teacher.teacher_department',$department);
+            }
+            $result = $result->whereBetween($time_field,[$start_time,$end_time])->paginate($total);
         }
         foreach ($result as $datas){
             $datas->$time_field = date('Y-m-d',$datas->$time_field/1000);
@@ -135,8 +151,15 @@ class ModelDatabase  extends  Model
      * @return \Illuminate\Http\JsonResponse
      */
     public static function pagingQueryDatas($datas){
-        $result = DB::table($datas['table_name'])
-                  ->where($datas['field'],'like',"%".$datas['value']."%")
+        dd(5);
+        $table_name = $datas['table_name'];
+        $result = DB::table($table_name);
+        $department = session('department');
+        if(!empty($department)){
+            $result = $result->join('teacher','teacher.teacher_id','=',$table_name.'.teacher_id')
+                      ->where('teacher.teacher_department',$department);
+        }
+        $result = $result->where($datas['field'],'like',"%".$datas['value']."%")
                   ->paginate($datas['total']);
         if($datas['table_name'] == 'duties'){
             return self::changeDutiesTimeDatas($result);

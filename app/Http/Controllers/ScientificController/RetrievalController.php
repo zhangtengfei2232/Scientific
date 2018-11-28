@@ -88,7 +88,7 @@ class RetrievalController extends Controller
     public function byFieldSelectArtical(Request $request){
         ($request->has('total')) ? $datas['total'] = $request->total : $datas['total'] = $this->total;
         if($request->has('value')){
-            $datas['value'] = $request->total;
+            $datas['value'] = $request->value;
         }
         $datas['table_name'] = $this->artical_table_name;
         $datas['time_field'] = $this->artical_time_field;
@@ -419,7 +419,7 @@ class RetrievalController extends Controller
         if($request->has('value')){
             $datas['value']  = $request->value;
         }
-        $datas['table_name'] = $this->duties_table_name;
+        $datas['table_name']   = $this->duties_table_name;
         $du_teacher_name_field = SearchMessageConfig::DUTIES_TEACHER_NAME;
         $du_name_field         = SearchMessageConfig::DUTIES_DU_NAME;
         switch($request->type){

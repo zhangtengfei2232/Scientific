@@ -21,11 +21,15 @@ class TeacherDatabase extends ModelDatabase
          }else if(strlen($userpassword) > 30){
              return responseTojson(1,"你输入的密码过长");
          }
-         $result = DB::table('teacher')
+         $result = DB::table('teacher')->select('teacher_department','admin_duties')
                    ->where([['teacher_id', $usercount],['password',md5($userpassword)]])
-                   ->count();
-         if($result != 1){
+                   ->first();
+         if(empty($result)){
              return responseTojson(1,"账号或密码输入错误");
+         }
+         //判断登录的老师是不是系主任
+         if($result->admin_duties == SearchMessageConfig::DEPARTMENT_HEAD){
+             return self::saveAccount($usercount,$result->teacher_department);
          }
          return self::saveAccount($usercount);
      }
@@ -57,7 +61,6 @@ class TeacherDatabase extends ModelDatabase
                          'review_time'           => $datas['review_time'],
                          'appointment_time'      => $datas['appointment_time'],
                          'series'                => $datas['series'],
-                         'post_category'         => $datas['post_category'],
                          'company'               => $datas['company'],
                          'te_re_department'      => $datas['te_re_department'],
                          'working_hours'         => $datas['working_hours'],
@@ -168,7 +171,6 @@ class TeacherDatabase extends ModelDatabase
                           'review_time'           => $datas['review_time'],
                           'appointment_time'      => $datas['appointment_time'],
                           'series'                => $datas['series'],
-                          'post_category'         => $datas['post_category'],
                           'company'               => $datas['company'],
                           'te_re_department'      => $datas['te_re_department'],
                           'working_hours'         => $datas['working_hours'],
@@ -225,9 +227,13 @@ class TeacherDatabase extends ModelDatabase
      * @param $usercount
      * @return \Illuminate\Http\JsonResponse
      */
-     public static function saveAccount($usercount){
+     public static function saveAccount($usercount,$department = ''){
          if(!empty(Session('usercount'))) return responseTojson(1,'你已经登录过了');
          Session::put('usercount', $usercount);     //把用户的信息存入session
+         if(!empty($department)){
+             //把老师所属部门存入session
+             Session::put('department', $department);
+         }
          Session::save();
          return responseTojson(0,"登录成功");
      }
@@ -262,6 +268,7 @@ class TeacherDatabase extends ModelDatabase
      */
      public static function emptyAccount(){
         Session::forget('usercount');
+        Session::forget('department');
         Session::flush();
      }
      //查看数据库是否有两个办公室主任
