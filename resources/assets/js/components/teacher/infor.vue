@@ -119,8 +119,6 @@
                                         <el-option label="研究室主任" value="12"></el-option>
                                         <el-option label="实验室主任" value="13"></el-option>
                                     </el-select>
-
-                                    <!--<el-input v-model="form.admin_duties" maxlength="30"></el-input>-->
                                 </el-form-item>
                                 <el-form-item label="任职时间" prop="admin_tenure_time">
                                     <el-col :span="15">
@@ -188,23 +186,6 @@
                                 <el-form-item label="系列" prop="series">
                                     <el-input v-model="form.series" maxlength="20"></el-input>
                                 </el-form-item>
-                                <!--<el-form-item label="岗位类别" prop="post_category">-->
-                                    <!--<el-select v-model="form.post_category" disabled placeholder="请选择老师岗位类别">-->
-                                        <!--<el-option label="普通老师" value="0"></el-option>-->
-                                        <!--<el-option label="院长" value="1"></el-option>-->
-                                        <!--<el-option label="副院长" value="2"></el-option>-->
-                                        <!--<el-option label="教学秘书" value="3"></el-option>-->
-                                        <!--<el-option label="科研秘书" value="4"></el-option>-->
-                                        <!--<el-option label="研究生秘书" value="5"></el-option>-->
-                                        <!--<el-option label="副主任" value="6"></el-option>-->
-                                        <!--<el-option label="系主任" value="7"></el-option>-->
-                                        <!--<el-option label="办公室主任" value="8"></el-option>-->
-                                        <!--<el-option label="教研室主任" value="9"></el-option>-->
-                                        <!--<el-option label="党委书记" value="10"></el-option>-->
-                                        <!--<el-option label="党委副书记" value="11"></el-option>-->
-                                    <!--</el-select>-->
-                                <!--</el-form-item>-->
-
                                 <el-form-item label="所在单位" prop="company">
                                     <el-input v-model="form.company" maxlength="20"></el-input>
                                 </el-form-item>
@@ -274,7 +255,6 @@
                                         <el-option label="博士" value="1"></el-option>
                                         <el-option label="其他" value="2"></el-option>
                                     </el-select>
-                                    <!--<el-input v-model="form.most_academic"></el-input>-->
                                 </el-form-item>
                                 <el-form-item label="最高毕业学校" prop="most_graduate_school">
                                     <el-input v-model="form.most_graduate_school" maxlength="30"></el-input>
@@ -365,7 +345,6 @@
                         </el-form>
                     </div>
                 </div>
-                <!--</el-form>-->
             </div>
             <div style="clear: both"></div>
         </div>
@@ -379,8 +358,6 @@
 //                id:[],
                 dialogFormVisible: false,
                 formLabelWidth: '120px',
-//                old_password:'',
-//                new_password:'',
                 changeform:{
                     old_password:'',
                     new_password:''
@@ -391,8 +368,6 @@
                 Bcode:false,
                 filelist:'',
                 filelists:'',
-//                gra_cert_road: '',
-//                edu_cert_road: '',
                 dataForm: new FormData(),
                 dataFile: new FormData(),
                 teacherDate:{},
@@ -426,7 +401,6 @@
                     review_time:'',
                     appointment_time:'',
                     series:'',
-//                    post_category:'',
                     most_study_major:'',
 
                     company:'',
@@ -449,17 +423,8 @@
             }
         },
         methods: {
-//            getTeacherData(){
-//                let self = this;
-////                this.form.Bcode = self.$route.params.Bcode;
-//                axios.get("selectteacher").then(function (response) {
-//                    var data = response.data;
-//
-//                });
-//            },
             getTeacherData(){
                 let self = this;
-//                this.form.Bcode = self.$route.params.Bcode;
                 axios.get("selectteacher").then(function (response) {
                     var data = response.data;
                     if(data.code == 0){
@@ -475,10 +440,6 @@
                         self.teacherDate.most_academic = String(data.datas.information.most_academic);
 
                         self.form = data.datas.information;
-//                        self.changeform = data.datas.information;
-//
-//                        data.datas.information.post_category = self.post_category[data.datas.information.post_category];
-
                         if(data.datas.information.gra_cert_road !== ''){
                             self.type1=true;
                             self.filelist = 'showfile?disk=teacher&subjection=' + data.datas.information.gra_cert_road;
@@ -531,11 +492,9 @@
                 }
             },
             sendfile(dataFile) {
-//                console.log(dataFile,'544554=-==--');
                 let vue = this;
                 this.addTeacherFile(dataFile).then(res => {
                     var data = res.data;
-//                    console.log(data,'-=-=data-==--');
                     if (data.code == 0) {
                         vue.$message({
                             message: '修改成功',
@@ -607,18 +566,6 @@
                     this.$message.error('任职时间不能为空');
                     return;
                 }
-//                else if(form.job_level == '') {
-//                    this.$message.error('职务级别不能');
-//                    return;
-//                }
-//                else if(form.academic_title == '') {
-//                    this.$message.error('老师职称不能为空');
-//                    return;
-//                }
-//                else if(form.technical_position == '') {
-//                    this.$message.error('专业技术职务不能为空');
-//                    return;
-//                }
                 else if(form.review_time == '') {
                     this.$message.error('评审通过时间不能为空');
                     return;
@@ -627,9 +574,6 @@
                 }else if(form.series == '') {
                     this.$message.error('老师系列不能为空');
                 }
-//                else if(form.post_category == '') {
-//                    this.$message.error('岗位类别不能为空');
-//                }
                 else if(form.company == '') {
                     this.$message.error('所在单位不能为空');
                     return;
@@ -652,9 +596,6 @@
                     this.$message.error('毕业院校不能为空');
                     return;
                 }
-//                else if(form.first_academic == '') {
-//                    this.$message.error('第一学历学位不能为空');
-//                }
                 else if(form.first_graduate_school == '') {
                     this.$message.error('第一毕业学校不能为空');
                     return;
@@ -665,9 +606,6 @@
                     this.$message.error('第一毕业时间不能为空');
                     return;
                 }
-//                else if(form.most_academic == '') {
-//                    this.$message.error('学历/学位不能为空');
-//                }
                 else if(form.most_graduate_school == '') {
                     this.$message.error('毕业学校不能为空');
                     return;
@@ -699,7 +637,6 @@
                         jQuery.each(vue.form,function(i,val){
                             vue.dataForm.append(i,val);
                         });
-//                        console.log(vue.dataForm,'00000000000');
                         vue.addTeaDate(vue.dataForm).then(res => {
                             var data = res.data;
                             if (data.code == 0) {
@@ -716,8 +653,6 @@
                                 });
                             }
                         });
-//                        vue.$refs.gra_cert_road.submit();
-//                        vue.$refs.edu_cert_road.submit()
                     } else {
                         console.log('error submit!!');
                         return false
@@ -789,8 +724,6 @@
                         return false
                     }
                 })
-
-
             },
 
         },
@@ -808,7 +741,6 @@
     }
     .content{
         width: 100%;
-        /*float: right;*/
     }
     .perInfo{
         width: 100%;
@@ -824,7 +756,6 @@
     }
     .detiaLeft{
         width: 12%;
-        /*background-color: #2ab27b;*/
         font-size:0.95em;
         float: left;
         margin-left: 10%;
@@ -832,7 +763,6 @@
 
     .detialRight{
         width: 100%;
-        /*float: right;*/
     }
     .detial{
         margin-top: 3%;
@@ -853,10 +783,8 @@
         margin-left:2%;
     }
     .commit{
-        /*float: right;*/
         width: 320px;
         margin-bottom: 20px;
-        /*margin-right: 30%;*/
     }
     .graduationPic{
         margin-bottom: 193px;

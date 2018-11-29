@@ -295,10 +295,15 @@
                 }
             },
             exportArticleDatas(art_id_datas) {
-                let urls =  `exportallaward?aw_id_datas=${art_id_datas}`;
+                let urls =  `exportawardpdfs?aw_id_datas=${art_id_datas}`;
                 window.location.href = urls;
             },
             byTimeSearch(form) {
+                let self = this;
+                if(form.data1 == ''||form.data2 == ''){
+                    this.$message.error("搜索时间不能为空！");
+                    return;
+                }
                 axios.get("timeselectaward",{
                     params:{
                         start_time: form.data1,

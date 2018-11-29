@@ -141,13 +141,13 @@ class ExcelController extends Controller
                 $datas->publication_num,
                 $datas->period,
                 $datas->num_words,
-                $datas->percal_cate,
+                SearchMessageConfig::ARTI_PERCAL_CATE_DATAS[$datas->percal_cate],
                 $datas->belong_project,
                 SearchMessageConfig::CATE_RESEARCH_DATAS[$datas->art_cate_research],
                 SearchMessageConfig::SUB_CATEGORY_DATAS[$datas->art_sub_category],
                 $datas->art_integral,
                 $datas->sch_percal_cate,
-                date($this->date_formate,$datas->art_time),
+                date($this->date_formate,$datas->art_time/1000),
                 $datas->art_remarks
             ];
         }

@@ -61,8 +61,8 @@ class InformationController extends Controller
         if(!$is_exists_teacher){
             return responseTojson(1,'你输入的老师工号不存在');
         }
-        $new_post_category = trim($request->post_category);
-        return TeacherDatabase::updateTeacherPostCategoryDatas($teacher_id,$new_post_category);
+        $new_admin_duties = trim($request->admin_duties);
+        return TeacherDatabase::updateTeacherPostCategoryDatas($teacher_id,$new_admin_duties);
     }
     /**添加老师信息
      * @param Request $request
@@ -102,7 +102,6 @@ class InformationController extends Controller
             'review_time'           => trim($request->review_time),          //评审通过时间
             'appointment_time'      => trim($request->appointment_time),     //聘任时间
             'series'                => trim($request->series),               //老师系列
-            'post_category'         => trim($request->post_category),        //老师岗位类别
             'company'               => trim($request->company),              //老师所在单位
             'te_re_department'      => trim($request->te_re_department),     //老师所属教研室或实验室
             'working_hours'         => trim($request->working_hours),        //老师来校工作时间
@@ -188,6 +187,7 @@ class InformationController extends Controller
         $artical_datas        = ModelDatabase::byTeacherIdSelect($teacher_id,$art_id_field,$artical_table_name,$art_road,$art_sci_road);
         $artical_road_datas   = $artical_datas['file_road'];
         $artical_id_datas     = $artical_datas['id_datas'];
+//        dd($artical_datas);
         //老师成果鉴定
         $appraisal_table_name = SearchMessageConfig::APPRAISAL_TABLE;
         $ap_road              = SearchMessageConfig::AP_ROAD;
@@ -195,6 +195,7 @@ class InformationController extends Controller
         $appraisal_datas      = ModelDatabase::byTeacherIdSelect($teacher_id,$ap_id_field,$appraisal_table_name,$ap_road);
         $appraisal_road_datas = $appraisal_datas['file_road'];
         $appraisal_id_datas   = $appraisal_datas['id_datas'];
+//        dd($appraisal_datas);
         //老师著作
         $opus_table_name      = SearchMessageConfig::OPUS_TABLE;
         $op_id_filed          = SearchMessageConfig::OPUS_ID;
@@ -348,7 +349,6 @@ class InformationController extends Controller
             'review_time'           => trim($request->review_time),          //评审通过时间
             'appointment_time'      => trim($request->appointment_time),     //聘任时间
             'series'                => trim($request->series),               //老师系列
-            'post_category'         => trim($request->post_category),        //老师岗位类别
             'company'               => trim($request->company),              //老师所在单位
             'te_re_department'      => trim($request->te_re_department),     //老师所属教研室或实验室
             'working_hours'         => trim($request->working_hours),        //老师来校工作时间

@@ -78,7 +78,7 @@ class ArticalController extends Controller
          $select_artical_road = ArticalDatabase::selectArticalRoad($art_id_datas,0);
          $delete_artical      = ArticalDatabase::deleteArticalDatas($art_id_datas);
          if(!$delete_artical){
-             return responseTojson(0,'删除文章失败');
+             return responseTojson(1,'删除文章失败');
          }
          if(!empty($select_artical_road)){
              deleteAllFiles($disk,$select_artical_road);

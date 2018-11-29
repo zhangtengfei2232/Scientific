@@ -208,7 +208,7 @@
                 }
             },
             exportArticleDatas(art_id_datas) {
-                let urls =  `exportallartical?art_id_datas=${art_id_datas}`;
+                let urls =  `exportarticalpdfs?art_id_datas=${art_id_datas}`;
                 window.location.href = urls;
             },
             BatchDelete(){

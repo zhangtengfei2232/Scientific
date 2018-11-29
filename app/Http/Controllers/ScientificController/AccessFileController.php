@@ -15,6 +15,7 @@ class AccessFileController extends Controller
     public function showFile(Request $request){
         $disk       = $request->disk;
         $subjection = $request->subjection;
+        if(empty($subjection)) return redirect('showemptyview');
         $fileName   = explode('/',$subjection);  //把传来的数据用'/'分割
         $fileName   = $fileName[1];                       //取出文件的名字
         $temp_path  = tempnam(sys_get_temp_dir(), $fileName);

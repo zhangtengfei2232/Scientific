@@ -240,10 +240,6 @@
             }
         },
         methods: {
-//            handleCommand(command) {
-//
-//            },
-
             closeDialog:function(){
                 this.changeform.teacher_id = '';
                 this.dialogFormVisible=false;

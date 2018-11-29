@@ -19,22 +19,6 @@
                         </el-popover>
                     </div>
                     <div class="search">
-                        <el-dropdown  @command="titleCommand" style="font-size: 16px;">
-                            <span class="el-dropdown-link">
-                            老师职称<i class="el-icon-arrow-down el-icon--right"></i>
-                            </span>
-                            <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item command="0">教授</el-dropdown-item>
-                                <el-dropdown-item command="1">副教授</el-dropdown-item>
-                                <el-dropdown-item command="2">讲师</el-dropdown-item>
-                                <el-dropdown-item command="3">助教</el-dropdown-item>
-                                <el-dropdown-item command="4">高级实验师</el-dropdown-item>
-                                <el-dropdown-item command="5">实验师</el-dropdown-item>
-                                <el-dropdown-item command="6">助理实验师</el-dropdown-item>
-                            </el-dropdown-menu>
-                        </el-dropdown>
-                    </div>
-                    <div class="search">
                         <el-popover
                                 placement="top-start"
                                 width="400"
@@ -62,46 +46,6 @@
                             <div slot="reference">现从事专业<i class="el-icon-arrow-down el-icon--right"></i></div>
                         </el-popover>
                     </div>
-                    <div class="search">
-                        <el-form ref="form" :model="form" label-width="50px">
-                            <el-dropdown @command="levelCommand" style="font-size: 16px;">
-                                <span class="el-dropdown-link">
-                                职务级别<i class="el-icon-arrow-down el-icon--right"></i>
-                                </span>
-                                <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item command="0">正处</el-dropdown-item>
-                                    <el-dropdown-item command="1">副处</el-dropdown-item>
-                                    <el-dropdown-item command="2">正科</el-dropdown-item>
-                                    <el-dropdown-item command="3">副科</el-dropdown-item>
-                                    <el-dropdown-item command="4">其他</el-dropdown-item>
-                                </el-dropdown-menu>
-                            </el-dropdown>
-                        </el-form>
-                    </div>
-                    <div class="search">
-                        <el-dropdown @command="postCommand" style="font-size: 16px;">
-                            <span class="el-dropdown-link">
-                            行政职务<i class="el-icon-arrow-down el-icon--right"></i>
-                            </span>
-                            <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item command="0">普通老师</el-dropdown-item>
-                                <el-dropdown-item command="1">院长</el-dropdown-item>
-                                <el-dropdown-item command="2">副院长</el-dropdown-item>
-                                <el-dropdown-item command="3">教学秘书</el-dropdown-item>
-                                <el-dropdown-item command="4">科研秘书</el-dropdown-item>
-                                <el-dropdown-item command="5">研究生秘书</el-dropdown-item>
-                                <el-dropdown-item command="6">小麦中心主任</el-dropdown-item>
-                                <el-dropdown-item command="7">系主任</el-dropdown-item>
-                                <el-dropdown-item command="8">办公室主任</el-dropdown-item>
-                                <el-dropdown-item command="9">教研室主任</el-dropdown-item>
-                                <el-dropdown-item command="10">党委书记</el-dropdown-item>
-                                <el-dropdown-item command="11">党委副书记</el-dropdown-item>
-                                <el-dropdown-item command="12">研究室主任</el-dropdown-item>
-                                <el-dropdown-item command="13">实验室主任</el-dropdown-item>
-                            </el-dropdown-menu>
-                        </el-dropdown>
-                    </div>
-
                     <div class="search">
                         <el-popover
                                 placement="top-start"
@@ -257,10 +201,6 @@
                         prop="series"
                         label="系列">
                 </el-table-column>
-                <!--<el-table-column-->
-                        <!--prop="post_category"-->
-                        <!--label="岗位类别">-->
-                <!--</el-table-column>-->
                 <el-table-column
                         prop="company"
                         label="所在单位">
@@ -546,27 +486,6 @@
                 self.currentPages = 1;
                 self.commonget();
             },
-            titleCommand(command){      //老师职称
-                let self = this;
-                self.types = 'academic_title';
-                self.values = command;
-                self.currentPages = 1;
-                self.commonget();
-            },
-            levelCommand(command){       //职务级别
-                let self = this;
-                self.types = 'job_level';
-                self.values = command;
-                self.currentPages = 1;
-                self.commonget();
-            },
-            postCommand(command){       //行政职务
-                let self = this;
-                self.types = 'admin_duties';
-                self.values = command;
-                self.currentPages = 1;
-                self.commonget();
-            },
             groupchecks(){
                 let self = this;
                 axios.get("byfieldselectteacher",{
@@ -580,7 +499,7 @@
                     }
                 }).then(function (response) {
                     self.total = response.data.datas.total;
-                    self.commonchange(response.data.datas.data.teacher_data);
+                    self.commonchange(response.data.datas.teacher_data);
 
                 })
             },
@@ -612,6 +531,7 @@
                         type: 'warning'
                     });
                 }else{
+
                     for (var i = 0; i < self.multipleSelection.length; i++) {
                         tea_id_datas.push(self.multipleSelection[i].teacher_id);
                     };
@@ -619,6 +539,7 @@
                 }
             },
             ExcelHoldmeetDatas(tea_id_datas) {
+                console.log(tea_id_datas,'=====-=-----');
                 let self = this;
                 let urls =  `exportteacherexcel?tea_id_datas=${tea_id_datas}`;
                 window.location.href = urls;

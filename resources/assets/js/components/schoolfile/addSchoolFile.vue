@@ -26,7 +26,7 @@
                         drag
                         action="#"
                         :limit="1"
-                        ref="schfile_file"
+                        ref="schfile_road"
                         :before-upload="fileProfil"
                         :on-preview="handlePreview"
                         accept="pdf"
@@ -74,16 +74,15 @@
         methods: {
             fileProfil(file){
                 if(file !== ''){
-                    this.school=true,
+                    this.school=true;
                     this.dataForm.append('schfile_road', file);
                     return false;
                 }else{
-                    this.$message.error('pdf文件不能为空');
+                    this.$message.error('文件不能为空');
                     return
                 }
             },
             handlePreview(file) {
-                console.log(file);
                 this.checkFileExt(file.name);
             },
             checkFileExt(filename){
@@ -93,7 +92,6 @@
                 var flag = false; //状态
                 var arr = ["pdf"];
                 //取出上传文件的扩展名
-                console.log(filename);
                 var index = filename.lastIndexOf(".");
                 var ext = filename.substr(index+1);
                 //循环比较
@@ -126,13 +124,13 @@
                             });
                             vue.addSchoolFileData(vue.dataForm).then(res => {
                                 var data = res.data;
-                                if(this.school == false){
-                                    this.$message.error('pdf文件不能为空');
+                                if(vue.school == false){
+                                    vue.$message.error('pdf文件不能为空');
                                     return
                                 }
                                 if (data.code == 0) {
                                     vue.$message({
-                                        message: '添加成功',
+                                        message: data.message,
                                         type: 'success'
                                     });
                                     this.$router.push({path: '/schoolfile'});

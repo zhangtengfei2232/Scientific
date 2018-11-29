@@ -328,6 +328,6 @@
                     this.$message.error('请上传PDF');
                 }
             },
-        }
+        },
     }
 </script>

@@ -30,7 +30,7 @@ class PdfController extends Controller
     }
     //选多个著作文件导出
     public function exportOpusPdfs(Request $request){
-        $op_id_datas = $request->op_id_datas;
+        $op_id_datas   = explode(',',$request->op_id_datas);
         $op_road_datas = OpusDatabase::selectOpusAllImageDatas($op_id_datas);
         if(empty($op_road_datas)) return redirect('showemptyview');;
         $disk           = UploadSubjectionConfig::OPUS;
@@ -38,7 +38,7 @@ class PdfController extends Controller
     }
     //选多个获奖著作文件导出
     public function exportAwardPdfs(Request $request){
-        $aw_id_datas    = $request->aw_id_datas;
+        $aw_id_datas    = explode(',',$request->aw_id_datas);
         $aw_road_datas  = AwardDatabase::selectAwardRoadDatas($aw_id_datas);
         if(empty($aw_road_datas)) return redirect('showemptyview');;
         $disk           = UploadSubjectionConfig::AWARD;
@@ -46,7 +46,7 @@ class PdfController extends Controller
     }
     //选多个专利文件导出
     public function exportPatentPdfs(Request $request){
-        $pa_id_datas    = $request->pa_id_datas;
+        $pa_id_datas    = explode(',',$request->pa_id_datas);
         $pa_road_datas  = PatentDatabase::selectImageRoadDatas($pa_id_datas);
         if(empty($pa_road_datas)) return redirect('showemptyview');;
         $disk           = UploadSubjectionConfig::PATENT;
@@ -54,7 +54,7 @@ class PdfController extends Controller
     }
     //选多个成果鉴定文件导出
     public function exportAppraisalPdfs(Request $request){
-        $ap_id_datas    = $request->ap_id_datas;
+        $ap_id_datas    = explode(',',$request->ap_id_datas);
         $ap_road_datas  = AppraisalDatabase::selectAllAppraisalImageRoad($ap_id_datas);
         if(empty($ap_road_datas)) return redirect('showemptyview');;
         $disk           = UploadSubjectionConfig::APPRAISAL;

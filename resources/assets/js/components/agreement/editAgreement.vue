@@ -30,7 +30,6 @@
                             action="#"
                             ref="agree_road"
                             :before-upload="fileProfil"
-                            :file-list="filelists"
                             multiple>
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -97,12 +96,32 @@
             },
             fileProfil(file){
                 if(file !== ''){
+                    this.checkFileExt(file.name);
                     this.school=true;
                     this.dataForm.append('agree_road', file);
                     return false;
                 }else{
                     this.$message.error('文件不能为空');
-                    return
+                }
+            },
+            checkFileExt(filename){
+                if(filename == '') {
+                    this.$message.error('上传文件不能为空');
+                }
+                var flag = false; //状态
+                var arr = ["pdf"];
+                //取出上传文件的扩展名
+                var index = filename.lastIndexOf(".");
+                var ext = filename.substr(index+1);
+                //循环比较
+                for(var i=0;i<arr.length;i++){
+                    if(ext == arr[i]){
+                        flag = true;
+                        break;
+                    }
+                }
+                if(!flag){
+                    this.$message.error('请上传PDF');
                 }
             },
             onSubmit(form) {
@@ -123,25 +142,21 @@
                             });
                             vue.addAgreementData(vue.dataForm).then(res => {
                                 var data = res.data;
-                                if(vue.school == false){
-                                    vue.$message.error('pdf文件不能为空');
-                                    return
-                                }
                                 if (data.code == 0) {
                                     vue.$message({
-                                        message: '修改成功',
+                                        message: data.message,
                                         type: 'success'
                                     });
                                     this.$router.push({path: '/agreement'});
                                 } else {
                                     vue.$notify({
                                         type: 'error',
-                                        message: '修改失败',
+                                        message: data.message,
                                         duration: 2000,
                                     });
                                 }
                             })
-                            vue.$refs.pro_file.submit();
+                            vue.$refs.agree_road.submit();
                         } else {
                             console.log('error submit!!')
                             return false
