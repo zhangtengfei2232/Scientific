@@ -489,7 +489,8 @@ export default {
                         {name: '初级'+'('+datas[0]+')', value: datas[0]},
                         {name: '中级'+'('+datas[1]+')', value: datas[1]},
                         {name: '副高'+'('+datas[2]+')', value: datas[2]},
-                        {name: '正高'+'('+datas[3]+')', value: datas[3]}
+                        {name: '正高'+'('+datas[3]+')', value: datas[3]},
+                        {name: '其他'+'('+datas[4]+')', value: datas[4]},
                     ]
                 }
             });
