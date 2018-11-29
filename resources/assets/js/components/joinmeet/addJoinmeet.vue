@@ -134,7 +134,6 @@
             }
         },
         fileProfil(file){
-            console.log(file);
             this.dataForm.append('jo_graph_inject', file);
             return false;
         },

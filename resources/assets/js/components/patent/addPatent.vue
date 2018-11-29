@@ -109,8 +109,29 @@
     },
     methods: {
         filePatpic(file) {
-                this.dataForm.append('pa_road', file);
-                return false;
+            this.checkFileExt(file.name);
+            this.dataForm.append('pa_road', file);
+            return false;
+        },
+        checkFileExt(filename){
+            if(filename == '') {
+                this.$message.error('上传文件不能为空');
+            }
+            var flag = false; //状态
+            var arr = ["pdf"];
+            //取出上传文件的扩展名
+            var index = filename.lastIndexOf(".");
+            var ext = filename.substr(index+1);
+            //循环比较
+            for(var i=0;i<arr.length;i++){
+                if(ext == arr[i]){
+                    flag = true;
+                    break;
+                }
+            }
+            if(!flag){
+                this.$message.error('请上传PDF');
+            }
         },
         onSubmit(form) {
             if(form.patent_person == '') {
