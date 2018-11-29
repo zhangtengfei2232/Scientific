@@ -200,7 +200,7 @@ export default {
                 title: '',
                 publication_name: '',
                 publication_num : '',
-                num_words: 0,
+                num_words: '',
                 periodical_cate: '',
                 belong_project: '',
                 art_cate_research: 0,
@@ -272,6 +272,7 @@ export default {
             self.art_id = self.$route.params.art_id;
             axios.get("selectartical?art_id="+self.art_id).then(function (response) {
                 var data = response.data;
+                console.log(data);
                 if (data.code == 0) {
                     self.ArticleSelfData = data.datas;
                     self.art_road = data.datas.art_road;
