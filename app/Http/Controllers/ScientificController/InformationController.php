@@ -187,7 +187,6 @@ class InformationController extends Controller
         $artical_datas        = ModelDatabase::byTeacherIdSelect($teacher_id,$art_id_field,$artical_table_name,$art_road,$art_sci_road);
         $artical_road_datas   = $artical_datas['file_road'];
         $artical_id_datas     = $artical_datas['id_datas'];
-//        dd($artical_datas);
         //老师成果鉴定
         $appraisal_table_name = SearchMessageConfig::APPRAISAL_TABLE;
         $ap_road              = SearchMessageConfig::AP_ROAD;
@@ -195,7 +194,6 @@ class InformationController extends Controller
         $appraisal_datas      = ModelDatabase::byTeacherIdSelect($teacher_id,$ap_id_field,$appraisal_table_name,$ap_road);
         $appraisal_road_datas = $appraisal_datas['file_road'];
         $appraisal_id_datas   = $appraisal_datas['id_datas'];
-//        dd($appraisal_datas);
         //老师著作
         $opus_table_name      = SearchMessageConfig::OPUS_TABLE;
         $op_id_filed          = SearchMessageConfig::OPUS_ID;
@@ -203,7 +201,6 @@ class InformationController extends Controller
         $opus_datas           = ModelDatabase::byTeacherIdSelect($teacher_id,$op_id_filed,$opus_table_name,$op_road);
         $opus_road_datas      = $opus_datas['file_road'];
         $op_id_datas          = $opus_datas['id_datas'];
-//        dd($opus_datas);
         //老师获奖
         $award_table_name     = SearchMessageConfig::AWARD_TABLE;
         $aw_road              = SearchMessageConfig::AW_ROAD;
@@ -211,7 +208,6 @@ class InformationController extends Controller
         $aw_datas             = ModelDatabase::byTeacherIdSelect($teacher_id,$aw_id_field,$award_table_name,$aw_road);
         $aw_road_datas        = $aw_datas['file_road'];
         $aw_id_datas          = $aw_datas['id_datas'];
-//        dd($aw_datas);
         //老师担任团体职务
         $duties_table_name    = SearchMessageConfig::DUTIES_TABLE;
         $du_road              = SearchMessageConfig::DU_ROAD;
@@ -219,7 +215,6 @@ class InformationController extends Controller
         $duties_datas         = ModelDatabase::byTeacherIdSelect($teacher_id,$du_id_field,$duties_table_name,$du_road);
         $du_road_datas        = $duties_datas['file_road'];
         $du_id_datas          = $duties_datas['id_datas'];
-//        dd($duties_datas);
         //老师专利
         $patent_table_name    = SearchMessageConfig::PATENT_TABLE;
         $pa_id_field          = SearchMessageConfig::PATENT;
@@ -227,7 +222,6 @@ class InformationController extends Controller
         $patent_datas         = ModelDatabase::byTeacherIdSelect($teacher_id,$pa_id_field,$patent_table_name,$pa_road);
         $pa_road_datas        = $patent_datas['file_road'];
         $pa_id_datas          = $patent_datas['id_datas'];
-//        dd($patent_datas);
         //老师项目
         $project_table_name   = SearchMessageConfig::PROJECT_TABLE;
         $project_road         = SearchMessageConfig::PRO_ROAD;
@@ -235,7 +229,6 @@ class InformationController extends Controller
         $proejct_datas        = ModelDatabase::byTeacherIdSelect($teacher_id,$pro_id_field,$project_table_name,$project_road);
         $project_road_datas   = $proejct_datas['file_road'];
         $project_id_datas     = $proejct_datas['id_datas'];
-//        dd($proejct_datas);
         //老师举行会议
         $holdmeet_table_name  = SearchMessageConfig::HOLD_MEET_TABLE;
         $ho_id_field          = SearchMessageConfig::HOLDMEET_ID;
@@ -245,7 +238,6 @@ class InformationController extends Controller
         $ho_image_road_datas  = $holdmeet_datas['file_road'];
         $ho_id_datas          = $holdmeet_datas['id_datas'];
         $ho_image_id_datas    = $holdmeet_datas['image_id_datas'];
-//        dd($holdmeet_datas);
         //老师参加会议
         $joinmeet_table_name  = SearchMessageConfig::JOIN_MEET_TABLE;
         $jo_id_field          = SearchMessageConfig::JOINMEET_ID;
@@ -255,7 +247,6 @@ class InformationController extends Controller
         $jo_image_road_datas  = $joinmeet_datas['file_road'];
         $jo_id_datas          = $joinmeet_datas['id_datas'];
         $jo_image_id_datas    = $joinmeet_datas['image_id_datas'];
-//        dd($joinmeet_datas);
         //老师讲学
         $lecture_table_name   = SearchMessageConfig::LECTURE_TABLE;
         $le_id_field          = SearchMessageConfig::LECTURE_ID;
@@ -265,10 +256,8 @@ class InformationController extends Controller
         $le_image_road_datas  = $lecture_datas['file_road'];
         $le_id_datas          = $lecture_datas['id_datas'];
         $le_image_id_datas    = $lecture_datas['image_id_datas'];
-//        dd($lecture_datas);
         //老师本人信息
         $teacher_road_datas   = TeacherDatabase::selectCertificateRoad($teacher_id,3);
-//        dd($teacher_road_datas);
         $teacher_disk         = UploadSubjectionConfig::TEACHER;
         $artical_disk         = UploadSubjectionConfig::ARTICAL;
         $appraisal_disk       = UploadSubjectionConfig::APPRAISAL;
@@ -388,6 +377,7 @@ class InformationController extends Controller
     }
     //修改证书图片
     public function updateCertificate(Request $request){
+        dd($request);
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
