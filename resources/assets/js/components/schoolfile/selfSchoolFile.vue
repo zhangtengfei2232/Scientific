@@ -112,7 +112,6 @@
                 var flag = false; //状态
                 var arr = ["pdf"];
                 //取出上传文件的扩展名
-                console.log(filename);
                 var index = filename.lastIndexOf(".");
                 var ext = filename.substr(index+1);
                 //循环比较
@@ -147,7 +146,7 @@
                                 var data = res.data;
                                 if (data.code == 0) {
                                     vue.$message({
-                                        message: '修改成功',
+                                        message: data.message,
                                         type: 'success'
                                     });
                                     this.$router.push({path: '/schoolfile'});
