@@ -47,7 +47,7 @@ class ArticalDatabase  extends ModelDatabase
      //删除论文
     public static function deleteArticalDatas($artical_id_datas){
          $response = DB::table('artical')->whereIn('art_id',$artical_id_datas)->delete();
-         return ($response != 1) ? false :true;
+         return ($response == count($artical_id_datas)) ? true : false;
     }
      //修改论文信息和论文照片信息
     public static function updateArticalDatas($datas){
@@ -94,7 +94,7 @@ class ArticalDatabase  extends ModelDatabase
                  for($i = 0; $i < count($art_id_datas); $i++){
                      $road = DB::table('artical')->select('art_road','art_sci_road')
                              ->where('art_id',$art_id_datas[$i])
-                             ->get();
+                             ->first();
                      if(!empty($road->art_road)){
                          array_push($artical_road,$road->art_road);
                      }

@@ -264,7 +264,7 @@
         if(strlen($datas['teacher_name']) > 30){
             return responseTojson(1,'你输入的老师名字过长',1);
         }elseif (strlen($datas['du_age']) > 4
-            || !preg_match( "/^(?:[1-9]?\d|100)$/",$datas['du_age'])){
+            || !preg_match( "/^[0-9]*$/",$datas['du_age'])){
             return responseTojson(1,'你输入的年龄必须为数字且不超过4位',1);
         }elseif (strlen($datas['du_duty']) > 99){
             return responseTojson(1,'你输入的所任职务名称过长',1);

@@ -235,8 +235,8 @@ class SearchMessageConfig
     //老师
     const TEA_POLIT_OUTLOOK_DATAS  = ['积极分子','发展对象','预备党员','共产党员','其他'];    //政治面貌
     const TEA_JOB_LEVEL_DATAS      = ['正处','副处','正科','副科','其他'];                   //老师职务级别
-    const TEA_ADMIN_DUTIES_DATAS   = ['普通老师','院长','副院长','教学秘书','科研秘书','研究生秘书','副主任','系主任',
-        '办公室主任','教研室主任','党委书记','党委副书记'];                                   //老师岗位类别
+    const TEA_ADMIN_DUTIES_DATAS   = ['普通老师','院长','副院长','教学秘书','科研秘书','研究生秘书','小麦中心主任','系主任',
+        '办公室主任','教研室主任','党委书记','党委副书记','研究室主任','实验室主任'];                                   //老师岗位类别
     const TEACHER_DEPARTMENT       = ['生物工程系','生物技术系','农学系','领导行政政工','在外人员','其他']; //老师部门
     const TEA_MOST_ACADEMIC_DATAS  = ['硕士','博士','其他'];                                //老师最高学历学位
     const TEA_FIRST_ACADEMIC_DATAS = ['大专','本科','其他'];                                //老师第一学历学位

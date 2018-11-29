@@ -31,7 +31,6 @@ class PdfController extends Controller
     //选多个著作文件导出
     public function exportOpusPdfs(Request $request){
         $op_id_datas   = explode(',',$request->op_id_datas);
-        dd($op_id_datas);
         $op_road_datas = OpusDatabase::selectOpusAllImageDatas($op_id_datas);
         if(empty($op_road_datas)) return redirect('showemptyview');;
         $disk           = UploadSubjectionConfig::OPUS;

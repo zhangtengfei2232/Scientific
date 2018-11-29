@@ -303,7 +303,7 @@ class RetrievalController extends Controller
                 $datas['first_datas'] = $request->ho_level_datas;
                 return ModelDatabase::combinationSelectDatas($datas);
             case 'time':
-                return ModelDatabase::timeSelectInformation($request->start_time,$request->end_time,$datas['table_name'],'',$datas['time_field']);
+                return ModelDatabase::timeSelectInformation($request->start_time,$request->end_time,$datas['table_name'],$datas['time_field'],'',$datas['total']);
             default:
                 return ModelDatabase::selectAllDatas($datas);
         }
@@ -330,7 +330,7 @@ class RetrievalController extends Controller
                 $datas['first_datas'] = $request->jo_level_datas;
                 return ModelDatabase::combinationSelectDatas($datas);
             case 'time':
-                return ModelDatabase::timeSelectInformation($request->start_time,$request->end_time,$datas['table_name'],'',$datas['time_field']);
+                return ModelDatabase::timeSelectInformation($request->start_time,$request->end_time,$datas['table_name'],$datas['time_field'],'',$datas['total']);
             default:
                 return ModelDatabase::selectAllDatas($datas);
         }
