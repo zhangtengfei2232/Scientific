@@ -29,7 +29,13 @@
                 </el-form-item>
                 <el-form-item label="年，卷，期" v-model="form.period">
                     <el-col :span="1" style="width:50px;margin:0 10px 0 0">
-                        <el-date-picker v-model="year1" type="year" placeholder="选择年份" style="width: 90px;"></el-date-picker>
+                        <el-date-picker
+                            v-model="year1"
+                            type="year"
+                            value-format="timestamp"
+                            placeholder="选择年份"
+                            style="width: 90px;">
+                        </el-date-picker>
                     </el-col>
                     <el-col :span="1" style="width:50px;margin: 0px -36px 0px 6%;">
                         ，
