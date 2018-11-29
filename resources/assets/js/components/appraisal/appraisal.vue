@@ -212,7 +212,7 @@
                         if (data.code == 0) {
                              self.$message({
                                 type: 'success',
-                                message: '删除成功!'
+                                message: data.message
                             });
                             location.reload();
                         } else {
@@ -240,12 +240,12 @@
                     let self = this;
                     axios.get("deleteappraisal",{
                         params:{
-                            ap_id_datas:id
+                            ap_id_datas:self.id
                         }
                     }).then(function (response) {
                     var data = response.data;
                         if (data.code == 0) {
-                             this.$message({
+                             self.$message({
                                 type: 'success',
                                 message: '删除成功!'
                             });
@@ -291,11 +291,15 @@
                 }
             },
             exportArticleDatas(art_id_datas) {
-                let urls =  `exportallappraisal?ap_id_datas=${art_id_datas}`;
+                let urls =  `exportappraisalpdfs?ap_id_datas=${art_id_datas}`;
                 window.location.href = urls;
             },
             byTimeSearch(form) {
                 let self = this;
+                if(form.data1 == '' || form.data2 == ''){
+                    this.$message.error("不能输入空");
+                    return
+                }
                 axios.get("timeselectappraisal",{
                     params:{
                         start_time: form.data1,

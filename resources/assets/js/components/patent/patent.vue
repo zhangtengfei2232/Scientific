@@ -232,7 +232,6 @@
             },
             deletePatentData(pa_id) {
                 this.id.push(pa_id);
-                console.log(this.id);
                 this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -246,7 +245,7 @@
                     }).then(function (response) {
                     var data = response.data;
                         if (data.code == 0) {
-                             this.$message({
+                            self.$message({
                                 type: 'success',
                                 message: '删除成功!'
                             });

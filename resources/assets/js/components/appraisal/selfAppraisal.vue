@@ -47,7 +47,7 @@
                     <el-input type="textarea" v-model="form.ap_remarks"></el-input>
                 </el-form-item>
                 <el-form-item v-show="pdfType">
-                    <el-button type="warning" size="mini" @click="watchPDF()">查看</el-button>
+                    <el-button type="warning" size="mini" @click="watchPDF()">查看成果</el-button>
                 </el-form-item>
                 <el-form-item label="成果封面,成果鉴定证书PDF">
                     <el-upload
@@ -130,7 +130,7 @@ export default {
                 } else {
                     self.$notify({
                         type: 'error',
-                        message: data.msg,
+                        message: data.message,
                         duration: 2000,
                     });
                 }
@@ -187,7 +187,7 @@ export default {
                             if (data.code == 0) {
                                 this.Bcode = true;
                                 vue.$message({
-                                    message: '修改成功',
+                                    message: data.message,
                                     type: 'success'
                                 });
                             vue.$router.push({path: '/appraisal'});

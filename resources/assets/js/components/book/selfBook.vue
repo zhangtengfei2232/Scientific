@@ -88,7 +88,7 @@
                     <el-input type="textarea" v-model="form.op_remarks"></el-input>
                 </el-form-item>
                 <div class="demo" v-show="type1">
-                    <el-button type="warning" size="mini" @click="watchPDF()">查看论文</el-button>
+                    <el-button type="warning" size="mini" @click="watchPDF()">查看</el-button>
                 </div>
                 <el-form-item label="著作封面,版权页PDF">
                     <el-upload
@@ -186,10 +186,31 @@ export default {
         },
         fileProfil(file){
             if(file !== ''){
+                this.checkFileExt(file.name);
                 this.dataForm.append('op_road', file);
             }else{
                 this.$message.error('请先添加文件');
                 return false
+            }
+        },
+        checkFileExt(filename){
+            if(filename == '') {
+                this.$message.error('上传文件不能为空');
+            }
+            var flag = false; //状态
+            var arr = ["pdf"];
+            //取出上传文件的扩展名
+            var index = filename.lastIndexOf(".");
+            var ext = filename.substr(index+1);
+            //循环比较
+            for(var i=0;i<arr.length;i++){
+                if(ext == arr[i]){
+                    flag = true;
+                    break;
+                }
+            }
+            if(!flag){
+                this.$message.error('请上传PDF');
             }
         },
         onSubmit(form) {

@@ -20,7 +20,7 @@
                     </el-col>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="warning" size="mini" @click="watchPDF()">查看论文</el-button>
+                    <el-button type="warning" size="mini" @click="watchPDF()">查看协议</el-button>
                 </el-form-item>
                 <el-form-item label="协议附件pdf">
                     <el-upload

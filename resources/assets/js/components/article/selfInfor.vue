@@ -234,6 +234,7 @@ export default {
             }
         },
         fileArtpdf(file){
+            this.checkFileExt(file.name);
             this.dataFile.append('art_road', file.raw);
             this.id_nav = true;
         },
@@ -265,6 +266,7 @@ export default {
             });
         },
         fileArtsci(file){
+            this.checkFileExt(file.name);
             this.dataFile.append('art_sci_road', file.raw);
         },
         getArticleSelfData() {
@@ -272,7 +274,6 @@ export default {
             self.art_id = self.$route.params.art_id;
             axios.get("selectartical?art_id="+self.art_id).then(function (response) {
                 var data = response.data;
-                console.log(data);
                 if (data.code == 0) {
                     self.ArticleSelfData = data.datas;
                     self.art_road = data.datas.art_road;
@@ -393,7 +394,6 @@ export default {
             var flag = false; //状态
             var arr = ["pdf"];
             //取出上传文件的扩展名
-            console.log(filename);
             var index = filename.lastIndexOf(".");
             var ext = filename.substr(index+1);
             //循环比较

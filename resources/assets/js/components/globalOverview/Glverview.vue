@@ -126,33 +126,9 @@
                     <el-button type="primary" size="mini" @click="getArticleDate()">刊物级别</el-button>
                 </div>
                 <div class="list4">
-                    <span class="span">项目图</span>
-                    <div class="timesearch">
-                        <div class="data1">
-                            <el-date-picker
-                                    v-model="dataPro1"
-                                    size="mini"
-                                    type="year"
-                                    value-format="timestamp"
-                                    placeholder="选择年">
-                            </el-date-picker>
-                        </div>
-                        <div class="reference">-</div>
-                        <div class="data2">
-                            <el-date-picker
-                                    v-model="dataPro2"
-                                    size="mini"
-                                    type="year"
-                                    value-format="timestamp"
-                                    placeholder="选择年">
-                            </el-date-picker>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                    <div id="myProject" :style="{width: '400px', height: '400px'}"></div>
-                    <el-button type="primary" size="mini" @click="getProjectDate()">项目级别</el-button>
-                    <el-button type="primary" size="mini" @click="ProjectList()">学科门类</el-button>
-                    <el-button type="danger" size="mini" @click="ProType()">研究类别</el-button>
+                    <span class="span">成果鉴定图</span>
+                    <div id="myAppraisal" :style="{width: '320px', height: '300px'}" class="myAppraisal"></div>
+                    <el-button type="primary" size="mini">鉴定级别</el-button>
                 </div>
                 <div class="list5">
                     <span class="span">著作图</span>
@@ -237,10 +213,35 @@
                     <div id="myPatent" :style="{width: '420px', height: '400px'}"></div>
                     <el-button type="primary" size="mini" @click="getPatentDate()">专利类型</el-button>
                 </div>
+
                 <div class="list8">
-                    <span class="span">成果鉴定图</span>
-                    <div id="myAppraisal" :style="{width: '320px', height: '300px'}"></div>
-                    <el-button type="primary" size="mini">鉴定级别</el-button>
+                    <span class="span">项目图</span>
+                    <div class="timesearch">
+                        <div class="data1">
+                            <el-date-picker
+                                    v-model="dataPro1"
+                                    size="mini"
+                                    type="year"
+                                    value-format="timestamp"
+                                    placeholder="选择年">
+                            </el-date-picker>
+                        </div>
+                        <div class="reference">-</div>
+                        <div class="data2">
+                            <el-date-picker
+                                    v-model="dataPro2"
+                                    size="mini"
+                                    type="year"
+                                    value-format="timestamp"
+                                    placeholder="选择年">
+                            </el-date-picker>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div id="myProject" :style="{width: '400px', height: '400px'}"></div>
+                    <el-button type="primary" size="mini" @click="getProjectDate()">项目级别</el-button>
+                    <el-button type="primary" size="mini" @click="ProjectList()">学科门类</el-button>
+                    <el-button type="danger" size="mini" @click="ProType()">研究类别</el-button>
                 </div>
             </div>
 
@@ -320,8 +321,11 @@
         display: inline-block;
         padding: 10px 25px;
     }
-    .list4 button{
-        padding: 7px 10px;
+    .list4 .myAppraisal{
+        margin-top: 39px;
+    }
+    .list4  button{
+        margin: 75px 0 0 0;
     }
     .timesearch{
         width: 350px;
@@ -747,7 +751,6 @@ export default {
                 }
             }).then(function (response) {
                 var data = response.data;
-                console.log(data);
                 if (data.code == 0) {
                     self.ProjectDate = data.datas.count_num;
                     self.drawLineTypePro(self.ProjectDate);

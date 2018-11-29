@@ -182,7 +182,6 @@
             BatchDelete(){
 		    	var self = this;
                 var pro_id_datas = [];//存放删除的数据
-                console.log(self.multipleSelection);
                 if(self.multipleSelection == ''){
                     this.$message({
                         message: '警告哦，这是一条警告消息',

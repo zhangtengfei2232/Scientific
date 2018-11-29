@@ -151,7 +151,7 @@ export default {
                     if (data.code == 0) {
                         self.JoinmeetSelfData = data.datas;
                         self.form = data.datas.information;
-                        self.form.ho_level = String(data.datas.information.ho_level);
+                        self.form.jo_level = String(data.datas.information.jo_level);
                         if(data.datas.information.jo_graph_inject == ''){
                             self.picType=false;
                         }else{

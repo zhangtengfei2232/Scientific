@@ -58,7 +58,6 @@
                     <el-table-column
                             prop="agree_time"
                             label="日期"
-                            sortable
                             show-overflow-tooltip>
                     </el-table-column>
                     <el-table-column
@@ -212,13 +211,13 @@
                         if (data.code == 0) {
                             self.$message({
                                 type: 'success',
-                                message: '删除成功!'
+                                message: data.message
                             });
                             location.reload();
                         } else {
                             self.$notify({
                                 type: 'error',
-                                message: data.msg,
+                                message: data.message,
                                 duration: 2000,
                             });
                         }
@@ -297,7 +296,6 @@
                         end_time: form.data2,
                     }
                 }).then(function (response) {
-                    console.log(response.data,'[][[[]][===');
                     var data = response.data;
                     if (data.code == 0) {
                         self.agreementDate = data.datas;

@@ -206,6 +206,7 @@
         methods: {
             fileArtpdf(file){
                 if(file !== ''){
+                    this.checkFileExt(file.name);
                     this.dataForm.append('art_road', file.raw);
                 }else{
                     this.$message.error('请先添加pdf信息');
@@ -213,6 +214,7 @@
                 }
             },
             fileArtsci(file){
+                this.checkFileExt(file.name);
                 this.dataForm.append('art_sci_road', file);
             },
             onSubmit(form,year2,year3,year4,year5,year1) {
