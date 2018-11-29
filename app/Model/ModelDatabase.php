@@ -88,7 +88,7 @@ class ModelDatabase  extends  Model
          if($table_name == 'teacher'){
              return self::changeTeacherTimeDatas($result);
          }
-        $time_field  = $condition_datas['time_field'];
+         $time_field  = $condition_datas['time_field'];
          foreach ($result as $datas){
              $datas->$time_field = date('Y-m-d',$datas->$time_field/1000);
          }
