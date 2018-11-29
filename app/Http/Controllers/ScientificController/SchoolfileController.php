@@ -110,7 +110,7 @@ class SchoolfileController extends Controller
     //根据时间查看项目信息
     public function timeSelectSchoolfile(Request $request){
         $start_time = $request->start_time;
-        $end_time   = $request->end_tiem;
+        $end_time   = $request->end_time;
         $table_name = SearchMessageConfig::SCHOOL_FILE_TABLE;
         $time_field = SearchMessageConfig::SCHFILE_DOWN_TIME;
         return ModelDatabase::timeSelectInformation($start_time,$end_time,$table_name,$time_field);

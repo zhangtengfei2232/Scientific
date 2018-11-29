@@ -256,11 +256,11 @@ class TeacherDatabase extends ModelDatabase
         return ($initialize != 1) ? responseTojson(1,'密码重置失败')
                : responseTojson(0,'密码重置成功');
     }
-    //修改老师岗位类别
-    public static function updateTeacherPostCategoryDatas($teacher_id,$new_post_category){
-         $reset_post_category = DB::table('teacher')->where('teacher_id',$teacher_id)
-                                ->update(['post_category' => $new_post_category]);
-         return ($reset_post_category != 1) ? responseTojson(1,'修改老师岗位类别失败')
+    //修改老师行政职务
+    public static function updateTeacherPostCategoryDatas($teacher_id,$new_admin_duties){
+         $reset_admin_duties = DB::table('teacher')->where('teacher_id',$teacher_id)
+                                ->update(['admin_duties' => $new_admin_duties]);
+         return ($reset_admin_duties != 1) ? responseTojson(1,'修改老师岗位类别失败')
                 : responseTojson(0,'修改老师岗位类别成功');
     }
     /**把session里的用户信息清空
@@ -273,10 +273,10 @@ class TeacherDatabase extends ModelDatabase
      }
      //查看数据库是否有两个办公室主任
      public static function countDirectorOfficeNum($teacher_id){
-         $post_category = DB::table('teacher')->select('post_category')->where('teacher_id',$teacher_id)->first();
-         if($post_category->post_category == SearchMessageConfig::OFFICE_DIRECTOR){  //是办公室主任
+         $teacher_admin_duties = DB::table('teacher')->select('admin_duties')->where('teacher_id',$teacher_id)->first();
+         if($teacher_admin_duties->admin_duties == SearchMessageConfig::OFFICE_DIRECTOR){  //是办公室主任
              $count_director_office = DB::table('teacher')
-                                      ->where('post_category',$post_category->post_category)->count();
+                                      ->where('admin_duties',$teacher_admin_duties->admin_duties)->count();
              return ($count_director_office > 1) ? responseTojson(0,'验证通过',1)
                     : responseTojson(1,'验证失败',1);
          }

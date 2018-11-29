@@ -107,7 +107,7 @@ class AgreementController extends Controller
         return responseTojson(0,'查询成功','',$result);
     }
     //根据时间区间搜索教学科研合作协议信息
-    public function timeSelectAgreemet(Request $request){
+    public function timeSelectAgreement(Request $request){
         $start_time = $request->strat_time;
         $end_time   = $request->end_time;
         $table_name = SearchMessageConfig::AGREEMENT_TABLE;
