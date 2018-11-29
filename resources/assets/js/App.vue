@@ -327,7 +327,6 @@
                     });
                 });
             },
-
             changeWork(changework){  // 修改老师行政职务
                 if($(" #teacherId ").val() == '') {
                     this.$message.error('老师工号不能为空');

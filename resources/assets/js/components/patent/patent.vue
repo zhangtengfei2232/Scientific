@@ -246,7 +246,7 @@
                     }).then(function (response) {
                     var data = response.data;
                         if (data.code == 0) {
-                             this.$message({
+                            self.$message({
                                 type: 'success',
                                 message: '删除成功!'
                             });

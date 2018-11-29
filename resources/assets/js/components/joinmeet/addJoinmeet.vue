@@ -118,7 +118,7 @@
                 jo_art_num: '',
                 jo_is_invite: '',
                 jo_title: '',
-            }
+            },
         }
     },
     methods: {

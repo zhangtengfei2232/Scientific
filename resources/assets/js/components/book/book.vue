@@ -304,7 +304,7 @@
                 }
             },
             exportArticleDatas(art_id_datas) {
-                let urls =  `exportopuspdfs?op_id_datas=${art_id_datas}`;
+                let urls =  `exportallopus?op_id_datas=${art_id_datas}`;
                 window.location.href = urls;
             },
             byTimeSearch(form) {

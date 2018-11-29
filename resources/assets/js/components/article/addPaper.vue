@@ -184,7 +184,7 @@
                     art_time: '',
                     publication_name: '',
                     publication_num : '',
-                    num_words: 0,
+                    num_words: '',
                     sch_percal_cate: '',
                     belong_project: '',
                     art_cate_research: '',

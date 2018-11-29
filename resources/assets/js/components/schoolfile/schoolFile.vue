@@ -58,7 +58,6 @@
                     <el-table-column
                             prop="schfile_down_time"
                             label="文件下发时间"
-                            sortable
                             show-overflow-tooltip>
                     </el-table-column>
                     <el-table-column
@@ -286,7 +285,6 @@
                 })
             },
             byTimeSearch(form) {
-                console.log(form,'-=-=-====');
                 let self = this;
                 if(form.data1 == '' || form.data2 == ''){
                     this.$message.error("不能输入空");

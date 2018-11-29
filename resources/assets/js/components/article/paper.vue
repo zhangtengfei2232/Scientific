@@ -298,6 +298,10 @@
             },
             byTimeSearch(form) {
                 let self = this;
+                if(form.data1 == '' || form.data2 == ''){
+                    this.$message.error("不能输入空");
+                    return
+                }
                 axios.get("timeselectattical",{
                      params:{
                         start_time: form.data1,

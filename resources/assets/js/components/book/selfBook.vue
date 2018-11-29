@@ -88,7 +88,7 @@
                     <el-input type="textarea" v-model="form.op_remarks"></el-input>
                 </el-form-item>
                 <div class="demo" v-show="type1">
-                    <el-button type="warning" size="mini" @click="watchPDF()">查看论文</el-button>
+                    <el-button type="warning" size="mini" @click="watchPDF()">查看</el-button>
                 </div>
                 <el-form-item label="著作封面,版权页PDF">
                     <el-upload
@@ -156,6 +156,8 @@ export default {
     },
     methods: {
         watchPDF() {
+            console.log(this.op_road);
+            return ;
             let urls =  `showfile?disk=opus&subjection=${this.op_road}`;
             window.open(urls, '_blank');
         },
