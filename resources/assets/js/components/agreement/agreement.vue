@@ -28,7 +28,7 @@
                                 format="yyyy 年 MM 月 dd 日"
                                 value-format="timestamp">
                         </el-date-picker>
-                        <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch">搜索</el-button>
+                        <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch(form)">搜索</el-button>
                     </div>
                 </el-form>
             </span>
@@ -149,6 +149,15 @@
             handleSelectionChange(val) {
                 this.multipleSelection = val;
             },
+            toggleSelection(rows) {
+                if (rows) {
+                    rows.forEach(row => {
+                        this.$refs.multipleTable.toggleRowSelection(row);
+                    });
+                } else {
+                    this.$refs.multipleTable.clearSelection();
+                }
+            },
             ExcelSelection() {
                 var self = this;
                 var art_id_datas = [];//存放导出的数据
@@ -171,15 +180,6 @@
             uploadAgreementData(agree_road) {
                 let urls =  `downloadfile?file=agreement/${agree_road}`;
                 window.location.href = urls;
-            },
-            toggleSelection(rows) {
-                if (rows) {
-                    rows.forEach(row => {
-                        this.$refs.multipleTable.toggleRowSelection(row);
-                    });
-                } else {
-                    this.$refs.multipleTable.clearSelection();
-                }
             },
              BatchDelete(){
 		    	var self = this;
@@ -285,13 +285,19 @@
                     path: `/editAgreement/${agree_id}`,
                 })
             },
-            byTimeSearch() {
+            byTimeSearch(form) {
+                let self = this;
+                if(form.data1 == '' || form.data2 == ''){
+                    this.$message.error("不能输入空");
+                    return
+                }
                 axios.get("timeselectagreement",{
                     params:{
-                        start_time: this.form.data1,
-                        end_time: this.form.data2,
+                        start_time: form.data1,
+                        end_time: form.data2,
                     }
                 }).then(function (response) {
+                    console.log(response.data,'[][[[]][===');
                     var data = response.data;
                     if (data.code == 0) {
                         self.agreementDate = data.datas;

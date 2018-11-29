@@ -27,6 +27,7 @@
                             action="#"
                             ref="agree_road"
                             :before-upload="fileProfil"
+                            :on-preview="handlePreview"
                             multiple>
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -76,6 +77,29 @@
                     return
                 }
             },
+            handlePreview(file) {
+                this.checkFileExt(file.name);
+            },
+            checkFileExt(filename){
+                if(filename == '') {
+                    this.$message.error('上传文件不能为空');
+                }
+                var flag = false; //状态
+                var arr = ["pdf"];
+                //取出上传文件的扩展名
+                var index = filename.lastIndexOf(".");
+                var ext = filename.substr(index+1);
+                //循环比较
+                for(var i=0;i<arr.length;i++){
+                    if(ext == arr[i]){
+                        flag = true;
+                        break;
+                    }
+                }
+                if(!flag){
+                    this.$message.error('请上传PDF');
+                }
+            },
             onSubmit(form) {
                 if(form.agree_name == '') {
                     this.$message.error('协议名称不能为空');
@@ -101,7 +125,7 @@
                                 var data = res.data;
                                 if (data.code == 0) {
                                     vue.$message({
-                                        message: '修改成功',
+                                        message: data.message,
                                         type: 'success'
                                     });
                                     this.$router.push({path: '/agreement'});
