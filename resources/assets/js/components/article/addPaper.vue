@@ -130,6 +130,7 @@
                             action=""
                             multiple
                             ref="art_pdf"
+                            accept=".pdf,.PDF"
                             :on-change="fileArtpdf"
                             :auto-upload="false">
                         <i class="el-icon-upload"></i>
@@ -142,6 +143,7 @@
                             drag
                             action=""
                             multiple
+                            accept=".pdf,.PDF"
                             ref="art_sci"
                             :before-upload="fileArtsci"
                             :auto-upload="false">
@@ -206,7 +208,7 @@
         methods: {
             fileArtpdf(file){
                 if(file !== ''){
-                    this.checkFileExt(file.name);
+                    // this.checkFileExt(file.name);
                     this.dataForm.append('art_road', file.raw);
                 }else{
                     this.$message.error('请先添加pdf信息');
@@ -214,7 +216,7 @@
                 }
             },
             fileArtsci(file){
-                this.checkFileExt(file.name);
+                // this.checkFileExt(file.name);
                 this.dataForm.append('art_sci_road', file);
             },
             onSubmit(form,year2,year3,year4,year5,year1) {
