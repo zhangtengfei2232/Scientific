@@ -112,7 +112,6 @@
     },
     methods: {
         change(file) {
-            console.log(this.ho_id);
             this.dataFile.append(this.index, file.raw);
             this.index++;
         },
@@ -136,9 +135,10 @@
                 var data = res.data;
                 if (data.code == 0) {
                     this.$message({
-                        message: '添加成功',
+                        message: data.message,
                         type: 'success'
                     });
+                    this.$router.push({path: '/holdmeet'});
                 } else {
                     this.$notify({
                         type: 'error',
@@ -192,7 +192,7 @@
                             if (data.code == 0) {
                                 this.Bcode = true;
                                 vue.$message({
-                                    message: '添加成功',
+                                    message: data.message,
                                     type: 'success'
                                 });
                             } else {

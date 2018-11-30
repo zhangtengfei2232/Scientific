@@ -168,7 +168,7 @@ class ModelDatabase  extends  Model
         }
         $time_field = $datas['time_field'];
         foreach ($result as $datas){
-            $datas->$time_field = date('Y-m-d',$datas->$time_field);
+            $datas->$time_field = date('Y-m-d',$datas->$time_field/1000);
         }
         return responseTojson(0,'查询成功','',$result);
     }

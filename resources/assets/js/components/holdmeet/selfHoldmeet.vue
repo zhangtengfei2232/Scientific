@@ -236,9 +236,10 @@ export default {
                             if (data.code == 0) {
                                 this.Bcode = true;
                                 vue.$message({
-                                    message: '修改成功',
+                                    message: data.message,
                                     type: 'success'
                                 });
+                                location.reload();
                             } else {
                                 vue.$notify({
                                     type: 'error',
@@ -265,7 +266,6 @@ export default {
         },
         deletePic(id) {
             let self = this;
-            console.log(id);
             axios.get("deleteholdmeetimage",{
                 params:{
                     im_id:id
@@ -277,6 +277,7 @@ export default {
                         type: 'success',
                         message: '删除成功!'
                     });
+                    location.reload();
                 } else {
                     self.$notify({
                         type: 'error',

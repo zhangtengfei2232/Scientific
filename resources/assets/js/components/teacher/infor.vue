@@ -520,17 +520,10 @@
                 });
             },
             onSubmit(form) {
-//                let vue = this;
                 if(form.name == '') {
                     this.$message.error('老师姓名不能为空');
                     return;
                 }
-//                else if(form.sex == '') {
-//                    this.$message.error('老师性别不能为空');
-//                }
-//                else if(form.teacher_department == '') {
-//                    this.$message.error('老师所属部门不能为空');
-//                }
                 else if(form.teacher_id == '') {
                     this.$message.error('老师工号不能为空');
                     return;
@@ -555,11 +548,7 @@
                 }else if(form.borth == '') {
                     this.$message.error('出生年月不能为空');
                     return;
-                }
-//                else if(form.polit_outlook == '') {
-//                    this.$message.error('政治面貌不能为空');
-//                }
-                else if(form.admin_duties == '') {
+                }else if(form.admin_duties == '') {
                     this.$message.error('行政职务不能为空');
                     return;
                 }else if(form.admin_tenure_time == '') {
@@ -645,6 +634,7 @@
                                     message:data.message,
                                     type: 'success'
                                 });
+                                location.reload();
                             } else {
                                 vue.$notify({
                                     type: 'error',
@@ -725,7 +715,6 @@
                     }
                 })
             },
-
         },
         mounted() {
             this.getTeacherData();

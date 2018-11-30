@@ -119,7 +119,7 @@
                 jo_art_num: '',
                 jo_is_invite: '',
                 jo_title: '',
-            }
+            },
         }
     },
     methods: {
@@ -135,7 +135,6 @@
             }
         },
         fileProfil(file){
-            console.log(file);
             this.dataForm.append('jo_graph_inject', file);
             return false;
         },

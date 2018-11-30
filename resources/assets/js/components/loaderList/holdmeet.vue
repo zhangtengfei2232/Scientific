@@ -258,6 +258,8 @@ export default {
         },
         timeSearchget(){   //时间分页
             let self = this;
+            console.log(this.start_time,'----+======');
+            console.log(this.end_time,'-----========');
             self.types = 'time';
             axios.get("byfieldselectholdmeet", {
                 params: {

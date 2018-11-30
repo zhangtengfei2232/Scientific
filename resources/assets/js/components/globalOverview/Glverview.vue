@@ -754,7 +754,6 @@ export default {
                 }
             }).then(function (response) {
                 var data = response.data;
-                console.log(data);
                 if (data.code == 0) {
                     self.ProjectDate = data.datas.count_num;
                     self.drawLineTypePro(self.ProjectDate);

@@ -16,7 +16,7 @@ class ExcelController extends Controller
 
     //导出老师信息EXCEL表格
     public function exportTeacherExcel(Request $request){
-        $teacher_information = [[],[],[],[]];
+        $teacher_information = [[],[],[],[],[],[]];
         $department_count = [];
         $teacher_cell_datas = SearchMessageConfig::TEACHER_CELL_DATAS;
         $tea_id_datas       = explode(',',$request->tea_id_datas);
@@ -36,6 +36,12 @@ class ExcelController extends Controller
                     break;
                 case 3:
                     array_push($teacher_information[3],$information);
+                    break;
+                case 4:
+                    array_push($teacher_information[4],$information);
+                    break;
+                case 5:
+                    array_push($teacher_information[5],$information);
                     break;
             }
         }
