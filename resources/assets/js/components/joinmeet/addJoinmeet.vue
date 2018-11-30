@@ -70,6 +70,7 @@
                         ref="jo_image"
                         action="#"
                         multiple
+                        accept=".jpg,.jpeg,.png,.JPG,.JPEG"
                         :on-change="change"
                         :auto-upload="false"
                         list-type="picture">

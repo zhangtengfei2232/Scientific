@@ -490,11 +490,14 @@ export default {
                     type: 'pie',
                     radius : '55%',
                     data: [
-                        {name: '初级'+'('+datas[0]+')', value: datas[0]},
-                        {name: '中级'+'('+datas[1]+')', value: datas[1]},
-                        {name: '副高'+'('+datas[2]+')', value: datas[2]},
-                        {name: '正高'+'('+datas[3]+')', value: datas[3]},
-                        {name: '其他'+'('+datas[4]+')', value: datas[4]},
+                        {name: '教授'+'('+datas[0]+')', value: datas[0]},
+                        {name: '副教授'+'('+datas[1]+')', value: datas[1]},
+                        {name: '讲师'+'('+datas[2]+')', value: datas[2]},
+                        {name: '助教'+'('+datas[3]+')', value: datas[3]},
+                        {name: '高级实验师'+'('+datas[4]+')', value: datas[4]},
+                        {name: '实验师'+'('+datas[5]+')', value: datas[5]},
+                        {name: '助理实验师'+'('+datas[6]+')', value: datas[6]},
+                        {name: '其他'+'('+datas[7]+')', value: datas[7]},
                     ]
                 }
             });
