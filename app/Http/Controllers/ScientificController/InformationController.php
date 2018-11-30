@@ -71,7 +71,6 @@ class InformationController extends Controller
     public function addTeacher(Request $request){
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
-
         }
         $teacher_id = trim($request->teacher_id);
         $judge_teacher_id = judgeTeacherIdField($teacher_id);
@@ -377,7 +376,6 @@ class InformationController extends Controller
     }
     //修改证书图片
     public function updateCertificate(Request $request){
-        dd($request);
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
