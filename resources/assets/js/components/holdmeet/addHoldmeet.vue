@@ -48,6 +48,7 @@
                         :before-upload="fileProfil"
                         :auto-upload="false"
                         :limit="1"
+                        accept=".jpg,.jpeg,.png,.JPG,.JPEG"
                         list-type="picture">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>

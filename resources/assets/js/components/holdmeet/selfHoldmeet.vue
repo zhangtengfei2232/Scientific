@@ -72,6 +72,7 @@
                     <el-upload
                         ref="ho_file"
                         action="#"
+                        accept=".jpg,.jpeg,.png,.JPG,.JPEG"
                         :auto-upload="false"
                         :on-change="change"
                         list-type="picture">
