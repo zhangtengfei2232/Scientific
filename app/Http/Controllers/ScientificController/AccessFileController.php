@@ -15,9 +15,12 @@ class AccessFileController extends Controller
     public function showFile(Request $request){
         $disk       = $request->disk;
         $subjection = $request->subjection;
-        if(empty($subjection)) return redirect('showemptyview');
         $fileName   = explode('/',$subjection);  //把传来的数据用'/'分割
-        $fileName   = $fileName[1];                       //取出文件的名字
+        if(count($fileName) != 2) return redirect('showemptyview');
+        $fileName = $fileName[1]; //取出文件的名字
+        if(!file_exists(storage_path('app/data/'.$disk.'/'.$subjection))){//判断请求的文件是否存在
+            return redirect('showemptyview');
+        }
         $temp_path  = tempnam(sys_get_temp_dir(), $fileName);
         file_put_contents($temp_path, Storage::disk($disk)->get($subjection));
         $downResponse = new BinaryFileResponse($temp_path);
@@ -28,11 +31,8 @@ class AccessFileController extends Controller
      * @return BinaryFileResponse
      */
     public function downloadFile(Request $request){
-        $file_datas = explode('/',$request->file);
-        if(empty($file_datas[1])){
-            return redirect('showemptyview');
-        }
         $file = 'app/data/'.$request->file;
+        if(!file_exists(storage_path($file))) return redirect('showemptyview');//判断文件是否存在
         return response()->download(storage_path($file));
     }
 }

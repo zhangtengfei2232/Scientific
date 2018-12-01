@@ -228,7 +228,6 @@ class TeacherDatabase extends ModelDatabase
      * @return \Illuminate\Http\JsonResponse
      */
      public static function saveAccount($usercount,$department = ''){
-         if(!empty(Session('usercount'))) return responseTojson(1,'你已经登录过了');
          Session::put('usercount', $usercount);     //把用户的信息存入session
          if(!empty($department)){
              //把老师所属部门存入session
