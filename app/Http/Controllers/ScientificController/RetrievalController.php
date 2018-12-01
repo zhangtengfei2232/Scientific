@@ -236,7 +236,6 @@ class RetrievalController extends Controller
                 $datas['field'] = $first_inventor_field;
                 break;
             case 'composite_query':
-                dd($request->pa_type_datas);
                 $datas['first_field'] = SearchMessageConfig::PATENT_PA_TYPE;
                 $datas['first_datas'] = $request->pa_type_datas;
                 $pa_imple_situ_field = SearchMessageConfig::PATENT_PA_IMPLE_SITU;         //专利实施情况字段
