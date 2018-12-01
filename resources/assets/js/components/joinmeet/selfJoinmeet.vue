@@ -57,6 +57,7 @@
                         ref="jo_graph_inject"
                         :on-change="fileProfil"
                         :auto-upload="false"
+                        accept=".jpg,.jpeg,.png,.JPG,.JPEG"
                         list-type="picture">
                         <i class="el-icon-upload"
                         show-file-list='true'></i>

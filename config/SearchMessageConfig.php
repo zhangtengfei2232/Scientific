@@ -142,7 +142,7 @@ class SearchMessageConfig
     /**
      * 分组查询，每个字段的情况个数
      */
-    const TEA_ACADEMIC_TITLE_NUM  = 5;    //老师职称字段取值个数
+    const TEA_ACADEMIC_TITLE_NUM  = 8;    //老师职称字段取值个数
     const TEA_MOST_ACADEMIC_NUM   = 3;    //老师最高学历字段取值个数
     const ARTICAL_PERCAL_CATE_NUM = 11;   //文章期刊类别字段取值个数
     const PRO_CATE_RESEARCH_NUM   = 3;    //项目研究类别字段取值个数

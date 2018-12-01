@@ -48,6 +48,7 @@
                         :before-upload="fileProfil"
                         :auto-upload="false"
                         :limit="1"
+                        accept=".jpg,.jpeg,.png,.JPG,.JPEG"
                         list-type="picture">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -63,6 +64,7 @@
                         action="#"
                         :on-change="change"
                         :auto-upload="false"
+                        accept=".jpg,.jpeg,.png,.JPG,.JPEG"
                         list-type="picture">
                         <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
                         <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUploads">上传</el-button>
