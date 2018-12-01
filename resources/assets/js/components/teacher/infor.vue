@@ -311,14 +311,15 @@
                                             class="upload-demo"
                                             ref="gra_cert_road"
                                             action="#"
-                                            :before-upload="fileProfil"
+                                            :on-change="fileProfil"
+                                            accept=".jpeg,.jpg,.png,.JPEG,.JPG,.PG"
                                             :on-preview="handlePreview"
                                             :on-remove="handleRemove"
                                             :auto-upload="false"
                                             :limit="1"
                                             list-type="picture">
                                         <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-                                        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传</el-button>
+                                        <el-button style="margin-left: 10px;" size="small" type="success" @click="sendfile">上传</el-button>
                                         <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
                                     </el-upload>
                                 </el-form-item>
@@ -330,14 +331,15 @@
                                             class="upload-demo"
                                             ref="edu_cert_road"
                                             action="#"
-                                            :before-upload="fileEdufil"
+                                            :on-change="fileEdufil"
+                                            accept=".jpeg,.jpg,.png,.JPEG,.JPG,.PNG"
                                             :on-preview="handlePreview"
                                             :on-remove="handleRemove"
                                             :auto-upload="false"
                                             :limit="1"
                                             list-type="picture">
                                         <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-                                        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUploads">上传</el-button>
+                                        <el-button style="margin-left: 10px;" size="small" type="success" @click="sendfile">上传</el-button>
                                         <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
                                     </el-upload>
                                 </el-form-item>
@@ -355,7 +357,6 @@
     export default {
         data() {
             return {
-//                id:[],
                 dialogFormVisible: false,
                 formLabelWidth: '120px',
                 changeform:{
@@ -366,11 +367,13 @@
                 type1:false,
                 type2:false,
                 Bcode:false,
+                id_nav:false,
                 filelist:'',
                 filelists:'',
                 dataForm: new FormData(),
                 dataFile: new FormData(),
                 teacherDate:{},
+                teacher_id:'',
                 form:{
                     Bcode:'',
                     id:'',
@@ -457,12 +460,6 @@
                     }
                 });
             },
-            submitUpload() {
-                this.$refs.gra_cert_road.submit();
-            },
-            submitUploads() {
-                this.$refs.edu_cert_road.submit();
-            },
             handleRemove(file, fileList) {
                 console.log(file, fileList);
             },
@@ -471,33 +468,57 @@
             },
             fileProfil(file){
                 if(file !== ''){
-                    this.dataFile.append('gra_cert_road', file);
-//                    this.dataFile.append('is_add_teacher',this.Bcode);
-                    this.sendfile(this.dataFile);
+                    let flag = this.checkFileExt(file.name);
+                    if(!flag){
+                        this.$refs.gra_cert_road.clearFiles();
+                        this.$message.error('图片格式不对');
+                        return false;
+                    }
+                    this.dataFile.append('gra_cert_road', file.raw);
                 }else{
                     this.$message.error('请先添加文件');
-                    return false
+                    return false;
                 }
             },
             fileEdufil(files){
                 if(files !== ''){
-                    this.dataFile.append('edu_cert_road', files);
-//                    this.dataFile.append('is_add_teacher',this.Bcode);
-//                    let id = this.form.id;
-//                    this.dataFile.append('id', id);
-                    this.sendfile(this.dataFile);
+                    let flag = this.checkFileExt(files.name);
+                    if(!flag){
+                        this.$message.error('图片格式不对');
+                        this.$refs.edu_cert_road.clearFiles();
+                        return false;
+                    }
+                    this.dataFile.append('edu_cert_road', files.raw);
                 }else{
                     this.$message.error('请先添加文件');
-                    return false
+                    return false;
                 }
             },
-            sendfile(dataFile) {
+            checkFileExt(filename){
+                if(filename == '') {
+                    this.$message.error('上传文件不能为空');
+                }
+                var flag = false; //状态
+                var imgtype = ["png","jpeg","jpg","PNG","JPEG","JPG"];
+                //取出上传文件的扩展名
+                var index = filename.lastIndexOf(".");
+                var ext = filename.substr(index+1);
+                //循环比较
+                for(var i=0;i<imgtype.length;i++){
+                    if(ext == imgtype[i]){
+                        flag = true;
+                        break;
+                    }
+                }
+               return flag;
+            },
+            sendfile() {
                 let vue = this;
-                this.addTeacherFile(dataFile).then(res => {
+                this.addTeacherFile(vue.dataFile).then(res => {
                     var data = res.data;
                     if (data.code == 0) {
                         vue.$message({
-                            message: '修改成功',
+                            message: data.message,
                             type: 'success'
                         });
                         location. reload();

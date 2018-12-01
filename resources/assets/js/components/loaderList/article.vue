@@ -441,7 +441,7 @@ export default {
             let self = this;
             axios.get("byfieldselectartical",{
                 params:{
-                    percal_cate_datas:self.percal,
+                    art_percal_cate_datas:self.percal,
                     art_cate_research_datas:self.art_cate,
                     type: self.types,
                     page:self.currentPages,

@@ -243,7 +243,7 @@ export default {
                 var data = res.data;
                 if (data.code == 0) {
                     this.$message({
-                        message: '修改成功',
+                        message: data.message,
                         type: 'success'
                     });
                     location. reload();
@@ -359,7 +359,7 @@ export default {
                         var data = res.data;
                         if (data.code == 0) {
                             vue.$message({
-                                message: '修改成功',
+                                message: data.message,
                                 type: 'success'
                             });
                             this.$router.push({path: '/paper'});

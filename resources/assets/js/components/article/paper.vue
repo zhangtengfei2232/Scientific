@@ -28,7 +28,7 @@
                         format="yyyy 年 MM 月 dd 日"
                         value-format="timestamp">
                         </el-date-picker>
-                        <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch(form)">搜索</el-button>
+                        <el-button type="primary" style="margin-left:10px" v-on:click="byTimeSearch(form)" @conseUpdate="getArticleData">搜索</el-button>
                     </div>
                 </el-form>
             </span>
@@ -172,7 +172,8 @@
                 let urls =  `downloadfile?file=artical/${art_road}`;
                 window.location.href = urls;
             },
-            getArticleData() {
+            getArticleData(str) {
+                console.log(str);
                 let self = this;
                 axios.get("selectallattical").then(function (response) {
                     var data = response.data;
