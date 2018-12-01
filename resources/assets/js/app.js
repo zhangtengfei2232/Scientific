@@ -11,6 +11,7 @@
  * 这句话，就不再需要使用 import Vue from ‘vue’ 重复导入 Vue 了。
  */
 require('./bootstrap');
+require("babel-polyfill");
 
 window.Vue = require('vue');
 
