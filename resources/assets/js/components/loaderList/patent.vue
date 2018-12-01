@@ -129,7 +129,7 @@
                 </el-table-column>
                 <el-table-column
                     prop="pa_name"
-                    label="专利名字"
+                    label="专利名称"
                     width="120">
                 </el-table-column>
                 <el-table-column
