@@ -105,8 +105,8 @@ class RetrievalController extends Controller
                 break;
             case 'composite_query':
                 $datas['first_field'] = $journal_level_field;
-                $datas['first_datas'] = $request->percal_cate_datas;
-                $cate_research_datas  = $request->cate_research_datas;
+                $datas['first_datas'] = $request->art_percal_cate_datas;
+                $cate_research_datas  = $request->art_cate_research_datas;
                 return ModelDatabase::combinationSelectDatas($datas,$art_cate_research_field,$cate_research_datas);
             case 'time':
                 return ModelDatabase::timeSelectInformation($request->start_time,$request->end_time,$datas['table_name'],$datas['time_field'],'',$datas['total']);
@@ -236,6 +236,7 @@ class RetrievalController extends Controller
                 $datas['field'] = $first_inventor_field;
                 break;
             case 'composite_query':
+                dd($request->pa_type_datas);
                 $datas['first_field'] = SearchMessageConfig::PATENT_PA_TYPE;
                 $datas['first_datas'] = $request->pa_type_datas;
                 $pa_imple_situ_field = SearchMessageConfig::PATENT_PA_IMPLE_SITU;         //专利实施情况字段
@@ -263,7 +264,7 @@ class RetrievalController extends Controller
         $ap_level_field        = SearchMessageConfig::APPRAISAL_AP_LEVEL;
         switch($request->type){
             case $ap_res_name_field:
-                $datas['filed'] = $ap_res_name_field;
+                $datas['field'] = $ap_res_name_field;
                 break;
             case $ap_first_author_field:
                 $datas['field'] = $ap_first_author_field;
