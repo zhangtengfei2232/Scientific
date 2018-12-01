@@ -213,7 +213,6 @@
 
                 teacherDate:[] ,
                 show: false,
-//                navJudgment:false,
                 navGlobleview:false,//全局总览
                 navSchoolFile:false,
                 navAddtea:false,
@@ -226,7 +225,7 @@
                 status:'',
                 navList:[
 //                    {icon:'el-icon-picture',name:'/',navItem:'ft'},
-                    {icon:'el-icon-bell',name:'/paper',navItem:'论文'},
+                    {icon:'el-icon-bell',name:'/paper',navItem:'论文',event:"rush"},
                     {icon:'el-icon-tickets',name:'/project',navItem:'项目'},
                     {icon:'el-icon-edit',name:'/book',navItem:'著作'},
                     {icon:'el-icon-star-off',name:'/award',navItem:'获奖'},
@@ -240,6 +239,10 @@
             }
         },
         methods: {
+            rush:function(){
+//                console.log(123456)
+                this.$emit('conseUpdate','555');
+            },
             closeDialog:function(){
                 this.changeform.teacher_id = '';
                 this.dialogFormVisible=false;
@@ -373,17 +376,7 @@
                     data: data
                 });
             },
-//            deleTeaInfo(data) { //删除老师
-//                return axios({
-//                    method: 'get',
-//                    url: 'deleteteacher',
-//                    headers: {'Content-Type': 'multipart/form-data'},
-//                    timeout: 20000,
-//                    data: data
-//                });
-//            },
             changeTeaWork(data) { //修改行政职务
-//                console.log(data,'/*/*/**/*/*/*///')
                 return axios({
                     method: 'post',
                     url: 'updateteacherpostcategory',
@@ -400,6 +393,7 @@
 
             },
             getTeacherData(){
+//                console.log(123)
                 let self = this;
                 axios.get("selectteacher").then(function (response) {
                     var data = response.data;
@@ -501,6 +495,7 @@
         },
         mounted() {
             this.getTeacherData();
+            this.rush();
         }
 
     }

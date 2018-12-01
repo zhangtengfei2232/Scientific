@@ -131,7 +131,7 @@
                 </el-table-column>
                 <el-table-column
                     prop="op_name"
-                    label="著作姓名"
+                    label="著作名称"
                     width="120">
                 </el-table-column>
                 <el-table-column

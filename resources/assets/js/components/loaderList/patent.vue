@@ -12,7 +12,6 @@
                                     受理日期<i class="el-icon-arrow-down el-icon--right"></i>
                                 </span>
                                 <el-dropdown-menu slot="dropdown">
-                                    <!--<el-dropdown-item>全部</el-dropdown-item>-->
                                     <el-dropdown-item @click.native="timeSearch(8)">18年-今天</el-dropdown-item>
                                     <el-dropdown-item @click.native="timeSearch(7)">17年-今天</el-dropdown-item>
                                     <el-dropdown-item @click.native="timeSearch(6)">16年-今天</el-dropdown-item>
@@ -353,9 +352,10 @@ export default {
         },
         groupchecks(){
             let self = this;
+            console.log(self.pa_type);
             axios.get("byfieldselectpatent",{
                 params:{
-                    pa_type_datas:self.pa_type,
+                    pa_type_datas:self.pa_ty,
                     pa_imple_situ_datas:self.pa_imple,
                     type: self.types,
                     page:self.currentPages,
@@ -369,6 +369,8 @@ export default {
         },
 
         onSubmit(form) {
+            console.log(form.pa_type);
+//            return;
             let self = this;
             self.types = 'composite_query';
             self.pa_ty = form.pa_type;
