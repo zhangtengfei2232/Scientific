@@ -53,7 +53,6 @@
                                     value-format="timestamp">
                             </el-date-picker>
                         </el-col>
-                        <!--<el-input v-model="form.borth"></el-input>-->
                     </el-form-item>
                     <el-form-item label="政治面貌" prop="polit_outlook">
                         <el-select v-model="form.polit_outlook" placeholder="请选择老师政治面貌">
@@ -63,13 +62,11 @@
                             <el-option label="共产党员" value="3"></el-option>
                             <el-option label="其他" value="4"></el-option>
                         </el-select>
-                        <!--<el-input v-model="form.polit_outlook"></el-input>-->
                     </el-form-item>
                     <el-form-item label="籍贯" prop="native_place">
                         <el-input v-model="form.native_place"></el-input>
                     </el-form-item>
                     <el-form-item label="行政职务" prop="admin_duties">
-                        <!--<el-input v-model="form.admin_duties" maxlength="30"></el-input>-->
                         <el-select v-model="form.admin_duties" placeholder="请选择老师行政职务">
                             <el-option label="普通老师" value="0"></el-option>
                             <el-option label="院长" value="1"></el-option>
@@ -97,7 +94,6 @@
                                     value-format="timestamp">
                             </el-date-picker>
                         </el-col>
-                        <!--<el-input v-model="form.admin_tenure_time"></el-input>-->
                     </el-form-item>
                     <el-form-item label="职务级别">
                         <el-select v-model="form.job_level" placeholder="请选择老师级别">
@@ -107,7 +103,6 @@
                             <el-option label="副科" value="3"></el-option>
                             <el-option label="其他" value="4"></el-option>
                         </el-select>
-                        <!--<el-input v-model="form.job_level"></el-input>-->
                     </el-form-item>
                     <el-form-item label="专业技术职务" prop="technical_position">
                         <el-select v-model="form.technical_position" placeholder="老师专业技术职务">
@@ -117,7 +112,6 @@
                             <el-option label="正高" value="3"></el-option>
                             <el-option label="其他" value="4"></el-option>
                         </el-select>
-                        <!--<el-input v-model="form.technical_position"></el-input>-->
                     </el-form-item>
                     <el-form-item label="老师职称">
                         <el-select v-model="form.academic_title" placeholder="请选择老师职称">
@@ -130,7 +124,6 @@
                             <el-option label="助理实验师" value="6"></el-option>
                             <el-option label="其他" value="7"></el-option>
                         </el-select>
-                        <!--<el-input v-model="form.academic_title"></el-input>-->
                     </el-form-item>
                     <el-form-item label="评审通过时间" prop="review_time">
                         <el-col :span="15">
@@ -142,7 +135,6 @@
                                     value-format="timestamp">
                             </el-date-picker>
                         </el-col>
-                        <!--<el-input v-model="form.review_time"></el-input>-->
                     </el-form-item>
                     <el-form-item label="聘任时间">
                         <el-col :span="15">
@@ -154,28 +146,10 @@
                                     value-format="timestamp">
                             </el-date-picker>
                         </el-col>
-                        <!--<el-input v-model="form.appointment_time"></el-input>-->
                     </el-form-item>
                     <el-form-item label="系列" prop="series">
                         <el-input v-model="form.series" maxlength="20"></el-input>
                     </el-form-item>
-                    <!--<el-form-item label="岗位类别" prop="post_category">-->
-                        <!--<el-select v-model="form.post_category" placeholder="请选择老师岗位类别">-->
-                            <!--<el-option label="普通老师" value="0"></el-option>-->
-                            <!--<el-option label="院长" value="1"></el-option>-->
-                            <!--<el-option label="副院长" value="2"></el-option>-->
-                            <!--<el-option label="教学秘书" value="3"></el-option>-->
-                            <!--<el-option label="科研秘书" value="4"></el-option>-->
-                            <!--<el-option label="研究生秘书" value="5"></el-option>-->
-                            <!--<el-option label="副主任" value="6"></el-option>-->
-                            <!--<el-option label="系主任" value="7"></el-option>-->
-                            <!--<el-option label="办公室主任" value="8"></el-option>-->
-                            <!--<el-option label="教研室主任" value="9"></el-option>-->
-                            <!--<el-option label="党委书记" value="10"></el-option>-->
-                            <!--<el-option label="党委副书记" value="11"></el-option>-->
-                        <!--</el-select>-->
-                        <!--&lt;!&ndash;<el-input v-model="form.post_category"></el-input>&ndash;&gt;-->
-                    <!--</el-form-item>-->
                     <el-form-item label="所在单位" prop="company">
                         <el-input v-model="form.company" maxlength="20"></el-input>
                     </el-form-item>
@@ -192,7 +166,6 @@
                                     value-format="timestamp">
                             </el-date-picker>
                         </el-col>
-                        <!--<el-input v-model="form.working_hours"></el-input>-->
                     </el-form-item>
                     <el-form-item label="原工作单位" prop="origin_work_unit">
                         <el-input v-model="form.origin_work_unit" maxlength="20"></el-input>
@@ -218,7 +191,6 @@
                         <el-option label="本科" value="1"></el-option>
                         <el-option label="其他" value="2"></el-option>
                     </el-select>
-                    <!--<el-input v-model="form.first_graduate_school"></el-input>-->
                 </el-form-item>
                 <el-form-item label="第一毕业学校" prop="first_graduate_school">
                     <el-input v-model="form.first_graduate_school" maxlength="30"></el-input>
@@ -290,7 +262,6 @@
                                 value-format="timestamp">
                         </el-date-picker>
                     </el-col>
-                    <!--<el-input v-model="form.master_time"></el-input>-->
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="onSubmit(form)">添 加</el-button>
@@ -300,7 +271,7 @@
                         <el-upload
                             ref="gra_cert_road"
                             action="#"
-                            :before-upload="fileProfil"
+                            :on-change="fileProfil"
                             :on-preview="handlePreview"
                             :on-remove="handleRemove"
                             :auto-upload="false"
@@ -316,7 +287,7 @@
                                 class="upload-demo"
                                 ref="edu_cert_road"
                                 action="#"
-                                :before-upload="fileEdufil"
+                                :on-change="fileEdufil"
                                 :on-preview="handlePreview"
                                 :on-remove="handleRemove"
                                 :auto-upload="false"
@@ -334,15 +305,10 @@
 
 </template>
 <style>
-    .contents{
-        /*width: 87%;*/
-        /*float: left;*/
-    }
     #usernameWarn{
         color: red;
     }
     .add{
-        /*width: 73%;*/
         margin: 35px 0 0 35px;
     }
     /*组件*/
@@ -396,7 +362,6 @@
                     review_time:'',
                     appointment_time:'',
                     series:'',
-//                    post_category:'',
                     most_study_major:'',
 
                     company:'',
@@ -461,7 +426,7 @@
 
             fileProfil(file){
                 if(this.Bcode == true){
-                    this.dataFile.append('gra_cert_road', file);
+                    this.dataFile.append('gra_cert_road', file.raw);
                     let id = this.form.teacher_id;
                     this.dataFile.append('teacher_id', id);
                     this.dataFile.append('is_add_teacher',this.Bcode);
@@ -473,7 +438,7 @@
             },
             fileEdufil(files){
                 if(this.Bcode == true){
-                    this.dataFiles.append('edu_cert_road', files);
+                    this.dataFiles.append('edu_cert_road', files.raw);
                     let id = this.form.teacher_id;
                     this.dataFiles.append('teacher_id', id);
                     this.dataFiles.append('is_add_teacher',this.Bcode);
@@ -662,7 +627,7 @@
                             }
                         });
 //                        vue.$refs.gra_cert_road.submit();
-                        vue.$refs.edu_cert_road.submit()
+//                        vue.$refs.edu_cert_road.submit()
                     } else {
                         console.log('error submit!!');
                         return false

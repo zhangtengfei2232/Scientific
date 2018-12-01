@@ -38,7 +38,6 @@
                                type="year"
                                placeholder="选择年份"
                                style="width: 100px;"
-                               format="yyyy 年 MM 月 dd 日"
                                value-format="timestamp"></el-date-picker>
                             </el-col>
                             <el-col :span="1" style="width:50px;margin: 0px -36px 0px 6%;">
@@ -371,7 +370,6 @@ export default {
                             });
                         }
                     })
-                    vue.$refs.art_pdf.submit()
                 } else {
                     console.log('error submit!!')
                     return false

@@ -77,9 +77,10 @@
                         class="upload-demo"
                         drag
                         ref="aw_road"
-                        :before-upload="filePic"
+                        :on-change="filePic"
                         action="#"
                         multiple
+                        :limit="1"
                         :auto-upload="false">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -119,7 +120,7 @@ export default {
             pdfType:false,
             form: {
                 aw_first_author: '',
-                aw_first_author: '',
+//                aw_first_author: '',
                 prize_win_name: '',
                 award_name: '',
                 form_achievement : '',
@@ -140,7 +141,7 @@ export default {
         },
         filePic(file) {
             this.checkFileExt(file.name);
-            this.dataForm.append('aw_road', file);
+            this.dataForm.append('aw_road', file.raw);
             return false;
         },
         getAwardSelfData() {
@@ -157,7 +158,6 @@ export default {
                         if(data.datas.aw_road !== ''){
                             self.pdfType=true;
                             self.aw_road = data.datas.aw_road;
-//                            self.filelist.url = 'showfile?disk=award&subjection=' + data.datas.aw_road;
                         }
                     } else {
                         self.$notify({
@@ -248,7 +248,6 @@ export default {
                                 });
                             }
                         })
-                        vue.$refs.aw_road.submit()
                     } else {
                         console.log('error submit!!')
                         return false

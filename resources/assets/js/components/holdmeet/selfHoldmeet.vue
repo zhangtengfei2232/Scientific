@@ -48,7 +48,7 @@
                         drag
                         action="#"
                         ref="ho_graph_inject"
-                        :before-upload="fileProfil"
+                        :on-change="fileProfil"
                         :auto-upload="false"
                         :limit="1"
                         list-type="picture">
@@ -74,7 +74,7 @@
                         action="#"
                         accept=".jpg,.jpeg,.png,.JPG,.JPEG"
                         :auto-upload="false"
-                        :on-change="change"
+                        :on-change="change1"
                         list-type="picture">
                         <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
                         <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUploads">上传</el-button>
@@ -163,11 +163,11 @@ export default {
             });
         },
         fileProfil(file){
-            this.dataForm.append('ho_graph_inject', file);
+            this.dataForm.append('ho_graph_inject', file.raw);
             return false;
         },
-        change(file) {
-            this.dataFile.append(this.index, file.raw);
+        change1(files) {
+            this.dataFile.append(this.index, files.raw);
             this.index++;
         },
         submitUploads() {
@@ -180,10 +180,10 @@ export default {
                 var data = res.data;
                 if (data.code == 0) {
                     this.$message({
-                        message: '修改成功',
+                        message: data.message,
                         type: 'success'
                     });
-                    location. reload();
+                    this.$router.push({path: '/holdmeet'});
                 } else {
                     this.$notify({
                         type: 'error',
@@ -248,7 +248,6 @@ export default {
                                 });
                             }
                         })
-                        vue.$refs.ho_graph_inject.submit()
                     } else {
                         console.log('error submit!!')
                         return false

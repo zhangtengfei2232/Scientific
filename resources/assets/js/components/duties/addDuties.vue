@@ -2,9 +2,6 @@
     <div class="contents">
         <div class="add">
             <el-form ref="form" :model="form" label-width="125px">
-                <!--<el-form-item label="老师工号">-->
-                    <!--<el-input v-model="form.teacher_id" placeholder="请输入姓名"></el-input>-->
-                <!--</el-form-item>-->
                 <el-form-item label="老师姓名">
                     <el-input v-model="form.teacher_name" placeholder="请输入姓名" maxlength="15"></el-input>
                 </el-form-item>
@@ -40,11 +37,6 @@
 
             <el-form-item label="担任学术团体名称">
                 <el-input v-model="form.du_name" placeholder="请输入担任学术团体名称" maxlength="50" style="width: 480px;"></el-input>
-                <!--<el-select v-model="form.level" placeholder="担任学术团体级别" style="width: 200px;">-->
-                    <!--<el-option label="省级" value="1"></el-option>-->
-                    <!--<el-option label="国家级" value="2"></el-option>-->
-                    <!--<el-option label="国际级" value="3"></el-option>-->
-                <!--</el-select>-->
             </el-form-item>
 
             <el-form-item label="所任职务">
@@ -77,7 +69,7 @@
                         action="#"
                         multiple
                         ref="du_road"
-                        :before-upload="fileProfil"
+                        :on-change="fileProfil"
                         :auto-upload="false"
                         list-type="picture">
                     <i class="el-icon-upload"></i>
@@ -103,7 +95,7 @@
     }
     /*组件*/
     .el-form{
-        width:58%;
+        width:70%;
         margin-top: 40px;
         margin-left: 150px;
     }
@@ -136,7 +128,7 @@
         methods:
                 {
                 fileProfil(file){
-                    this.dataForm.append('du_road', file);
+                    this.dataForm.append('du_road', file.raw);
                     return false;
                 },
                 onSubmit(form,year1,year2) {
@@ -191,7 +183,7 @@
                                     });
                                 }
                             });
-                            vue.$refs.du_road.submit();
+//                            vue.$refs.du_road.submit();
                         } else {
                             console.log('error submit!!');
                             return false

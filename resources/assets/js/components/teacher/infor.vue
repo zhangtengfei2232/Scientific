@@ -704,10 +704,6 @@
                     this.$message.error('新密码不能为空');
                     return;
                 }
-//                else if($(".newpsw ").val() == '') {
-//                    this.$message.error('新密码不能为空');
-//                    return;
-//                }
                 this.$refs['changeform'].validate((valid) => {
                     let vue = this;
                     if (valid) {

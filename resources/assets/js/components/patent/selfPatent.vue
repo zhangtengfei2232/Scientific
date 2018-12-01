@@ -61,7 +61,7 @@
                         action="#"
                         :limit="1"
                         ref="pa_road"
-                        :before-upload="filePatpic"
+                        :on-change="filePatpic"
                         multiple
                         list-type="picture"
                         :auto-upload="false">
@@ -125,7 +125,7 @@ export default {
         },
         filePatpic(file) {
             this.checkFileExt(file.name);
-            this.dataForm.append('pa_road', file);
+            this.dataForm.append('pa_road', file.raw);
             return false;
         },
         checkFileExt(filename){
@@ -225,7 +225,6 @@ export default {
                                 });
                             }
                         })
-                        vue.$refs.pa_road.submit()
                     } else {
                         console.log('error submit!!')
                         return false

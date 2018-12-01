@@ -45,7 +45,7 @@
                         drag
                         action="#"
                         ref="ho_graph_inject"
-                        :before-upload="fileProfil"
+                        :on-change="fileProfil"
                         :auto-upload="false"
                         :limit="1"
                         accept=".jpg,.jpeg,.png,.JPG,.JPEG"
@@ -62,7 +62,7 @@
                     <el-upload
                         ref="ho_file"
                         action="#"
-                        :on-change="change"
+                        :on-change="change1"
                         :auto-upload="false"
                         accept=".jpg,.jpeg,.png,.JPG,.JPEG"
                         list-type="picture">
@@ -112,8 +112,8 @@
         }
     },
     methods: {
-        change(file) {
-            this.dataFile.append(this.index, file.raw);
+        change1(files) {
+            this.dataFile.append(this.index, files.raw);
             this.index++;
         },
         submitUploads() {
@@ -128,7 +128,7 @@
             }
         },
         fileProfil(file){
-            this.dataForm.append('ho_graph_inject', file);
+            this.dataForm.append('ho_graph_inject', file.raw);
             return false;
         },
         sendfile(dataFile) {
@@ -204,7 +204,6 @@
                                 });
                             }
                         })
-                        vue.$refs.ho_graph_inject.submit()
                     } else {
                         console.log('error submit!!')
                         return false

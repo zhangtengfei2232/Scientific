@@ -102,7 +102,7 @@
                             multiple
                             :limit="1"
                             ref="pro_road"
-                            :before-upload="fileProfil"
+                            :on-change="fileProfil"
                             :auto-upload="false">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -157,7 +157,7 @@
     methods: {
         fileProfil(file){
             this.checkFileExt(file.name);
-            this.dataForm.append('pro_road', file);
+            this.dataForm.append('pro_road', file.raw);
             return false;
         },
         checkFileExt(filename){
@@ -249,7 +249,7 @@
                                 });
                             }
                         })
-                        vue.$refs.pro_road.submit();
+//                        vue.$refs.pro_road.submit();
                     } else {
                         console.log('error submit!!')
                         return false

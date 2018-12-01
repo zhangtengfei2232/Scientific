@@ -277,7 +277,6 @@
             uploadAwardData(aw_road) {
                 let urls =  `downloadfile?file=award/${aw_road}`;
                 window.open(urls, '_blank');
-                // window.location.href = urls;
             },
             BatchExport() {
                 var self = this;

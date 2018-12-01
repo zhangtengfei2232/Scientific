@@ -59,7 +59,7 @@
                         multiple
                         ref="pa_road"
                         :limit="1"
-                        :before-upload="filePatpic"
+                        :on-change="filePatpic"
                         :auto-upload="false">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -110,7 +110,7 @@
     methods: {
         filePatpic(file) {
             this.checkFileExt(file.name);
-            this.dataForm.append('pa_road', file);
+            this.dataForm.append('pa_road', file.raw);
             return false;
         },
         checkFileExt(filename){
@@ -187,7 +187,6 @@
                                 });
                             }
                         })
-                        vue.$refs.pa_road.submit()
                     } else {
                         console.log('error submit!!')
                         return false

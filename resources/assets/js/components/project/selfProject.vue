@@ -104,7 +104,7 @@
                             drag
                             action="#"
                             ref="pro_road"
-                            :before-upload="fileProfil"
+                            :on-change="fileProfil"
                             multiple
                             :limit="1">
                         <i class="el-icon-upload"></i>
@@ -171,7 +171,7 @@
         },
         fileProfil(file){
             this.checkFileExt(file.name);
-            this.dataForm.append('pro_road', file);
+            this.dataForm.append('pro_road', file.raw);
             return false;
         },
         checkFileExt(filename){
@@ -287,7 +287,7 @@
                             });
                         }
                     })
-                    vue.$refs.pro_road.submit();
+//                    vue.$refs.pro_road.submit();
                 } else {
                     console.log('error submit!!')
                     return false
