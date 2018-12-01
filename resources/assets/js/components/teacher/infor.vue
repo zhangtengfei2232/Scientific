@@ -16,7 +16,7 @@
                                 <el-input type="password" v-model="changeform.old_password" placeholder="请输入旧密码" maxlength="32" id="oldpsw"></el-input>
                             </el-form-item>
                             <el-form-item v-if="visible" label="新密码">
-                                <el-input type="password" v-model="changeform.new_password" placeholder="请输入新密码" maxlength="32" id="newpsw">
+                                <el-input type="password" v-model="changeform.new_password" placeholder="请输入新密码" maxlength="32" class="newpsw">
                                     <i slot="suffix" title="显示密码" @click="changePass('show')" style="cursor:pointer;"
                                        class="el-icon-view"></i>
                                 </el-input>
@@ -700,13 +700,14 @@
                 if($(" #oldpsw ").val() == '') {
                     this.$message.error('原密码不能为空');
                     return;
-                }else if($("#newpsw ").val() == '') {
-                    this.$message.error('新密码不能为空');
-                    return;
                 }else if($(".newpsw ").val() == '') {
                     this.$message.error('新密码不能为空');
                     return;
                 }
+//                else if($(".newpsw ").val() == '') {
+//                    this.$message.error('新密码不能为空');
+//                    return;
+//                }
                 this.$refs['changeform'].validate((valid) => {
                     let vue = this;
                     if (valid) {

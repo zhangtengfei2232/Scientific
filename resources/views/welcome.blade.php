@@ -7,6 +7,7 @@
     <title>科研系统</title>
 </head>
 <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
+<script src="{{ asset('js/layer/layer.js') }}"></script>
 <body>
 <div class="login">
     <div class="left">
@@ -93,66 +94,41 @@
         });
     });
     $("#login_btn").click(function(){
+        sendLognInfor();
+     });
+     $("#userpassword").bind("keydown",function(e){
+        var theEvent = e || window.event;
+        var code = theEvent.keyCode || theEvent.which || theEvent.charCode;
+        if (code == 13) {
+            sendLognInfor();
+        }
+      });
+     function sendLognInfor() {
          var username = $.trim($("#username").val());
          var userpassword = $.trim($("#userpassword").val());
          if(username == ""){
-             console.log(username);
-             alert("请输入用户");
+             layer.alert("请输入用户");
              return false;
          }else if(userpassword == ""){
-             alert("请输入密码");
+             layer.alert("请输入密码");
              return false;
          }
          //ajax去服务器端校验
          var data= {usercount:username,userpassword:userpassword};
-
          $.ajax({
              type:"POST",
              url:"login",
              data:data,
              dataType:'json',
              success:function(data){
-                 if(data.msg != 1){
-                       window.location.href='/indexpage';
+                 if(data.code == 0){
+                     window.location.href='/indexpage';
                  }else{
-                     alert(data.message);
+                     layer.alert(data.message);
                  }
              }
          });
-     });
-     $("#userpassword").bind("keydown",function(e){
-
-        var theEvent = e || window.event;
-        var code = theEvent.keyCode || theEvent.which || theEvent.charCode;
-        if (code == 13) {
-            var username = $.trim($("#username").val());
-            var userpassword = $.trim($("#userpassword").val());
-            if(username == ""){
-                console.log(username);
-                alert("请输入用户");
-                return false;
-            }else if(userpassword == ""){
-                alert("请输入密码");
-                return false;
-            }
-            //ajax去服务器端校验
-            var data= {usercount:username,userpassword:userpassword};
-
-            $.ajax({
-                type:"POST",
-                url:"login",
-                data:data,
-                dataType:'json',
-                success:function(data){
-                    if(data.msg != 1){
-                          window.location.href='/indexpage';
-                    }else{
-                        alert(data.message);
-                    }
-                }
-            });
-        }
-      });
+     }
 </script>
 </body>
 </html>
