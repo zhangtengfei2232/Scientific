@@ -92,12 +92,11 @@ use setasign\Fpdi\Tcpdf\Fpdi;
         return false;
     }
     //选取多个PDF，取第一页导出新的PDF
-    function  selectionFirstPageToNewPdf($disk,$pdf_road_datas){
-        $complete_pdf_road_datas = stitchingFilePath($disk,$pdf_road_datas);
+    function  selectionFirstPageToNewPdf($pdf_road_datas){
         $pdf = new Fpdi();
         // 載入現在 PDF 檔案
-        for($i = 0; $i < count($complete_pdf_road_datas); $i++){
-            $pdf->setSourceFile($complete_pdf_road_datas[$i]);  //该方法的返回值为，PDF总页数
+        for($i = 0; $i < count($pdf_road_datas); $i++){
+            $pdf->setSourceFile($pdf_road_datas[$i]);           //该方法的返回值为，PDF总页数
             $tpl = $pdf->importPage(1);            //取出PDF第一页
             $pdf->addPage();                                    //添加到新的PDF上
             $pdf->useTemplate($tpl);                            // 在新增的頁面上使用匯入的第一頁
@@ -113,13 +112,12 @@ use setasign\Fpdi\Tcpdf\Fpdi;
         return;
     }
     //拼接多个PDF
-    function selectionSplicingToNewPdf($disk,$pdf_road_datas){
+    function selectionSplicingToNewPdf($pdf_road_datas){
         // 建立 FPDI 物件
         $pdf = new Fpdi();
         // 載入現在 PDF 檔案
-        $complete_pdf_road_datas = stitchingFilePath($disk,$pdf_road_datas);
-        for($i = 0; $i < count($complete_pdf_road_datas); $i++){
-            $page_count = $pdf->setSourceFile($complete_pdf_road_datas[$i]);
+        for($i = 0; $i < count($pdf_road_datas); $i++){
+            $page_count = $pdf->setSourceFile($pdf_road_datas[$i]);
             for($pageNo = 1; $pageNo <= $page_count; $pageNo++){
                 //一页一页的读取PDF，添加到新的PDF
                 $templateId = $pdf->importPage($pageNo);
@@ -141,7 +139,11 @@ use setasign\Fpdi\Tcpdf\Fpdi;
         //拼接PDF的完整路径
         $storage_path = str_replace('\\','/',storage_path());
         for($i = 0; $i < count($pdf_road_datas); $i++){
-            $complete_pdf_road_datas[$i] = $storage_path.'/app/data/'.$disk.'/'.$pdf_road_datas[$i];
+            //只有传来的文件存在，才导出
+            $file_path = $storage_path.'/app/data/'.$disk.'/'.$pdf_road_datas[$i];
+            if(file_exists($file_path)){
+                array_push($complete_pdf_road_datas,$file_path);
+            }
         }
         return $complete_pdf_road_datas;
     }
