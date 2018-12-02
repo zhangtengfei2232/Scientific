@@ -16,6 +16,14 @@ class ProjectController extends Controller
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
+        $social_eco_goal = trim($request->social_eco_goal);
+        if(strlen($social_eco_goal) > 49){
+            return responseTojson(1,'你输入的社会经济目标过长');
+        }
+        $na_eco_industry = trim($request->na_eco_industry);
+        if(strlen($na_eco_industry) > 49){
+            return responseTojson(1,'你输入的服务的国民经济行业过长');
+        }
         $teacher_id = session('usercount');
         $datas = [
             'teacher_id'        => $teacher_id,
@@ -30,8 +38,6 @@ class ProjectController extends Controller
             'pro_cate_research' => trim($request->pro_cate_research),
             'pro_sub_category'  => trim($request->pro_sub_category),
             'form_cooperate'    => trim($request->form_cooperate),
-            'social_eco_goal'   => trim($request->social_eco_goal),
-            'na_eco_industry'   => trim($request->na_eco_industry),
             'pro_integral'      => trim($request->pro_integral),
             'project_year'      => trim($request->project_year),
         ];
@@ -50,6 +56,8 @@ class ProjectController extends Controller
             return responseTojson(1,$judge_project['message']);
         }
         $project_road = uploadFiles($this->subjection,$project_image,$this->disk);//上传项目PDF
+        $datas['social_eco_goal'] = $social_eco_goal;     //社会经济目标
+        $datas['na_eco_industry'] = $na_eco_industry;     //服务的国民经济行业
         $datas['pro_road']  = $project_road;
         $add_project = ProjectDatabase::addProjectDatas($datas);
         if($add_project){
@@ -96,6 +104,14 @@ class ProjectController extends Controller
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
+        $social_eco_goal = trim($request->social_eco_goal);
+        if(strlen($social_eco_goal) > 49){
+            return responseTojson(1,'你输入的社会经济目标过长');
+        }
+        $na_eco_industry = trim($request->na_eco_industry);
+        if(strlen($na_eco_industry) > 49){
+            return responseTojson(1,'你输入的服务的国民经济行业过长');
+        }
         $pro_id[0] = trim($request->pro_id);
         $pro_road  = ProjectDatabase::selectImagesRoadDatas($pro_id);
         (empty($pro_road)) ? $pro_road = '' : $pro_road = $pro_road[0];
@@ -112,8 +128,6 @@ class ProjectController extends Controller
             'pro_cate_research' => trim($request->pro_cate_research),
             'pro_sub_category'  => trim($request->pro_sub_category),
             'form_cooperate'    => trim($request->form_cooperate),
-            'social_eco_goal'   => trim($request->social_eco_goal),
-            'na_eco_industry'   => trim($request->na_eco_industry),
             'pro_integral'      => trim($request->pro_integral),
             'project_year'      => trim($request->project_year)
         ];
@@ -121,6 +135,8 @@ class ProjectController extends Controller
         if($judge_project_datas['code'] == 1){
             return responseTojson(1,$judge_project_datas['message']);
         }
+        $datas['social_eco_goal'] = $social_eco_goal;     //社会经济目标
+        $datas['na_eco_industry'] = $na_eco_industry;     //服务的国民经济行业
         $reset_image_status = false;
         $datas['pro_remarks'] = trim($request->pro_remarks);
         if(!$request->hasFile('pro_road')){

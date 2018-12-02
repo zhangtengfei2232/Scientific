@@ -323,6 +323,7 @@ class InformationController extends Controller
     }
     //修改老师信息
     public function updateTeacher(Request $request){
+//        dd($request);
         if(!$request->isMethod('POST')) {
             return responseTojson(1, '你请求的方式不对');
         }

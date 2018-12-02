@@ -91,15 +91,6 @@
         }
         if (strlen($datas['author']) > 29){
             return responseTojson(1,'你输入作者姓名过长',1);
-        }elseif (strlen($datas['publication_name']) > 199){
-            return responseTojson(1,'你输入刊物名称过长',1);
-        }elseif (strlen($datas['publication_num']) > 99){
-            return responseTojson(1,'你输入的刊号过长',1);
-        }elseif (!preg_match("/^[0-9]*$/",$datas['num_words'])
-            || strlen($datas['num_words']) > 9){
-            return responseTojson(1,'你输入的论文字数必须为数字，且不能超过9位',1);
-        }elseif (strlen($datas['belong_project']) > 199){
-            return responseTojson(1,'你输入的所属项目名称不合法',1);
         }elseif (!preg_match("/^[0-9]*$/",$datas['art_integral'])
             || strlen($datas['art_integral']) > 9){
             return responseTojson(1,'你输入的积分必须为数字，且不能超过9位',1);
@@ -120,16 +111,12 @@
             return responseTojson(1,'你输入的项目类别名过长',1);
         }elseif (strlen($datas['approval_unit']) > 59){
             return responseTojson(1,'你输入的批准单位名字过长',1);
-        }elseif (!preg_match("/^[0-9]*$/",$datas['approval_funds'])
+        }elseif (!preg_match("/^[1-9]\d*\,\d*|[1-9]\d*$/",$datas['approval_funds'])
             || strlen($datas['approval_funds']) > 9){
             return responseTojson(1,'你输入的批准经费必须全为数字且不超过9位',1);
-        }elseif (!preg_match("/^[0-9]*$/",$datas['account_outlay'])
+        }elseif (!preg_match("/^[1-9]\d*\,\d*|[1-9]\d*$/",$datas['account_outlay'])
             || strlen($datas['account_outlay']) > 9){
             return responseTojson(1,'你输入的当年到账经费必须全为数字且不超过9位',1);
-        }elseif (strlen($datas['social_eco_goal']) > 49){
-            return responseTojson(1,'你输入的社会经济目标过长',1);
-        }elseif (strlen($datas['na_eco_industry']) > 49){
-            return responseTojson(1,'你输入的服务的国民经济行业过长',1);
         }elseif (!preg_match("/^[0-9]*$/",$datas['pro_integral'])
             || strlen($datas['pro_integral']) > 9){
             return responseTojson(1,'你输入的积分必须全为数字且不超过9位',1);
@@ -148,12 +135,6 @@
             return responseTojson(1,'你填写的著作出版社名字过长',1);
         }elseif (strlen($datas['op_number']) > 99){
             return responseTojson(1,'你填写的著作书号过长',1);
-        }elseif (strlen($datas['op_total_words']) > 9
-            || !preg_match("/^[0-9]*$/",$datas['op_total_words'])){
-            return responseTojson(1,'你填写的著作总字数必须全为数字且不超过9位',1);
-        }elseif (strlen($datas['op_self_words']) > 9
-            || !preg_match("/^[0-9]*$/",$datas['op_self_words'])){
-            return responseTojson(1,'你填写的著作本人字数必须全为数字且不超过9位',1);
         }elseif (strlen($datas['op_integral']) > 9
             || !preg_match("/^[0-9]*$/",$datas['op_integral'])){
             return responseTojson(1,'你填写的著作积分必须全为数字且不超过9位',1);
