@@ -21,7 +21,6 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-// Vue.component('example-component', require('./components/ExampleComponent.vue'));
     import ElementUI from 'element-ui';
     import 'element-ui/lib/theme-chalk/index.css';
     import '../css/element-color/index.css'
@@ -39,10 +38,3 @@ const app = new Vue({
     router,
     render: h => h(App),
 });
-
-// const router = new VueRouter({
-//   mode: 'history',
-//   routes: [
-//     { path: '*', component: NotFoundComponent }
-//   ]
-// })

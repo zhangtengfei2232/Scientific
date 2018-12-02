@@ -38,7 +38,6 @@
                             <el-radio :label="0">男</el-radio>
                             <el-radio :label="1">女</el-radio>
                         </el-radio-group>
-                        <!--<el-input v-model="form.sex"></el-input>-->
                     </el-form-item>
                     <el-form-item label="民族" prop="nation">
                         <el-input v-model="form.nation" maxlength="20"></el-input>
@@ -218,7 +217,6 @@
                         <el-option label="博士" value="1"></el-option>
                         <el-option label="其他" value="2"></el-option>
                     </el-select>
-                    <!--<el-input v-model="form.most_academic"></el-input>-->
                 </el-form-item>
                 <el-form-item label="最高毕业学校" prop="most_graduate_school">
                     <el-input v-model="form.most_graduate_school" maxlength="30"></el-input>
@@ -229,11 +227,11 @@
                 <el-form-item label="最高毕业时间" prop="most_graduation_time">
                     <el-col :span="15">
                         <el-date-picker
-                                type="date"
-                                placeholder="选择日期"
-                                v-model="form.most_graduation_time"
-                                format="yyyy 年 MM 月 dd 日"
-                                value-format="timestamp">
+                            type="date"
+                            placeholder="选择日期"
+                            v-model="form.most_graduation_time"
+                            format="yyyy 年 MM 月 dd 日"
+                            value-format="timestamp">
                         </el-date-picker>
                     </el-col>
                 </el-form-item>
@@ -255,11 +253,11 @@
                 <el-form-item label="获得时间" prop="master_time">
                     <el-col :span="15">
                         <el-date-picker
-                                type="date"
-                                placeholder="选择日期"
-                                v-model="form.master_time"
-                                format="yyyy 年 MM 月 dd 日"
-                                value-format="timestamp">
+                            type="date"
+                            placeholder="选择日期"
+                            v-model="form.master_time"
+                            format="yyyy 年 MM 月 dd 日"
+                            value-format="timestamp">
                         </el-date-picker>
                     </el-col>
                 </el-form-item>
@@ -267,34 +265,36 @@
                     <el-button type="primary" @click="onSubmit(form)">添 加</el-button>
                     <el-button>取消</el-button>
                 </el-form-item>
-                    <el-form-item label="毕业证书图片">
-                        <el-upload
-                            ref="gra_cert_road"
-                            action="#"
-                            :on-change="fileProfil"
-                            :on-preview="handlePreview"
-                            :on-remove="handleRemove"
-                            :auto-upload="false"
-                            :limit="1"
-                            list-type="picture">
-                            <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-                            <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传</el-button>
-                            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-                        </el-upload>
-                    </el-form-item>
-                    <el-form-item label="学历证书图片">
+                <el-form-item label="毕业证书图片">
+                    <el-upload
+                        ref="gra_cert_road"
+                        action="#"
+                        :on-change="filegrafil"
+                        accept=".jpeg,.jpg,.png,.JPEG,.JPG,.PG"
+                        :on-preview="handlePreview"
+                        :on-remove="handleRemove"
+                        :auto-upload="false"
+                        :limit="1"
+                        list-type="picture">
+                        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                        <el-button style="margin-left: 10px;" size="small" type="success" @click="sendgrafile">上传</el-button>
+                        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+                    </el-upload>
+                </el-form-item>
+                <el-form-item label="学历证书图片">
                         <el-upload
                                 class="upload-demo"
                                 ref="edu_cert_road"
                                 action="#"
                                 :on-change="fileEdufil"
+                                accept=".jpeg,.jpg,.png,.JPEG,.JPG,.PG"
                                 :on-preview="handlePreview"
                                 :on-remove="handleRemove"
                                 :auto-upload="false"
                                 :limit="1"
                                 list-type="picture">
                             <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-                            <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUploads">上传</el-button>
+                            <el-button style="margin-left: 10px;" size="small" type="success" @click="sendedufile">上传</el-button>
                             <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
                         </el-upload>
                     </el-form-item>
@@ -335,6 +335,7 @@
                 dataFiles: new FormData(),
                 Bcode:false,
                 teaId:[],
+                count_image:0,
                 form:{
                     is_exist_teacher_id:false,
                     name:'',
@@ -411,12 +412,6 @@
             getFoce(){
                 this.form.is_exist_teacher_id = false;
             },
-            submitUpload() {
-                this.$refs.gra_cert_road.submit();
-            },
-            submitUploads() {
-                this.$refs.edu_cert_road.submit();
-            },
             handleRemove(file, fileList) {
                 console.log(file, fileList);
             },
@@ -424,31 +419,74 @@
                 console.log(file);
             },
 
-            fileProfil(file){
-                if(this.Bcode == true){
+            filegrafil(file){
+                if(! this.Bcode) {
+                    this.$message.error('请先添加老师信息');
+                    return false;
+                }
+                if(file !== ''){
+                    let flag = this.checkFileExt(file.name);
+                    if(!flag){
+                        this.$refs.gra_cert_road.clearFiles();
+                        this.$message.error('图片格式不对');
+                        return false;
+                    }
                     this.dataFile.append('gra_cert_road', file.raw);
                     let id = this.form.teacher_id;
                     this.dataFile.append('teacher_id', id);
                     this.dataFile.append('is_add_teacher',this.Bcode);
-                    this.sendfile(this.dataFile);
                 }else{
-                    this.$message.error('请先添加毕业证书图片');
-                    return false
+                    this.$message.error('请先添加文件');
+                    return false;
                 }
             },
             fileEdufil(files){
-                if(this.Bcode == true){
+                if(! this.Bcode) {
+                    this.$message.error('请先添加老师信息');
+                    return false;
+                }
+                if(files !== ''){
+                    let flag = this.checkFileExt(files.name);
+                    if(!flag){
+                        this.$message.error('图片格式不对');
+                        this.$refs.edu_cert_road.clearFiles();
+                        return false;
+                    }
                     this.dataFiles.append('edu_cert_road', files.raw);
                     let id = this.form.teacher_id;
                     this.dataFiles.append('teacher_id', id);
                     this.dataFiles.append('is_add_teacher',this.Bcode);
-                    this.sendfile(this.dataFiles);
                 }else{
-                    this.$message.error('请先添加学历证书图片');
-                    return false
+                    this.$message.error('请先添加文件');
+                    return false;
                 }
             },
+            checkFileExt(filename){
+                if(filename == '') {
+                    this.$message.error('上传文件不能为空');
+                }
+                var flag = false; //状态
+                var imgtype = ["png","jpeg","jpg","PNG","JPEG","JPG"];
+                //取出上传文件的扩展名
+                var index = filename.lastIndexOf(".");
+                var ext = filename.substr(index+1);
+                //循环比较
+                for(var i=0;i<imgtype.length;i++){
+                    if(ext == imgtype[i]){
+                        flag = true;
+                        break;
+                    }
+                }
+                return flag;
+            },
+            sendgrafile(){
+                this.sendfile(this.dataFile);
+            },
+            sendedufile(){
+                this.sendfile(this.dataFiles);
+            },
             sendfile(dataFile) {
+                let self = this;
                 this.addTeacherFile(dataFile).then(res => {
                     var data = res.data;
                     if (data.code == 0) {
@@ -456,6 +494,10 @@
                             message: data.message,
                             type: 'success'
                         });
+                        self.count_image++;
+                        if(self.count_image == 2){
+                            location. reload();
+                        }
                     } else {
                         this.$notify({
                             type: 'error',
@@ -479,11 +521,7 @@
                 if(form.name == '') {
                     this.$message.error('老师姓名不能为空');
                     return
-                }
-//                else if(form.sex == '') {
-//                    this.$message.error('老师性别不能为空');
-//                }
-                else if(form.teacher_department == '') {
+                }else if(form.teacher_department == '') {
                     this.$message.error('老师所属部门不能为空');
                     return
                 }else if(form.teacher_id == '') {
@@ -522,11 +560,7 @@
                 }else if(form.job_level == '') {
                     this.$message.error('职务级别不能为空');
                     return
-                }
-//                else if(form.academic_title == '') {
-//                    this.$message.error('老师职称不能为空');
-//                }
-                else if(form.technical_position == '') {
+                }else if(form.technical_position == '') {
                     this.$message.error('专业技术职务不能为空');
                     return
                 }else if(form.review_time == '') {
@@ -538,12 +572,7 @@
                 }else if(form.series == '') {
                     this.$message.error('老师系列不能为空');
                     return
-                }
-//                else if(form.post_category == '') {
-//                    this.$message.error('岗位类别不能为空');
-//                    return
-//                }
-                else if(form.company == '') {
+                }else if(form.company == '') {
                     this.$message.error('所在单位不能为空');
                     return
                 }else if(form.te_re_department == '') {
@@ -617,7 +646,6 @@
                                     message:  data.message,
                                     type: 'success'
                                 });
-//                                this.$router.push({path: '/paper'});
                             } else {
                                 vue.$notify({
                                     type: 'error',
@@ -626,8 +654,6 @@
                                 });
                             }
                         });
-//                        vue.$refs.gra_cert_road.submit();
-//                        vue.$refs.edu_cert_road.submit()
                     } else {
                         console.log('error submit!!');
                         return false
