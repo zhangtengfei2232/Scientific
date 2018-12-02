@@ -170,7 +170,7 @@
                 }else{
                     for (var i = 0; i < self.multipleSelection.length; i++) {
                         art_id_datas.push(self.multipleSelection[i].op_id);
-                    };
+                    }
                     this.ExcelOpusDatas(art_id_datas);
                 }
             },
@@ -209,7 +209,7 @@
                 }else{
                     for (var i = 0; i < self.multipleSelection.length; i++) {
                         pro_id_datas.push(self.multipleSelection[i].op_id);
-                    };
+                    }
                     this.deleteBookDatas(pro_id_datas);
                 }
 		    },
@@ -285,7 +285,6 @@
             uploadBookData(op_road) {
                 let urls =  `downloadfile?file=opus/${op_road}`;
                 window.open(urls, '_blank');
-                // window.location.href = urls;
             },
             BatchExport() {
                 var self = this;
@@ -298,7 +297,7 @@
                 }else{
                     for (var i = 0; i < self.multipleSelection.length; i++) {
                         art_id_datas.push(self.multipleSelection[i].op_id);
-                    };
+                    }
                     this.exportArticleDatas(art_id_datas);
                 }
             },

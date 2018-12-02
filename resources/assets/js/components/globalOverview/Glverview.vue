@@ -93,13 +93,13 @@
                         <p>图标概况</p>
                     </div>
                 <div class="list2">
-                    <span class="span">师资图</span>
-                    <div id="myChart" :style="{width: '320px', height: '300px'}"></div>
+                    <span class="span">师资结构</span>
+                    <div id="myChart" :style="{width: '320px', height: '300px',margin:'54px 0px 12px'}"></div>
                     <el-button type="primary" size="mini" @click="getTeacherDate()">学历</el-button>
                     <el-button type="danger" size="mini" @click="rank()">职称</el-button>
                 </div>
                 <div class="list3">
-                    <span class="span">论文图</span>
+                    <span class="span">论文</span>
                     <div class="timesearch">
                         <div class="data1">
                             <el-date-picker
@@ -122,16 +122,16 @@
                         </div>
                         <div class="clear"></div>
                     </div>
-                    <div id="myArticle" :style="{width: '320px', height: '300px'}"></div>
+                    <div id="myArticle" :style="{width: '320px', height: '300px',margin:'21px 0 17px 0'}"></div>
                     <el-button type="primary" size="mini" @click="getArticleDate()">刊物级别</el-button>
                 </div>
                 <div class="list4">
-                    <span class="span">成果鉴定图</span>
+                    <span class="span">成果鉴定</span>
                     <div id="myAppraisal" :style="{width: '320px', height: '300px'}" class="myAppraisal"></div>
                     <el-button type="primary" size="mini">鉴定级别</el-button>
                 </div>
                 <div class="list5">
-                    <span class="span">著作图</span>
+                    <span class="span">著作</span>
                     <div class="timesearch">
                         <div class="data1">
                             <el-date-picker
@@ -154,12 +154,12 @@
                         </div>
                         <div class="clear"></div>
                     </div>
-                    <div id="myOpus" :style="{width: '320px', height: '300px', margin: '0 0 90px 0'}"></div>
+                    <div id="myOpus" :style="{width: '320px', height: '300px', margin: '13px 0px 71px'}"></div>
                     <el-button type="primary" size="mini" @click="getOpusDate()">著作类别</el-button>
                     <el-button type="danger" size="mini" @click="OpusType()">编著形式</el-button>
                 </div>
                 <div class="list6">
-                    <span class="span">获奖图</span>
+                    <span class="span">获奖</span>
                     <div class="timesearch">
                         <div class="data1">
                             <el-date-picker
@@ -187,7 +187,7 @@
                     <el-button type="danger" size="mini" @click="AwardType()">成果形式</el-button>
                 </div>
                 <div class="list7">
-                    <span class="span">专利图</span>
+                    <span class="span">专利</span>
                     <div class="timesearch">
                         <div class="data1">
                             <el-date-picker
@@ -215,7 +215,7 @@
                 </div>
 
                 <div class="list8">
-                    <span class="span">项目图</span>
+                    <span class="span">项目</span>
                     <div class="timesearch">
                         <div class="data1">
                             <el-date-picker
@@ -238,15 +238,14 @@
                         </div>
                         <div class="clear"></div>
                     </div>
-                    <div id="myProject" :style="{width: '400px', height: '400px'}"></div>
-                    <!--<el-button type="primary" size="mini" @click="getProjectDate()">项目级别</el-button>-->
-                    <el-button type="primary" size="mini" @click="ProjectList()">学科门类</el-button>
+                    <div id="myProject" :style="{width: '400px', height: '400px',margin:'38px 0 -38px 0'}"></div>
+                    <el-button type="primary" size="mini" @click="ProjectList()">项目级别</el-button>
                     <el-button type="danger" size="mini" @click="ProType()">研究类别</el-button>
                 </div>
 
 
                 <div class="list9">
-                    <span class="span">项目图</span>
+                    <span class="span">项目</span>
                     <div class="timesearch">
                         <div class="data1">
                             <el-date-picker
@@ -270,7 +269,7 @@
                         <div class="clear"></div>
                     </div>
                     <div id="othermyProject" :style="{width: '400px', height: '400px'}"></div>
-                    <el-button type="primary" size="mini" @click="getProjectDate()">项目级别</el-button>
+                    <el-button type="primary" size="mini" @click="getProjectDate()">项目经费</el-button>
                 </div>
             </div>
 
@@ -449,6 +448,7 @@ export default {
                             option: {
                                 funnel: {
                                     x: '25%',
+                                    y:'38%',
                                     width: '50%',
                                     funnelAlign: 'left',
                                     max: 1548
@@ -463,7 +463,7 @@ export default {
                     name:'学历',
                     calculable : true,
                     type: 'pie',
-                    radius : '50%',
+                    radius : '56%',
                     data: [
                         {name: '硕士'+'('+datas[0]+')', value: datas[0]},
                         {name: '博士'+'('+datas[1]+')', value: datas[1]},
@@ -506,6 +506,7 @@ export default {
                              option: {
                                  funnel: {
                                      x: '25%',
+                                     y:'38%',
                                      width: '50%',
                                      funnelAlign: 'left',
                                      max: 1548
@@ -519,7 +520,7 @@ export default {
                 series: {
                     name:'职称',
                     type: 'pie',
-                    radius : '55%',
+                    radius : '56%',
                     data: [
                         {name: '教授'+'('+datas[0]+')', value: datas[0]},
                         {name: '副教授'+'('+datas[1]+')', value: datas[1]},
@@ -601,7 +602,7 @@ export default {
                 series: {
                     name:'刊物级别',
                     type: 'pie',
-                    radius : '35%',
+                    radius : '47%',
                     data: [
                         {name: 'SCI一区'+'('+datas[0]+')', value: datas[0]},
                         {name: 'SCI二区'+'('+datas[1]+')', value: datas[1]},
@@ -694,7 +695,7 @@ export default {
                         name:'项目级别',
                         type:'pie',
                         center: ['50%', '60%'],
-                        radius : '35%',
+                        radius : '40%',
                         data:[
                             {name: '市厅级'+'('+data3[0]+')('+ '批准经费：' + data2[0] +')(到账经费:' + data1[0] + ')' , value: data1[0]},
                             {name: '省部级'+'('+data3[1]+')('+ '批准经费：' + data2[1] +')(到账经费:' + data1[1] + ')' , value: data1[1]},
@@ -735,7 +736,7 @@ export default {
         },
         ProjectList() {
             let self = this;
-            axios.get("groupbyprojectcertificatelevel",{
+            axios.get("groupbyprojectlevel",{
                 params:{
                     start_time: self.dataPro1,
                     end_time: self.dataPro2,
@@ -783,28 +784,14 @@ export default {
                      }
                  },
                 series: {
-                    name:'学科门类',
+                    name:'项目级别',
                     type: 'pie',
-                    radius : '40%',
+                    radius : '45%',
                     data: [
-                        {name: '理学'+'('+datas[0]+')', value: datas[0]},
-                        {name: '工学'+'('+datas[1]+')', value: datas[1]},
-                        {name: '农学'+'('+datas[2]+')', value: datas[2]},
-                        {name: '医学'+'('+datas[3]+')', value: datas[3]},
-                        {name: '管理学'+'('+datas[4]+')', value: datas[4]},
-                        {name: '马克思主义'+'('+datas[5]+')', value: datas[5]},
-                        {name: '哲学'+'('+datas[6]+')', value: datas[6]},
-                        {name: '逻辑学'+'('+datas[7]+')', value: datas[7]},
-                        {name: '宗教学'+'('+datas[8]+')', value: datas[8]},
-                        {name: '语言学'+'('+datas[9]+')', value: datas[9]},
-                        {name: '中国文学'+'('+datas[10]+')', value: datas[10]},
-                        {name: '外国文学'+'('+datas[11]+')', value: datas[11]},
-                        {name: '艺术学'+'('+datas[12]+')', value: datas[12]},
-                        {name: '历史学'+'('+datas[13]+')', value: datas[13]},
-                        {name: '考古学'+'('+datas[14]+')', value: datas[14]},
-                        {name: '经济学'+'('+datas[15]+')', value: datas[15]},
-                        {name: '政治学'+'('+datas[16]+')', value: datas[16]},
-                        {name: '法学'+'('+datas[17]+')', value: datas[17]},
+                        {name: '市厅级'+'('+datas[0]+')', value: datas[0]},
+                        {name: '省部级'+'('+datas[1]+')', value: datas[1]},
+                        {name: '国家级'+'('+datas[2]+')', value: datas[2]},
+                        {name: '其他'+'('+datas[3]+')', value: datas[3]},
                     ]
                 }
             });
@@ -909,6 +896,7 @@ export default {
                              option: {
                                  funnel: {
                                      x: '25%',
+                                     y:'4%',
                                      width: '50%',
                                      funnelAlign: 'left',
                                      max: 1548
@@ -922,7 +910,7 @@ export default {
                 series: {
                     type: 'pie',
                     name:'著作类别',
-                    radius : '45%',
+                    radius : '58%',
                     data: [
                         {name: '专著'+'('+datas[0]+')', value: datas[0]},
                         {name: '教科书'+'('+datas[1]+')', value: datas[1]},
@@ -985,7 +973,7 @@ export default {
                 series: {
                     name:'编著形式',
                     type: 'pie',
-                    radius : '45%',
+                    radius : '58%',
                     data: [
                         {name: '主编'+'('+datas[0]+')', value: datas[0]},
                         {name: '副主编'+'('+datas[1]+')', value: datas[1]},
@@ -1034,7 +1022,6 @@ export default {
                             type: ['pie', 'funnel'],
                             option: {
                                 funnel: {
-                                    x: '25%',
                                     width: '50%',
                                     funnelAlign: 'left',
                                     max: 1548
@@ -1097,7 +1084,6 @@ export default {
                             type: ['pie', 'funnel'],
                             option: {
                                 funnel: {
-                                    x: '25%',
                                     width: '50%',
                                     funnelAlign: 'left',
                                     max: 1548
@@ -1233,7 +1219,7 @@ export default {
                  },
                 series: {
                     type: 'pie',
-                    radius : '55%',
+                    radius : '59%',
                     data: [
                         {name: '国家级'+'('+datas[0]+')', value: datas[0]},
                         {name: '省级'+'('+datas[1]+')', value: datas[1]},

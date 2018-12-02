@@ -392,7 +392,6 @@
 
             },
             getTeacherData(){
-//                console.log(123)
                 let self = this;
                 axios.get("selectteacher").then(function (response) {
                     var data = response.data;
@@ -436,12 +435,13 @@
                     }
                     else if(status == 4){  //科研秘书
 
+                        self.navGlobleview=true;//全局总览
                         self.navSpecial=true;//特殊功能
                         self.navSchoolFile=true;//校发文件
                         self.navAgrement=true;//教学科研等合作协议
                         self.allResult=true;//成果汇总
                         self.resultCollect=true;//成果汇总
-
+                        self.navSchoolFile=true;//校发文件
 
                     }
                     else if(status == 5){  //研究生秘书
@@ -465,8 +465,8 @@
                         self.navSpecial=true;//特殊功能
                         self.navAddtea=true;//添加老师
                         self.navSchoolFile=true;//校发文件
-                        self.allResult=true;//成果汇总
-                        self.navTeacherInfo=true;//老师管理
+//                        self.allResult=true;//成果汇总
+//                        self.navTeacherInfo=true;//老师管理
                         self.navAgrement=true;//教学科研等合作协议
 
                         self.changeTeapsw=true;//修改老师密码

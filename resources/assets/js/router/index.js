@@ -20,11 +20,6 @@ export default new VueRouter({
                 path: '/',
                 component: resolve => void(require(['../components/teacher/infor.vue'], resolve))
             },
-            {
-                name: 'teacher',
-                path: '/teacher',
-                component: resolve => void(require(['../components/teacher/teacher.vue'], resolve))
-            },
              /*论文信息*/
             {
                 name: 'paper',

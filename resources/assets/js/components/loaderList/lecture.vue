@@ -200,7 +200,6 @@
                 form: {
                     le_expert_level:[],
                     type:'',
-//                    company:'',
                     checkList: [],
                     num:'',
                 },
@@ -270,14 +269,6 @@
                 self.currentPages = 1;
                 self.commonget();
             },
-//            levelCommand(command){       //专家级别
-//                let self = this;
-//                self.types = 'le_expert_level';
-////                console.log(self.command,'/*/*/*/');
-//                self.values = command;
-//                self.currentPages = 1;
-//                self.commonget();
-//            },
             timeSearchget(){   //时间分页
                 let self = this;
                 self.types = 'time';

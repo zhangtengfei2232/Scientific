@@ -18,16 +18,16 @@
                     <el-input v-model="form.approval_unit" maxlength="100"></el-input>
                 </el-form-item>
                 <el-form-item label="批准经费">
-                    <el-input v-model="form.approval_funds" maxlength="100"></el-input>
+                    <el-input v-model="form.approval_funds" maxlength="100" placeholder="（万元）"></el-input>
                 </el-form-item>
                 <el-form-item label="当年到账经费">
-                    <el-input v-model="form.account_outlay" maxlength="100"></el-input>
+                    <el-input v-model="form.account_outlay" maxlength="100" placeholder="（万元）"></el-input>
                 </el-form-item>
                 <el-form-item label="项目级别">
                     <el-select v-model="form.pro_level" placeholder="请选择类别">
                         <el-option label="市厅级" value="0"></el-option>
                         <el-option label="省部级" value="1"></el-option>
-                        <el-option label="国际级" value="2"></el-option>
+                        <el-option label="国家级" value="2"></el-option>
                         <el-option label="其他" value="3"></el-option>
                     </el-select>
                 </el-form-item>
@@ -67,7 +67,8 @@
                         <el-option label="与国内独立研究机构合作" value="2"></el-option>
                         <el-option label="与境内注册外商独资企业合作" value="3"></el-option>
                         <el-option label="与境内注册其他企业合作" value="4"></el-option>
-                        <el-option label="其他" value="5"></el-option>
+                        <el-option label="独立完成" value="5"></el-option>
+                        <el-option label="其他" value="6"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="社会经济目标">
@@ -214,12 +215,6 @@
                 }else if(form.form_cooperate == '') {
                     this.$message.error('合作形式不能为空');
                     return
-                }else if(form.social_eco_goal == '') {
-                    this.$message.error('社会经济目标不能为空');
-                    return
-                }else if(form.na_eco_industry == '') {
-                    this.$message.error('服务的国民经济行业不能为空');
-                    return
                 }else if(form.pro_integral == '') {
                     this.$message.error('积分不能为空');
                     return
@@ -249,7 +244,6 @@
                                 });
                             }
                         })
-//                        vue.$refs.pro_road.submit();
                     } else {
                         console.log('error submit!!')
                         return false

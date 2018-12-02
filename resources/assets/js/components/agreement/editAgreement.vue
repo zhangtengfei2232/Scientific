@@ -28,6 +28,7 @@
                             :auto-upload="false"
                             drag
                             action="#"
+                            :limit="1"
                             ref="agree_road"
                             :before-upload="fileProfil"
                             multiple>

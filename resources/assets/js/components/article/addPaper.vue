@@ -56,13 +56,13 @@
                         :
                     </el-col>
                     <el-col :span="1" style="width:80px;margin:0 10px 0 0">
-                        <el-input v-model="year4" placeholder="开始期"></el-input>
+                        <el-input v-model="year4" placeholder="起始页"></el-input>
                     </el-col>
                     <el-col :span="1" style="width:80px;margin:0px -51px 0px 14px">
                         -
                     </el-col>
                     <el-col :span="1"  style="width:80px;margin:0 10px 0 0">
-                        <el-input v-model="year5" placeholder="结束期"></el-input>
+                        <el-input v-model="year5" placeholder="结束页"></el-input>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="字数">
@@ -233,9 +233,6 @@
                 }else if(form.publication_name == '') {
                     this.$message.error('发表刊物名称不能为空');
                     return
-                }else if(form.publication_num == '') {
-                    this.$message.error('刊号不能为空');
-                    return
                 }else if(year1 == '') {
                     this.$message.error('年，卷，期不能为空');
                     return
@@ -251,14 +248,8 @@
                 }else if(year5 == '') {
                     this.$message.error('年，卷，期不能为空');
                     return
-                }else if(form.num_words == '') {
-                    this.$message.error('字数不能为空');
-                    return
                 }else if(form.periodical_cate == '') {
                     this.$message.error('期刊级别不能为空');
-                    return
-                }else if(form.belong_project == '') {
-                    this.$message.error('所属项目不能为空');
                     return
                 }else if(form.art_cate_research == '') {
                     this.$message.error('研究类别不能为空');

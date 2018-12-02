@@ -560,6 +560,9 @@
                 }else if(form.native_place == '') {
                     this.$message.error('籍贯不能为空');
                     return;
+                }else if(form.job_level === '') {
+                    this.$message.error('老师职务级别不能为空');
+                    return;
                 }else if(form.number == '') {
                     this.$message.error('老师编号不能为空');
                     return;
@@ -569,7 +572,13 @@
                 }else if(form.borth == '') {
                     this.$message.error('出生年月不能为空');
                     return;
-                }else if(form.admin_duties == '') {
+                }else if(form.sex === '') {
+                    this.$message.error('老师性别不能为空');
+                    return
+                }else if(form.polit_outlook === '') {
+                    this.$message.error('老师政治面貌不能为空');
+                    return
+                }else if(form.admin_duties ==='') {
                     this.$message.error('行政职务不能为空');
                     return;
                 }else if(form.admin_tenure_time == '') {

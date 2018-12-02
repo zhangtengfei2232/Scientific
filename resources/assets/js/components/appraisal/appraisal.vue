@@ -247,7 +247,7 @@
                         if (data.code == 0) {
                              self.$message({
                                 type: 'success',
-                                message: '删除成功!'
+                                message: data.message
                             });
                             location.reload();
                         } else {
@@ -273,7 +273,6 @@
             uploadAppraisalData(ap_road) {
                 let urls =  `downloadfile?file=appraisal/${ap_road}`;
                 window.open(urls, '_blank');
-                // window.location.href = urls;
             },
             BatchExport() {
                 var self = this;

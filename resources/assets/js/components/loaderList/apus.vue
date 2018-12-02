@@ -12,7 +12,6 @@
                                     著作出版时间<i class="el-icon-arrow-down el-icon--right"></i>
                                 </span>
                                 <el-dropdown-menu slot="dropdown">
-                                    <!--<el-dropdown-item>全部</el-dropdown-item>-->
                                     <el-dropdown-item @click.native="timeSearch(8)">18年-今天</el-dropdown-item>
                                     <el-dropdown-item @click.native="timeSearch(7)">17年-今天</el-dropdown-item>
                                     <el-dropdown-item @click.native="timeSearch(6)">16年-今天</el-dropdown-item>
@@ -190,6 +189,7 @@
                     width="140">
                 </el-table-column>
             </el-table>
+            <el-button @click="PDFSelection()">导出PDF</el-button>
             <el-button @click="ExcelSelection()" style="margin-top: 20px;">导出Excel</el-button>
             <div class="page">
                 <el-pagination
@@ -314,6 +314,25 @@ export default {
         handleCurrentChange(val) {
             this.currentPages=val;
         },
+        PDFSelection() {
+            var self = this;
+            var art_id_datas = [];//存放导出的数据
+            if(self.multipleSelection == ''){
+                this.$message({
+                    message: '请选择要导出论文',
+                    type: 'warning'
+                });
+            }else{
+                for (var i = 0; i < self.multipleSelection.length; i++) {
+                    art_id_datas.push(self.multipleSelection[i].op_id);
+                };
+                this.exportArticleDatas(art_id_datas);
+            }
+        },
+        exportArticleDatas(art_id_datas) {
+            let urls =  `exportopuspdfs?op_id_datas=${art_id_datas}`;
+            window.location.href = urls;
+        },
         ExcelSelection() {
             var self = this;
             var art_id_datas = [];//存放导出的数据
@@ -373,7 +392,6 @@ export default {
             self.types = 'op_name';
             self.values = self.op_name;
             self.currentPages = 1;
-            console.log(this.types,this.values)
             self.commonget();
         },
         timeSearchget(){   //时间分页

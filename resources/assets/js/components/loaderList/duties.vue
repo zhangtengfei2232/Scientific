@@ -101,14 +101,6 @@
                             width="100">
                     </el-table-column>
                 </el-table-column>
-                <!--<el-table-column-->
-                        <!--prop="du_year_num"-->
-                        <!--label="担任职务年限"-->
-                        <!--format="yyyy 年 MM 月 dd 日"-->
-                        <!--value-format="timestamp"-->
-                        <!--type="date"-->
-                        <!--header-align="center">-->
-                <!--</el-table-column>-->
             </el-table>
             <el-button @click="ExcelSelection()" style="margin-top: 20px;">导出Excel</el-button>
             <div class="page">
@@ -281,8 +273,6 @@
             currentPages:function (currentPages) {
                 this.currentPages = currentPages;
                 this.commonget(this.types,this.values)
-//                this.byNameSearch();
-//                this.byGroupNameSearch();
             }
         },
     }

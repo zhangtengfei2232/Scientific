@@ -171,10 +171,6 @@
                     this.$message.error('报告名称不能为空');
                     return
                 }
-//                else if(!isNaN(form.le_invite_status)) {
-//                    this.$message.error('邀请状态不能为空');
-//                    return
-//                }
                 else if(form.le_invite_unit == '') {
                     this.$message.error('邀请单位不能为空');
                     return
@@ -204,8 +200,6 @@
                                 });
                             }
                         });
-//                        vue.$refs.le_img_road.submit();
-
                     } else {
                         console.log('error submit!!');
                         return false

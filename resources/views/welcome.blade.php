@@ -15,13 +15,13 @@
     </div>
     <div class="right">
         <div class="header">
-            <h3>LOGIN</h3>
-            <p>Login with your account</p>
+            <h3 style="font-weight: 600;color: darkgray;">登 &nbsp;&nbsp;&nbsp;录</h3>
+            {{--<p>Login with your account</p>--}}
             <form id="form1">
                 <input type="hidden" name="_token" value="{{csrf_token()}}"/>
                 <input type="text" placeholder="用户名" class="name" id="username" name="username" required="required" autocomplete=”off”>
                 <input type="password" placeholder="密码" class="password" id="userpassword" name="userpassword" required="required" autocomplete=”off”>
-                <button type="button" class="submit" id="login_btn">Login</button>
+                <button type="button" class="submit" id="login_btn">登 录</button>
             </form>
         </div>
     </div>

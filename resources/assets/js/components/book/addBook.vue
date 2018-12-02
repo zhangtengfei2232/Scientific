@@ -193,12 +193,6 @@
             }else if(form.op_number == '') {
                 this.$message.error('书号不能为空');
                 return
-            }else if(form.op_total_words == '') {
-                this.$message.error('总字数（千字）不能为空');
-                return
-            }else if(form.op_self_words == '') {
-                this.$message.error('本人字数（千字）不能为空');
-                return
             }else if(form.op_cate_work == '') {
                 this.$message.error('著作类别不能为空');
                 return

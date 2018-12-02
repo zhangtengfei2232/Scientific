@@ -199,7 +199,7 @@
                         var data = res.data;
                         if (data.code == 0) {
                             vue.$message({
-                                message: '添加成功',
+                                message: data.message,
                                 type: 'success'
                             });
                             this.$router.push({path: '/award'});

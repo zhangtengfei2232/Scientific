@@ -539,7 +539,6 @@
                 }
             },
             ExcelHoldmeetDatas(tea_id_datas) {
-                console.log(tea_id_datas,'=====-=-----');
                 let self = this;
                 let urls =  `exportteacherexcel?tea_id_datas=${tea_id_datas}`;
                 window.location.href = urls;

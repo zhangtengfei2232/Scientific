@@ -158,6 +158,7 @@
                     width="120">
                 </el-table-column>
             </el-table>
+            <el-button @click="PDFSelection()">导出PDF</el-button>
             <el-button @click="ExcelSelection()" style="margin-top: 20px;">导出Excel</el-button>
             <div class="page">
                 <el-pagination
@@ -248,6 +249,25 @@ export default {
         },
         handleCurrentChange(val) {
             this.currentPages=val;
+        },
+        PDFSelection() {
+            var self = this;
+            var art_id_datas = [];//存放导出的数据
+            if(self.multipleSelection == ''){
+                this.$message({
+                    message: '请选择要导出论文',
+                    type: 'warning'
+                });
+            }else{
+                for (var i = 0; i < self.multipleSelection.length; i++) {
+                    art_id_datas.push(self.multipleSelection[i].pa_id);
+                };
+                this.exportArticleDatas(art_id_datas);
+            }
+        },
+        exportArticleDatas(art_id_datas) {
+            let urls =  `exportpatentpdfs?pa_id_datas=${art_id_datas}`;
+            window.location.href = urls;
         },
         ExcelSelection() {
             var self = this;
@@ -352,7 +372,6 @@ export default {
         },
         groupchecks(){
             let self = this;
-            console.log(self.pa_type);
             axios.get("byfieldselectpatent",{
                 params:{
                     pa_type_datas:self.pa_ty,
@@ -369,8 +388,6 @@ export default {
         },
 
         onSubmit(form) {
-            console.log(form.pa_type);
-//            return;
             let self = this;
             self.types = 'composite_query';
             self.pa_ty = form.pa_type;

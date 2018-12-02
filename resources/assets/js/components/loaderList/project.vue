@@ -205,6 +205,7 @@
                     width="120">
                 </el-table-column>
             </el-table>
+            <el-button @click="PDFSelection()">导出PDF</el-button>
             <el-button @click="ExcelSelection()" style="margin-top: 20px;">导出Excel</el-button>
             <div class="page">
                 <el-pagination
@@ -302,6 +303,7 @@ export default {
                 '与国内独立研究机构合作',
                 '与境内注册外商独资企业合作',
                 '与境内注册其他企业合作',
+                '独立完成',
                 '其他',
             ],
             pro_level:[
@@ -325,6 +327,25 @@ export default {
         },
         handleCurrentChange(val) {
             this.currentPages=val;
+        },
+        PDFSelection() {
+            var self = this;
+            var art_id_datas = [];//存放导出的数据
+            if(self.multipleSelection == ''){
+                this.$message({
+                    message: '请选择要导出论文',
+                    type: 'warning'
+                });
+            }else{
+                for (var i = 0; i < self.multipleSelection.length; i++) {
+                    art_id_datas.push(self.multipleSelection[i].pro_id);
+                };
+                this.exportArticleDatas(art_id_datas);
+            }
+        },
+        exportArticleDatas(art_id_datas) {
+            let urls =  `exportprojectpdfs?pro_id_datas=${art_id_datas}`;
+            window.location.href = urls;
         },
         ExcelSelection() {
             var self = this;
@@ -373,7 +394,6 @@ export default {
                 data[i].pro_level = self.pro_level[data[i].pro_level];
             }
             self.allProject = data;
-            console.log(self.allProject);
         },
         timeSearchget(){   //时间分页
             let self = this;
@@ -459,7 +479,6 @@ export default {
             let self = this;
             self.types = 'pro_sub_category';
             self.values = form.pro_sub_category;
-            console.log( self.values);
             self.currentPages = 1;
             self.groupchecks();
         }

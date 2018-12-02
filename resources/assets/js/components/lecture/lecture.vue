@@ -115,15 +115,6 @@
     .demonstration{
         font-weight: lighter;
     }
-    /*.lists span{*/
-        /*float: left;*/
-    /*}*/
-    /*.lists img{*/
-        /*width: 35px;*/
-    /*}*/
-    /*.picture{*/
-        /*margin: 20px 5px 0 1%;*/
-    /*}*/
     .dos a,.tos a{
         color: rgba(61, 112, 206, 0.77)!important;
     }
@@ -206,8 +197,7 @@
                     for (var i = 0; i < self.multipleSelection.length; i++) {
                         le_id_datas.push(self.multipleSelection[i].le_id);
                         //删除数组——删除选择的行
-                        //pro_id_datas.splice(0,self.multipleSelection.length);
-                    };
+                    }
                     this.deleteExperspeakDates(le_id_datas);
                 }
             },

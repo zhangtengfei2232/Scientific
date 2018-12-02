@@ -118,8 +118,6 @@
                     du_duty: '',
                     du_year_num: '',
                     year: '',
-//                    date: '',
-//                    delivery: false,
                     type: [],
                     du_remark: '',
                 }
@@ -183,7 +181,6 @@
                                     });
                                 }
                             });
-//                            vue.$refs.du_road.submit();
                         } else {
                             console.log('error submit!!');
                             return false

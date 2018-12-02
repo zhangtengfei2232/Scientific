@@ -12,7 +12,6 @@
                                     会议时间<i class="el-icon-arrow-down el-icon--right"></i>
                                 </span>
                                 <el-dropdown-menu slot="dropdown">
-                                    <!--<el-dropdown-item>全部</el-dropdown-item>-->
                                     <el-dropdown-item @click.native="timeSearch(8)">18年-今天</el-dropdown-item>
                                     <el-dropdown-item @click.native="timeSearch(7)">17年-今天</el-dropdown-item>
                                     <el-dropdown-item @click.native="timeSearch(6)">16年-今天</el-dropdown-item>
@@ -258,8 +257,6 @@ export default {
         },
         timeSearchget(){   //时间分页
             let self = this;
-            console.log(this.start_time,'----+======');
-            console.log(this.end_time,'-----========');
             self.types = 'time';
             axios.get("byfieldselectholdmeet", {
                 params: {

@@ -326,7 +326,6 @@ export default {
                 for (var i = 0; i < self.multipleSelection.length; i++) {
                     art_id_datas.push(self.multipleSelection[i].art_id);
                 };
-                console.log(art_id_datas);
                 this.ExcelArticleDatas(art_id_datas);
             }
         },
@@ -351,7 +350,7 @@ export default {
             }
         },
         exportArticleDatas(art_id_datas) {
-            let urls =  `exportallartical?art_id_datas=${art_id_datas}`;
+            let urls =  `exportarticalpdfs?art_id_datas=${art_id_datas}`;
             window.location.href = urls;
         },
         getArticleData() {

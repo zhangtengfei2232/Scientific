@@ -26,6 +26,7 @@
                             drag
                             action="#"
                             ref="agree_road"
+                            :limit="1"
                             :before-upload="fileProfil"
                             :on-preview="handlePreview"
                             multiple>

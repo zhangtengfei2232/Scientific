@@ -530,6 +530,9 @@
                 }else if(form.office_phone == '') {
                     this.$message.error('办公电话不能为空');
                     return
+                }else if(form.sex === '') {
+                    this.$message.error('老师性别不能为空');
+                    return
                 }else if(form.home_phone == '') {
                     this.$message.error('住宅电话不能为空');
                     return

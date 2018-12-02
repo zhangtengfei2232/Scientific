@@ -190,7 +190,7 @@
                 }else{
                     for (var i = 0; i < self.multipleSelection.length; i++) {
                         pro_id_datas.push(self.multipleSelection[i].jo_id);
-                    };
+                    }
                     this.deleteJoinmeetDatas(pro_id_datas);
                 }
 		    },
