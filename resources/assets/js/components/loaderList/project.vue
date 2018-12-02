@@ -12,7 +12,6 @@
                                     项目年份<i class="el-icon-arrow-down el-icon--right"></i>
                                 </span>
                                 <el-dropdown-menu slot="dropdown">
-                                    <!--<el-dropdown-item>全部</el-dropdown-item>-->
                                     <el-dropdown-item @click.native="timeSearch(8)">18年-今天</el-dropdown-item>
                                     <el-dropdown-item @click.native="timeSearch(7)">17年-今天</el-dropdown-item>
                                     <el-dropdown-item @click.native="timeSearch(6)">16年-今天</el-dropdown-item>
@@ -166,6 +165,11 @@
                     width="120">
                 </el-table-column>
                 <el-table-column
+                    prop="pro_level"
+                    label="项目级别"
+                    width="120">
+                </el-table-column>
+                <el-table-column
                     prop="pro_cate_research"
                     label="研究类别"
                     width="120">
@@ -188,6 +192,11 @@
                 <el-table-column
                     prop="na_eco_industry"
                     label="服务的国民经济行业"
+                    width="120">
+                </el-table-column>
+                <el-table-column
+                    prop="pro_integral"
+                    label="积分"
                     width="120">
                 </el-table-column>
                 <el-table-column
@@ -294,6 +303,12 @@ export default {
                 '与境内注册外商独资企业合作',
                 '与境内注册其他企业合作',
                 '其他',
+            ],
+            pro_level:[
+                '市厅级',
+                '省部级',
+                '国际级',
+                '其他'
             ]
         }
     },
@@ -355,6 +370,7 @@ export default {
                 data[i].pro_cate_research = self.pro_cate_research[data[i].pro_cate_research];
                 data[i].pro_sub_category = self.pro_sub_category[data[i].pro_sub_category];
                 data[i].form_cooperate = self.form_cooperate[data[i].form_cooperate];
+                data[i].pro_level = self.pro_level[data[i].pro_level];
             }
             self.allProject = data;
             console.log(self.allProject);

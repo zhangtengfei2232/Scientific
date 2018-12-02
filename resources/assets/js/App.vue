@@ -101,22 +101,22 @@
                             :default-active="$route.path"
                             background-color="rgb(34,45,50)"
                             text-color="#fff"
-                            active-text-color="#ffd04b"
+                            activeTextColor="rgb(255, 208, 75)"
                             class="el-menu-vertical-demo"
                             @open="handleOpen"
                             @close="handleClose"
                             router>
-                        <el-menu-item index="/" class="signIn" style="height:70px;border-bottom:1px solid gray;font-size:17px;text-align: center">
+                        <el-menu-item index="/" class="signIn" style="height:70px;border-bottom:1px solid gray;font-size:17px;text-align: center;color: white" id="for_id0">
                             <img src="/dist/img/wang_light.png" alt="未加载">
                             <span>{{teacherDate.name}}</span>
                         </el-menu-item>
 
-                        <el-menu-item v-for="(item,i) in navList" :key="i" :index="item.name">
+                        <el-menu-item v-for="(item,i) in navList" :key="i" :index="item.name" :id="forId(i + 1)">
                             <i :class="item.icon"></i>
                             <span slot="title">{{ item.navItem }}</span>
                         </el-menu-item>
 
-                        <el-menu-item index="/duties" style="border-bottom:1px solid gray;">
+                        <el-menu-item index="/duties" style="border-bottom:1px solid gray;" id="for_id10">
                             <i class="el-icon-message"></i>
                             <span slot="title">学术团体</span>
                         </el-menu-item>
@@ -127,20 +127,20 @@
                             </el-menu-item>
                         </div>
                         <div v-show="navSpecial">
-                            <el-submenu index="1">
+                            <el-submenu index="1" id="part-function">
                                 <template slot="title">
                                     <i class="el-icon-menu"></i>
                                     <span>特殊功能</span>
                                 </template>
                                 <el-menu-item-group>
                                     <div v-show="navSchoolFile">
-                                        <el-menu-item index="/schoolfile" style="padding-left: 30px;">校发文件</el-menu-item>
+                                        <el-menu-item index="/schoolfile" style="padding-left: 30px;" id="for_id11">校发文件</el-menu-item>
                                     </div>
                                     <div v-show="navAddtea">
                                         <el-menu-item index="/addteacher" style="padding-left: 30px;">添加老师</el-menu-item>
                                     </div>
                                     <div v-show="navAgrement">
-                                        <el-menu-item index="/agreement" style="padding-left: 30px;">教学科研等合作协议</el-menu-item>
+                                        <el-menu-item index="/agreement" style="padding-left: 30px;" id="for_id12">教学科研等合作协议</el-menu-item>
                                     </div>
                                 </el-menu-item-group>
                             </el-submenu>
@@ -225,7 +225,7 @@
                 status:'',
                 navList:[
 //                    {icon:'el-icon-picture',name:'/',navItem:'ft'},
-                    {icon:'el-icon-bell',name:'/paper',navItem:'论文',event:"rush"},
+                    {icon:'el-icon-bell',name:'/paper',navItem:'论文'},
                     {icon:'el-icon-tickets',name:'/project',navItem:'项目'},
                     {icon:'el-icon-edit',name:'/book',navItem:'著作'},
                     {icon:'el-icon-star-off',name:'/award',navItem:'获奖'},
@@ -239,9 +239,8 @@
             }
         },
         methods: {
-            rush:function(){
-//                console.log(123456)
-                this.$emit('conseUpdate','555');
+            forId(i){
+              return "for_id" + i;
             },
             closeDialog:function(){
                 this.changeform.teacher_id = '';
@@ -492,12 +491,80 @@
                     }
                 });
             },
+            signSideBar(index){
+                for(var i = 0; i < 13;i++) {
+                    if (i == index) {
+                        $("#for_id"+ index).addClass("is-active");
+                    }else {
+                        $('#for_id' + i).removeClass("is-active");
+                    }
+                }
+            },
         },
         mounted() {
             this.getTeacherData();
-            this.rush();
+        },
+        watch:{
+            $route(to) {
+                switch(to.name){
+                    case 'infor':
+                        this.signSideBar(0);
+                        break;
+                    case 'artical':
+                    case 'selfInfor':
+                        this.signSideBar(1);
+                        break;
+                    case 'project':
+                    case 'selfProject':
+                        this.signSideBar(2);
+                        break;
+                    case 'book':
+                    case 'selfBook':
+                        this.signSideBar(3);
+                        break;
+                    case 'award':
+                    case 'selfAward':
+                        this.signSideBar(4);
+                        break;
+                    case 'patent':
+                    case 'selfPatent':
+                        this.signSideBar(5);
+                        break;
+                    case 'appraisal':
+                    case 'selfAppraisal':
+                        this.signSideBar(6);
+                        break;
+                    case 'holdmeet':
+                    case 'selfHoldmeet':
+                        this.signSideBar(7);
+                        break;
+                    case 'joinmeet':
+                    case 'selfJoinmeet':
+                        this.signSideBar(8);
+                        break;
+                    case 'lecture':
+                    case 'editLecture':
+                        this.signSideBar(9);
+                        break;
+                    case 'duties':
+                    case 'editDuties':
+                        this.signSideBar(10);
+                        break;
+                    case 'schoolfile':
+                    case 'selfSchoolFile':
+                        $("#part-function").addClass("is-opened");
+                        $("#part-function ul").css('display','block');
+                        this.signSideBar(11);
+                        break;
+                    case 'agreement':
+                    case 'editAgreement':
+                        $("#part-function").addClass("is-opened");
+                        $("#part-function ul").css('display','block');
+                        this.signSideBar(12);
+                        break;
+                }
+            }
         }
-
     }
 
 </script>
@@ -546,7 +613,6 @@
             color: white;
             /*float: left;*/
             background-color:rgb(34,45,50);
-
             position:absolute;
             top:35px;
             left:0;
@@ -631,6 +697,7 @@
         width: 100%;
     }
     .aside .is-active{
+        color: rgb(255, 208, 75) !important;
         background-color: black !important;
     }
     .el-menu-item-group__title{

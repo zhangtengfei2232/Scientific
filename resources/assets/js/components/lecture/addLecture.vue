@@ -42,7 +42,7 @@
                         drag
                         action="#"
                         ref="le_img_road"
-                        :before-upload="fileZufil"
+                        :on-change="fileZufil"
                         :auto-upload="false"
                         :limit="1"
                         multiple
@@ -129,7 +129,7 @@
                 }
             },
             fileZufil(file){
-                this.dataForm.append('le_img_road', file);
+                this.dataForm.append('le_img_road', file.raw);
                 return false;
             },
             sendfile(dataFile) {
@@ -204,7 +204,7 @@
                                 });
                             }
                         });
-                        vue.$refs.le_img_road.submit();
+//                        vue.$refs.le_img_road.submit();
 
                     } else {
                         console.log('error submit!!');

@@ -33,8 +33,8 @@
                             v-model="year1"
                             type="year"
                             value-format="timestamp"
-                            placeholder="选择年份"
-                            style="width: 90px;">
+                            placeholder="年"
+                            style="width: 100px;">
                         </el-date-picker>
                     </el-col>
                     <el-col :span="1" style="width:50px;margin: 0px -36px 0px 6%;">
@@ -127,7 +127,8 @@
                     <el-upload
                             class="upload-demo"
                             drag
-                            action=""
+                            action="#"
+                            :limit="1"
                             multiple
                             ref="art_pdf"
                             accept=".pdf,.PDF"
@@ -141,11 +142,12 @@
                     <el-upload
                             class="upload-demo"
                             drag
-                            action=""
+                            action="#"
+                            :limit="1"
                             multiple
                             accept=".pdf,.PDF"
                             ref="art_sci"
-                            :before-upload="fileArtsci"
+                            :on-change="fileArtsci"
                             :auto-upload="false">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -199,7 +201,6 @@
                     art_sub_category: '',
                     art_integral: '',
                     percal_cate: '',
-                    year: '',
                     art_remarks: "",
                     period:''
                 }
@@ -208,7 +209,6 @@
         methods: {
             fileArtpdf(file){
                 if(file !== ''){
-                    // this.checkFileExt(file.name);
                     this.dataForm.append('art_road', file.raw);
                 }else{
                     this.$message.error('请先添加pdf信息');
@@ -216,8 +216,7 @@
                 }
             },
             fileArtsci(file){
-                // this.checkFileExt(file.name);
-                this.dataForm.append('art_sci_road', file);
+                this.dataForm.append('art_sci_road',file.raw);
             },
             onSubmit(form,year2,year3,year4,year5,year1) {
                 let vue = this;
@@ -297,11 +296,12 @@
                                 });
                             }
                         })
-                        vue.$refs.art_pdf.submit()
-                        vue.$refs.art_sci.submit()
                     } else {
-                        console.log('error submit!!')
-                        return false
+                        vue.$notify({
+                            type: 'error',
+                            message: "提交失败",
+                            duration: 2000,
+                        });
                     }
                 })
             },

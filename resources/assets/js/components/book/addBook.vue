@@ -94,7 +94,7 @@
                             drag
                             action="#"
                             ref="op_road"
-                            :before-upload="fileProfil"
+                            :on-change="fileProfil"
                             multiple
                             :limit="1">
                         <i class="el-icon-upload"></i>
@@ -148,7 +148,7 @@
     methods: {
         fileProfil(file){
             this.checkFileExt(file.name);
-            this.dataForm.append('op_road', file);
+            this.dataForm.append('op_road', file.raw);
             return false;
         },
         checkFileExt(filename){
@@ -236,7 +236,7 @@
                             });
                         }
                     })
-                    this.$refs.op_road.submit();
+//                    this.$refs.op_road.submit();
                 } else {
                     console.log('error submit!!')
                     return false

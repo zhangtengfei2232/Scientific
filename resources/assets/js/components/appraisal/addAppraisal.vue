@@ -53,7 +53,7 @@
                             drag
                             action="#"
                             ref="ap_road"
-                            :before-upload="fileProfil"
+                            :on-change="fileProfil"
                             multiple
                             :limit="1">
                         <i class="el-icon-upload"></i>
@@ -105,7 +105,7 @@
             this.$refs.ap_road.submit();
         },
         fileProfil(file){
-            this.dataForm.append('ap_road', file);
+            this.dataForm.append('ap_road', file.raw);
         },
         onSubmit(form) {
             let vue = this;
@@ -158,7 +158,6 @@
                             });
                         }
                     })
-                    vue.$refs.ap_road.submit()
                 } else {
                     console.log('error submit!!')
                     return false

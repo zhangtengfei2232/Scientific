@@ -37,11 +37,6 @@
 
             <el-form-item label="担任学术团体名称">
                 <el-input v-model="form.du_name" placeholder="请输入担任学术团体名称" maxlength="50" style="width:440px;"></el-input>
-                <!--<el-select v-model="form.level" placeholder="担任学术团体级别" style="width: 200px;">-->
-                    <!--<el-option label="省级" value="0"></el-option>-->
-                    <!--<el-option label="国家级" value="1"></el-option>-->
-                    <!--<el-option label="国际级" value="2"></el-option>-->
-                <!--</el-select>-->
             </el-form-item>
 
             <el-form-item label="所任职务">
@@ -77,7 +72,7 @@
                         drag
                         action="#"
                         ref="du_road"
-                        :before-upload="fileProfil"
+                        :on-change="fileProfil"
                         multiple
                         :limit="1"
                         list-type="picture">
@@ -106,16 +101,6 @@
     .demo{
         margin: 10px 0 10px 30%;
     }
-
-    /*组件*/
-    /*.el-form{*/
-        /*width:58%;*/
-        /*margin-top: 40px;*/
-        /*margin-left: 150px;*/
-    /*}*/
-    /*.el-date-editor.el-input, .el-date-editor.el-input__inner {*/
-        /*width: 200px;*/
-    /*}*/
 </style>
 <script>
     export default {
@@ -126,9 +111,6 @@
                 du_road:'',
                 dataForm: new FormData(),
                 dataFile: new FormData(),
-//                Bcode:false,
-//                multiple: true,
-//                filelist: '',
                 filelists: '',
                 year1: '',
                 year2: '',
@@ -147,30 +129,11 @@
                     du_remark: '',
                     du_road:'',
                 },
-//                du_academic:[   //职称
-//                    '教授',
-//                    '副教授',
-//                    '讲师',
-//                    '助教',
-//                    '高级实验师',
-//                    '实验师',
-//                    '助理实验师'
-//                ],
-//                du_education:[  //学历
-//                    '大专',
-//                    '研究生',
-//                    '本科',
-//                ],
-//                du_degree:[     //学位
-//                    '硕士',
-//                    '博士',
-//                    '学士',
-//                ],
             }
         },
         methods: {
             fileProfil(file){
-                this.dataForm.append('du_road', file);
+                this.dataForm.append('du_road', file.raw);
                 return false;
             },
             getDutiesData() {
@@ -251,7 +214,6 @@
                                 });
                             }
                         });
-                        vue.$refs.du_road.submit();
                     } else {
                         console.log('error submit!!');
                         return false

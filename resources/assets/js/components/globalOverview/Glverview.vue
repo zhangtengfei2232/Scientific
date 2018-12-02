@@ -239,9 +239,38 @@
                         <div class="clear"></div>
                     </div>
                     <div id="myProject" :style="{width: '400px', height: '400px'}"></div>
-                    <el-button type="primary" size="mini" @click="getProjectDate()">项目级别</el-button>
+                    <!--<el-button type="primary" size="mini" @click="getProjectDate()">项目级别</el-button>-->
                     <el-button type="primary" size="mini" @click="ProjectList()">学科门类</el-button>
                     <el-button type="danger" size="mini" @click="ProType()">研究类别</el-button>
+                </div>
+
+
+                <div class="list9">
+                    <span class="span">项目图</span>
+                    <div class="timesearch">
+                        <div class="data1">
+                            <el-date-picker
+                                    v-model="dataPro3"
+                                    size="mini"
+                                    type="year"
+                                    value-format="timestamp"
+                                    placeholder="选择年">
+                            </el-date-picker>
+                        </div>
+                        <div class="reference">-</div>
+                        <div class="data2">
+                            <el-date-picker
+                                    v-model="dataPro4"
+                                    size="mini"
+                                    type="year"
+                                    value-format="timestamp"
+                                    placeholder="选择年">
+                            </el-date-picker>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div id="othermyProject" :style="{width: '400px', height: '400px'}"></div>
+                    <el-button type="primary" size="mini" @click="getProjectDate()">项目级别</el-button>
                 </div>
             </div>
 
@@ -310,14 +339,14 @@
     .datas .navL p{
         line-height: 60px;
     }
-    .list2,.list3,.list4,.list5,.list6,.list7,.list8{
+    .list2,.list3,.list4,.list5,.list6,.list7,.list8,.list9{
         width: 40%;
         height: 530px;
         float: left;
         margin: 0 0 0 10%;
         border-bottom: #eee solid 1px;
     }
-    .list2 .span,.list3 .span,.list4 .span,.list5 .span,.list6 .span,.list7 .span,.list8 .span{
+    .list2 .span,.list3 .span,.list4 .span,.list5 .span,.list6 .span,.list7 .span,.list8 .span,.list9 .span{
         display: inline-block;
         padding: 10px 25px;
     }
@@ -350,6 +379,8 @@ export default {
             dataArt2: '',
             dataPro1: '',
             dataPro2: '',
+            dataPro3: '',
+            dataPro4: '',
             dataAwa1: '',
             dataAwa2: '',
             dataPat1: '',
@@ -498,7 +529,23 @@ export default {
                         {name: '实验师'+'('+datas[5]+')', value: datas[5]},
                         {name: '助理实验师'+'('+datas[6]+')', value: datas[6]},
                         {name: '其他'+'('+datas[7]+')', value: datas[7]},
-                    ]
+                    ],
+                    label:{
+                        normal:{
+                            formatter(v) {
+                                let text =  v.name;
+                                if(text.length <= 3)
+                                {
+                                    return text;
+                                }else if(text.length > 3 && text.length <= 16){
+                                    return text = `${text.slice(0,3)}\n${text.slice(3)}`
+                                }
+                            },
+                            textStyle : {
+                                fontSize : 12
+                            }
+                        }
+                    }
                 }
             });
         },
@@ -567,7 +614,23 @@ export default {
                         {name: '中文核心'+'('+datas[8]+')', value: datas[8]},
                         {name: 'CSCD核心库'+'('+datas[9]+')', value: datas[9]},
                         {name: '河南科技学院期刊'+'('+datas[10]+')', value: datas[10]},
-                    ]
+                    ],
+                    label:{
+                        normal:{
+                            formatter(v) {
+                                let text =  v.name;
+                                if(text.length <= 9)
+                                {
+                                    return text;
+                                }else if(text.length > 9 && text.length <= 16){
+                                    return text = `${text.slice(0,9)}\n${text.slice(9)}`
+                                }
+                            },
+                            textStyle : {
+                                fontSize : 12
+                            }
+                        }
+                    }
                 }
             });
         },
@@ -575,11 +638,12 @@ export default {
             let self = this;
             axios.get("groupbyprojectlevel",{
                 params:{
-                    start_time: self.dataPro1,
-                    end_time: self.dataPro2,
+                    start_time: self.dataPro3,
+                    end_time: self.dataPro4,
                 }
             }).then(function (response) {
                 var data = response.data;
+
                 if (data.code == 0) {
                     self.drawLinePros(data.datas.account_outlay,data.datas.approval_funds,data.datas.count_num);
                 } else {
@@ -592,7 +656,7 @@ export default {
             });
         },
         drawLinePros(data1,data2,data3) {
-             var myProject = this.$echarts.init(document.getElementById('myProject'));
+             var myProject = this.$echarts.init(document.getElementById('othermyProject'));
              myProject.setOption({
                 tooltip : {
                     trigger: 'item',
@@ -632,10 +696,10 @@ export default {
                         center: ['50%', '60%'],
                         radius : '35%',
                         data:[
-                            {name: '市厅级'+'('+data1[0]+')('+ '批准经费：' + data2[0] +')(到账经费:' + data3[0] + ')' , value: data1[0]},
-                            {name: '省部级'+'('+data1[1]+')('+ '批准经费：' + data2[1] +')(到账经费:' + data3[1] + ')' , value: data1[1]},
-                            {name: '国家级'+'('+data1[2]+')('+ '批准经费：' + data2[2] +')(到账经费:' + data3[2] + ')' , value: data1[2]},
-                            {name: '其他'+'('+data1[3]+')('+ '批准经费：' + data2[3] +')(到账经费:' + data3[3] + ')' , value: data1[3]},
+                            {name: '市厅级'+'('+data3[0]+')('+ '批准经费：' + data2[0] +')(到账经费:' + data1[0] + ')' , value: data1[0]},
+                            {name: '省部级'+'('+data3[1]+')('+ '批准经费：' + data2[1] +')(到账经费:' + data1[1] + ')' , value: data1[1]},
+                            {name: '国家级'+'('+data3[2]+')('+ '批准经费：' + data2[2] +')(到账经费:' + data1[2] + ')' , value: data1[2]},
+                            {name: '其他'+'('+data3[3]+')('+ '批准经费：' + data2[3] +')(到账经费:' + data1[3] + ')' , value: data1[3]},
                         ],
                         clickable:false,　　　　　　 //是否开启点击
                         minAngle: 5,           　　 //最小的扇区角度（0 ~ 360），用于防止某个值过小导致扇区太小影响交互
@@ -1053,11 +1117,12 @@ export default {
                         {name: '新技术'+'('+datas[2]+')', value: datas[2]},
                         {name: '新工艺'+'('+datas[3]+')', value: datas[3]},
                         {name: '课件'+'('+datas[4]+')', value: datas[4]},
-                        {name: '专著'+'('+datas[5]+')', value: datas[5]},
-                        {name: '编著'+'('+datas[6]+')', value: datas[6]},
-                        {name: '计算机软件'+'('+datas[7]+')', value: datas[7]},
-                        {name: '教材'+'('+datas[8]+')', value: datas[8]},
-                        {name: '其他'+'('+datas[9]+')', value: datas[9]},
+                        {name: '新产品'+'('+datas[5]+')', value: datas[5]},
+                        {name: '专著'+'('+datas[6]+')', value: datas[6]},
+                        {name: '编著'+'('+datas[7]+')', value: datas[7]},
+                        {name: '计算机软件'+'('+datas[8]+')', value: datas[8]},
+                        {name: '教材'+'('+datas[9]+')', value: datas[9]},
+                        {name: '其他'+'('+datas[10]+')', value: datas[10]},
                     ]
                 }
             });
@@ -1182,6 +1247,7 @@ export default {
     mounted(){
         this.getTeacherDate();
         this.getArticleDate();
+        this.ProjectList();
         this.getProjectDate();
         this.getOpusDate();
         this.getAwardDate();

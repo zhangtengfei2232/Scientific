@@ -172,8 +172,7 @@
                 let urls =  `downloadfile?file=artical/${art_road}`;
                 window.location.href = urls;
             },
-            getArticleData(str) {
-                console.log(str);
+            getArticleData() {
                 let self = this;
                 axios.get("selectallattical").then(function (response) {
                     var data = response.data;

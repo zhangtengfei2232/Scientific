@@ -125,6 +125,7 @@
                      window.location.href='/indexpage';
                  }else{
                      layer.alert(data.message);
+                     return false;
                  }
              }
          });

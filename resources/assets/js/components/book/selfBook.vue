@@ -97,7 +97,7 @@
                             drag
                             action="#"
                             ref="op_road"
-                            :before-upload="fileProfil"
+                            :on-change="fileProfil"
                             multiple
                             :limit="1">
                         <i class="el-icon-upload"></i>
@@ -187,7 +187,7 @@ export default {
         fileProfil(file){
             if(file !== ''){
                 this.checkFileExt(file.name);
-                this.dataForm.append('op_road', file);
+                this.dataForm.append('op_road', file.raw);
             }else{
                 this.$message.error('请先添加文件');
                 return false
@@ -276,7 +276,7 @@ export default {
                             });
                         }
                     })
-                    this.$refs.op_road.submit();
+//                    this.$refs.op_road.submit();
                 } else {
                     console.log('error submit!!')
                     return false

@@ -194,10 +194,10 @@ export default {
                 var data = res.data;
                 if (data.code == 0) {
                     this.$message({
-                        message: '修改成功',
+                        message: data.message,
                         type: 'success'
                     });
-                    location. reload();
+                    this.$router.push({path: '/joinmeet'});
                 } else {
                     this.$notify({
                         type: 'error',
@@ -259,9 +259,10 @@ export default {
                             if (data.code == 0) {
                                 this.Bcode = true;
                                 vue.$message({
-                                    message: '修改成功',
+                                    message: data.message,
                                     type: 'success'
                                 });
+                                location. reload();
                             } else {
                                 vue.$notify({
                                     type: 'error',
@@ -270,7 +271,6 @@ export default {
                                 });
                             }
                         })
-                        vue.$refs.jo_image.submit()
                     } else {
                         console.log('error submit!!')
                         return false

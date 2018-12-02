@@ -11,6 +11,7 @@
  * 这句话，就不再需要使用 import Vue from ‘vue’ 重复导入 Vue 了。
  */
 require('./bootstrap');
+require("babel-polyfill");
 
 window.Vue = require('vue');
 require("babel-polyfill");
@@ -20,7 +21,6 @@ require("babel-polyfill");
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-// Vue.component('example-component', require('./components/ExampleComponent.vue'));
     import ElementUI from 'element-ui';
     import 'element-ui/lib/theme-chalk/index.css';
     import '../css/element-color/index.css'
@@ -38,10 +38,3 @@ const app = new Vue({
     router,
     render: h => h(App),
 });
-
-// const router = new VueRouter({
-//   mode: 'history',
-//   routes: [
-//     { path: '*', component: NotFoundComponent }
-//   ]
-// })

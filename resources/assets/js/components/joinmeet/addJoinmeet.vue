@@ -52,7 +52,7 @@
                         drag
                         action="#"
                         ref="jo_graph_inject"
-                        :before-upload="fileProfil"
+                        :on-change="fileProfil"
                         :auto-upload="false"
                         list-type="picture">
                         <i class="el-icon-upload"
@@ -135,7 +135,7 @@
             }
         },
         fileProfil(file){
-            this.dataForm.append('jo_graph_inject', file);
+            this.dataForm.append('jo_graph_inject', file.raw);
             return false;
         },
         change(files){
@@ -147,9 +147,10 @@
                 var data = res.data;
                 if (data.code == 0) {
                     this.$message({
-                        message: '添加成功',
+                        message: data.message,
                         type: 'success'
                     });
+                    this.$router.push({path: '/joinmeet'});
                 } else {
                     this.$notify({
                         type: 'error',
@@ -212,7 +213,7 @@
                             if (data.code == 0) {
                                 this.Bcode = true;
                                 vue.$message({
-                                    message: '添加成功',
+                                    message: data.message,
                                     type: 'success'
                                 });
                             } else {
@@ -223,7 +224,6 @@
                                 });
                             }
                         })
-                        vue.$refs.jo_graph_inject.submit()
                     } else {
                         console.log('error submit!!')
                         return false

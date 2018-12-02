@@ -46,7 +46,7 @@
                         drag
                         action="#"
                         ref="le_img_road"
-                        :before-upload="fileZufil"
+                        :on-change="fileZufil"
                         :auto-upload="false"
                         :limit="1"
                         list-type="picture">
@@ -100,15 +100,6 @@
         float: left;
         margin: 20px;
     }
-    /*组件*/
-    /*.el-form-item__content{*/
-        /*margin-left: 200px;*/
-    /*}*/
-    /*.el-form{*/
-        /*width:62%;*/
-        /*margin-top: 40px;*/
-        /*margin-left: 150px;*/
-    /*}*/
 </style>
 <script>
     export default {
@@ -125,8 +116,6 @@
                 le_image:'',
                 le_img_road:'',
                 type1:false,
-//                Bcode:false,
-//                multiple: true,
                 filelists:[],
                 form: {
                     le_id:'',
@@ -174,11 +163,11 @@
                 });
             },
             fileZufil(file){
-                this.dataForm.append('le_img_road', file);
+                this.dataForm.append('le_img_road', file.raw);
                 return false;
             },
-            change(file) {
-                this.dataFile.append(this.index, file.raw);
+            change(files) {
+                this.dataFile.append(this.index, files.raw);
                 this.index++;
             },
             submitUploads() {
@@ -194,7 +183,7 @@
                             message: data.message,
                             type: 'success'
                         });
-                        location. reload();
+                        this.$router.push({path: '/lecture'});
                     } else {
                         this.$notify({
                             type: 'error',
@@ -223,12 +212,7 @@
                 }else if(form.le_report_name == '') {
                     this.$message.error('报告名称不能为空');
                     return
-                }
-//                else if(form.le_invite_status == '') {
-//                    this.$message.error('邀请状态不能为空');
-//                    return
-//                }
-                else if(form.le_invite_unit == '') {
+                }else if(form.le_invite_unit == '') {
                     this.$message.error('邀请单位不能为空');
                     return
                 }else if(form.le_time == '') {
@@ -248,7 +232,7 @@
                                     message: data.message,
                                     type: 'success'
                                 });
-
+                                location. reload();
                             } else {
                                 vue.$notify({
                                     type: 'error',
@@ -257,8 +241,6 @@
                                 });
                             }
                         })
-                        vue.$refs.le_img_road.submit();
-//                        vue.$refs.le_image.submit();
                     } else {
                         console.log('error submit!!');
                         return false

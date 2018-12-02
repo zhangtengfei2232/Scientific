@@ -75,8 +75,9 @@
                             drag
                             action="#"
                             multiple
+                            :limit="1"
                             ref="aw_road"
-                            :before-upload="filePic"
+                            :on-change="filePic"
                             :auto-upload="false">
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -127,7 +128,7 @@
     methods: {
         filePic(file) {
             this.checkFileExt(file.name);
-            this.dataForm.append('aw_road', file);
+            this.dataForm.append('aw_road', file.raw);
             return false;
         },
         checkFileExt(filename){
@@ -210,7 +211,6 @@
                             });
                         }
                     })
-                    vue.$refs.aw_road.submit()
                 } else {
                     console.log('error submit!!')
                     return false
