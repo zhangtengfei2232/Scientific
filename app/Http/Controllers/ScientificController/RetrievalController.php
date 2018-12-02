@@ -471,16 +471,16 @@ class RetrievalController extends Controller
     /**
      * 项目饼图数据
      */
-    //项目学科门类查询
-    public function groupByProjectCertificateLevel(Request $request){
-        $group_field          = SearchMessageConfig::PROJECT_PRO_SUB_CATEGORY;
-        $pro_sub_category_num = SearchMessageConfig::PRO_SUB_CATEGORY_NUM;
+    //项目级别查询
+    public function groupByProjectLevelAndFunds(Request $request){
+        $group_field          = SearchMessageConfig::PROJECT_LEVEL;
+        $pro_sub_category_num = SearchMessageConfig::PRO_LEVEL_NUM;
         if(!empty($request->start_time) && !empty($request->end_time)){
             $time_datas['start_time'] = $request->start_time;
             $time_datas['end_time']   = $request->end_time;
-            return ModelDatabase::groupByAndCountDatas($this->project_table_name,$group_field,$pro_sub_category_num,$this->project_time_field,$time_datas);
+            return ModelDatabase::groupByAndCountDatas($this->project_table_name,$group_field,$pro_sub_category_num,$this->project_time_field,$time_datas,2);
         }
-        return ModelDatabase::groupByAndCountDatas($this->project_table_name,$group_field,$pro_sub_category_num);
+        return ModelDatabase::groupByAndCountDatas($this->project_table_name,$group_field,$pro_sub_category_num,'','',2);
     }
     //项目研究类别查询
     public function groupByProjetCateResearch(Request $request){

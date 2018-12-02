@@ -77,6 +77,7 @@ class SearchMessageConfig
     const PROJECT_PROJECT_CATEGORY  = 'project_category';   //项目类别
     const PROJECT_PRO_CATE_RESEARCH = 'pro_cate_research';  //项目研究类别
     const PROJECT_PRO_SUB_CATEGORY  = 'pro_sub_category';   //项目学科门类
+    const PROJECT_LEVEL             = 'pro_level';          //项目级别
     const PRO_ROAD                  = 'pro_road';           //项目图片路径
     const PRO_LEVEL                 = 'pro_level';          //项目级别
     const PRO_APPROVAL_FUNDS        = 'approval_funds';     //项目批准经费
@@ -146,7 +147,6 @@ class SearchMessageConfig
     const TEA_MOST_ACADEMIC_NUM   = 3;    //老师最高学历字段取值个数
     const ARTICAL_PERCAL_CATE_NUM = 11;   //文章期刊类别字段取值个数
     const PRO_CATE_RESEARCH_NUM   = 3;    //项目研究类别字段取值个数
-    const PRO_SUB_CATEGORY_NUM    = 18;   //项目学科门类字段取值个数
     const PRO_LEVEL_NUM           = 4;    //项目级别字段取值个数
     const OP_FORM_WRITE_NUM       = 5;    //著作编著形式字段取值个数
     const OP_CATE_WORK_NUM        = 5;    //著作著作类别字段取值个数
@@ -246,7 +246,7 @@ class SearchMessageConfig
     //项目
     const PROJECT_LEVEL_DATAS         = ['市厅级','省部级','国家级','其他'];
     const PRO_PRO_CATE_RESEARCH_DATAS = ['基础研究','实验与发展','应用研究'];
-    const PRO_FORM_COOPERATE_DATAS    = ['与境外机构合作','与国内高校合作','与国内独立研究机构合作','与境外注册外商独资企业合作','与境内注册其他企业合作','其他'];
+    const PRO_FORM_COOPERATE_DATAS    = ['与境外机构合作','与国内高校合作','与国内独立研究机构合作','与境外注册外商独资企业合作','与境内注册其他企业合作','独立完成','其他'];
     //著作
     const OP_FORM_WRITE_DATAS         = ['主编','副主编','参编','编著','其他'];
     const OP_CATE_WORK_DATAS          = ['专著','教科书','译著','编著','其他'];

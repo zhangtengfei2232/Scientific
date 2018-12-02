@@ -211,14 +211,14 @@ class ModelDatabase  extends  Model
      * @param $field
      * @return \Illuminate\Http\JsonResponse
      */
-    public static function groupByAndCountDatas($table_name,$field,$number,$time_field = '',$time_datas = []){
+    public static function groupByAndCountDatas($table_name,$field,$number,$time_field = '',$time_datas = [],$pro_level_status = 1){
         $count_datas = [];
         if($table_name == 'project'){
             $approval_funds_money_datas = [];
             $account_outlay_money_datas = [];
             for($i = 0; $i < $number; $i++){
                 $count_num = DB::table($table_name)->where($field,$i);
-                if($field == 'pro_level'){  //只有项目经费，采取查经费
+                if($pro_level_status == 2){  //只有,有项目经费，采取查经费
                     $count_approval_funds_money = DB::table($table_name)->where($field,$i);
                     $count_account_outlay_money = DB::table($table_name)->where($field,$i);
                     if(!empty($time_field)){
@@ -235,7 +235,7 @@ class ModelDatabase  extends  Model
                 $count_datas[$i] = $count_num;
             }
             $datas['count_num'] = $count_datas;
-            if($field == 'pro_level'){
+            if($pro_level_status == 2){
                 $datas['approval_funds'] = $approval_funds_money_datas;
                 $datas['account_outlay'] = $account_outlay_money_datas;
                 $datas['sum_approval_funds_money'] = array_sum($datas['approval_funds']);

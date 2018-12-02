@@ -17,6 +17,11 @@ class ArticalController extends Controller
          if(!$request->isMethod('POST')){
               return responseTojson(1,'你请求的方式不对',1);
          }
+         $num_words = trim($request->num_words);
+         if (!preg_match("/^[0-9]*$/",$num_words)
+             || strlen($num_words) > 9){
+             return responseTojson(1,'你输入的论文字数必须为数字，且不能超过9位');
+         }
          $teacher_id = session('usercount');
          $datas = [
              'teacher_id'        => $teacher_id,                              //老师工号
@@ -24,11 +29,8 @@ class ArticalController extends Controller
              'art_all_author'    => trim($request->art_all_author),           //全部作者
              'title'             => trim($request->title),                    //题目
              'publication_name'  => trim($request->publication_name),         //刊物名称
-             'publication_num'   => trim($request->publication_num),          //刊号
              'period'            => trim($request->period),                   //年卷期
-             'num_words'         => trim($request->num_words),                //论文字数
              'percal_cate'       => trim($request->percal_cate),              //期刊级别
-             'belong_project'    => trim($request->belong_project),           //所属项目
              'art_cate_research' => trim($request->art_cate_research),        //研究类别
              'art_sub_category'  => trim($request->art_sub_category),         //学科门类
              'art_integral'      => trim($request->art_integral),             //学科积分
@@ -57,10 +59,13 @@ class ArticalController extends Controller
              return responseTojson(1,'论文'.$judge_artical['message']);
          }
          ArticalDatabase::beginTraction();
-         $artical_road            = uploadFiles($this->subjection_artical,$artical_file,$this->disk);
-         $datas['art_road']       = $artical_road;
-         $datas['art_sci_road']   = $artical_sci_road;
-         $datas['art_remarks']    = trim($request->art_remarks);
+         $artical_road             = uploadFiles($this->subjection_artical,$artical_file,$this->disk);
+         $datas['belong_project']  = trim($request->belong_project);         //所属项目
+         $datas['publication_num'] = trim($request->publication_num);        //刊号
+         $datas['num_words']       = $num_words;                             //论文字数
+         $datas['art_road']        = $artical_road;
+         $datas['art_sci_road']    = $artical_sci_road;
+         $datas['art_remarks']     = trim($request->art_remarks);
          $add_artical = ArticalDatabase::addArticalDatas($datas);
          if($add_artical){
              ArticalDatabase::commit();
@@ -110,6 +115,11 @@ class ArticalController extends Controller
          if(!$request->isMethod('POST')) {
              return responseTojson(1,'你请求的方式不对');
          }
+         $num_words = trim($request->num_words);
+         if (!preg_match("/^[0-9]*$/",$num_words)
+             || strlen($num_words) > 9){
+             return responseTojson(1,'你输入的论文字数必须为数字，且不能超过9位');
+         }
          $artical_id        = trim($request->art_id);
          $datas = [
              'art_id'            => $artical_id,                              //论文ID
@@ -117,11 +127,8 @@ class ArticalController extends Controller
              'art_all_author'    => trim($request->art_all_author),           //全部作者
              'title'             => trim($request->title),                    //题目
              'publication_name'  => trim($request->publication_name),         //刊物名称
-             'publication_num'   => trim($request->publication_num),          //刊号
              'period'            => trim($request->period),                   //年卷期
-             'num_words'         => trim($request->num_words),                //论文字数
              'percal_cate'       => trim($request->percal_cate),              //期刊级别
-             'belong_project'    => trim($request->belong_project),           //所属项目
              'art_cate_research' => trim($request->art_cate_research),        //研究类别
              'art_sub_category'  => trim($request->art_sub_category),         //学科门类
              'art_integral'      => trim($request->art_integral),             //学科积分
@@ -132,7 +139,10 @@ class ArticalController extends Controller
          if($judge_datas['code'] == 1){
              return responseTojson(1,$judge_datas['message']);
          }
-         $datas['art_remarks'] = trim($request->art_remarks);                 //论文备注
+         $datas['belong_project']  = trim($request->belong_project);         //所属项目
+         $datas['publication_num'] = trim($request->publication_num);        //刊号
+         $datas['num_words']       = $num_words;                             //论文字数
+         $datas['art_remarks']     = trim($request->art_remarks);            //论文备注
          return ArticalDatabase::updateArticalDatas($datas);
      }
      //修改论文本身和论文sci索引报告

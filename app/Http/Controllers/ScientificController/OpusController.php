@@ -17,6 +17,16 @@ class OpusController  extends Controller
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
+        $op_total_words = trim($request->op_total_words);
+        if (!preg_match("/^[0-9]*$/",$op_total_words)
+            || strlen($op_total_words) > 9){
+            return responseTojson(1,'你输入的著作总字数必须为数字，且不能超过9位');
+        }
+        $op_self_words  = trim($request->op_self_words);
+        if (!preg_match("/^[0-9]*$/",$op_self_words)
+            || strlen($op_self_words) > 9){
+            return responseTojson(1,'你输入的著作本人字数必须为数字，且不能超过9位');
+        }
         $datas = [
             'teacher_id'       => session('usercount'),
             'op_first_author'  => trim($request->op_first_author),
@@ -26,8 +36,6 @@ class OpusController  extends Controller
             'op_publish'       => trim($request->op_publish),
             'op_publish_time'  => trim($request->op_publish_time),
             'op_number'        => trim($request->op_number),
-            'op_total_words'   => trim($request->op_total_words),
-            'op_self_words'    => trim($request->op_self_words),
             'op_cate_work'     => trim($request->op_cate_work),
             'op_integral'      => trim($request->op_integral),
             'op_cate_research' => trim($request->op_cate_research),
@@ -37,6 +45,8 @@ class OpusController  extends Controller
         if($judge_datas['code'] == 1){
             return responseTojson(1,$judge_datas['message']);
         }
+        $datas['op_total_words'] = $op_total_words;
+        $datas['op_self_words']  = $op_self_words;
         $datas['op_remarks'] = trim($request->op_remarks);
         if(!$request->hasFile('op_road')){
             $datas['op_road'] = '';
@@ -102,6 +112,16 @@ class OpusController  extends Controller
         if(!$request->isMethod('POST')){
             return responseTojson(1,'你请求的方式不对');
         }
+        $op_total_words = trim($request->op_total_words);
+        if (!preg_match("/^[0-9]*$/",$op_total_words)
+            || strlen($op_total_words) > 9){
+            return responseTojson(1,'你输入的著作总字数必须为数字，且不能超过9位');
+        }
+        $op_self_words  = trim($request->op_self_words);
+        if (!preg_match("/^[0-9]*$/",$op_self_words)
+            || strlen($op_self_words) > 9){
+            return responseTojson(1,'你输入的著作本人字数必须为数字，且不能超过9位');
+        }
         $op_id[0]              = trim($request->op_id);
         $opus_road             = OpusDatabase::selectOpusAllImageDatas($op_id);
         (empty($opus_road)) ? $opus_road = '' : $opus_road = $opus_road[0];
@@ -125,6 +145,8 @@ class OpusController  extends Controller
         if($judge_datas['code'] == 1){
             return $judge_datas;
         }
+        $datas['op_total_words'] = $op_total_words;
+        $datas['op_self_words']  = $op_self_words;
         $datas['op_remarks'] = trim($request->op_remarks);
         $reset_image_status = false;
         if(!$request->hasFile('op_road')){
