@@ -111,10 +111,10 @@
             return responseTojson(1,'你输入的项目类别名过长',1);
         }elseif (strlen($datas['approval_unit']) > 59){
             return responseTojson(1,'你输入的批准单位名字过长',1);
-        }elseif (!preg_match("/^[0-9]*$/",$datas['approval_funds'])
+        }elseif (!preg_match("/^[1-9]\d*\,\d*|[1-9]\d*$/",$datas['approval_funds'])
             || strlen($datas['approval_funds']) > 9){
             return responseTojson(1,'你输入的批准经费必须全为数字且不超过9位',1);
-        }elseif (!preg_match("/^[0-9]*$/",$datas['account_outlay'])
+        }elseif (!preg_match("/^[1-9]\d*\,\d*|[1-9]\d*$/",$datas['account_outlay'])
             || strlen($datas['account_outlay']) > 9){
             return responseTojson(1,'你输入的当年到账经费必须全为数字且不超过9位',1);
         }elseif (!preg_match("/^[0-9]*$/",$datas['pro_integral'])

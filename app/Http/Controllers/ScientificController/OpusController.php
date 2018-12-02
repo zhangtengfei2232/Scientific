@@ -18,12 +18,12 @@ class OpusController  extends Controller
             return responseTojson(1,'你请求的方式不对');
         }
         $op_total_words = trim($request->op_total_words);
-        if (!preg_match("/^[0-9]*$/",$op_total_words)
+        if (!preg_match("/^[1-9]\d*\,\d*|[1-9]\d*$/",$op_total_words)
             || strlen($op_total_words) > 9){
             return responseTojson(1,'你输入的著作总字数必须为数字，且不能超过9位');
         }
         $op_self_words  = trim($request->op_self_words);
-        if (!preg_match("/^[0-9]*$/",$op_self_words)
+        if (!preg_match("/^[1-9]\d*\,\d*|[1-9]\d*$/",$op_self_words)
             || strlen($op_self_words) > 9){
             return responseTojson(1,'你输入的著作本人字数必须为数字，且不能超过9位');
         }
@@ -113,12 +113,12 @@ class OpusController  extends Controller
             return responseTojson(1,'你请求的方式不对');
         }
         $op_total_words = trim($request->op_total_words);
-        if (!preg_match("/^[0-9]*$/",$op_total_words)
+        if (!preg_match("/^[1-9]\d*\,\d*|[1-9]\d*$/",$op_total_words)
             || strlen($op_total_words) > 9){
             return responseTojson(1,'你输入的著作总字数必须为数字，且不能超过9位');
         }
         $op_self_words  = trim($request->op_self_words);
-        if (!preg_match("/^[0-9]*$/",$op_self_words)
+        if (!preg_match("/^[1-9]\d*\,\d*|[1-9]\d*$/",$op_self_words)
             || strlen($op_self_words) > 9){
             return responseTojson(1,'你输入的著作本人字数必须为数字，且不能超过9位');
         }
