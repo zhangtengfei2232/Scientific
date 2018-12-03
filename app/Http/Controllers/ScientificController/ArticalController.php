@@ -18,9 +18,13 @@ class ArticalController extends Controller
               return responseTojson(1,'你请求的方式不对',1);
          }
          $num_words = trim($request->num_words);
-         if (!preg_match("/^[0-9]*$/",$num_words)
-             || strlen($num_words) > 9){
-             return responseTojson(1,'你输入的论文字数必须为数字，且不能超过9位');
+         if(!empty($num_words)) {
+             if (!preg_match("/^[0-9]*$/", $num_words)
+                 || strlen($num_words) > 9) {
+                 return responseTojson(1, '你输入的论文字数必须为数字，且不能超过9位');
+             }
+         }else{
+             $num_words = 0;
          }
          $teacher_id = session('usercount');
          $datas = [
@@ -116,9 +120,13 @@ class ArticalController extends Controller
              return responseTojson(1,'你请求的方式不对');
          }
          $num_words = trim($request->num_words);
-         if (!preg_match("/^[0-9]*$/",$num_words)
-             || strlen($num_words) > 9){
-             return responseTojson(1,'你输入的论文字数必须为数字，且不能超过9位');
+         if(!empty($num_words)) {
+             if (!preg_match("/^[0-9]*$/", $num_words)
+                 || strlen($num_words) > 9) {
+                 return responseTojson(1, '你输入的论文字数必须为数字，且不能超过9位');
+             }
+         }else{
+             $num_words = 0;
          }
          $artical_id        = trim($request->art_id);
          $datas = [
