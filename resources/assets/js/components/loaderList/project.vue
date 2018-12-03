@@ -204,6 +204,14 @@
                     label="项目年份"
                     width="120">
                 </el-table-column>
+                <el-table-column
+                        fixed="right"
+                        label="操作"
+                        align="center">
+                    <template slot-scope="scope">
+                        <el-button type="success" icon="el-icon-download" size="mini" @click="uploadProjectData(allProject[scope.$index].pro_road)"></el-button>
+                    </template>
+                </el-table-column>
             </el-table>
             <el-button @click="PDFSelection()">导出PDF</el-button>
             <el-button @click="ExcelSelection()" style="margin-top: 20px;">导出Excel</el-button>
@@ -309,12 +317,16 @@ export default {
             pro_level:[
                 '市厅级',
                 '省部级',
-                '国际级',
+                '国家级',
                 '其他'
             ]
         }
     },
     methods: {
+        uploadProjectData(pro_road) {
+            let urls =  `downloadfile?file=project/${pro_road}`;
+            window.open(urls, '_blank');
+        },
         remove() {
             document.querySelector("#arts").click();
         },

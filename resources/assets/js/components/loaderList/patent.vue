@@ -157,6 +157,14 @@
                     label="积分"
                     width="120">
                 </el-table-column>
+                <el-table-column
+                        fixed="right"
+                        label="操作"
+                        align="center">
+                    <template slot-scope="scope">
+                        <el-button type="success" icon="el-icon-download" size="mini" @click="uploadPatentData(allPatent[scope.$index].pa_road)"></el-button>
+                    </template>
+                </el-table-column>
             </el-table>
             <el-button @click="PDFSelection()">导出PDF</el-button>
             <el-button @click="ExcelSelection()" style="margin-top: 20px;">导出Excel</el-button>
@@ -237,6 +245,10 @@ export default {
         }
     },
     methods: {
+        uploadPatentData(pa_road) {
+            let urls =  `downloadfile?file=patent/${pa_road}`;
+             window.location.href = urls;
+        },
         remove() {
             document.querySelector("#arts").click();
         },

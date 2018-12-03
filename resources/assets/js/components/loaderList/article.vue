@@ -186,6 +186,14 @@
                     label="学校认定刊物级别"
                     width="140">
                 </el-table-column>
+                <el-table-column
+                        fixed="right"
+                        label="操作"
+                        align="center">
+                    <template slot-scope="scope">
+                        <el-button type="success" icon="el-icon-download" size="mini" @click="uploadArticleData(allArticle[scope.$index].art_road)"></el-button>
+                    </template>
+                </el-table-column>
             </el-table>
             <div style="margin-top: 20px">
                 <el-button @click="PDFSelection()">导出PDF</el-button>
@@ -301,6 +309,10 @@ export default {
         }
     },
     methods: {
+        uploadArticleData(art_road) {
+            let urls =  `downloadfile?file=artical/${art_road}`;
+            window.location.href = urls;
+        },
         remove() {
             document.querySelector("#arts").click();
         },

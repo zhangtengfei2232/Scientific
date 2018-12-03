@@ -82,6 +82,14 @@
                     label="日期"
                     width="200">
                 </el-table-column>
+                <el-table-column
+                        fixed="right"
+                        label="操作"
+                        align="center">
+                    <template slot-scope="scope">
+                        <el-button type="success" icon="el-icon-download" size="mini" @click="uploadAgreementData(allAgreement[scope.$index].agree_road)"></el-button>
+                    </template>
+                </el-table-column>
             </el-table>
             <el-button @click="ExcelSelection()" style="margin-top: 20px;">导出Excel</el-button>
             <div class="page">
@@ -147,6 +155,10 @@ export default {
         }
     },
     methods: {
+        uploadAgreementData(agree_road) {
+            let urls =  `downloadfile?file=agreement/${agree_road}`;
+            window.location.href = urls;
+        },
         handleSelectionChange(val) {
             this.multipleSelection = val;
         },

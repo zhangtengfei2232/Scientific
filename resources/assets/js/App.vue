@@ -224,7 +224,6 @@
                 changeTeapsw:false,//修改老师密码
                 status:'',
                 navList:[
-//                    {icon:'el-icon-picture',name:'/',navItem:'ft'},
                     {icon:'el-icon-bell',name:'/paper',navItem:'论文'},
                     {icon:'el-icon-tickets',name:'/project',navItem:'项目'},
                     {icon:'el-icon-edit',name:'/book',navItem:'著作'},
@@ -256,7 +255,7 @@
                 this.dialogWorkVisible=false;
             },
             changepsw(changeform){  // 重置老师密码
-                if($(" #teacherNum ").val() == '') {
+                if(changeform.teacher_id == '') {
                     this.$message.error('老师工号不能为空');
                     return;
                 }
@@ -290,7 +289,7 @@
                 })
             },
             deletea(deleTeaform) {
-                if($(" #deleteacherNum ").val() == '') {
+                if(deleTeaform.teacher_id == '') {
                     this.$message.error('老师工号不能为空');
                     return;
                 }
@@ -330,10 +329,10 @@
                 });
             },
             changeWork(changework){  // 修改老师行政职务
-                if($(" #teacherId ").val() == '') {
+                if(changework.teacher_id == '') {
                     this.$message.error('老师工号不能为空');
                     return;
-                }else if($(" #teaPost ").val() == '') {
+                }else if(changework.admin_duties == '') {
                     this.$message.error('行政职务不能为空');
                     return;
                 }
@@ -397,44 +396,29 @@
                     var data = response.data;
                     status = data.datas.role_status;
                     if(status == 1){    //院长
-
                         self.navGlobleview=true;//全局总览
                         self.navSpecial=true;//特殊功能
                         self.navSchoolFile=true;//校发文件
-//                        self.navAddtea=true;//添加老师
-//                        self.navAgrement=true;//教学科研等合作协议
                         self.navTeacherInfo=true;//老师管理
                         self.allResult=true;//成果汇总
                         self.resultCollect=true;//各项统计
-
-                        //为测试暂时添加上的
-                        self.navSpecial=true;//特殊功能
-                        self.navAddtea=true;//添加老师
-                        self.navSchoolFile=true;//校发文件
-                        self.navAgrement=true;
-                        self.changeTeapsw=true;//修改老师密码
-
-
                     }
                     else if(status == 2){   //副院长
-
+                        self.navGlobleview=true;//全局总览
                         self.navSpecial=true;//特殊功能
                         self.navSchoolFile=true;//校发文件
                         self.allResult=true;//成果汇总
                         self.resultCollect=true;//成果汇总
                     }
                     else if(status == 3){  //教学秘书
-
                         self.navSpecial=true;//特殊功能
                         self.navSchoolFile=true;//校发文件
                         self.navAgrement=true;//教学科研等合作协议
                         self.allResult=true;//成果汇总
                         self.resultCollect=true;//成果汇总
-
-                        self.changeTeapsw=true;//修改老师密码
+                        self.changeTeapsw=true;//功能列表
                     }
                     else if(status == 4){  //科研秘书
-
                         self.navGlobleview=true;//全局总览
                         self.navSpecial=true;//特殊功能
                         self.navSchoolFile=true;//校发文件
@@ -442,10 +426,8 @@
                         self.allResult=true;//成果汇总
                         self.resultCollect=true;//成果汇总
                         self.navSchoolFile=true;//校发文件
-
                     }
                     else if(status == 5){  //研究生秘书
-
                         self.navSpecial=true;//特殊功能
                         self.navSchoolFile=true;//校发文件
                         self.navAgrement=true;//教学科研等合作协议
@@ -461,14 +443,10 @@
                         self.resultCollect=true;//成果汇总
                     }
                     else if(status == 8){  //办公室主任
-
                         self.navSpecial=true;//特殊功能
                         self.navAddtea=true;//添加老师
                         self.navSchoolFile=true;//校发文件
-//                        self.allResult=true;//成果汇总
-//                        self.navTeacherInfo=true;//老师管理
                         self.navAgrement=true;//教学科研等合作协议
-
                         self.changeTeapsw=true;//修改老师密码
                     }
                     else if(status == 9){  //教研室主任
@@ -479,7 +457,6 @@
                         self.allResult=true;//成果汇总
                         self.resultCollect=true;//成果汇总
                     }
-
                     if(data.code == 0){
                         self.teacherDate = data.datas.information;
                     }else{
@@ -611,7 +588,6 @@
         .aside{
             width: 12% !important;
             color: white;
-            /*float: left;*/
             background-color:rgb(34,45,50);
             position:absolute;
             top:35px;
@@ -648,9 +624,7 @@
     }
     .aside{
         width: 12%;
-        /*height: 300px;*/
         color: white;
-        /*float: left;*/
         background-color:rgb(34,45,50);
 
         position:absolute;
@@ -671,9 +645,6 @@
         height:100%;
         overflow:auto;
     }
-
-
-
     .aside li{
         width: 100%;
     }

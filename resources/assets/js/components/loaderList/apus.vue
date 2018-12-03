@@ -188,6 +188,14 @@
                     label="著作学科门类"
                     width="140">
                 </el-table-column>
+                <el-table-column
+                        fixed="right"
+                        label="操作"
+                        align="center">
+                    <template slot-scope="scope">
+                        <el-button type="success" icon="el-icon-download" size="mini" @click="uploadBookData(allOpus[scope.$index].op_road)"></el-button>
+                    </template>
+                </el-table-column>
             </el-table>
             <el-button @click="PDFSelection()">导出PDF</el-button>
             <el-button @click="ExcelSelection()" style="margin-top: 20px;">导出Excel</el-button>
@@ -301,6 +309,10 @@ export default {
         }
     },
     methods: {
+        uploadBookData(op_road) {
+            let urls =  `downloadfile?file=opus/${op_road}`;
+            window.location.href = urls;
+        },
         remove() {
             document.querySelector("#arts").click();
         },

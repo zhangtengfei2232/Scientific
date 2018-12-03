@@ -238,7 +238,7 @@
                         </div>
                         <div class="clear"></div>
                     </div>
-                    <div id="myProject" :style="{width: '400px', height: '400px',margin:'38px 0 -38px 0'}"></div>
+                    <div id="myProject" :style="{width: '400px', height: '400px',margin:'38px 0px 0px 0'}"></div>
                     <el-button type="primary" size="mini" @click="ProjectList()">项目级别</el-button>
                     <el-button type="danger" size="mini" @click="ProType()">研究类别</el-button>
                 </div>
@@ -268,8 +268,8 @@
                         </div>
                         <div class="clear"></div>
                     </div>
-                    <div id="othermyProject" :style="{width: '400px', height: '400px'}"></div>
-                    <el-button type="primary" size="mini" @click="getProjectDate()">项目经费</el-button>
+                    <div id="othermyProject" :style="{width: '400px', height: '400px',margin:'0 0 39px 0'}"></div>
+                    <el-button type="primary" size="mini" @click="getProjectDate(1)">项目经费</el-button>
                 </div>
             </div>
 
@@ -463,7 +463,7 @@ export default {
                     name:'学历',
                     calculable : true,
                     type: 'pie',
-                    radius : '56%',
+                    radius : '60%',
                     data: [
                         {name: '硕士'+'('+datas[0]+')', value: datas[0]},
                         {name: '博士'+'('+datas[1]+')', value: datas[1]},
@@ -602,7 +602,7 @@ export default {
                 series: {
                     name:'刊物级别',
                     type: 'pie',
-                    radius : '47%',
+                    radius : '55%',
                     data: [
                         {name: 'SCI一区'+'('+datas[0]+')', value: datas[0]},
                         {name: 'SCI二区'+'('+datas[1]+')', value: datas[1]},
@@ -620,11 +620,11 @@ export default {
                         normal:{
                             formatter(v) {
                                 let text =  v.name;
-                                if(text.length <= 9)
+                                if(text.length <= 4)
                                 {
                                     return text;
-                                }else if(text.length > 9 && text.length <= 16){
-                                    return text = `${text.slice(0,9)}\n${text.slice(9)}`
+                                }else if(text.length >4 && text.length <= 16){
+                                    return text = `${text.slice(0,4)}\n${text.slice(4)}`
                                 }
                             },
                             textStyle : {
@@ -635,9 +635,9 @@ export default {
                 }
             });
         },
-        getProjectDate() {
+        getProjectDate(status) {
             let self = this;
-            axios.get("groupbyprojectlevel",{
+            axios.get("groupbyprojectlevelandfunds",{
                 params:{
                     start_time: self.dataPro3,
                     end_time: self.dataPro4,
@@ -647,6 +647,9 @@ export default {
 
                 if (data.code == 0) {
                     self.drawLinePros(data.datas.account_outlay,data.datas.approval_funds,data.datas.count_num);
+                    if(status == 2){
+                        self.drawLinePro(data.datas.count_num);
+                    }
                 } else {
                     self.$notify({
                         type: 'error',
@@ -695,7 +698,7 @@ export default {
                         name:'项目级别',
                         type:'pie',
                         center: ['50%', '60%'],
-                        radius : '40%',
+                        radius : '44%',
                         data:[
                             {name: '市厅级'+'('+data3[0]+')('+ '批准经费：' + data2[0] +')(到账经费:' + data1[0] + ')' , value: data1[0]},
                             {name: '省部级'+'('+data3[1]+')('+ '批准经费：' + data2[1] +')(到账经费:' + data1[1] + ')' , value: data1[1]},
@@ -735,6 +738,7 @@ export default {
             });
         },
         ProjectList() {
+            console.log(5);
             let self = this;
             axios.get("groupbyprojectlevel",{
                 params:{
@@ -1233,8 +1237,7 @@ export default {
     mounted(){
         this.getTeacherDate();
         this.getArticleDate();
-        this.ProjectList();
-        this.getProjectDate();
+        this.getProjectDate(2);
         this.getOpusDate();
         this.getAwardDate();
         this.getPatentDate();

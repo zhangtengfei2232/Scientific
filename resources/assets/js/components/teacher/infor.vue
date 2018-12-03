@@ -39,8 +39,8 @@
                     <div class="detialRight">
                         <el-form ref="form" :model="form" label-width="200px" style="display: flex;">
                             <div class="contentLeft" style="width: 50%;">
-                                <el-form-item label="头像">
-                                    <img src="/dist/img/pic_fill.png" alt="未加载">
+                                <el-form-item label="头像" id="headerid">
+                                    <img src="/dist/img/teacher.png" alt="未加载">
                                 </el-form-item>
                                 <el-form-item label="老师所属部门" prop="teacher_department">
                                     <el-select v-model="form.teacher_department" placeholder="请选择老师所属部门">
@@ -203,15 +203,16 @@
                                         </el-date-picker>
                                     </el-col>
                                 </el-form-item>
+
                                 <el-form-item label="原工作单位" prop="origin_work_unit">
                                     <el-input v-model="form.origin_work_unit" maxlength="20"></el-input>
                                 </el-form-item>
-
+                            </div>
+                            <div class="contentRight"style="width: 50%;">
                                 <el-form-item label="教师资格证书编号" prop="certificate_num">
                                     <el-input v-model="form.certificate_num" maxlength="20"></el-input>
                                 </el-form-item>
-                            </div>
-                            <div class="contentRight"style="width: 50%;">
+
                                     <el-form-item label="身份证号" prop="identity_card">
                                         <el-input v-model="form.identity_card" maxlength="18"></el-input>
                                     </el-form-item>
@@ -227,7 +228,6 @@
                                         <el-option label="本科" value="1"></el-option>
                                         <el-option label="其他" value="2"></el-option>
                                     </el-select>
-                                    <!--<el-input v-model="form.first_academic"></el-input>-->
                                 </el-form-item>
                                 <el-form-item label="第一毕业学校" prop="first_graduate_school">
                                     <el-input v-model="form.first_graduate_school" maxlength="30"></el-input>
@@ -432,7 +432,6 @@
                     var data = response.data;
                     if(data.code == 0){
                         self.teacherDate = data.datas.information;
-//                        self.teacherDate.sex = String(data.datas.information.sex);
                         self.teacherDate.teacher_department = String(data.datas.information.teacher_department);
                         self.teacherDate.polit_outlook = String(data.datas.information.polit_outlook);
                         self.teacherDate.job_level = String(data.datas.information.job_level);
@@ -706,10 +705,10 @@
                 });
             },
             changepsw(changeform){
-                if($(" #oldpsw ").val() == '') {
+                if(changeform.old_password == '') {
                     this.$message.error('原密码不能为空');
                     return;
-                }else if($(".newpsw ").val() == '') {
+                }else if(changeform.new_password == '') {
                     this.$message.error('新密码不能为空');
                     return;
                 }
@@ -751,6 +750,9 @@
 </script>
 
 <style>
+    #headerid label{
+       line-height: 144px;
+    }
     .main{
         width: 100%;
         margin:0 auto
@@ -788,7 +790,7 @@
         height:50px;
     }
     .detialRight img{
-        width: 33px;
+        width: 150px;
     }
     .el-date-editor.el-input{
         width: 217px;
