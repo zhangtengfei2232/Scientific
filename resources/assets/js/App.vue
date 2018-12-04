@@ -402,9 +402,6 @@
                         self.navTeacherInfo=true;//老师管理
                         self.allResult=true;//成果汇总
                         self.resultCollect=true;//各项统计
-
-
-                        self.navAddtea=true;//添加老师
                     }
                     else if(status == 2){   //副院长
                         self.navGlobleview=true;//全局总览
