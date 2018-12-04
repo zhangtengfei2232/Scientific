@@ -572,10 +572,8 @@
                 }else if(form.appointment_time == '') {
                     this.$message.error('聘任时间不能为空');
                     return
-                }else if(form.series == '') {
-                    this.$message.error('老师系列不能为空');
-                    return
-                }else if(form.company == '') {
+                }
+                else if(form.company == '') {
                     this.$message.error('所在单位不能为空');
                     return
                 }else if(form.te_re_department == '') {

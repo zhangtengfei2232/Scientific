@@ -547,13 +547,15 @@
                 else if(form.teacher_id == '') {
                     this.$message.error('老师工号不能为空');
                     return;
-                }else if(form.office_phone == '') {
+                }
+                else if(form.office_phone == '') {
                     this.$message.error('办公电话不能为空');
                     return;
                 }else if(form.home_phone == '') {
                     this.$message.error('住宅电话不能为空');
                     return;
-                }else if(form.phone == '') {
+                }
+                else if(form.phone == '') {
                     this.$message.error('手机号不能为空');
                     return;
                 }else if(form.native_place == '') {
@@ -589,8 +591,6 @@
                     return;
                 }else if(form.appointment_time == '') {
                     this.$message.error('聘任时间不能为空');
-                }else if(form.series == '') {
-                    this.$message.error('老师系列不能为空');
                 }
                 else if(form.company == '') {
                     this.$message.error('所在单位不能为空');
