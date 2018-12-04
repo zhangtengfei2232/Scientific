@@ -100,7 +100,6 @@ class InformationController extends Controller
             'academic_title'        => trim($request->academic_title),       //老师职称
             'review_time'           => trim($request->review_time),          //评审通过时间
             'appointment_time'      => trim($request->appointment_time),     //聘任时间
-            'series'                => trim($request->series),               //老师系列
             'company'               => trim($request->company),              //老师所在单位
             'te_re_department'      => trim($request->te_re_department),     //老师所属教研室或实验室
             'working_hours'         => trim($request->working_hours),        //老师来校工作时间
@@ -125,6 +124,10 @@ class InformationController extends Controller
         $judge_datas = judgeTeacherField($datas);
         if($judge_datas['code'] == 1){                                        //没有字段通过验证
             return responseTojson(1,$judge_datas['message']);
+        }
+        $datas['series'] = trim($request->series);                            //老师系列
+        if (strlen($datas['series']) > 29){
+            return responseTojson(1,'你输入的系列名称过长');
         }
         $datas['teacher_department'] = trim($request->teacher_department);    //老师所属部门
         return TeacherDatabase::addTeacherDatas($datas);
@@ -323,7 +326,6 @@ class InformationController extends Controller
     }
     //修改老师信息
     public function updateTeacher(Request $request){
-//        dd($request);
         if(!$request->isMethod('POST')) {
             return responseTojson(1, '你请求的方式不对');
         }
@@ -346,7 +348,6 @@ class InformationController extends Controller
             'academic_title'        => trim($request->academic_title),       //老师职称
             'review_time'           => trim($request->review_time),          //评审通过时间
             'appointment_time'      => trim($request->appointment_time),     //聘任时间
-            'series'                => trim($request->series),               //老师系列
             'company'               => trim($request->company),              //老师所在单位
             'te_re_department'      => trim($request->te_re_department),     //老师所属教研室或实验室
             'working_hours'         => trim($request->working_hours),        //老师来校工作时间
@@ -371,6 +372,10 @@ class InformationController extends Controller
         $judge_datas = judgeTeacherField($datas);
         if($judge_datas['code'] == 1){                                       //没有字段通过验证
             return responseTojson(1,$judge_datas['message']);
+        }
+        $datas['series'] = trim($request->series);                           //老师系列
+        if (strlen($datas['series']) > 29){
+            return responseTojson(1,'你输入的系列名称过长');
         }
         $teacher_id = session('usercount');
         return TeacherDatabase::updateTeacherDatas($teacher_id,$datas);

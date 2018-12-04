@@ -43,8 +43,6 @@
             return responseTojson(1,'你输入的老师编号过长',1);
         }elseif (strlen($datas['nation']) > 39){
             return responseTojson(1,'你输入的民族名称过长',1);
-        }elseif (strlen($datas['series']) > 29){
-            return responseTojson(1,'你输入的系列名称过长',1);
         }elseif (strlen($datas['company']) > 29){
             return responseTojson(1,'你输入的单位名称过长',1);
         }elseif (strlen($datas['te_re_department']) > 59){

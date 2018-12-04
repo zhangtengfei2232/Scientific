@@ -1,9 +1,7 @@
 <?php
 namespace App\Model;
-
 use config\SearchMessageConfig;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\session;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 class TeacherDatabase extends ModelDatabase
 {
@@ -230,14 +228,15 @@ class TeacherDatabase extends ModelDatabase
      */
      public static function saveAccount($usercount,$department = ''){
          //每次登陆一个人，先把以前的Session清空
-         session::forget('usercount');
-         session::forget('department');
-         session::flush();
-         session(['usercount' => $usercount]);     //把用户的信息存入session
+         Session::forget('usercount');
+         Session::forget('department');
+         Session::flush();
+         Session::put('usercount', $usercount);     //把用户的信息存入session
          if(!empty($department)){
              //把老师所属部门存入session
-             session(['department' => $department]);
+             Session::put('department',$department);
          }
+         Session::save();
          return responseTojson(0,"登录成功");
      }
      //根据老师密码去查看是否有这个老师，并修改密码
