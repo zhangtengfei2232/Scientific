@@ -81,8 +81,8 @@ class InformationController extends Controller
         if($is_exists_teacher){
             return responseTojson(1,'老师工号已经存在');
         }
-        $datas['series'] = trim($request->series);                           //老师系列
-        if (strlen($datas['series']) > 29){
+        $series = trim($request->series);                           //老师系列
+        if (strlen($series) > 29){
             return responseTojson(1,'你输入的系列名称过长');
         }
         $datas  = [
@@ -129,6 +129,7 @@ class InformationController extends Controller
         if($judge_datas['code'] == 1){                                        //没有字段通过验证
             return responseTojson(1,$judge_datas['message']);
         }
+        $datas['series'] = $series;
         $datas['teacher_department'] = trim($request->teacher_department);    //老师所属部门
         return TeacherDatabase::addTeacherDatas($datas);
     }
@@ -329,8 +330,8 @@ class InformationController extends Controller
         if(!$request->isMethod('POST')) {
             return responseTojson(1, '你请求的方式不对');
         }
-        $datas['series'] = trim($request->series);                           //老师系列
-        if (strlen($datas['series']) > 29){
+        $series = trim($request->series);                           //老师系列
+        if (strlen($series) > 29){
             return responseTojson(1,'你输入的系列名称过长');
         }
         $datas  = [
@@ -377,6 +378,7 @@ class InformationController extends Controller
         if($judge_datas['code'] == 1){                                       //没有字段通过验证
             return responseTojson(1,$judge_datas['message']);
         }
+        $datas['series'] = $series;
         $teacher_id = session('usercount');
         return TeacherDatabase::updateTeacherDatas($teacher_id,$datas);
     }
