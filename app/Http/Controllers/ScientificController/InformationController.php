@@ -129,7 +129,6 @@ class InformationController extends Controller
         if($judge_datas['code'] == 1){                                        //没有字段通过验证
             return responseTojson(1,$judge_datas['message']);
         }
-        dd(5);
         $datas['series'] = $series;
         $datas['teacher_department'] = trim($request->teacher_department);    //老师所属部门
         return TeacherDatabase::addTeacherDatas($datas);
