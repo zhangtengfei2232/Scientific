@@ -39,8 +39,10 @@
                     <div class="detialRight">
                         <el-form ref="form" :model="form" label-width="200px" style="display: flex;">
                             <div class="contentLeft" style="width: 50%;">
+
                                 <el-form-item label="头像" id="headerid">
-                                    <img src="/dist/img/teacher.png" alt="未加载">
+                                    <img v-if="form.sex==0" src="/dist/img/teacher.png" alt="未加载">
+                                    <img v-else src="/dist/img/teacher-girl.png" alt="未加载">
                                 </el-form-item>
                                 <el-form-item label="老师所属部门" prop="teacher_department">
                                     <el-select v-model="form.teacher_department" placeholder="请选择老师所属部门">
@@ -520,7 +522,9 @@
                             message: data.message,
                             type: 'success'
                         });
-                        location. reload();
+                        setTimeout(function(){  //使用  setTimeout（）方法设定定时2000毫秒
+                            window.location.reload();//页面刷新
+                        },1000);
                     } else {
                         vue.$notify({
                             type: 'error',
@@ -663,7 +667,9 @@
                                     message:data.message,
                                     type: 'success'
                                 });
-                                location.reload();
+                                setTimeout(function(){  //使用  setTimeout（）方法设定定时2000毫秒
+                                    window.location.reload();//页面刷新
+                                },1000);
                             } else {
                                 vue.$notify({
                                     type: 'error',

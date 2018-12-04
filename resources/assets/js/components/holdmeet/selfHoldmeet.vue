@@ -183,7 +183,9 @@ export default {
                         message: data.message,
                         type: 'success'
                     });
-                    this.$router.push({path: '/holdmeet'});
+                    setTimeout(function(){  //使用  setTimeout（）方法设定定时2000毫秒
+                        window.location.reload();//页面刷新
+                    },1000);
                 } else {
                     this.$notify({
                         type: 'error',
@@ -239,7 +241,9 @@ export default {
                                     message: data.message,
                                     type: 'success'
                                 });
-                                location.reload();
+                                setTimeout(function(){  //使用  setTimeout（）方法设定定时2000毫秒
+                                    window.location.reload();//页面刷新
+                                },1000);
                             } else {
                                 vue.$notify({
                                     type: 'error',
@@ -276,7 +280,9 @@ export default {
                         type: 'success',
                         message: '删除成功!'
                     });
-                    location.reload();
+                    setTimeout(function(){  //使用  setTimeout（）方法设定定时2000毫秒
+                        window.location.reload();//页面刷新
+                    },1000);
                 } else {
                     self.$notify({
                         type: 'error',

@@ -239,7 +239,9 @@ export default {
                                     message: '修改成功',
                                     type: 'success'
                                 });
-                                this.$router.push({path: '/award'});
+                                setTimeout(function(){  //使用  setTimeout（）方法设定定时2000毫秒
+                                    window.location.reload();//页面刷新
+                                },1000);
                             } else {
                                 vue.$notify({
                                     type: 'error',
