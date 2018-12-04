@@ -349,11 +349,16 @@
 
     }
     function judgeTeacherIdField($teacher_id){
-        $judge_teacherid = "/^smkj[0-9]+$/";
-        if(!preg_match($judge_teacherid,$teacher_id) || strlen($teacher_id) > 9){
-            return responseTojson(1,"老师的工号必须以'smkj'开头，且后面为数字,总长度不能超过9位",1);
+        $judge_teacherid = "/^sky[0-9]+$/";
+        if(strpos($teacher_id,'4')  !== false){
+            return responseTojson(1,"老师的工号里不能含有数字:----->'4'",1);
         }
-        if(strlen($teacher_id) > 10){
+        if(!preg_match($judge_teacherid,$teacher_id) || strlen($teacher_id) > 6){
+            return responseTojson(1,"老师工号必须以'sky'开头，且后面为数字,数字区间（001-999）",1);
+        }
+        if(strlen($teacher_id) > 6){
             return responseTojson(1,"老师的工号过长",1);
+        }else{
+            return responseTojson(0,'验证通过',1);
         }
     }
