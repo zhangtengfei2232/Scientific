@@ -78,7 +78,6 @@
                     </el-table-column>
                 </el-table>
                 <div style="margin-top: 20px">
-                    <el-button @click="toggleSelection([BookDate[1], BookDate[2], BookDate[0]])">选中前三条</el-button>
                     <el-button @click="toggleSelection()">取消选择</el-button>
                     <el-button @click="BatchDelete()">删除</el-button>
                     <el-button @click="ExcelSelection()">导出Excel</el-button>
@@ -209,7 +208,7 @@
                 }else{
                     for (var i = 0; i < self.multipleSelection.length; i++) {
                         pro_id_datas.push(self.multipleSelection[i].op_id);
-                    }
+                    };
                     this.deleteBookDatas(pro_id_datas);
                 }
 		    },
@@ -284,7 +283,8 @@
             },
             uploadBookData(op_road) {
                 let urls =  `downloadfile?file=opus/${op_road}`;
-                window.location.href = urls;
+                window.open(urls, '_blank');
+                // window.location.href = urls;
             },
             BatchExport() {
                 var self = this;
@@ -297,7 +297,7 @@
                 }else{
                     for (var i = 0; i < self.multipleSelection.length; i++) {
                         art_id_datas.push(self.multipleSelection[i].op_id);
-                    }
+                    };
                     this.exportArticleDatas(art_id_datas);
                 }
             },

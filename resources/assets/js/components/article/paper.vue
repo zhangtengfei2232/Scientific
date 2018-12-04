@@ -77,7 +77,6 @@
                     </el-table-column>
                 </el-table>
                 <div style="margin-top: 20px">
-                    <el-button @click="toggleSelection([ArticleDate[0], ArticleDate[1],ArticleDate[2]])">选中前三条</el-button>
                     <el-button @click="toggleSelection()">取消选择</el-button>
                     <el-button @click="BatchDelete()">删除</el-button>
                     <el-button @click="BatchExport()">导出PDF</el-button>

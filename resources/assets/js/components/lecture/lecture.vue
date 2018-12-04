@@ -76,7 +76,6 @@
                     </el-table-column>
                 </el-table>
                 <div style="margin-top: 20px">
-                    <el-button @click="toggleSelection([ExperspeakDate[0], ExperspeakDate[1],ExperspeakDate[2]])">选中前三条</el-button>
                     <el-button @click="toggleSelection()">取消选择</el-button>
                     <el-button @click="BatchDelete()">删除</el-button>
                     <el-button @click="ExcelSelection()">导出Excel</el-button>

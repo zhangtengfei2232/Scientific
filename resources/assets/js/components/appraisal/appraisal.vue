@@ -77,7 +77,6 @@
                     </el-table-column>
                 </el-table>
                 <div style="margin-top: 20px">
-                    <el-button @click="toggleSelection([AppraisalDate[1], AppraisalDate[2],AppraisalDate[0]])">选中前三行</el-button>
                     <el-button @click="toggleSelection()">取消选择</el-button>
                     <el-button @click="BatchDelete()">删除</el-button>
                     <el-button @click="ExcelSelection()">导出Excel</el-button>

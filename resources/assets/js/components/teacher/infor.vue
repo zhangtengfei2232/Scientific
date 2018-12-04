@@ -41,8 +41,10 @@
                             <div class="contentLeft" style="width: 50%;">
 
                                 <el-form-item label="头像" id="headerid">
-                                    <img v-if="form.sex==0" src="/dist/img/teacher.png" alt="未加载">
-                                    <img v-else src="/dist/img/teacher-girl.png" alt="未加载">
+                                    <img :src="form.sex==0 ? '/dist/img/teacher.png' :'/dist/img/teacher-girl.png' "/>
+                                    <!--<img :src="form.sex==0 ? require('/dist/img/teacher.png') : require('/dist/img/teacher-girl.png')"/>-->
+                                    <!--<img v-if="form.sex==0" src="/dist/img/teacher.png" alt="未加载">-->
+                                    <!--<img v-else src="/dist/img/teacher-girl.png" alt="未加载">-->
                                 </el-form-item>
                                 <el-form-item label="老师所属部门" prop="teacher_department">
                                     <el-select v-model="form.teacher_department" placeholder="请选择老师所属部门">
