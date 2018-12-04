@@ -176,9 +176,9 @@ class LectureController extends Controller
          if($delete_images){
             ImageDatas::commit();
              deletefiles(UploadSubjectionConfig::LECTURE,$images_road);
-            return responseTojson(0,'删除举办会议图片成功');
+            return responseTojson(0,'删除专家讲学图片成功');
          }
          ImageDatas::rollback();                                        //回滚，回复数据库数据
-         return responseTojson(1,'删除举办会议图片失败');
+         return responseTojson(1,'删除专家讲学图片失败');
     }
 }

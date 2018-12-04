@@ -183,9 +183,9 @@ class JoinmeetController  extends Controller
         if($delete_images){
             ImageDatas::commit();
             deletefiles(UploadSubjectionConfig::JOIN_MEET,$images_road);
-            return responseTojson(0,'删除讲学图片成功');
+            return responseTojson(0,'删除参加会议图片成功');
         }
         ImageDatas::rollback();
-        return responseTojson(1,'删除讲学图片失败');
+        return responseTojson(1,'删除参加会议图片失败');
     }
 }

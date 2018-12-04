@@ -46,10 +46,10 @@ class DutiesController extends Controller
         $datas['du_road']  = $add_image_road;
         $add_duties = DutiesDatabase::addDutiesDatas($datas);
         if($add_duties){
-            return responseTojson(0,'添加担任职务信息成功');
+            return responseTojson(0,'添加担任团体职务信息成功');
         }
         deletefiles($disk,$add_image_road);
-        return responseTojson(1,'添加担任职务信息失败');
+        return responseTojson(1,'添加担任团体职务信息失败');
     }
     //删除学术团体职务信息
     public function deleteDuties(Request $request){
