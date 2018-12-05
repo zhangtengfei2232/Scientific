@@ -16,9 +16,8 @@
         <img src="./dist/img/header1.jpg" alt="">
     </div>
     <div class="right">
-        {{--<h1 style="text-align: center;color: rgb(95,99,104);margin-top: 7%">生命科技学院信息管理系统</h1>--}}
         <div class="header">
-            <h3 style="font-weight: 600;color: darkgray;">登 &nbsp;&nbsp;&nbsp;录</h3>
+            <h3 style="font-weight: 600;color: rgb(59,126,46);">登 &nbsp;&nbsp;&nbsp;录</h3>
             <form id="form1">
                 <input type="hidden" name="_token" value="{{csrf_token()}}"/>
                 <input type="text" placeholder="用户名" class="name" id="username" name="username" required="required" autocomplete=”off”>
@@ -79,7 +78,7 @@
         width: 80%;
         height: 40px;
         margin: 5% 10%;
-        border: 1px solid #bcbcbc;
+        border: 1px solid rgb(59,126,46);
         border-radius: 5px;
         padding-left: 10px;
     }
@@ -87,10 +86,10 @@
         width: 82%;
         height: 40px;
         margin: 8% 10%;
-        border: 1px solid #a0adcd;
+        border: 1px solid rgb(59,126,46);
         border-radius: 5px;
-        background: #fff;
-        color: #a0adcd;
+        background: rgb(59,126,46);
+        color: white;
         font-weight: bold;
     }
 </style>
