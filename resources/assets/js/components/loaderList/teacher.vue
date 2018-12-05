@@ -511,6 +511,7 @@
                 self.admin = form.admin_duties;
                 self.currentPages = 1;
                 self.groupchecks();
+                document.querySelector("#arts").click();
             },
             handleSelectionChange(val) {
                 this.multipleSelection = val;

@@ -38,7 +38,7 @@
                 <div class="detial">
                     <div class="detialRight">
                         <el-form ref="form" :model="form" label-width="200px" style="display: flex;">
-                            <div class="contentLeft" style="width: 50%;">
+                            <div class="contentLeft" style="width: 50%;margin-left: 75px;">
 
                                 <el-form-item label="头像" id="headerid">
                                     <img :src="form.sex==0 ? '/dist/img/teacher.png' :'/dist/img/teacher-girl.png' "/>
@@ -446,11 +446,11 @@
                         self.teacherDate.most_academic = String(data.datas.information.most_academic);
 
                         self.form = data.datas.information;
-                        if(data.datas.information.gra_cert_road !== ''){
+                        if(data.datas.information.gra_cert_road != ''&& data.datas.information.gra_cert_road != null){
                             self.type1=true;
                             self.filelist = 'showfile?disk=teacher&subjection=' + data.datas.information.gra_cert_road;
                         }
-                        if(data.datas.information.edu_cert_road !== ''){
+                        if(data.datas.information.edu_cert_road != ''&& data.datas.information.edu_cert_road != null ){
                             self.type2=true;
                             self.filelists = 'showfile?disk=teacher&subjection=' + data.datas.information.edu_cert_road;
                         }

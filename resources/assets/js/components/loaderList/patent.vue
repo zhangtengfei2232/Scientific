@@ -406,6 +406,7 @@ export default {
             self.pa_imple = form.pa_imple_situ;
             self.currentPages = 1;
             self.groupchecks();
+            document.querySelector("#arts").click();
         },
     },
     mounted() {

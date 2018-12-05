@@ -472,6 +472,7 @@ export default {
             self.op_cate_res = form.op_cate_research;
             self.currentPages = 1;
             self.groupchecks();
+            document.querySelector("#arts").click();
         },
     },
     mounted() {

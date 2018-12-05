@@ -325,6 +325,7 @@ export default {
             self.values = form.ho_level;
             self.currentPages = 1;
             self.groupchecks();
+            document.querySelector("#arts").click();
         }
     },
     mounted() {

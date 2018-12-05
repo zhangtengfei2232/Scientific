@@ -401,6 +401,7 @@ export default {
             self.values = form.ap_level;
             self.currentPages = 1;
             self.groupchecks();
+            document.querySelector("#arts").click();
         },
         handleSelectionChange(val) {
             this.multipleSelection = val;

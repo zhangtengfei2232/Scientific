@@ -5,7 +5,7 @@
                 <img src="/dist/img/hist.png" alt="未加载">
             </div>
             <div class="navRight">
-                <span>生命科技学院科研管理系统</span>
+                <span>生命科技学院信息管理系统</span>
                 <div class="loginName">
                     <i class="el-icon-view"></i>
                     <span style="margin-right: 15px;">{{ teacherDate.name }}</span>
@@ -94,7 +94,7 @@
                 </div>
             </div>
         </div>
-        <div class="aside" style="max-height:785px;z-index:1000;overflow-y:auto;overflow-x: hidden;">
+        <div class="aside" style="max-height:1000px;z-index:1000;overflow-y:auto;overflow-x: hidden;">
             <el-row id="tac">
                 <el-col :span="12">
                     <el-menu
@@ -140,7 +140,7 @@
                                         <el-menu-item index="/addteacher" style="padding-left: 30px;">添加老师</el-menu-item>
                                     </div>
                                     <div v-show="navAgrement">
-                                        <el-menu-item index="/agreement" style="padding-left: 30px;" id="for_id12">教学科研等合作协议</el-menu-item>
+                                        <el-menu-item index="/agreement" style="padding-left: 30px;" id="for_id12">合作协议</el-menu-item>
                                     </div>
                                 </el-menu-item-group>
                             </el-submenu>
@@ -586,7 +586,7 @@
             width: 88% !important;
         }
         .aside{
-            width: 12% !important;
+            width: 11% !important;
             color: white;
             background-color:rgb(34,45,50);
             position:absolute;
@@ -623,7 +623,7 @@
         vertical-align:middle;
     }
     .aside{
-        width: 12%;
+        width: 11%;
         color: white;
         background-color:rgb(34,45,50);
 
@@ -635,7 +635,7 @@
 
     #main{
         position: absolute;
-        left: 170px;
+        left: 185px;
         top: 40px;
         right: 0;
         bottom: 0;

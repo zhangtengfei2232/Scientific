@@ -426,6 +426,7 @@ export default {
             self.values = form.aw_level;
             self.currentPages = 1;
             self.groupchecks();
+            document.querySelector("#arts").click();
         }
     },
     mounted() {

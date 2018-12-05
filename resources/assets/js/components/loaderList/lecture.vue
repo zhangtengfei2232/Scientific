@@ -333,6 +333,7 @@
                 self.values = form.le_expert_level;
                 self.currentPages = 1;
                 self.groupchecks();
+                document.querySelector("#arts").click();
             },
             handleSelectionChange(val) {
                 this.multipleSelection = val;

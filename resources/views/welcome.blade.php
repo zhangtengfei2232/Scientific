@@ -10,13 +10,15 @@
 <script src="{{ asset('js/layer/layer.js') }}"></script>
 <body>
 <div class="login">
+
     <div class="left">
-        <img src="{{asset('./dist/img/header.png')}}" alt="">
+        <img src="./dist/img/hist.png" alt="" id="histLogo">
+        <img src="./dist/img/header1.jpg" alt="">
     </div>
     <div class="right">
+        {{--<h1 style="text-align: center;color: rgb(95,99,104);margin-top: 7%">生命科技学院信息管理系统</h1>--}}
         <div class="header">
             <h3 style="font-weight: 600;color: darkgray;">登 &nbsp;&nbsp;&nbsp;录</h3>
-            {{--<p>Login with your account</p>--}}
             <form id="form1">
                 <input type="hidden" name="_token" value="{{csrf_token()}}"/>
                 <input type="text" placeholder="用户名" class="name" id="username" name="username" required="required" autocomplete=”off”>
@@ -27,7 +29,14 @@
     </div>
     <div class="clear"></div>
 </div>
+
+
+
 <style>
+    #histLogo{
+        width: 12%;
+        margin: 5% 0 0 5%;
+    }
     body{
         margin: 0;
         overflow: hidden;
@@ -36,12 +45,12 @@
         float:left;
         width: 60%;
         height: 100%;
-        background: url("./dist/img/bg.jpg");
+        background: url("./dist/img/bg1.jpg");
         background-size: cover;
     }
-    .left img{
-        width: 40%;
-        margin: 20% 30% 45% 30%;
+    .left img:nth-child(2){
+        width: 100%;
+        margin: 3% 0% 45% 0%;
 
     }
     .right{
