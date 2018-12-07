@@ -120,42 +120,42 @@
                             <i class="el-icon-message"></i>
                             <span slot="title">学术团体</span>
                         </el-menu-item>
-                        <div v-show="navGlobleview">
+                        <div v-if="navGlobleview">
                             <el-menu-item index="/Glverview" style="border-bottom:1px solid gray;">
                                 <i class="el-icon-view"></i>
                                 <span slot="title">全局总览</span>
                             </el-menu-item>
                         </div>
-                        <div v-show="navSpecial">
+                        <div v-if="navSpecial">
                             <el-submenu index="1" id="part-function">
                                 <template slot="title">
                                     <i class="el-icon-menu"></i>
                                     <span>特殊功能</span>
                                 </template>
                                 <el-menu-item-group>
-                                    <div v-show="navSchoolFile">
+                                    <div v-if="navSchoolFile">
                                         <el-menu-item index="/schoolfile" style="padding-left: 30px;" id="for_id11">校发文件</el-menu-item>
                                     </div>
-                                    <div v-show="navAddtea">
+                                    <div v-if="navAddtea">
                                         <el-menu-item index="/addteacher" style="padding-left: 30px;">添加老师</el-menu-item>
                                     </div>
-                                    <div v-show="navAgrement">
+                                    <div v-if="navAgrement">
                                         <el-menu-item index="/agreement" style="padding-left: 30px;" id="for_id12">合作协议</el-menu-item>
                                     </div>
                                 </el-menu-item-group>
                             </el-submenu>
                         </div>
-                        <div v-show="allResult">
+                        <div v-if="allResult">
                             <el-submenu index="2">
                                 <template slot="title">
                                     <i class="el-icon-setting"></i>
                                     <span>成果汇总</span>
                                 </template>
                                 <el-menu-item-group style="background-color: plum !important;">
-                                    <div v-show="navTeacherInfo">
+                                    <div v-if="navTeacherInfo">
                                         <el-menu-item index="/loaderList/teacher">老师管理</el-menu-item>
                                     </div>
-                                    <div v-show="resultCollect">
+                                    <div v-if="resultCollect">
                                         <el-menu-item index="/loaderList/article">论文信息</el-menu-item>
                                         <el-menu-item index="/loaderList/project">项目信息</el-menu-item>
                                         <el-menu-item index="/loaderList/apus">著作信息</el-menu-item>
