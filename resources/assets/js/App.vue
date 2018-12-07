@@ -392,10 +392,11 @@
             },
             getTeacherData(){
                 var self = this;
+                console.log(this)
                 axios.get("selectteacher").then(function (response) {
                     var data = response.data;
-                    status = data.datas.role_status;
-
+                    var status = data.datas.role_status;
+                    console.log(self)
                     if(status == 1){    //院长
                         self.navGlobleview=true;//全局总览
                         self.navSpecial=true;//特殊功能
