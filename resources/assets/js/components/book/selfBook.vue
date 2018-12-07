@@ -113,7 +113,7 @@
     </div>
 </template>
 
-<style>
+<style scoped>
  .information{
         width: 75%;
         float: left;

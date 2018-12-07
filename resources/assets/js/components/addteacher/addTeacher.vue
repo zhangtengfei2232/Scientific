@@ -304,7 +304,7 @@
     </div>
 
 </template>
-<style>
+<style scoped>
     #usernameWarn{
         color: red;
     }

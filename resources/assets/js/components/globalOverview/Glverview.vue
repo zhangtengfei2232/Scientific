@@ -277,7 +277,7 @@
     </div>
 </template>
 
-<style>
+<style scoped>
     body{
         background: #f9fafc;
         overflow-x: hidden;
@@ -520,7 +520,7 @@ export default {
                 series: {
                     name:'职称',
                     type: 'pie',
-                    radius : '56%',
+                    radius : '54%',
                     data: [
                         {name: '教授'+'('+datas[0]+')', value: datas[0]},
                         {name: '副教授'+'('+datas[1]+')', value: datas[1]},

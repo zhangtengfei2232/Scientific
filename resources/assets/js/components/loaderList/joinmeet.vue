@@ -156,7 +156,7 @@
     </div>
 </template>
 
-<style>
+<style scoped>
     .header{
         background: #f4f5f5;
     }

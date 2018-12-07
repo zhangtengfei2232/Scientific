@@ -757,7 +757,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     #headerid label{
        line-height: 144px;
     }

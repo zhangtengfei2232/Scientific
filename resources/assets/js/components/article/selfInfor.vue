@@ -165,7 +165,7 @@
     </div>
 </template>
 
-<style>
+<style scoped>
  .information{
         width: 85%;
         float: left;

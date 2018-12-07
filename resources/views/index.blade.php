@@ -13,14 +13,15 @@
     <script src="{{ url('dist/js/manifest.js') }}"></script>
     <script src="{{ url('dist/js/vendor.js') }}"></script>
     <script src="{{ url('dist/js/app.js') }}"></script>
+
 </body>
-<script>
-    $(function () {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-    });
-</script>
+{{--<script>--}}
+    {{--$(function () {--}}
+        {{--$.ajaxSetup({--}}
+            {{--headers: {--}}
+                {{--'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
+            {{--}--}}
+        {{--});--}}
+    {{--});--}}
+{{--</script>--}}
 </html>
