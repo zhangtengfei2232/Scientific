@@ -77,7 +77,7 @@
                 </el-upload>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="onSubmit(form,year1,year2)">立即添加</el-button>
+                <el-button type="primary" @click="onSubmit(form,year1,year2)">添 加</el-button>
                 <el-button><router-link to="/duties">取消</router-link></el-button>
             </el-form-item>
         </el-form>
